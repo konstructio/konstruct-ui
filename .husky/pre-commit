@@ -1,0 +1,4 @@
+npm run lint
+npm run check:types
+npm run check:prettier
+npm run test
