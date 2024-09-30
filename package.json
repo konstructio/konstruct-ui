@@ -19,7 +19,7 @@
     "build": "rimraf ./dist && tsc --p ./tsconfig.build.json && vite build",
     "build-storybook": "storybook build",
     "check:types": "tsc -p tsconfig.json",
-    "deps:update": "bunx npm-check-updates --interactive --format group",
+    "deps:update": "npx npm-check-updates --interactive --format group",
     "check:prettier": "prettier lib --check --config ./.prettierrc",
     "format:prettier": "prettier lib --write './**/*.{js,jsx,ts,tsx}' --config ./.prettierrc",
     "dev": "vite",
@@ -34,6 +34,7 @@
     "clsx": "^2.1.1",
     "react": "^18",
     "react-dom": "^18",
+    "react-feather": "^2.0.10",
     "tailwind-merge": "^2.5.2"
   },
   "devDependencies": {
@@ -65,7 +66,6 @@
     "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-feather": "^2.0.10",
     "rimraf": "^6.0.1",
     "storybook": "^8.3.3",
     "tailwindcss": "^3.4.13",

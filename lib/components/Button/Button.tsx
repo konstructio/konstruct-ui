@@ -3,13 +3,10 @@ import { Slot } from '@radix-ui/react-slot';
 
 import { cn } from '../../utils';
 
-import { buttonVariants } from './Button.styles';
+import { buttonVariants } from './Button.variants';
 import { ButtonProps } from './Button.types';
 
-export const Button: FC<ButtonProps> = forwardRef<
-  HTMLButtonElement,
-  ButtonProps
->(
+const Button: FC<ButtonProps> = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       className,
@@ -36,3 +33,7 @@ export const Button: FC<ButtonProps> = forwardRef<
     );
   },
 );
+
+Button.displayName = 'Button';
+
+export { Button };
