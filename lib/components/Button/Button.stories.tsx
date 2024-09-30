@@ -10,7 +10,6 @@ const meta: Meta<typeof Button> = {
 
 export const Primary: Story = {
   args: {
-    variant: 'default',
     children: 'Primary',
   },
 };
