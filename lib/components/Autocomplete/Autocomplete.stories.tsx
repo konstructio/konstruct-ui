@@ -11,6 +11,7 @@ const meta: Meta<typeof AutocompleteComponent> = {
 export const Autocomplete: Story = {
   args: {
     label: 'Select an option',
+    placeholder: 'Search...',
     options: [
       { value: 'Option 1' },
       { value: 'Option 2' },

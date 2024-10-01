@@ -1,56 +1,22 @@
-import {
-  ChangeEvent,
-  forwardRef,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from 'react';
+import { ElementRef, forwardRef, useImperativeHandle, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
-// import { ArrowDown } from 'react-feather';
 
-import { AutocompleteProps, Option } from './Autocomplete.types';
+import { AutocompleteProps } from './Autocomplete.types';
 import { autocompleteVariants } from './Autocomplete.variants';
+import { useAutocomplete } from './hooks';
 
 const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
-  ({ className, options, label }, ref) => {
-    const inputRef = useRef<HTMLInputElement>(null);
-    const [newOptions] = useState<Option[]>(() => options ?? []);
-    const [showOptions, setShowOptions] = useState(false);
-    const [value, setValue] = useState('');
+  ({ className, options, label, placeholder }, ref) => {
+    const inputRef = useRef<ElementRef<'input'>>(null);
+    const wrapperRef = useRef<ElementRef<'div'>>(null);
 
-    useImperativeHandle(ref, () => inputRef.current!, []);
+    const { newOptions, showOptions, value, handleChange, handleSelectValue } =
+      useAutocomplete({ options, inputRef, wrapperRef });
 
-    useEffect(() => {
-      const controller = new AbortController();
-      const handleFocus = (focus: boolean) => setShowOptions(focus);
-
-      inputRef.current?.addEventListener('focusin', () => handleFocus(true), {
-        signal: controller.signal,
-      });
-
-      inputRef.current?.addEventListener('focusout', () => handleFocus(false), {
-        signal: controller.signal,
-      });
-
-      return () => {
-        controller.abort();
-      };
-    }, []);
-
-    const handleChange = useCallback(
-      (event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value),
-      [],
-    );
-
-    const handleSelectValue = useCallback((value: string) => {
-      console.log(value);
-      setValue(value);
-    }, []);
+    useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
 
     return (
-      <div className="relative flex flex-col">
+      <div ref={wrapperRef} className="relative flex flex-col">
         {label ? <span className="pl-1 mb-2 text-base">{label}</span> : null}
 
         <div className="relative">
@@ -60,6 +26,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
             className={autocompleteVariants({ className })}
             onChange={handleChange}
             value={value}
+            placeholder={placeholder}
           />
           {/* <ArrowDown className="w-4 h-4 absolute right-2 top-0 translate-y-[50%] text-current" /> */}
         </div>
@@ -75,6 +42,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
               <li key={value}>
                 <button
                   type="button"
+                  role="button"
                   className="cursor-pointer hover:bg-slate-50 px-3 py-1.5 w-full text-left"
                   onClick={() => handleSelectValue(value)}
                 >
