@@ -6,8 +6,9 @@ import {
   useState,
 } from 'react';
 
-import { Option } from '../Autocomplete.types';
 import { filterByValue } from '../../../utils';
+
+import { Option } from '../Autocomplete.types';
 
 type UseAutocompleteProps = {
   options: Option[];
@@ -28,11 +29,8 @@ export const useAutocomplete = ({
 
   useEffect(() => {
     const controller = new AbortController();
-    const handleFocus = (focus: boolean) => {
-      if (options.length > 0) {
-        setShowOptions(focus);
-      }
-    };
+
+    const handleFocus = (focus: boolean) => setShowOptions(focus);
 
     const handleKeyboard = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
