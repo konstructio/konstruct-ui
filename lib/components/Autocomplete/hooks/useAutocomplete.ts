@@ -7,25 +7,32 @@ import {
 } from 'react';
 
 import { Option } from '../Autocomplete.types';
+import { filterByValue } from '../../../utils';
 
 type UseAutocompleteProps = {
   options: Option[];
   inputRef: RefObject<HTMLInputElement>;
   wrapperRef: RefObject<HTMLDivElement>;
+  onChange(value: string): void;
 };
 
 export const useAutocomplete = ({
   options,
   inputRef,
   wrapperRef,
+  onChange,
 }: UseAutocompleteProps) => {
-  const [newOptions] = useState<Option[]>(() => options ?? []);
+  const [newOptions, setOptions] = useState<Option[]>(() => options ?? []);
   const [showOptions, setShowOptions] = useState(false);
   const [value, setValue] = useState('');
 
   useEffect(() => {
     const controller = new AbortController();
-    const handleFocus = (focus: boolean) => setShowOptions(focus);
+    const handleFocus = (focus: boolean) => {
+      if (options.length > 0) {
+        setShowOptions(focus);
+      }
+    };
 
     const handleKeyboard = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -55,14 +62,43 @@ export const useAutocomplete = ({
     return () => {
       controller.abort();
     };
-  }, [inputRef, wrapperRef]);
+  }, [inputRef, options.length, wrapperRef]);
 
-  const handleChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value),
-    [],
+  const handleFilter = useCallback(
+    (value: string) => {
+      if (value.length === 0) {
+        setOptions(options);
+      } else {
+        const optionsParsed = options.map(({ value }) => value);
+        const optionsFiltered = filterByValue(optionsParsed, value).map(
+          (value) => ({ value }),
+        );
+
+        setOptions(optionsFiltered);
+      }
+    },
+    [options],
   );
 
-  const handleSelectValue = useCallback((value: string) => setValue(value), []);
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setValue(event.target.value);
+      handleFilter(event.target.value);
+      onChange?.(event.target.value);
+      setShowOptions(true);
+    },
+    [handleFilter, onChange],
+  );
+
+  const handleSelectValue = useCallback(
+    (value: string) => {
+      setValue(value);
+      handleFilter(value);
+      onChange?.(value);
+      setShowOptions(false);
+    },
+    [handleFilter, onChange],
+  );
 
   return {
     inputRef,

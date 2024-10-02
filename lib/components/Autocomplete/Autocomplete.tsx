@@ -3,17 +3,33 @@ import { twMerge } from 'tailwind-merge';
 
 import { AutocompleteProps } from './Autocomplete.types';
 import { autocompleteVariants } from './Autocomplete.variants';
-import { useAutocomplete } from './hooks';
+import { useAutocomplete, useNavigationList } from './hooks';
 
 const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
-  ({ className, options, label, placeholder }, ref) => {
+  (
+    {
+      className,
+      options,
+      label,
+      placeholder,
+      placeHolderEmptyValues = 'No values...',
+      onChange,
+    },
+    ref,
+  ) => {
     const inputRef = useRef<ElementRef<'input'>>(null);
     const wrapperRef = useRef<ElementRef<'div'>>(null);
+    const ulRef = useRef<ElementRef<'ul'>>(null);
 
-    const { newOptions, showOptions, value, handleChange, handleSelectValue } =
-      useAutocomplete({ options, inputRef, wrapperRef });
-
+    useNavigationList({ ulRef: ulRef.current });
     useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
+
+    const autocomplete = useAutocomplete({
+      options,
+      inputRef,
+      wrapperRef,
+      onChange,
+    });
 
     return (
       <div ref={wrapperRef} className="relative flex flex-col">
@@ -24,33 +40,40 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
             ref={inputRef}
             type="text"
             className={autocompleteVariants({ className })}
-            onChange={handleChange}
-            value={value}
+            onChange={autocomplete.handleChange}
+            value={autocomplete.value}
             placeholder={placeholder}
           />
-          {/* <ArrowDown className="w-4 h-4 absolute right-2 top-0 translate-y-[50%] text-current" /> */}
         </div>
 
         <div
           className={twMerge(
             'absolute z-10 top-full w-full rounded-md mt-1 border shadow-sm',
-            !showOptions && 'hidden',
+            !autocomplete.showOptions && 'hidden',
           )}
         >
-          <ul className="max-h-[250px] overflow-y-auto">
-            {newOptions.map(({ value }) => (
-              <li key={value}>
-                <button
-                  type="button"
-                  role="button"
-                  className="cursor-pointer hover:bg-slate-50 px-3 py-1.5 w-full text-left"
-                  onClick={() => handleSelectValue(value)}
-                >
-                  {value}
-                </button>
-              </li>
-            ))}
-          </ul>
+          <span className="p-1 text-center w-full block">
+            {autocomplete.newOptions.length === 0
+              ? placeHolderEmptyValues
+              : null}
+          </span>
+
+          {autocomplete.newOptions.length > 0 ? (
+            <ul ref={ulRef} className="max-h-[250px] overflow-y-auto">
+              {autocomplete.newOptions.map(({ value }) => (
+                <li key={value} tabIndex={0}>
+                  <button
+                    type="button"
+                    role="button"
+                    className="cursor-pointer hover:bg-slate-50 px-3 py-1.5 w-full text-left"
+                    onClick={() => autocomplete.handleSelectValue(value)}
+                  >
+                    {value}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
       </div>
     );
