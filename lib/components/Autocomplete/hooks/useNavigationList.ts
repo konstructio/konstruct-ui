@@ -1,16 +1,19 @@
-import { useEffect } from 'react';
+import { RefObject, useEffect } from 'react';
+import { Option } from '../Autocomplete.types';
 
 type UseNavigationListProps = {
-  ulRef: HTMLUListElement | null;
-  inputRef: HTMLInputElement | null;
+  ulRef: RefObject<HTMLUListElement>;
+  inputRef: RefObject<HTMLInputElement>;
+  options: Option[];
 };
 
 export const useNavigationUlList = ({
   ulRef,
   inputRef,
+  options,
 }: UseNavigationListProps) => {
   useEffect(() => {
-    const items = ulRef?.querySelectorAll('li') ?? [];
+    const items = ulRef.current?.querySelectorAll('li') ?? [];
     const controller = new AbortController();
 
     let index = 0;
@@ -29,59 +32,62 @@ export const useNavigationUlList = ({
       }
     };
 
-    ulRef?.addEventListener('keydown', (event: KeyboardEvent) => {
-      switch (event.key) {
-        case 'ArrowDown': {
-          goNext();
+    ulRef.current?.addEventListener(
+      'keydown',
+      (event: KeyboardEvent) => {
+        event.preventDefault();
 
-          break;
-        }
-
-        case 'Tab': {
-          if (event.shiftKey) {
-            goBack();
-          } else {
+        switch (event.key) {
+          case 'ArrowDown': {
             goNext();
+
+            break;
           }
 
-          break;
-        }
+          case 'Tab': {
+            if (event.shiftKey) {
+              goBack();
+            } else {
+              goNext();
+            }
 
-        case 'ArrowUp': {
-          if (index === 0) {
-            inputRef?.focus();
-          } else {
-            goBack();
+            break;
           }
 
-          break;
-        }
+          case 'ArrowUp': {
+            if (index === 0) {
+              inputRef.current?.focus();
+            } else {
+              goBack();
+            }
 
-        case 'Enter': {
-          const [button] = items[index].querySelectorAll('button');
-
-          if (button) {
-            button.click();
+            break;
           }
 
-          break;
+          case 'Enter': {
+            const button = items[index].querySelector('button');
+            button?.click();
+
+            break;
+          }
         }
-      }
-    });
+      },
+      { signal: controller.signal },
+    );
 
     return () => {
       controller.abort();
     };
-  }, [inputRef, ulRef]);
+  }, [inputRef, ulRef, options]);
 
   useEffect(() => {
     const controller = new AbortController();
 
-    inputRef?.addEventListener(
+    inputRef.current?.addEventListener(
       'keydown',
       (event: KeyboardEvent) => {
         if (event.key === 'ArrowDown') {
-          const firstItem = ulRef?.querySelector('li');
+          const firstItem = ulRef.current?.querySelector('li');
           if (firstItem) {
             firstItem.focus();
           }
@@ -93,5 +99,5 @@ export const useNavigationUlList = ({
     return () => {
       controller.abort();
     };
-  }, [inputRef, ulRef]);
+  }, [inputRef, ulRef, options]);
 };

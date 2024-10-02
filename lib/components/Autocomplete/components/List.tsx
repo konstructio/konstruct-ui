@@ -1,4 +1,4 @@
-import { ElementRef, FC, ReactNode, useMemo, useRef } from 'react';
+import { ElementRef, FC, ReactNode, RefObject, useMemo, useRef } from 'react';
 
 import { useNavigationUlList } from '../hooks';
 import { Option } from '../Autocomplete.types';
@@ -7,7 +7,7 @@ import { twMerge } from 'tailwind-merge';
 type Props = {
   options: Option[];
   placeholder: string | ReactNode;
-  inputRef: HTMLInputElement | null;
+  inputRef: RefObject<HTMLInputElement>;
   onClick(value: string): void;
 };
 
@@ -19,7 +19,7 @@ export const List: FC<Props> = ({
 }) => {
   const ulRef = useRef<ElementRef<'ul'>>(null);
 
-  useNavigationUlList({ ulRef: ulRef.current, inputRef });
+  useNavigationUlList({ ulRef: ulRef, inputRef, options });
 
   const hasOptions = useMemo(() => options.length > 0, [options.length]);
 

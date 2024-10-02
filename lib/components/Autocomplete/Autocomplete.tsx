@@ -33,21 +33,19 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       <div ref={wrapperRef} className="relative flex flex-col">
         {label ? <span className="pl-1 mb-2 text-base">{label}</span> : null}
 
-        <div className="relative">
-          <input
-            ref={inputRef}
-            type="text"
-            className={autocompleteVariants({ className })}
-            onChange={autocomplete.handleChange}
-            value={autocomplete.value}
-            placeholder={placeholder}
-          />
-        </div>
+        <input
+          ref={inputRef}
+          type="text"
+          className={autocompleteVariants({ className })}
+          onChange={autocomplete.handleChange}
+          value={autocomplete.value}
+          placeholder={placeholder}
+        />
 
         {autocomplete.showOptions && (
           <div className="absolute z-10 top-full w-full rounded-md mt-1 border shadow-sm">
             <List
-              inputRef={inputRef.current}
+              inputRef={inputRef}
               placeholder={placeHolderEmptyValues}
               options={autocomplete.newOptions}
               onClick={autocomplete.handleSelectValue}

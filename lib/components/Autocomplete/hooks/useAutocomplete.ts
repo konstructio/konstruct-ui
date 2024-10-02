@@ -30,7 +30,17 @@ export const useAutocomplete = ({
   useEffect(() => {
     const controller = new AbortController();
 
-    const handleFocus = (focus: boolean) => setShowOptions(focus);
+    inputRef.current?.addEventListener('focus', () => setShowOptions(true), {
+      signal: controller.signal,
+    });
+
+    return () => {
+      controller.abort();
+    };
+  }, [inputRef]);
+
+  useEffect(() => {
+    const controller = new AbortController();
 
     const handleKeyboard = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -41,13 +51,9 @@ export const useAutocomplete = ({
 
     const handleClickOutside = (event: MouseEvent) => {
       if (!wrapperRef.current?.contains(event.target as Node)) {
-        handleFocus(false);
+        setShowOptions(false);
       }
     };
-
-    inputRef.current?.addEventListener('focus', () => handleFocus(true), {
-      signal: controller.signal,
-    });
 
     document.addEventListener('keydown', handleKeyboard, {
       signal: controller.signal,
@@ -60,7 +66,7 @@ export const useAutocomplete = ({
     return () => {
       controller.abort();
     };
-  }, [inputRef, options.length, wrapperRef]);
+  }, [inputRef, wrapperRef]);
 
   const handleFilter = useCallback(
     (value: string) => {
@@ -83,7 +89,6 @@ export const useAutocomplete = ({
       setValue(event.target.value);
       handleFilter(event.target.value);
       onChange?.(event.target.value);
-      setShowOptions(true);
     },
     [handleFilter, onChange],
   );

@@ -16,7 +16,7 @@
     "**/*.css"
   ],
   "scripts": {
-    "build": "rimraf ./dist && tsc --p ./tsconfig.build.json && vite build",
+    "build": "rimraf ./dist && tsc --p ./tsconfig.build.json && vite build && cp ./package.json ./dist/package.json",
     "build-storybook": "storybook build",
     "check:types": "tsc -p tsconfig.json",
     "deps:update": "npx npm-check-updates --interactive --format group",
