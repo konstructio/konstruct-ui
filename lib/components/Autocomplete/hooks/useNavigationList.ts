@@ -121,5 +121,9 @@ export const useNavigationUlList = ({
       },
       { signal: controller.signal },
     );
+
+    return () => {
+      controller.abort();
+    };
   }, [ulRef, wrapperRef]);
 };
