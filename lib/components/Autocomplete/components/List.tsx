@@ -1,63 +1,62 @@
-import { ElementRef, FC, ReactNode, RefObject, useMemo, useRef } from 'react';
+import { ElementRef, FC, useRef } from 'react';
 
 import { useNavigationUlList } from '../hooks';
-import { Option } from '../Autocomplete.types';
-import { twMerge } from 'tailwind-merge';
 
-type Props = {
-  options: Option[];
-  placeholder: string | ReactNode;
-  inputRef: RefObject<HTMLInputElement>;
-  onClick(value: string): void;
-};
+import { Props } from './List.types';
+import {
+  buttonVariants,
+  emptyListVariants,
+  listItemVariants,
+  listVariants,
+} from './List.variants';
 
 export const List: FC<Props> = ({
+  className,
+  inputRef,
   options,
   placeholder,
-  inputRef,
+  placeholderClassName,
+  variant,
+  theme,
+  wrapperRef,
   onClick,
 }) => {
   const ulRef = useRef<ElementRef<'ul'>>(null);
 
-  useNavigationUlList({ ulRef: ulRef, inputRef, options });
+  useNavigationUlList({ ulRef, inputRef, wrapperRef, options });
 
-  const hasOptions = useMemo(() => options.length > 0, [options.length]);
-
-  return (
-    <>
+  if (options.length === 0) {
+    return (
       <span
-        className={twMerge(
-          'p-1 text-center w-full block',
-          hasOptions && 'hidden',
-        )}
+        className={emptyListVariants({
+          theme,
+          variant,
+          className: placeholderClassName,
+        })}
       >
         {placeholder}
       </span>
+    );
+  }
 
-      <ul
-        ref={ulRef}
-        className={twMerge(
-          'max-h-[250px] overflow-y-auto',
-          !hasOptions && 'hidden',
-        )}
-      >
-        {options.map(({ value }) => (
-          <li
-            key={value}
-            tabIndex={0}
-            className="focus:bg-slate-50 focus-visible:outline-none"
+  return (
+    <ul ref={ulRef} className={listVariants({ variant, theme, className })}>
+      {options.map(({ value }) => (
+        <li
+          key={value}
+          tabIndex={0}
+          className={listItemVariants({ theme, variant })}
+        >
+          <button
+            type="button"
+            role="button"
+            className={buttonVariants({ theme, variant })}
+            onClick={() => onClick(value)}
           >
-            <button
-              type="button"
-              role="button"
-              className="cursor-pointer focus:bg-slate-100 focus-visible:outline-none hover:bg-slate-50 px-3 py-1.5 w-full text-left"
-              onClick={() => onClick(value)}
-            >
-              {value}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </>
+            {value}
+          </button>
+        </li>
+      ))}
+    </ul>
   );
 };

@@ -1,18 +1,22 @@
 import { ElementRef, forwardRef, useImperativeHandle, useRef } from 'react';
 
-import { AutocompleteProps } from './Autocomplete.types';
-import { autocompleteVariants } from './Autocomplete.variants';
 import { useAutocomplete } from './hooks';
 import { List } from './components/List';
+import { AutocompleteProps } from './Autocomplete.types';
+import { autocompleteVariants, labelVariants } from './Autocomplete.variants';
 
 const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
   (
     {
       className,
-      options,
       label,
-      placeholder,
+      labelClassName,
+      options,
       placeHolderEmptyValues = 'No values...',
+      placeHolderEmptyValuesClassName,
+      placeholder,
+      variant,
+      theme,
       onChange,
     },
     ref,
@@ -31,12 +35,22 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
 
     return (
       <div ref={wrapperRef} className="relative flex flex-col">
-        {label ? <span className="pl-1 mb-2 text-base">{label}</span> : null}
+        {label ? (
+          <span
+            className={labelVariants({
+              theme,
+              variant,
+              className: labelClassName,
+            })}
+          >
+            {label}
+          </span>
+        ) : null}
 
         <input
           ref={inputRef}
           type="text"
-          className={autocompleteVariants({ className })}
+          className={autocompleteVariants({ theme, variant, className })}
           onChange={autocomplete.handleChange}
           value={autocomplete.value}
           placeholder={placeholder}
@@ -45,9 +59,14 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
         {autocomplete.showOptions && (
           <div className="absolute z-10 top-full w-full rounded-md mt-1 border shadow-sm">
             <List
+              className={className}
               inputRef={inputRef}
-              placeholder={placeHolderEmptyValues}
+              wrapperRef={wrapperRef}
               options={autocomplete.newOptions}
+              placeholder={placeHolderEmptyValues}
+              placeholderClassName={placeHolderEmptyValuesClassName}
+              variant={variant}
+              theme={theme}
               onClick={autocomplete.handleSelectValue}
             />
           </div>
