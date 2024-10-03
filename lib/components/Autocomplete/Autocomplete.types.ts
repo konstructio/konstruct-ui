@@ -12,9 +12,10 @@ export interface AutocompleteProps
   className?: string;
   label?: string;
   labelClassName?: string;
-  placeholder?: string;
+  name?: string;
+  options: Option[];
   placeHolderEmptyValues?: string | ReactNode;
   placeHolderEmptyValuesClassName?: string;
-  options: Option[];
+  placeholder?: string;
   onChange(value: string): void;
 }

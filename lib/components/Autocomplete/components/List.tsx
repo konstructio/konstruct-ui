@@ -40,10 +40,15 @@ export const List: FC<Props> = ({
   }
 
   return (
-    <ul ref={ulRef} className={listVariants({ variant, theme, className })}>
+    <ul
+      ref={ulRef}
+      role="listbox"
+      className={listVariants({ variant, theme, className })}
+    >
       {options.map(({ value }) => (
         <li
           key={value}
+          role="option"
           tabIndex={0}
           className={listItemVariants({ theme, variant })}
         >

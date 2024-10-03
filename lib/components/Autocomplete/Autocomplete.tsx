@@ -1,4 +1,10 @@
-import { ElementRef, forwardRef, useImperativeHandle, useRef } from 'react';
+import {
+  ElementRef,
+  forwardRef,
+  useId,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 
 import { useAutocomplete } from './hooks';
 import { List } from './components/List';
@@ -11,18 +17,20 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       className,
       label,
       labelClassName,
+      name,
       options,
       placeHolderEmptyValues = 'No values...',
       placeHolderEmptyValuesClassName,
       placeholder,
-      variant,
       theme,
+      variant,
       onChange,
     },
     ref,
   ) => {
     const wrapperRef = useRef<ElementRef<'div'>>(null);
     const inputRef = useRef<ElementRef<'input'>>(null);
+    const id = useId();
 
     useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
 
@@ -36,7 +44,8 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     return (
       <div ref={wrapperRef} className="relative flex flex-col">
         {label ? (
-          <span
+          <label
+            htmlFor={name ?? id}
             className={labelVariants({
               theme,
               variant,
@@ -44,12 +53,15 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
             })}
           >
             {label}
-          </span>
+          </label>
         ) : null}
 
         <input
           ref={inputRef}
+          id={name ?? id}
           type="text"
+          name={name}
+          role="combobox"
           className={autocompleteVariants({ theme, variant, className })}
           onChange={autocomplete.handleChange}
           value={autocomplete.value}

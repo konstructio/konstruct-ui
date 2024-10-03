@@ -44,19 +44,22 @@ export const autocompleteVariants = cva(
   },
 );
 
-export const labelVariants = cva(['pl-1', 'mb-2', 'text-base'], {
-  variants: {
-    variant: {
-      default: '',
+export const labelVariants = cva(
+  ['pl-1', 'mb-2', 'text-base', 'cursor-pointer'],
+  {
+    variants: {
+      variant: {
+        default: '',
+      },
+      theme: {
+        kubefirst: '',
+        konstruct: '',
+        colony: '',
+      },
     },
-    theme: {
-      kubefirst: '',
-      konstruct: '',
-      colony: '',
+    defaultVariants: {
+      variant: 'default',
+      theme: 'kubefirst',
     },
   },
-  defaultVariants: {
-    variant: 'default',
-    theme: 'kubefirst',
-  },
-});
+);
