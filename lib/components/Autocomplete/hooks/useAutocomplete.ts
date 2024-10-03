@@ -68,6 +68,24 @@ export const useAutocomplete = ({
     };
   }, [inputRef, wrapperRef]);
 
+  useEffect(() => {
+    const controller = new AbortController();
+
+    wrapperRef.current?.addEventListener(
+      'focusout',
+      (event) => {
+        if (!wrapperRef.current?.contains(event.relatedTarget as Node)) {
+          setShowOptions(false);
+        }
+      },
+      { signal: controller.signal },
+    );
+
+    return () => {
+      controller.abort();
+    };
+  }, [wrapperRef]);
+
   const handleFilter = useCallback(
     (value: string) => {
       if (value.length === 0) {

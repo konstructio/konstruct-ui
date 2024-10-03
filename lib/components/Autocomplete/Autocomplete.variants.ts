@@ -28,14 +28,38 @@ export const autocompleteVariants = cva(
       },
       theme: {
         kubefirst: '',
+        konstruct: '',
+        colony: '',
       },
     },
     compoundVariants: [
       { theme: 'kubefirst', class: ['focus:ring-kubefirst-purple-light'] },
+      { theme: 'konstruct', class: ['focus:focus:ring-orange-400'] },
+      { theme: 'colony', class: ['focus:focus:ring-red-400'] },
     ],
     defaultVariants: {
       theme: 'kubefirst',
       variant: 'default',
+    },
+  },
+);
+
+export const labelVariants = cva(
+  ['pl-1', 'mb-2', 'text-base', 'cursor-pointer'],
+  {
+    variants: {
+      variant: {
+        default: '',
+      },
+      theme: {
+        kubefirst: '',
+        konstruct: '',
+        colony: '',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      theme: 'kubefirst',
     },
   },
 );
