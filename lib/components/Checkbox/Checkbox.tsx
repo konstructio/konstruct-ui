@@ -1,4 +1,4 @@
-import { FC, forwardRef, useId } from 'react';
+import { FC, forwardRef, useCallback, useId } from 'react';
 import { Root, Indicator } from '@radix-ui/react-checkbox';
 import { Check } from 'react-feather';
 
@@ -21,11 +21,17 @@ export const Checkbox: FC<CheckboxProps> = forwardRef<
       name,
       theme,
       variant,
+      onChange,
     },
     ref,
   ) => {
     const [checked, setChecked] = useToggle(defaultChecked);
     const id = useId();
+
+    const handleChange = useCallback(() => {
+      setChecked();
+      onChange?.();
+    }, [onChange, setChecked]);
 
     return (
       <div className="flex items-center gap-2">
@@ -36,7 +42,7 @@ export const Checkbox: FC<CheckboxProps> = forwardRef<
           name={name}
           disabled={disabled}
           className={checkboxVariants({ className, theme, variant, checked })}
-          onCheckedChange={setChecked}
+          onCheckedChange={handleChange}
         >
           <Indicator>
             <Check className="w-4 h-4 stroke-2" />

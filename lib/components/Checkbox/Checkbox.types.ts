@@ -12,4 +12,5 @@ export interface CheckboxProps
   label?: string;
   labelClassName?: string;
   name?: string;
+  onChange?: () => void;
 }
