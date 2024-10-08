@@ -5,6 +5,7 @@ import { cn } from '../../utils';
 
 import { InputProps } from './Input.types';
 import { inputVariants } from './Input.variants';
+import { useTheme } from '../../contexts';
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (
@@ -15,12 +16,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       labelClassName,
       name,
       type,
+      theme,
       onClickIcon,
       ...delegated
     },
     ref,
   ) => {
     const id = useId();
+    const { theme: themeContext } = useTheme();
 
     return (
       <div className="flex flex-col gap-1.5">
@@ -41,6 +44,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             type={type}
             className={inputVariants({
               className,
+              theme: theme ?? themeContext,
               variant: error ? 'error' : 'default',
             })}
             {...delegated}

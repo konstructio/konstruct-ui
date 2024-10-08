@@ -14,6 +14,7 @@ import { autocompleteVariants, labelVariants } from './Autocomplete.variants';
 const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
   (
     {
+      autoComplete = 'off',
       className,
       label,
       labelClassName,
@@ -62,6 +63,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           type="text"
           name={name}
           role="combobox"
+          autoComplete={autoComplete}
           className={autocompleteVariants({ theme, variant, className })}
           onChange={autocomplete.handleChange}
           value={autocomplete.value}
