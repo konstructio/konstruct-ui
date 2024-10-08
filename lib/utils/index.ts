@@ -8,3 +8,9 @@ export const filterByValue = (elements: string[], valueToFind: string) =>
     (option) =>
       option.toLocaleLowerCase().indexOf(valueToFind.toLocaleLowerCase()) > -1,
   );
+
+export const isClient = !!(
+  typeof window !== 'undefined' &&
+  window.document &&
+  window.document.createElement
+);

@@ -13,22 +13,24 @@ export const Checkbox: Story = {
     defaultChecked: true,
   },
   render: (args) => (
-    <div className="m-w-[350px] flex flex-col gap-2">
-      <CheckboxComponent
-        label="This is a checkbox with kubefirst colors"
-        {...args}
-      />
-      <CheckboxComponent
-        theme="kontruct"
-        label="This is a checkbox with konstruct colors"
-        {...args}
-      />
-      <CheckboxComponent
-        theme="colony"
-        label="This is a checkbox with colony colors"
-        {...args}
-      />
-    </div>
+    <>
+      <div className="m-w-[350px] flex flex-col gap-2">
+        <CheckboxComponent
+          label="This is a checkbox with kubefirst colors"
+          {...args}
+        />
+        <CheckboxComponent
+          theme="konstruct"
+          label="This is a checkbox with konstruct colors"
+          {...args}
+        />
+        <CheckboxComponent
+          theme="colony"
+          label="This is a checkbox with colony colors"
+          {...args}
+        />
+      </div>
+    </>
   ),
 };
 

@@ -6,6 +6,7 @@ import { useToggle } from '../../hooks';
 
 import { CheckboxProps } from './Checkbox.types';
 import { checkboxVariants, labelVariants } from './Checkbox.variants';
+import { useTheme } from '../../contexts';
 
 export const Checkbox: FC<CheckboxProps> = forwardRef<
   HTMLButtonElement,
@@ -27,6 +28,7 @@ export const Checkbox: FC<CheckboxProps> = forwardRef<
   ) => {
     const [checked, setChecked] = useToggle(defaultChecked);
     const id = useId();
+    const { theme: contextTheme } = useTheme();
 
     const handleChange = useCallback(() => {
       setChecked();
@@ -41,7 +43,12 @@ export const Checkbox: FC<CheckboxProps> = forwardRef<
           ref={ref}
           name={name}
           disabled={disabled}
-          className={checkboxVariants({ className, theme, variant, checked })}
+          className={checkboxVariants({
+            className,
+            theme: theme ?? contextTheme,
+            variant,
+            checked,
+          })}
           onCheckedChange={handleChange}
         >
           <Indicator>

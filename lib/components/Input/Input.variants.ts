@@ -18,6 +18,9 @@ export const inputVariants = cva(
     'disabled:cursor-not-allowed',
     'disabled:opacity-50',
     'shadow-sm',
+    'h-9',
+    'px-3',
+    'py-1',
   ],
   {
     variants: {
@@ -25,11 +28,10 @@ export const inputVariants = cva(
         default: '',
         error: ['border-red-600', 'pr-8', 'focus-visible:ring-transparent'],
       },
-      size: {
-        default: 'h-9 px-3 py-1',
-      },
       theme: {
         kubefirst: '',
+        colony: '',
+        konstruct: '',
       },
     },
     compoundVariants: [
@@ -38,7 +40,6 @@ export const inputVariants = cva(
     defaultVariants: {
       variant: 'default',
       theme: 'kubefirst',
-      size: 'default',
     },
   },
 );

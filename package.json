@@ -29,14 +29,18 @@
     "storybook": "storybook dev -p 6006",
     "test": "echo \"No tests specified\""
   },
-  "peerDependencies": {
+  "dependencies": {
     "@radix-ui/react-checkbox": "^1.1.2",
     "@radix-ui/react-slot": "^1.1.0",
+    "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "react": "^18",
-    "react-dom": "^18",
+    "js-cookie": "^3.0.5",
     "react-feather": "^2.0.10",
     "tailwind-merge": "^2.5.2"
+  },
+  "peerDependencies": {
+    "react": "^18",
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^2.0.2",
@@ -48,6 +52,7 @@
     "@storybook/react": "^8.3.3",
     "@storybook/react-vite": "^8.3.3",
     "@storybook/test": "^8.3.3",
+    "@types/js-cookie": "^3.0.6",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^8.7.0",
@@ -55,7 +60,6 @@
     "@vitejs/plugin-react": "^4.3.2",
     "ajv": "^8.17.1",
     "autoprefixer": "^10.4.20",
-    "class-variance-authority": "^0.7.0",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",

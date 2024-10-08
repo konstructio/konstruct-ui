@@ -1,7 +1,6 @@
-import plugin from 'tailwindcss/plugin';
 import colors from 'tailwindcss/colors';
 
-const konstructColors = {
+export const konstructColors = {
   black: colors.black,
   white: colors.white,
   blue: {
@@ -207,7 +206,3 @@ const konstructColors = {
     'purple-dark': '#6f37ae',
   },
 };
-
-export const konstructColorsPlugin = plugin(() => {}, {
-  theme: { extend: { colors: konstructColors } },
-});
