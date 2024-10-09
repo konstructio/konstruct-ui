@@ -1,4 +1,4 @@
-import { FC, forwardRef, useId } from 'react';
+import { FC, forwardRef, useCallback, useId } from 'react';
 
 import { RadioProps } from './Radio.types';
 import { radioVariants } from './Radio.variants';
@@ -9,22 +9,29 @@ export const Radio: FC<RadioProps> = forwardRef<HTMLInputElement, RadioProps>(
     ref,
   ) => {
     const id = useId();
-    const defaultHtmlFor = name ?? id;
+    const defaultFor = `${id}-${name}`;
+
+    const handleChange = useCallback(
+      (value: string) => {
+        onChange?.(value);
+      },
+      [onChange],
+    );
 
     return (
       <label
-        htmlFor={defaultHtmlFor}
+        htmlFor={defaultFor}
         className="inline-flex items-center cursor-pointer"
       >
         <input
           ref={ref}
-          id={defaultHtmlFor}
+          id={defaultFor}
           type="radio"
           name={name}
           value={value}
-          defaultChecked={checked}
+          checked={checked}
           className="hidden peer"
-          onChange={onChange}
+          onChange={() => handleChange(value)}
         />
         <span className={radioVariants({ className, theme })} />
         <span className="ml-2">{label}</span>

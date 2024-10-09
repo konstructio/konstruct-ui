@@ -3,11 +3,12 @@ import { InputHTMLAttributes } from 'react';
 import { radioVariants } from './Radio.variants';
 
 export interface RadioProps
-  extends InputHTMLAttributes<HTMLInputElement>,
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'>,
     VariantProps<typeof radioVariants> {
   label: string;
   value: string;
   name: string;
   color?: string;
   checked?: boolean;
+  onChange?: (value: string) => void;
 }
