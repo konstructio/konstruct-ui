@@ -57,7 +57,7 @@ export const TagSelect: FC<TagSelectProps> = ({ options }) => {
   }, [toggleOpen, wrapperRef]);
 
   return (
-    <div ref={wrapperRef} className="flex flex-col w-full">
+    <div ref={wrapperRef} className="flex flex-col w-full relative">
       <div
         className="w-full border rounded-md flex items-center px-3 py-1 justify-between cursor-pointer"
         role="combobox"
@@ -77,7 +77,7 @@ export const TagSelect: FC<TagSelectProps> = ({ options }) => {
       </div>
 
       {isOpen && (
-        <ul className="w-full flex flex-col gap-3 border rounded-md mt-1 shadow-sm">
+        <ul className="w-full flex flex-col gap-3 border rounded-md mt-1 shadow-sm absolute top-full z-10 bg-white">
           {options.map((tag) => (
             <li className="cursor-pointer py-0.5 px-2 last:pb-2 first:pt-2">
               <button
