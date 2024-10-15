@@ -3,3 +3,4 @@ export * from './Button/Button';
 export * from './Checkbox/Checkbox';
 export * from './Input/Input';
 export * from './NumberInput/NumberInput';
+export * from './Radio/Radio';
