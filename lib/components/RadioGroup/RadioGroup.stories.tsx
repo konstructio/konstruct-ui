@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { RadioGroup as RadioGroupComponent } from './RadioGroup';
-import { useState } from 'react';
 
 type Story = StoryObj<typeof RadioGroupComponent>;
 
@@ -19,29 +18,17 @@ export const RadioGroup: Story = {
       { label: 'Option 3', value: 'option3' },
     ],
   },
-  render: (args) => {
-    const [selected, setSelected] = useState<string | undefined>();
-
-    const handleSelected = (value: string) => {
-      setSelected(value);
-    };
-
-    console.log(selected);
-
-    return (
-      <div className="w-[350px] flex flex-col gap-3">
-        <RadioGroupComponent
-          {...args}
-          options={args.options.map(({ value, ...delegated }) => ({
-            ...delegated,
-            value,
-            checked: selected === value,
-            onValueChange: handleSelected,
-          }))}
-        />
-      </div>
-    );
-  },
+  render: (args) => (
+    <div className="w-[350px] flex flex-col gap-3">
+      <RadioGroupComponent
+        {...args}
+        options={args.options.map(({ value, ...delegated }) => ({
+          ...delegated,
+          value,
+        }))}
+      />
+    </div>
+  ),
 };
 
 export default meta;

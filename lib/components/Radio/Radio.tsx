@@ -1,14 +1,26 @@
 import { FC, forwardRef, useCallback, useId } from 'react';
 
+import { useTheme } from '../../contexts';
+
 import { RadioProps } from './Radio.types';
 import { radioVariants } from './Radio.variants';
 
 export const Radio: FC<RadioProps> = forwardRef<HTMLInputElement, RadioProps>(
   (
-    { checked = false, className, label, name, value, theme, onChange },
+    {
+      checked = false,
+      className,
+      defaultChecked,
+      label,
+      name,
+      theme,
+      value,
+      onChange,
+    },
     ref,
   ) => {
     const id = useId();
+    const { theme: contextTheme } = useTheme();
     const defaultFor = `${id}-${name}`;
 
     const handleChange = useCallback(
@@ -30,10 +42,13 @@ export const Radio: FC<RadioProps> = forwardRef<HTMLInputElement, RadioProps>(
           name={name}
           value={value}
           checked={checked}
+          defaultChecked={defaultChecked}
           className="hidden peer"
           onChange={() => handleChange(value)}
         />
-        <span className={radioVariants({ className, theme })} />
+        <span
+          className={radioVariants({ className, theme: theme ?? contextTheme })}
+        />
         <span className="ml-2">{label}</span>
       </label>
     );
