@@ -10,6 +10,7 @@ const meta: Meta<typeof TagSelectComponent> = {
 
 export const TagSelect: Story = {
   args: {
+    label: 'Select tag',
     options: [
       { color: 'gray', label: 'gray' },
       { color: 'cyan', label: 'cyan' },

@@ -19,7 +19,7 @@ export const radioVariants = cva(
     'before:w-0',
     'before:h-0',
     'before:duration-100',
-    'beofr:transition-all',
+    'before:transition-all',
     'peer-checked:before:h-[70%]',
     'peer-checked:before:w-[70%]',
   ],
