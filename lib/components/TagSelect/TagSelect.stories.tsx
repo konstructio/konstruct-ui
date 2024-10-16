@@ -10,7 +10,6 @@ const meta: Meta<typeof TagSelectComponent> = {
 
 export const TagSelect: Story = {
   args: {
-    label: 'Select tag',
     options: [
       { color: 'gray', label: 'gray' },
       { color: 'cyan', label: 'cyan' },
@@ -29,8 +28,18 @@ export const TagSelect: Story = {
     ],
   },
   render: (args) => (
-    <div className="w-[200px] flex flex-col gap-3">
-      <TagSelectComponent {...args} />
+    <div className="w-[300px] flex flex-col gap-3">
+      <TagSelectComponent {...args} label="Select tag with kubefirst theme" />
+      <TagSelectComponent
+        {...args}
+        theme="konstruct"
+        label="Select tag with konstruct theme"
+      />
+      <TagSelectComponent
+        {...args}
+        theme="colony"
+        label="Select tag with colony theme"
+      />
     </div>
   ),
 };

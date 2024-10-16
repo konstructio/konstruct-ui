@@ -1,74 +1,42 @@
 import {
   ElementRef,
   FC,
-  useCallback,
-  useEffect,
+  forwardRef,
   useId,
+  useImperativeHandle,
   useRef,
-  useState,
 } from 'react';
-import { ChevronDown, ChevronUp } from 'react-feather';
+import { twMerge } from 'tailwind-merge';
+import { ChevronUp } from 'react-feather';
 
-import { useToggle } from '../../hooks';
-import { TagProps } from '../Tag/Tag.types';
 import { Tag } from '../Tag/Tag';
+import { useTheme } from '../../contexts';
 
 import { TagSelectProps } from './TagSelect.types';
-import { twMerge } from 'tailwind-merge';
+import { useTagSelect } from './hooks/useTagSelect';
+import {
+  tagItemVariants,
+  tagListVariants,
+  tagSelectVariants,
+} from './TagSelect.variants';
 
-export const TagSelect: FC<TagSelectProps> = ({
-  options,
-  name,
-  label,
-  placeholder = 'Select a value...',
-}) => {
+export const TagSelect: FC<TagSelectProps> = forwardRef<
+  HTMLInputElement,
+  TagSelectProps
+>(({ label, name, options, placeholder = 'Select a value...', theme }, ref) => {
   const id = useId();
-  const wrapperRef = useRef<ElementRef<'div'>>(null);
+  const { theme: themeContext } = useTheme();
   const inputRef = useRef<ElementRef<'input'>>(null);
-  const [isOpen, toggleOpen] = useToggle(false);
-  const [selectedTag, setSelectedTag] = useState<TagProps | null>(null);
-  const [value, setValue] = useState('');
+  const {
+    isOpen,
+    selectedTag,
+    value,
+    wrapperRef,
+    handleClickTag,
+    handleOpenDropdown,
+  } = useTagSelect();
 
-  const handleOpenDropdown = useCallback(() => {
-    toggleOpen();
-  }, [toggleOpen]);
-
-  const handleClickTag = useCallback(
-    (tag: TagProps) => {
-      setSelectedTag(tag);
-      toggleOpen(false);
-      setValue(tag.label);
-    },
-    [toggleOpen],
-  );
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    const handleKeyboard = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        toggleOpen(false);
-      }
-    };
-
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!wrapperRef.current?.contains(event.target as Node)) {
-        toggleOpen(false);
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyboard, {
-      signal: controller.signal,
-    });
-
-    document.addEventListener('mousedown', handleClickOutside, {
-      signal: controller.signal,
-    });
-
-    return () => {
-      controller.abort();
-    };
-  }, [toggleOpen, wrapperRef]);
+  useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
 
   return (
     <div ref={wrapperRef} className="flex flex-col w-full relative">
@@ -80,21 +48,23 @@ export const TagSelect: FC<TagSelectProps> = ({
 
       <div
         id={name ?? id}
-        className="w-full border rounded-md flex items-center px-3 py-1 justify-between cursor-pointer"
+        className={tagSelectVariants({ theme: theme ?? themeContext })}
         role="combobox"
         onClick={handleOpenDropdown}
+        aria-expanded={isOpen}
       >
         {!selectedTag ? (
-          <span className="text-base">{placeholder}</span>
+          <span className="text-base text-inherit">{placeholder}</span>
         ) : (
           <Tag {...selectedTag} />
         )}
 
-        {isOpen ? (
-          <ChevronUp className="w-4 h-4 text-inherit" />
-        ) : (
-          <ChevronDown className="w-4 h-4 text-inherit" />
-        )}
+        <ChevronUp
+          className={twMerge(
+            'w-4 h-4 text-inherit transition-all duration-50',
+            isOpen ? 'rotate-180' : 'rotate-0',
+          )}
+        />
       </div>
 
       <input
@@ -106,14 +76,19 @@ export const TagSelect: FC<TagSelectProps> = ({
       />
 
       <ul
+        role="listbox"
         className={twMerge(
-          'w-full flex-col gap-3 border rounded-md mt-1 shadow-sm absolute top-full z-10 bg-white transition-all duration-100',
-          !isOpen ? 'h-0 hidden' : 'h-max flex',
+          tagListVariants({ theme: theme ?? themeContext }),
+          isOpen ? 'opacity-100' : 'opacity-0 -z-50',
         )}
       >
         {options.map((tag) => (
-          <li className="cursor-pointer py-0.5 px-2 last:pb-2 first:pt-2">
+          <li
+            className={tagItemVariants({ theme: theme ?? themeContext })}
+            role="option"
+          >
             <button
+              type="button"
               role="button"
               className="m-0 p-0 w-full"
               onClick={() => handleClickTag(tag)}
@@ -125,4 +100,4 @@ export const TagSelect: FC<TagSelectProps> = ({
       </ul>
     </div>
   );
-};
+});
