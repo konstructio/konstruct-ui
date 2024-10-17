@@ -62,7 +62,7 @@ export const TagSelect: FC<TagSelectProps> = forwardRef<
         <ChevronUp
           className={twMerge(
             'w-4 h-4 text-inherit transition-all duration-50',
-            isOpen ? 'rotate-180' : 'rotate-0',
+            isOpen ? 'rotate-0' : 'rotate-180',
           )}
         />
       </div>

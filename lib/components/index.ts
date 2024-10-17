@@ -6,3 +6,4 @@ export * from './NumberInput/NumberInput';
 export * from './Radio/Radio';
 export * from './Tag/Tag';
 export * from './TagSelect/TagSelect';
+export * from './TextArea/TextArea';
