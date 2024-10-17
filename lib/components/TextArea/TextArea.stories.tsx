@@ -10,12 +10,24 @@ const meta: Meta<typeof TextAreaComponent> = {
 
 export const TextArea: Story = {
   args: {
-    label: 'This is a textarea',
     placeholder: 'Type your message here.',
   },
   render: (args) => (
     <div className="w-[350px] flex flex-col gap-3">
-      <TextAreaComponent {...args} />
+      <TextAreaComponent
+        {...args}
+        label="This is a textarea with Kubefirst theme"
+      />
+      <TextAreaComponent
+        {...args}
+        theme="colony"
+        label="This is a textarea with Colony theme"
+      />
+      <TextAreaComponent
+        {...args}
+        theme="konstruct"
+        label="This is a textarea with Kontruct theme"
+      />
     </div>
   ),
 };

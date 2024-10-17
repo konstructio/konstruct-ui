@@ -1,18 +1,20 @@
-import { ChangeEvent, FC, useCallback, useId, useState } from 'react';
+import {
+  ChangeEvent,
+  FC,
+  forwardRef,
+  useCallback,
+  useId,
+  useState,
+} from 'react';
 
 import { TextAreaProps } from './TextArea.types';
 import { textAreaVariants } from './TextArea.variants';
 import { useTheme } from '../../contexts';
 
-export const TextArea: FC<TextAreaProps> = ({
-  initialValue,
-  label,
-  name,
-  placeholder,
-  rows = 3,
-  theme,
-  onChange,
-}) => {
+export const TextArea: FC<TextAreaProps> = forwardRef<
+  HTMLTextAreaElement,
+  TextAreaProps
+>(({ initialValue, label, name, placeholder, rows = 3, theme, onChange }) => {
   const id = useId();
   const { theme: contextTheme } = useTheme();
   const htmlId = name ? `${id}-name` : id;
@@ -44,4 +46,4 @@ export const TextArea: FC<TextAreaProps> = ({
       />
     </div>
   );
-};
+});
