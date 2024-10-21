@@ -75,29 +75,28 @@ export const TagSelect: FC<TagSelectProps> = forwardRef<
         value={value}
       />
 
-      <ul
-        role="listbox"
-        className={twMerge(
-          tagListVariants({ theme: theme ?? themeContext }),
-          isOpen ? 'opacity-100' : 'opacity-0 -z-50',
-        )}
-      >
-        {options.map((tag) => (
-          <li
-            className={tagItemVariants({ theme: theme ?? themeContext })}
-            role="option"
-          >
-            <button
-              type="button"
-              role="button"
-              className="m-0 p-0 w-full"
-              onClick={() => handleClickTag(tag)}
+      {isOpen ? (
+        <ul
+          role="listbox"
+          className={twMerge(tagListVariants({ theme: theme ?? themeContext }))}
+        >
+          {options.map((tag) => (
+            <li
+              className={tagItemVariants({ theme: theme ?? themeContext })}
+              role="option"
             >
-              <Tag label={tag.label} color={tag.color} />
-            </button>
-          </li>
-        ))}
-      </ul>
+              <button
+                type="button"
+                role="button"
+                className="m-0 p-0 w-full"
+                onClick={() => handleClickTag(tag)}
+              >
+                <Tag label={tag.label} color={tag.color} />
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </div>
   );
 });
