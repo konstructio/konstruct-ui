@@ -17,22 +17,25 @@ export const listVariants = cva(['max-h-[250px]', 'overflow-y-auto'], {
   },
 });
 
-export const emptyListVariants = cva(['p-1', 'text-center', 'w-full block'], {
-  variants: {
-    variant: {
-      default: '',
+export const emptyListVariants = cva(
+  ['p-1', 'text-center', 'w-full block', 'bg-white'],
+  {
+    variants: {
+      variant: {
+        default: '',
+      },
+      theme: {
+        kubefirst: '',
+        konstruct: '',
+        colony: '',
+      },
     },
-    theme: {
-      kubefirst: '',
-      konstruct: '',
-      colony: '',
+    defaultVariants: {
+      variant: 'default',
+      theme: 'kubefirst',
     },
   },
-  defaultVariants: {
-    variant: 'default',
-    theme: 'kubefirst',
-  },
-});
+);
 
 export const listItemVariants = cva(['focus-visible:outline-none'], {
   variants: {
