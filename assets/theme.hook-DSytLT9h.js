@@ -1,0 +1,1 @@
+import{r as t}from"./index-RYns6xqu.js";const r=t.createContext({theme:void 0,setTheme(){throw new Error("setTheme function must be overridden")}}),n=()=>{const e=t.useContext(r);return e||{}};export{n as u};
