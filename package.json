@@ -15,9 +15,10 @@
   "sideEffects": [
     "**/*.css"
   ],
+  "homepage": "https://konstructio.github.io/konstruct-ui",
   "scripts": {
     "build": "rimraf ./dist && tsc --p ./tsconfig.build.json && vite build && cp ./package.json ./dist/package.json",
-    "build:storybook": "storybook build -o storybook-static",
+    "build:storybook": "storybook build -o storybook-static && cp -r public/* storybook-static",
     "check:prettier": "prettier lib --check --config ./.prettierrc",
     "check:types": "tsc -p tsconfig.json",
     "deps:update": "npx npm-check-updates --interactive --format group",
@@ -43,7 +44,6 @@
     "react-dom": "^18"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^2.0.2",
     "@storybook/addon-essentials": "^8.3.5",
     "@storybook/addon-interactions": "^8.3.5",
     "@storybook/addon-links": "^8.3.5",
