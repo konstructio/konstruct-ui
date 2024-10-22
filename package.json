@@ -37,6 +37,8 @@
     "clsx": "^2.1.1",
     "js-cookie": "^3.0.5",
     "react-feather": "^2.0.10",
+    "react-focus-lock": "^2.13.2",
+    "react-remove-scroll": "^2.6.0",
     "tailwind-merge": "^2.5.4"
   },
   "peerDependencies": {
@@ -55,9 +57,9 @@
     "@types/js-cookie": "^3.0.6",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
-    "@typescript-eslint/eslint-plugin": "^8.9.0",
-    "@typescript-eslint/parser": "^8.9.0",
-    "@vitejs/plugin-react": "^4.3.2",
+    "@typescript-eslint/eslint-plugin": "^8.11.0",
+    "@typescript-eslint/parser": "^8.11.0",
+    "@vitejs/plugin-react": "^4.3.3",
     "ajv": "^8.17.1",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.0",

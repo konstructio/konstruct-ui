@@ -35,7 +35,6 @@ export const buttonVariants = cva(
         colony: '',
         kontruct: '',
         kubefirst: '',
-        'kubefirst-pro': '',
       },
       size: {
         default: 'px-5 py-2',
@@ -51,6 +50,18 @@ export const buttonVariants = cva(
         theme: 'kubefirst',
         disabled: false,
         class: ['bg-kubefirst-purple-light', 'hover:bg-kubefirst-purple-dark'],
+      },
+      {
+        variant: 'primary',
+        theme: 'colony',
+        disabled: false,
+        class: ['bg-red-700', 'hover:bg-red-900'],
+      },
+      {
+        variant: 'primary',
+        theme: 'kontruct',
+        disabled: false,
+        class: ['bg-orange-500', 'hover:bg-orange-700'],
       },
       {
         variant: 'secondary',
