@@ -33,7 +33,7 @@ export const buttonVariants = cva(
       },
       theme: {
         colony: '',
-        kontruct: '',
+        konstruct: '',
         kubefirst: '',
       },
       size: {
@@ -59,7 +59,7 @@ export const buttonVariants = cva(
       },
       {
         variant: 'primary',
-        theme: 'kontruct',
+        theme: 'konstruct',
         disabled: false,
         class: ['bg-orange-500', 'hover:bg-orange-700'],
       },
