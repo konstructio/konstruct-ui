@@ -13,8 +13,6 @@ export interface AlertDialogProps
   onConfirm?: () => void;
 }
 
-export interface AlertDialogTriggerProps
-  extends VariantProps<typeof buttonAlertDialogVariants> {
-  text?: string;
-  onOpen(): void;
-}
+export type UseAlertiDialogProps = {
+  onConfirm: AlertDialogProps['onConfirm'];
+};

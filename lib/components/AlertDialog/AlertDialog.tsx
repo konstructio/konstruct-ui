@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC } from 'react';
 import {
   Action,
   Cancel,
@@ -15,6 +15,7 @@ import { Button } from '../Button/Button';
 
 import { AlertDialogProps } from './AlertDialog.types';
 import { AlertDialogTrigger } from './components';
+import { useAlertDialog } from './hooks';
 
 export const AlertDialog: FC<AlertDialogProps> = ({
   buttonText,
@@ -23,26 +24,18 @@ export const AlertDialog: FC<AlertDialogProps> = ({
   description,
   onConfirm,
 }) => {
-  const [open, setOpen] = useState(false);
   const { theme: contextTheme } = useTheme();
-
-  const handleCancel = useCallback(() => setOpen(false), []);
-  const handleConfirm = useCallback(() => {
-    onConfirm?.();
-    setOpen(false);
-  }, [onConfirm]);
+  const { isOpen, handleCancel, handleConfirm, handleOpen } = useAlertDialog({
+    onConfirm,
+  });
 
   return (
-    <Root open={open}>
-      <AlertDialogTrigger
-        text={buttonText}
-        theme={theme}
-        onOpen={() => setOpen(true)}
-      />
+    <Root open={isOpen}>
+      <AlertDialogTrigger text={buttonText} theme={theme} onOpen={handleOpen} />
 
       <Portal>
-        <Overlay className="bg-black opacity-75 inset-0" />
-        <Content className="bg-white rounded-md fixed top-1/2 left-1/2 -translate-y-2/4 -translate-x-2/4 flex flex-col gap-8">
+        <Overlay className="bg-black opacity-75 inset-0 fixed" />
+        <Content className="bg-white rounded-md fixed top-1/2 left-1/2 -translate-y-2/4 -translate-x-2/4 flex flex-col gap-8 p-6">
           <Title className="font-bold text-center text-2xl">{title}</Title>
 
           <Description>{description}</Description>

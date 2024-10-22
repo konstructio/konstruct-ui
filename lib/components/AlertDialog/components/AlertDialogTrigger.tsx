@@ -3,7 +3,8 @@ import { Trigger } from '@radix-ui/react-alert-dialog';
 
 import { useTheme } from '../../../contexts';
 import { Button } from '../../Button/Button';
-import { AlertDialogTriggerProps } from '../AlertDialog.types';
+
+import { AlertDialogTriggerProps } from './AlertDialogTrigger.types';
 
 export const AlertDialogTrigger: FC<AlertDialogTriggerProps> = ({
   text,
