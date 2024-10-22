@@ -14,21 +14,15 @@ const meta: Meta<typeof ModalComponent> = {
 export const Modal: Story = {
   render: () => {
     const WrapperButton = () => {
-      const { setContentAndOpen } = useModal();
-
-      const handleOpen = () => {
-        const content = <div> Model Content </div>;
-        setContentAndOpen(content);
-      };
-
-      return <Button onClick={handleOpen}>Click me to Open Modal!</Button>;
+      const { onOpen } = useModal();
+      return <Button onClick={onOpen}>Click me to Open Modal!</Button>;
     };
 
     return (
       <div className="w-[350px]">
         <ModalProvider>
           <WrapperButton />
-          <ModalComponent />
+          <ModalComponent>This is a modal content test</ModalComponent>
         </ModalProvider>
       </div>
     );

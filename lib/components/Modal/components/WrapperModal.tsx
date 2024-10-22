@@ -1,13 +1,22 @@
-import { useEffect, useRef } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { X as Close } from 'react-feather';
 import FocusLock from 'react-focus-lock';
 import { RemoveScroll } from 'react-remove-scroll';
 
+import { useTheme } from '../../../contexts';
 import { useModal } from '../hooks';
 
-export const WrapperModal = () => {
+import { WrapperModalProps } from './WrapperModal.types';
+import { modalWrapperVariants } from './WrapperModal.variants';
+
+export const WrapperModal: FC<WrapperModalProps> = ({
+  children,
+  theme,
+  className,
+}) => {
   const closeBtnRef = useRef<HTMLButtonElement>(null);
   const { content, onClose } = useModal();
+  const { theme: contextTheme } = useTheme();
 
   useEffect(() => {
     const currentlyFocusedElem = document.activeElement as HTMLElement;
@@ -44,8 +53,12 @@ export const WrapperModal = () => {
             className="absolute inset-0 bg-black opacity-75"
             onClick={onClose}
           />
+
           <div
-            className="relative overflow-auto border-none bg-metal-1000 lg:overflow-hidden"
+            className={modalWrapperVariants({
+              className,
+              theme: theme ?? contextTheme,
+            })}
             role="dialog"
             aria-modal="true"
           >
@@ -58,7 +71,7 @@ export const WrapperModal = () => {
               <span className="sr-only">Dismiss modal</span>
             </button>
 
-            {content}
+            {children ?? content}
           </div>
         </div>
       </RemoveScroll>
