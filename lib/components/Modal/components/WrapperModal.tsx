@@ -7,12 +7,16 @@ import { useTheme } from '../../../contexts';
 import { useModal } from '../hooks';
 
 import { WrapperModalProps } from './WrapperModal.types';
-import { modalWrapperVariants } from './WrapperModal.variants';
+import {
+  buttonCloseModalVariants,
+  modalWrapperVariants,
+} from './WrapperModal.variants';
 
 export const WrapperModal: FC<WrapperModalProps> = ({
   children,
   theme,
   className,
+  buttonCloseClassName,
 }) => {
   const closeBtnRef = useRef<HTMLButtonElement>(null);
   const { content, onClose } = useModal();
@@ -64,7 +68,10 @@ export const WrapperModal: FC<WrapperModalProps> = ({
           >
             <button
               ref={closeBtnRef}
-              className="absolute right-1.5 top-1.5"
+              className={buttonCloseModalVariants({
+                className: buttonCloseClassName,
+                theme: theme ?? contextTheme,
+              })}
               onClick={onClose}
             >
               <Close />

@@ -7,4 +7,5 @@ export interface ModalProps
   extends PropsWithChildren,
     VariantProps<typeof modalWrapperVariants> {
   className?: string;
+  buttonCloseClassName?: string;
 }

@@ -1,1 +1,1 @@
-export * from './Modal.context';
+export * from './Modal.provider';

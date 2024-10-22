@@ -1,18 +1,6 @@
-import { createContext, ReactNode, useCallback, useState } from 'react';
+import { createContext } from 'react';
 
-import { useToggle } from '../../../hooks';
-
-type State = {
-  isOpen: boolean;
-  content: string | ReactNode;
-  shouldShowClose: boolean;
-  onOpen: () => void;
-  onClose: () => void;
-  setContentAndOpen: (
-    content: string | ReactNode,
-    showCloseButton?: boolean,
-  ) => void;
-};
+import { State } from './Modal.types';
 
 const initialState: State = {
   content: undefined,
@@ -32,35 +20,3 @@ const initialState: State = {
 };
 
 export const ModalContext = createContext<State>(initialState);
-
-export const ModalProvider = ({ children }: { children: ReactNode }) => {
-  const [shouldShowClose, setShouldShowClose] = useState(true);
-  const [isOpen, toggleState] = useToggle(false);
-  const [content, setContent] = useState<string | ReactNode>();
-
-  const handleOpen = useCallback(() => toggleState(true), [toggleState]);
-  const handleClose = useCallback(() => toggleState(false), [toggleState]);
-  const setContentAndOpen = (
-    content: string | ReactNode,
-    showCloseButton: boolean = true,
-  ) => {
-    setContent(content);
-    handleOpen();
-    setShouldShowClose(showCloseButton);
-  };
-
-  return (
-    <ModalContext.Provider
-      value={{
-        content,
-        isOpen,
-        shouldShowClose,
-        onClose: handleClose,
-        onOpen: handleOpen,
-        setContentAndOpen,
-      }}
-    >
-      {children}
-    </ModalContext.Provider>
-  );
-};
