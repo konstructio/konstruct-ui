@@ -26,7 +26,7 @@ export const TextArea: Story = {
       <TextAreaComponent
         {...args}
         theme="konstruct"
-        label="This is a textarea with Kontruct theme"
+        label="This is a textarea with Konstruct theme"
       />
     </div>
   ),

@@ -31,6 +31,7 @@
     "test": "echo \"No tests specified\""
   },
   "dependencies": {
+    "@radix-ui/react-alert-dialog": "^1.1.2",
     "@radix-ui/react-checkbox": "^1.1.2",
     "@radix-ui/react-slot": "^1.1.0",
     "class-variance-authority": "^0.7.0",
