@@ -10,8 +10,13 @@ const meta: Meta<typeof DropdownComponent> = {
 
 export const Dropdown: Story = {
   args: {
-    options: [],
-    placeholder: 'Select an option',
+    options: [
+      {
+        label: 'Option 1',
+        value: 'option-1',
+      },
+    ],
+    placeholder: 'Select an option...',
   },
   render: (args) => (
     <div className="max-w-[350px]">

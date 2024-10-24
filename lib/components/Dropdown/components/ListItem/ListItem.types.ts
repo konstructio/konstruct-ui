@@ -1,5 +1,5 @@
-import { DropdownProps } from '../../Dropdown.types';
+import { DropdownProps, Option } from '../../Dropdown.types';
 
-export type ListItemProps = {
+export type ListItemProps = Option & {
   theme: DropdownProps['theme'];
 };

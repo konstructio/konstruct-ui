@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { listItemVariants } from './ListItem.variants';
 import { ListItemProps } from './ListItem.types';
 
-export const ListItem: FC<ListItemProps> = ({ theme }) => (
+export const ListItem: FC<ListItemProps> = ({ theme, label }) => (
   <li className={listItemVariants({ theme })} role="option">
     <button
       type="button"
@@ -11,7 +11,7 @@ export const ListItem: FC<ListItemProps> = ({ theme }) => (
       className="m-0 p-0 w-full"
       onClick={() => {}}
     >
-      {/* <Tag label={tag.label} color={tag.color} /> */}
+      <span>{label}</span>
     </button>
   </li>
 );

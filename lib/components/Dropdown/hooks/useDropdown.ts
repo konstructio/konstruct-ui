@@ -1,11 +1,10 @@
-import { ElementRef, useCallback, useEffect, useRef, useState } from 'react';
+import { ElementRef, useCallback, useEffect, useRef } from 'react';
 
-import { useToggle } from '../../../hooks';
+import { useDropdownContext } from '../contexts';
 
 export const useDropdown = () => {
   const wrapperRef = useRef<ElementRef<'div'>>(null);
-  const [isOpen, toggleOpen] = useToggle(false);
-  const [value, setValue] = useState('');
+  const { isOpen, toggleOpen, setValue } = useDropdownContext();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -35,9 +34,9 @@ export const useDropdown = () => {
     };
   }, [toggleOpen, wrapperRef]);
 
-  const handleOpenDropdown = useCallback(() => toggleOpen(), [toggleOpen]);
+  const handleOpen = useCallback(() => toggleOpen(), [toggleOpen]);
 
-  const handleOpenDropdownIfClosed = useCallback(() => {
+  const handleOpenIfClosed = useCallback(() => {
     if (!isOpen) {
       toggleOpen();
     }
@@ -48,15 +47,13 @@ export const useDropdown = () => {
       toggleOpen(false);
       setValue(value);
     },
-    [toggleOpen],
+    [setValue, toggleOpen],
   );
 
   return {
-    isOpen,
-    value,
     wrapperRef,
     handleClickValue,
-    handleOpenDropdown,
-    handleOpenDropdownIfClosed,
+    handleOpen,
+    handleOpenIfClosed,
   };
 };
