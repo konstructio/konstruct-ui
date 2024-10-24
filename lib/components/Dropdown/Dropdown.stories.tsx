@@ -12,8 +12,14 @@ export const Dropdown: Story = {
   args: {
     options: [
       {
-        label: 'Option 1',
-        value: 'option-1',
+        label: 'Talos',
+        value: 'talos',
+        leftIcon: <img src="/talos.svg" alt="Talos Logo" />,
+      },
+      {
+        label: 'K3S',
+        value: 'k3s',
+        leftIcon: <img src="/k3s.svg" alt="K3S Logo" />,
       },
     ],
     placeholder: 'Select an option...',
@@ -23,6 +29,7 @@ export const Dropdown: Story = {
       <DropdownComponent
         label="Dropdown with Kubefirst theme"
         theme="kubefirst"
+        name="components-dropdown"
         {...args}
       />
     </div>

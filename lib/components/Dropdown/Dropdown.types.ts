@@ -4,15 +4,15 @@ import { VariantProps } from 'class-variance-authority';
 import { dropdownVariants } from './Dropdown.variants';
 
 export type Option = {
-  value: string;
   label: string | ReactNode;
   leftIcon?: ReactNode | string;
-  righIcon?: ReactNode | string;
+  value: string;
 };
 
 export interface DropdownProps extends VariantProps<typeof dropdownVariants> {
+  defaultValue?: string;
   label?: string;
   name?: string;
-  placeholder?: string;
   options: Option[];
+  placeholder?: string;
 }

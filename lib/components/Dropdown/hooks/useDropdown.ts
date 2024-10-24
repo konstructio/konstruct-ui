@@ -4,7 +4,7 @@ import { useDropdownContext } from '../contexts';
 
 export const useDropdown = () => {
   const wrapperRef = useRef<ElementRef<'div'>>(null);
-  const { isOpen, toggleOpen, setValue } = useDropdownContext();
+  const { isOpen, toggleOpen } = useDropdownContext();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -34,25 +34,16 @@ export const useDropdown = () => {
     };
   }, [toggleOpen, wrapperRef]);
 
-  const handleOpen = useCallback(() => toggleOpen(), [toggleOpen]);
+  const handleOpen = useCallback(() => toggleOpen(true), [toggleOpen]);
 
   const handleOpenIfClosed = useCallback(() => {
     if (!isOpen) {
-      toggleOpen();
+      toggleOpen(false);
     }
   }, [isOpen, toggleOpen]);
 
-  const handleClickValue = useCallback(
-    (value: string) => {
-      toggleOpen(false);
-      setValue(value);
-    },
-    [setValue, toggleOpen],
-  );
-
   return {
     wrapperRef,
-    handleClickValue,
     handleOpen,
     handleOpenIfClosed,
   };

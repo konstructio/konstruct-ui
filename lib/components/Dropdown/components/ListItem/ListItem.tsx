@@ -1,17 +1,38 @@
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 
-import { listItemVariants } from './ListItem.variants';
+import { useDropdownContext } from '../../contexts';
+import { Option } from '../../Dropdown.types';
+
 import { ListItemProps } from './ListItem.types';
+import { listItemVariants } from './ListItem.variants';
 
-export const ListItem: FC<ListItemProps> = ({ theme, label }) => (
-  <li className={listItemVariants({ theme })} role="option">
-    <button
-      type="button"
-      role="button"
-      className="m-0 p-0 w-full"
-      onClick={() => {}}
-    >
-      <span>{label}</span>
-    </button>
-  </li>
-);
+export const ListItem: FC<ListItemProps> = ({ theme, ...option }) => {
+  const { setValue, toggleOpen } = useDropdownContext();
+
+  const handleClick = useCallback(
+    (option: Option) => {
+      setValue(option);
+      toggleOpen(false);
+    },
+    [setValue, toggleOpen],
+  );
+
+  return (
+    <li className={listItemVariants({ theme })} role="option">
+      <button
+        type="button"
+        role="button"
+        className="m-0 p-0 w-full flex items-center gap-3"
+        onClick={() => handleClick(option)}
+      >
+        {option.leftIcon ? (
+          <span className="w-4 h-4 flex justify-center items-center">
+            {option.leftIcon}
+          </span>
+        ) : null}
+
+        {option.label}
+      </button>
+    </li>
+  );
+};

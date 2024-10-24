@@ -4,7 +4,6 @@ export const dropdownVariants = cva(
   [
     'border',
     'cursor-pointer',
-    'duration-250',
     'ease-in-out',
     'flex',
     'items-center',
@@ -19,9 +18,15 @@ export const dropdownVariants = cva(
   {
     variants: {
       theme: {
-        konstruct: '',
-        kubefirst: '',
-        colony: '',
+        konstruct: [
+          'aria-expanded:border-orange-400',
+          'aria-expanded:text-orange-400',
+        ],
+        kubefirst: [
+          'aria-expanded:border-kubefirst-purple-light',
+          'aria-expanded:text-kubefirst-purple-dark',
+        ],
+        colony: ['aria-expanded:border-red-400', 'aria-expanded:text-red-400'],
       },
     },
     defaultVariants: {
@@ -29,16 +34,3 @@ export const dropdownVariants = cva(
     },
   },
 );
-
-export const dropdownListVariants = cva([], {
-  variants: {
-    theme: {
-      konstruct: '',
-      kubefirst: '',
-      colony: '',
-    },
-  },
-  defaultVariants: {
-    theme: 'kubefirst',
-  },
-});
