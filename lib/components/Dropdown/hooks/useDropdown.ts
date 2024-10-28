@@ -4,6 +4,7 @@ import { useDropdownContext } from '../contexts';
 
 export const useDropdown = () => {
   const wrapperRef = useRef<ElementRef<'div'>>(null);
+  const wrapperInputRef = useRef<ElementRef<'div'>>(null);
   const { isOpen, toggleOpen } = useDropdownContext();
 
   useEffect(() => {
@@ -29,10 +30,42 @@ export const useDropdown = () => {
       signal: controller.signal,
     });
 
+    document.addEventListener(
+      'visibilitychange',
+      () => {
+        if (document.hidden) {
+          toggleOpen(false);
+        }
+      },
+      {
+        signal: controller.signal,
+      },
+    );
+
+    window.addEventListener('blur', () => toggleOpen(false), {
+      signal: controller.signal,
+    });
+
     return () => {
       controller.abort();
     };
   }, [toggleOpen, wrapperRef]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    wrapperInputRef.current?.addEventListener(
+      'focus',
+      () => {
+        toggleOpen(true);
+      },
+      { signal: controller.signal },
+    );
+
+    return () => {
+      controller.abort();
+    };
+  }, [toggleOpen]);
 
   const handleOpen = useCallback(() => toggleOpen(true), [toggleOpen]);
 
@@ -44,6 +77,7 @@ export const useDropdown = () => {
 
   return {
     wrapperRef,
+    wrapperInputRef,
     handleOpen,
     handleOpenIfClosed,
   };

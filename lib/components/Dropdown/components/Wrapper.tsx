@@ -1,7 +1,8 @@
 import {
   ElementRef,
-  FC,
   forwardRef,
+  ForwardRefExoticComponent,
+  RefAttributes,
   useEffect,
   useId,
   useImperativeHandle,
@@ -18,91 +19,95 @@ import { useDropdown } from '../hooks/useDropdown';
 import { useDropdownContext } from '../contexts';
 import { List } from './List/List';
 
-export const Wrapper: FC<DropdownProps> = forwardRef<
-  HTMLDivElement,
-  DropdownProps
->(({ theme, label, placeholder, name, options, defaultValue }, ref) => {
-  const id = useId();
-  const inputRef = useRef<ElementRef<'input'>>(null);
-  const { wrapperRef, handleOpen, handleOpenIfClosed } = useDropdown();
-  const { isOpen, value, setValue } = useDropdownContext();
-  const { theme: themeContext } = useTheme();
-  const inheritTheme = theme ?? themeContext;
-  const htmlFor = name ? `${id}-${name}` : id;
+export const Wrapper: ForwardRefExoticComponent<
+  DropdownProps & RefAttributes<ElementRef<'input'>>
+> = forwardRef<ElementRef<'input'>, DropdownProps>(
+  ({ theme, label, placeholder, name, options, defaultValue }, ref) => {
+    const id = useId();
+    const inputRef = useRef<ElementRef<'input'>>(null);
+    const { wrapperRef, wrapperInputRef, handleOpen, handleOpenIfClosed } =
+      useDropdown();
+    const { isOpen, value, setValue } = useDropdownContext();
+    const { theme: themeContext } = useTheme();
+    const inheritTheme = theme ?? themeContext;
+    const htmlFor = name ? `${id}-${name}` : id;
 
-  useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
+    useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
 
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.value = value ? value.value : '';
-    }
-  }, [value]);
-
-  useEffect(() => {
-    if (defaultValue) {
-      const defaultOption = options.find(
-        (option) => option.value === defaultValue,
-      );
-
-      if (defaultOption) {
-        setValue(defaultOption);
+    useEffect(() => {
+      if (inputRef.current) {
+        inputRef.current.value = value ? value.value : '';
       }
-    }
-  }, [defaultValue, options, setValue]);
+    }, [value]);
 
-  const getIcon = () => {
-    if (!value?.leftIcon) {
-      return null;
-    }
+    useEffect(() => {
+      if (defaultValue) {
+        const defaultOption = options.find(
+          (option) => option.value === defaultValue,
+        );
+
+        if (defaultOption) {
+          setValue(defaultOption);
+        }
+      }
+    }, [defaultValue, options, setValue]);
+
+    const getIcon = () => {
+      if (!value?.leftIcon) {
+        return null;
+      }
+
+      return (
+        <span className="w-4 h-4 flex justify-center items-center">
+          {value.leftIcon}
+        </span>
+      );
+    };
 
     return (
-      <span className="w-4 h-4 flex justify-center items-center">
-        {value.leftIcon}
-      </span>
-    );
-  };
+      <div ref={wrapperRef} className="flex flex-col w-full relative">
+        {label ? (
+          <label
+            className="m-2 cursor-pointer"
+            htmlFor={htmlFor}
+            onClick={handleOpenIfClosed}
+          >
+            {label}
+          </label>
+        ) : null}
 
-  return (
-    <div ref={wrapperRef} className="flex flex-col w-full relative">
-      {label ? (
-        <label
-          className="m-2 cursor-pointer"
-          htmlFor={htmlFor}
-          onClick={handleOpenIfClosed}
+        <div
+          ref={wrapperInputRef}
+          id={htmlFor}
+          className={dropdownVariants({ theme: inheritTheme })}
+          role="combobox"
+          onClick={handleOpen}
+          aria-expanded={isOpen}
+          tabIndex={0}
         >
-          {label}
-        </label>
-      ) : null}
+          <span className="text-base text-inherit">
+            {value ? (
+              <span className="flex gap-3 items-center">
+                {getIcon()}
+                {value.label}
+              </span>
+            ) : (
+              placeholder
+            )}
+          </span>
 
-      <div
-        id={htmlFor}
-        className={dropdownVariants({ theme: inheritTheme })}
-        role="combobox"
-        onClick={handleOpen}
-        aria-expanded={isOpen}
-      >
-        <span className="text-base text-inherit">
-          {value ? (
-            <span className="flex gap-3 items-center">
-              {getIcon()}
-              {value.label}
-            </span>
-          ) : (
-            placeholder
-          )}
-        </span>
+          <ChevronUp
+            className={twMerge(
+              'w-4 h-4 text-inherit transition-all duration-50',
+              isOpen ? 'rotate-0' : 'rotate-180',
+            )}
+          />
+        </div>
 
-        <ChevronUp
-          className={twMerge(
-            'w-4 h-4 text-inherit transition-all duration-50',
-            isOpen ? 'rotate-0' : 'rotate-180',
-          )}
-        />
+        <input ref={inputRef} type="text" name={name} className="hidden" />
+
+        <List options={options} theme={inheritTheme} />
       </div>
-
-      <input ref={inputRef} type="text" name={name} className="hidden" />
-
-      <List options={options} theme={inheritTheme} />
-    </div>
-  );
-});
+    );
+  },
+);
