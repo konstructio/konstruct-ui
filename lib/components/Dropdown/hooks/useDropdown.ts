@@ -1,8 +1,12 @@
-import { ElementRef, useCallback, useEffect, useRef } from 'react';
+import { ElementRef, RefObject, useCallback, useEffect, useRef } from 'react';
 
 import { useDropdownContext } from '../contexts';
 
-export const useDropdown = () => {
+type UseDropDownParams = {
+  ulRef: RefObject<ElementRef<'ul'>>;
+};
+
+export const useDropdown = ({ ulRef }: UseDropDownParams) => {
   const wrapperRef = useRef<ElementRef<'div'>>(null);
   const wrapperInputRef = useRef<ElementRef<'div'>>(null);
   const { isOpen, toggleOpen } = useDropdownContext();
@@ -42,18 +46,6 @@ export const useDropdown = () => {
       },
     );
 
-    window.addEventListener('blur', () => toggleOpen(false), {
-      signal: controller.signal,
-    });
-
-    return () => {
-      controller.abort();
-    };
-  }, [toggleOpen, wrapperRef]);
-
-  useEffect(() => {
-    const controller = new AbortController();
-
     wrapperInputRef.current?.addEventListener(
       'focus',
       () => {
@@ -65,7 +57,29 @@ export const useDropdown = () => {
     return () => {
       controller.abort();
     };
-  }, [toggleOpen]);
+  }, [toggleOpen, wrapperRef]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    wrapperInputRef.current?.addEventListener(
+      'keydown',
+      (event: KeyboardEvent) => {
+        if (event.key === 'ArrowDown') {
+          const firstItem = ulRef.current?.querySelector('li');
+
+          if (firstItem) {
+            firstItem.focus();
+          }
+        }
+      },
+      { signal: controller.signal },
+    );
+
+    return () => {
+      controller.abort();
+    };
+  }, [wrapperInputRef, ulRef]);
 
   const handleOpen = useCallback(() => toggleOpen(true), [toggleOpen]);
 

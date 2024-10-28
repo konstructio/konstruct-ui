@@ -1,23 +1,41 @@
-import { FC } from 'react';
+import {
+  ElementRef,
+  forwardRef,
+  ForwardRefExoticComponent,
+  RefAttributes,
+  useImperativeHandle,
+  useRef,
+} from 'react';
+import { twMerge } from 'tailwind-merge';
 
+import { useNavigationUlList } from '../../hooks/useNavigationList';
 import { useDropdownContext } from '../../contexts';
 import { ListItem } from '../ListItem/ListItem';
 
 import { ListProps } from './List.types';
 import { listVariants } from './List.variants';
 
-export const List: FC<ListProps> = ({ options, theme }) => {
-  const { isOpen } = useDropdownContext();
+export const List: ForwardRefExoticComponent<
+  ListProps & RefAttributes<ElementRef<'ul'>>
+> = forwardRef<ElementRef<'ul'>, ListProps>(
+  ({ options, theme, wrapperRef }, ref) => {
+    const ulRef = useRef<ElementRef<'ul'>>(null);
+    const { isOpen } = useDropdownContext();
 
-  if (!isOpen) {
-    return null;
-  }
+    useImperativeHandle(ref, () => ulRef.current!, [ulRef]);
 
-  return (
-    <ul role="listbox" className={listVariants({ theme })}>
-      {options.map((option) => (
-        <ListItem key={option.value} theme={theme} {...option} />
-      ))}
-    </ul>
-  );
-};
+    useNavigationUlList({ ulRef, wrapperRef });
+
+    return (
+      <ul
+        ref={ulRef}
+        role="listbox"
+        className={twMerge(listVariants({ theme }), isOpen ? 'flex' : 'hidden')}
+      >
+        {options.map((option) => (
+          <ListItem key={option.value} theme={theme} {...option} />
+        ))}
+      </ul>
+    );
+  },
+);

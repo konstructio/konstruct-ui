@@ -7,7 +7,6 @@ export const listVariants = cva(
     'border',
     'duration-100',
     'ease-in-out',
-    'flex',
     'flex-col',
     'mt-1',
     'overflow-hidden',

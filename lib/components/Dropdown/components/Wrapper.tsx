@@ -25,8 +25,9 @@ export const Wrapper: ForwardRefExoticComponent<
   ({ theme, label, placeholder, name, options, defaultValue }, ref) => {
     const id = useId();
     const inputRef = useRef<ElementRef<'input'>>(null);
+    const ulRef = useRef<ElementRef<'ul'>>(null);
     const { wrapperRef, wrapperInputRef, handleOpen, handleOpenIfClosed } =
-      useDropdown();
+      useDropdown({ ulRef });
     const { isOpen, value, setValue } = useDropdownContext();
     const { theme: themeContext } = useTheme();
     const inheritTheme = theme ?? themeContext;
@@ -106,7 +107,12 @@ export const Wrapper: ForwardRefExoticComponent<
 
         <input ref={inputRef} type="text" name={name} className="hidden" />
 
-        <List options={options} theme={inheritTheme} />
+        <List
+          ref={ulRef}
+          wrapperRef={wrapperRef}
+          options={options}
+          theme={inheritTheme}
+        />
       </div>
     );
   },
