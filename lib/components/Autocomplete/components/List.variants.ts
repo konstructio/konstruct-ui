@@ -43,29 +43,15 @@ export const listItemVariants = cva(['focus-visible:outline-none'], {
       default: '',
     },
     theme: {
-      kubefirst: '',
-      konstruct: '',
-      colony: '',
+      kubefirst: ['focus:bg-purple-100', 'hover:bg-purple-100'],
+      konstruct: ['focus:bg-orange-100', 'hover:bg-orange-100'],
+      colony: ['focus:bg-red-100', 'hover:bg-red-100'],
     },
   },
   defaultVariants: {
     variant: 'default',
     theme: 'kubefirst',
   },
-  compoundVariants: [
-    {
-      theme: 'konstruct',
-      class: ['focus:bg-orange-100', 'hover:bg-orange-100'],
-    },
-    {
-      theme: 'kubefirst',
-      class: ['focus:bg-purple-100', 'hover:bg-purple-100'],
-    },
-    {
-      theme: 'colony',
-      class: ['focus:bg-red-100', 'hover:bg-red-100'],
-    },
-  ],
 });
 
 export const buttonVariants = cva(
@@ -83,28 +69,14 @@ export const buttonVariants = cva(
         default: '',
       },
       theme: {
-        kubefirst: '',
-        konstruct: '',
-        colony: '',
+        kubefirst: ['focus:bg-purple-100', 'hover:bg-purple-100'],
+        konstruct: ['focus:bg-orange-100', 'hover:bg-orange-100'],
+        colony: ['focus:bg-red-100', 'hover:bg-red-100'],
       },
     },
     defaultVariants: {
       variant: 'default',
       theme: 'kubefirst',
     },
-    compoundVariants: [
-      {
-        theme: 'konstruct',
-        class: ['focus:bg-orange-100', 'hover:bg-orange-100'],
-      },
-      {
-        theme: 'kubefirst',
-        class: ['focus:bg-purple-100', 'hover:bg-purple-100'],
-      },
-      {
-        theme: 'colony',
-        class: ['focus:bg-red-100', 'hover:bg-red-100'],
-      },
-    ],
   },
 );
