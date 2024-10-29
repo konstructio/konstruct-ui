@@ -2,6 +2,7 @@ export * from './AlertDialog/AlertDialog';
 export * from './Autocomplete/Autocomplete';
 export * from './Button/Button';
 export * from './Checkbox/Checkbox';
+export * from './Dropdown/Dropdown';
 export * from './Input/Input';
 export * from './Modal/Modal';
 export * from './NumberInput/NumberInput';
