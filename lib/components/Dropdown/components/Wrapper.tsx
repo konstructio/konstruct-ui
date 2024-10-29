@@ -28,7 +28,7 @@ export const Wrapper: ForwardRefExoticComponent<
     const ulRef = useRef<ElementRef<'ul'>>(null);
     const { wrapperRef, wrapperInputRef, handleOpen, handleOpenIfClosed } =
       useDropdown({ ulRef });
-    const { isOpen, value, setValue } = useDropdownContext();
+    const { isOpen, value, setValue, toggleOpen } = useDropdownContext();
     const { theme: themeContext } = useTheme();
     const inheritTheme = theme ?? themeContext;
     const htmlFor = name ? `${id}-${name}` : id;
@@ -52,6 +52,25 @@ export const Wrapper: ForwardRefExoticComponent<
         }
       }
     }, [defaultValue, options, setValue]);
+
+    useEffect(() => {
+      const controller = new AbortController();
+
+      wrapperRef.current?.addEventListener('focusout', (event) => {
+        const newFocusElement = event.relatedTarget as Node;
+
+        if (
+          !newFocusElement ||
+          !wrapperRef.current?.contains(newFocusElement)
+        ) {
+          toggleOpen(false);
+        }
+      });
+
+      return () => {
+        controller.abort();
+      };
+    }, [toggleOpen, wrapperRef]);
 
     const getIcon = () => {
       if (!value?.leftIcon) {
@@ -110,6 +129,7 @@ export const Wrapper: ForwardRefExoticComponent<
         <List
           ref={ulRef}
           wrapperRef={wrapperRef}
+          wrapperInputRef={wrapperInputRef}
           options={options}
           theme={inheritTheme}
         />

@@ -18,7 +18,7 @@ export const ListItem: FC<ListItemProps> = ({ theme, ...option }) => {
   );
 
   return (
-    <li className={listItemVariants({ theme })} role="option">
+    <li className={listItemVariants({ theme })} role="option" tabIndex={0}>
       <button
         type="button"
         role="button"

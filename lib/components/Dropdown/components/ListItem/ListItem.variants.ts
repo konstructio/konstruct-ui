@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 
 export const listItemVariants = cva(
-  ['cursor-pointer', 'py-1', 'px-2', 'h-full'],
+  ['cursor-pointer', 'py-1', 'px-2', 'h-full', 'focus-visible:outline-none'],
   {
     variants: {
       theme: {

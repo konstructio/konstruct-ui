@@ -22,12 +22,18 @@ export const dropdownVariants = cva(
         konstruct: [
           'aria-expanded:border-orange-400',
           'aria-expanded:text-orange-400',
+          'focus-visible:bg-orange-100',
         ],
         kubefirst: [
           'aria-expanded:border-kubefirst-purple-light',
           'aria-expanded:text-kubefirst-purple-dark',
+          'focus-visible:bg-purple-100',
         ],
-        colony: ['aria-expanded:border-red-400', 'aria-expanded:text-red-400'],
+        colony: [
+          'aria-expanded:border-red-400',
+          'aria-expanded:text-red-400',
+          'focus-visible:bg-red-100',
+        ],
       },
     },
     defaultVariants: {

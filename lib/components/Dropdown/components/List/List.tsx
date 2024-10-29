@@ -18,13 +18,13 @@ import { listVariants } from './List.variants';
 export const List: ForwardRefExoticComponent<
   ListProps & RefAttributes<ElementRef<'ul'>>
 > = forwardRef<ElementRef<'ul'>, ListProps>(
-  ({ options, theme, wrapperRef }, ref) => {
+  ({ options, theme, wrapperRef, wrapperInputRef }, ref) => {
     const ulRef = useRef<ElementRef<'ul'>>(null);
     const { isOpen } = useDropdownContext();
 
     useImperativeHandle(ref, () => ulRef.current!, [ulRef]);
 
-    useNavigationUlList({ ulRef, wrapperRef });
+    useNavigationUlList({ ulRef, wrapperRef, wrapperInputRef });
 
     return (
       <ul
