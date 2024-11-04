@@ -6,6 +6,7 @@ export * from './Dropdown/Dropdown';
 export * from './Input/Input';
 export * from './Modal/Modal';
 export * from './NumberInput/NumberInput';
+export * from './ProgressBar/ProgressBar';
 export * from './Radio/Radio';
 export * from './Tag/Tag';
 export * from './TagSelect/TagSelect';
