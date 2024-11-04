@@ -7,5 +7,5 @@ export interface ProgressBarProps
   className?: string;
   label?: string;
   percent: number;
-  status?: 'success' | 'progress' | 'error';
+  status?: 'success' | 'progress';
 }
