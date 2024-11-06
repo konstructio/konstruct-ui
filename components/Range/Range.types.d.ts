@@ -1,7 +1,7 @@
 import { VariantProps } from 'class-variance-authority';
 import { SliderProps as SliderPropsBase } from '@radix-ui/react-slider';
-import { sliderVariants } from './Slider.variants';
-export interface SliderProps extends VariantProps<typeof sliderVariants> {
+import { rangeVariants } from './Range.variants';
+export interface RangeProps extends VariantProps<typeof rangeVariants> {
     className?: string;
     defaultValue?: SliderPropsBase['defaultValue'];
     label?: string;
