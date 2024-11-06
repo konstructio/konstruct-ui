@@ -9,9 +9,16 @@ const meta: Meta<typeof SliderComponent> = {
 };
 
 export const Slider: Story = {
-  render: () => (
+  args: {
+    min: 0,
+    max: 100,
+    step: 1,
+    defaultValue: [50],
+    label: 'Slider',
+  },
+  render: (args) => (
     <div className="max-w-[350px]">
-      <SliderComponent />
+      <SliderComponent {...args} />
     </div>
   ),
 };
