@@ -3,50 +3,73 @@ import {
   FC,
   forwardRef,
   useCallback,
+  useEffect,
   useImperativeHandle,
   useRef,
   useState,
 } from 'react';
-import * as RadixSlider from '@radix-ui/react-slider';
+import { Root, Thumb, Track } from '@radix-ui/react-slider';
 import { twMerge } from 'tailwind-merge';
 
+import { useTheme } from '../../contexts';
+
 import { SliderProps } from './Slider.types';
+import {
+  sliderVariants,
+  thumbVariants,
+  trackVariants,
+} from './Slider.variants';
 
 export const Slider: FC<SliderProps> = forwardRef<
   ElementRef<'input'>,
   SliderProps
->(({ label, defaultValue = [50], ...delegated }, ref) => {
-  const inputRef = useRef<ElementRef<'input'>>(null);
-  const [value, setValue] = useState<number[]>(defaultValue);
+>(
+  (
+    { label, defaultValue = [0], name, theme, size, showValue, ...delegated },
+    ref,
+  ) => {
+    const inputRef = useRef<ElementRef<'input'>>(null);
+    const [value, setValue] = useState<number[]>(defaultValue);
+    const { theme: contextTheme } = useTheme();
+    const inheritTheme = theme ?? contextTheme;
 
-  useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
+    useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
 
-  const handleValueChange = useCallback(
-    (newValue: number[]) => setValue(newValue),
-    [],
-  );
+    useEffect(() => {
+      if (inputRef.current) {
+        inputRef.current.value = value.toString();
+      }
+    }, [value]);
 
-  return (
-    <div className="w-full">
-      {label ? <label>{label}</label> : null}
+    const handleValueChange = useCallback(
+      (newValue: number[]) => setValue(newValue),
+      [],
+    );
 
-      <RadixSlider.Root
-        ref={ref}
-        value={value}
-        {...delegated}
-        className={twMerge(
-          'relative flex items-center w-full',
-          label ? 'mt-3' : '',
-        )}
-        onValueChange={handleValueChange}
-      >
-        <RadixSlider.Track className="relative flex-grow bg-red-500 h-2 rounded-lg">
-          <RadixSlider.Range className="abosulute bg-gray-600 h-full" />
-        </RadixSlider.Track>
-        <RadixSlider.Thumb className="block w-5 h-5 bg-yellow-600 rounded-full cursor-pointer" />
-      </RadixSlider.Root>
+    return (
+      <div className="w-full relative flex flex-col gap-3">
+        <div
+          className={twMerge(
+            'flex items-center',
+            label ? 'justify-between' : 'justify-end',
+          )}
+        >
+          {label ? <label>{label}</label> : null}
+          {showValue ? <span className="text-xs">{value}%</span> : null}
+        </div>
 
-      <input ref={inputRef} className="hidden" type="number" />
-    </div>
-  );
-});
+        <input ref={inputRef} name={name} className="hidden" type="number" />
+
+        <Root
+          value={value}
+          className={sliderVariants({ theme: inheritTheme })}
+          onValueChange={handleValueChange}
+          {...delegated}
+        >
+          <Track className={trackVariants({ theme: inheritTheme, size })} />
+          <Thumb className={thumbVariants({ theme: inheritTheme, size })} />
+        </Root>
+      </div>
+    );
+  },
+);

@@ -10,15 +10,34 @@ const meta: Meta<typeof SliderComponent> = {
 
 export const Slider: Story = {
   args: {
-    min: 0,
-    max: 100,
-    step: 1,
-    defaultValue: [50],
-    label: 'Slider',
+    showValue: true,
   },
   render: (args) => (
     <div className="max-w-[350px]">
-      <SliderComponent {...args} />
+      <SliderComponent
+        theme="kubefirst"
+        label="Slider with Kubefirst theme"
+        defaultValue={[50]}
+        {...args}
+      />
+
+      <div className="mt-10" />
+
+      <SliderComponent
+        theme="konstruct"
+        label="Slider with Konstruct theme"
+        defaultValue={[77]}
+        {...args}
+      />
+
+      <div className="mt-10" />
+
+      <SliderComponent
+        theme="colony"
+        label="Slider with Colony theme"
+        defaultValue={[35]}
+        {...args}
+      />
     </div>
   ),
 };
