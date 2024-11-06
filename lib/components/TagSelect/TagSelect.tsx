@@ -2,6 +2,7 @@ import {
   ElementRef,
   FC,
   forwardRef,
+  useEffect,
   useId,
   useImperativeHandle,
   useRef,
@@ -38,6 +39,12 @@ export const TagSelect: FC<TagSelectProps> = forwardRef<
 
   useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
 
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.value = value;
+    }
+  }, [value]);
+
   return (
     <div ref={wrapperRef} className="flex flex-col w-full relative">
       {label ? (
@@ -67,13 +74,7 @@ export const TagSelect: FC<TagSelectProps> = forwardRef<
         />
       </div>
 
-      <input
-        ref={inputRef}
-        type="text"
-        name={name}
-        className="hidden"
-        value={value}
-      />
+      <input ref={inputRef} type="text" name={name} className="hidden" />
 
       {isOpen ? (
         <ul

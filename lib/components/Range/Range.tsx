@@ -8,24 +8,38 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Root, Thumb, Track } from '@radix-ui/react-slider';
+import {
+  Root,
+  Thumb,
+  Track,
+  Range as RangeRadix,
+} from '@radix-ui/react-slider';
 import { twMerge } from 'tailwind-merge';
 
 import { useTheme } from '../../contexts';
 
-import { SliderProps } from './Slider.types';
+import { RangeProps } from './Range.types';
 import {
-  sliderVariants,
+  rangeOutsideVariants,
+  rangeVariants,
   thumbVariants,
   trackVariants,
-} from './Slider.variants';
+} from './Range.variants';
 
-export const Slider: FC<SliderProps> = forwardRef<
+export const Range: FC<RangeProps> = forwardRef<
   ElementRef<'input'>,
-  SliderProps
+  RangeProps
 >(
   (
-    { label, defaultValue = [0], name, theme, size, showValue, ...delegated },
+    {
+      label,
+      defaultValue = [0, 100],
+      name,
+      theme,
+      size,
+      showValue,
+      ...delegated
+    },
     ref,
   ) => {
     const inputRef = useRef<ElementRef<'input'>>(null);
@@ -37,7 +51,7 @@ export const Slider: FC<SliderProps> = forwardRef<
 
     useEffect(() => {
       if (inputRef.current) {
-        inputRef.current.value = value.toString();
+        inputRef.current.value = `[${value.toString()}]`;
       }
     }, [value]);
 
@@ -55,18 +69,28 @@ export const Slider: FC<SliderProps> = forwardRef<
           )}
         >
           {label ? <label>{label}</label> : null}
-          {showValue ? <span className="text-xs">{value}</span> : null}
+          {showValue ? (
+            <span className="text-xs">
+              {value[0]} - {value[1]}
+            </span>
+          ) : null}
         </div>
 
-        <input ref={inputRef} name={name} className="hidden" type="number" />
+        <input ref={inputRef} name={name} className="hidden" type="text" />
 
         <Root
           value={value}
-          className={sliderVariants({ theme: inheritTheme })}
+          className={rangeVariants({ theme: inheritTheme })}
           onValueChange={handleValueChange}
           {...delegated}
         >
-          <Track className={trackVariants({ theme: inheritTheme, size })} />
+          <Track className={trackVariants({ theme: inheritTheme, size })}>
+            <RangeRadix
+              className={rangeOutsideVariants({ theme: inheritTheme })}
+            />
+          </Track>
+
+          <Thumb className={thumbVariants({ theme: inheritTheme, size })} />
           <Thumb className={thumbVariants({ theme: inheritTheme, size })} />
         </Root>
       </div>

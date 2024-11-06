@@ -14,36 +14,42 @@ import { useTheme } from '../../contexts';
 export const TextArea: FC<TextAreaProps> = forwardRef<
   HTMLTextAreaElement,
   TextAreaProps
->(({ initialValue, label, name, placeholder, rows = 3, theme, onChange }) => {
-  const id = useId();
-  const { theme: contextTheme } = useTheme();
-  const htmlId = name ? `${id}-name` : id;
-  const [value, setValue] = useState(initialValue ?? '');
+>(
+  (
+    { initialValue, label, name, placeholder, rows = 3, theme, onChange },
+    ref,
+  ) => {
+    const id = useId();
+    const { theme: contextTheme } = useTheme();
+    const htmlId = name ? `${id}-name` : id;
+    const [value, setValue] = useState(initialValue ?? '');
 
-  const handleChange = useCallback(
-    (event: ChangeEvent<HTMLTextAreaElement>) => {
-      setValue(event.target.value);
-      onChange?.();
-    },
-    [onChange],
-  );
+    const handleChange = useCallback(
+      (event: ChangeEvent<HTMLTextAreaElement>) => {
+        setValue(event.target.value);
+        onChange?.();
+      },
+      [onChange],
+    );
 
-  return (
-    <div className="flex flex-col gap-2">
-      {label ? (
-        <label htmlFor={htmlId} className="cursor-pointer">
-          {label}
-        </label>
-      ) : null}
+    return (
+      <div className="flex flex-col gap-2">
+        {label ? (
+          <label htmlFor={htmlId} className="cursor-pointer">
+            {label}
+          </label>
+        ) : null}
 
-      <textarea
-        id={htmlId}
-        className={textAreaVariants({ theme: theme ?? contextTheme })}
-        rows={rows}
-        placeholder={placeholder}
-        value={value}
-        onChange={handleChange}
-      />
-    </div>
-  );
-});
+        <textarea
+          id={htmlId}
+          ref={ref}
+          className={textAreaVariants({ theme: theme ?? contextTheme })}
+          rows={rows}
+          placeholder={placeholder}
+          value={value}
+          onChange={handleChange}
+        />
+      </div>
+    );
+  },
+);
