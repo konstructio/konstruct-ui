@@ -55,7 +55,7 @@ export const Slider: FC<SliderProps> = forwardRef<
           )}
         >
           {label ? <label>{label}</label> : null}
-          {showValue ? <span className="text-xs">{value}%</span> : null}
+          {showValue ? <span className="text-xs">{value}</span> : null}
         </div>
 
         <input ref={inputRef} name={name} className="hidden" type="number" />
