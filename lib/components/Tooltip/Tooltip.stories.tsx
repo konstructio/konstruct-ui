@@ -11,13 +11,23 @@ const meta: Meta<typeof TooltipComponent> = {
 };
 
 export const Tooltip: Story = {
-  render: () => (
-    <div className="w-[350px] flex flex-col gap-3">
-      <TooltipComponent>
-        <Button>Hover me</Button>
-      </TooltipComponent>
-    </div>
-  ),
+  render: () => {
+    const FancyHover = () => <span className="text-white">Hello!</span>;
+
+    return (
+      <div className="w-[350px] flex flex-col gap-3">
+        <TooltipComponent content={<FancyHover />}>
+          <Button>Hover me!</Button>
+        </TooltipComponent>
+
+        <div className="mt-5" />
+
+        <TooltipComponent content={<FancyHover />}>
+          <span className="p-2">Just is a text</span>
+        </TooltipComponent>
+      </div>
+    );
+  },
 };
 
 export default meta;
