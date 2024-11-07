@@ -13,3 +13,4 @@ export * from './Slider/Slider';
 export * from './Tag/Tag';
 export * from './TagSelect/TagSelect';
 export * from './TextArea/TextArea';
+export * from './Tooltip/Tooltip';
