@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../Button/Button';
 
 import { Tooltip as TooltipComponent } from './Tooltip';
+import { ThemeProvider } from '../../contexts';
 
 type Story = StoryObj<typeof TooltipComponent>;
 
@@ -15,16 +16,43 @@ export const Tooltip: Story = {
     const FancyHover = () => <span className="text-white">Hello!</span>;
 
     return (
-      <div className="w-[350px] flex flex-col gap-3">
-        <TooltipComponent content={<FancyHover />}>
-          <Button>Hover me!</Button>
-        </TooltipComponent>
+      <div className="w-[350px] h-[350px] flex items-center justify-center">
+        <div className="flex flex-col gap-5">
+          <TooltipComponent
+            content={<FancyHover />}
+            position="top"
+            wrapperClassName="flex justify-center"
+          >
+            <Button>Hover on the top!</Button>
+          </TooltipComponent>
 
-        <div className="mt-5" />
+          <ThemeProvider theme="colony">
+            <TooltipComponent
+              content={<FancyHover />}
+              wrapperClassName="flex justify-center"
+            >
+              <Button>Hover on the right!</Button>
+            </TooltipComponent>
+          </ThemeProvider>
 
-        <TooltipComponent content={<FancyHover />}>
-          <span className="p-2">Just is a text</span>
-        </TooltipComponent>
+          <TooltipComponent
+            content={<FancyHover />}
+            position="left"
+            wrapperClassName="flex justify-center"
+          >
+            <Button>Hover on the left!</Button>
+          </TooltipComponent>
+
+          <ThemeProvider theme="konstruct">
+            <TooltipComponent
+              content={<FancyHover />}
+              position="bottom"
+              wrapperClassName="flex justify-center"
+            >
+              <Button>Hover on the bottom!</Button>
+            </TooltipComponent>
+          </ThemeProvider>
+        </div>
       </div>
     );
   },

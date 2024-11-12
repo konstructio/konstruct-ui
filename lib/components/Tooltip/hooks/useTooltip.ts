@@ -1,13 +1,31 @@
-import { useContext } from 'react';
-
-import { TooltipContext } from '../contexts/Tooltip.context';
+import { useEffect, useRef, useState } from 'react';
 
 export const useTooltip = () => {
-  const context = useContext(TooltipContext);
+  const componentRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
-  if (!context) {
-    throw new Error('useTooltip must be used within a TooltipProvider');
-  }
+  useEffect(() => {
+    const controller = new AbortController();
 
-  return context;
+    componentRef.current?.addEventListener(
+      'mouseenter',
+      () => setIsVisible(true),
+      { signal: controller.signal },
+    );
+
+    componentRef.current?.addEventListener(
+      'mouseleave',
+      () => setIsVisible(false),
+      { signal: controller.signal },
+    );
+
+    return () => {
+      controller.abort();
+    };
+  }, []);
+
+  return {
+    isVisible,
+    componentRef,
+  };
 };
