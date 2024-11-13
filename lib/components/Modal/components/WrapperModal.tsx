@@ -2,6 +2,7 @@ import { FC, useEffect, useRef } from 'react';
 import { X as Close } from 'react-feather';
 import FocusLock from 'react-focus-lock';
 import { RemoveScroll } from 'react-remove-scroll';
+import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
 import { useTheme } from '../../../contexts';
 import { useModal } from '../hooks';
@@ -75,7 +76,7 @@ export const WrapperModal: FC<WrapperModalProps> = ({
               onClick={onClose}
             >
               <Close />
-              <span className="sr-only">Dismiss modal</span>
+              <VisuallyHidden>Dismiss modal</VisuallyHidden>
             </button>
 
             {children ?? content}
