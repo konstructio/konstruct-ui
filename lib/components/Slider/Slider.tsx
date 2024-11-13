@@ -9,9 +9,9 @@ import {
   useState,
 } from 'react';
 import { Root, Thumb, Track } from '@radix-ui/react-slider';
-import { twMerge } from 'tailwind-merge';
 
 import { useTheme } from '../../contexts';
+import { cn } from '../../utils';
 
 import { SliderProps } from './Slider.types';
 import {
@@ -49,7 +49,7 @@ export const Slider: FC<SliderProps> = forwardRef<
     return (
       <div className="w-full relative flex flex-col gap-3">
         <div
-          className={twMerge(
+          className={cn(
             'flex items-center',
             label ? 'justify-between' : 'justify-end',
           )}
