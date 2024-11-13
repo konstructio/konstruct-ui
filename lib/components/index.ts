@@ -10,6 +10,7 @@ export * from './ProgressBar/ProgressBar';
 export * from './Radio/Radio';
 export * from './Range/Range';
 export * from './Slider/Slider';
+export * from './Switch/Switch';
 export * from './Tag/Tag';
 export * from './TagSelect/TagSelect';
 export * from './TextArea/TextArea';
