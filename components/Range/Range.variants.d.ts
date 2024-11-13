@@ -6,9 +6,9 @@ export declare const rangeOutsideVariants: (props?: ({
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
 export declare const trackVariants: (props?: ({
     theme?: "kubefirst" | "konstruct" | "colony" | null | undefined;
-    size?: "sm" | "md" | "lg" | null | undefined;
+    size?: "sm" | "lg" | "md" | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
 export declare const thumbVariants: (props?: ({
     theme?: "kubefirst" | "konstruct" | "colony" | null | undefined;
-    size?: "sm" | "md" | "lg" | null | undefined;
+    size?: "sm" | "lg" | "md" | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;

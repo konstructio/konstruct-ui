@@ -1,11 +1,12 @@
-export declare const sliderVariants: (props?: ({
+export declare const breadcrumbVariants: (props?: ({
     theme?: "kubefirst" | "konstruct" | "colony" | null | undefined;
+    size?: "base" | "sm" | "lg" | "xl" | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
-export declare const trackVariants: (props?: ({
+export declare const breadcrumbItemVariants: (props?: ({
     theme?: "kubefirst" | "konstruct" | "colony" | null | undefined;
-    size?: "sm" | "lg" | "md" | null | undefined;
+    size?: "base" | "sm" | "lg" | "xl" | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
-export declare const thumbVariants: (props?: ({
+export declare const chevronVariants: (props?: ({
     theme?: "kubefirst" | "konstruct" | "colony" | null | undefined;
-    size?: "sm" | "lg" | "md" | null | undefined;
+    size?: "base" | "sm" | "lg" | "xl" | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
