@@ -7,11 +7,11 @@ import {
   useImperativeHandle,
   useRef,
 } from 'react';
-import { twMerge } from 'tailwind-merge';
 import { ChevronUp } from 'react-feather';
 
-import { Tag } from '../Tag/Tag';
 import { useTheme } from '../../contexts';
+import { cn } from '../../utils';
+import { Tag } from '../Tag/Tag';
 
 import { TagSelectProps } from './TagSelect.types';
 import { useTagSelect } from './hooks/useTagSelect';
@@ -67,7 +67,7 @@ export const TagSelect: FC<TagSelectProps> = forwardRef<
         )}
 
         <ChevronUp
-          className={twMerge(
+          className={cn(
             'w-4 h-4 text-inherit transition-all duration-50',
             isOpen ? 'rotate-0' : 'rotate-180',
           )}
@@ -79,7 +79,7 @@ export const TagSelect: FC<TagSelectProps> = forwardRef<
       {isOpen ? (
         <ul
           role="listbox"
-          className={twMerge(tagListVariants({ theme: theme ?? themeContext }))}
+          className={cn(tagListVariants({ theme: theme ?? themeContext }))}
         >
           {options.map((tag) => (
             <li

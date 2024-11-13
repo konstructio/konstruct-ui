@@ -6,8 +6,8 @@ import {
   useImperativeHandle,
   useRef,
 } from 'react';
-import { twMerge } from 'tailwind-merge';
 
+import { cn } from '../../../../utils';
 import { useNavigationUlList } from '../../hooks/useNavigationList';
 import { useDropdownContext } from '../../contexts';
 import { ListItem } from '../ListItem/ListItem';
@@ -30,7 +30,7 @@ export const List: ForwardRefExoticComponent<
       <ul
         ref={ulRef}
         role="listbox"
-        className={twMerge(listVariants({ theme }), isOpen ? 'flex' : 'hidden')}
+        className={cn(listVariants({ theme }), isOpen ? 'flex' : 'hidden')}
       >
         {options.map((option) => (
           <ListItem key={option.value} theme={theme} {...option} />

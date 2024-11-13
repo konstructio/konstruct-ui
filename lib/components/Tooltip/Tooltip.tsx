@@ -7,9 +7,9 @@ import {
   useRef,
 } from 'react';
 import { Slot } from '@radix-ui/react-slot';
-import { twMerge } from 'tailwind-merge';
 
 import { useTheme } from '../../contexts';
+import { cn } from '../../utils';
 
 import { TooltipProps } from './Tooltip.types';
 import { arrowVariants, tooltipVariants } from './Tooltip.variants';
@@ -34,12 +34,9 @@ export const Tooltip: FC<TooltipProps> = forwardRef<HTMLElement, TooltipProps>(
     );
 
     return (
-      <div className={twMerge('w-full', wrapperClassName)}>
+      <div className={cn('w-full', wrapperClassName)}>
         <div className="relative w-max">
-          <Slot
-            ref={componentRef}
-            className={twMerge('cursor-pointer ', className)}
-          >
+          <Slot ref={componentRef} className={cn('cursor-pointer ', className)}>
             {newChildren}
           </Slot>
 

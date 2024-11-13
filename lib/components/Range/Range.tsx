@@ -14,8 +14,8 @@ import {
   Track,
   Range as RangeRadix,
 } from '@radix-ui/react-slider';
-import { twMerge } from 'tailwind-merge';
 
+import { cn } from '../../utils';
 import { useTheme } from '../../contexts';
 
 import { RangeProps } from './Range.types';
@@ -63,7 +63,7 @@ export const Range: FC<RangeProps> = forwardRef<
     return (
       <div className="w-full relative flex flex-col gap-3">
         <div
-          className={twMerge(
+          className={cn(
             'flex items-center',
             label ? 'justify-between' : 'justify-end',
           )}

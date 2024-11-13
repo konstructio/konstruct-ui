@@ -9,8 +9,8 @@ import {
   useState,
 } from 'react';
 import { Root, Thumb } from '@radix-ui/react-switch';
-import { twMerge } from 'tailwind-merge';
 
+import { cn } from '../../utils';
 import { useTheme } from '../../contexts';
 
 import { SwitchProps } from './Switch.types';
@@ -54,7 +54,7 @@ export const Switch: FC<SwitchProps> = forwardRef<
 
     return (
       <div
-        className={twMerge(
+        className={cn(
           'w-full flex gap-3',
           alignment === 'vertical' ? 'flex-col' : 'flex-row',
         )}

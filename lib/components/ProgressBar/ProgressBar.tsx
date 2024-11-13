@@ -1,13 +1,13 @@
 import { FC } from 'react';
 
 import { useTheme } from '../../contexts';
+import { cn } from '../../utils';
 
 import { ProgressBarProps } from './ProgressBar.types';
 import {
   progressBarProgress,
   progressBarVariants,
 } from './ProgressBar.variants';
-import { twMerge } from 'tailwind-merge';
 
 export const ProgressBar: FC<ProgressBarProps> = ({
   label,
@@ -20,16 +20,14 @@ export const ProgressBar: FC<ProgressBarProps> = ({
 
   return (
     <div className="w-full">
-      <div
-        className={twMerge('flex', label ? 'justify-between' : 'justify-end')}
-      >
+      <div className={cn('flex', label ? 'justify-between' : 'justify-end')}>
         {label ? <label className="font-semibold">{label}</label> : null}
         <span className="font-semibold">{percent}%</span>
       </div>
 
       <div className={progressBarVariants({ theme: inheritTheme })}>
         <div
-          className={twMerge(
+          className={cn(
             progressBarProgress({ theme: inheritTheme, status }),
             percent > 0 && percent < 99
               ? 'transition-width duration-500'

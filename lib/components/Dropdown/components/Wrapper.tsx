@@ -9,8 +9,8 @@ import {
   useRef,
 } from 'react';
 import { ChevronUp } from 'react-feather';
-import { twMerge } from 'tailwind-merge';
 
+import { cn } from '../../../utils';
 import { useTheme } from '../../../contexts';
 import { DropdownProps } from '../Dropdown.types';
 import { dropdownVariants } from '../Dropdown.variants';
@@ -117,7 +117,7 @@ export const Wrapper: ForwardRefExoticComponent<
           </span>
 
           <ChevronUp
-            className={twMerge(
+            className={cn(
               'w-4 h-4 text-inherit transition-all duration-50',
               isOpen ? 'rotate-0' : 'rotate-180',
             )}
