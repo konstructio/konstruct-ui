@@ -42,6 +42,7 @@
     "react-feather": "^2.0.10",
     "react-focus-lock": "^2.13.2",
     "react-remove-scroll": "^2.6.0",
+    "react-router-dom": "^6.28.0",
     "tailwind-merge": "^2.5.4"
   },
   "peerDependencies": {
