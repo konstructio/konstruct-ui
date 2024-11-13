@@ -9,9 +9,16 @@ const meta: Meta<typeof SwitchComponent> = {
 };
 
 export const Switch: Story = {
+  args: {
+    defaultChecked: true,
+  },
   render: (args) => (
     <div className="max-w-[350px]">
-      <SwitchComponent {...args} />
+      <SwitchComponent label="Kubefirst theme" {...args} />
+      <div className="mt-5" />
+      <SwitchComponent label="Konstruct theme" theme="konstruct" {...args} />
+      <div className="mt-5" />
+      <SwitchComponent label="Colony theme" theme="colony" {...args} />
     </div>
   ),
 };
