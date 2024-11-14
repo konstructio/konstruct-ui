@@ -9,13 +9,6 @@
   "files": [
     "dist"
   ],
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "import": "./dist/index.js",
-      "default": "./dist/index.cjs"
-    }
-  },
   "author": {
     "name": "Jesús Manuel Fuentes Trejo",
     "email": "me@futjesus.dev",
@@ -43,17 +36,17 @@
   ],
   "homepage": "https://konstructio.github.io/konstruct-ui",
   "scripts": {
-    "build": "tsc --p ./tsconfig.build.json && tsup",
+    "build": "tsc --p ./tsconfig.build.json && tsup && cp ./package.json ./dist/package.json && cp ./scripts/generate-exports.js ./dist/generate-exports.js && node ./dist/generate-exports.js",
     "build:storybook": "storybook build -o storybook-static && cp -r public/* storybook-static",
     "check:exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
     "check:prettier": "prettier lib --check --config ./.prettierrc",
     "check:types": "tsc -p tsconfig.json",
     "ci": "npm run build && npm run check:prettier && npm run check:exports && npm run test",
+    "ci:release": "changeset version && changeset publish",
     "deps:update": "npx npm-check-updates --interactive --format group",
     "dev": "vite",
     "format:prettier": "prettier lib --write './**/*.{js,jsx,ts,tsx}' --config ./.prettierrc",
     "lint": "eslint lib --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "local:release": "changeset version && changeset publish",
     "prepare": "husky",
     "prepublishOnly": "npm run ci",
     "preview": "vite preview",

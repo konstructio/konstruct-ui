@@ -1,13 +1,15 @@
 import { defineConfig } from 'tsup';
-import { resolve } from 'node:path';
 
 export default defineConfig({
-  entryPoints: [
-    resolve(__dirname, 'lib/index.ts'),
-    resolve(__dirname, 'lib/styles.ts'),
+  entry: [
+    '!lib/**/*.test.(tsx|ts)',
+    '!lib/**/*.stories.(tsx|ts)',
+    './lib/**/*.(tsx|ts)',
   ],
   format: ['cjs', 'esm'],
   dts: true,
   outDir: 'dist',
   clean: true,
+  bundle: false,
+  splitting: true,
 });

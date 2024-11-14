@@ -6,6 +6,8 @@ import {
   useRef,
 } from 'react';
 
+import { useTheme } from '../../contexts';
+
 import { useAutocomplete } from './hooks';
 import { List } from './components/List';
 import { AutocompleteProps } from './Autocomplete.types';
@@ -32,6 +34,8 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     const wrapperRef = useRef<ElementRef<'div'>>(null);
     const inputRef = useRef<ElementRef<'input'>>(null);
     const id = useId();
+    const { theme: contextTheme } = useTheme();
+    const inheritTheme = theme ?? contextTheme;
 
     useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
 
@@ -48,7 +52,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           <label
             htmlFor={name ?? id}
             className={labelVariants({
-              theme,
+              theme: inheritTheme,
               variant,
               className: labelClassName,
             })}
@@ -64,7 +68,11 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           name={name}
           role="combobox"
           autoComplete={autoComplete}
-          className={autocompleteVariants({ theme, variant, className })}
+          className={autocompleteVariants({
+            theme: inheritTheme,
+            variant,
+            className,
+          })}
           onChange={autocomplete.handleChange}
           value={autocomplete.value}
           placeholder={placeholder}
@@ -80,7 +88,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
               placeholder={placeHolderEmptyValues}
               placeholderClassName={placeHolderEmptyValuesClassName}
               variant={variant}
-              theme={theme}
+              theme={inheritTheme}
               onClick={autocomplete.handleSelectValue}
             />
           </div>
