@@ -1,4 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import {
+  FC,
+  isValidElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
   Action,
   Description,
@@ -7,61 +15,82 @@ import {
   Title,
   Viewport,
 } from '@radix-ui/react-toast';
+import { Slot } from '@radix-ui/react-slot';
+import { X } from 'react-feather';
 
-export const Toast = () => {
+import { useTheme } from '../../contexts';
+
+import { ToastProps } from './Toast.types';
+import {
+  closeToastVariants,
+  toastVariants,
+  viewportToastVariants,
+} from './Toast.variants';
+
+export const Toast: FC<ToastProps> = ({
+  title,
+  duration = 5000,
+  titleClassName,
+  descriptionClassName,
+  description,
+  children,
+  theme,
+  showCloseButton = true,
+  className,
+}) => {
   const [open, setOpen] = useState(false);
-  const eventDateRef = useRef(new Date());
   const timerRef = useRef(0);
+  const { theme: contextTheme } = useTheme();
+  const inheritTheme = theme ?? contextTheme;
 
   useEffect(() => {
     return () => clearTimeout(timerRef.current);
   }, []);
 
-  function oneWeekAway() {
-    const now = new Date();
-    const inOneWeek = now.setDate(now.getDate() + 7);
-    return new Date(inOneWeek);
-  }
+  const titleResult = useMemo(() => {
+    if (isValidElement(title)) {
+      return <Slot className={titleClassName}>{title}</Slot>;
+    }
 
-  function prettyDate(date: Date) {
-    return new Intl.DateTimeFormat('en-US', {
-      dateStyle: 'full',
-      timeStyle: 'short',
-    }).format(date);
-  }
+    return <h6 className={titleClassName}>{title}</h6>;
+  }, [title, titleClassName]);
+
+  const descriptionResult = useMemo(() => {
+    if (isValidElement(description)) {
+      return <Slot className={descriptionClassName}>{description}</Slot>;
+    }
+
+    return <h6 className={descriptionClassName}>{description}</h6>;
+  }, [description, descriptionClassName]);
+
+  const handleClick = useCallback(() => {
+    setOpen(false);
+    timerRef.current = window.setTimeout(() => setOpen(true), 100);
+  }, []);
 
   return (
-    <Provider swipeDirection="right">
-      <button
-        className="Button large violet"
-        onClick={() => {
-          setOpen(false);
-          window.clearTimeout(timerRef.current);
-          timerRef.current = window.setTimeout(() => {
-            eventDateRef.current = oneWeekAway();
-            setOpen(true);
-          }, 100);
-        }}
-      >
-        Add to calendar
-      </button>
+    <Provider swipeDirection="right" duration={duration}>
+      <Slot onClick={handleClick}>{children}</Slot>
 
-      <Root className="ToastRoot" open={open} onOpenChange={setOpen}>
-        <Title className="ToastTitle">Scheduled: Catch up</Title>
-        <Description asChild>
-          <time
-            className="ToastDescription"
-            dateTime={eventDateRef.current.toISOString()}
-          >
-            {prettyDate(eventDateRef.current)}
-          </time>
-        </Description>
-        <Action className="ToastAction" asChild altText="Goto schedule to undo">
-          <button className="Button small green">Undo</button>
-        </Action>
+      <Root
+        className={toastVariants({ theme: inheritTheme, className })}
+        open={open}
+        onOpenChange={setOpen}
+      >
+        <Title asChild className="text-lg mb-2 font-semibold">
+          {titleResult}
+        </Title>
+
+        <Description asChild>{descriptionResult}</Description>
+
+        {showCloseButton && (
+          <Action className="absolute" asChild altText="Close the toast">
+            <X className={closeToastVariants({ theme: inheritTheme })} />
+          </Action>
+        )}
       </Root>
 
-      <Viewport className="ToastViewport" />
+      <Viewport className={viewportToastVariants({ theme: inheritTheme })} />
     </Provider>
   );
 };
