@@ -1,31 +1,61 @@
 {
   "name": "@konstruct/ui",
+  "description": "A set of reusable and customizable React components built for konstruct.io",
   "private": false,
   "version": "0.0.1",
   "type": "module",
+  "license": "MIT",
   "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
   "files": [
     "dist"
+  ],
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": "./dist/index.js",
+      "default": "./dist/index.cjs"
+    }
+  },
+  "author": {
+    "name": "Jesús Manuel Fuentes Trejo",
+    "email": "me@futjesus.dev",
+    "url": "https://futjesus.dev"
+  },
+  "keywords": [
+    "konstruct",
+    "colony",
+    "kubefirst",
+    "react",
+    "tailwind",
+    "vite",
+    "vitest",
+    "radix"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/konstructio/konstruct-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/konstructio/konstruct-ui/issues"
   },
   "sideEffects": [
     "**/*.css"
   ],
   "homepage": "https://konstructio.github.io/konstruct-ui",
   "scripts": {
-    "build": "rimraf ./dist && tsc --p ./tsconfig.build.json && vite build && cp ./package.json ./dist/package.json",
+    "build": "tsc --p ./tsconfig.build.json && tsup",
     "build:storybook": "storybook build -o storybook-static && cp -r public/* storybook-static",
+    "check:exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
     "check:prettier": "prettier lib --check --config ./.prettierrc",
     "check:types": "tsc -p tsconfig.json",
+    "ci": "npm run build && npm run check:prettier && npm run check:exports && npm run test",
     "deps:update": "npx npm-check-updates --interactive --format group",
     "dev": "vite",
     "format:prettier": "prettier lib --write './**/*.{js,jsx,ts,tsx}' --config ./.prettierrc",
     "lint": "eslint lib --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "local:release": "changeset version && changeset publish",
     "prepare": "husky",
+    "prepublishOnly": "npm run ci",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "test": "vitest run --coverage",
@@ -53,6 +83,8 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.17.0",
+    "@changesets/cli": "^2.27.9",
     "@storybook/addon-essentials": "^8.4.4",
     "@storybook/addon-interactions": "^8.4.4",
     "@storybook/addon-links": "^8.4.4",
@@ -84,13 +116,12 @@
     "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "rimraf": "^6.0.1",
     "storybook": "^8.4.4",
     "tailwindcss": "^3.4.14",
     "ts-node": "^10.9.2",
+    "tsup": "^8.3.5",
     "typescript": "^5.6.3",
     "vite": "^5.4.11",
-    "vite-plugin-dts": "^4.3.0",
     "vite-plugin-lib-inject-css": "^2.1.1",
     "vitest": "^2.1.5"
   }
