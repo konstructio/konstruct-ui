@@ -51,6 +51,7 @@ export const AlertDialog: FC<AlertDialogProps> = ({
                 Cancel
               </Button>
             </Cancel>
+
             <Action asChild={true}>
               <Button
                 type="button"
