@@ -43,10 +43,21 @@ export const Modal: Story = {
         <ThemeProvider>
           <ModalProvider>
             <WrapperButton />
+
             <ModalComponent>
-              <div className="flex justify-center items-center h-full">
-                This is a modal content test
-              </div>
+              <ModalComponent.Header className="text-center text-xl bg-gray-50 p-4 border-b">
+                This is the Header
+              </ModalComponent.Header>
+
+              <ModalComponent.Body>
+                <div className="flex justify-center items-center h-full text-gray-900">
+                  This is the Body
+                </div>
+              </ModalComponent.Body>
+
+              <ModalComponent.Footer className="text-center text-sm bg-gray-50 p-4 border-t">
+                This is the Footer
+              </ModalComponent.Footer>
             </ModalComponent>
           </ModalProvider>
         </ThemeProvider>

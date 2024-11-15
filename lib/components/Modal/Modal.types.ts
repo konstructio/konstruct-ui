@@ -1,11 +1,17 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
 import { VariantProps } from 'class-variance-authority';
 
-import { modalWrapperVariants } from './components/WrapperModal.variants';
+import { modalVariants } from './components/Wrapper/Wrapper.variants';
 
 export interface ModalProps
   extends PropsWithChildren,
-    VariantProps<typeof modalWrapperVariants> {
+    VariantProps<typeof modalVariants> {
   className?: string;
   buttonCloseClassName?: string;
 }
+
+export type ModalChildProps = {
+  children: ReactNode;
+  className?: string;
+  asChild?: boolean;
+};

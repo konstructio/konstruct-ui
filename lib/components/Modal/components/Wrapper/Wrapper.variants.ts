@@ -1,18 +1,20 @@
 import { cva } from 'class-variance-authority';
 
-export const modalWrapperVariants = cva(
+export const modalVariants = cva(
   [
-    'relative',
-    'overflow-auto',
-    'border-none',
     'bg-metal-1000',
-    'lg:overflow-hidden',
-    'min-w-[500px]',
-    'min-h-[450px]',
     'bg-white',
-    'p-4',
+    'border-none',
+    'flex',
+    'flex-col',
+    'justify-between',
+    'min-h-[450px]',
+    'min-w-[500px]',
+    'overflow-auto',
+    'relative',
     'rounded-md',
     'shadow-xs',
+    'lg:overflow-hidden',
   ],
   {
     variants: {
@@ -28,7 +30,7 @@ export const modalWrapperVariants = cva(
   },
 );
 
-export const buttonCloseModalVariants = cva(
+export const buttonCloseVariants = cva(
   ['absolute', 'right-1.5', 'top-1.5', 'text-inherit'],
   {
     variants: {
