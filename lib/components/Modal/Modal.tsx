@@ -1,16 +1,26 @@
 import { FC } from 'react';
 import { createPortal } from 'react-dom';
 
+import { Body, Footer, Header, Wrapper } from './components';
 import { useModal } from './hooks';
-import { WrapperModal } from './components';
-import { ModalProps } from './Modal.types';
+import { ModalChildProps, ModalProps } from './Modal.types';
 
-export const Modal: FC<ModalProps> = ({ ...delegated }) => {
+const Modal: FC<ModalProps> & {
+  Header: FC<ModalChildProps>;
+  Body: FC<ModalChildProps>;
+  Footer: FC<ModalChildProps>;
+} = ({ ...delegated }) => {
   const { isOpen } = useModal();
 
   if (!isOpen) {
     return null;
   }
 
-  return createPortal(<WrapperModal {...delegated} />, document.body);
+  return createPortal(<Wrapper {...delegated} />, document.body);
 };
+
+Modal.Header = Header;
+Modal.Body = Body;
+Modal.Footer = Footer;
+
+export { Modal };
