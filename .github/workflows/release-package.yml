@@ -31,19 +31,16 @@ jobs:
         run: |
           echo "RELEASE_VERSION=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
 
-      - name: Bump version in package.json
-        run: |
-          npx json -I -f package.json -e "this.version='${RELEASE_VERSION}'"
-
       - name: Configure Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Checkout, Commit and push version change
+      - name: Checkout, bun, commit and push version change
         run: |
           git fetch origin main
           git checkout main
+          npx json -I -f package.json -e "this.version='${RELEASE_VERSION}'"
           git add package.json
           git commit -m "🔖 release: bump version to ${RELEASE_VERSION}" --no-verify
           git push origin main
