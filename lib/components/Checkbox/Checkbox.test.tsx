@@ -10,7 +10,10 @@ describe('Checkbox', () => {
     defaultChecked: false,
   } satisfies CheckboxProps;
 
-  const setup = (props?: Partial<CheckboxProps>, wrapper?: FC) => {
+  const setup = (
+    props?: Partial<CheckboxProps>,
+    wrapper?: FC<PropsWithChildren>,
+  ) => {
     render(<Checkbox {...defaultProps} {...props} />, { wrapper });
 
     const user = userEvent.setup();
