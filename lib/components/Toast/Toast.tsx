@@ -17,6 +17,7 @@ import {
 } from '@radix-ui/react-toast';
 import { Slot } from '@radix-ui/react-slot';
 import { X } from 'react-feather';
+import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
 import { useTheme } from '../../contexts';
 
@@ -84,8 +85,11 @@ export const Toast: FC<ToastProps> = ({
         <Description asChild>{descriptionResult}</Description>
 
         {showCloseButton && (
-          <Action className="absolute" asChild altText="Close the toast">
-            <X className={closeToastVariants({ theme: inheritTheme })} />
+          <Action asChild altText="Close the toast">
+            <button type="button" className="absolute right-1.5 top-1.5">
+              <X className={closeToastVariants({ theme: inheritTheme })} />
+              <VisuallyHidden>Close toast</VisuallyHidden>
+            </button>
           </Action>
         )}
       </Root>
