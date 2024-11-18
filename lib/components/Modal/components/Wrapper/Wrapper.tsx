@@ -48,6 +48,7 @@ export const Wrapper: FC<WrapperProps> = ({
           <div
             className="absolute inset-0 bg-black opacity-75"
             onClick={onClose}
+            role="presentation"
           />
 
           <div

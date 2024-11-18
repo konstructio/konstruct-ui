@@ -49,7 +49,7 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "test": "vitest run --coverage",
-    "test:watch": "vitest run -w"
+    "test:watch": "vitest dev"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.2",

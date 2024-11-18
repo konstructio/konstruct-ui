@@ -11,7 +11,7 @@ describe('AlertDialog', () => {
     description: 'Description',
   } satisfies AlertDialogProps;
 
-  const setup = (props?: AlertDialogProps) => {
+  const setup = (props?: Partial<AlertDialogProps>) => {
     render(<AlertDialog {...defaultProps} {...props} />);
 
     const user = userEvent.setup();
