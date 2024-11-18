@@ -1,5 +1,6 @@
 import { FC, forwardRef, useCallback, useId, useState } from 'react';
-import { Plus, Minus } from 'react-feather';
+import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { Minus, Plus } from 'react-feather';
 
 import { useTheme } from '../../contexts';
 
@@ -84,14 +85,17 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
             className={buttonVariants({ theme: defaultTheme, button: 'rigth' })}
           >
             <Minus className="w-4 h-4" />
+            <VisuallyHidden>Decrement</VisuallyHidden>
           </button>
 
           <input
             ref={ref}
             type="number"
             value={count}
+            name={name}
             className={numberInputVariants({ className, theme: defaultTheme })}
             readOnly
+            role="textbox"
           />
 
           <button
@@ -100,6 +104,7 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
             className={buttonVariants({ theme: defaultTheme, button: 'left' })}
           >
             <Plus className="w-4 h-4" />
+            <VisuallyHidden>Increment</VisuallyHidden>
           </button>
         </div>
       </div>
