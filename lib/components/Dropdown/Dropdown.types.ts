@@ -15,4 +15,5 @@ export interface DropdownProps extends VariantProps<typeof dropdownVariants> {
   name?: string;
   options: Option[];
   placeholder?: string;
+  onChange?: (value: Option) => void;
 }
