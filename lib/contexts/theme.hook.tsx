@@ -10,9 +10,5 @@ type ThemeProps = {
 export const useTheme = (): ThemeProps => {
   const context = useContext(ThemeContext);
 
-  if (!context) {
-    return {};
-  }
-
   return context;
 };
