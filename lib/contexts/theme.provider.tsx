@@ -5,11 +5,14 @@ import { isClient } from '../utils';
 
 import { ThemeContext, ThemeContextType } from './theme.context';
 
-type Props = PropsWithChildren & {
+export type ThemeContextProps = PropsWithChildren & {
   theme?: ThemeContextType['theme'];
 };
 
-export const ThemeProvider: FC<Props> = ({ children, theme: themeName }) => {
+export const ThemeProvider: FC<ThemeContextProps> = ({
+  children,
+  theme: themeName,
+}) => {
   const [theme, setTheme] = useState<ThemeContextType['theme']>(() => {
     if (themeName) {
       return themeName;
