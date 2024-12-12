@@ -1,5 +1,5 @@
 import {
-  ElementRef,
+  ComponentRef,
   forwardRef,
   useId,
   useImperativeHandle,
@@ -31,8 +31,8 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     },
     ref,
   ) => {
-    const wrapperRef = useRef<ElementRef<'div'>>(null);
-    const inputRef = useRef<ElementRef<'input'>>(null);
+    const wrapperRef = useRef<ComponentRef<'div'>>(null);
+    const inputRef = useRef<ComponentRef<'input'>>(null);
     const id = useId();
     const { theme: contextTheme } = useTheme();
     const inheritTheme = theme ?? contextTheme;

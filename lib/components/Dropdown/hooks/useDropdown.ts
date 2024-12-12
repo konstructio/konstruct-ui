@@ -1,14 +1,14 @@
-import { ElementRef, RefObject, useCallback, useEffect, useRef } from 'react';
+import { ComponentRef, RefObject, useCallback, useEffect, useRef } from 'react';
 
 import { useDropdownContext } from '../contexts';
 
 type UseDropDownParams = {
-  ulRef: RefObject<ElementRef<'ul'>>;
+  ulRef: RefObject<ComponentRef<'ul'> | null>;
 };
 
 export const useDropdown = ({ ulRef }: UseDropDownParams) => {
-  const wrapperRef = useRef<ElementRef<'div'>>(null);
-  const wrapperInputRef = useRef<ElementRef<'div'>>(null);
+  const wrapperRef = useRef<ComponentRef<'div'>>(null);
+  const wrapperInputRef = useRef<ComponentRef<'div'>>(null);
   const { isOpen, toggleOpen } = useDropdownContext();
 
   useEffect(() => {

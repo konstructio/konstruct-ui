@@ -49,10 +49,7 @@ describe('Breadcrumb', () => {
     ] satisfies BreadcrumbProps['steps'];
 
     const RouterWrapper: FC<PropsWithChildren> = ({ children }) => (
-      <MemoryRouter
-        initialEntries={['/']}
-        future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
-      >
+      <MemoryRouter initialEntries={['/']}>
         <Routes>
           <Route path="/" element={<div>Home Page</div>} />
           <Route path="/step-1" element={<div>Step 1 Page</div>} />

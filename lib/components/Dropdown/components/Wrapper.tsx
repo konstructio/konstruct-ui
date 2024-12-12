@@ -1,5 +1,5 @@
 import {
-  ElementRef,
+  ComponentRef,
   forwardRef,
   ForwardRefExoticComponent,
   RefAttributes,
@@ -20,12 +20,12 @@ import { useDropdownContext } from '../contexts';
 import { List } from './List/List';
 
 export const Wrapper: ForwardRefExoticComponent<
-  DropdownProps & RefAttributes<ElementRef<'input'>>
-> = forwardRef<ElementRef<'input'>, DropdownProps>(
+  DropdownProps & RefAttributes<ComponentRef<'input'>>
+> = forwardRef<ComponentRef<'input'>, DropdownProps>(
   ({ theme, label, placeholder, name, options, defaultValue }, ref) => {
     const id = useId();
-    const inputRef = useRef<ElementRef<'input'>>(null);
-    const ulRef = useRef<ElementRef<'ul'>>(null);
+    const inputRef = useRef<ComponentRef<'input'>>(null);
+    const ulRef = useRef<ComponentRef<'ul'>>(null);
     const { wrapperRef, wrapperInputRef, handleOpen, handleOpenIfClosed } =
       useDropdown({ ulRef });
     const { isOpen, value, setValue, toggleOpen } = useDropdownContext();

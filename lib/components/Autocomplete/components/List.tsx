@@ -1,4 +1,4 @@
-import { ElementRef, FC, useRef } from 'react';
+import { ComponentRef, FC, useRef } from 'react';
 
 import { useNavigationUlList } from '../hooks';
 
@@ -21,7 +21,7 @@ export const List: FC<Props> = ({
   wrapperRef,
   onClick,
 }) => {
-  const ulRef = useRef<ElementRef<'ul'>>(null);
+  const ulRef = useRef<ComponentRef<'ul'>>(null);
 
   useNavigationUlList({ ulRef, inputRef, wrapperRef, options });
 
