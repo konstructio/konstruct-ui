@@ -17,7 +17,7 @@ export const tooltipVariants = cva(
   {
     variants: {
       theme: {
-        kubefirst: 'bg-kubefirst-purple-light',
+        kubefirst: 'bg-kubefirst-primary',
         konstruct: 'bg-orange-500',
         colony: 'bg-red-700',
       },
@@ -38,7 +38,7 @@ export const tooltipVariants = cva(
 export const arrowVariants = cva(['absolute', 'w-0', 'h-0'], {
   variants: {
     theme: {
-      kubefirst: 'border-kubefirst-purple-light',
+      kubefirst: 'border-kubefirst-primary',
       konstruct: 'border-orange-500',
       colony: 'border-red-700',
     },

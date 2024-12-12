@@ -22,8 +22,8 @@ export const Toast: Story = {
           {...args}
           title={<h6>This is a title</h6>}
           description={<p>This is a description</p>}
-          titleClassName="text-kubefirst-purple-dark"
-          descriptionClassName="text-kubefirst-purple-light"
+          titleClassName="text-kubefirst-secondary"
+          descriptionClassName="text-kubefirst-primary"
           className="bg-purple-50"
         >
           <Button>Show Toast Kubefirst Theme</Button>

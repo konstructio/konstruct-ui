@@ -26,7 +26,7 @@ export const Breadcrumb: Story = {
   render: (args) => (
     <div className="max-w-[350px] flex flex-col gap-1">
       <ThemeProvider theme="kubefirst">
-        <p className="text-kubefirst-purple-dark font-semibold">
+        <p className="text-kubefirst-secondary font-semibold">
           Kubefirst Theme
         </p>
         <BreadcrumbComponent size="sm" {...args} />

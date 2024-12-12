@@ -18,7 +18,7 @@ export const switchVariants = cva(
     variants: {
       theme: {
         konstruct: 'bg-orange-600',
-        kubefirst: 'bg-kubefirst-purple-light',
+        kubefirst: 'bg-kubefirst-primary',
         colony: 'bg-red-600',
       },
     },

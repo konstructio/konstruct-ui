@@ -25,8 +25,8 @@ export const dropdownVariants = cva(
           'focus-visible:bg-orange-100',
         ],
         kubefirst: [
-          'aria-expanded:border-kubefirst-purple-light',
-          'aria-expanded:text-kubefirst-purple-dark',
+          'aria-expanded:border-kubefirst-primary',
+          'aria-expanded:text-kubefirst-secondary',
           'focus-visible:bg-purple-100',
         ],
         colony: [

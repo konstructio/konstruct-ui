@@ -19,7 +19,7 @@ export const sliderVariants = cva(
 export const trackVariants = cva(['relative', 'flex-grow', 'rounded-full'], {
   variants: {
     theme: {
-      kubefirst: ['bg-kubefirst-purple-dark'],
+      kubefirst: ['bg-kubefirst-secondary'],
       konstruct: ['bg-orange-500'],
       colony: ['bg-red-500'],
     },

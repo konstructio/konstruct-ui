@@ -30,12 +30,12 @@ export const checkboxVariants = cva(
     compoundVariants: [
       {
         theme: 'kubefirst',
-        class: ['border-kubefirst-purple-light'],
+        class: ['border-kubefirst-primary'],
       },
       {
         theme: 'kubefirst',
         checked: true,
-        class: ['bg-kubefirst-purple-light'],
+        class: ['bg-kubefirst-primary'],
       },
       {
         theme: 'konstruct',

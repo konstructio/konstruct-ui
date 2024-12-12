@@ -63,7 +63,7 @@ export const viewportToastVariants = cva(
 export const closeToastVariants = cva(['top-2', 'right-2', 'w-4', 'h-4'], {
   variants: {
     theme: {
-      kubefirst: ['text-kubefirst-purple-light'],
+      kubefirst: ['text-kubefirst-primary'],
       konstruct: ['text-orange-400'],
       colony: ['text-red-400'],
     },

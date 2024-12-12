@@ -49,7 +49,7 @@ export const buttonVariants = cva(
         variant: 'primary',
         theme: 'kubefirst',
         disabled: false,
-        class: ['bg-kubefirst-purple-light', 'hover:bg-kubefirst-purple-dark'],
+        class: ['bg-kubefirst-primary', 'hover:bg-kubefirst-secondary'],
       },
       {
         variant: 'primary',
@@ -67,10 +67,10 @@ export const buttonVariants = cva(
         variant: 'secondary',
         disabled: false,
         class: [
-          'text-kubefirst-purple-light',
-          'border-kubefirst-purple-light',
-          'hover:text-kubefirst-purple-dark',
-          'hover:border-kubefirst-purple-dark',
+          'text-kubefirst-primary',
+          'border-kubefirst-primary',
+          'hover:text-kubefirst-secondary',
+          'hover:border-kubefirst-secondary',
           'hover:bg-purple-50',
         ],
       },
@@ -82,7 +82,7 @@ export const buttonVariants = cva(
       {
         variant: 'text',
         disabled: false,
-        class: ['hover:text-kubefirst-purple-dark', 'hover:bg-purple-50'],
+        class: ['hover:text-kubefirst-secondary', 'hover:bg-purple-50'],
       },
       {
         variant: 'text',

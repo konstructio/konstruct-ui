@@ -21,7 +21,7 @@ export const textAreaVariants = cva(
     variants: {
       theme: {
         colony: 'focus:ring-red-700',
-        kubefirst: 'focus:ring-kubefirst-purple-light',
+        kubefirst: 'focus:ring-kubefirst-primary',
         konstruct: 'focus:ring-orange-600',
       },
     },

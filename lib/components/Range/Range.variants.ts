@@ -28,7 +28,7 @@ export const rangeVariants = cva(
 export const rangeOutsideVariants = cva(['absolute', 'h-full'], {
   variants: {
     theme: {
-      kubefirst: ['bg-kubefirst-purple-dark'],
+      kubefirst: ['bg-kubefirst-secondary'],
       konstruct: ['bg-orange-500'],
       colony: ['bg-red-500'],
     },

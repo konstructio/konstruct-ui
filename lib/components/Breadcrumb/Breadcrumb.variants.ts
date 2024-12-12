@@ -43,7 +43,7 @@ export const breadcrumbItemVariants = cva(['text-slate-400', 'font-semibold'], {
 export const chevronVariants = cva('', {
   variants: {
     theme: {
-      kubefirst: 'text-kubefirst-purple-light',
+      kubefirst: 'text-kubefirst-primary',
       konstruct: 'text-orange-500',
       colony: 'text-red-500',
     },
