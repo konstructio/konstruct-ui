@@ -31,6 +31,7 @@ export const inputVariants = cva(
         kubefirst: 'focus:ring-kubefirst-primary',
         colony: '',
         konstruct: '',
+        civo: '',
       },
     },
     defaultVariants: {

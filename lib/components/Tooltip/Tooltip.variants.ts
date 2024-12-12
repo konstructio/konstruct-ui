@@ -20,6 +20,7 @@ export const tooltipVariants = cva(
         kubefirst: 'bg-kubefirst-primary',
         konstruct: 'bg-orange-500',
         colony: 'bg-red-700',
+        civo: '',
       },
       position: {
         top: ['-top-[110%]', 'left-[50%]', '-translate-x-1/2'],
@@ -41,6 +42,7 @@ export const arrowVariants = cva(['absolute', 'w-0', 'h-0'], {
       kubefirst: 'border-kubefirst-primary',
       konstruct: 'border-orange-500',
       colony: 'border-red-700',
+      civo: '',
     },
     position: {
       top: [

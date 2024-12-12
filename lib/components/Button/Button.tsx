@@ -1,4 +1,4 @@
-import { FC, forwardRef } from 'react';
+import { ComponentRef, FC, forwardRef } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 
 import { cn } from '../../utils';
@@ -7,7 +7,7 @@ import { useTheme } from '../../contexts';
 import { buttonVariants } from './Button.variants';
 import { ButtonProps } from './Button.types';
 
-const Button: FC<ButtonProps> = forwardRef<HTMLButtonElement, ButtonProps>(
+const Button: FC<ButtonProps> = forwardRef<ComponentRef<'button'>, ButtonProps>(
   (
     {
       className,

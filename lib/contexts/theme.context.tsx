@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-export type Theme = 'kubefirst' | 'konstruct' | 'colony' | undefined;
+export type Theme = 'kubefirst' | 'konstruct' | 'colony' | 'civo' | undefined;
 
 export type ThemeContextType = {
   theme: Theme;

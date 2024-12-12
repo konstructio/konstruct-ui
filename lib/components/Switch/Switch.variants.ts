@@ -20,6 +20,7 @@ export const switchVariants = cva(
         konstruct: 'bg-orange-600',
         kubefirst: 'bg-kubefirst-primary',
         colony: 'bg-red-600',
+        civo: '',
       },
     },
     defaultVariants: {
@@ -48,6 +49,7 @@ export const thumbVariants = cva(
         konstruct: '',
         kubefirst: '',
         colony: '',
+        civo: '',
       },
     },
     defaultVariants: {

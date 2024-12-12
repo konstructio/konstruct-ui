@@ -23,6 +23,7 @@ export const listVariants = cva(
         colony: ['border-red-400'],
         konstruct: ['border-orange-400'],
         kubefirst: ['border-kubefirst-primary'],
+        civo: '',
       },
     },
     defaultVariants: {

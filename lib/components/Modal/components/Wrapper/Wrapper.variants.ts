@@ -22,6 +22,7 @@ export const modalVariants = cva(
         colony: ['shadow-red-400'],
         konstruct: ['shadow-orange-400'],
         kubefirst: ['shadow-kubefirst-primary'],
+        civo: '',
       },
     },
     defaultVariants: {
@@ -38,6 +39,7 @@ export const buttonCloseVariants = cva(
         kubefirst: ['text-kubefirst-primary'],
         konstruct: ['text-orange-400'],
         colony: ['text-red-400'],
+        civo: '',
       },
     },
     defaultVariants: {

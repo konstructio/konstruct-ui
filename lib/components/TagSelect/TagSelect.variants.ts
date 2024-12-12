@@ -27,6 +27,7 @@ export const tagSelectVariants = cva(
           'aria-expanded:border-kubefirst-primary',
           'aria-expanded:text-kubefirst-secondary',
         ],
+        civo: '',
       },
     },
     defaultVariants: {
@@ -58,6 +59,7 @@ export const tagListVariants = cva(
         colony: ['border-red-400'],
         konstruct: ['border-orange-400'],
         kubefirst: ['border-kubefirst-primary'],
+        civo: '',
       },
     },
     defaultVariants: {
@@ -74,6 +76,7 @@ export const tagItemVariants = cva(
         colony: 'hover:bg-red-100',
         konstruct: 'hover:bg-orange-100',
         kubefirst: 'hover:bg-purple-100',
+        civo: '',
       },
     },
     defaultVariants: {

@@ -34,6 +34,7 @@ export const dropdownVariants = cva(
           'aria-expanded:text-red-400',
           'focus-visible:bg-red-100',
         ],
+        civo: '',
       },
     },
     defaultVariants: {

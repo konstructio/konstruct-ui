@@ -8,6 +8,7 @@ export const sliderVariants = cva(
         kubefirst: '',
         konstruct: '',
         colony: '',
+        civo: '',
       },
     },
     defaultVariants: {
@@ -22,6 +23,7 @@ export const trackVariants = cva(['relative', 'flex-grow', 'rounded-full'], {
       kubefirst: ['bg-kubefirst-secondary'],
       konstruct: ['bg-orange-500'],
       colony: ['bg-red-500'],
+      civo: '',
     },
     size: {
       sm: ['h-1'],
@@ -54,6 +56,7 @@ export const thumbVariants = cva(
         kubefirst: '',
         konstruct: '',
         colony: '',
+        civo: '',
       },
       size: {
         sm: ['w-5', 'h-5'],

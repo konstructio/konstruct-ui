@@ -30,6 +30,7 @@ export const autocompleteVariants = cva(
         kubefirst: ['focus:ring-kubefirst-primary'],
         konstruct: ['focus:focus:ring-orange-400'],
         colony: ['focus:focus:ring-red-400'],
+        civo: '',
       },
     },
     defaultVariants: {
@@ -50,6 +51,7 @@ export const labelVariants = cva(
         kubefirst: '',
         konstruct: '',
         colony: '',
+        civo: '',
       },
     },
     defaultVariants: {

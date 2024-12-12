@@ -38,6 +38,7 @@ export const radioVariants = cva(
           'peer-checked:border-orange-600',
           'peer-checked:before:bg-orange-600',
         ],
+        civo: '',
       },
     },
     defaultVariants: {

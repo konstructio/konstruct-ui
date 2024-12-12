@@ -21,6 +21,7 @@ export const checkboxVariants = cva(
         colony: '',
         konstruct: '',
         kubefirst: '',
+        civo: '',
       },
       checked: {
         true: '',
@@ -72,6 +73,7 @@ export const labelVariants = cva(['cursor-pointer'], {
       colony: '',
       konstruct: '',
       kubefirst: '',
+      civo: '',
     },
   },
   defaultVariants: {

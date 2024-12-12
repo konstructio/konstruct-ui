@@ -10,9 +10,27 @@ const meta: Meta<typeof Button> = {
 };
 
 export const Primary: Story = {
-  args: {
-    children: 'Primary',
-  },
+  render: () => (
+    <div className="max-w-[350px]">
+      <div className="flex flex-col items-center gap-3">
+        <Button variant="primary" theme="kubefirst">
+          Primary Kubefirst
+        </Button>
+
+        <Button variant="primary" theme="colony">
+          Primary Colony
+        </Button>
+
+        <Button variant="primary" theme="konstruct">
+          Primary Konstruct
+        </Button>
+
+        <Button variant="primary" theme="civo">
+          Primary Civo
+        </Button>
+      </div>
+    </div>
+  ),
 };
 
 export const Secondary: Story = {

@@ -8,6 +8,7 @@ export const progressBarVariants = cva(
         konstruct: '',
         kubefirst: '',
         colony: '',
+        civo: '',
       },
     },
     defaultVariants: {
@@ -24,6 +25,7 @@ export const progressBarProgress = cva(
         konstruct: '',
         kubefirst: '',
         colony: '',
+        civo: '',
       },
       status: {
         success: '',

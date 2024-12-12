@@ -2,21 +2,22 @@ import { cva } from 'class-variance-authority';
 
 export const buttonVariants = cva(
   [
-    'border-2',
+    'border',
+    'cursor-pointer',
     'disabled:pointer-events-none',
+    'flex',
     'focus-visible:outline-none',
     'focus-visible:ring-1',
     'focus-visible:ring-ring',
-    'gap-1',
+    'font-semibold',
+    'gap-2',
     'inline-flex',
     'items-center',
     'justify-center',
-    'rounded-md',
+    'rounded',
     'text-base',
     'transition-colors',
     'whitespace-nowrap',
-    'cursor-pointer',
-    'font-semibold',
   ],
   {
     variants: {
@@ -32,12 +33,13 @@ export const buttonVariants = cva(
         text: ['bg-transparent', 'border-transparent', 'text-slate-500'],
       },
       theme: {
+        civo: '',
         colony: '',
         konstruct: '',
         kubefirst: '',
       },
       size: {
-        default: 'px-5 py-2',
+        default: 'h-10 p-4 text-sm',
       },
       disabled: {
         true: ['text-zinc-500', 'border-zinc-200', 'bg-zinc-200'],
@@ -55,13 +57,19 @@ export const buttonVariants = cva(
         variant: 'primary',
         theme: 'colony',
         disabled: false,
-        class: ['bg-red-700', 'hover:bg-red-900'],
+        class: ['bg-colony-primary', 'hover:bg-colony-secondary'],
+      },
+      {
+        variant: 'primary',
+        theme: 'civo',
+        disabled: false,
+        class: ['bg-civo-primary', 'hover:bg-civo-secondary'],
       },
       {
         variant: 'primary',
         theme: 'konstruct',
         disabled: false,
-        class: ['bg-orange-500', 'hover:bg-orange-700'],
+        class: ['bg-orange-600', 'hover:bg-orange-500'],
       },
       {
         variant: 'secondary',
