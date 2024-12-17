@@ -14,6 +14,7 @@ const Button: FC<ButtonProps> = forwardRef<ComponentRef<'button'>, ButtonProps>(
       variant,
       theme,
       size,
+      version,
       disabled = false,
       asChild = false,
       ...delegated
@@ -34,6 +35,7 @@ const Button: FC<ButtonProps> = forwardRef<ComponentRef<'button'>, ButtonProps>(
             theme: inheritTheme,
             size,
             className,
+            version,
           }),
         )}
         disabled={disabled}

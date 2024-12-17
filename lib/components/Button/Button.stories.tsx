@@ -80,15 +80,27 @@ export const TextButton: Story = {
     <div className="w-full max-w-[350px]">
       <div className="flex flex-col items-center gap-3">
         <Button variant="text" theme="kubefirst">
-          Text Kubefirst
+          Text Kubefirst Default Version
         </Button>
 
         <Button variant="text" theme="colony">
-          Text Colony
+          Text Colony Default Version
         </Button>
 
         <Button variant="text" theme="civo">
-          Text Civo
+          Text Civo Default Version
+        </Button>
+
+        <Button variant="text" theme="kubefirst" version="alternate">
+          Text Kubefirst Alternative Version
+        </Button>
+
+        <Button variant="text" theme="colony" version="alternate">
+          Text Colony Alternative Version
+        </Button>
+
+        <Button variant="text" theme="civo" version="alternate">
+          Text Civo Alternative Version
         </Button>
 
         <Button variant="text" theme="civo" disabled>

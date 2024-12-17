@@ -32,6 +32,10 @@ export const buttonVariants = cva(
         ],
         text: ['bg-transparent', 'border-transparent', 'text-slate-500'],
       },
+      version: {
+        default: '',
+        alternate: '',
+      },
       theme: {
         civo: '',
         colony: '',
@@ -108,11 +112,10 @@ export const buttonVariants = cva(
         theme: 'civo',
         disabled: false,
         class: [
-          'text-kubefirst-primary',
-          'border-kubefirst-primary',
-          'hover:text-kubefirst-secondary',
-          'hover:border-kubefirst-secondary',
-          'hover:bg-purple-50',
+          'text-[#324154]',
+          'border-[#cbd5e0]',
+          'hover:text-[#5d6776]',
+          'hover:border-[#d6dde6]',
         ],
       },
       {
@@ -129,19 +132,55 @@ export const buttonVariants = cva(
         variant: 'text',
         theme: 'kubefirst',
         disabled: false,
+        version: 'default',
         class: ['hover:text-kubefirst-primary', 'hover:bg-purple-50'],
       },
       {
         variant: 'text',
         theme: 'colony',
         disabled: false,
+        version: 'default',
         class: ['hover:text-colony-primary', 'hover:bg-pink-50'],
       },
       {
         variant: 'text',
         theme: 'civo',
         disabled: false,
+        version: 'default',
         class: ['hover:text-civo-primary', 'hover:bg-blue-50'],
+      },
+      {
+        variant: 'text',
+        theme: 'kubefirst',
+        disabled: false,
+        version: 'alternate',
+        class: [
+          'text-kubefirst-primary',
+          'hover:text-kubefirst-primary',
+          'hover:bg-purple-50',
+        ],
+      },
+      {
+        variant: 'text',
+        theme: 'colony',
+        disabled: false,
+        version: 'alternate',
+        class: [
+          'text-colony-primary',
+          'hover:text-colony-primary',
+          'hover:bg-pink-50',
+        ],
+      },
+      {
+        variant: 'text',
+        theme: 'civo',
+        disabled: false,
+        version: 'alternate',
+        class: [
+          'text-civo-primary',
+          'hover:text-civo-primary',
+          'hover:bg-blue-50',
+        ],
       },
       {
         variant: 'text',
@@ -152,6 +191,7 @@ export const buttonVariants = cva(
     defaultVariants: {
       variant: 'primary',
       theme: 'kubefirst',
+      version: 'default',
       size: 'default',
       disabled: false,
     },
