@@ -56,3 +56,15 @@ jobs:
           npm publish --access public
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Send new version of the package to Konstruct Slack
+        run: |
+          curl -X POST https://n8n-production.mgmt-24.konstruct.io/webhook/konstruct-ui/updates \
+          -H "Content-Type: application/json" \
+          -d '{
+            "package_name": "${{ github.event.repository.name }}",
+            "version": "${RELEASE_VERSION}",
+            "url": "${{ github.event.release.html_url }}",
+            "repository": "${{ github.event.repository.html_url }}",
+            "storybook": "https://konstructio.github.io/konstruct-ui",
+          }'
