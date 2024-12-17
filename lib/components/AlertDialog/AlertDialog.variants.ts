@@ -5,7 +5,6 @@ export const buttonAlertDialogVariants = cva([], {
     theme: {
       colony: '',
       kubefirst: '',
-      konstruct: '',
     },
   },
   defaultVariants: {

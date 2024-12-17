@@ -1,5 +1,5 @@
 import {
-  ElementRef,
+  ComponentRef,
   forwardRef,
   ForwardRefExoticComponent,
   RefAttributes,
@@ -16,10 +16,10 @@ import { ListProps } from './List.types';
 import { listVariants } from './List.variants';
 
 export const List: ForwardRefExoticComponent<
-  ListProps & RefAttributes<ElementRef<'ul'>>
-> = forwardRef<ElementRef<'ul'>, ListProps>(
+  ListProps & RefAttributes<ComponentRef<'ul'>>
+> = forwardRef<ComponentRef<'ul'>, ListProps>(
   ({ options, theme, wrapperRef, wrapperInputRef }, ref) => {
-    const ulRef = useRef<ElementRef<'ul'>>(null);
+    const ulRef = useRef<ComponentRef<'ul'>>(null);
     const { isOpen } = useDropdownContext();
 
     useImperativeHandle(ref, () => ulRef.current!, [ulRef]);

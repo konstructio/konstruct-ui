@@ -1,5 +1,5 @@
 import {
-  ElementRef,
+  ComponentRef,
   FC,
   forwardRef,
   useCallback,
@@ -21,14 +21,14 @@ import {
 } from './Slider.variants';
 
 export const Slider: FC<SliderProps> = forwardRef<
-  ElementRef<'input'>,
+  ComponentRef<'input'>,
   SliderProps
 >(
   (
     { label, defaultValue = [0], name, theme, size, showValue, ...delegated },
     ref,
   ) => {
-    const inputRef = useRef<ElementRef<'input'>>(null);
+    const inputRef = useRef<ComponentRef<'input'>>(null);
     const [value, setValue] = useState<number[]>(defaultValue);
     const { theme: contextTheme } = useTheme();
     const inheritTheme = theme ?? contextTheme;

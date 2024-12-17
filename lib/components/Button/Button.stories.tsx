@@ -10,16 +10,51 @@ const meta: Meta<typeof Button> = {
 };
 
 export const Primary: Story = {
-  args: {
-    children: 'Primary',
-  },
+  render: () => (
+    <div className="w-full max-w-[350px]">
+      <div className="flex flex-col items-center gap-3">
+        <Button variant="primary" theme="kubefirst">
+          Primary Kubefirst
+        </Button>
+
+        <Button variant="primary" theme="colony">
+          Primary Colony
+        </Button>
+
+        <Button variant="primary" theme="civo">
+          Primary Civo
+        </Button>
+
+        <Button variant="primary" theme="civo" disabled>
+          Primary Disabled
+        </Button>
+      </div>
+    </div>
+  ),
 };
 
 export const Secondary: Story = {
-  args: {
-    variant: 'secondary',
-    children: 'Secondary',
-  },
+  render: () => (
+    <div className="w-full max-w-[350px]">
+      <div className="flex flex-col items-center gap-3">
+        <Button variant="secondary" theme="kubefirst">
+          Secondary Kubefirst
+        </Button>
+
+        <Button variant="secondary" theme="colony">
+          Secondary Colony
+        </Button>
+
+        <Button variant="secondary" theme="civo">
+          Secondary Civo
+        </Button>
+
+        <Button variant="secondary" theme="civo" disabled>
+          Secondary Disabled
+        </Button>
+      </div>
+    </div>
+  ),
 };
 
 export const Danger: Story = {
@@ -27,13 +62,53 @@ export const Danger: Story = {
     variant: 'danger',
     children: 'Danger',
   },
+  render: (args) => (
+    <div className="w-full max-w-[350px]">
+      <div className="flex flex-col items-center gap-3">
+        <Button {...args} />
+
+        <Button {...args} disabled>
+          Danger Disabled
+        </Button>
+      </div>
+    </div>
+  ),
 };
 
 export const TextButton: Story = {
-  args: {
-    variant: 'text',
-    children: 'Text Button',
-  },
+  render: () => (
+    <div className="w-full max-w-[350px]">
+      <div className="flex flex-col items-center gap-3">
+        <Button variant="text" theme="kubefirst">
+          Text Kubefirst Default Version
+        </Button>
+
+        <Button variant="text" theme="colony">
+          Text Colony Default Version
+        </Button>
+
+        <Button variant="text" theme="civo">
+          Text Civo Default Version
+        </Button>
+
+        <Button variant="text" theme="kubefirst" version="alternate">
+          Text Kubefirst Alternative Version
+        </Button>
+
+        <Button variant="text" theme="colony" version="alternate">
+          Text Colony Alternative Version
+        </Button>
+
+        <Button variant="text" theme="civo" version="alternate">
+          Text Civo Alternative Version
+        </Button>
+
+        <Button variant="text" theme="civo" disabled>
+          Text Disabled
+        </Button>
+      </div>
+    </div>
+  ),
 };
 
 export const IconButton: Story = {
@@ -42,34 +117,27 @@ export const IconButton: Story = {
   },
   render: (args) => {
     return (
-      <Button {...args}>
-        <Check className="w-5 h-5" /> Verified
-      </Button>
+      <div className="w-full max-w-[350px]">
+        <div className="flex flex-col items-center gap-3">
+          <Button {...args} theme="kubefirst">
+            <Check className="w-5 h-5" /> Verified
+          </Button>
+
+          <Button {...args} theme="colony">
+            <Check className="w-5 h-5" /> Verified
+          </Button>
+
+          <Button {...args} theme="civo">
+            <Check className="w-5 h-5" /> Verified
+          </Button>
+
+          <Button {...args} theme="civo" disabled>
+            <Check className="w-5 h-5" /> Verified Disabled
+          </Button>
+        </div>
+      </div>
     );
   },
-};
-
-export const Disabled: Story = {
-  args: {
-    disabled: true,
-    children: 'Disabled',
-  },
-  render: (args) => (
-    <div className="flex gap-8">
-      <div className="flex flex-col items-center gap-3">
-        <p>Normal button</p>
-        <Button variant="primary" {...args} />
-      </div>
-      <div className="flex flex-col items-center gap-3">
-        <p>Secondary button</p>
-        <Button variant="secondary" {...args} />
-      </div>
-      <div className="flex flex-col items-center gap-3">
-        <p>Text button</p>
-        <Button variant="text" {...args} />
-      </div>
-    </div>
-  ),
 };
 
 export default meta;

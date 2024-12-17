@@ -1,11 +1,11 @@
-import { ElementRef, FC, forwardRef } from 'react';
+import { ComponentRef, FC, forwardRef } from 'react';
 
 import { Wrapper } from './components';
 import { DropdownProvider } from './contexts';
 import { DropdownProps } from './Dropdown.types';
 
 export const Dropdown: FC<DropdownProps> = forwardRef<
-  ElementRef<'input'>,
+  ComponentRef<'input'>,
   DropdownProps
 >(({ onChange, ...delegated }, ref) => (
   <DropdownProvider onChange={onChange}>

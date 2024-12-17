@@ -19,8 +19,8 @@ export const checkboxVariants = cva(
       },
       theme: {
         colony: '',
-        konstruct: '',
         kubefirst: '',
+        civo: '',
       },
       checked: {
         true: '',
@@ -30,21 +30,12 @@ export const checkboxVariants = cva(
     compoundVariants: [
       {
         theme: 'kubefirst',
-        class: ['border-kubefirst-purple-light'],
+        class: ['border-kubefirst-primary'],
       },
       {
         theme: 'kubefirst',
         checked: true,
-        class: ['bg-kubefirst-purple-light'],
-      },
-      {
-        theme: 'konstruct',
-        class: ['border-orange-600'],
-      },
-      {
-        theme: 'konstruct',
-        checked: true,
-        class: ['bg-orange-600'],
+        class: ['bg-kubefirst-primary'],
       },
       {
         theme: 'colony',
@@ -70,8 +61,8 @@ export const labelVariants = cva(['cursor-pointer'], {
     },
     theme: {
       colony: '',
-      konstruct: '',
       kubefirst: '',
+      civo: '',
     },
   },
   defaultVariants: {

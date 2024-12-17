@@ -23,11 +23,6 @@ export const TextArea: Story = {
         theme="colony"
         label="This is a textarea with Colony theme"
       />
-      <TextAreaComponent
-        {...args}
-        theme="konstruct"
-        label="This is a textarea with Konstruct theme"
-      />
     </div>
   ),
 };

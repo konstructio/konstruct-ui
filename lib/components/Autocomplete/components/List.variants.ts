@@ -7,8 +7,8 @@ export const listVariants = cva(['max-h-[250px]', 'overflow-y-auto'], {
     },
     theme: {
       kubefirst: '',
-      konstruct: '',
       colony: '',
+      civo: '',
     },
   },
   defaultVariants: {
@@ -26,8 +26,8 @@ export const emptyListVariants = cva(
       },
       theme: {
         kubefirst: '',
-        konstruct: '',
         colony: '',
+        civo: '',
       },
     },
     defaultVariants: {
@@ -44,8 +44,8 @@ export const listItemVariants = cva(['focus-visible:outline-none'], {
     },
     theme: {
       kubefirst: ['focus:bg-purple-100', 'hover:bg-purple-100'],
-      konstruct: ['focus:bg-orange-100', 'hover:bg-orange-100'],
       colony: ['focus:bg-red-100', 'hover:bg-red-100'],
+      civo: '',
     },
   },
   defaultVariants: {
@@ -70,8 +70,8 @@ export const buttonVariants = cva(
       },
       theme: {
         kubefirst: ['focus:bg-purple-100', 'hover:bg-purple-100'],
-        konstruct: ['focus:bg-orange-100', 'hover:bg-orange-100'],
         colony: ['focus:bg-red-100', 'hover:bg-red-100'],
+        civo: '',
       },
     },
     defaultVariants: {

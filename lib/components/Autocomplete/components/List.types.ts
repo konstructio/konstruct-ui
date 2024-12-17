@@ -1,4 +1,4 @@
-import { ReactNode, RefObject } from 'react';
+import { ComponentRef, ReactNode, RefObject } from 'react';
 import { VariantProps } from 'class-variance-authority';
 
 import { Option } from '../Autocomplete.types';
@@ -6,8 +6,8 @@ import { autocompleteVariants } from '../Autocomplete.variants';
 
 export interface Props extends VariantProps<typeof autocompleteVariants> {
   className?: string;
-  inputRef: RefObject<HTMLInputElement>;
-  wrapperRef: RefObject<HTMLDivElement>;
+  inputRef: RefObject<ComponentRef<'input'> | null>;
+  wrapperRef: RefObject<ComponentRef<'div'> | null>;
   options: Option[];
   placeholder: string | ReactNode;
   placeholderClassName?: string;

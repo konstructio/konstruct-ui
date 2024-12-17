@@ -16,8 +16,6 @@ export const Switch: Story = {
     <div className="max-w-[350px]">
       <SwitchComponent label="Kubefirst theme" {...args} />
       <div className="mt-5" />
-      <SwitchComponent label="Konstruct theme" theme="konstruct" {...args} />
-      <div className="mt-5" />
       <SwitchComponent label="Colony theme" theme="colony" {...args} />
     </div>
   ),

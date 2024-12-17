@@ -1,10 +1,10 @@
-import { ElementRef, useCallback, useEffect, useRef, useState } from 'react';
+import { ComponentRef, useCallback, useEffect, useRef, useState } from 'react';
 
 import { useToggle } from '../../../hooks';
 import { TagProps } from '../../Tag/Tag.types';
 
 export const useTagSelect = () => {
-  const wrapperRef = useRef<ElementRef<'div'>>(null);
+  const wrapperRef = useRef<ComponentRef<'div'>>(null);
   const [isOpen, toggleOpen] = useToggle(false);
   const [selectedTag, setSelectedTag] = useState<TagProps | null>(null);
   const [value, setValue] = useState('');

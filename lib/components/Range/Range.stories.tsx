@@ -26,15 +26,6 @@ export const Range: Story = {
       <div className="mt-10" />
 
       <RangeComponent
-        theme="konstruct"
-        label="Range with Konstruct theme"
-        defaultValue={[25, 97]}
-        {...args}
-      />
-
-      <div className="mt-10" />
-
-      <RangeComponent
         theme="colony"
         label="Range with Colony theme"
         defaultValue={[0, 50]}

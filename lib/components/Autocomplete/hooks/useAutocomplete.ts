@@ -1,5 +1,6 @@
 import {
   ChangeEvent,
+  ComponentRef,
   RefObject,
   useCallback,
   useEffect,
@@ -12,8 +13,8 @@ import { Option } from '../Autocomplete.types';
 
 type UseAutocompleteProps = {
   options: Option[];
-  inputRef: RefObject<HTMLInputElement>;
-  wrapperRef: RefObject<HTMLDivElement>;
+  inputRef: RefObject<ComponentRef<'input'> | null>;
+  wrapperRef: RefObject<ComponentRef<'div'> | null>;
   onChange(value: string): void;
 };
 

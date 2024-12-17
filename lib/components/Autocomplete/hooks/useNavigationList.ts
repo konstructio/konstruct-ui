@@ -1,10 +1,10 @@
-import { RefObject, useEffect, useRef } from 'react';
+import { ComponentRef, RefObject, useEffect, useRef } from 'react';
 import { Option } from '../Autocomplete.types';
 
 type UseNavigationListProps = {
-  ulRef: RefObject<HTMLUListElement>;
-  inputRef: RefObject<HTMLInputElement>;
-  wrapperRef: RefObject<HTMLDivElement>;
+  ulRef: RefObject<ComponentRef<'ul'> | null>;
+  inputRef: RefObject<ComponentRef<'input'> | null>;
+  wrapperRef: RefObject<ComponentRef<'div'> | null>;
   options: Option[];
 };
 

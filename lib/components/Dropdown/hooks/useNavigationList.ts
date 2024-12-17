@@ -1,10 +1,10 @@
-import { RefObject, useEffect, useRef } from 'react';
+import { ComponentRef, RefObject, useEffect, useRef } from 'react';
 import { useDropdownContext } from '../contexts';
 
 type UseNavigationListProps = {
-  ulRef: RefObject<HTMLUListElement>;
-  wrapperRef: RefObject<HTMLDivElement>;
-  wrapperInputRef: RefObject<HTMLDivElement>;
+  ulRef: RefObject<ComponentRef<'ul'> | null>;
+  wrapperRef: RefObject<ComponentRef<'div'> | null>;
+  wrapperInputRef: RefObject<ComponentRef<'div'> | null>;
 };
 
 export const useNavigationUlList = ({

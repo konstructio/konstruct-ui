@@ -17,11 +17,6 @@ export const Radio: Story = {
     <div className="w-[350px] flex flex-col gap-3">
       <RadioComponent {...args} label="Radio Button Kubefirst" />
       <RadioComponent {...args} theme="colony" label="Radio Button Colony" />
-      <RadioComponent
-        {...args}
-        theme="konstruct"
-        label="Radio Button Konstruct"
-      />
     </div>
   ),
 };

@@ -1,5 +1,5 @@
 import {
-  ElementRef,
+  ComponentRef,
   FC,
   forwardRef,
   useCallback,
@@ -27,7 +27,7 @@ import {
 } from './Range.variants';
 
 export const Range: FC<RangeProps> = forwardRef<
-  ElementRef<'input'>,
+  ComponentRef<'input'>,
   RangeProps
 >(
   (
@@ -42,7 +42,7 @@ export const Range: FC<RangeProps> = forwardRef<
     },
     ref,
   ) => {
-    const inputRef = useRef<ElementRef<'input'>>(null);
+    const inputRef = useRef<ComponentRef<'input'>>(null);
     const [value, setValue] = useState<number[]>(defaultValue);
     const { theme: contextTheme } = useTheme();
     const inheritTheme = theme ?? contextTheme;

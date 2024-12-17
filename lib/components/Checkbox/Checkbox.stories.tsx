@@ -20,11 +20,6 @@ export const Checkbox: Story = {
           {...args}
         />
         <CheckboxComponent
-          theme="konstruct"
-          label="This is a checkbox with konstruct colors"
-          {...args}
-        />
-        <CheckboxComponent
           theme="colony"
           label="This is a checkbox with colony colors"
           {...args}

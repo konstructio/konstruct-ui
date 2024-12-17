@@ -28,9 +28,9 @@ export const inputVariants = cva(
         error: ['border-red-600', 'pr-8', 'focus-visible:ring-transparent'],
       },
       theme: {
-        kubefirst: 'focus:ring-kubefirst-purple-light',
+        kubefirst: 'focus:ring-kubefirst-primary',
         colony: '',
-        konstruct: '',
+        civo: '',
       },
     },
     defaultVariants: {

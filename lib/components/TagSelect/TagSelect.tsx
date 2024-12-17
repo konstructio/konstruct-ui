@@ -1,5 +1,5 @@
 import {
-  ElementRef,
+  ComponentRef,
   FC,
   forwardRef,
   useEffect,
@@ -27,7 +27,7 @@ export const TagSelect: FC<TagSelectProps> = forwardRef<
 >(({ label, name, options, placeholder = 'Select a value...', theme }, ref) => {
   const id = useId();
   const { theme: themeContext } = useTheme();
-  const inputRef = useRef<ElementRef<'input'>>(null);
+  const inputRef = useRef<ComponentRef<'input'>>(null);
   const {
     isOpen,
     selectedTag,
