@@ -80,32 +80,6 @@ describe('ThemeContext', () => {
     expect(currentTheme).toBeInTheDocument();
   });
 
-  it('should change the current theme to konstruct', async () => {
-    const WrapperButton: FC = () => {
-      const { theme, setTheme } = useTheme();
-      const handleClick = () => setTheme?.('konstruct');
-
-      return (
-        <>
-          <h2>{theme}</h2>
-          <Button onClick={handleClick}>Click Me!</Button>
-        </>
-      );
-    };
-
-    const { user } = setup({ theme: 'kubefirst', children: <WrapperButton /> });
-
-    const button = await screen.findByRole('button');
-
-    await user.click(button);
-
-    const currentTheme = await screen.findByRole('heading', {
-      name: /konstruct/i,
-    });
-
-    expect(currentTheme).toBeInTheDocument();
-  });
-
   it('should throw an error because the context is not defined', async () => {
     const consoleSpy = vitest
       .spyOn(console, 'error')

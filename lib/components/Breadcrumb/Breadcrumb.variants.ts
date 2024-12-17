@@ -4,7 +4,6 @@ export const breadcrumbVariants = cva(['flex', 'gap-1.5', 'items-center'], {
   variants: {
     theme: {
       kubefirst: '',
-      konstruct: '',
       colony: '',
       civo: '',
     },
@@ -25,7 +24,6 @@ export const breadcrumbItemVariants = cva(['text-slate-400', 'font-semibold'], {
   variants: {
     theme: {
       kubefirst: '',
-      konstruct: '',
       colony: '',
       civo: '',
     },
@@ -46,7 +44,6 @@ export const chevronVariants = cva('', {
   variants: {
     theme: {
       kubefirst: 'text-kubefirst-primary',
-      konstruct: 'text-orange-500',
       colony: 'text-red-500',
       civo: '',
     },

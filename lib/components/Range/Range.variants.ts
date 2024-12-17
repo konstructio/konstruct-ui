@@ -15,7 +15,6 @@ export const rangeVariants = cva(
     variants: {
       theme: {
         kubefirst: '',
-        konstruct: '',
         colony: '',
         civo: '',
       },
@@ -30,7 +29,6 @@ export const rangeOutsideVariants = cva(['absolute', 'h-full'], {
   variants: {
     theme: {
       kubefirst: ['bg-kubefirst-secondary'],
-      konstruct: ['bg-orange-500'],
       colony: ['bg-red-500'],
       civo: '',
     },
@@ -46,7 +44,6 @@ export const trackVariants = cva(
     variants: {
       theme: {
         kubefirst: '',
-        konstruct: '',
         colony: '',
         civo: '',
       },
@@ -80,7 +77,6 @@ export const thumbVariants = cva(
     variants: {
       theme: {
         kubefirst: '',
-        konstruct: '',
         colony: '',
         civo: '',
       },

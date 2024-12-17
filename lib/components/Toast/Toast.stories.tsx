@@ -30,19 +30,6 @@ export const Toast: Story = {
         </ToastComponent>
       </ThemeProvider>
 
-      <ThemeProvider theme="konstruct">
-        <ToastComponent
-          {...args}
-          title={<h6>This is a title</h6>}
-          description={<p>This is a description</p>}
-          titleClassName="text-orange-600"
-          descriptionClassName="text-orange-400"
-          className="bg-orange-50"
-        >
-          <Button>Show Toast Konstruct Theme</Button>
-        </ToastComponent>
-      </ThemeProvider>
-
       <ThemeProvider theme="colony">
         <ToastComponent
           {...args}

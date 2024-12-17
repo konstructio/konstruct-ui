@@ -34,10 +34,6 @@ export const radioVariants = cva(
           'peer-checked:border-kubefirst-primary',
           'peer-checked:before:bg-kubefirst-primary',
         ],
-        konstruct: [
-          'peer-checked:border-orange-600',
-          'peer-checked:before:bg-orange-600',
-        ],
         civo: '',
       },
     },

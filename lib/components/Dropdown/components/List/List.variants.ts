@@ -21,7 +21,6 @@ export const listVariants = cva(
     variants: {
       theme: {
         colony: ['border-red-400'],
-        konstruct: ['border-orange-400'],
         kubefirst: ['border-kubefirst-primary'],
         civo: '',
       },

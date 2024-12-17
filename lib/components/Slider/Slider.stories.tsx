@@ -24,15 +24,6 @@ export const Slider: Story = {
       <div className="mt-10" />
 
       <SliderComponent
-        theme="konstruct"
-        label="Slider with Konstruct theme"
-        defaultValue={[77]}
-        {...args}
-      />
-
-      <div className="mt-10" />
-
-      <SliderComponent
         theme="colony"
         label="Slider with Colony theme"
         defaultValue={[35]}

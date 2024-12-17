@@ -32,11 +32,6 @@ export const TagSelect: Story = {
       <TagSelectComponent {...args} label="Select tag with kubefirst theme" />
       <TagSelectComponent
         {...args}
-        theme="konstruct"
-        label="Select tag with konstruct theme"
-      />
-      <TagSelectComponent
-        {...args}
         theme="colony"
         label="Select tag with colony theme"
       />

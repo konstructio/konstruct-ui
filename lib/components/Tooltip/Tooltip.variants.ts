@@ -18,13 +18,12 @@ export const tooltipVariants = cva(
     variants: {
       theme: {
         kubefirst: 'bg-kubefirst-primary',
-        konstruct: 'bg-orange-500',
         colony: 'bg-red-700',
         civo: '',
       },
       position: {
-        top: ['-top-[110%]', 'left-[50%]', '-translate-x-1/2'],
-        bottom: ['-bottom-[110%]', 'right-[50%]', 'translate-x-1/2'],
+        top: ['-top-[120%]', 'left-[50%]', '-translate-x-1/2'],
+        bottom: ['-bottom-[120%]', 'right-[50%]', 'translate-x-1/2'],
         right: ['top-1/2', 'ml-1', 'left-[100%]', '-translate-y-2/4'],
         left: ['top-1/2', 'mr-1', 'right-[100%]', '-translate-y-2/4'],
       },
@@ -40,7 +39,6 @@ export const arrowVariants = cva(['absolute', 'w-0', 'h-0'], {
   variants: {
     theme: {
       kubefirst: 'border-kubefirst-primary',
-      konstruct: 'border-orange-500',
       colony: 'border-red-700',
       civo: '',
     },

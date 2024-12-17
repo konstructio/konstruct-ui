@@ -43,7 +43,7 @@ export const Tooltip: Story = {
             <Button>Hover on the left!</Button>
           </TooltipComponent>
 
-          <ThemeProvider theme="konstruct">
+          <ThemeProvider theme="colony">
             <TooltipComponent
               content={<FancyHover />}
               position="bottom"

@@ -28,9 +28,6 @@ export const Modal: Story = {
           <Button onClick={() => handleOpen('kubefirst')} theme="kubefirst">
             Click me to Open Modal with Kubefirst theme!
           </Button>
-          <Button onClick={() => handleOpen('konstruct')} theme="konstruct">
-            Click me to Open Modal with Konstruct theme!
-          </Button>
           <Button onClick={() => handleOpen('colony')} theme="colony">
             Click me to Open Modal with Colony theme!
           </Button>

@@ -43,14 +43,6 @@ export const Dropdown: Story = {
           />
 
           <DropdownComponent
-            label="Dropdown with Kontruct theme"
-            theme="konstruct"
-            name="components-dropdown"
-            {...args}
-            options={optionsWithoutLeftIcon}
-          />
-
-          <DropdownComponent
             label="Dropdown with Colony theme"
             theme="colony"
             name="components-dropdown"
@@ -64,13 +56,6 @@ export const Dropdown: Story = {
           <DropdownComponent
             label="Dropdown with Kubefirst theme"
             theme="kubefirst"
-            name="components-dropdown"
-            {...args}
-          />
-
-          <DropdownComponent
-            label="Dropdown with Kontruct theme"
-            theme="konstruct"
             name="components-dropdown"
             {...args}
           />

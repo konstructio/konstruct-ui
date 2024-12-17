@@ -18,7 +18,6 @@ export const numberInputVariants = cva(
       theme: {
         colony: ['border-red-700', 'text-red-700'],
         kubefirst: ['border-kubefirst-primary', 'text-kubefirst-primary'],
-        konstruct: ['border-orange-500', 'text-orange-500'],
         civo: '',
       },
     },
@@ -41,11 +40,6 @@ export const buttonVariants = cva(
           'hover:border-kubefirst-secondary',
           'hover:bg-purple-100',
         ],
-        konstruct: [
-          'border-orange-500',
-          'text-orange-500',
-          'hover:bg-orange-50',
-        ],
         civo: '',
       },
       button: {
@@ -66,7 +60,6 @@ export const labelVariants = cva(['pl-1', 'text-base', 'cursor-pointer'], {
     },
     theme: {
       kubefirst: '',
-      konstruct: '',
       colony: '',
       civo: '',
     },

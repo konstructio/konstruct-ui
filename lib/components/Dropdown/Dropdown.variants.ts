@@ -19,11 +19,6 @@ export const dropdownVariants = cva(
   {
     variants: {
       theme: {
-        konstruct: [
-          'aria-expanded:border-orange-400',
-          'aria-expanded:text-orange-400',
-          'focus-visible:bg-orange-100',
-        ],
         kubefirst: [
           'aria-expanded:border-kubefirst-primary',
           'aria-expanded:text-kubefirst-secondary',

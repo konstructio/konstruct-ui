@@ -35,7 +35,6 @@ export const buttonVariants = cva(
       theme: {
         civo: '',
         colony: '',
-        konstruct: '',
         kubefirst: '',
       },
       size: {
@@ -81,17 +80,6 @@ export const buttonVariants = cva(
         ],
       },
       {
-        variant: 'primary',
-        theme: 'konstruct',
-        disabled: false,
-        class: [
-          'bg-orange-600',
-          'border-orange-600',
-          'hover:bg-orange-500',
-          'hover:border-orange-500',
-        ],
-      },
-      {
         variant: 'secondary',
         theme: 'kubefirst',
         disabled: false,
@@ -128,18 +116,6 @@ export const buttonVariants = cva(
         ],
       },
       {
-        variant: 'secondary',
-        theme: 'konstruct',
-        disabled: false,
-        class: [
-          'text-kubefirst-primary',
-          'border-kubefirst-primary',
-          'hover:text-kubefirst-secondary',
-          'hover:border-kubefirst-secondary',
-          'hover:bg-purple-50',
-        ],
-      },
-      {
         variant: 'primary',
         disabled: true,
         class: ['bg-zinc-200', 'border-zinc-200', 'text-zinc-500'],
@@ -166,12 +142,6 @@ export const buttonVariants = cva(
         theme: 'civo',
         disabled: false,
         class: ['hover:text-civo-primary', 'hover:bg-blue-50'],
-      },
-      {
-        variant: 'text',
-        theme: 'konstruct',
-        disabled: false,
-        class: ['hover:text-orange-700', 'hover:bg-orange-50'],
       },
       {
         variant: 'text',

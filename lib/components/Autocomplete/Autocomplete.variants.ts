@@ -28,7 +28,6 @@ export const autocompleteVariants = cva(
       },
       theme: {
         kubefirst: ['focus:ring-kubefirst-primary'],
-        konstruct: ['focus:focus:ring-orange-400'],
         colony: ['focus:focus:ring-red-400'],
         civo: '',
       },
@@ -49,7 +48,6 @@ export const labelVariants = cva(
       },
       theme: {
         kubefirst: '',
-        konstruct: '',
         colony: '',
         civo: '',
       },

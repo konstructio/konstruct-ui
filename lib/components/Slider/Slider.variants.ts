@@ -6,7 +6,6 @@ export const sliderVariants = cva(
     variants: {
       theme: {
         kubefirst: '',
-        konstruct: '',
         colony: '',
         civo: '',
       },
@@ -21,7 +20,6 @@ export const trackVariants = cva(['relative', 'flex-grow', 'rounded-full'], {
   variants: {
     theme: {
       kubefirst: ['bg-kubefirst-secondary'],
-      konstruct: ['bg-orange-500'],
       colony: ['bg-red-500'],
       civo: '',
     },
@@ -54,7 +52,6 @@ export const thumbVariants = cva(
     variants: {
       theme: {
         kubefirst: '',
-        konstruct: '',
         colony: '',
         civo: '',
       },

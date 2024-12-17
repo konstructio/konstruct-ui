@@ -13,7 +13,6 @@ export const NumberInput: Story = {
     <div className="w-[350px] flex flex-col gap-4">
       <NumberInputComponent theme="colony" label="Colony" {...args} />
       <NumberInputComponent theme="kubefirst" label="Kubefirst" {...args} />
-      <NumberInputComponent theme="konstruct" label="Konstruct" {...args} />
     </div>
   ),
 };

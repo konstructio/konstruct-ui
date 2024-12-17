@@ -21,10 +21,6 @@ export const Primary: Story = {
           Primary Colony
         </Button>
 
-        <Button variant="primary" theme="konstruct">
-          Primary Konstruct
-        </Button>
-
         <Button variant="primary" theme="civo">
           Primary Civo
         </Button>
@@ -49,10 +45,6 @@ export const Secondary: Story = {
           Secondary Colony
         </Button>
 
-        <Button variant="secondary" theme="konstruct">
-          Secondary Konstruct
-        </Button>
-
         <Button variant="secondary" theme="civo">
           Secondary Civo
         </Button>
@@ -75,7 +67,9 @@ export const Danger: Story = {
       <div className="flex flex-col items-center gap-3">
         <Button {...args} />
 
-        <Button {...args} disabled />
+        <Button {...args} disabled>
+          Danger Disabled
+        </Button>
       </div>
     </div>
   ),
@@ -91,10 +85,6 @@ export const TextButton: Story = {
 
         <Button variant="text" theme="colony">
           Text Colony
-        </Button>
-
-        <Button variant="text" theme="konstruct">
-          Text Konstruct
         </Button>
 
         <Button variant="text" theme="civo">
@@ -122,10 +112,6 @@ export const IconButton: Story = {
           </Button>
 
           <Button {...args} theme="colony">
-            <Check className="w-5 h-5" /> Verified
-          </Button>
-
-          <Button {...args} theme="konstruct">
             <Check className="w-5 h-5" /> Verified
           </Button>
 

@@ -35,14 +35,6 @@ export const Breadcrumb: Story = {
         <BreadcrumbComponent size="xl" {...args} />
       </ThemeProvider>
 
-      <ThemeProvider theme="konstruct">
-        <p className="mt-2 text-orange-600 font-semibold">Konstruct Theme</p>
-        <BreadcrumbComponent size="sm" {...args} />
-        <BreadcrumbComponent size="base" {...args} />
-        <BreadcrumbComponent size="lg" {...args} />
-        <BreadcrumbComponent size="xl" {...args} />
-      </ThemeProvider>
-
       <ThemeProvider theme="colony">
         <p className="mt-2 text-red-600 font-semibold">Colony Theme</p>
         <BreadcrumbComponent size="sm" {...args} />

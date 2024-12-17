@@ -5,7 +5,6 @@ export const progressBarVariants = cva(
   {
     variants: {
       theme: {
-        konstruct: '',
         kubefirst: '',
         colony: '',
         civo: '',
@@ -22,7 +21,6 @@ export const progressBarProgress = cva(
   {
     variants: {
       theme: {
-        konstruct: '',
         kubefirst: '',
         colony: '',
         civo: '',
@@ -43,11 +41,6 @@ export const progressBarProgress = cva(
         status: 'success',
         theme: 'kubefirst',
         class: ['bg-[#81E2B4]'],
-      },
-      {
-        status: 'progress',
-        theme: 'konstruct',
-        class: ['bg-kubefirst-gradient'],
       },
       {
         status: 'progress',
