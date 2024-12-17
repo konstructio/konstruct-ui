@@ -1,4 +1,4 @@
-export type Theme = 'kubefirst' | 'konstruct' | 'colony' | undefined;
+export type Theme = 'kubefirst' | 'colony' | 'civo' | undefined;
 export type ThemeContextType = {
     theme: Theme;
     setTheme: (theme: Theme) => void;

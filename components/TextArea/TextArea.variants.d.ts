@@ -1,3 +1,3 @@
 export declare const textAreaVariants: (props?: ({
-    theme?: "kubefirst" | "konstruct" | "colony" | null | undefined;
+    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;

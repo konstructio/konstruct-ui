@@ -1,7 +1,55 @@
 export declare const konstructColors: {
-    black: "#000";
-    white: "#fff";
+    black: string;
+    white: string;
+    amber: {
+        50: string;
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+        700: string;
+        800: string;
+        900: string;
+    };
     blue: {
+        50: string;
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+        700: string;
+        800: string;
+        900: string;
+    };
+    cyan: {
+        50: string;
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+        700: string;
+        800: string;
+        900: string;
+    };
+    emerald: {
+        50: string;
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+        700: string;
+        800: string;
+        900: string;
+    };
+    fuchsia: {
         50: string;
         100: string;
         200: string;
@@ -49,6 +97,18 @@ export declare const konstructColors: {
         800: string;
         900: string;
     };
+    lime: {
+        50: string;
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+        700: string;
+        800: string;
+        900: string;
+    };
     metal: {
         50: string;
         100: string;
@@ -60,6 +120,8 @@ export declare const konstructColors: {
         700: string;
         800: string;
         900: string;
+        1000: string;
+        1100: string;
     };
     neutral: {
         50: string;
@@ -133,6 +195,42 @@ export declare const konstructColors: {
         800: string;
         900: string;
     };
+    rose: {
+        50: string;
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+        700: string;
+        800: string;
+        900: string;
+    };
+    sage: {
+        50: string;
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+        700: string;
+        800: string;
+        900: string;
+    };
+    sky: {
+        50: string;
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+        700: string;
+        800: string;
+        900: string;
+    };
     slate: {
         50: string;
         100: string;
@@ -169,6 +267,18 @@ export declare const konstructColors: {
         800: string;
         900: string;
     };
+    violet: {
+        50: string;
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+        700: string;
+        800: string;
+        900: string;
+    };
     yellow: {
         50: string;
         100: string;
@@ -193,14 +303,21 @@ export declare const konstructColors: {
         800: string;
         900: string;
     };
-    facebook: string;
-    twitter: string;
-    github: string;
-    linkedin: string;
-    youtube: string;
-    slack: string;
     kubefirst: {
-        'purple-light': string;
-        'purple-dark': string;
+        primary: string;
+        secondary: string;
+    };
+    'kubefirst-pro': {
+        primary: string;
+        secondary: string;
+    };
+    colony: {
+        primary: string;
+        secondary: string;
+        tertiary: string;
+    };
+    civo: {
+        primary: string;
+        secondary: string;
     };
 };

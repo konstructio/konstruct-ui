@@ -1,13 +1,13 @@
-import { ChangeEvent, RefObject } from '../../../../node_modules/react';
+import { ChangeEvent, ComponentRef, RefObject } from '../../../../node_modules/react';
 import { Option } from '../Autocomplete.types';
 type UseAutocompleteProps = {
     options: Option[];
-    inputRef: RefObject<HTMLInputElement>;
-    wrapperRef: RefObject<HTMLDivElement>;
+    inputRef: RefObject<ComponentRef<'input'> | null>;
+    wrapperRef: RefObject<ComponentRef<'div'> | null>;
     onChange(value: string): void;
 };
 export declare const useAutocomplete: ({ options, inputRef, wrapperRef, onChange, }: UseAutocompleteProps) => {
-    inputRef: RefObject<HTMLInputElement>;
+    inputRef: RefObject<HTMLInputElement | null>;
     newOptions: Option[];
     showOptions: boolean;
     value: string;
