@@ -5,6 +5,7 @@ import { AlertDialog as AlertDialogComponent } from './AlertDialog';
 type Story = StoryObj<typeof AlertDialogComponent>;
 
 const meta: Meta<typeof AlertDialogComponent> = {
+  title: 'Design System/AlertDialog',
   component: AlertDialogComponent,
 };
 

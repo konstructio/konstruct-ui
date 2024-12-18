@@ -5,6 +5,7 @@ import { Input as InputComponent } from './Input';
 type Story = StoryObj<typeof InputComponent>;
 
 const meta: Meta<typeof InputComponent> = {
+  title: 'Design System/Input',
   component: InputComponent,
 };
 

@@ -5,6 +5,7 @@ import { Switch as SwitchComponent } from './Switch';
 type Story = StoryObj<typeof SwitchComponent>;
 
 const meta: Meta<typeof SwitchComponent> = {
+  title: 'Design System/Switch',
   component: SwitchComponent,
 };
 

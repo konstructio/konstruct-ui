@@ -5,6 +5,7 @@ import { RadioGroup as RadioGroupComponent } from './RadioGroup';
 type Story = StoryObj<typeof RadioGroupComponent>;
 
 const meta: Meta<typeof RadioGroupComponent> = {
+  title: 'Design System/RadioGroup',
   component: RadioGroupComponent,
 };
 

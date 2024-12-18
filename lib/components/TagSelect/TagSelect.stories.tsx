@@ -5,6 +5,7 @@ import { TagSelect as TagSelectComponent } from './TagSelect';
 type Story = StoryObj<typeof TagSelectComponent>;
 
 const meta: Meta<typeof TagSelectComponent> = {
+  title: 'Design System/TagSelect',
   component: TagSelectComponent,
 };
 

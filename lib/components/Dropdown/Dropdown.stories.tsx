@@ -5,6 +5,7 @@ import { Dropdown as DropdownComponent } from './Dropdown';
 type Story = StoryObj<typeof DropdownComponent>;
 
 const meta: Meta<typeof DropdownComponent> = {
+  title: 'Design System/Dropdown',
   component: DropdownComponent,
 };
 

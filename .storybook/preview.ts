@@ -10,6 +10,15 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    options: {
+      storySort: {
+        order: [
+          'Documentation',
+          ['Introduction', 'Changelog'],
+          'Design System',
+        ],
+      },
+    },
   },
 };
 

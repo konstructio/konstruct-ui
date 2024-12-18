@@ -5,6 +5,7 @@ import { Slider as SliderComponent } from './Slider';
 type Story = StoryObj<typeof SliderComponent>;
 
 const meta: Meta<typeof SliderComponent> = {
+  title: 'Design System/Slider',
   component: SliderComponent,
 };
 

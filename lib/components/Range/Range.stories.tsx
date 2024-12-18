@@ -5,6 +5,7 @@ import { Range as RangeComponent } from './Range';
 type Story = StoryObj<typeof RangeComponent>;
 
 const meta: Meta<typeof RangeComponent> = {
+  title: 'Design System/Range',
   component: RangeComponent,
 };
 
