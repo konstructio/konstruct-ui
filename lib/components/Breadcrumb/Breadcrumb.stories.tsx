@@ -6,6 +6,7 @@ import { ThemeProvider } from '../../contexts';
 type Story = StoryObj<typeof BreadcrumbComponent>;
 
 const meta: Meta<typeof BreadcrumbComponent> = {
+  title: 'Design System/Breadcrumb',
   component: BreadcrumbComponent,
 };
 

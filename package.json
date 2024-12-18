@@ -74,6 +74,7 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.17.1",
+    "@storybook/addon-docs": "^8.4.7",
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/addon-interactions": "^8.4.7",
     "@storybook/addon-links": "^8.4.7",

@@ -5,6 +5,7 @@ import { Checkbox as CheckboxComponent } from './Checkbox';
 type Story = StoryObj<typeof CheckboxComponent>;
 
 const meta: Meta<typeof CheckboxComponent> = {
+  title: 'Design System/Checkbox',
   component: CheckboxComponent,
 };
 

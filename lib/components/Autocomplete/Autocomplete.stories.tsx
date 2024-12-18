@@ -5,6 +5,7 @@ import { Autocomplete as AutocompleteComponent } from './Autocomplete';
 type Story = StoryObj<typeof AutocompleteComponent>;
 
 const meta: Meta<typeof AutocompleteComponent> = {
+  title: 'Design System/Autocomplete',
   component: AutocompleteComponent,
 };
 

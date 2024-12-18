@@ -6,6 +6,7 @@ import { ProgressBar as ProgressBarComponent } from './ProgressBar';
 type Story = StoryObj<typeof ProgressBarComponent>;
 
 const meta: Meta<typeof ProgressBarComponent> = {
+  title: 'Design System/ProgressBar',
   component: ProgressBarComponent,
 };
 
