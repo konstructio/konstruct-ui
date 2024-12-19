@@ -41,8 +41,7 @@ jobs:
         run: |
           git fetch origin main
           git checkout main
-          npx json -I -f package.json -e "this.version='${RELEASE_VERSION}'"
-          npx json -I -f package-lock.json -e "this.version='${RELEASE_VERSION}'"
+          npm version ${RELEASE_VERSION} --no-commit-hooks --no-git-tag-version
           git add package.json package-lock.json
           git commit -m "🔖 release: bump version to ${RELEASE_VERSION}" --allow-empty --no-verify
           git push origin main
