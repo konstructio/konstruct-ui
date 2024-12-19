@@ -1,4 +1,4 @@
-import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as e}from"./index-DwOlTBOG.js";import{ao as n,ap as c}from"./index-DB35ovzd.js";import"./index-2yJIXLcc.js";import"./iframe-iWUjcpaZ.js";import"../sb-preview/runtime.js";import"./index-BIKhx-Qu.js";import"./index-Bn05qqr6.js";import"./index-D-8MO0q_.js";import"./index-CHGET4sZ.js";import"./index-DrFu-skq.js";const i=`# Changelog
+import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as e}from"./index-DwOlTBOG.js";import{ao as n,ap as c}from"./index-DTtc5h6y.js";import"./index-2yJIXLcc.js";import"./iframe-CQ7cprp_.js";import"../sb-preview/runtime.js";import"./index-BIKhx-Qu.js";import"./index-Bn05qqr6.js";import"./index-D-8MO0q_.js";import"./index-CHGET4sZ.js";import"./index-DrFu-skq.js";const i=`# Changelog
 
 ## [0.0.5](https://github.com/konstructio/konstruct-ui/tree/0.0.5) (2024-12-19)
 
@@ -6,6 +6,8 @@ import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as e}from"
 
 **Merged pull requests:**
 
+- 👷 ci: change the github action configuration [\\#40](https://github.com/konstructio/konstruct-ui/pull/40) ([futjesus](https://github.com/futjesus))
+- 👷 ci: change the github action configuration [\\#39](https://github.com/konstructio/konstruct-ui/pull/39) ([futjesus](https://github.com/futjesus))
 - 👷 ci: change the github action configuration [\\#38](https://github.com/konstructio/konstruct-ui/pull/38) ([futjesus](https://github.com/futjesus))
 - 👷 ci: change the github action configuration [\\#37](https://github.com/konstructio/konstruct-ui/pull/37) ([futjesus](https://github.com/futjesus))
 - 👷 ci: change the github action configuration [\\#36](https://github.com/konstructio/konstruct-ui/pull/36) ([futjesus](https://github.com/futjesus))
