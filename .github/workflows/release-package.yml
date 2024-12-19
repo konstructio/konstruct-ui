@@ -54,11 +54,11 @@ jobs:
       - name: Authenticate with npmjs
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
 
-      - name: Publish to npm
-        run: npm publish --registry https://registry.npmjs.org/
-
       - name: Publish to GitHub Packages
         run: npm publish --registry https://npm.pkg.github.com/
+
+      - name: Publish to npm
+        run: npm publish --registry https://registry.npmjs.org/
 
       - name: Send new version of the package to Konstruct Slack
         run: |
