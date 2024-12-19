@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- 👷 ci: change the github action configuration [\#41](https://github.com/konstructio/konstruct-ui/pull/41) ([futjesus](https://github.com/futjesus))
 - 👷 ci: change the github action configuration [\#40](https://github.com/konstructio/konstruct-ui/pull/40) ([futjesus](https://github.com/futjesus))
 - 👷 ci: change the github action configuration [\#39](https://github.com/konstructio/konstruct-ui/pull/39) ([futjesus](https://github.com/futjesus))
 - 👷 ci: change the github action configuration [\#38](https://github.com/konstructio/konstruct-ui/pull/38) ([futjesus](https://github.com/futjesus))
