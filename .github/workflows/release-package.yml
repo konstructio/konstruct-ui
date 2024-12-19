@@ -62,12 +62,12 @@ jobs:
 
       - name: Send new version of the package to Konstruct Slack
         run: |
-          curl -X POST https://n8n-production.mgmt-24.konstruct.io/webhook/konstruct-ui/updates \
-          -H "Content-Type: application/json" \
-          -d '{
+          curl --location 'https://n8n-production.mgmt-24.konstruct.io/webhook/konstruct-ui/updates' \
+          --header 'Content-Type: application/json' \
+          --data '{
             "package_name": "${{ github.event.repository.name }}",
-            "version": "${RELEASE_VERSION}",
+            "version": "$RELEASE_VERSION",
             "url": "${{ github.event.release.html_url }}",
             "repository": "${{ github.event.repository.html_url }}",
-            "storybook": "https://konstructio.github.io/konstruct-ui",
+            "storybook": "https://konstructio.github.io/konstruct-ui"
           }'
