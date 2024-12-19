@@ -41,21 +41,24 @@ jobs:
           git fetch origin main
           git checkout main
           npx json -I -f package.json -e "this.version='${RELEASE_VERSION}'"
-          git add package.json
+          npx json -I -f package-lock.json -e "this.version='${RELEASE_VERSION}'"
+          git add package.json package-lock.json
           git commit -m "🔖 release: bump version to ${RELEASE_VERSION}" --no-verify
           git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Configure npm for npmjs registry
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+      - name: Authenticate with GitHub Packages
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
+
+      - name: Authenticate with npmjs
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
 
       - name: Publish to npm
-        run: |
-          npm publish --access public
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --registry https://registry.npmjs.org/
+
+      - name: Publish to GitHub Packages
+        run: npm publish --registry https://npm.pkg.github.com/
 
       - name: Send new version of the package to Konstruct Slack
         run: |
