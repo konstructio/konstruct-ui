@@ -36,3 +36,5 @@ jobs:
           git add CHANGELOG.md
           git commit -m "🚀 chore: update changelog [skip ci]" --no-verify
           git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
