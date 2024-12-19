@@ -4,8 +4,11 @@ on:
   push:
     branches:
       - main
-  release:
-    types: [published]
+
+  workflow_run:
+    workflows: ['Update Changelog']
+    types:
+      - completed
 
 permissions:
   packages: write
