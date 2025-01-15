@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, ComponentRef, forwardRef } from 'react';
 import { Command as CommandPrimitive } from 'cmdk';
-import { twMerge } from 'tailwind-merge';
+
+import { cn } from '../../../utils';
 
 const Command = forwardRef<
   ComponentRef<typeof CommandPrimitive>,
@@ -8,7 +9,7 @@ const Command = forwardRef<
 >(({ className, ...props }, ref) => (
   <CommandPrimitive
     ref={ref}
-    className={twMerge(
+    className={cn(
       'flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground',
       className,
     )}

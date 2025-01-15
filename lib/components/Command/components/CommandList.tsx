@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, ComponentRef, forwardRef } from 'react';
-import { twMerge } from 'tailwind-merge';
 import { Command as CommandPrimitive } from 'cmdk';
+
+import { cn } from '../../../utils';
 
 const CommandList = forwardRef<
   ComponentRef<typeof CommandPrimitive.List>,
@@ -8,10 +9,7 @@ const CommandList = forwardRef<
 >(({ className, ...props }, ref) => (
   <CommandPrimitive.List
     ref={ref}
-    className={twMerge(
-      'max-h-[300px] overflow-y-auto overflow-x-hidden',
-      className,
-    )}
+    className={cn('max-h-[300px] overflow-y-auto overflow-x-hidden', className)}
     {...props}
   />
 ));

@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, ComponentRef, forwardRef } from 'react';
 import { Command as CommandPrimitive } from 'cmdk';
-import { twMerge } from 'tailwind-merge';
+
+import { cn } from '../../../utils';
 
 const CommandSeparator = forwardRef<
   ComponentRef<typeof CommandPrimitive.Separator>,
@@ -8,7 +9,7 @@ const CommandSeparator = forwardRef<
 >(({ className, ...props }, ref) => (
   <CommandPrimitive.Separator
     ref={ref}
-    className={twMerge('-mx-1 h-px bg-border', className)}
+    className={cn('-mx-1 h-px bg-border', className)}
     {...props}
   />
 ));

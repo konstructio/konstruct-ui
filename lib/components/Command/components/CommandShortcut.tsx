@@ -1,5 +1,6 @@
 import { HTMLAttributes } from 'react';
-import { twMerge } from 'tailwind-merge';
+
+import { cn } from '../../../utils';
 
 const CommandShortcut = ({
   className,
@@ -7,7 +8,7 @@ const CommandShortcut = ({
 }: HTMLAttributes<HTMLSpanElement>) => {
   return (
     <span
-      className={twMerge(
+      className={cn(
         'ml-auto text-xs tracking-widest text-muted-foreground',
         className,
       )}
