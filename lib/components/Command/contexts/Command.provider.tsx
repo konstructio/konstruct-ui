@@ -12,11 +12,14 @@ export const CommandProvider = ({ children }: PropsWithChildren) => {
     [toggleState],
   );
 
+  const handleToggle = useCallback(() => toggleState(), [toggleState]);
+
   return (
     <CommandContext.Provider
       value={{
         isOpen,
         setOpen: handleOpen,
+        toggleOpen: handleToggle,
       }}
     >
       {children}

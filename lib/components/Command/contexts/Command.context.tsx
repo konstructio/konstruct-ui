@@ -7,6 +7,9 @@ const initialState: State = {
   setOpen: () => {
     throw new Error('onOpen is not implemented');
   },
+  toggleOpen: () => {
+    throw new Error('toggleOpen is not implemented');
+  },
 };
 
 export const CommandContext = createContext<State>(initialState);

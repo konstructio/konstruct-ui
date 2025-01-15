@@ -6,15 +6,14 @@ import { cn } from '../../../utils';
 const Command = forwardRef<
   ComponentRef<typeof CommandPrimitive>,
   ComponentPropsWithoutRef<typeof CommandPrimitive>
->(({ className, ...props }, ref) => (
+>(({ className, children, ...props }, ref) => (
   <CommandPrimitive
     ref={ref}
-    className={cn(
-      'flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground',
-      className,
-    )}
+    className={cn('flex justify-center items-center', className)}
     {...props}
-  />
+  >
+    <div className="w-[500px]">{children}</div>
+  </CommandPrimitive>
 ));
 
 Command.displayName = CommandPrimitive.displayName;

@@ -71,9 +71,7 @@ export const Command: Story = {
 
     return (
       <ThemeProvider theme="kubefirst">
-        <div className="max-w-[350px] flex flex-col gap-2">
-          <Wrapper />
-        </div>
+        <Wrapper />
       </ThemeProvider>
     );
   },
