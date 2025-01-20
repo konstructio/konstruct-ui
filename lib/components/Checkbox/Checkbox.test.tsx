@@ -1,6 +1,7 @@
 import { FC, PropsWithChildren } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 
 import { Checkbox } from './Checkbox';
 import { CheckboxProps } from './Checkbox.types';
@@ -8,17 +9,24 @@ import { CheckboxProps } from './Checkbox.types';
 describe('Checkbox', () => {
   const defaultProps = {
     defaultChecked: false,
+    name: 'button-name',
+    label: 'Checkbox',
+    ariaLabelledBy: 'checkbox-label',
+    title: 'Checkbox title',
   } satisfies CheckboxProps;
 
   const setup = (
     props?: Partial<CheckboxProps>,
     wrapper?: FC<PropsWithChildren>,
   ) => {
-    render(<Checkbox {...defaultProps} {...props} />, { wrapper });
+    const { container } = render(<Checkbox {...defaultProps} {...props} />, {
+      wrapper,
+    });
 
     const user = userEvent.setup();
 
     return {
+      component: container,
       user,
       getCheckbox: () => screen.getByRole('checkbox'),
     };
@@ -30,6 +38,14 @@ describe('Checkbox', () => {
     const checkbox = getCheckbox();
 
     expect(checkbox).toBeInTheDocument();
+  });
+
+  it("should doesn't have violations", async () => {
+    const { component } = setup();
+
+    const results = await axe(component);
+
+    expect(results).toHaveNoViolations();
   });
 
   it('should render not checked component', () => {

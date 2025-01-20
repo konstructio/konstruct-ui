@@ -71,7 +71,7 @@ describe('Dropdown', () => {
     await userEvent.click(option);
 
     expect(onChange).toHaveBeenCalledWith(defaultProps.options[0]);
-    expect(onChange).toHaveBeenCalledOnce();
+    expect(onChange).toHaveBeenCalledTimes(1);
   });
 
   it('should call the onChange function when select two times the options', async () => {
