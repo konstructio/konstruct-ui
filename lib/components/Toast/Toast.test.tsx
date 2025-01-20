@@ -1,9 +1,11 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
+
+import { Button } from '../Button/Button';
 
 import { Toast } from './Toast';
 import { ToastProps } from './Toast.types';
-import { Button } from '../Button/Button';
 
 describe('Toast', () => {
   const defaultProps: ToastProps = {
@@ -12,7 +14,7 @@ describe('Toast', () => {
   };
 
   const setup = (props?: Partial<ToastProps>) => {
-    render(
+    const { container: component } = render(
       <Toast {...defaultProps} {...props}>
         <Button>Show Toast</Button>
       </Toast>,
@@ -23,6 +25,7 @@ describe('Toast', () => {
     const getToast = () => screen.findAllByRole('status');
 
     return {
+      component,
       user,
       getButton,
       getToast,
@@ -35,6 +38,14 @@ describe('Toast', () => {
     const button = await getButton();
 
     expect(button).toBeInTheDocument();
+  });
+
+  it("should doesn't have violations", async () => {
+    const { component } = setup();
+
+    const results = await axe(component);
+
+    expect(results).toHaveNoViolations();
   });
 
   it('should render correctly the toast after the user has been clicked the button', async () => {

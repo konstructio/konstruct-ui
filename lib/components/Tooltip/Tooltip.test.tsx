@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 
 import { Tooltip } from './Tooltip';
 import { TooltipProps } from './Tooltip.types';
@@ -11,7 +12,9 @@ describe('Tooltip', () => {
   } satisfies TooltipProps;
 
   const setup = (props?: Partial<TooltipProps>) => {
-    render(<Tooltip {...defaultProps} {...props}></Tooltip>);
+    const { container: component } = render(
+      <Tooltip {...defaultProps} {...props}></Tooltip>,
+    );
 
     const user = userEvent.setup();
     const getTooltipBodyText = (value: string = defaultProps.children) =>
@@ -19,6 +22,7 @@ describe('Tooltip', () => {
     const getTooltipText = () => screen.findByText(/sample tooltip content/i);
 
     return {
+      component,
       user,
       getTooltipBodyText,
       getTooltipText,
@@ -31,6 +35,14 @@ describe('Tooltip', () => {
     const tooltipBody = await getTooltipBodyText();
 
     expect(tooltipBody).toBeInTheDocument();
+  });
+
+  it("should doesn't have violations", async () => {
+    const { component } = setup();
+
+    const results = await axe(component);
+
+    expect(results).toHaveNoViolations();
   });
 
   it('should render correctly the tooltip content', async () => {

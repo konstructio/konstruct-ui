@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { axe } from 'jest-axe';
 
 import { NumberInputProps } from './NumberInput.types';
 import { NumberInput } from './NumberInput';
@@ -6,20 +7,24 @@ import userEvent from '@testing-library/user-event';
 
 describe('NumberInput', () => {
   const defaultProps = {
+    label: 'Number Input',
     init: 0,
   } satisfies NumberInputProps;
 
   const setup = (props?: Partial<NumberInputProps>) => {
-    render(<NumberInput {...defaultProps} {...props} />);
+    const { container: component } = render(
+      <NumberInput {...defaultProps} {...props} />,
+    );
 
     const user = userEvent.setup();
-    const getInput = () => screen.findByRole('textbox');
+    const getInput = () => screen.findByRole('spinbutton');
     const getIncrementButton = () =>
       screen.getByRole('button', { name: /increment/i });
     const getDecrementButton = () =>
       screen.getByRole('button', { name: /decrement/i });
 
     return {
+      component,
       user,
       getInput,
       getIncrementButton,
@@ -34,6 +39,14 @@ describe('NumberInput', () => {
 
     expect(input).toBeInTheDocument();
     expect(input).toHaveValue(defaultProps.init);
+  });
+
+  it("should doesn't have violations", async () => {
+    const { component } = setup();
+
+    const results = await axe(component);
+
+    expect(results).toHaveNoViolations();
   });
 
   it('should increment the value', async () => {

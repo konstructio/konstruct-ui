@@ -11,7 +11,7 @@ export const tooltipVariants = cva(
     'ease-linear',
     'opacity-0',
     'duration-250',
-    'aria-expanded:opacity-100',
+    "[&[data-visible='true']]:opacity-100",
     'delay-100',
   ],
   {

@@ -78,7 +78,7 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
           </label>
         ) : null}
 
-        <div className="flex items-center">
+        <div className="flex items-center" role="presentation">
           <button
             type="button"
             onClick={handleDecrement}
@@ -95,7 +95,7 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
             name={name}
             className={numberInputVariants({ className, theme: defaultTheme })}
             readOnly
-            role="textbox"
+            aria-label={label}
           />
 
           <button
