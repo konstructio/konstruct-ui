@@ -52,6 +52,7 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "test": "vitest run --coverage",
+    "test:ci": "vitest run",
     "test:watch": "vitest dev"
   },
   "dependencies": {

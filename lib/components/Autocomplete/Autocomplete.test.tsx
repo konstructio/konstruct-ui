@@ -1,11 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 
 import { Autocomplete } from './Autocomplete';
 import { AutocompleteProps } from './Autocomplete.types';
 
 describe('Autocomplete', () => {
   const defaultProps = {
+    label: 'Label',
     options: [
       {
         value: 'Option 1',
@@ -21,7 +23,9 @@ describe('Autocomplete', () => {
   } satisfies AutocompleteProps;
 
   const setup = (props?: Partial<AutocompleteProps>) => {
-    render(<Autocomplete {...defaultProps} {...props} />);
+    const { container: component } = render(
+      <Autocomplete {...defaultProps} {...props} />,
+    );
 
     const user = userEvent.setup();
     const getInput = () => screen.findByRole('combobox');
@@ -31,6 +35,7 @@ describe('Autocomplete', () => {
       screen.findByText(new RegExp(value, 'i'));
 
     return {
+      component,
       user,
       getInput,
       getOptions,
@@ -45,6 +50,14 @@ describe('Autocomplete', () => {
     const input = await getInput();
 
     expect(input).toBeInTheDocument();
+  });
+
+  it("should doesn't have violations", async () => {
+    const { component } = setup();
+
+    const results = await axe(component);
+
+    expect(results).toHaveNoViolations();
   });
 
   it('should show all the options when the input is focused', async () => {

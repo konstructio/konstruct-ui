@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { ComponentRef, FC, useCallback, KeyboardEvent, useRef } from 'react';
 
 import { useDropdownContext } from '../../contexts';
 import { Option } from '../../Dropdown.types';
@@ -8,6 +8,7 @@ import { listItemVariants } from './ListItem.variants';
 
 export const ListItem: FC<ListItemProps> = ({ theme, ...option }) => {
   const { setValue, toggleOpen } = useDropdownContext();
+  const liRef = useRef<ComponentRef<'li'>>(null);
 
   const handleClick = useCallback(
     (option: Option) => {
@@ -17,22 +18,31 @@ export const ListItem: FC<ListItemProps> = ({ theme, ...option }) => {
     [setValue, toggleOpen],
   );
 
-  return (
-    <li className={listItemVariants({ theme })} role="option" tabIndex={0}>
-      <button
-        type="button"
-        role="button"
-        className="m-0 p-0 w-full flex items-center gap-3"
-        onClick={() => handleClick(option)}
-      >
-        {option.leftIcon ? (
-          <span className="w-4 h-4 flex justify-center items-center">
-            {option.leftIcon}
-          </span>
-        ) : null}
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLLIElement>, option: Option) => {
+      if (event.key === 'Enter') {
+        handleClick(option);
+      }
+    },
+    [handleClick],
+  );
 
-        {option.label}
-      </button>
+  return (
+    <li
+      ref={liRef}
+      role="option"
+      className={listItemVariants({ theme })}
+      tabIndex={0}
+      onClick={() => handleClick(option)}
+      onKeyDown={(event) => handleKeyDown(event, option)}
+    >
+      {option.leftIcon ? (
+        <span className="w-4 h-4 flex justify-center items-center">
+          {option.leftIcon}
+        </span>
+      ) : null}
+
+      {option.label}
     </li>
   );
 };

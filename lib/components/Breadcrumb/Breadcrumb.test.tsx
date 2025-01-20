@@ -2,6 +2,7 @@ import { FC, PropsWithChildren } from 'react';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 
 import { BreadcrumbProps } from './Breadcrumb.types';
 import { Breadcrumb } from './Breadcrumb';
@@ -19,9 +20,12 @@ describe('Breadcrumb', () => {
   };
 
   const setup = (props?: Partial<BreadcrumbProps>, wrapper?: FC) => {
-    const { debug } = render(<Breadcrumb {...defaultProps} {...props} />, {
-      wrapper,
-    });
+    const { container: component, debug } = render(
+      <Breadcrumb {...defaultProps} {...props} />,
+      {
+        wrapper,
+      },
+    );
 
     const user = userEvent.setup();
 
@@ -29,6 +33,7 @@ describe('Breadcrumb', () => {
       screen.findByText(new RegExp(step, 'i'));
 
     return {
+      component,
       user,
       getLinkStep,
       debug,
@@ -40,6 +45,14 @@ describe('Breadcrumb', () => {
     const { user } = setup({ steps });
 
     expect(user).toBeDefined();
+  });
+
+  it("should doesn't have violations", async () => {
+    const { component } = setup();
+
+    const results = await axe(component);
+
+    expect(results).toHaveNoViolations();
   });
 
   it.skip('should click when one of these steps is a route and is clicked', async () => {
