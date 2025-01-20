@@ -1,12 +1,15 @@
 import { FC, PropsWithChildren } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 
 import { DropdownProps, Option } from './Dropdown.types';
 import { Dropdown } from './Dropdown';
 
 describe('Dropdown', () => {
   const defaultProps = {
+    label: 'Dropdown',
+    name: 'dropdown-label',
     options: [
       {
         label: 'Option 1',
@@ -24,7 +27,10 @@ describe('Dropdown', () => {
   } satisfies DropdownProps;
 
   const setup = (props?: Partial<DropdownProps>, wrapper?: FC) => {
-    render(<Dropdown {...defaultProps} {...props} />, { wrapper });
+    const { container: component } = render(
+      <Dropdown {...defaultProps} {...props} />,
+      { wrapper },
+    );
 
     const user = userEvent.setup();
     const getComboBox = () => screen.getByRole('combobox');
@@ -32,6 +38,7 @@ describe('Dropdown', () => {
       screen.getByText(new RegExp(value, 'i'));
 
     return {
+      component,
       user,
       getComboBox,
       getElement,
@@ -44,6 +51,14 @@ describe('Dropdown', () => {
     const comboBox = getComboBox();
 
     expect(comboBox).toBeInTheDocument();
+  });
+
+  it("should doesn't have violations", async () => {
+    const { component } = setup();
+
+    const results = await axe(component);
+
+    expect(results).toHaveNoViolations();
   });
 
   it('should render the options correctly', async () => {

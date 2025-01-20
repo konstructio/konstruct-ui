@@ -76,6 +76,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           onChange={autocomplete.handleChange}
           value={autocomplete.value}
           placeholder={placeholder}
+          aria-expanded={autocomplete.showOptions ? 'true' : 'false'}
         />
 
         {autocomplete.showOptions && (

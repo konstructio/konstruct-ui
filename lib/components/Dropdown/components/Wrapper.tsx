@@ -15,8 +15,8 @@ import { useTheme } from '../../../contexts';
 import { DropdownProps } from '../Dropdown.types';
 import { dropdownVariants } from '../Dropdown.variants';
 import { useDropdown } from '../hooks/useDropdown';
-
 import { useDropdownContext } from '../contexts';
+
 import { List } from './List/List';
 
 export const Wrapper: ForwardRefExoticComponent<
@@ -88,6 +88,7 @@ export const Wrapper: ForwardRefExoticComponent<
       <div ref={wrapperRef} className="flex flex-col w-full relative">
         {label ? (
           <label
+            id={htmlFor}
             className="m-2 cursor-pointer"
             htmlFor={htmlFor}
             onClick={handleOpenIfClosed}
@@ -104,6 +105,7 @@ export const Wrapper: ForwardRefExoticComponent<
           onClick={handleOpen}
           aria-expanded={isOpen}
           tabIndex={0}
+          aria-labelledby={htmlFor}
         >
           <span className="text-base text-inherit">
             {value ? (
@@ -124,10 +126,17 @@ export const Wrapper: ForwardRefExoticComponent<
           />
         </div>
 
-        <input ref={inputRef} type="text" name={name} className="hidden" />
+        <input
+          ref={inputRef}
+          type="text"
+          name={name}
+          className="hidden"
+          aria-hidden="true"
+        />
 
         <List
           ref={ulRef}
+          name={name}
           wrapperRef={wrapperRef}
           wrapperInputRef={wrapperInputRef}
           options={options}

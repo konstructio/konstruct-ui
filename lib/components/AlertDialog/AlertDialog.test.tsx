@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 
 import { AlertDialogProps } from './AlertDialog.types';
 import { AlertDialog } from './AlertDialog';
@@ -12,7 +13,9 @@ describe('AlertDialog', () => {
   } satisfies AlertDialogProps;
 
   const setup = (props?: Partial<AlertDialogProps>) => {
-    render(<AlertDialog {...defaultProps} {...props} />);
+    const { container: component } = render(
+      <AlertDialog {...defaultProps} {...props} />,
+    );
 
     const user = userEvent.setup();
     const getButton = () =>
@@ -25,6 +28,7 @@ describe('AlertDialog', () => {
     const getButtonOk = () => screen.getByRole('button', { name: /ok/i });
 
     return {
+      component,
       user,
       getButton,
       getAlertDialog,
@@ -38,6 +42,14 @@ describe('AlertDialog', () => {
     const button = getButton();
 
     expect(button).toBeInTheDocument();
+  });
+
+  it("should doesn't have violations", async () => {
+    const { component } = setup();
+
+    const results = await axe(component);
+
+    expect(results).toHaveNoViolations();
   });
 
   it('should render the alert dialog', async () => {
