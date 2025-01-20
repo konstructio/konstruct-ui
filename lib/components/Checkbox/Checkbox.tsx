@@ -14,20 +14,23 @@ export const Checkbox: FC<CheckboxProps> = forwardRef<
 >(
   (
     {
+      ariaLabelledBy,
       className,
       defaultChecked,
       disabled,
+      id,
       label,
       labelClassName,
       name,
       theme,
+      title,
       variant,
       onChange,
     },
     ref,
   ) => {
     const [checked, setChecked] = useToggle(defaultChecked);
-    const id = useId();
+    const defaultId = useId();
     const { theme: contextTheme } = useTheme();
 
     const handleChange = useCallback(() => {
@@ -38,11 +41,13 @@ export const Checkbox: FC<CheckboxProps> = forwardRef<
     return (
       <div className="flex items-center gap-2">
         <Root
-          id={name ?? id}
+          id={id ?? defaultId}
           checked={checked}
           ref={ref}
           name={name}
           disabled={disabled}
+          aria-labelledby={ariaLabelledBy}
+          title={title}
           className={checkboxVariants({
             className,
             theme: theme ?? contextTheme,
