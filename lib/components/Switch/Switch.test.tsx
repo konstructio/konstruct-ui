@@ -1,6 +1,7 @@
 import { FC, PropsWithChildren } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 
 import { SwitchProps } from './Switch.types';
 import { Switch } from './Switch';
@@ -8,18 +9,23 @@ import { Switch } from './Switch';
 describe('Switch', () => {
   const defaultProps = {
     defaultChecked: false,
+    label: 'Switch',
   } satisfies SwitchProps;
 
   const setup = (
     props?: Partial<SwitchProps>,
     wrapper?: FC<PropsWithChildren>,
   ) => {
-    render(<Switch {...defaultProps} {...props} />, { wrapper: wrapper });
+    const { container: component } = render(
+      <Switch {...defaultProps} {...props} />,
+      { wrapper: wrapper },
+    );
 
     const user = userEvent.setup();
     const getSwitch = () => screen.findByRole('switch');
 
     return {
+      component,
       user,
       getSwitch,
     };
@@ -31,6 +37,14 @@ describe('Switch', () => {
     const switchComponent = await getSwitch();
 
     expect(switchComponent).toBeInTheDocument();
+  });
+
+  it("should doesn't have violations", async () => {
+    const { component } = setup();
+
+    const results = await axe(component);
+
+    expect(results).toHaveNoViolations();
   });
 
   it('should activate the switch when the user has been clicked on it', async () => {

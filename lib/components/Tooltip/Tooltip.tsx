@@ -43,7 +43,7 @@ export const Tooltip: FC<TooltipProps> = forwardRef<HTMLElement, TooltipProps>(
           <div
             ref={tooltipRef}
             className={tooltipVariants({ theme: inheritTheme, position })}
-            aria-expanded={isVisible}
+            data-visible={isVisible}
           >
             <span
               className={arrowVariants({ theme: inheritTheme, position })}

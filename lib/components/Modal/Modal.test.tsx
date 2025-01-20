@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 
 import { ModalProps } from './Modal.types';
 import { Modal } from './Modal';
@@ -26,7 +27,9 @@ describe('Modal', () => {
       );
     };
 
-    render(<Wrapper />, { wrapper: ModalProvider });
+    const { container: component } = render(<Wrapper />, {
+      wrapper: ModalProvider,
+    });
 
     const user = userEvent.setup();
     const getButton = () => screen.findByRole('button', { name: /click me!/i });
@@ -36,6 +39,7 @@ describe('Modal', () => {
     const getOverlay = () => screen.findByRole('presentation');
 
     return {
+      component,
       user,
       getButton,
       getModal,
@@ -50,6 +54,14 @@ describe('Modal', () => {
     const button = await getButton();
 
     expect(button).toBeInTheDocument();
+  });
+
+  it("should doesn't have violations", async () => {
+    const { component } = setup();
+
+    const results = await axe(component);
+
+    expect(results).toHaveNoViolations();
   });
 
   it('should show de modal after click the button', async () => {

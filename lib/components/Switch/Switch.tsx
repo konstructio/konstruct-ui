@@ -74,6 +74,7 @@ export const Switch: FC<SwitchProps> = forwardRef<
           defaultChecked={defaultChecked}
           onCheckedChange={handleChange}
           className={switchVariants({ theme: inheritTheme, className })}
+          aria-label={label}
         >
           <Thumb
             className={thumbVariants({
@@ -83,7 +84,13 @@ export const Switch: FC<SwitchProps> = forwardRef<
           />
         </Root>
 
-        <input ref={inputRef} name={name} type="text" className="hidden" />
+        <input
+          ref={inputRef}
+          name={name}
+          type="text"
+          className="hidden"
+          aria-hidden="true"
+        />
       </div>
     );
   },
