@@ -9,7 +9,10 @@ const Command = forwardRef<
 >(({ className, children, ...props }, ref) => (
   <CommandPrimitive
     ref={ref}
-    className={cn('flex justify-center items-center', className)}
+    className={cn(
+      'flex justify-center items-center overflow-hidden rounded-md bg-popover text-popover-foreground',
+      className,
+    )}
     {...props}
   >
     <div className="w-[500px]">{children}</div>

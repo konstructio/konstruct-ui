@@ -1,14 +1,11 @@
+import { useContext, useEffect } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Moon, Sun, Database } from 'react-feather';
 
 import { ThemeProvider, useTheme } from '../../contexts';
 
-import {
-  Command as CommandComponent,
-  CommandGroup,
-  CommandItem,
-} from './Command';
-import { CommandSeparator } from 'cmdk';
+import { Command as CommandComponent } from './Command';
+import { CommandContext, CommandProvider } from './contexts';
+import { CommandInput } from './components';
 
 type Story = StoryObj<typeof CommandComponent>;
 
@@ -20,16 +17,45 @@ const meta: Meta<typeof CommandComponent> = {
 export const Command: Story = {
   render: () => {
     const Wrapper = () => {
-      const { theme, setTheme } = useTheme();
+      const { theme } = useTheme();
+      const { isOpen, setOpen, toggleOpen } = useContext(CommandContext);
+
+      useEffect(() => {
+        const down = (e: KeyboardEvent) => {
+          if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') {
+            if (
+              (e.target instanceof HTMLElement && e.target.isContentEditable) ||
+              e.target instanceof HTMLInputElement ||
+              e.target instanceof HTMLTextAreaElement ||
+              e.target instanceof HTMLSelectElement
+            ) {
+              return;
+            }
+
+            e.preventDefault();
+            toggleOpen();
+          }
+        };
+
+        document.addEventListener('keydown', down);
+        return () => document.removeEventListener('keydown', down);
+      }, [toggleOpen]);
 
       return (
         <>
-          <p>
-            Current Theme: <span>{theme}</span>
-          </p>
+          <div className="flex gap-3 items-center">
+            <p>
+              Current Theme: <span>{theme}</span>
+            </p>
 
-          <CommandComponent>
-            <CommandGroup heading="Theme">
+            <kbd className="pointer-events-none h-5 select-none flex items-center gap-1 rounded-md bg-kubefirst-secondary px-1.5 font-mono text-[10px] font-medium opacity-100 text-white">
+              <span className="text-xs">⌘</span>K
+            </kbd>
+          </div>
+
+          <CommandComponent open={isOpen} onOpenChange={setOpen}>
+            <CommandInput placeholder="Type a command or search..." />
+            {/* <CommandGroup heading="Theme">
               <CommandItem onSelect={() => setTheme!('kubefirst')}>
                 <Sun />
                 Kubefirst
@@ -63,7 +89,7 @@ export const Command: Story = {
                 <Database />
                 Civo
               </CommandItem>
-            </CommandGroup>
+            </CommandGroup> */}
           </CommandComponent>
         </>
       );
@@ -71,7 +97,9 @@ export const Command: Story = {
 
     return (
       <ThemeProvider theme="kubefirst">
-        <Wrapper />
+        <CommandProvider>
+          <Wrapper />
+        </CommandProvider>
       </ThemeProvider>
     );
   },

@@ -13,6 +13,7 @@ const CommandSeparator = forwardRef<
     {...props}
   />
 ));
+
 CommandSeparator.displayName = CommandPrimitive.Separator.displayName;
 
 export { CommandSeparator };
