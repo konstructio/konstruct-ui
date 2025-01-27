@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.7](https://github.com/konstructio/konstruct-ui/tree/0.0.7) (2025-01-27)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.6...0.0.7)
+
+**Merged pull requests:**
+
+- ✨ feat: add Card component export to index [\#83](https://github.com/konstructio/konstruct-ui/pull/83) ([futjesus](https://github.com/futjesus))
+
 ## [0.0.6](https://github.com/konstructio/konstruct-ui/tree/0.0.6) (2025-01-27)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.5...0.0.6)
