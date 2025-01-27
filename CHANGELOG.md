@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.8](https://github.com/konstructio/konstruct-ui/tree/0.0.8) (2025-01-27)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.7...0.0.8)
+
+**Merged pull requests:**
+
+- ✨ feat: add wrapperClassName prop to Card component and update peer dependencies for React [\#84](https://github.com/konstructio/konstruct-ui/pull/84) ([futjesus](https://github.com/futjesus))
+
 ## [0.0.7](https://github.com/konstructio/konstruct-ui/tree/0.0.7) (2025-01-27)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.6...0.0.7)
