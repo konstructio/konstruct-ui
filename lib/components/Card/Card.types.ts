@@ -9,4 +9,5 @@ export interface CardProps
     PropsWithChildren {
   isActive?: boolean;
   canHover?: boolean;
+  wrapperClassName?: string;
 }
