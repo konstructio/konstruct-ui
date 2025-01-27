@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.0.6](https://github.com/konstructio/konstruct-ui/tree/0.0.6) (2025-01-27)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.5...0.0.6)
+
+**Merged pull requests:**
+
+- ⬆️  chore: some dependencies have been update [\#82](https://github.com/konstructio/konstruct-ui/pull/82) ([futjesus](https://github.com/futjesus))
+- ✅ test: add accessibility checks to Modal, NumberInput, Switch, Toast, and Tooltip components [\#76](https://github.com/konstructio/konstruct-ui/pull/76) ([futjesus](https://github.com/futjesus))
+- ✅ feat: enhance Autocomplete and Dropdown components with accessibility improvements [\#75](https://github.com/konstructio/konstruct-ui/pull/75) ([futjesus](https://github.com/futjesus))
+- 👷 chore: update GitHub Actions [\#74](https://github.com/konstructio/konstruct-ui/pull/74) ([futjesus](https://github.com/futjesus))
+- 👷 chore: add GitHub Actions workflow to run tests on pull requests [\#73](https://github.com/konstructio/konstruct-ui/pull/73) ([futjesus](https://github.com/futjesus))
+- ✅ chore: enhance Checkbox component with accessibility features [\#72](https://github.com/konstructio/konstruct-ui/pull/72) ([futjesus](https://github.com/futjesus))
+- ⬆️ chore: update dependencies to latest versions [\#67](https://github.com/konstructio/konstruct-ui/pull/67) ([futjesus](https://github.com/futjesus))
+- ✨ feat: card component have been added [\#63](https://github.com/konstructio/konstruct-ui/pull/63) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: some dependencies have been updated [\#58](https://github.com/konstructio/konstruct-ui/pull/58) ([futjesus](https://github.com/futjesus))
+- ➖ chore: unused dependency was removed [\#50](https://github.com/konstructio/konstruct-ui/pull/50) ([futjesus](https://github.com/futjesus))
+- 🙈 chore: some dependencies for dependanbot were added [\#48](https://github.com/konstructio/konstruct-ui/pull/48) ([futjesus](https://github.com/futjesus))
+- 👷 ci: dependabot was added [\#43](https://github.com/konstructio/konstruct-ui/pull/43) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: some dependencies have been upgraded [\#42](https://github.com/konstructio/konstruct-ui/pull/42) ([futjesus](https://github.com/futjesus))
+
 ## [0.0.5](https://github.com/konstructio/konstruct-ui/tree/0.0.5) (2024-12-19)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.4...0.0.5)
