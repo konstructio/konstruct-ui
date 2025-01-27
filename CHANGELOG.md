@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.9](https://github.com/konstructio/konstruct-ui/tree/0.0.9) (2025-01-27)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.8...0.0.9)
+
+**Merged pull requests:**
+
+- ✨ feat: update peer dependencies for React and add optional types for better compatibility [\#85](https://github.com/konstructio/konstruct-ui/pull/85) ([futjesus](https://github.com/futjesus))
+
 ## [0.0.8](https://github.com/konstructio/konstruct-ui/tree/0.0.8) (2025-01-27)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.7...0.0.8)
