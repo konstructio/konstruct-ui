@@ -1,4 +1,12 @@
-import{j as t}from"./jsx-runtime-BjgbQsUx.js";import{useMDXComponents as e}from"./index-BFB5bZRa.js";import{b as n,c}from"./index-g_s9Kldb.js";import"./index-D2MAbzvX.js";import"./index-BuYn5Wpo.js";import"./iframe-BDwBpfZ4.js";import"./index-CxSaS19u.js";import"./index-BIm0odtm.js";import"./index-D-8MO0q_.js";import"./index-CHGET4sZ.js";import"./index-DrFu-skq.js";const i=`# Changelog
+import{j as t}from"./jsx-runtime-BjgbQsUx.js";import{useMDXComponents as e}from"./index-BFB5bZRa.js";import{b as n,c}from"./index-Caw3BPLG.js";import"./index-D2MAbzvX.js";import"./index-BuYn5Wpo.js";import"./iframe-3hexheXt.js";import"./index-CxSaS19u.js";import"./index-BIm0odtm.js";import"./index-D-8MO0q_.js";import"./index-CHGET4sZ.js";import"./index-DrFu-skq.js";const i=`# Changelog
+
+## [0.0.8](https://github.com/konstructio/konstruct-ui/tree/0.0.8) (2025-01-27)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.7...0.0.8)
+
+**Merged pull requests:**
+
+- ✨ feat: add wrapperClassName prop to Card component and update peer dependencies for React [\\#84](https://github.com/konstructio/konstruct-ui/pull/84) ([futjesus](https://github.com/futjesus))
 
 ## [0.0.7](https://github.com/konstructio/konstruct-ui/tree/0.0.7) (2025-01-27)
 
