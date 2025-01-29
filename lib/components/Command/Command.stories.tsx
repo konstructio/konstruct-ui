@@ -5,7 +5,13 @@ import { ThemeProvider, useTheme } from '../../contexts';
 
 import { Command as CommandComponent } from './Command';
 import { CommandContext, CommandProvider } from './contexts';
-import { CommandInput } from './components';
+import {
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandSeparator,
+} from './components';
+import { Database, Moon, Sun } from 'react-feather';
 
 type Story = StoryObj<typeof CommandComponent>;
 
@@ -17,7 +23,7 @@ const meta: Meta<typeof CommandComponent> = {
 export const Command: Story = {
   render: () => {
     const Wrapper = () => {
-      const { theme } = useTheme();
+      const { theme, setTheme } = useTheme();
       const { isOpen, setOpen, toggleOpen } = useContext(CommandContext);
 
       useEffect(() => {
@@ -38,7 +44,10 @@ export const Command: Story = {
         };
 
         document.addEventListener('keydown', down);
-        return () => document.removeEventListener('keydown', down);
+
+        return () => {
+          document.removeEventListener('keydown', down);
+        };
       }, [toggleOpen]);
 
       return (
@@ -55,7 +64,7 @@ export const Command: Story = {
 
           <CommandComponent open={isOpen} onOpenChange={setOpen}>
             <CommandInput placeholder="Type a command or search..." />
-            {/* <CommandGroup heading="Theme">
+            <CommandGroup heading="Theme">
               <CommandItem onSelect={() => setTheme!('kubefirst')}>
                 <Sun />
                 Kubefirst
@@ -89,7 +98,7 @@ export const Command: Story = {
                 <Database />
                 Civo
               </CommandItem>
-            </CommandGroup> */}
+            </CommandGroup>
           </CommandComponent>
         </>
       );
