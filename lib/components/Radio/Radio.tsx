@@ -1,6 +1,7 @@
 import { FC, forwardRef, useCallback, useId } from 'react';
 
 import { useTheme } from '../../contexts';
+import { cn } from '../../utils';
 
 import { RadioProps } from './Radio.types';
 import { radioVariants } from './Radio.variants';
@@ -47,7 +48,9 @@ export const Radio: FC<RadioProps> = forwardRef<HTMLInputElement, RadioProps>(
           onChange={() => handleChange(value)}
         />
         <span
-          className={radioVariants({ className, theme: theme ?? contextTheme })}
+          className={cn(
+            radioVariants({ className, theme: theme ?? contextTheme }),
+          )}
         />
         <span className="ml-2">{label}</span>
       </label>

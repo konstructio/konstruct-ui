@@ -1,12 +1,13 @@
+import { Indicator, Root } from '@radix-ui/react-checkbox';
 import { FC, forwardRef, useCallback, useId } from 'react';
-import { Root, Indicator } from '@radix-ui/react-checkbox';
 import { Check } from 'react-feather';
 
+import { useTheme } from '../../contexts';
 import { useToggle } from '../../hooks';
+import { cn } from '../../utils';
 
 import { CheckboxProps } from './Checkbox.types';
 import { checkboxVariants, labelVariants } from './Checkbox.variants';
-import { useTheme } from '../../contexts';
 
 export const Checkbox: FC<CheckboxProps> = forwardRef<
   HTMLButtonElement,
@@ -48,12 +49,14 @@ export const Checkbox: FC<CheckboxProps> = forwardRef<
           disabled={disabled}
           aria-labelledby={ariaLabelledBy}
           title={title}
-          className={checkboxVariants({
-            className,
-            theme: theme ?? contextTheme,
-            variant,
-            checked,
-          })}
+          className={cn(
+            checkboxVariants({
+              className,
+              theme: theme ?? contextTheme,
+              variant,
+              checked,
+            }),
+          )}
           onCheckedChange={handleChange}
         >
           <Indicator>
@@ -64,11 +67,13 @@ export const Checkbox: FC<CheckboxProps> = forwardRef<
         {label ? (
           <label
             htmlFor={name ?? id}
-            className={labelVariants({
-              variant,
-              theme,
-              className: labelClassName,
-            })}
+            className={cn(
+              labelVariants({
+                variant,
+                theme,
+                className: labelClassName,
+              }),
+            )}
           >
             {label}
           </label>

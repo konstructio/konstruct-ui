@@ -1,3 +1,4 @@
+import { Root, Thumb } from '@radix-ui/react-switch';
 import {
   FC,
   forwardRef,
@@ -8,10 +9,9 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Root, Thumb } from '@radix-ui/react-switch';
 
-import { cn } from '../../utils';
 import { useTheme } from '../../contexts';
+import { cn } from '../../utils';
 
 import { SwitchProps } from './Switch.types';
 import { switchVariants, thumbVariants } from './Switch.variants';
@@ -73,7 +73,7 @@ export const Switch: FC<SwitchProps> = forwardRef<
           id={componentId}
           defaultChecked={defaultChecked}
           onCheckedChange={handleChange}
-          className={switchVariants({ theme: inheritTheme, className })}
+          className={cn(switchVariants({ theme: inheritTheme, className }))}
           aria-label={label}
         >
           <Thumb

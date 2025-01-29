@@ -7,9 +7,11 @@ import {
   useState,
 } from 'react';
 
+import { useTheme } from '../../contexts';
+import { cn } from '../../utils';
+
 import { TextAreaProps } from './TextArea.types';
 import { textAreaVariants } from './TextArea.variants';
-import { useTheme } from '../../contexts';
 
 export const TextArea: FC<TextAreaProps> = forwardRef<
   HTMLTextAreaElement,
@@ -43,7 +45,7 @@ export const TextArea: FC<TextAreaProps> = forwardRef<
         <textarea
           id={htmlId}
           ref={ref}
-          className={textAreaVariants({ theme: theme ?? contextTheme })}
+          className={cn(textAreaVariants({ theme: theme ?? contextTheme }))}
           rows={rows}
           placeholder={placeholder}
           value={value}

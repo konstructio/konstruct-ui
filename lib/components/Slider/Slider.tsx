@@ -1,3 +1,4 @@
+import { Root, Thumb, Track } from '@radix-ui/react-slider';
 import {
   ComponentRef,
   FC,
@@ -8,7 +9,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Root, Thumb, Track } from '@radix-ui/react-slider';
 
 import { useTheme } from '../../contexts';
 import { cn } from '../../utils';
@@ -62,12 +62,12 @@ export const Slider: FC<SliderProps> = forwardRef<
 
         <Root
           value={value}
-          className={sliderVariants({ theme: inheritTheme })}
+          className={cn(sliderVariants({ theme: inheritTheme }))}
           onValueChange={handleValueChange}
           {...delegated}
         >
-          <Track className={trackVariants({ theme: inheritTheme, size })} />
-          <Thumb className={thumbVariants({ theme: inheritTheme, size })} />
+          <Track className={cn(trackVariants({ theme: inheritTheme, size }))} />
+          <Thumb className={cn(thumbVariants({ theme: inheritTheme, size }))} />
         </Root>
       </div>
     );

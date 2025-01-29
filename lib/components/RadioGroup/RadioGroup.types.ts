@@ -1,12 +1,13 @@
 import { RadioProps } from '../Radio/Radio.types';
 
 export interface RadioGroupProps {
+  asChild?: boolean;
+  className?: RadioProps['className'];
+  defaultValue?: string;
   label?: string;
   name: string;
   options: Omit<RadioProps, 'name'>[];
-  asChild?: boolean;
   theme?: RadioProps['theme'];
-  className?: RadioProps['className'];
-  defaultValue?: string;
+  wrapperClassName?: string;
   onValueChange?: (value: string) => void;
 }

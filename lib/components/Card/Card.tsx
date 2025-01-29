@@ -1,6 +1,7 @@
 import { FC, forwardRef } from 'react';
 
 import { useTheme } from '../../contexts';
+import { cn } from '../../utils';
 
 import { cardBaseVariants, cardVariants } from './Card.variants';
 import { CardProps } from './Card.types';
@@ -14,21 +15,25 @@ const Card: FC<CardProps> = forwardRef<HTMLDivElement, CardProps>(
 
     return (
       <div
-        className={cardBaseVariants({
-          canHover,
-          className: wrapperClassName,
-          isActive,
-          theme: theme ?? contextTheme,
-        })}
+        className={cn(
+          cardBaseVariants({
+            canHover,
+            className: wrapperClassName,
+            isActive,
+            theme: theme ?? contextTheme,
+          }),
+        )}
       >
         <div
           ref={ref}
-          className={cardVariants({
-            className,
-            theme: theme ?? contextTheme,
-            isActive,
-            canHover,
-          })}
+          className={cn(
+            cardVariants({
+              className,
+              theme: theme ?? contextTheme,
+              isActive,
+              canHover,
+            }),
+          )}
           {...props}
         />
       </div>

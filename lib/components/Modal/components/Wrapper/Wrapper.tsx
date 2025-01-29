@@ -1,10 +1,11 @@
+import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { Children, FC, isValidElement } from 'react';
 import { X as Close } from 'react-feather';
 import FocusLock from 'react-focus-lock';
 import { RemoveScroll } from 'react-remove-scroll';
-import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
 import { useTheme } from '../../../../contexts';
+import { cn } from '../../../../utils';
 import { useModal } from '../../hooks';
 import { Modal } from '../../Modal';
 import { ModalChildProps } from '../../Modal.types';
@@ -52,10 +53,12 @@ export const Wrapper: FC<WrapperProps> = ({
           />
 
           <div
-            className={modalVariants({
-              className,
-              theme: theme ?? contextTheme,
-            })}
+            className={cn(
+              modalVariants({
+                className,
+                theme: theme ?? contextTheme,
+              }),
+            )}
             role="dialog"
             aria-modal="true"
           >
@@ -63,10 +66,12 @@ export const Wrapper: FC<WrapperProps> = ({
 
             <button
               ref={closeBtnRef}
-              className={buttonCloseVariants({
-                className: buttonCloseClassName,
-                theme: theme ?? contextTheme,
-              })}
+              className={cn(
+                buttonCloseVariants({
+                  className: buttonCloseClassName,
+                  theme: theme ?? contextTheme,
+                }),
+              )}
               onClick={onClose}
             >
               <Close />

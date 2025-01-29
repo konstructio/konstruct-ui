@@ -1,6 +1,7 @@
 import { ComponentRef, FC, useRef } from 'react';
 
-import { useNavigationUlList } from '../hooks';
+import { cn } from '../../../../utils';
+import { useNavigationUlList } from '../../hooks';
 
 import { Props } from './List.types';
 import {
@@ -28,11 +29,13 @@ export const List: FC<Props> = ({
   if (options.length === 0) {
     return (
       <span
-        className={emptyListVariants({
-          theme,
-          variant,
-          className: placeholderClassName,
-        })}
+        className={cn(
+          emptyListVariants({
+            theme,
+            variant,
+            className: placeholderClassName,
+          }),
+        )}
       >
         {placeholder}
       </span>
@@ -43,19 +46,19 @@ export const List: FC<Props> = ({
     <ul
       ref={ulRef}
       role="listbox"
-      className={listVariants({ variant, theme, className })}
+      className={cn(listVariants({ variant, theme, className }))}
     >
       {options.map(({ value }) => (
         <li
           key={value}
           role="option"
           tabIndex={0}
-          className={listItemVariants({ theme, variant })}
+          className={cn(listItemVariants({ theme, variant }))}
         >
           <button
             type="button"
             role="button"
-            className={buttonVariants({ theme, variant })}
+            className={cn(buttonVariants({ theme, variant }))}
             onClick={() => onClick(value)}
           >
             {value}

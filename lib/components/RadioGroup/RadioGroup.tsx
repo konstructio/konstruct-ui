@@ -1,17 +1,20 @@
-import { FC, useCallback, useState } from 'react';
 import { Slot } from '@radix-ui/react-slot';
+import { FC, useCallback, useState } from 'react';
 
 import { useTheme } from '../../contexts';
+import { cn } from '../../utils';
 import { Radio } from '../Radio/Radio';
 
 import { RadioGroupProps } from './RadioGroup.types';
 
 export const RadioGroup: FC<RadioGroupProps> = ({
+  asChild,
+  className,
+  defaultValue,
+  name,
   options,
   theme,
-  name,
-  asChild,
-  defaultValue,
+  wrapperClassName,
   onValueChange,
 }) => {
   const Comp = asChild ? Slot : 'div';
@@ -27,7 +30,7 @@ export const RadioGroup: FC<RadioGroupProps> = ({
   );
 
   return (
-    <Comp className="flex gap-2">
+    <Comp className={cn('flex gap-2', wrapperClassName)}>
       <>
         {options.map(({ value, ...delagated }) => (
           <Radio
@@ -35,6 +38,7 @@ export const RadioGroup: FC<RadioGroupProps> = ({
             value={value}
             theme={theme ?? contextTheme}
             name={name}
+            className={cn(className)}
             checked={selected === value}
             onChange={() => handleSelected(value)}
             {...delagated}

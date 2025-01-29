@@ -13,8 +13,8 @@ import { useTheme } from '../../contexts';
 import { cn } from '../../utils';
 import { Tag } from '../Tag/Tag';
 
-import { TagSelectProps } from './TagSelect.types';
 import { useTagSelect } from './hooks/useTagSelect';
+import { TagSelectProps } from './TagSelect.types';
 import {
   tagItemVariants,
   tagListVariants,
@@ -55,7 +55,7 @@ export const TagSelect: FC<TagSelectProps> = forwardRef<
 
       <div
         id={name ?? id}
-        className={tagSelectVariants({ theme: theme ?? themeContext })}
+        className={cn(tagSelectVariants({ theme: theme ?? themeContext }))}
         role="combobox"
         onClick={handleOpenDropdown}
         aria-expanded={isOpen}
@@ -83,7 +83,7 @@ export const TagSelect: FC<TagSelectProps> = forwardRef<
         >
           {options.map((tag) => (
             <li
-              className={tagItemVariants({ theme: theme ?? themeContext })}
+              className={cn(tagItemVariants({ theme: theme ?? themeContext }))}
               role="option"
             >
               <button

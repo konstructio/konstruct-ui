@@ -1,5 +1,6 @@
-import { ComponentRef, FC, useCallback, KeyboardEvent, useRef } from 'react';
+import { ComponentRef, FC, KeyboardEvent, useCallback, useRef } from 'react';
 
+import { cn } from '../../../../utils';
 import { useDropdownContext } from '../../contexts';
 import { Option } from '../../Dropdown.types';
 
@@ -31,7 +32,7 @@ export const ListItem: FC<ListItemProps> = ({ theme, ...option }) => {
     <li
       ref={liRef}
       role="option"
-      className={listItemVariants({ theme })}
+      className={cn(listItemVariants({ theme }))}
       tabIndex={0}
       onClick={() => handleClick(option)}
       onKeyDown={(event) => handleKeyDown(event, option)}
