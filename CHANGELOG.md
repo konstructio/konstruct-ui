@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.10](https://github.com/konstructio/konstruct-ui/tree/0.0.10) (2025-01-29)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.9...0.0.10)
+
+**Merged pull requests:**
+
+- ✨ feat: enhance component styling with utility functions and improve type definitions [\#86](https://github.com/konstructio/konstruct-ui/pull/86) ([futjesus](https://github.com/futjesus))
+
 ## [0.0.9](https://github.com/konstructio/konstruct-ui/tree/0.0.9) (2025-01-27)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.8...0.0.9)
