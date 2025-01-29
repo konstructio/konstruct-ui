@@ -42,11 +42,11 @@ export const Tooltip: FC<TooltipProps> = forwardRef<HTMLElement, TooltipProps>(
 
           <div
             ref={tooltipRef}
-            className={tooltipVariants({ theme: inheritTheme, position })}
+            className={cn(tooltipVariants({ theme: inheritTheme, position }))}
             data-visible={isVisible}
           >
             <span
-              className={arrowVariants({ theme: inheritTheme, position })}
+              className={cn(arrowVariants({ theme: inheritTheme, position }))}
             />
             <Slot>{content}</Slot>
           </div>

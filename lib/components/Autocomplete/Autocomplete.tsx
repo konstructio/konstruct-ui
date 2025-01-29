@@ -7,9 +7,10 @@ import {
 } from 'react';
 
 import { useTheme } from '../../contexts';
+import { cn } from '../../utils';
 
 import { useAutocomplete } from './hooks';
-import { List } from './components/List';
+import { List } from './components';
 import { AutocompleteProps } from './Autocomplete.types';
 import { autocompleteVariants, labelVariants } from './Autocomplete.variants';
 
@@ -51,11 +52,13 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
         {label ? (
           <label
             htmlFor={name ?? id}
-            className={labelVariants({
-              theme: inheritTheme,
-              variant,
-              className: labelClassName,
-            })}
+            className={cn(
+              labelVariants({
+                theme: inheritTheme,
+                variant,
+                className: labelClassName,
+              }),
+            )}
           >
             {label}
           </label>
@@ -68,11 +71,13 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           name={name}
           role="combobox"
           autoComplete={autoComplete}
-          className={autocompleteVariants({
-            theme: inheritTheme,
-            variant,
-            className,
-          })}
+          className={cn(
+            autocompleteVariants({
+              theme: inheritTheme,
+              variant,
+              className,
+            }),
+          )}
           onChange={autocomplete.handleChange}
           value={autocomplete.value}
           placeholder={placeholder}

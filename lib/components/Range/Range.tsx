@@ -1,4 +1,10 @@
 import {
+  Range as RangeRadix,
+  Root,
+  Thumb,
+  Track,
+} from '@radix-ui/react-slider';
+import {
   ComponentRef,
   FC,
   forwardRef,
@@ -8,15 +14,9 @@ import {
   useRef,
   useState,
 } from 'react';
-import {
-  Root,
-  Thumb,
-  Track,
-  Range as RangeRadix,
-} from '@radix-ui/react-slider';
 
-import { cn } from '../../utils';
 import { useTheme } from '../../contexts';
+import { cn } from '../../utils';
 
 import { RangeProps } from './Range.types';
 import {
@@ -80,18 +80,18 @@ export const Range: FC<RangeProps> = forwardRef<
 
         <Root
           value={value}
-          className={rangeVariants({ theme: inheritTheme })}
+          className={cn(rangeVariants({ theme: inheritTheme }))}
           onValueChange={handleValueChange}
           {...delegated}
         >
-          <Track className={trackVariants({ theme: inheritTheme, size })}>
+          <Track className={cn(trackVariants({ theme: inheritTheme, size }))}>
             <RangeRadix
-              className={rangeOutsideVariants({ theme: inheritTheme })}
+              className={cn(rangeOutsideVariants({ theme: inheritTheme }))}
             />
           </Track>
 
-          <Thumb className={thumbVariants({ theme: inheritTheme, size })} />
-          <Thumb className={thumbVariants({ theme: inheritTheme, size })} />
+          <Thumb className={cn(thumbVariants({ theme: inheritTheme, size }))} />
+          <Thumb className={cn(thumbVariants({ theme: inheritTheme, size }))} />
         </Root>
       </div>
     );

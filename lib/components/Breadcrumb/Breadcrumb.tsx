@@ -3,6 +3,7 @@ import { ChevronRight } from 'react-feather';
 import { Link } from 'react-router-dom';
 
 import { useTheme } from '../../contexts';
+import { cn } from '../../utils';
 
 import { BreadcrumbProps } from './Breadcrumb.types';
 import {
@@ -25,12 +26,16 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
   return (
     <nav aria-label="breadcrumb">
       <ol
-        className={breadcrumbVariants({ theme: inheritTheme, className, size })}
+        className={cn(
+          breadcrumbVariants({ theme: inheritTheme, className, size }),
+        )}
       >
         {steps.map(({ label, to, target }, index) => (
           <Fragment key={label}>
             <li
-              className={breadcrumbItemVariants({ theme: inheritTheme, size })}
+              className={cn(
+                breadcrumbItemVariants({ theme: inheritTheme, size }),
+              )}
             >
               {to ? (
                 <>
@@ -60,7 +65,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
             {index !== steps.length - 1 && (
               <li>
                 <ChevronRight
-                  className={chevronVariants({ size, theme: inheritTheme })}
+                  className={cn(chevronVariants({ size, theme: inheritTheme }))}
                 />
               </li>
             )}

@@ -1,3 +1,13 @@
+import { Slot } from '@radix-ui/react-slot';
+import {
+  Action,
+  Description,
+  Provider,
+  Root,
+  Title,
+  Viewport,
+} from '@radix-ui/react-toast';
+import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import {
   FC,
   isValidElement,
@@ -7,19 +17,10 @@ import {
   useRef,
   useState,
 } from 'react';
-import {
-  Action,
-  Description,
-  Provider,
-  Root,
-  Title,
-  Viewport,
-} from '@radix-ui/react-toast';
-import { Slot } from '@radix-ui/react-slot';
 import { X } from 'react-feather';
-import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
 import { useTheme } from '../../contexts';
+import { cn } from '../../utils';
 
 import { ToastProps } from './Toast.types';
 import {
@@ -74,7 +75,7 @@ export const Toast: FC<ToastProps> = ({
       <Slot onClick={handleClick}>{children}</Slot>
 
       <Root
-        className={toastVariants({ theme: inheritTheme, className })}
+        className={cn(toastVariants({ theme: inheritTheme, className }))}
         open={open}
         onOpenChange={setOpen}
       >
@@ -87,14 +88,16 @@ export const Toast: FC<ToastProps> = ({
         {showCloseButton && (
           <Action asChild altText="Close the toast">
             <button type="button" className="absolute right-1.5 top-1.5">
-              <X className={closeToastVariants({ theme: inheritTheme })} />
+              <X className={cn(closeToastVariants({ theme: inheritTheme }))} />
               <VisuallyHidden>Close toast</VisuallyHidden>
             </button>
           </Action>
         )}
       </Root>
 
-      <Viewport className={viewportToastVariants({ theme: inheritTheme })} />
+      <Viewport
+        className={cn(viewportToastVariants({ theme: inheritTheme }))}
+      />
     </Provider>
   );
 };

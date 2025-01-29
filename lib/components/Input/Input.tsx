@@ -3,9 +3,9 @@ import { AlertCircle, EyeOff } from 'react-feather';
 
 import { cn } from '../../utils';
 
+import { useTheme } from '../../contexts';
 import { InputProps } from './Input.types';
 import { inputVariants } from './Input.variants';
-import { useTheme } from '../../contexts';
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (

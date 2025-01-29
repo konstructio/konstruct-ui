@@ -100,7 +100,7 @@ export const Wrapper: ForwardRefExoticComponent<
         <div
           ref={wrapperInputRef}
           id={htmlFor}
-          className={dropdownVariants({ theme: inheritTheme })}
+          className={cn(dropdownVariants({ theme: inheritTheme }))}
           role="combobox"
           onClick={handleOpen}
           aria-expanded={isOpen}

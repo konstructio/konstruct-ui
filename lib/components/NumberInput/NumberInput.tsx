@@ -1,8 +1,9 @@
-import { FC, forwardRef, useCallback, useId, useState } from 'react';
 import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { FC, forwardRef, useCallback, useId, useState } from 'react';
 import { Minus, Plus } from 'react-feather';
 
 import { useTheme } from '../../contexts';
+import { cn } from '../../utils';
 
 import { NumberInputProps } from './NumberInput.types';
 import {
@@ -70,9 +71,11 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
         {label ? (
           <label
             htmlFor={name ?? id}
-            className={labelVariants({
-              theme: defaultTheme,
-            })}
+            className={cn(
+              labelVariants({
+                theme: defaultTheme,
+              }),
+            )}
           >
             {label}
           </label>
@@ -82,7 +85,9 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
           <button
             type="button"
             onClick={handleDecrement}
-            className={buttonVariants({ theme: defaultTheme, button: 'rigth' })}
+            className={cn(
+              buttonVariants({ theme: defaultTheme, button: 'rigth' }),
+            )}
           >
             <Minus className="w-4 h-4" />
             <VisuallyHidden>Decrement</VisuallyHidden>
@@ -93,7 +98,9 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
             type="number"
             value={count}
             name={name}
-            className={numberInputVariants({ className, theme: defaultTheme })}
+            className={cn(
+              numberInputVariants({ className, theme: defaultTheme }),
+            )}
             readOnly
             aria-label={label}
           />
@@ -101,7 +108,9 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
           <button
             type="button"
             onClick={handleIncrement}
-            className={buttonVariants({ theme: defaultTheme, button: 'left' })}
+            className={cn(
+              buttonVariants({ theme: defaultTheme, button: 'left' }),
+            )}
           >
             <Plus className="w-4 h-4" />
             <VisuallyHidden>Increment</VisuallyHidden>

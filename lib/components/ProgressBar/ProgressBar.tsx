@@ -25,7 +25,7 @@ export const ProgressBar: FC<ProgressBarProps> = ({
         <span className="font-semibold">{percent}%</span>
       </div>
 
-      <div className={progressBarVariants({ theme: inheritTheme })}>
+      <div className={cn(progressBarVariants({ theme: inheritTheme }))}>
         <div
           className={cn(
             progressBarProgress({ theme: inheritTheme, status }),

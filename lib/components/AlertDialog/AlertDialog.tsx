@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import {
   Action,
   Cancel,
@@ -9,8 +8,10 @@ import {
   Root,
   Title,
 } from '@radix-ui/react-alert-dialog';
+import { FC } from 'react';
 
 import { useTheme } from '../../contexts';
+import { cn } from '../../utils';
 import { Button } from '../Button/Button';
 
 import { AlertDialogProps } from './AlertDialog.types';
@@ -18,10 +19,14 @@ import { AlertDialogTrigger } from './components';
 import { useAlertDialog } from './hooks';
 
 export const AlertDialog: FC<AlertDialogProps> = ({
+  buttonCancelClassName,
+  buttonCancelText = 'Cancel',
+  buttonConfirmClassName,
+  buttonConfirmText = 'OK',
   buttonText,
+  description,
   theme,
   title,
-  description,
   onConfirm,
 }) => {
   const { theme: contextTheme } = useTheme();
@@ -46,9 +51,10 @@ export const AlertDialog: FC<AlertDialogProps> = ({
                 type="button"
                 theme={theme ?? contextTheme}
                 variant="secondary"
+                className={cn(buttonCancelClassName)}
                 onClick={handleCancel}
               >
-                Cancel
+                {buttonCancelText}
               </Button>
             </Cancel>
 
@@ -57,9 +63,10 @@ export const AlertDialog: FC<AlertDialogProps> = ({
                 type="button"
                 theme={theme ?? contextTheme}
                 variant="danger"
+                className={cn(buttonConfirmClassName)}
                 onClick={handleConfirm}
               >
-                OK
+                {buttonConfirmText}
               </Button>
             </Action>
           </div>
