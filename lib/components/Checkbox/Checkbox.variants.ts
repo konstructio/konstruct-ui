@@ -4,7 +4,7 @@ export const checkboxVariants = cva(
   [
     'cursor-pointer',
     'border',
-    'rounded',
+    'rounded-sm',
     'w-5',
     'h-5',
     'flex',

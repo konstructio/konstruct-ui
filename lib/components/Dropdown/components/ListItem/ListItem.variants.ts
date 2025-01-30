@@ -6,7 +6,7 @@ export const listItemVariants = cva(
     'py-2',
     'px-2',
     'h-full',
-    'focus-visible:outline-none',
+    'focus-visible:outline-hidden',
     'm-0',
     'w-full',
     'flex',

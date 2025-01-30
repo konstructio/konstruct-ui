@@ -46,17 +46,17 @@ export const cardVariants = cva(
       {
         theme: 'colony',
         isActive: true,
-        class: ['border-colony-primary', 'shadow'],
+        class: ['border-colony-primary', 'shadow-sm'],
       },
       {
         theme: 'kubefirst',
         isActive: true,
-        class: ['border-kubefirst-primary', 'shadow'],
+        class: ['border-kubefirst-primary', 'shadow-sm'],
       },
       {
         theme: 'civo',
         isActive: true,
-        class: ['border-civo-primary', 'shadow'],
+        class: ['border-civo-primary', 'shadow-sm'],
       },
       {
         theme: 'colony',

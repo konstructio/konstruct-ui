@@ -43,7 +43,7 @@ export const tagListVariants = cva(
     'flex-col',
     'mt-1',
     'rounded-md',
-    'shadow-sm',
+    'shadow-xs',
     'top-full',
     'transition-all',
     'w-full',

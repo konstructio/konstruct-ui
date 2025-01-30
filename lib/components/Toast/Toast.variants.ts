@@ -44,7 +44,7 @@ export const viewportToastVariants = cva(
     'max-w-[100vw]',
     'm-0',
     'z-50',
-    'outline-none',
+    'outline-hidden',
   ],
   {
     variants: {
