@@ -16,7 +16,7 @@ export const sliderVariants = cva(
   },
 );
 
-export const trackVariants = cva(['relative', 'flex-grow', 'rounded-full'], {
+export const trackVariants = cva(['relative', 'grow', 'rounded-full'], {
   variants: {
     theme: {
       kubefirst: ['bg-kubefirst-secondary'],
@@ -42,7 +42,7 @@ export const thumbVariants = cva(
     'h-5',
     'rounded-full',
     'cursor-pointer',
-    'focus-visible:outline-none',
+    'focus-visible:outline-hidden',
     'shadow-md',
     'bg-white',
     'border',

@@ -50,23 +50,23 @@ export const Card: Story = {
 
             <ul className="text-slate-700 text-sm flex flex-col gap-2">
               <li className="flex items-start gap-1">
-                <Check className="text-green-500 w-4 h-4 mt-0.5 flex-shrink-0" />
+                <Check className="text-green-500 w-4 h-4 mt-0.5 shrink-0" />
                 Full feature access to the User Interface
               </li>
               <li className="flex items-start gap-1">
-                <Check className="text-green-500 w-4 h-4 mt-0.5 flex-shrink-0" />
+                <Check className="text-green-500 w-4 h-4 mt-0.5 shrink-0" />
                 Up to 10 physical clusters
               </li>
               <li className="flex items-start gap-1">
-                <Check className="text-green-500 w-4 h-4 mt-0.5 flex-shrink-0" />
+                <Check className="text-green-500 w-4 h-4 mt-0.5 shrink-0" />
                 Multi-account provisioning
               </li>
               <li className="flex items-start gap-1">
-                <Check className="text-green-500 w-4 h-4 mt-0.5 flex-shrink-0" />
+                <Check className="text-green-500 w-4 h-4 mt-0.5 shrink-0" />
                 Customizable GitOps Catalog
               </li>
               <li className="flex items-start gap-1">
-                <Check className="text-green-500 w-4 h-4 mt-0.5 flex-shrink-0" />
+                <Check className="text-green-500 w-4 h-4 mt-0.5 shrink-0" />
                 Slack Connect support
               </li>
             </ul>

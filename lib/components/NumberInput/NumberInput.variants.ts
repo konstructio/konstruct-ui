@@ -8,7 +8,7 @@ export const numberInputVariants = cva(
     'appearance-none',
     'border',
     'border-x-0',
-    'focus-visible:outline-none',
+    'focus-visible:outline-hidden',
     'focus-visible:ring-transparent',
     'p-1',
     'text-center',

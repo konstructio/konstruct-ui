@@ -9,7 +9,7 @@ export const rangeVariants = cva(
     'border',
     'border-gray-200',
     'rounded-full',
-    'shadow-sm',
+    'shadow-xs',
   ],
   {
     variants: {
@@ -39,7 +39,7 @@ export const rangeOutsideVariants = cva(['absolute', 'h-full'], {
 });
 
 export const trackVariants = cva(
-  ['relative', 'flex-grow', 'bg-gray-100', 'rounded-full'],
+  ['relative', 'grow', 'bg-gray-100', 'rounded-full'],
   {
     variants: {
       theme: {
@@ -67,7 +67,7 @@ export const thumbVariants = cva(
     'h-5',
     'rounded-full',
     'cursor-pointer',
-    'focus-visible:outline-none',
+    'focus-visible:outline-hidden',
     'shadow-md',
     'bg-white',
     'border',

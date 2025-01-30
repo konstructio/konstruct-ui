@@ -7,7 +7,7 @@ export const switchVariants = cva(
     'flex',
     'items-center',
     'rounded-full',
-    'shadow',
+    'shadow-sm',
     'focus:shadow-md',
     'data-[state=unchecked]:bg-zinc-200',
     'transition-all',

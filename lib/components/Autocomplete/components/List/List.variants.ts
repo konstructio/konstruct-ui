@@ -37,7 +37,7 @@ export const emptyListVariants = cva(
   },
 );
 
-export const listItemVariants = cva(['focus-visible:outline-none'], {
+export const listItemVariants = cva(['focus-visible:outline-hidden'], {
   variants: {
     variant: {
       default: '',
@@ -57,7 +57,7 @@ export const listItemVariants = cva(['focus-visible:outline-none'], {
 export const buttonVariants = cva(
   [
     'cursor-pointer',
-    'focus-visible:outline-none',
+    'focus-visible:outline-hidden',
     'px-3',
     'py-1.5',
     'w-full',

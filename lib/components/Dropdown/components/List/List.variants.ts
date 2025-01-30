@@ -11,7 +11,7 @@ export const listVariants = cva(
     'mt-1',
     'overflow-hidden',
     'rounded-md',
-    'shadow-sm',
+    'shadow-xs',
     'top-full',
     'transition-all',
     'w-full',

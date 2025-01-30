@@ -85,7 +85,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
         />
 
         {autocomplete.showOptions && (
-          <div className="absolute z-10 top-full w-full rounded-md mt-1 border shadow-sm">
+          <div className="absolute z-10 top-full w-full rounded-md mt-1 border shadow-xs">
             <List
               className={className}
               inputRef={inputRef}

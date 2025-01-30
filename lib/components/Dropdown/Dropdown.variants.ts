@@ -14,7 +14,7 @@ export const dropdownVariants = cva(
     'rounded-md',
     'transition-all',
     'w-full',
-    'outline-none',
+    'outline-hidden',
   ],
   {
     variants: {
