@@ -9,19 +9,20 @@ import { wrapperSiderbarVariants } from './Sidebar.variants';
 
 export const Sidebar: FC<SidebarProps> = ({ wrapperClassName, theme }) => {
   const { theme: contextTheme } = useTheme();
+  const selectedTheme = theme ?? contextTheme;
 
   return (
     <aside
       className={cn(
         wrapperSiderbarVariants({
           className: wrapperClassName,
-          theme: theme ?? contextTheme,
+          theme: selectedTheme,
         }),
       )}
     >
-      <Logo />
-      <Navigation />
-      <Footer />
+      <Logo theme={selectedTheme} />
+      <Navigation theme={selectedTheme} />
+      <Footer theme={selectedTheme} />
     </aside>
   );
 };
