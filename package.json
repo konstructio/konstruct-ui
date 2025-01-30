@@ -76,9 +76,19 @@
     "@types/react-dom": "*",
     "react": "^16.8 || ^17.0 || ^18.0 || ^19.0",
     "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0",
-    "react-router-dom": "^7"
+    "react-router-dom": "^7",
+    "tailwindcss": "^3"
   },
   "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    },
+    "react-dom": {
+      "optional": false
+    },
+    "tailwindcss": {
+      "optional": false
+    },
     "@types/react": {
       "optional": true
     },
