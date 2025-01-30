@@ -42,7 +42,13 @@ const meta = {
 } satisfies Meta<typeof SidebarPrimitive>;
 
 export const Sidebar = {
-  render: () => <SidebarPrimitive />,
+  render: () => (
+    <SidebarPrimitive>
+      <SidebarPrimitive.Logo>Logo</SidebarPrimitive.Logo>
+      <SidebarPrimitive.Navigation>Navigation</SidebarPrimitive.Navigation>
+      <SidebarPrimitive.Footer>Footer</SidebarPrimitive.Footer>
+    </SidebarPrimitive>
+  ),
 } satisfies Story;
 
 export default meta;
