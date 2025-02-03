@@ -6,6 +6,7 @@ import react from '@vitejs/plugin-react';
 import { libInjectCss } from 'vite-plugin-lib-inject-css';
 import tailwindcss from 'tailwindcss';
 import dts from 'vite-plugin-dts';
+import alias from '@rollup/plugin-alias';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -30,6 +31,11 @@ export default defineConfig({
     },
     rollupOptions: {
       external: ['react', 'react/jsx-runtime'],
+      plugins: [
+        alias({
+          entries: [{ find: '@', replacement: resolve(__dirname, 'lib') }],
+        }),
+      ],
       input: Object.fromEntries(
         // https://rollupjs.org/configuration-options/#input
         glob
