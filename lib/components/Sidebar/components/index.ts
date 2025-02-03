@@ -12,3 +12,4 @@ export * from './NavigationSeparator/NavigationSeparator';
 export type * from './NavigationSeparator/NavigationSeparator.types';
 export * from './NavigationTitle/NavigationTitle';
 export type * from './NavigationTitle/NavigationTitle.types';
+export * from './Wrapper/Wrapper';

@@ -13,8 +13,8 @@ export const navigationOptionVariants = cva(
     'py-2.5',
     'cursor-pointer',
     'hover:rounded-xl',
-    'hover:bg-[#252a41]',
     'font-normal',
+    'text-black',
   ],
   {
     variants: {
@@ -23,6 +23,7 @@ export const navigationOptionVariants = cva(
         kubefirst: [
           'text-[#9ea2c6]',
           'hover:text-white',
+          'hover:bg-[#252a41]',
           'selection:bg-powder-500',
           'selection:text-white',
         ],
