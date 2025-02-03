@@ -77,11 +77,14 @@ export const Sidebar = {
               <ScatterPlotIcon /> Clusters
             </a>
           </NavigationOption>
-          <NavigationOption>
-            <a className="flex items-center gap-2">
-              <GridViewIcon /> Services
-            </a>
+
+          <NavigationOption
+            role="button"
+            onClick={() => console.log('clicked')}
+          >
+            <GridViewIcon /> Services
           </NavigationOption>
+
           <NavigationOption>
             <a className="flex items-center gap-2">
               <PhotoLibraryIcon /> Environments

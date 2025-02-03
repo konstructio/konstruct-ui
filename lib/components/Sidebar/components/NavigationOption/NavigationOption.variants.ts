@@ -10,7 +10,7 @@ export const navigationOptionVariants = cva(
     '[&>a]:flex',
     '[&>a]:gap-2',
     'px-4',
-    'py-3',
+    'py-2.5',
     'cursor-pointer',
     'hover:rounded-xl',
     'hover:bg-[#252a41]',
@@ -20,7 +20,12 @@ export const navigationOptionVariants = cva(
     variants: {
       theme: {
         colony: '',
-        kubefirst: ['text-[#9ea2c6]', 'hover:text-white'],
+        kubefirst: [
+          'text-[#9ea2c6]',
+          'hover:text-white',
+          'selection:bg-powder-500',
+          'selection:text-white',
+        ],
         civo: '',
       },
     },

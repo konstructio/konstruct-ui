@@ -6,7 +6,11 @@ export const navigationTitleVariants = cva(
     variants: {
       theme: {
         colony: '',
-        kubefirst: ['text-white'],
+        kubefirst: [
+          'text-white',
+          'selection:bg-powder-500',
+          'selection:text-white',
+        ],
         civo: '',
       },
     },
