@@ -7,4 +7,5 @@ export interface NavigationTitleProps
   extends VariantProps<typeof navigationTitleVariants>,
     Pick<HtmlHTMLAttributes<HTMLHeadingElement>, 'className'> {
   title: string;
+  className?: string;
 }

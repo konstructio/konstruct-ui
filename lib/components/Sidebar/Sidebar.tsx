@@ -8,8 +8,8 @@ import {
   useRef,
 } from 'react';
 
-import { useTheme } from '../../contexts';
-import { cn } from '../../utils';
+import { useTheme } from '@/contexts';
+import { cn } from '@/utils';
 
 import {
   Footer,
@@ -145,4 +145,12 @@ Sidebar.NavigationGroup = NavigationGroup;
 Sidebar.NavigationOption = NavigationOption;
 Sidebar.NavigationSeparator = NavigationSeparator;
 
-export { Logo, Sidebar };
+export {
+  Footer,
+  Logo,
+  Navigation,
+  NavigationGroup,
+  NavigationOption,
+  NavigationSeparator,
+  Sidebar,
+};

@@ -8,4 +8,5 @@ export interface NavigationGroupProps
     VariantProps<typeof navigationGroupsVariants>,
     Pick<HtmlHTMLAttributes<HTMLDivElement>, 'className' | 'style'> {
   title?: string;
+  titleClassName?: string;
 }

@@ -1,7 +1,7 @@
 import { VariantProps } from 'class-variance-authority';
+import { PropsWithChildren } from 'react';
 
 import { footerVariants } from './Footer.variants';
-import { PropsWithChildren } from 'react';
 
 export interface FooterProps
   extends PropsWithChildren,

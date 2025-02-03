@@ -1,9 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import debounce from 'lodash/debounce';
 import { useEffect, useState } from 'react';
-import { Star } from 'react-feather';
 
-import { Sidebar as SidebarPrimitive } from './Sidebar';
+import GridViewIcon from '@/assets/icons/grid-view.svg';
+import PhotoLibraryIcon from '@/assets/icons/photo-library.svg';
+import ReceiptLongIcon from '@/assets/icons/receipt-long.svg';
+import ScatterPlotIcon from '@/assets/icons/scatter-plot.svg';
+import CloudIcon from '@/assets/icons/cloud.svg';
+
+import { Star } from 'react-feather';
+import {
+  Footer,
+  Logo,
+  Navigation,
+  NavigationGroup,
+  NavigationOption,
+  NavigationSeparator,
+  Sidebar as SidebarPrimitive,
+} from './Sidebar';
 
 type Story = StoryObj<typeof SidebarPrimitive>;
 
@@ -45,8 +59,8 @@ const meta = {
 export const Sidebar = {
   render: () => (
     <SidebarPrimitive>
-      <SidebarPrimitive.Logo>
-        <a href="#">
+      <Logo>
+        <a>
           <img
             className="flex-1 shrink-0"
             src="./logo-kubefirst.svg"
@@ -54,28 +68,49 @@ export const Sidebar = {
           />
           <span className="left-[35%]">v1.29.0</span>
         </a>
-      </SidebarPrimitive.Logo>
+      </Logo>
 
-      <SidebarPrimitive.Navigation>
-        <SidebarPrimitive.NavigationGroup title="Hello World">
-          <SidebarPrimitive.NavigationOption>
-            <a href="#" className="flex items-center gap-2">
-              Clusters
+      <Navigation>
+        <NavigationGroup>
+          <NavigationOption>
+            <a className="flex items-center gap-2">
+              <ScatterPlotIcon /> Clusters
             </a>
-          </SidebarPrimitive.NavigationOption>
-          <SidebarPrimitive.NavigationOption>
-            <a href="#" className="flex items-center gap-2">
-              Services
+          </NavigationOption>
+          <NavigationOption>
+            <a className="flex items-center gap-2">
+              <GridViewIcon /> Services
             </a>
-          </SidebarPrimitive.NavigationOption>
-        </SidebarPrimitive.NavigationGroup>
-      </SidebarPrimitive.Navigation>
+          </NavigationOption>
+          <NavigationOption>
+            <a className="flex items-center gap-2">
+              <PhotoLibraryIcon /> Environments
+            </a>
+          </NavigationOption>
+        </NavigationGroup>
 
-      <SidebarPrimitive.Footer>
+        <NavigationSeparator />
+
+        <NavigationGroup title="Admin settings" titleClassName="uppercase">
+          <NavigationOption>
+            <a className="flex items-center gap-2">
+              <ReceiptLongIcon /> Plans & Billing
+            </a>
+          </NavigationOption>
+
+          <NavigationOption>
+            <a className="flex items-center gap-2">
+              <CloudIcon /> Cloud accounts
+            </a>
+          </NavigationOption>
+        </NavigationGroup>
+      </Navigation>
+
+      <Footer>
         <span className="text-[#81E2B4] flex items-center gap-2 justify-center font-semibold cursor-pointer">
           <Star className="w-5 h-5" /> Upgrade to Business
         </span>
-      </SidebarPrimitive.Footer>
+      </Footer>
     </SidebarPrimitive>
   ),
 } satisfies Story;

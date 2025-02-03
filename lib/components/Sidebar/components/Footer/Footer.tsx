@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import { useTheme } from '../../../../contexts';
-import { cn } from '../../../../utils';
+import { useTheme } from '@/contexts';
+import { cn } from '@/utils';
 
 import { FooterProps } from './Footer.types';
 import { footerVariants } from './Footer.variants';

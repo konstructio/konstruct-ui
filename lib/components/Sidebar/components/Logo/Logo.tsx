@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import { useTheme } from '../../../../contexts';
-import { cn } from '../../../../utils';
+import { useTheme } from '@/contexts';
+import { cn } from '@/utils';
 
 import { LogoProps } from './Logo.types';
 import { logoVariants } from './Logo.variants';

@@ -26,6 +26,7 @@ export const logoVariants = cva(
     '[&>*>span]:bottom-0',
     '[&>*>span]:-mt-2',
     '[&>*>img]:pt-3',
+    'cursor-pointer',
   ],
   {
     variants: {
