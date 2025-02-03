@@ -15,7 +15,6 @@ import {
   Navigation,
   NavigationGroup,
   NavigationOption,
-  NavigationSeparator,
   Sidebar as SidebarPrimitive,
 } from './Sidebar';
 
@@ -45,6 +44,32 @@ const meta = {
         return () => {
           observer.disconnect();
         };
+      }, [debounced]);
+
+      useEffect(() => {
+        const callback = (node?: Node) => {
+          const sidebar = (node as HTMLElement)?.querySelector(
+            '.sidebar-container',
+          );
+
+          if (sidebar) {
+            debounced();
+          }
+        };
+
+        const mutationCallback: MutationCallback = (mutationsList) => {
+          mutationsList.forEach((mutation) => {
+            mutation.addedNodes.forEach(callback);
+            mutation.removedNodes.forEach(callback);
+          });
+        };
+
+        const mutationObserver = new MutationObserver(mutationCallback);
+
+        mutationObserver.observe(window.parent.document.body, {
+          childList: true,
+          subtree: true,
+        });
       }, [debounced]);
 
       return (
@@ -91,8 +116,6 @@ export const Sidebar = {
             </a>
           </NavigationOption>
         </NavigationGroup>
-
-        <NavigationSeparator />
 
         <NavigationGroup title="Admin settings" titleClassName="uppercase">
           <NavigationOption>
