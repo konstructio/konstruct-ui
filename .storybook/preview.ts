@@ -2,7 +2,7 @@ import type { Preview } from '@storybook/react';
 
 import '../lib/index.css';
 
-const preview: Preview = {
+const preview = {
   parameters: {
     controls: {
       matchers: {
@@ -20,6 +20,6 @@ const preview: Preview = {
       },
     },
   },
-};
+} satisfies Preview;
 
 export default preview;

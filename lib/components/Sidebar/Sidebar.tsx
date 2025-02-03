@@ -13,20 +13,22 @@ import { cn } from '../../utils';
 
 import {
   Footer,
-  FooterProps,
   Logo,
-  LogoProps,
   Navigation,
-  NavigationProps,
+  NavigationGroup,
+  NavigationOption,
+  NavigationSeparator,
 } from './components';
-import { SidebarProps } from './Sidebar.types';
+import { SidebarChildrenProps, SidebarProps } from './Sidebar.types';
 import { dragVariants, wrapperSiderbarVariants } from './Sidebar.variants';
 
-const Sidebar: FC<SidebarProps> & {
-  Logo: FC<LogoProps>;
-  Navigation: FC<NavigationProps>;
-  Footer: FC<FooterProps>;
-} = ({ wrapperClassName, theme, children, minWith = 240, maxWith = 300 }) => {
+const Sidebar: FC<SidebarProps> & SidebarChildrenProps = ({
+  wrapperClassName,
+  theme,
+  children,
+  minWith = 240,
+  maxWith = 300,
+}) => {
   const dragRef = useRef<ComponentRef<'div'>>(null);
   const asideRef = useRef<ComponentRef<'aside'>>(null);
   const isResizingRef = useRef(false);
@@ -136,8 +138,11 @@ const Sidebar: FC<SidebarProps> & {
   );
 };
 
+Sidebar.Footer = Footer;
 Sidebar.Logo = Logo;
 Sidebar.Navigation = Navigation;
-Sidebar.Footer = Footer;
+Sidebar.NavigationGroup = NavigationGroup;
+Sidebar.NavigationOption = NavigationOption;
+Sidebar.NavigationSeparator = NavigationSeparator;
 
 export { Logo, Sidebar };

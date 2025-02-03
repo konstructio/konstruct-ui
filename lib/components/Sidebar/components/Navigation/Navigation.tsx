@@ -1,12 +1,17 @@
 import { FC } from 'react';
 
-import { useTheme } from '../../../../contexts';
-import { cn } from '../../../../utils';
+import { useTheme } from '@/contexts';
+import { cn } from '@/utils';
 
-import { NavigationProps } from './Navigation.types';
+import { NavigationGroup } from '../NavigationGroup/NavigationGroup';
+import { NavigationOption } from '../NavigationOption/NavigationOption';
+import { NavigationSeparator } from '../NavigationSeparator/NavigationSeparator';
+import { NavigationTitle } from '../NavigationTitle/NavigationTitle';
+
+import { NavigationChildrenProps, NavigationProps } from './Navigation.types';
 import { navigationVariants } from './Navigation.variants';
 
-export const Navigation: FC<NavigationProps> = ({
+const Navigation: FC<NavigationProps> & NavigationChildrenProps = ({
   className,
   theme,
   children,
@@ -23,3 +28,10 @@ export const Navigation: FC<NavigationProps> = ({
     </nav>
   );
 };
+
+Navigation.NavigationGroup = NavigationGroup;
+Navigation.NavigationOption = NavigationOption;
+Navigation.NavigationSeparator = NavigationSeparator;
+Navigation.NavigationTitle = NavigationTitle;
+
+export { Navigation };

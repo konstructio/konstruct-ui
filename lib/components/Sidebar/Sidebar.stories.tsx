@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import debounce from 'lodash/debounce';
+import { useEffect, useState } from 'react';
 import { Star } from 'react-feather';
 
 import { Sidebar as SidebarPrimitive } from './Sidebar';
-import { useEffect, useState } from 'react';
 
 type Story = StoryObj<typeof SidebarPrimitive>;
 
@@ -57,7 +57,18 @@ export const Sidebar = {
       </SidebarPrimitive.Logo>
 
       <SidebarPrimitive.Navigation>
-        <p className="text-white">Navigation</p>
+        <SidebarPrimitive.NavigationGroup title="Hello World">
+          <SidebarPrimitive.NavigationOption>
+            <a href="#" className="flex items-center gap-2">
+              Clusters
+            </a>
+          </SidebarPrimitive.NavigationOption>
+          <SidebarPrimitive.NavigationOption>
+            <a href="#" className="flex items-center gap-2">
+              Services
+            </a>
+          </SidebarPrimitive.NavigationOption>
+        </SidebarPrimitive.NavigationGroup>
       </SidebarPrimitive.Navigation>
 
       <SidebarPrimitive.Footer>
