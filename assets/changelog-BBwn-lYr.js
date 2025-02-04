@@ -1,8 +1,8 @@
-import{j as t}from"./jsx-runtime-BjgbQsUx.js";import{useMDXComponents as e}from"./index-mlLJSVP9.js";import{b as n,c}from"./index-CGhr7eth.js";import"./index-D2MAbzvX.js";import"./index-DmOy-Ncz.js";import"./iframe-TX6I8bvJ.js";import"./index-CitIXhkC.js";import"./index-BIm0odtm.js";import"./index-D-8MO0q_.js";import"./index-CHGET4sZ.js";import"./index-DrFu-skq.js";const i=`# Changelog
+import{j as t}from"./jsx-runtime-BjgbQsUx.js";import{useMDXComponents as e}from"./index-mlLJSVP9.js";import{b as n,c}from"./index-CymHJJXW.js";import"./index-D2MAbzvX.js";import"./index-DmOy-Ncz.js";import"./iframe-Ca0VmoN7.js";import"./index-CitIXhkC.js";import"./index-BIm0odtm.js";import"./index-D-8MO0q_.js";import"./index-CHGET4sZ.js";import"./index-DrFu-skq.js";const i=`# Changelog
 
-## [0.0.11](https://github.com/konstructio/konstruct-ui/tree/0.0.11) (2025-02-04)
+## [0.0.0-1](https://github.com/konstructio/konstruct-ui/tree/0.0.0-1) (2025-02-04)
 
-[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.10...0.0.11)
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.10...0.0.0-1)
 
 **Merged pull requests:**
 
