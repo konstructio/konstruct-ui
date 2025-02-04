@@ -1,8 +1,8 @@
 name: Bump Version and Publish to npm
 
 on:
-  release:
-    types: [created]
+  repository_dispatch:
+    types: [release]
 
 jobs:
   bump-version-and-publish:
@@ -30,20 +30,15 @@ jobs:
       - name: Create lib
         run: npm run ci
 
-      - name: Extract release version
-        id: extract_version
-        run: |
-          echo "RELEASE_VERSION=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
-
       - name: Checkout, bun, commit and push version change
         run: |
           git config user.name "konstruct-bot"
           git config user.email "konstruct-bot@konstruct.io"
           git fetch origin main
           git checkout main
-          npm version ${RELEASE_VERSION} --no-commit-hooks --no-git-tag-version
+          npm version ${{ github.event.client_payload.version }} --no-commit-hooks --no-git-tag-version
           git add package.json package-lock.json
-          git commit -m "🔖 release: bump version to ${RELEASE_VERSION}" --allow-empty --no-verify
+          git commit -m "🔖 release: bump version to ${{ github.event.client_payload.version }}" --allow-empty --no-verify
           git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.KBOT_TOKEN }}
@@ -66,8 +61,8 @@ jobs:
           --header 'Content-Type: application/json' \
           --data '{
             "package_name": "${{ github.event.repository.name }}",
-            "version": "${{ github.event.release.tag_name }}",
-            "url": "${{ github.event.release.html_url }}",
+            "version": "${{ github.event.client_payload.version }}",
+            "url": "${{ github.event.client_payload.url }}",
             "repository": "${{ github.event.repository.html_url }}",
             "storybook": "https://konstructio.github.io/konstruct-ui"
           }'

@@ -2,7 +2,7 @@ name: Deploy Storybook to GitHub Pages
 
 on:
   workflow_run:
-    workflows: ['Update Changelog']
+    workflows: ['Bump Version and Publish to npm']
     types:
       - completed
 
