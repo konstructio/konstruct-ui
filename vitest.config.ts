@@ -1,7 +1,16 @@
 import { defineConfig } from 'vitest/config';
 import path from 'node:path';
+import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
+  plugins: [
+    svgr({
+      include: '**/*.svg',
+      svgrOptions: {
+        exportType: 'default',
+      },
+    }),
+  ],
   test: {
     environment: 'jsdom',
     globals: true,

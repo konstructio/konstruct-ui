@@ -24,7 +24,6 @@ const config = {
           include: '**/*.svg',
           svgrOptions: {
             exportType: 'default',
-            svgo: false,
           },
         }),
       ],
