@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.0.0-1](https://github.com/konstructio/konstruct-ui/tree/0.0.0-1) (2025-02-04)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.10...0.0.0-1)
+
+**Merged pull requests:**
+
+- ✨ feat: the circle button was added [\#98](https://github.com/konstructio/konstruct-ui/pull/98) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: some dependencies have been updated [\#94](https://github.com/konstructio/konstruct-ui/pull/94) ([futjesus](https://github.com/futjesus))
+- ✨ feat: Sidebar component was added [\#88](https://github.com/konstructio/konstruct-ui/pull/88) ([futjesus](https://github.com/futjesus))
+
 ## [0.0.10](https://github.com/konstructio/konstruct-ui/tree/0.0.10) (2025-01-29)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.9...0.0.10)
