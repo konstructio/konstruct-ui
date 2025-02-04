@@ -6,6 +6,7 @@ export interface SidebarProps extends VariantProps<typeof wrapperSiderbarVariant
     wrapperClassName?: string;
     minWith?: number;
     maxWith?: number;
+    canResize?: boolean;
 }
 export type SidebarChildrenProps = {
     Footer: FC<FooterProps>;
