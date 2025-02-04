@@ -41,7 +41,7 @@ jobs:
       - name: Commit and Push Changes
         run: |
           git config user.name "konstruct-bot"
-          git config user.email "alerts@kubefirst.io"
+          git config user.email "konstruct-bot@konstruct.io"
           git fetch origin main
           git checkout main
           git add CHANGELOG.md

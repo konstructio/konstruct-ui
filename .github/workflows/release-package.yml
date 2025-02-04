@@ -38,7 +38,7 @@ jobs:
       - name: Checkout, bun, commit and push version change
         run: |
           git config user.name "konstruct-bot"
-          git config user.email "alerts@kubefirst.io"
+          git config user.email "konstruct-bot@konstruct.io"
           git fetch origin main
           git checkout main
           npm version ${RELEASE_VERSION} --no-commit-hooks --no-git-tag-version
