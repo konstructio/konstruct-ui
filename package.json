@@ -76,9 +76,19 @@
     "@types/react-dom": "*",
     "react": "^16.8 || ^17.0 || ^18.0 || ^19.0",
     "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0",
-    "react-router-dom": "^7"
+    "react-router-dom": "^7",
+    "tailwindcss": "^3"
   },
   "peerDependenciesMeta": {
+    "react": {
+      "optional": false
+    },
+    "react-dom": {
+      "optional": false
+    },
+    "tailwindcss": {
+      "optional": false
+    },
     "@types/react": {
       "optional": true
     },
@@ -90,6 +100,7 @@
     }
   },
   "devDependencies": {
+    "@rollup/plugin-alias": "^5.1.1",
     "@storybook/addon-docs": "^8.5.3",
     "@storybook/addon-essentials": "^8.5.3",
     "@storybook/addon-interactions": "^8.5.3",
@@ -104,6 +115,7 @@
     "@testing-library/user-event": "^14.6.1",
     "@types/jest-axe": "^3.5.9",
     "@types/js-cookie": "^3.0.6",
+    "@types/lodash": "^4.17.15",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@typescript-eslint/eslint-plugin": "^8.22.0",
@@ -120,6 +132,7 @@
     "jest": "^29.7.0",
     "jest-axe": "^9.0.0",
     "jsdom": "^26.0.0",
+    "lodash": "^4.17.21",
     "postcss": "^8.5.1",
     "prettier": "^3.4.2",
     "rimraf": "^6.0.1",
@@ -130,6 +143,8 @@
     "vite": "^6.0.11",
     "vite-plugin-dts": "^4.5.0",
     "vite-plugin-lib-inject-css": "^2.2.1",
+    "vite-plugin-svgr": "^4.3.0",
+    "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.0.5"
   }
 }

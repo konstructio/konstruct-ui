@@ -5,3 +5,7 @@
 html {
   -webkit-font-smoothing: antialiased;
 }
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
