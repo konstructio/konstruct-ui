@@ -8,9 +8,9 @@ jobs:
   generate-changelog:
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: write
-      actions: write
+    # permissions:
+    #   contents: write
+    #   actions: write
 
     steps:
       - name: Checkout repository
@@ -47,6 +47,7 @@ jobs:
           git config user.email "konstruct-bot@konstruct.io"
           git config user.signingkey ./signingkey
           git config gpg.format ssh
+          git remote set-url origin https://${GITHUB_TOKEN}@github.com/${{ github.repository }}
           git add CHANGELOG.md
           git commit -S -m "🚀 chore: update changelog for the version ${RELEASE_VERSION}" --no-verify
           git log --show-signature -1
