@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.11](https://github.com/konstructio/konstruct-ui/tree/0.0.11) (2025-02-04)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.0-1...0.0.11)
+
 ## [0.0.0-1](https://github.com/konstructio/konstruct-ui/tree/0.0.0-1) (2025-02-04)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.10...0.0.0-1)
