@@ -1,4 +1,14 @@
-import{j as t}from"./jsx-runtime-BjgbQsUx.js";import{useMDXComponents as e}from"./index-mlLJSVP9.js";import{b as n,c}from"./index-DdWjQKpR.js";import"./index-D2MAbzvX.js";import"./index-DmOy-Ncz.js";import"./iframe-ChTVKb6a.js";import"./index-CitIXhkC.js";import"./index-BIm0odtm.js";import"./index-D-8MO0q_.js";import"./index-CHGET4sZ.js";import"./index-DrFu-skq.js";const i=`# Changelog
+import{j as t}from"./jsx-runtime-BjgbQsUx.js";import{useMDXComponents as e}from"./index-mlLJSVP9.js";import{b as n,c}from"./index-CGhr7eth.js";import"./index-D2MAbzvX.js";import"./index-DmOy-Ncz.js";import"./iframe-TX6I8bvJ.js";import"./index-CitIXhkC.js";import"./index-BIm0odtm.js";import"./index-D-8MO0q_.js";import"./index-CHGET4sZ.js";import"./index-DrFu-skq.js";const i=`# Changelog
+
+## [0.0.11](https://github.com/konstructio/konstruct-ui/tree/0.0.11) (2025-02-04)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.10...0.0.11)
+
+**Merged pull requests:**
+
+- ✨ feat: the circle button was added [\\#98](https://github.com/konstructio/konstruct-ui/pull/98) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: some dependencies have been updated [\\#94](https://github.com/konstructio/konstruct-ui/pull/94) ([futjesus](https://github.com/futjesus))
+- ✨ feat: Sidebar component was added [\\#88](https://github.com/konstructio/konstruct-ui/pull/88) ([futjesus](https://github.com/futjesus))
 
 ## [0.0.10](https://github.com/konstructio/konstruct-ui/tree/0.0.10) (2025-01-29)
 
