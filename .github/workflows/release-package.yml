@@ -37,7 +37,7 @@ jobs:
 
       - name: Checkout, bun, commit and push version change
         run: |
-          echo "KBOT_PRIVATE_KEY" > signingkey
+          echo "$KBOT_PRIVATE_KEY" > ./signingkey
           git config user.name "konstruct-bot"]
           git config user.email "konstruct-bot@konstruct.io"
           git config user.signingkey ./signingkey
