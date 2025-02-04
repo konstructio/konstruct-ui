@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Check } from 'react-feather/';
+import { Check } from 'react-feather';
+
+import PagesStackIcon from '@/assets/icons/pages-stack.svg';
+import HelpIcon from '@/assets/icons/help.svg';
 
 import { Button } from './Button';
 
@@ -116,29 +119,54 @@ export const IconButton: Story = {
   args: {
     variant: 'primary',
   },
-  render: (args) => {
-    return (
-      <div className="w-full max-w-[350px]">
-        <div className="flex flex-col items-center gap-3">
-          <Button {...args} theme="kubefirst">
-            <Check className="w-5 h-5" /> Verified
-          </Button>
+  render: (args) => (
+    <div className="w-full max-w-[350px]">
+      <div className="flex flex-col items-center gap-3">
+        <Button {...args} theme="kubefirst">
+          <Check className="w-5 h-5" /> Verified
+        </Button>
 
-          <Button {...args} theme="colony">
-            <Check className="w-5 h-5" /> Verified
-          </Button>
+        <Button {...args} theme="colony">
+          <Check className="w-5 h-5" /> Verified
+        </Button>
 
-          <Button {...args} theme="civo">
-            <Check className="w-5 h-5" /> Verified
-          </Button>
+        <Button {...args} theme="civo">
+          <Check className="w-5 h-5" /> Verified
+        </Button>
 
-          <Button {...args} theme="civo" disabled>
-            <Check className="w-5 h-5" /> Verified Disabled
-          </Button>
-        </div>
+        <Button {...args} theme="civo" disabled>
+          <Check className="w-5 h-5" /> Verified Disabled
+        </Button>
       </div>
-    );
+    </div>
+  ),
+};
+
+export const Circle: Story = {
+  args: {
+    variant: 'circle',
   },
+  render: (args) => (
+    <div className="w-full max-w-[350px]">
+      <div className="flex flex-col items-center gap-3">
+        <Button {...args} size="medium">
+          <PagesStackIcon />
+        </Button>
+
+        <Button {...args} size="large">
+          <HelpIcon />
+        </Button>
+
+        <Button {...args} size="medium" disabled>
+          <PagesStackIcon />
+        </Button>
+
+        <Button {...args} size="large" disabled>
+          <HelpIcon />
+        </Button>
+      </div>
+    </div>
+  ),
 };
 
 export default meta;
