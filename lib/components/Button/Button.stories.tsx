@@ -147,23 +147,57 @@ export const Circle: Story = {
     variant: 'circle',
   },
   render: (args) => (
-    <div className="w-full max-w-[350px]">
-      <div className="flex flex-col items-center gap-3">
-        <Button {...args} size="medium">
-          <PagesStackIcon />
-        </Button>
+    <div className="w-full max-w-[200px]">
+      <div className="flex flex-col items-center gap-5">
+        <div className="flex flex-col items-center gap-2">
+          <p className="text-slate-600">Button medium size</p>
 
-        <Button {...args} size="large">
-          <HelpIcon />
-        </Button>
+          <div className="flex gap-3">
+            <Button {...args} size="medium">
+              <PagesStackIcon />
+            </Button>
+            <Button {...args} size="medium" theme="colony">
+              <PagesStackIcon />
+            </Button>
+            <Button {...args} size="medium" theme="civo">
+              <PagesStackIcon />
+            </Button>
+          </div>
+        </div>
 
-        <Button {...args} size="medium" disabled>
-          <PagesStackIcon />
-        </Button>
+        <div className="flex flex-col items-center gap-2">
+          <p className="text-slate-600">Button large size</p>
 
-        <Button {...args} size="large" disabled>
-          <HelpIcon />
-        </Button>
+          <div className="flex gap-3">
+            <Button {...args} size="large">
+              <HelpIcon />
+            </Button>
+            <Button {...args} size="large" theme="colony">
+              <HelpIcon />
+            </Button>
+            <Button {...args} size="large" theme="civo">
+              <HelpIcon />
+            </Button>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center gap-2">
+          <p className="text-slate-600">Button disabled</p>
+
+          <div className="flex gap-3">
+            <Button {...args} size="medium" disabled>
+              <PagesStackIcon />
+            </Button>
+
+            <Button {...args} size="medium" disabled>
+              <PagesStackIcon />
+            </Button>
+
+            <Button {...args} size="medium" disabled>
+              <PagesStackIcon />
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   ),
