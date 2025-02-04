@@ -14,9 +14,14 @@ export const NavigationGroup: FC<NavigationGroupProps> = ({
   className,
   theme,
   titleClassName,
+  isVisible = true,
   ...delegated
 }) => {
   const { theme: contextTheme } = useTheme();
+
+  if (!isVisible) {
+    return null;
+  }
 
   return (
     <>

@@ -9,4 +9,5 @@ export interface NavigationGroupProps
     Pick<HtmlHTMLAttributes<HTMLDivElement>, 'className' | 'style'> {
   title?: string;
   titleClassName?: string;
+  isVisible?: boolean;
 }
