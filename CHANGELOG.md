@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.12-alpha.0](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.0) (2025-02-04)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12...0.0.12-alpha.0)
+
+**Merged pull requests:**
+
+- ✨ feat: add visibility control to NavigationGroup component [\#100](https://github.com/konstructio/konstruct-ui/pull/100) ([futjesus](https://github.com/futjesus))
+
 ## [0.0.12](https://github.com/konstructio/konstruct-ui/tree/0.0.12) (2025-02-04)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.11...0.0.12)
