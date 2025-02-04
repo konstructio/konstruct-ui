@@ -34,8 +34,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "konstruct-bot"
+          git config user.email "konstruct-bot@konstruct.io"
 
       - name: Checkout, bun, commit and push version change
         run: |
