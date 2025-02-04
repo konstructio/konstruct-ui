@@ -107,20 +107,29 @@ export const Sidebar = {
               </a>
             </NavigationOption>
 
-            <NavigationOption role="button" onClick={() => setTheme('colony')}>
+            <NavigationOption
+              role="button"
+              onClick={() => setTheme('colony')}
+              isActive={theme === 'colony'}
+            >
               <GridViewIcon /> Services
             </NavigationOption>
 
             <NavigationOption
               role="button"
               onClick={() => setTheme('kubefirst')}
+              isActive={theme === 'kubefirst'}
             >
               <PhotoLibraryIcon /> Environments
             </NavigationOption>
           </NavigationGroup>
 
           <NavigationGroup title="Admin settings" titleClassName="uppercase">
-            <NavigationOption role="button" onClick={() => setTheme('civo')}>
+            <NavigationOption
+              role="button"
+              onClick={() => setTheme('civo')}
+              isActive={theme === 'civo'}
+            >
               <ReceiptLongIcon /> Plans & Billing
             </NavigationOption>
 

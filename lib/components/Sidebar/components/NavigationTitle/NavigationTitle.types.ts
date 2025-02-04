@@ -8,4 +8,5 @@ export interface NavigationTitleProps
     Pick<HtmlHTMLAttributes<HTMLHeadingElement>, 'className'> {
   title: string;
   className?: string;
+  isVisible?: boolean;
 }

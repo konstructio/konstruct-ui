@@ -19,11 +19,11 @@ import { Logo } from '../Logo/Logo';
 import { Navigation } from '../Navigation/Navigation';
 
 export const Wrapper: FC<SidebarProps> = ({
-  wrapperClassName,
-  theme,
   children,
-  minWith = 240,
   maxWith = 300,
+  minWith = 240,
+  theme,
+  wrapperClassName,
 }) => {
   const dragRef = useRef<ComponentRef<'div'>>(null);
   const asideRef = useRef<ComponentRef<'aside'>>(null);

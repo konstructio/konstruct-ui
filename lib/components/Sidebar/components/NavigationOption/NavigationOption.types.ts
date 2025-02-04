@@ -5,6 +5,8 @@ import { navigationOptionVariants } from './NavigationOption.variants';
 
 type NavigationOption = VariantProps<typeof navigationOptionVariants> & {
   className?: string;
+  isVisible?: boolean;
+  isActive?: boolean;
 };
 
 export type NavigationOptionProps = NavigationOption &

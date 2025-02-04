@@ -2,16 +2,17 @@ import { cva } from 'class-variance-authority';
 
 export const wrapperSiderbarVariants = cva(
   [
-    'group/sidebar',
-    'flex',
-    'flex-col',
-    'h-full',
-    'px-4',
-    'w-[256px]',
-    'relative',
-    'transition-all',
     'duration-200',
     'ease-linear',
+    'flex',
+    'flex-col',
+    'flex-shrink-0',
+    'group/sidebar',
+    'h-full',
+    'px-4',
+    'relative',
+    'transition-all',
+    'w-[256px]',
   ],
   {
     variants: {
