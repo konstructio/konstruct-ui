@@ -10,10 +10,11 @@ jobs:
 
     permissions:
       contents: write
+      actions: write
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -26,7 +27,7 @@ jobs:
 
       - name: Generate Changelog
         env:
-          CHANGELOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CHANGELOG_GITHUB_TOKEN: ${{ secrets.KBOT_TOKEN }}
         run: |
           github_changelog_generator --user konstructio --project konstruct-ui
 
@@ -35,17 +36,14 @@ jobs:
         run: |
           echo "RELEASE_VERSION=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
 
-      - name: Configure Git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
       - name: Commit and Push Changes
         run: |
+          git config user.name "konstruct-bot"
+          git config user.email "alerts@kubefirst.io"
           git fetch origin main
           git checkout main
           git add CHANGELOG.md
           git commit -m "🚀 chore: update changelog for the version ${RELEASE_VERSION}" --no-verify
           git push origin main
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.KBOT_TOKEN }}

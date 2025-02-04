@@ -11,6 +11,7 @@ jobs:
     permissions:
       packages: write
       contents: write
+      actions: write
 
     steps:
       - name: Checkout repository
@@ -32,13 +33,10 @@ jobs:
         run: |
           echo "RELEASE_VERSION=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
 
-      - name: Configure Git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
       - name: Checkout, bun, commit and push version change
         run: |
+          git config user.name "konstruct-bot"
+          git config user.email "alerts@kubefirst.io"
           git fetch origin main
           git checkout main
           npm version ${RELEASE_VERSION} --no-commit-hooks --no-git-tag-version
@@ -46,10 +44,10 @@ jobs:
           git commit -m "🔖 release: bump version to ${RELEASE_VERSION}" --allow-empty --no-verify
           git push origin main
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.KBOT_TOKEN }}
 
       - name: Authenticate with GitHub Packages
-        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.KBOT_TOKEN }}" > ~/.npmrc
 
       - name: Authenticate with npmjs
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
@@ -66,7 +64,7 @@ jobs:
           --header 'Content-Type: application/json' \
           --data '{
             "package_name": "${{ github.event.repository.name }}",
-            "version": "$RELEASE_VERSION",
+            "version": "${{ github.event.release.tag_name }}",
             "url": "${{ github.event.release.html_url }}",
             "repository": "${{ github.event.repository.html_url }}",
             "storybook": "https://konstructio.github.io/konstruct-ui"
