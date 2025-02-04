@@ -19,11 +19,12 @@ import { Logo } from '../Logo/Logo';
 import { Navigation } from '../Navigation/Navigation';
 
 export const Wrapper: FC<SidebarProps> = ({
-  wrapperClassName,
-  theme,
+  canResize = true,
   children,
-  minWith = 240,
   maxWith = 300,
+  minWith = 240,
+  theme,
+  wrapperClassName,
 }) => {
   const dragRef = useRef<ComponentRef<'div'>>(null);
   const asideRef = useRef<ComponentRef<'aside'>>(null);
@@ -130,11 +131,13 @@ export const Wrapper: FC<SidebarProps> = ({
       {navigation}
       {footer}
 
-      <div
-        ref={dragRef}
-        className={cn(dragVariants({ theme: contextTheme }))}
-        onMouseDown={handleMouseDown}
-      />
+      {canResize && (
+        <div
+          ref={dragRef}
+          className={cn(dragVariants({ theme: contextTheme }))}
+          onMouseDown={handleMouseDown}
+        />
+      )}
     </aside>
   );
 };

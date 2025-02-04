@@ -9,8 +9,13 @@ export const NavigationTitle: FC<NavigationTitleProps> = ({
   title,
   className,
   theme,
+  isVisible = true,
 }) => {
   const { theme: contextTheme } = useTheme();
+
+  if (!isVisible) {
+    return null;
+  }
 
   return (
     <h2

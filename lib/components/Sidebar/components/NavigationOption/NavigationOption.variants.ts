@@ -2,19 +2,21 @@ import { cva } from 'class-variance-authority';
 
 export const navigationOptionVariants = cva(
   [
-    'font-normal',
-    'flex',
-    'gap-2',
-    'w-full',
-    '[&>a]:w-full',
     '[&>a]:flex',
     '[&>a]:gap-2',
+    '[&>a]:no-underline',
+    '[&>a]:text-inherit',
+    '[&>a]:w-full',
+    'cursor-pointer',
+    'flex',
+    'font-normal',
+    'font-normal',
+    'gap-2',
+    'hover:rounded-xl',
     'px-4',
     'py-2.5',
-    'cursor-pointer',
-    'hover:rounded-xl',
-    'font-normal',
     'text-black',
+    'w-full',
   ],
   {
     variants: {
@@ -29,7 +31,18 @@ export const navigationOptionVariants = cva(
         ],
         civo: '',
       },
+      isActive: {
+        true: '',
+        false: '',
+      },
     },
+    compoundVariants: [
+      {
+        theme: 'kubefirst',
+        isActive: true,
+        class: ['text-white', 'bg-[#252a41]'],
+      },
+    ],
     defaultVariants: {
       theme: 'kubefirst',
     },
