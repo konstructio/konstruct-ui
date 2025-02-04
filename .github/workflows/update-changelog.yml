@@ -37,6 +37,20 @@ jobs:
         id: extract_version
         run: |
           echo "RELEASE_VERSION=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
+          echo "${{ github.event.release.tag_name }}" > release-version.txt
+          echo "${{ github.event.release.html_url }}" > url.txt
+
+      - name: Upload artifact with release info
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-info
+          path: release-version.txt
+
+      - name: Upload artifact with release url
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-url
+          path: url.txt
 
       - name: Commit and Push Changes
         run: |

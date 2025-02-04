@@ -1,11 +1,14 @@
 name: Bump Version and Publish to npm
 
 on:
-  release:
-    types: [created]
+  workflow_run:
+    workflows: ['Update Changelog']
+    types:
+      - completed
 
 jobs:
   bump-version-and-publish:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     permissions:
@@ -30,10 +33,22 @@ jobs:
       - name: Create lib
         run: npm run ci
 
-      - name: Extract release version
-        id: extract_version
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: release-info
+
+      - name: Read artifact with release version
         run: |
-          echo "RELEASE_VERSION=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
+          RELEASE_VERSION=$(cat release-version.txt)
+          echo "Release Version: $RELEASE_VERSION"
+          echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_ENV
+
+      - name: Read artifact with url
+        run: |
+          URL=$(cat url.txt)
+          echo "URL: $URL"
+          echo "URL=$URL" >> $GITHUB_ENV_URL
 
       - name: Checkout, bun, commit and push version change
         run: |
@@ -66,8 +81,8 @@ jobs:
           --header 'Content-Type: application/json' \
           --data '{
             "package_name": "${{ github.event.repository.name }}",
-            "version": "${{ github.event.release.tag_name }}",
-            "url": "${{ github.event.release.html_url }}",
+            "version": "${RELEASE_VERSION}",
+            "url": "${URL}",
             "repository": "${{ github.event.repository.html_url }}",
             "storybook": "https://konstructio.github.io/konstruct-ui"
           }'
