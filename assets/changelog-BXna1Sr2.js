@@ -1,4 +1,12 @@
-import{j as t}from"./jsx-runtime-BjgbQsUx.js";import{useMDXComponents as e}from"./index-mlLJSVP9.js";import{b as n,c}from"./index-BJyyTTQc.js";import"./index-D2MAbzvX.js";import"./index-DmOy-Ncz.js";import"./iframe-CJ2FZZ_k.js";import"./index-CitIXhkC.js";import"./index-BIm0odtm.js";import"./index-D-8MO0q_.js";import"./index-CHGET4sZ.js";import"./index-DrFu-skq.js";const i=`# Changelog
+import{j as t}from"./jsx-runtime-BjgbQsUx.js";import{useMDXComponents as e}from"./index-mlLJSVP9.js";import{b as n,c}from"./index-3pC68Hau.js";import"./index-D2MAbzvX.js";import"./index-DmOy-Ncz.js";import"./iframe-D6SKa57T.js";import"./index-CitIXhkC.js";import"./index-BIm0odtm.js";import"./index-D-8MO0q_.js";import"./index-CHGET4sZ.js";import"./index-DrFu-skq.js";const i=`# Changelog
+
+## [0.0.12-alpha.0](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.0) (2025-02-04)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12...0.0.12-alpha.0)
+
+**Merged pull requests:**
+
+- ✨ feat: add visibility control to NavigationGroup component [\\#100](https://github.com/konstructio/konstruct-ui/pull/100) ([futjesus](https://github.com/futjesus))
 
 ## [0.0.12](https://github.com/konstructio/konstruct-ui/tree/0.0.12) (2025-02-04)
 

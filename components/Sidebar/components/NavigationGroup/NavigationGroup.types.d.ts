@@ -4,4 +4,5 @@ import { navigationGroupsVariants } from './NavigationGroup.variants';
 export interface NavigationGroupProps extends PropsWithChildren, VariantProps<typeof navigationGroupsVariants>, Pick<HtmlHTMLAttributes<HTMLDivElement>, 'className' | 'style'> {
     title?: string;
     titleClassName?: string;
+    isVisible?: boolean;
 }
