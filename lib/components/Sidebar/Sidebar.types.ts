@@ -17,6 +17,7 @@ export interface SidebarProps
   wrapperClassName?: string;
   minWith?: number;
   maxWith?: number;
+  canResize?: boolean;
 }
 
 export type SidebarChildrenProps = {
