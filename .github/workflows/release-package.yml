@@ -43,7 +43,7 @@ jobs:
           git config user.email "konstruct-bot@konstruct.io"
           git config user.signingkey ./signingkey
           git config gpg.format ssh
-          git remote set-url origin https://${GITHUB_TOKEN}@github.com/${{ github.repository }}
+          git remote set-url origin https://${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
           npm version ${RELEASE_VERSION} --no-commit-hooks --no-git-tag-version
           git add package.json package-lock.json
           git commit -S -m "🔖 release: bump version to ${RELEASE_VERSION}" --allow-empty --no-verify
