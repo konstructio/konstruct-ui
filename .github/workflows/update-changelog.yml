@@ -54,12 +54,18 @@ jobs:
 
       - name: Commit and Push Changes
         run: |
+          echo "$KBOT_PRIVATE_KEY" > ./signingkey
+          chmod 0600 ./signingkey
+          file ./signingkey
           git config user.name "konstruct-bot"
           git config user.email "konstruct-bot@konstruct.io"
-          git fetch origin main
-          git checkout main
+          git config user.signingkey ./signingkey
+          git config gpg.format ssh
+          git remote set-url origin https://${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
           git add CHANGELOG.md
-          git commit -m "🚀 chore: update changelog for the version ${RELEASE_VERSION}" --no-verify
+          git commit -S -m "🚀 chore: update changelog for the version ${RELEASE_VERSION}" --no-verify
+          git log --show-signature -1
           git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.KBOT_TOKEN }}
+          KBOT_PRIVATE_KEY: ${{ secrets.KBOT_PRIVATE_KEY }}
