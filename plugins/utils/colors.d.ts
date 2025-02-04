@@ -306,6 +306,11 @@ export declare const konstructColors: {
     kubefirst: {
         primary: string;
         secondary: string;
+        dark: {
+            blue: {
+                900: string;
+            };
+        };
     };
     'kubefirst-pro': {
         primary: string;

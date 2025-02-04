@@ -11,6 +11,7 @@ export * from './NumberInput/NumberInput';
 export * from './ProgressBar/ProgressBar';
 export * from './Radio/Radio';
 export * from './Range/Range';
+export * from './Sidebar/Sidebar';
 export * from './Slider/Slider';
 export * from './Switch/Switch';
 export * from './Tag/Tag';
