@@ -5,6 +5,6 @@ export const useBreadcrumb = () => {
   const routeContext = useContext(UNSAFE_RouteContext);
 
   return {
-    isInsideRouter: routeContext.outlet !== null,
+    isInsideRouter: routeContext.isDataRoute !== null,
   };
 };
