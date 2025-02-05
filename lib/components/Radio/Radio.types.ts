@@ -1,5 +1,5 @@
 import { VariantProps } from 'class-variance-authority';
-import { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes, ReactNode } from 'react';
 
 import { radioVariants } from './Radio.variants';
 
@@ -10,7 +10,7 @@ export interface RadioProps
   color?: string;
   defaultChecked?: boolean;
   disabled?: boolean;
-  label?: string;
+  label?: string | ReactNode;
   labelTextClassName?: string;
   name: string;
   value: string;
