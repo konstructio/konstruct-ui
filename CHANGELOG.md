@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.0.12-alpha.1](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.1) (2025-02-06)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.0...0.0.12-alpha.1)
+
+**Merged pull requests:**
+
+- 👷 chore: update TypeScript and Vite configuration for improved build settings [\#106](https://github.com/konstructio/konstruct-ui/pull/106) ([futjesus](https://github.com/futjesus))
+- ✨ feat: update RadioCardGroup and RadioGroup components to use defaultChecked prop [\#105](https://github.com/konstructio/konstruct-ui/pull/105) ([futjesus](https://github.com/futjesus))
+- ✨ feat: radio card group component was added  [\#104](https://github.com/konstructio/konstruct-ui/pull/104) ([futjesus](https://github.com/futjesus))
+- ✨ feat: radio card component was added [\#103](https://github.com/konstructio/konstruct-ui/pull/103) ([futjesus](https://github.com/futjesus))
+- ✨ feat: enhance radio component  [\#102](https://github.com/konstructio/konstruct-ui/pull/102) ([futjesus](https://github.com/futjesus))
+- ✨ feat: implement breadcrumb component [\#101](https://github.com/konstructio/konstruct-ui/pull/101) ([futjesus](https://github.com/futjesus))
+
 ## [0.0.12-alpha.0](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.0) (2025-02-04)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12...0.0.12-alpha.0)
