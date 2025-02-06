@@ -13,6 +13,7 @@ const meta = {
 
 export const RadioCardGroup = {
   args: {
+    defaultChecked: 'option-1',
     options: [
       {
         label: <CivoLogo />,

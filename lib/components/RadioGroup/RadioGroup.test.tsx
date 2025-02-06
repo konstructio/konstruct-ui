@@ -15,8 +15,9 @@ describe('RadioGroup', () => {
   ) => {
     const defaultProps: RadioGroupProps = {
       name: 'name-radio-group',
+      defaultChecked: '1',
       options: [
-        { label: 'Option 1', value: '1', checked: true },
+        { label: 'Option 1', value: '1' },
         { label: 'Option 2', value: '2' },
       ],
     };
@@ -83,6 +84,7 @@ describe('RadioGroup', () => {
     const options = [
       { label: 'Option 1', value: 'option-1' },
       { label: 'Option 2', value: 'option-2' },
+      { label: 'Option 3', value: 'option-3' },
     ];
 
     const Wrapper: FC<PropsWithChildren> = ({ children }) => {
@@ -104,12 +106,13 @@ describe('RadioGroup', () => {
 
     const { getButton, getRadio, user } = setup(
       {
+        defaultChecked: options.at(2)!.value,
         options,
       },
       Wrapper,
     );
 
-    const radio = await getRadio(new RegExp(options.at(1)!.label, 'i'));
+    const radio = await getRadio(new RegExp(options.at(2)!.label, 'i'));
 
     await user.click(radio);
 
@@ -119,7 +122,7 @@ describe('RadioGroup', () => {
 
     expect(mockSubmit).toHaveBeenCalledWith(
       expect.objectContaining({
-        'name-radio-group': options.at(1)?.value,
+        'name-radio-group': options.at(2)?.value,
       }),
     );
   });

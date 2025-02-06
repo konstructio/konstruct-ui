@@ -15,7 +15,7 @@ describe('RadioCardGroup', () => {
     const defaultProps: RadioCardGroupProps = {
       name: 'name-radio-group',
       options: [
-        { label: 'Option 1', value: '1', checked: true },
+        { label: 'Option 1', value: '1' },
         { label: 'Option 2', value: '2' },
       ],
     };
@@ -95,6 +95,7 @@ describe('RadioCardGroup', () => {
 
     const { getButton, getRadio, user } = setup(
       {
+        defaultChecked: options.at(0)!.value,
         options,
       },
       Wrapper,
