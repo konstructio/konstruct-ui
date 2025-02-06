@@ -16,6 +16,8 @@ export default defineConfig({
     dts({
       include: ['lib'],
       exclude: ['**/*.stories.(ts|js|tsx|jsx)', '**/*.test.(ts|js|tsx|jsx)'],
+      insertTypesEntry: true,
+      rollupTypes: true,
     }),
   ],
   css: {
@@ -29,8 +31,14 @@ export default defineConfig({
       entry: resolve(__dirname, 'lib/index.ts'),
       formats: ['es'],
     },
+    minify: 'esbuild',
+    sourcemap: false,
     rollupOptions: {
       external: ['react', 'react/jsx-runtime'],
+      treeshake: {
+        moduleSideEffects: false,
+        preset: 'smallest',
+      },
       plugins: [
         alias({
           entries: [{ find: '@', replacement: resolve(__dirname, 'lib') }],
@@ -40,7 +48,12 @@ export default defineConfig({
         // https://rollupjs.org/configuration-options/#input
         glob
           .sync('lib/**/*.{ts,tsx}', {
-            ignore: ['lib/**/*.d.ts', 'lib/**/*.stories.*', 'lib/**/*.test.*'],
+            ignore: [
+              'lib/**/*.d.ts',
+              'lib/**/*.stories.*',
+              'lib/**/*.test.*',
+              'lib/**/*.types.*',
+            ],
           })
           .map((file) => [
             // 1. The name of the entry point
@@ -54,6 +67,8 @@ export default defineConfig({
       output: {
         assetFileNames: '[name][extname]',
         entryFileNames: '[name].js',
+        compact: true,
+        preserveModules: false,
       },
     },
   },
