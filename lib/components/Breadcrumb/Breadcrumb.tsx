@@ -1,69 +1,58 @@
-import { FC, Fragment } from 'react';
+import { FC, Fragment, useId } from 'react';
 import { ChevronRight } from 'react-feather';
-import { Link } from 'react-router-dom';
 
-import { useTheme } from '../../contexts';
-import { cn } from '../../utils';
+import { useTheme } from '@/contexts';
+import { cn } from '@/utils';
 
 import { BreadcrumbProps } from './Breadcrumb.types';
 import {
-  breadcrumbItemVariants,
   breadcrumbVariants,
+  breadcrumbWrapperVariants,
   chevronVariants,
 } from './Breadcrumb.variants';
-import { useBreadcrumb } from './hooks/useBreadcrumb';
+import { Item } from './components';
 
 export const Breadcrumb: FC<BreadcrumbProps> = ({
   className,
   size,
   steps,
   theme,
+  'aria-label': ariaLabel = 'breadcrumb',
+  wrapperClassName,
+  ...delegated
 }) => {
+  const id = useId();
   const { theme: contextTheme } = useTheme();
-  const { isInsideRouter } = useBreadcrumb();
   const inheritTheme = theme ?? contextTheme;
 
   return (
-    <nav aria-label="breadcrumb">
+    <nav
+      aria-label={ariaLabel}
+      className={cn(
+        breadcrumbWrapperVariants({
+          className: wrapperClassName,
+          theme: inheritTheme,
+        }),
+      )}
+    >
       <ol
         className={cn(
           breadcrumbVariants({ theme: inheritTheme, className, size }),
         )}
+        {...delegated}
       >
-        {steps.map(({ label, to, target }, index) => (
-          <Fragment key={label}>
-            <li
-              className={cn(
-                breadcrumbItemVariants({ theme: inheritTheme, size }),
-              )}
-            >
-              {to ? (
-                <>
-                  {isInsideRouter ? (
-                    <Link
-                      to={to}
-                      target={target}
-                      className="hover:underline hover:underline-offset-2"
-                    >
-                      {label}
-                    </Link>
-                  ) : (
-                    <a
-                      href={to}
-                      target={target}
-                      className="hover:underline hover:underline-offset-2"
-                    >
-                      {label}
-                    </a>
-                  )}
-                </>
-              ) : (
-                <span aria-current="page">{label}</span>
-              )}
-            </li>
+        {steps.map(({ label, ...delegated }, index) => (
+          <Fragment key={`${id}-${label}`}>
+            <Item
+              {...delegated}
+              label={label}
+              isLast={index === steps.length - 1}
+              size={size}
+              theme={inheritTheme}
+            />
 
             {index !== steps.length - 1 && (
-              <li>
+              <li aria-hidden="true">
                 <ChevronRight
                   className={cn(chevronVariants({ size, theme: inheritTheme }))}
                 />

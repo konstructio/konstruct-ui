@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Breadcrumb as BreadcrumbComponent } from './Breadcrumb';
-import { ThemeProvider } from '../../contexts';
 
 type Story = StoryObj<typeof BreadcrumbComponent>;
 
@@ -10,14 +9,16 @@ const meta: Meta<typeof BreadcrumbComponent> = {
   component: BreadcrumbComponent,
 };
 
-export const Breadcrumb: Story = {
+export const Breadcrumb = {
   args: {
     steps: [
       {
         label: 'Step 1',
+        isActive: false,
       },
       {
         label: 'Step 2',
+        to: '#',
       },
       {
         label: 'Step 3',
@@ -26,25 +27,15 @@ export const Breadcrumb: Story = {
   },
   render: (args) => (
     <div className="max-w-[350px] flex flex-col gap-1">
-      <ThemeProvider theme="kubefirst">
-        <p className="text-kubefirst-secondary font-semibold">
-          Kubefirst Theme
-        </p>
-        <BreadcrumbComponent size="sm" {...args} />
-        <BreadcrumbComponent size="base" {...args} />
-        <BreadcrumbComponent size="lg" {...args} />
-        <BreadcrumbComponent size="xl" {...args} />
-      </ThemeProvider>
-
-      <ThemeProvider theme="colony">
-        <p className="mt-2 text-red-600 font-semibold">Colony Theme</p>
-        <BreadcrumbComponent size="sm" {...args} />
-        <BreadcrumbComponent size="base" {...args} />
-        <BreadcrumbComponent size="lg" {...args} />
-        <BreadcrumbComponent size="xl" {...args} />
-      </ThemeProvider>
+      <BreadcrumbComponent size="sm" {...args} />
+      <div className="mt-3" />
+      <BreadcrumbComponent size="base" {...args} />
+      <div className="mt-3" />
+      <BreadcrumbComponent size="lg" {...args} />
+      <div className="mt-3" />
+      <BreadcrumbComponent size="xl" {...args} />
     </div>
   ),
-};
+} satisfies Story;
 
 export default meta;

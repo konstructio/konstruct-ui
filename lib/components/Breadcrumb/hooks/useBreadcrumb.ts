@@ -1,10 +1,15 @@
-import { useContext } from 'react';
-import { UNSAFE_RouteContext } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export const useBreadcrumb = () => {
-  const routeContext = useContext(UNSAFE_RouteContext);
+  try {
+    useLocation();
 
-  return {
-    isInsideRouter: routeContext.outlet !== null,
-  };
+    return {
+      isInsideRouter: true,
+    };
+  } catch {
+    return {
+      isInsideRouter: false,
+    };
+  }
 };
