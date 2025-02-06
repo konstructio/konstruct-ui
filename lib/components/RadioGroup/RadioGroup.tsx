@@ -12,7 +12,7 @@ import { radioGroupVariants } from './RadioGroup.variants';
 export const RadioGroup: FC<RadioGroupProps> = ({
   asChild,
   className,
-  defaultValue,
+  defaultChecked,
   name,
   options,
   theme,
@@ -22,7 +22,9 @@ export const RadioGroup: FC<RadioGroupProps> = ({
 }) => {
   const Comp = asChild ? Slot : 'div';
   const { theme: contextTheme } = useTheme();
-  const [selected, setSelected] = useState<string | undefined>(defaultValue);
+  const [selected, setSelected] = useState<string | undefined>(
+    () => defaultChecked,
+  );
 
   const handleSelected = useCallback(
     (value: string) => {

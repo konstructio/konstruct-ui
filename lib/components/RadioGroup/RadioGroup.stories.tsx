@@ -33,10 +33,10 @@ export const RadioGroup = {
         {...args}
         direction="row"
         name="radio-group-row"
-        options={args.options.map(({ value, ...delegated }, index) => ({
+        defaultChecked="option1"
+        options={args.options.map(({ value, ...delegated }) => ({
           ...delegated,
           value,
-          checked: index === 0,
         }))}
       />
 
@@ -45,10 +45,10 @@ export const RadioGroup = {
       <RadioGroupComponent
         {...args}
         name="radio-group-col"
-        options={args.options.map(({ value, ...delegated }, index) => ({
+        defaultChecked="option1"
+        options={args.options.map(({ value, ...delegated }) => ({
           ...delegated,
           value,
-          checked: index === 0,
         }))}
       />
     </div>

@@ -10,7 +10,7 @@ import { radioCardGroupVariants } from './RadioCardGroup.variants';
 
 export const RadioCardGroup: FC<RadioCardGroupProps> = ({
   className,
-  defaultValue,
+  defaultChecked,
   direction,
   name,
   options,
@@ -19,7 +19,7 @@ export const RadioCardGroup: FC<RadioCardGroupProps> = ({
   onValueChange,
 }) => {
   const { theme: contextTheme } = useTheme();
-  const [selected, setSelected] = useState<string | undefined>(defaultValue);
+  const [selected, setSelected] = useState<string | undefined>(defaultChecked);
 
   const handleSelected = useCallback(
     (value: string) => {
