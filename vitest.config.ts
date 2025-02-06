@@ -29,9 +29,6 @@ export default defineConfig({
         'lib/vite-env.d.ts',
       ],
     },
-    deps: {
-      inline: ['vitest-canvas-mock'],
-    },
   },
   resolve: {
     alias: {
