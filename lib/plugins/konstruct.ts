@@ -5,10 +5,17 @@ import {
   addAnimationStyles,
   defaultAnimationThemeValues,
   konstructColors,
+  addXtermStyles,
 } from './utils';
 
 export const konstructPlugin = plugin(
-  function ({ addBase, addUtilities, matchUtilities, theme }: PluginAPI) {
+  function ({
+    addBase,
+    addComponents,
+    addUtilities,
+    matchUtilities,
+    theme,
+  }: PluginAPI) {
     addBase({
       ':root': {
         '--viewport-padding': '25px',
@@ -16,6 +23,7 @@ export const konstructPlugin = plugin(
     });
 
     addAnimationStyles({ addUtilities, matchUtilities, theme });
+    addXtermStyles({ addComponents });
   },
   {
     theme: {

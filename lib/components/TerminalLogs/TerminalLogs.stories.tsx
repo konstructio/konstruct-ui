@@ -10,13 +10,11 @@ const meta = {
 } satisfies Meta<typeof TerminalLogsComponent>;
 
 export const TerminalLogs = {
-  render: () => {
-    return (
-      <div className="w-[350px] flex flex-col gap-3">
-        <TerminalLogsComponent />
-      </div>
-    );
-  },
+  render: () => (
+    <div className="w-[600px] h-[600px]">
+      <TerminalLogsComponent />
+    </div>
+  ),
 } satisfies Story;
 
 export default meta;
