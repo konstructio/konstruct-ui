@@ -1,10 +1,12 @@
 import { FC, useEffect, useRef } from 'react';
 
-import { TerminalLogsProps } from './TerminalLogs.types';
-import { Terminal } from './adapters';
-import { cn } from '@/utils';
-import { terminalLogsVariantas } from './TerminalLogs.variants';
 import { useTheme } from '@/contexts';
+import { cn } from '@/utils';
+
+import { Terminal } from './adapters';
+import { Body, Header } from './components';
+import { TerminalLogsProps } from './TerminalLogs.types';
+import { wrapperTerminalLogsVariants } from './TerminalLogs.variants';
 
 export const TerminalLogs: FC<TerminalLogsProps> = ({ theme, className }) => {
   const terminalRef = useRef<Terminal>(Terminal.create());
@@ -26,9 +28,15 @@ export const TerminalLogs: FC<TerminalLogsProps> = ({ theme, className }) => {
 
   return (
     <div
-      className={cn(terminalLogsVariantas({ className, theme: inheritTheme }))}
+      className={cn(
+        wrapperTerminalLogsVariants({ className, theme: inheritTheme }),
+      )}
     >
-      <div ref={terminalWrapperRef} />
+      <Header />
+
+      <Body>
+        <div ref={terminalWrapperRef} className="w-full h-full" />
+      </Body>
     </div>
   );
 };
