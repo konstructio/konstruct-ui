@@ -1,10 +1,14 @@
 import { FC, forwardRef, useCallback, useId } from 'react';
 
-import { useTheme } from '../../contexts';
-import { cn } from '../../utils';
+import { useTheme } from '@/contexts';
+import { cn } from '@/utils';
 
 import { RadioProps } from './Radio.types';
-import { radioVariants } from './Radio.variants';
+import {
+  labelRadioVariants,
+  radioVariants,
+  wrapperRadioVariants,
+} from './Radio.variants';
 
 export const Radio: FC<RadioProps> = forwardRef<HTMLInputElement, RadioProps>(
   (
@@ -12,10 +16,13 @@ export const Radio: FC<RadioProps> = forwardRef<HTMLInputElement, RadioProps>(
       checked = false,
       className,
       defaultChecked,
+      disabled,
       label,
+      labelTextClassName,
       name,
       theme,
       value,
+      wrapperClassName,
       onChange,
     },
     ref,
@@ -23,6 +30,7 @@ export const Radio: FC<RadioProps> = forwardRef<HTMLInputElement, RadioProps>(
     const id = useId();
     const { theme: contextTheme } = useTheme();
     const defaultFor = `${id}-${name}`;
+    const inheritTheme = theme ?? contextTheme;
 
     const handleChange = useCallback(
       (value: string) => {
@@ -34,7 +42,12 @@ export const Radio: FC<RadioProps> = forwardRef<HTMLInputElement, RadioProps>(
     return (
       <label
         htmlFor={defaultFor}
-        className="inline-flex items-center cursor-pointer"
+        className={cn(
+          wrapperRadioVariants({
+            className: wrapperClassName,
+            disabled: disabled || false,
+          }),
+        )}
       >
         <input
           ref={ref}
@@ -46,13 +59,24 @@ export const Radio: FC<RadioProps> = forwardRef<HTMLInputElement, RadioProps>(
           defaultChecked={defaultChecked}
           className="hidden peer"
           onChange={() => handleChange(value)}
+          disabled={disabled}
         />
+
         <span
           className={cn(
-            radioVariants({ className, theme: theme ?? contextTheme }),
+            radioVariants({
+              className,
+              theme: inheritTheme,
+              disabled: disabled || false,
+              checked: checked || defaultChecked || false,
+            }),
           )}
         />
-        <span className="ml-2">{label}</span>
+        <span
+          className={cn(labelRadioVariants({ className: labelTextClassName }))}
+        >
+          {label}
+        </span>
       </label>
     );
   },

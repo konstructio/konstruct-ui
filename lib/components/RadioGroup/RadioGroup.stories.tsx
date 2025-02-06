@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { Info } from 'react-feather';
 
 import { RadioGroup as RadioGroupComponent } from './RadioGroup';
 
@@ -9,27 +10,49 @@ const meta: Meta<typeof RadioGroupComponent> = {
   component: RadioGroupComponent,
 };
 
-export const RadioGroup: Story = {
+export const RadioGroup = {
   args: {
-    asChild: true,
-    name: 'radio-group',
     options: [
       { label: 'Option 1', value: 'option1' },
       { label: 'Option 2', value: 'option2' },
-      { label: 'Option 3', value: 'option3' },
+      {
+        label: (
+          <span className="flex items-center gap-1.5">
+            Option 3 <Info className="w-[15px] h-[15px] text-slate-400" />
+          </span>
+        ),
+        value: 'option3',
+      },
     ],
   },
   render: (args) => (
-    <div className="w-[350px] flex flex-col gap-3">
+    <div className="w-[350px] flex flex-col gap-3 text-slate-700">
+      <h6>Row</h6>
+
       <RadioGroupComponent
         {...args}
-        options={args.options.map(({ value, ...delegated }) => ({
+        direction="row"
+        name="radio-group-row"
+        options={args.options.map(({ value, ...delegated }, index) => ({
           ...delegated,
           value,
+          checked: index === 0,
+        }))}
+      />
+
+      <h6 className="mt-5">Column</h6>
+
+      <RadioGroupComponent
+        {...args}
+        name="radio-group-col"
+        options={args.options.map(({ value, ...delegated }, index) => ({
+          ...delegated,
+          value,
+          checked: index === 0,
         }))}
       />
     </div>
   ),
-};
+} satisfies Story;
 
 export default meta;

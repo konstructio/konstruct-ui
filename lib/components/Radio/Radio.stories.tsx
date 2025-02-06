@@ -14,12 +14,32 @@ export const Radio: Story = {
     value: 'radio-button',
     checked: true,
   },
-  render: (args) => (
-    <div className="w-[350px] flex flex-col gap-3">
-      <RadioComponent {...args} label="Radio Button Kubefirst" />
-      <RadioComponent {...args} theme="colony" label="Radio Button Colony" />
-    </div>
-  ),
+  render: (args) => {
+    return (
+      <div className="w-[350px] flex flex-col gap-3">
+        <RadioComponent
+          {...args}
+          label="Radio Button Kubefirst"
+          checked={false}
+        />
+
+        <RadioComponent {...args} label="Radio Button Kubefirst" />
+
+        <RadioComponent
+          {...args}
+          label="Radio Button Kubefirst"
+          disabled={true}
+        />
+
+        <RadioComponent
+          {...args}
+          label="Radio Button Kubefirst"
+          disabled={true}
+          checked={false}
+        />
+      </div>
+    );
+  },
 };
 
 export default meta;
