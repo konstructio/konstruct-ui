@@ -149,6 +149,7 @@
     "vite-plugin-lib-inject-css": "^2.2.1",
     "vite-plugin-svgr": "^4.3.0",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.0.6"
+    "vitest": "^3.0.6",
+    "vitest-canvas-mock": "^0.3.3"
   }
 }

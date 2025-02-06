@@ -1,6 +1,7 @@
 import { vitest } from 'vitest';
 import { toHaveNoViolations } from 'jest-axe';
 import '@testing-library/jest-dom/vitest';
+import 'vitest-canvas-mock';
 
 expect.extend(toHaveNoViolations);
 
