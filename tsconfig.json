@@ -18,6 +18,7 @@
     "jsx": "react-jsx",
     "declaration": true,
     "sourceMap": true,
+    "emitDeclarationOnly": true,
 
     /* Linting */
     "strict": true,
