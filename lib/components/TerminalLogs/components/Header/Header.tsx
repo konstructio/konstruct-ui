@@ -21,20 +21,22 @@ export const Header: FC<HeaderProps> = ({ theme }) => {
 
   return (
     <div className={cn(wrapperVariants({ theme: inheritTheme }))}>
-      <List className="flex gap-3 items-start">
-        <Trigger
-          value="tab-1"
-          className={cn(tabTriggerVariants({ theme: inheritTheme }))}
-        >
-          Consice
-        </Trigger>
+      <List className="flex gap-3 items-start" asChild={true}>
+        <>
+          <Trigger
+            value="tab-1"
+            className={cn(tabTriggerVariants({ theme: inheritTheme }))}
+          >
+            Consice
+          </Trigger>
 
-        <Trigger
-          value="tab-2"
-          className={cn(tabTriggerVariants({ theme: inheritTheme }))}
-        >
-          Verbose
-        </Trigger>
+          <Trigger
+            value="tab-2"
+            className={cn(tabTriggerVariants({ theme: inheritTheme }))}
+          >
+            Verbose
+          </Trigger>
+        </>
       </List>
 
       <div className={cn(wrapperInputVariants({ theme: inheritTheme }))}>

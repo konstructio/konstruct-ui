@@ -1,35 +1,61 @@
 import { EventEmitter } from 'events';
 
-import { IEventEmitter } from './event-bus.types';
+import {
+  EventEmitterExtraDataArgs,
+  IEventEmitter,
+  TerminalEvent,
+  TerminalEventCallback,
+} from './event-bus.types';
 
-export const eventEmitter = (): IEventEmitter => {
-  const emitter = new EventEmitter();
+export class EventBus implements IEventEmitter {
+  private readonly emitter: EventEmitter;
+  private readonly showLogs: boolean;
 
-  return {
-    on(event, callback) {
-      emitter.on(event, callback);
+  constructor({ showLogs }: { showLogs: boolean }) {
+    this.emitter = new EventEmitter();
+    this.showLogs = showLogs;
+  }
 
-      return () => {
-        return emitter.off(event, callback);
-      };
-    },
+  on<T extends TerminalEvent>(
+    event: T,
+    callback: TerminalEventCallback<T>,
+  ): VoidFunction {
+    const handleCallback: TerminalEventCallback<T> = (data) => {
+      if (this.showLogs) {
+        console.log('Event:', event, data);
+      }
+      callback(data);
+    };
 
-    off(event, callback) {
-      emitter.off(event, callback);
-    },
+    this.emitter.on(event, handleCallback);
 
-    emit(event, data?) {
-      const eventData = {
-        type: event,
-        timestamp: Date.now(),
-        ...data,
-      };
+    return () => {
+      return this.emitter.off(event, callback);
+    };
+  }
 
-      emitter.emit(event, eventData);
-    },
+  off<T extends TerminalEvent>(
+    event: T,
+    callback: TerminalEventCallback<T>,
+  ): void {
+    this.emitter.off(event, callback);
+  }
 
-    removeAllListeners() {
-      emitter.removeAllListeners();
-    },
-  };
-};
+  emit<T extends TerminalEvent>(
+    event: T,
+    ...data: EventEmitterExtraDataArgs<T>
+  ) {
+    const [extraData] = data;
+    const eventData = {
+      type: event,
+      timestamp: Date.now(),
+      ...extraData,
+    };
+
+    this.emitter.emit(event, eventData);
+  }
+
+  removeAllListeners(): void {
+    this.emitter.removeAllListeners();
+  }
+}

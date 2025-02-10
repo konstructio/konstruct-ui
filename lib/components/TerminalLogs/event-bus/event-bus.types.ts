@@ -1,5 +1,6 @@
 export enum TerminalEvent {
   TERMINAL_LOADED = 'TERMINAL_LOADED',
+  WRITE_LOG = 'WRITE_LOG',
 }
 
 type BaseEvent<T extends TerminalEvent = TerminalEvent> = {
@@ -9,6 +10,7 @@ type BaseEvent<T extends TerminalEvent = TerminalEvent> = {
 
 export type TerminalEventMap = {
   [TerminalEvent.TERMINAL_LOADED]: BaseEvent;
+  [TerminalEvent.WRITE_LOG]: BaseEvent & { message: string };
 };
 
 export type TerminalEventCallback<T extends TerminalEvent> = (
@@ -20,7 +22,7 @@ type TerminalEventExtraData<T extends TerminalEvent> = Omit<
   keyof BaseEvent
 >;
 
-type EventEmitterExtraDataArgs<T extends TerminalEvent> =
+export type EventEmitterExtraDataArgs<T extends TerminalEvent> =
   BaseEvent extends TerminalEventMap[T]
     ? [undefined?]
     : [TerminalEventExtraData<T>];

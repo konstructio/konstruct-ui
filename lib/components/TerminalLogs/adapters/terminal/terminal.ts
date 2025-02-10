@@ -3,16 +3,18 @@ import { FitAddon } from '@xterm/addon-fit';
 import { SearchAddon } from '@xterm/addon-search';
 
 import { TerminalPrimitiveConfig } from './terminal.types';
-import { EventEmitterAdapter, TerminalEvent } from '../events/events.types';
+import { EventBus, TerminalEvent } from '../../event-bus';
 
 const SEARCH_OPTIONS = { caseSensitive: false };
 
 export class Terminal {
+  private emitter: EventBus;
   private readonly terminalInstance: TerminalPrimitive;
   private searchAddon!: SearchAddon;
 
-  private constructor(terminal: TerminalPrimitive) {
+  private constructor(terminal: TerminalPrimitive, showLogs: boolean) {
     this.terminalInstance = terminal;
+    this.emitter = new EventBus({ showLogs });
   }
 
   private static createNewIntance({
@@ -35,15 +37,15 @@ export class Terminal {
   }
 
   static create(
-    config?: TerminalPrimitiveConfig,
-    emitter?: EventEmitterAdapter,
+    config?: TerminalPrimitiveConfig & { showLogs?: boolean },
   ): Terminal {
-    const terminalPrimitive = Terminal.createNewIntance(config);
-    const terminal = new Terminal(terminalPrimitive);
+    const { showLogs = false, ...restConfig } = config ?? {};
+    const terminalPrimitive = Terminal.createNewIntance(restConfig);
+    const terminal = new Terminal(terminalPrimitive, showLogs);
 
     terminal.addAddons();
-
-    emitter?.emit(TerminalEvent.TERMINAL_LOADED);
+    terminal.bindEvents();
+    terminal.emitter.emit(TerminalEvent.TERMINAL_LOADED);
 
     return terminal;
   }
@@ -57,11 +59,32 @@ export class Terminal {
     this.searchAddon = searchAddon;
   }
 
+  private bindEvents() {
+    this.emitter.on(TerminalEvent.WRITE_LOG, (event) => {
+      this.terminalInstance.writeln(event.message);
+    });
+
+    let i = 0;
+
+    const interval = setInterval(() => {
+      i++;
+
+      this.emitter.emit(TerminalEvent.WRITE_LOG, {
+        message: 'Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ',
+      });
+
+      if (i === 20) {
+        clearInterval(interval);
+      }
+    }, 1000);
+  }
+
   open(container: HTMLElement): void {
     this.terminalInstance.open(container);
   }
 
   dispose(): void {
+    this.emitter.removeAllListeners();
     this.terminalInstance.dispose();
   }
 
