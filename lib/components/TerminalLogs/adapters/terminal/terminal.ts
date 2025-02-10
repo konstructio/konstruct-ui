@@ -1,17 +1,15 @@
-import { Terminal as TerminalPrimitive } from 'xterm';
-import { FitAddon } from 'xterm-addon-fit';
-import { SearchAddon } from 'xterm-addon-search';
+import { Terminal as TerminalPrimitive } from '@xterm/xterm';
+import { FitAddon } from '@xterm/addon-fit';
+import { SearchAddon } from '@xterm/addon-search';
 
 import { TerminalPrimitiveConfig } from './terminal.types';
+import { EventEmitterAdapter, TerminalEvent } from '../events/events.types';
 
 const SEARCH_OPTIONS = { caseSensitive: false };
 
 export class Terminal {
   private readonly terminalInstance: TerminalPrimitive;
   private searchAddon!: SearchAddon;
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //  @ts-expect-error
-  private logs: string[] = [];
 
   private constructor(terminal: TerminalPrimitive) {
     this.terminalInstance = terminal;
@@ -36,11 +34,16 @@ export class Terminal {
     });
   }
 
-  static create(config?: TerminalPrimitiveConfig): Terminal {
+  static create(
+    config?: TerminalPrimitiveConfig,
+    emitter?: EventEmitterAdapter,
+  ): Terminal {
     const terminalPrimitive = Terminal.createNewIntance(config);
     const terminal = new Terminal(terminalPrimitive);
 
     terminal.addAddons();
+
+    emitter?.emit(TerminalEvent.TERMINAL_LOADED);
 
     return terminal;
   }

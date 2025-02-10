@@ -1,4 +1,4 @@
-import { type ITerminalInitOnlyOptions, type ITerminalOptions } from 'xterm';
+import { ITerminalInitOnlyOptions, ITerminalOptions } from '@xterm/xterm';
 
 export type TerminalPrimitiveConfig = ITerminalOptions &
   ITerminalInitOnlyOptions;

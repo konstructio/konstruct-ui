@@ -7,7 +7,7 @@ export const wrapperTerminalLogsVariants = cva(
     'bg-[#1e293b]',
     'rounded',
     'gap-2',
-    'p-3',
+    'p-4',
     'relative',
     'min-h-[550px]',
     'min-w-[550px]',
