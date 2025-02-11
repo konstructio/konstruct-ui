@@ -9,11 +9,19 @@ import {
 
 export class EventBus implements IEventEmitter {
   private readonly emitter: EventEmitter;
-  private readonly showLogs: boolean;
+  private showLogs: boolean;
 
   constructor({ showLogs }: { showLogs: boolean }) {
     this.emitter = new EventEmitter();
     this.showLogs = showLogs;
+
+    this.bindInitialEvents();
+  }
+
+  private bindInitialEvents() {
+    this.emitter.on(TerminalEvent.CHANGE_VISIBILITY_LOGS, ({ showLogs }) => {
+      this.showLogs = showLogs;
+    });
   }
 
   on<T extends TerminalEvent>(

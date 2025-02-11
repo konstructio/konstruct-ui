@@ -1,10 +1,12 @@
 import { List, Trigger } from '@radix-ui/react-tabs';
-import { FC } from 'react';
+import { ChangeEvent, FC, useCallback } from 'react';
 import { Copy, HelpCircle, Maximize2, Search } from 'react-feather';
 
 import { Input } from '@/components';
 import { useTheme } from '@/contexts';
 import { cn } from '@/utils';
+
+import { useTerminalLogs } from '../../contexts';
 
 import {
   actionButtonsWrapperVariants,
@@ -16,8 +18,18 @@ import {
 import { HeaderProps } from './Header.types';
 
 export const Header: FC<HeaderProps> = ({ theme }) => {
+  const { onChangeSearchValue, onFitTerminal } = useTerminalLogs();
   const { theme: contexTheme } = useTheme();
   const inheritTheme = theme ?? contexTheme;
+
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      onChangeSearchValue(event.target.value);
+    },
+    [onChangeSearchValue],
+  );
+
+  const handleFix = () => onFitTerminal();
 
   return (
     <div className={cn(wrapperVariants({ theme: inheritTheme }))}>
@@ -33,6 +45,7 @@ export const Header: FC<HeaderProps> = ({ theme }) => {
           <Trigger
             value="tab-2"
             className={cn(tabTriggerVariants({ theme: inheritTheme }))}
+            onClick={handleFix}
           >
             Verbose
           </Trigger>
@@ -44,6 +57,8 @@ export const Header: FC<HeaderProps> = ({ theme }) => {
         <Input
           placeholder="Search logs"
           className={cn(inputVariants({ theme: inheritTheme }))}
+          autoComplete="off"
+          onChange={handleChange}
         />
       </div>
 

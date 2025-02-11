@@ -8,10 +8,8 @@ export const wrapperTerminalLogsVariants = cva(
     'rounded',
     'gap-2',
     'p-4',
-    'relative',
-    'min-h-[550px]',
-    'min-w-[550px]',
-    'overflow-hidden',
+    'h-full',
+    'w-full',
   ],
   {
     variants: {

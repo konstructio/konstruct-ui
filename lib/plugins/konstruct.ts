@@ -1,7 +1,6 @@
 import plugin from 'tailwindcss/plugin';
 import { PluginAPI } from 'tailwindcss/types/config';
 
-<<<<<<< HEAD
 import {
   addAnimationStyles,
   defaultAnimationThemeValues,
@@ -17,23 +16,14 @@ export const konstructPlugin = plugin(
     matchUtilities,
     theme,
   }: PluginAPI) {
-=======
-import { konstructColors } from './utils';
-
-export const konstructPlugin = plugin(
-  function ({ addBase }) {
->>>>>>> f9dec04 (✨ feat: enhance TerminalLogs component with event bus integration and theming support)
     addBase({
       ':root': {
         '--viewport-padding': '25px',
       },
     });
-<<<<<<< HEAD
 
     addAnimationStyles({ addUtilities, matchUtilities, theme });
     addXtermStyles({ addComponents });
-=======
->>>>>>> f9dec04 (✨ feat: enhance TerminalLogs component with event bus integration and theming support)
   },
   {
     theme: {

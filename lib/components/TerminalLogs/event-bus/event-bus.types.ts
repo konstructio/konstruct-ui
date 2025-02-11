@@ -1,6 +1,7 @@
 export enum TerminalEvent {
   TERMINAL_LOADED = 'TERMINAL_LOADED',
   WRITE_LOG = 'WRITE_LOG',
+  CHANGE_VISIBILITY_LOGS = 'CHANGE_VISIBILITY_LOGS',
 }
 
 type BaseEvent<T extends TerminalEvent = TerminalEvent> = {
@@ -11,6 +12,7 @@ type BaseEvent<T extends TerminalEvent = TerminalEvent> = {
 export type TerminalEventMap = {
   [TerminalEvent.TERMINAL_LOADED]: BaseEvent;
   [TerminalEvent.WRITE_LOG]: BaseEvent & { message: string };
+  [TerminalEvent.CHANGE_VISIBILITY_LOGS]: BaseEvent & { showLogs: boolean };
 };
 
 export type TerminalEventCallback<T extends TerminalEvent> = (

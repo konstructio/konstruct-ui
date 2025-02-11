@@ -12,8 +12,8 @@ const meta = {
 export const TerminalLogs = {
   render: () => {
     return (
-      <div className="w-[600px] h-[600px]">
-        <TerminalLogsComponent showLogs />
+      <div className="min-w-[600px] h-[700px]">
+        <TerminalLogsComponent />
       </div>
     );
   },

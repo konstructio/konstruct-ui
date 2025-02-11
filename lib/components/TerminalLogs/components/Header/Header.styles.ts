@@ -70,7 +70,7 @@ export const inputVariants = cva(
     'text-white',
     'placeholder:text-slate-200',
     'text-sm',
-    'focus-visible:ring-0',
+    'focus-visible:!ring-0',
     'focus:text-white',
     'focus:caret-slate-300',
   ],
