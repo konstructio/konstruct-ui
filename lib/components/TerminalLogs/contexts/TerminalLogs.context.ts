@@ -18,6 +18,9 @@ const initialState: State = {
   onFitTerminal: () => {
     throw new Error('setElement method not implemented');
   },
+  onWriteLog: () => {
+    throw new Error('setElement method not implemented');
+  },
 };
 
 export const TerminalLogsContext = createContext<State>(initialState);

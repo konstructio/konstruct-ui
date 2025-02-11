@@ -7,4 +7,5 @@ export type TerminalLogsProps = VariantProps<
 > & {
   className?: string;
   showLogs?: boolean;
+  handleMethods?: (methods: { onWriteLog: (message: string) => void }) => void;
 };

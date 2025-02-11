@@ -10,6 +10,7 @@ export type State = {
   onChangeLogsVisibility: (visible: boolean) => void;
   onChangeSearchValue: (text: string) => void;
   onFitTerminal: VoidFunction;
+  onWriteLog: (message: string) => void;
 };
 
 export type ProviderProps = {

@@ -27,13 +27,32 @@ export class Terminal {
     scrollback = 5000,
   }: TerminalPrimitiveConfig = {}): TerminalPrimitive {
     return new TerminalPrimitive({
+      cursorBlink: true,
+      fontFamily: 'inherit',
+      lineHeight: 2,
       convertEol,
       disableStdin,
       logLevel: 'off',
       scrollback,
       theme: {
-        foreground: 'white',
-        background: '#0f172a',
+        background: '#0F172A',
+        black: '#000000',
+        blue: '#bd93f9',
+        brightBlack: '#555555',
+        brightBlue: '#d6acff',
+        brightCyan: '#a4ffff',
+        brightGreen: '#69ff94',
+        brightMagenta: '#ff92df',
+        brightRed: '#ff6e6e',
+        brightWhite: '#ffffff',
+        brightYellow: '#ffffa5',
+        cyan: '#8be9fd',
+        foreground: '#ffffff',
+        green: '#50fa7b',
+        magenta: '#ff79c6',
+        red: '#ff5555',
+        white: '#bbbbbb',
+        yellow: '#f1fa8c',
       },
     });
   }
@@ -47,7 +66,6 @@ export class Terminal {
 
     terminal.addAddons();
     terminal.bindEvents();
-
     terminal.emitter.emit(TerminalEvent.TERMINAL_LOADED);
 
     return terminal;
@@ -59,28 +77,11 @@ export class Terminal {
   }
 
   private bindEvents() {
-    this.emitter.on(TerminalEvent.TERMINAL_LOADED, () => {
-      this.fitAddon.fit();
-    });
-
+    this.emitter.on(TerminalEvent.TERMINAL_LOADED, () => this.fitAddon.fit());
     this.emitter.on(TerminalEvent.WRITE_LOG, (event) => {
       this.terminalInstance.writeln(event.message);
       this.logs.push(event.message);
     });
-
-    let i = 0;
-
-    const interval = setInterval(() => {
-      i++;
-
-      this.emitter.emit(TerminalEvent.WRITE_LOG, {
-        message: `Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ${i}`,
-      });
-
-      if (i === 20) {
-        clearInterval(interval);
-      }
-    }, 1);
   }
 
   open(container: HTMLElement): void {
@@ -110,5 +111,9 @@ export class Terminal {
 
   searchValue(term: string): void {
     this.searchAddon.findNext(term);
+  }
+
+  write(message: string): void {
+    this.emitter.emit(TerminalEvent.WRITE_LOG, { message });
   }
 }

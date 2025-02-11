@@ -15,20 +15,22 @@ export const Body = forwardRef<ComponentRef<'div'>, BodyProps>(
     const inheritTheme = theme ?? contexTheme;
 
     return (
-      <div className="mt-5 rounded relative flex flex-1 h-full w-full">
-        <Content
-          className={conciseTabTerminalVariants({ theme: inheritTheme })}
-          value="tab-1"
-          asChild
-        >
-          <p>Hello World</p>
-        </Content>
+      <div className="rounded relative flex h-full w-full bg-[#0F172A] py-1 overflow-hidden">
+        <div className="h-full w-full flex-1">
+          <Content
+            className={conciseTabTerminalVariants({ theme: inheritTheme })}
+            value="tab-1"
+            asChild
+          >
+            <p>Hello World</p>
+          </Content>
 
-        <Content
-          className={verboseTabTerminalVariants({ theme: inheritTheme })}
-          value="tab-2"
-          ref={ref}
-        />
+          <Content
+            className={verboseTabTerminalVariants({ theme: inheritTheme })}
+            value="tab-2"
+            ref={ref}
+          />
+        </div>
       </div>
     );
   },

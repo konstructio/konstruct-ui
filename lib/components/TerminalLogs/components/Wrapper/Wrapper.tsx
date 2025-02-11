@@ -7,15 +7,23 @@ import { Header } from '../Header/Header';
 
 import { WrapperProps } from './Wrapper.types';
 
-export const Wrapper: FC<WrapperProps> = ({ className, theme }) => {
+export const Wrapper: FC<WrapperProps> = ({
+  className,
+  theme,
+  handleMethods,
+}) => {
   const terminalWrapperRef = useRef<HTMLDivElement>(null);
-  const { onSetElement } = useTerminalLogs();
+  const { onSetElement, onWriteLog } = useTerminalLogs();
 
   useEffect(() => {
     if (terminalWrapperRef.current) {
       onSetElement(terminalWrapperRef.current);
     }
   }, [onSetElement]);
+
+  useEffect(() => {
+    handleMethods?.({ onWriteLog });
+  }, [handleMethods, onWriteLog]);
 
   return (
     <div className={className}>

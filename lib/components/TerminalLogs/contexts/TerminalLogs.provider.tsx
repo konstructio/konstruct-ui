@@ -23,11 +23,11 @@ export const TerminalLogsProvider = ({ children, showLogs }: ProviderProps) => {
 
   const handleSearchValue = useCallback((text: string) => {
     setSearchValue(text);
-    const terminalInstance = terminalRef.current;
+    terminalRef.current?.searchValue(text);
+  }, []);
 
-    if (terminalInstance) {
-      terminalInstance.searchValue(text);
-    }
+  const handleWriteLog = useCallback((message: string) => {
+    terminalRef.current?.write(message);
   }, []);
 
   useEffect(() => {
@@ -60,6 +60,7 @@ export const TerminalLogsProvider = ({ children, showLogs }: ProviderProps) => {
         onSetElement: handleSetElement,
         onChangeLogsVisibility: handleShowLogs,
         onFitTerminal: handleFitTerminal,
+        onWriteLog: handleWriteLog,
       }}
     >
       {children}
