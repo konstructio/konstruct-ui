@@ -5,7 +5,7 @@ import { NumberInput as NumberInputComponent } from './NumberInput';
 type Story = StoryObj<typeof NumberInputComponent>;
 
 const meta: Meta<typeof NumberInputComponent> = {
-  title: 'Design System/NumberInput',
+  title: 'In Review/NumberInput',
   component: NumberInputComponent,
 };
 

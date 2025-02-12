@@ -5,7 +5,7 @@ import { Radio as RadioComponent } from './Radio';
 type Story = StoryObj<typeof RadioComponent>;
 
 const meta: Meta<typeof RadioComponent> = {
-  title: 'Design System/Radio',
+  title: 'In Review/Radio',
   component: RadioComponent,
 };
 

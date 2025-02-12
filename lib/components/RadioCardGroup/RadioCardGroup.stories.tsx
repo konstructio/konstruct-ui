@@ -7,7 +7,7 @@ import { RadioCardGroup as RadioCardGroupComponent } from './RadioCardGroup';
 type Story = StoryObj<typeof RadioCardGroupComponent>;
 
 const meta = {
-  title: 'Design System/RadioCardGroup',
+  title: 'In Review/RadioCardGroup',
   component: RadioCardGroupComponent,
 } satisfies Meta<typeof RadioCardGroupComponent>;
 

@@ -5,7 +5,7 @@ import { Tag as TagComponent } from './Tag';
 type Story = StoryObj<typeof TagComponent>;
 
 const meta: Meta<typeof TagComponent> = {
-  title: 'Design System/Tag',
+  title: 'In Review/Tag',
   component: TagComponent,
 };
 

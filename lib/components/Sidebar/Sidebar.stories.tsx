@@ -22,7 +22,7 @@ import {
 type Story = StoryObj<typeof SidebarPrimitive>;
 
 const meta = {
-  title: 'Design System/Sidebar',
+  title: 'In Review/Sidebar',
   component: SidebarPrimitive,
   decorators: [
     (Story) => {

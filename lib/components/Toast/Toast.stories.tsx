@@ -8,7 +8,7 @@ import { Toast as ToastComponent } from './Toast';
 type Story = StoryObj<typeof ToastComponent>;
 
 const meta: Meta<typeof ToastComponent> = {
-  title: 'Design System/Toast',
+  title: 'In Review/Toast',
   component: ToastComponent,
 };
 

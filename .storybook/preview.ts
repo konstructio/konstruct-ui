@@ -16,6 +16,7 @@ const preview = {
           'Documentation',
           ['Introduction', 'Changelog'],
           'Design System',
+          'In Review',
         ],
       },
     },

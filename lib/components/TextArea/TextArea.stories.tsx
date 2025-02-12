@@ -5,7 +5,7 @@ import { TextArea as TextAreaComponent } from './TextArea';
 type Story = StoryObj<typeof TextAreaComponent>;
 
 const meta: Meta<typeof TextAreaComponent> = {
-  title: 'Design System/TextArea',
+  title: 'In Review/TextArea',
   component: TextAreaComponent,
 };
 

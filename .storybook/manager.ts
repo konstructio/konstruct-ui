@@ -14,4 +14,7 @@ addons.setConfig({
     textColor: '#333',
     barTextColor: '#666',
   }),
+  sidebar: {
+    showRoots: true,
+  },
 });

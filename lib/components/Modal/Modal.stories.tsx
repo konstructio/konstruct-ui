@@ -9,7 +9,7 @@ import { Theme, ThemeProvider, useTheme } from '../../contexts';
 type Story = StoryObj<typeof ModalComponent>;
 
 const meta: Meta<typeof ModalComponent> = {
-  title: 'Design System/Modal',
+  title: 'In Review/Modal',
   component: ModalComponent,
 };
 
