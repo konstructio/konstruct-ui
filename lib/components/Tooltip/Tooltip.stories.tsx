@@ -8,7 +8,7 @@ import { ThemeProvider } from '../../contexts';
 type Story = StoryObj<typeof TooltipComponent>;
 
 const meta: Meta<typeof TooltipComponent> = {
-  title: 'Design System/Tooltip',
+  title: 'In Review/Tooltip',
   component: TooltipComponent,
 };
 

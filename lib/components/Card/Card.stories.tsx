@@ -11,7 +11,7 @@ import { CardProps } from './Card.types';
 type Story = StoryObj<typeof CardComponent>;
 
 const meta: Meta<typeof CardComponent> = {
-  title: 'Design System/Card',
+  title: 'In Review/Card',
   component: CardComponent,
 };
 

@@ -7,7 +7,7 @@ import { RadioCard as RadioCardComponent } from './RadioCard';
 type Story = StoryObj<typeof RadioCardComponent>;
 
 const meta = {
-  title: 'Design System/RadioCard',
+  title: 'In Review/RadioCard',
   component: RadioCardComponent,
 } satisfies Meta<typeof RadioCardComponent>;
 
