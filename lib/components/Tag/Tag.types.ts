@@ -1,4 +1,5 @@
 export type TagProps = {
+  id: string | number;
   label: string;
   color?:
     | 'gray'
