@@ -66,6 +66,8 @@ export const Alert: FC<AlertProps> = ({
       ref={wrapperRef}
       className={cn(alertVariants({ theme: inheritTheme, type, isVisible }))}
       data-state={isVisible ? 'visible' : 'hidden'}
+      role="alert"
+      aria-live="polite"
     >
       {contentMemoized}
 
