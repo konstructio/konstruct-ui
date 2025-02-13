@@ -1,6 +1,6 @@
 import { VariantProps } from 'class-variance-authority';
 
-import { TagProps } from '../Tag/Tag.types';
+import { TagProps } from '@/components/Tag/Tag.types';
 
 import { tagSelectVariants } from './TagSelect.variants';
 
@@ -9,4 +9,6 @@ export interface TagSelectProps extends VariantProps<typeof tagSelectVariants> {
   options: TagProps[];
   name?: string;
   placeholder?: string;
+  labelClassName?: string;
+  wrapperClassName?: string;
 }

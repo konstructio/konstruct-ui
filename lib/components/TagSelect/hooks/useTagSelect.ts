@@ -1,7 +1,7 @@
 import { ComponentRef, useCallback, useEffect, useRef, useState } from 'react';
 
-import { useToggle } from '../../../hooks';
-import { TagProps } from '../../Tag/Tag.types';
+import { TagProps } from '@/components/Tag/Tag.types';
+import { useToggle } from '@/hooks';
 
 export const useTagSelect = () => {
   const wrapperRef = useRef<ComponentRef<'div'>>(null);
@@ -37,9 +37,10 @@ export const useTagSelect = () => {
     };
   }, [toggleOpen, wrapperRef]);
 
-  const handleOpenDropdown = useCallback(() => {
-    toggleOpen();
-  }, [toggleOpen]);
+  const handleOpenDropdown = useCallback(
+    (value?: boolean) => toggleOpen(value),
+    [toggleOpen],
+  );
 
   const handleClickTag = useCallback(
     (tag: TagProps) => {

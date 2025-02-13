@@ -1,5 +1,34 @@
 import { cva } from 'class-variance-authority';
 
+export const wrapperTagSelectVariants = cva(
+  ['flex', 'flex-col', 'w-full', 'relative', 'text-zinc-500'],
+  {
+    variants: {
+      theme: {
+        colony: '',
+        kubefirst: '',
+        civo: '',
+      },
+    },
+    defaultVariants: {
+      theme: 'kubefirst',
+    },
+  },
+);
+
+export const labelVariants = cva(['m-2', 'cursor-pointer'], {
+  variants: {
+    theme: {
+      colony: '',
+      kubefirst: '',
+      civo: '',
+    },
+  },
+  defaultVariants: {
+    theme: 'kubefirst',
+  },
+});
+
 export const tagSelectVariants = cva(
   [
     'border',

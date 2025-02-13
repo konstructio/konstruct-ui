@@ -31,11 +31,6 @@ export const TagSelect: Story = {
   render: (args) => (
     <div className="max-w-[300px] flex flex-col gap-3">
       <TagSelectComponent {...args} label="Select tag with kubefirst theme" />
-      <TagSelectComponent
-        {...args}
-        theme="colony"
-        label="Select tag with colony theme"
-      />
     </div>
   ),
 };
