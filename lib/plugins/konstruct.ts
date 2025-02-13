@@ -1,20 +1,28 @@
 import plugin from 'tailwindcss/plugin';
+import { PluginAPI } from 'tailwindcss/types/config';
 
-import { konstructColors } from './utils/colors';
+import {
+  addAnimationStyles,
+  defaultAnimationThemeValues,
+  konstructColors,
+} from './utils';
 
 export const konstructPlugin = plugin(
-  function ({ addBase }) {
+  function ({ addBase, addUtilities, matchUtilities, theme }: PluginAPI) {
     addBase({
       ':root': {
         '--viewport-padding': '25px',
       },
     });
+
+    addAnimationStyles({ addUtilities, matchUtilities, theme });
   },
   {
     theme: {
       extend: {
         colors: { ...konstructColors },
         viewportPadding: '',
+        ...defaultAnimationThemeValues,
         backgroundImage: {
           'kubefirst-gradient': 'linear-gradient(90deg, #81E2B4, #8851C8)',
         },
@@ -49,6 +57,7 @@ export const konstructPlugin = plugin(
               transform: 'translateX(calc(100% + var(--viewport-padding)))',
             },
           },
+          ...defaultAnimationThemeValues.keyframes,
         },
       },
     },
