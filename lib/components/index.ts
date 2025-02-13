@@ -1,3 +1,4 @@
+export * from './Alert/Alert';
 export * from './AlertDialog/AlertDialog';
 export * from './Autocomplete/Autocomplete';
 export * from './Breadcrumb/Breadcrumb';
