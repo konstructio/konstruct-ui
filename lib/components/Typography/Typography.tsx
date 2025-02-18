@@ -8,6 +8,7 @@ const Typography: FunctionComponent<TypographyProps> = ({
   className,
   theme,
   children,
+  variant,
   ...delegated
 }) => {
   const id = useId();
@@ -19,6 +20,7 @@ const Typography: FunctionComponent<TypographyProps> = ({
       className={typographyVariants({
         className,
         theme: theme ?? themeContext,
+        variant,
       })}
       {...delegated}
     >

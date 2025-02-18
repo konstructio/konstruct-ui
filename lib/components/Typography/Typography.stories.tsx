@@ -16,7 +16,10 @@ export const Typography: Story = {
     <>
       <div className="w-full space-y-4">
         {Object.keys(variants).map((variant) => (
-          <TypographyComponent variant={variant as keyof typeof variants}>
+          <TypographyComponent
+            variant={variant as keyof typeof variants}
+            theme="kubefirst"
+          >
             {`${variant} - Almost before we knew it, we had...`}
           </TypographyComponent>
         ))}
