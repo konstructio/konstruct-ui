@@ -7,21 +7,18 @@ import { typographyVariants } from './Typography.variants';
 const Typography: FunctionComponent<TypographyProps> = ({
   className,
   theme,
-  variant,
   children,
   ...delegated
 }) => {
   const id = useId();
   const { theme: themeContext } = useTheme();
 
-  console.log(variant);
   return (
     <p
       id={id}
       className={typographyVariants({
         className,
         theme: theme ?? themeContext,
-        variant: variant ?? 'body1',
       })}
       {...delegated}
     >
