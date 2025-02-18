@@ -26,3 +26,6 @@ coverage
 *.sw?
 
 *storybook.log
+/.fnpm
+bun.lockb
+bun.lock

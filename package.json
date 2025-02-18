@@ -45,7 +45,6 @@
     "check:types": "tsc -p tsconfig.json",
     "ci": "npm run build && npm run check:prettier && vitest run",
     "deps:update": "npx npm-check-updates --interactive --format group",
-    "dev": "vite",
     "format:prettier": "prettier lib --write './**/*.{js,jsx,ts,tsx}' --config ./.prettierrc",
     "lint": "eslint lib --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "prepare": "husky",
