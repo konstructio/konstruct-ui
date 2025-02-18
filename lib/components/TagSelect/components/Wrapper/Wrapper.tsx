@@ -15,7 +15,6 @@ import { cn } from '@/utils';
 
 import { useTagSelect as useTagSelectContext } from '../../contexts';
 import { useTagSelect } from '../../hooks/useTagSelect';
-import { TagSelectProps } from '../../TagSelect.types';
 import {
   labelVariants,
   tagSelectVariants,
@@ -27,14 +26,13 @@ import { WrapperProps } from './Wrapper.types';
 
 export const Wrapper: FC<WrapperProps> = forwardRef<
   HTMLInputElement,
-  TagSelectProps
+  WrapperProps
 >(
   (
     {
       label,
       labelClassName,
       name,
-      options,
       placeholder = 'Select a value...',
       theme,
       wrapperClassName,
@@ -43,10 +41,10 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
   ) => {
     const id = useId();
     const { theme: themeContext } = useTheme();
-    const { selectedTags } = useTagSelectContext();
+    const { selectedTags, isOpen, onOpen, onRemoveTag } = useTagSelectContext();
+    const { wrapperRef, handleOpen } = useTagSelect();
     const inheritTheme = theme ?? themeContext;
     const inputRef = useRef<ComponentRef<'input'>>(null);
-    const { isOpen, wrapperRef, handleOpenDropdown } = useTagSelect();
 
     useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
 
@@ -80,7 +78,7 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
                 className: labelClassName,
               }),
             )}
-            onClick={() => handleOpenDropdown(true)}
+            onClick={() => onOpen(true)}
           >
             {label}
           </label>
@@ -90,7 +88,7 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
           id={name ?? id}
           className={cn(tagSelectVariants({ theme: inheritTheme }))}
           role="combobox"
-          onClick={() => handleOpenDropdown()}
+          onClick={handleOpen}
           aria-expanded={isOpen}
         >
           {selectedTags.length === 0 ? (
@@ -98,20 +96,24 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
               {placeholder}
             </span>
           ) : (
-            <>
+            <div className="flex flex-wrap gap-1.5">
               {selectedTags.map((tag) => (
                 <Tag
                   key={tag.id}
                   {...tag}
-                  rightIcon={<X className="w-3 h-3" />}
+                  className="select-none"
+                  rightIcon={
+                    <X className="w-3 h-3" onClick={() => onRemoveTag(tag)} />
+                  }
+                  data-value={tag.label}
                 />
               ))}
-            </>
+            </div>
           )}
 
           <ChevronUp
             className={cn(
-              'w-4 h-4 text-inherit transition-all duration-50',
+              'w-4 h-4 text-inherit transition-all duration-50 shrink-0',
               isOpen ? 'rotate-0' : 'rotate-180',
             )}
           />
@@ -119,7 +121,7 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
 
         <input ref={inputRef} type="text" name={name} className="hidden" />
 
-        {isOpen ? <List theme={inheritTheme} options={options} /> : null}
+        {isOpen ? <List theme={inheritTheme} /> : null}
       </div>
     );
   },

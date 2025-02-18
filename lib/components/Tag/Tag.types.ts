@@ -20,4 +20,6 @@ export type TagProps = {
   label: string;
   rightIcon?: ReactNode;
   leftIcon?: ReactNode;
+  className?: string;
+  'data-value'?: string;
 };
