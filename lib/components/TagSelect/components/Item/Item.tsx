@@ -17,7 +17,9 @@ export const Item: FC<ItemProps> = ({ option, theme }) => {
   return (
     <li
       role="option"
-      className={cn(wrapperVariants({ theme: inheritTheme }))}
+      className={cn(
+        wrapperVariants({ theme: inheritTheme, isSelected: option.isSelected }),
+      )}
       onClick={() => onSelectTag(option)}
     >
       <Tag {...option} />

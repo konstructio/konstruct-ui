@@ -6,6 +6,7 @@ const initialState: State = {
   tags: [],
   selectedTags: [],
   isOpen: false,
+  inputRef: null,
   onSelectTag() {
     throw new Error('Function not implemented.');
   },

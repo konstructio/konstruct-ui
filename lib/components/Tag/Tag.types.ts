@@ -22,4 +22,5 @@ export type TagProps = {
   leftIcon?: ReactNode;
   className?: string;
   'data-value'?: string;
+  isSelected?: boolean;
 };

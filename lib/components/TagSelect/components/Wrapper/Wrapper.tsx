@@ -1,12 +1,4 @@
-import {
-  ComponentRef,
-  FC,
-  forwardRef,
-  useEffect,
-  useId,
-  useImperativeHandle,
-  useRef,
-} from 'react';
+import { FC, forwardRef, useId, useImperativeHandle } from 'react';
 import { ChevronUp, X } from 'react-feather';
 
 import { Tag } from '@/components/Tag/Tag';
@@ -41,23 +33,12 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
   ) => {
     const id = useId();
     const { theme: themeContext } = useTheme();
-    const { selectedTags, isOpen, onOpen, onRemoveTag } = useTagSelectContext();
+    const { selectedTags, isOpen, onOpen, onRemoveTag, inputRef } =
+      useTagSelectContext();
     const { wrapperRef, handleOpen } = useTagSelect();
     const inheritTheme = theme ?? themeContext;
-    const inputRef = useRef<ComponentRef<'input'>>(null);
 
-    useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
-
-    useEffect(() => {
-      if (inputRef.current) {
-        const values = selectedTags.map(({ id, label }) => ({
-          id,
-          value: label,
-        }));
-
-        inputRef.current.value = JSON.stringify(values);
-      }
-    }, [selectedTags]);
+    useImperativeHandle(ref, () => inputRef!.current!, [inputRef]);
 
     return (
       <div

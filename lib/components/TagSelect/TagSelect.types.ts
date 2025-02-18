@@ -11,4 +11,5 @@ export interface TagSelectProps extends VariantProps<typeof tagSelectVariants> {
   placeholder?: string;
   labelClassName?: string;
   wrapperClassName?: string;
+  multiselect?: boolean;
 }

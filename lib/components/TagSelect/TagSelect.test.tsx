@@ -47,14 +47,14 @@ describe('TagSelect', () => {
     expect(tagSelect).toBeInTheDocument();
   });
 
-  it('sould select a value', async () => {
+  it('should select a value', async () => {
     const { findTagSelect, findOption, user } = setup();
 
     const tagSelect = await findTagSelect();
 
     await user.click(tagSelect);
 
-    const option = await findOption('gray');
+    const option = await findOption(options.at(0)!.label);
 
     await user.click(option);
 
@@ -62,23 +62,23 @@ describe('TagSelect', () => {
       expect(screen.queryAllByRole('option').length).toBe(0);
     });
 
-    expect(screen.getByText('gray')).toBeInTheDocument();
+    expect(screen.getByText(options.at(0)!.label)).toBeInTheDocument();
   });
 
-  it('sould select multiple values', async () => {
+  it('should select multiple values', async () => {
     const { findTagSelect, findOption, user } = setup();
 
     const tagSelect = await findTagSelect();
 
     await user.click(tagSelect);
 
-    const option = await findOption('gray');
+    const option = await findOption(options.at(0)!.label);
 
     await user.click(option);
 
     await user.click(tagSelect);
 
-    const option2 = await findOption('cyan');
+    const option2 = await findOption(options.at(1)!.label);
 
     await user.click(option2);
 
@@ -86,11 +86,11 @@ describe('TagSelect', () => {
       expect(screen.queryAllByRole('option').length).toBe(0);
     });
 
-    expect(screen.getByText('gray')).toBeInTheDocument();
-    expect(screen.getByText('cyan')).toBeInTheDocument();
+    expect(screen.getByText(options.at(0)!.label)).toBeInTheDocument();
+    expect(screen.getByText(options.at(1)!.label)).toBeInTheDocument();
   });
 
-  it('sould send values when the input is located in a form', async () => {
+  it('should send values when the input is located in a form', async () => {
     const handleSubmit = vitest.fn();
 
     const Wrapper: FC<PropsWithChildren> = ({ children }) => {
@@ -115,13 +115,13 @@ describe('TagSelect', () => {
 
     await user.click(tagSelect);
 
-    const option = await findOption('gray');
+    const option = await findOption(options.at(0)!.label);
 
     await user.click(option);
 
     await user.click(tagSelect);
 
-    const option2 = await findOption('cyan');
+    const option2 = await findOption(options.at(1)!.label);
 
     await user.click(option2);
 
@@ -134,6 +134,62 @@ describe('TagSelect', () => {
     const result = JSON.stringify(
       options.map(({ id, label }) => ({ id, value: label })),
     );
+
+    expect(handleSubmit).toHaveBeenCalledWith({
+      'tag-select': result,
+    });
+  });
+
+  it('sould send just one value on the form because is not multiselect', async () => {
+    const handleSubmit = vitest.fn();
+
+    const Wrapper: FC<PropsWithChildren> = ({ children }) => {
+      return (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            const formData = new FormData(e.currentTarget);
+            const data = Object.fromEntries(formData.entries());
+            handleSubmit(data);
+          }}
+        >
+          {children}
+          <button type="submit">Submit</button>
+        </form>
+      );
+    };
+
+    const { findTagSelect, findOption, user } = setup(
+      { multiselect: false },
+      Wrapper,
+    );
+
+    const tagSelect = await findTagSelect();
+
+    await user.click(tagSelect);
+
+    const option = await findOption(options.at(0)!.label);
+
+    await user.click(option);
+
+    await user.click(tagSelect);
+
+    const option2 = await findOption(options.at(1)!.label);
+
+    await user.click(option2);
+
+    const button = screen.getByRole('button', {
+      name: /submit/i,
+    });
+
+    await user.click(button);
+
+    const result = JSON.stringify([
+      {
+        id: options.at(1)!.id,
+        value: options.at(1)!.label,
+      },
+    ]);
 
     expect(handleSubmit).toHaveBeenCalledWith({
       'tag-select': result,

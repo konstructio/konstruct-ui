@@ -9,9 +9,21 @@ export const wrapperVariants = cva(
         kubefirst: ['hover:bg-purple-100'],
         civo: '',
       },
+      isSelected: {
+        true: '',
+        false: '',
+      },
     },
+    compoundVariants: [
+      {
+        theme: 'kubefirst',
+        isSelected: true,
+        class: ['bg-purple-100'],
+      },
+    ],
     defaultVariants: {
       theme: 'kubefirst',
+      isSelected: false,
     },
   },
 );

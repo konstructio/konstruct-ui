@@ -7,8 +7,8 @@ import { TagSelectProps } from './TagSelect.types';
 export const TagSelect: FC<TagSelectProps> = forwardRef<
   HTMLInputElement,
   TagSelectProps
->(({ options, ...delegated }, ref) => (
-  <TagSelectProvider defaultOptions={options}>
+>(({ options, multiselect, ...delegated }, ref) => (
+  <TagSelectProvider defaultOptions={options} multiselect={multiselect}>
     <Wrapper ref={ref} {...delegated} />
   </TagSelectProvider>
 ));
