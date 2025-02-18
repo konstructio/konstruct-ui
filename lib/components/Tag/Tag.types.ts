@@ -1,5 +1,6 @@
+import { ReactNode } from 'react';
+
 export type TagProps = {
-  label: string;
   color?:
     | 'gray'
     | 'cyan'
@@ -15,4 +16,11 @@ export type TagProps = {
     | 'light-orange'
     | 'dark-sky-blue'
     | 'mistery';
+  id: string | number;
+  label: string;
+  rightIcon?: ReactNode;
+  leftIcon?: ReactNode;
+  className?: string;
+  'data-value'?: string;
+  isSelected?: boolean;
 };

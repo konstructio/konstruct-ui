@@ -1,5 +1,34 @@
 import { cva } from 'class-variance-authority';
 
+export const wrapperVariants = cva(
+  ['flex', 'flex-col', 'w-full', 'relative', 'text-zinc-500'],
+  {
+    variants: {
+      theme: {
+        colony: '',
+        kubefirst: '',
+        civo: '',
+      },
+    },
+    defaultVariants: {
+      theme: 'kubefirst',
+    },
+  },
+);
+
+export const labelVariants = cva(['my-2', 'cursor-pointer'], {
+  variants: {
+    theme: {
+      colony: '',
+      kubefirst: '',
+      civo: '',
+    },
+  },
+  defaultVariants: {
+    theme: 'kubefirst',
+  },
+});
+
 export const tagSelectVariants = cva(
   [
     'border',
@@ -9,67 +38,17 @@ export const tagSelectVariants = cva(
     'flex',
     'items-center',
     'justify-between',
-    'px-3',
+    'px-2',
     'py-1',
-    'rounded-md',
+    'rounded',
     'transition-all',
     'w-full',
   ],
   {
     variants: {
       theme: {
-        colony: ['aria-expanded:border-red-400', 'aria-expanded:text-red-400'],
-        kubefirst: [
-          'aria-expanded:border-kubefirst-primary',
-          'aria-expanded:text-kubefirst-secondary',
-        ],
-        civo: '',
-      },
-    },
-    defaultVariants: {
-      theme: 'kubefirst',
-    },
-  },
-);
-
-export const tagListVariants = cva(
-  [
-    'absolute',
-    'bg-white',
-    'border',
-    'duration-100',
-    'ease-in-out',
-    'flex',
-    'flex-col',
-    'mt-1',
-    'rounded-md',
-    'shadow-sm',
-    'top-full',
-    'transition-all',
-    'w-full',
-    'z-10',
-  ],
-  {
-    variants: {
-      theme: {
-        colony: ['border-red-400'],
-        kubefirst: ['border-kubefirst-primary'],
-        civo: '',
-      },
-    },
-    defaultVariants: {
-      theme: 'kubefirst',
-    },
-  },
-);
-
-export const tagItemVariants = cva(
-  ['cursor-pointer', 'py-1', 'px-2', 'last:mb-2', 'first:mt-2', 'h-full'],
-  {
-    variants: {
-      theme: {
-        colony: 'hover:bg-red-100',
-        kubefirst: 'hover:bg-purple-100',
+        colony: '',
+        kubefirst: '',
         civo: '',
       },
     },

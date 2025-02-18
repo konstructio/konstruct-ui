@@ -1,26 +1,23 @@
-import { ComponentRef, useCallback, useEffect, useRef, useState } from 'react';
+import { ComponentRef, useCallback, useEffect, useRef } from 'react';
 
-import { useToggle } from '../../../hooks';
-import { TagProps } from '../../Tag/Tag.types';
+import { useTagSelect as useTagSelectContext } from '../contexts';
 
 export const useTagSelect = () => {
   const wrapperRef = useRef<ComponentRef<'div'>>(null);
-  const [isOpen, toggleOpen] = useToggle(false);
-  const [selectedTag, setSelectedTag] = useState<TagProps | null>(null);
-  const [value, setValue] = useState('');
+  const { onOpen } = useTagSelectContext();
 
   useEffect(() => {
     const controller = new AbortController();
 
     const handleKeyboard = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        toggleOpen(false);
+        onOpen(false);
       }
     };
 
     const handleClickOutside = (event: MouseEvent) => {
       if (!wrapperRef.current?.contains(event.target as Node)) {
-        toggleOpen(false);
+        onOpen(false);
       }
     };
 
@@ -35,27 +32,22 @@ export const useTagSelect = () => {
     return () => {
       controller.abort();
     };
-  }, [toggleOpen, wrapperRef]);
+  }, [onOpen, wrapperRef]);
 
-  const handleOpenDropdown = useCallback(() => {
-    toggleOpen();
-  }, [toggleOpen]);
+  const handleOpen = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      const target = event.target as HTMLElement | null;
+      const parentWithDataValue = target?.closest('[data-value]');
 
-  const handleClickTag = useCallback(
-    (tag: TagProps) => {
-      setSelectedTag(tag);
-      toggleOpen(false);
-      setValue(tag.label);
+      if (!parentWithDataValue) {
+        onOpen(true);
+      }
     },
-    [toggleOpen],
+    [onOpen],
   );
 
   return {
-    isOpen,
-    selectedTag,
-    value,
     wrapperRef,
-    handleClickTag,
-    handleOpenDropdown,
+    handleOpen,
   };
 };
