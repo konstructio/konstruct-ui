@@ -6,6 +6,7 @@ import { FC } from '../../../node_modules/react';
 import { FC as FC_2 } from '../../../../../node_modules/react';
 import { FC as FC_3 } from '../../node_modules/react';
 import { ForwardRefExoticComponent } from '../../../node_modules/react';
+import { FunctionComponent } from '../../../node_modules/react';
 import { HTMLAttributes } from '../../../node_modules/react';
 import { HTMLAttributes as HTMLAttributes_2 } from '../../../../../node_modules/react';
 import { HtmlHTMLAttributes } from '../../../../../node_modules/react';
@@ -19,6 +20,8 @@ import { ReactNode as ReactNode_2 } from '../../../../../node_modules/react';
 import { RefAttributes } from '../../../node_modules/react';
 import { SliderProps } from '@radix-ui/react-slider';
 import { VariantProps } from 'class-variance-authority';
+
+export declare const Alert: FC<AlertProps>;
 
 export declare const AlertDialog: FC<AlertDialogProps>;
 
@@ -34,6 +37,19 @@ declare interface AlertDialogProps extends PropsWithChildren, VariantProps<typeo
     title?: string;
     onConfirm?: () => void;
 }
+
+declare interface AlertProps extends VariantProps<typeof alertVariants> {
+    dismissible?: boolean;
+    content: string | ReactNode;
+    isVisible?: boolean;
+    showCloseButton?: boolean;
+}
+
+declare const alertVariants: (props?: ({
+    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
+    type?: "sucess" | "info" | "warning" | "danger" | null | undefined;
+    isVisible?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
 
 export declare const Autocomplete: ForwardRefExoticComponent<AutocompleteProps & RefAttributes<HTMLInputElement>>;
 
@@ -79,7 +95,7 @@ declare interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 declare const buttonVariants: (props?: ({
-    variant?: "primary" | "secondary" | "danger" | "text" | "circle" | null | undefined;
+    variant?: "danger" | "circle" | "text" | "primary" | "secondary" | null | undefined;
     version?: "default" | "alternate" | null | undefined;
     theme?: "kubefirst" | "colony" | "civo" | null | undefined;
     disabled?: boolean | null | undefined;
@@ -120,6 +136,8 @@ declare const checkboxVariants: (props?: ({
     checked?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
 
+export declare const Divider: FunctionComponent<HTMLAttributes<HTMLDivElement>>;
+
 export declare const Dropdown: FC<DropdownProps>;
 
 declare interface DropdownProps extends VariantProps<typeof dropdownVariants> {
@@ -155,7 +173,7 @@ declare interface InputProps extends InputHTMLAttributes<HTMLInputElement>, Vari
 }
 
 declare const inputVariants: (props?: ({
-    variant?: "default" | "error" | null | undefined;
+    variant?: "error" | "default" | null | undefined;
     theme?: "kubefirst" | "colony" | "civo" | null | undefined;
 } & ClassProp) | undefined) => string;
 
@@ -163,6 +181,16 @@ export declare const konstructPlugin: {
     handler: PluginCreator;
     config?: Partial<Config>;
 };
+
+export declare const Loading: FunctionComponent<LoadingProps>;
+
+declare interface LoadingProps extends InputHTMLAttributes<SVGSVGElement>, VariantProps<typeof loadingVariants> {
+}
+
+declare const loadingVariants: (props?: ({
+    variant?: "default" | null | undefined;
+    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
+} & ClassProp) | undefined) => string;
 
 export declare const Logo: FC_2<LogoProps>;
 
@@ -515,6 +543,17 @@ declare interface TooltipProps extends PropsWithChildren, VariantProps<typeof to
 declare const tooltipVariants: (props?: ({
     theme?: "kubefirst" | "colony" | "civo" | null | undefined;
     position?: "left" | "right" | "top" | "bottom" | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare const Typography: FunctionComponent<TypographyProps>;
+
+declare interface TypographyProps extends InputHTMLAttributes<HTMLParagraphElement>, VariantProps<typeof typographyVariants> {
+    children: React.ReactNode;
+}
+
+declare const typographyVariants: (props?: ({
+    variant?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "tooltip" | "subtitle1" | "subtitle2" | "subtitle3" | "labelLarge" | "labelMedium" | "labelSmall" | "buttonSmall" | "body1" | "body2" | "body3" | null | undefined;
+    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 export declare const useTheme: () => ThemeProps;
