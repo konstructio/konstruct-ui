@@ -23,3 +23,6 @@ export * from './TagSelect/TagSelect';
 export * from './TextArea/TextArea';
 export * from './Toast/Toast';
 export * from './Tooltip/Tooltip';
+export * from './Loading/Loading';
+export * from './Typography/Typography';
+export * from './Divider/Divider';
