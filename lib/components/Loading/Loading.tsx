@@ -8,7 +8,6 @@ import Circle from '@/assets/icons/circle.svg';
 const Loading: FunctionComponent<LoadingProps> = ({
   className,
   theme,
-  variant,
   ...delegated
 }) => {
   const id = useId();
@@ -20,7 +19,6 @@ const Loading: FunctionComponent<LoadingProps> = ({
       className={loadingVariants({
         className,
         theme: theme ?? themeContext,
-        variant: variant ?? 'default',
       })}
       {...delegated}
     />
