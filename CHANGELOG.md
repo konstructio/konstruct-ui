@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.0.12-alpha.2](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.2) (2025-02-18)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.1...0.0.12-alpha.2)
+
+**Closed issues:**
+
+- Design System: Create separate color themes for each Konstruct product [\#1](https://github.com/konstructio/konstruct-ui/issues/1)
+
+**Merged pull requests:**
+
+- feat: adding typography, loading and divider [\#124](https://github.com/konstructio/konstruct-ui/pull/124) ([CristhianF7](https://github.com/CristhianF7))
+- ⬆️  chore: some dependencies have been upgraded [\#123](https://github.com/konstructio/konstruct-ui/pull/123) ([futjesus](https://github.com/futjesus))
+- ✨ feat: the Alert component was added [\#116](https://github.com/konstructio/konstruct-ui/pull/116) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: update dependencies to latest versions [\#114](https://github.com/konstructio/konstruct-ui/pull/114) ([futjesus](https://github.com/futjesus))
+- chore: use selfhosted runner for workflows [\#107](https://github.com/konstructio/konstruct-ui/pull/107) ([muse-sisay](https://github.com/muse-sisay))
+
 ## [0.0.12-alpha.1](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.1) (2025-02-06)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.0...0.0.12-alpha.1)
