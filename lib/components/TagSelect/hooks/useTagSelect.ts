@@ -1,13 +1,10 @@
-import { ComponentRef, useCallback, useEffect, useRef, useState } from 'react';
+import { ComponentRef, useCallback, useEffect, useRef } from 'react';
 
-import { TagProps } from '@/components/Tag/Tag.types';
 import { useToggle } from '@/hooks';
 
 export const useTagSelect = () => {
   const wrapperRef = useRef<ComponentRef<'div'>>(null);
   const [isOpen, toggleOpen] = useToggle(false);
-  const [selectedTag, setSelectedTag] = useState<TagProps | null>(null);
-  const [value, setValue] = useState('');
 
   useEffect(() => {
     const controller = new AbortController();
@@ -42,21 +39,9 @@ export const useTagSelect = () => {
     [toggleOpen],
   );
 
-  const handleClickTag = useCallback(
-    (tag: TagProps) => {
-      setSelectedTag(tag);
-      toggleOpen(false);
-      setValue(tag.label);
-    },
-    [toggleOpen],
-  );
-
   return {
     isOpen,
-    selectedTag,
-    value,
     wrapperRef,
-    handleClickTag,
     handleOpenDropdown,
   };
 };

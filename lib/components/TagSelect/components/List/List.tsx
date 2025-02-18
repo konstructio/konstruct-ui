@@ -8,18 +8,14 @@ import { Item } from '../Item/Item';
 import { ListProps } from './List.types';
 import { wrapperVariants } from './List.variants';
 
-export const List: FC<ListProps> = ({ theme, options, handleClickTag }) => {
+export const List: FC<ListProps> = ({ theme, options }) => {
   const { theme: contextTheme } = useTheme();
   const inheritTheme = theme ?? contextTheme;
 
   return (
     <ul role="listbox" className={cn(wrapperVariants({ theme: inheritTheme }))}>
       {options.map((option) => (
-        <Item
-          theme={inheritTheme}
-          option={option}
-          handleClickTag={handleClickTag}
-        />
+        <Item key={option.id} theme={inheritTheme} option={option} />
       ))}
     </ul>
   );

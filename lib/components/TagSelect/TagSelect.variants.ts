@@ -16,7 +16,7 @@ export const wrapperVariants = cva(
   },
 );
 
-export const labelVariants = cva(['m-2', 'cursor-pointer'], {
+export const labelVariants = cva(['my-2', 'cursor-pointer'], {
   variants: {
     theme: {
       colony: '',
@@ -38,22 +38,17 @@ export const tagSelectVariants = cva(
     'flex',
     'items-center',
     'justify-between',
-    'px-3',
+    'px-2',
     'py-1',
-    'rounded-md',
+    'rounded',
     'transition-all',
     'w-full',
   ],
   {
     variants: {
       theme: {
-        colony: [
-          /*'aria-expanded:border-red-400', 'aria-expanded:text-red-400'*/
-        ],
-        kubefirst: [
-          // 'aria-expanded:border-kubefirst-primary',
-          // 'aria-expanded:text-kubefirst-secondary',
-        ],
+        colony: '',
+        kubefirst: '',
         civo: '',
       },
     },

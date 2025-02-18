@@ -6,21 +6,36 @@ import { TagSelectContext } from './TagSelect.context';
 import { TagSelectProviderProps } from './TagSelect.types';
 
 export const TagSelectProvider: FC<TagSelectProviderProps> = ({ children }) => {
-  const [tags, setTag] = useState<TagProps[]>([]);
+  const [tags, setTags] = useState<TagProps[]>([]);
+  const [selectedTags, setSelectedTags] = useState<TagProps[]>([]);
 
   const handleSelectTag = useCallback(
     (tag: TagProps) => {
       const tagIndex = tags.findIndex((t) => t.id === tag.id);
 
       if (!tagIndex) {
-        setTag([...tags, tag]);
+        setTags([...tags, tag]);
       }
     },
     [tags],
   );
 
+  const handleRemoveTag = useCallback(
+    (tag: TagProps) => {
+      setSelectedTags(tags.filter((t) => t.id !== tag.id));
+    },
+    [tags],
+  );
+
   return (
-    <TagSelectContext.Provider value={{ tags, onSelectTag: handleSelectTag }}>
+    <TagSelectContext.Provider
+      value={{
+        tags,
+        selectedTags,
+        onSelectTag: handleSelectTag,
+        onRemoveTag: handleRemoveTag,
+      }}
+    >
       {children}
     </TagSelectContext.Provider>
   );

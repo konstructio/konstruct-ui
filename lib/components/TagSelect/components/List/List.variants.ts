@@ -6,26 +6,25 @@ export const wrapperVariants = cva(
     'bg-white',
     'border',
     'duration-100',
-    'ease-in-out',
     'flex',
     'flex-col',
-    'mt-1',
-    'rounded-md',
+    'mt-0.5',
+    'rounded',
     'shadow-sm',
     'top-full',
     'transition-all',
     'w-full',
     'z-10',
+    'animate-in',
+    'fade-in-60',
+    'zoom-in-95',
+    'overflow-hidden',
   ],
   {
     variants: {
       theme: {
-        colony: [
-          /*'border-red-400'*/
-        ],
-        kubefirst: [
-          /*'border-kubefirst-primary'*/
-        ],
+        colony: '',
+        kubefirst: '',
         civo: '',
       },
     },

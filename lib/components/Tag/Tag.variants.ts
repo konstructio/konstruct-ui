@@ -1,7 +1,17 @@
 import { cva } from 'class-variance-authority';
 
 export const tagVariants = cva(
-  ['px-2', 'py-1', 'rounded-md', 'w-max', 'text-xs'],
+  [
+    'px-2',
+    'py-1',
+    'rounded-md',
+    'w-max',
+    'text-xs',
+    'flex',
+    'items-center',
+    'justify-center',
+    'gap-1',
+  ],
   {
     variants: {
       color: {

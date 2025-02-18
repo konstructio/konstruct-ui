@@ -7,12 +7,13 @@ import {
   useImperativeHandle,
   useRef,
 } from 'react';
-import { ChevronUp } from 'react-feather';
+import { ChevronUp, X } from 'react-feather';
 
 import { Tag } from '@/components/Tag/Tag';
 import { useTheme } from '@/contexts';
 import { cn } from '@/utils';
 
+import { useTagSelect as useTagSelectContext } from '../../contexts';
 import { useTagSelect } from '../../hooks/useTagSelect';
 import { TagSelectProps } from '../../TagSelect.types';
 import {
@@ -42,24 +43,23 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
   ) => {
     const id = useId();
     const { theme: themeContext } = useTheme();
+    const { selectedTags } = useTagSelectContext();
     const inheritTheme = theme ?? themeContext;
     const inputRef = useRef<ComponentRef<'input'>>(null);
-    const {
-      isOpen,
-      selectedTag,
-      value,
-      wrapperRef,
-      handleClickTag,
-      handleOpenDropdown,
-    } = useTagSelect();
+    const { isOpen, wrapperRef, handleOpenDropdown } = useTagSelect();
 
     useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
 
     useEffect(() => {
       if (inputRef.current) {
-        inputRef.current.value = value;
+        const values = selectedTags.map(({ id, label }) => ({
+          id,
+          value: label,
+        }));
+
+        inputRef.current.value = JSON.stringify(values);
       }
-    }, [value]);
+    }, [selectedTags]);
 
     return (
       <div
@@ -93,10 +93,20 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
           onClick={() => handleOpenDropdown()}
           aria-expanded={isOpen}
         >
-          {!selectedTag ? (
-            <span className="text-base text-inherit">{placeholder}</span>
+          {selectedTags.length === 0 ? (
+            <span className="text-base text-inherit select-none">
+              {placeholder}
+            </span>
           ) : (
-            <Tag {...selectedTag} />
+            <>
+              {selectedTags.map((tag) => (
+                <Tag
+                  key={tag.id}
+                  {...tag}
+                  rightIcon={<X className="w-3 h-3" />}
+                />
+              ))}
+            </>
           )}
 
           <ChevronUp
@@ -109,13 +119,7 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
 
         <input ref={inputRef} type="text" name={name} className="hidden" />
 
-        {isOpen ? (
-          <List
-            theme={inheritTheme}
-            options={options}
-            handleClickTag={handleClickTag}
-          />
-        ) : null}
+        {isOpen ? <List theme={inheritTheme} options={options} /> : null}
       </div>
     );
   },
