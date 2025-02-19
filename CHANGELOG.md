@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.0.12-alpha.3](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.3) (2025-02-19)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.2...0.0.12-alpha.3)
+
+**Merged pull requests:**
+
+- ⬆️  chore: some dependencies have been upgraded [\#127](https://github.com/konstructio/konstruct-ui/pull/127) ([futjesus](https://github.com/futjesus))
+- 🔥 chore: replace circle SVG with LoaderCircle component and update Loading component [\#126](https://github.com/konstructio/konstruct-ui/pull/126) ([futjesus](https://github.com/futjesus))
+- ♻️  refactor: enhance Typography component to support custom HTML tags [\#125](https://github.com/konstructio/konstruct-ui/pull/125) ([futjesus](https://github.com/futjesus))
+- ✨ feat: the tag selector component has been improved [\#117](https://github.com/konstructio/konstruct-ui/pull/117) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add Command components [\#68](https://github.com/konstructio/konstruct-ui/pull/68) ([futjesus](https://github.com/futjesus))
+
 ## [0.0.12-alpha.2](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.2) (2025-02-18)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.1...0.0.12-alpha.2)
