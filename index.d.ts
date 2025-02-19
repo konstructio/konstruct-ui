@@ -163,6 +163,8 @@ declare const footerVariants: (props?: ({
     theme?: "kubefirst" | "colony" | "civo" | null | undefined;
 } & ClassProp) | undefined) => string;
 
+declare type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+
 export declare const Input: ForwardRefExoticComponent<InputProps & RefAttributes<HTMLInputElement>>;
 
 declare interface InputProps extends InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof inputVariants> {
@@ -465,8 +467,14 @@ declare const switchVariants: (props?: ({
 export declare const Tag: FC<TagProps>;
 
 declare type TagProps = {
-    label: string;
     color?: 'gray' | 'cyan' | 'gold' | 'green' | 'light blue' | 'lime' | 'pink' | 'purple' | 'emerald' | 'fuscia' | 'indigo' | 'light-orange' | 'dark-sky-blue' | 'mistery';
+    id: string | number;
+    label: string;
+    rightIcon?: ReactNode;
+    leftIcon?: ReactNode;
+    className?: string;
+    'data-value'?: string;
+    isSelected?: boolean;
 };
 
 export declare const TagSelect: FC<TagSelectProps>;
@@ -476,6 +484,9 @@ declare interface TagSelectProps extends VariantProps<typeof tagSelectVariants> 
     options: TagProps[];
     name?: string;
     placeholder?: string;
+    labelClassName?: string;
+    wrapperClassName?: string;
+    multiselect?: boolean;
 }
 
 declare const tagSelectVariants: (props?: ({
@@ -548,7 +559,8 @@ declare const tooltipVariants: (props?: ({
 export declare const Typography: FunctionComponent<TypographyProps>;
 
 declare interface TypographyProps extends InputHTMLAttributes<HTMLParagraphElement>, VariantProps<typeof typographyVariants> {
-    children: React.ReactNode;
+    children: ReactNode;
+    component?: HeadingTag | 'p' | 'span';
 }
 
 declare const typographyVariants: (props?: ({
