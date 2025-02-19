@@ -5,7 +5,7 @@ import { TerminalLogs as TerminalLogsComponent } from './TerminalLogs';
 type Story = StoryObj<typeof TerminalLogsComponent>;
 
 const meta = {
-  title: 'Design System/TerminalLogs',
+  title: 'In Review/TerminalLogs',
   component: TerminalLogsComponent,
 } satisfies Meta<typeof TerminalLogsComponent>;
 

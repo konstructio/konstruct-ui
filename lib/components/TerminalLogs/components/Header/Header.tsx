@@ -1,6 +1,6 @@
 import { List, Trigger } from '@radix-ui/react-tabs';
-import { ChangeEvent, FC, useCallback } from 'react';
-import { Copy, HelpCircle, Maximize2, Search } from 'react-feather';
+import { ChangeEvent, FC, useCallback, useEffect, useState } from 'react';
+import { Copy, HelpCircle, Maximize2, Minimize2, Search } from 'react-feather';
 
 import { Input } from '@/components';
 import { useTheme } from '@/contexts';
@@ -17,7 +17,8 @@ import {
 } from './Header.styles';
 import { HeaderProps } from './Header.types';
 
-export const Header: FC<HeaderProps> = ({ theme }) => {
+export const Header: FC<HeaderProps> = ({ theme, wrapperRef }) => {
+  const [isFullScreen, setIsFullScreen] = useState(false);
   const { onChangeSearchValue, onFitTerminal } = useTerminalLogs();
   const { theme: contexTheme } = useTheme();
   const inheritTheme = theme ?? contexTheme;
@@ -30,6 +31,32 @@ export const Header: FC<HeaderProps> = ({ theme }) => {
   );
 
   const handleFix = () => onFitTerminal();
+
+  const handleEnterFullScreen = useCallback(() => {
+    if (wrapperRef.current) {
+      wrapperRef.current.requestFullscreen().then(() => setIsFullScreen(true));
+    }
+  }, [wrapperRef]);
+
+  const handleExitFullScreen = useCallback(() => {
+    document.exitFullscreen().then(() => setIsFullScreen(false));
+  }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    document.addEventListener(
+      'fullscreenchange',
+      () => {
+        if (!document.fullscreenElement) {
+          setIsFullScreen(false);
+        }
+      },
+      { signal: controller.signal },
+    );
+
+    return () => controller.abort();
+  }, []);
 
   return (
     <div className={cn(wrapperVariants({ theme: inheritTheme }))}>
@@ -67,7 +94,19 @@ export const Header: FC<HeaderProps> = ({ theme }) => {
       >
         <HelpCircle className="w-4 h-4" role="button" />
         <Copy className="w-4 h-4" role="button" />
-        <Maximize2 className="w-4 h-4" role="button" />
+        {!isFullScreen ? (
+          <Maximize2
+            className="w-4 h-4"
+            role="button"
+            onClick={handleEnterFullScreen}
+          />
+        ) : (
+          <Minimize2
+            className="w-4 h-4"
+            role="button"
+            onClick={handleExitFullScreen}
+          />
+        )}
       </div>
     </div>
   );

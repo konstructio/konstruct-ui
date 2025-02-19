@@ -1,5 +1,5 @@
 import { Root } from '@radix-ui/react-tabs';
-import { FC, useEffect, useRef } from 'react';
+import { ComponentRef, FC, useEffect, useRef } from 'react';
 
 import { useTerminalLogs } from '../../contexts';
 import { Body } from '../Body/Body';
@@ -12,7 +12,8 @@ export const Wrapper: FC<WrapperProps> = ({
   theme,
   handleMethods,
 }) => {
-  const terminalWrapperRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<ComponentRef<'div'>>(null);
+  const terminalWrapperRef = useRef<ComponentRef<'div'>>(null);
   const { onSetElement, onWriteLog } = useTerminalLogs();
 
   useEffect(() => {
@@ -26,10 +27,10 @@ export const Wrapper: FC<WrapperProps> = ({
   }, [handleMethods, onWriteLog]);
 
   return (
-    <div className={className}>
+    <div ref={wrapperRef} className={className}>
       <Root defaultValue="tab-1" orientation="horizontal" asChild={true}>
         <>
-          <Header theme={theme} />
+          <Header theme={theme} wrapperRef={wrapperRef} />
           <Body theme={theme} ref={terminalWrapperRef} />
         </>
       </Root>
