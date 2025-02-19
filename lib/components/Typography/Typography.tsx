@@ -1,7 +1,8 @@
 import { FunctionComponent, useId } from 'react';
 
-import { useTheme } from '../../contexts';
-import { TypographyProps } from './Typography.types';
+import { useTheme } from '@/contexts';
+
+import { HeadingTag, TypographyProps } from './Typography.types';
 import { typographyVariants } from './Typography.variants';
 
 const Typography: FunctionComponent<TypographyProps> = ({
@@ -9,13 +10,17 @@ const Typography: FunctionComponent<TypographyProps> = ({
   theme,
   children,
   variant,
+  component,
   ...delegated
 }) => {
   const id = useId();
   const { theme: themeContext } = useTheme();
 
+  const Component =
+    component ?? (variant?.includes('h') ? (variant as HeadingTag) : 'p');
+
   return (
-    <p
+    <Component
       id={id}
       className={typographyVariants({
         className,
@@ -25,7 +30,7 @@ const Typography: FunctionComponent<TypographyProps> = ({
       {...delegated}
     >
       {children}
-    </p>
+    </Component>
   );
 };
 
