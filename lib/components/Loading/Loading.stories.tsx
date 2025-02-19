@@ -4,28 +4,25 @@ import { Loading as LoadingComponent } from './Loading';
 
 type Story = StoryObj<typeof LoadingComponent>;
 
-const meta: Meta<typeof LoadingComponent> = {
+const meta = {
   title: 'In Review/Loading',
   component: LoadingComponent,
-};
+} satisfies Meta<typeof LoadingComponent>;
 
-export const Loading: Story = {
-  args: {
-    variant: 'default',
-  },
-  render: (args) => (
+export const Loading = {
+  render: () => (
     <>
       <div className="w-[350px]">
-        <LoadingComponent {...args} />
+        <LoadingComponent />
       </div>
       <div className="w-[350px]">
-        <LoadingComponent {...args} theme="colony" />
+        <LoadingComponent theme="colony" />
       </div>
       <div className="w-[350px]">
-        <LoadingComponent {...args} theme="civo" />
+        <LoadingComponent theme="civo" />
       </div>
     </>
   ),
-};
+} satisfies Story;
 
 export default meta;

@@ -1,27 +1,27 @@
-import { FunctionComponent, useId } from 'react';
+import { FunctionComponent } from 'react';
+import { LoaderCircle } from 'lucide-react';
 
-import { useTheme } from '../../contexts';
+import { useTheme } from '@/contexts';
+import { cn } from '@/utils';
+
 import { LoadingProps } from './Loading.types';
 import { loadingVariants } from './Loading.variants';
-import Circle from '@/assets/icons/circle.svg';
 
 const Loading: FunctionComponent<LoadingProps> = ({
   className,
   theme,
-  variant,
   ...delegated
 }) => {
-  const id = useId();
   const { theme: themeContext } = useTheme();
 
   return (
-    <Circle
-      id={id}
-      className={loadingVariants({
-        className,
-        theme: theme ?? themeContext,
-        variant,
-      })}
+    <LoaderCircle
+      className={cn(
+        loadingVariants({
+          className,
+          theme: theme ?? themeContext,
+        }),
+      )}
       {...delegated}
     />
   );

@@ -1,18 +1,17 @@
 import { cva } from 'class-variance-authority';
 
-export const loadingVariants = cva(['h-', 'w-8', 'animate-spin'], {
-  variants: {
-    variant: {
-      default: '',
+export const loadingVariants = cva(
+  ['h-8', 'w-8', 'animate-spin', 'text-inherit'],
+  {
+    variants: {
+      theme: {
+        kubefirst: 'text-kubefirst-primary',
+        colony: 'text-colony-primary',
+        civo: 'text-civo-primary',
+      },
     },
-    theme: {
-      kubefirst: 'text-kubefirst-primary',
-      colony: 'text-colony-primary',
-      civo: 'text-civo-primary',
+    defaultVariants: {
+      theme: 'kubefirst',
     },
   },
-  defaultVariants: {
-    variant: 'default',
-    theme: 'kubefirst',
-  },
-});
+);
