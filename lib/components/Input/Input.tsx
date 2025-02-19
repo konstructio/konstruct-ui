@@ -26,7 +26,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     const { theme: themeContext } = useTheme();
 
     return (
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-1.5 w-full">
         {label ? (
           <label
             htmlFor={id}
