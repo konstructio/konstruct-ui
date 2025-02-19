@@ -1,22 +1,22 @@
-import { useContext, useEffect } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { useContext, useEffect } from 'react';
+import { Database, Moon, Sun } from 'react-feather';
 
-import { ThemeProvider, useTheme } from '../../contexts';
+import { ThemeProvider, useTheme } from '@/contexts';
 
 import { Command as CommandComponent } from './Command';
-import { CommandContext, CommandProvider } from './contexts';
 import {
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandSeparator,
 } from './components';
-import { Database, Moon, Sun } from 'react-feather';
+import { CommandContext, CommandProvider } from './contexts';
 
 type Story = StoryObj<typeof CommandComponent>;
 
 const meta: Meta<typeof CommandComponent> = {
-  title: 'Design System/Command',
+  title: 'In Review/Command',
   component: CommandComponent,
 };
 
