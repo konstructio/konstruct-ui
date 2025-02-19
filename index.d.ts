@@ -186,11 +186,9 @@ export declare const konstructPlugin: {
 
 export declare const Loading: FunctionComponent<LoadingProps>;
 
-declare interface LoadingProps extends InputHTMLAttributes<SVGSVGElement>, VariantProps<typeof loadingVariants> {
-}
+declare type LoadingProps = InputHTMLAttributes<SVGSVGElement> & VariantProps<typeof loadingVariants>;
 
 declare const loadingVariants: (props?: ({
-    variant?: "default" | null | undefined;
     theme?: "kubefirst" | "colony" | "civo" | null | undefined;
 } & ClassProp) | undefined) => string;
 

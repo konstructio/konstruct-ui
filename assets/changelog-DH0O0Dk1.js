@@ -1,4 +1,16 @@
-import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as e}from"./index-dm7SGGLn.js";import{b as n,c}from"./index-XFpdkFUB.js";import"./index-DUAV1Q2A.js";import"./iframe-C1CBZanh.js";import"./index-D5_VCx2I.js";import"./index-CqVsPxxY.js";import"./index-Cu4lwwaE.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const i=`# Changelog
+import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as e}from"./index-dm7SGGLn.js";import{b as n,c}from"./index-Ax61v1Wz.js";import"./index-DUAV1Q2A.js";import"./iframe-CEXO-xRX.js";import"./index-D5_VCx2I.js";import"./index-CqVsPxxY.js";import"./index-Cu4lwwaE.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const i=`# Changelog
+
+## [0.0.12-alpha.3](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.3) (2025-02-19)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.2...0.0.12-alpha.3)
+
+**Merged pull requests:**
+
+- ⬆️  chore: some dependencies have been upgraded [\\#127](https://github.com/konstructio/konstruct-ui/pull/127) ([futjesus](https://github.com/futjesus))
+- 🔥 chore: replace circle SVG with LoaderCircle component and update Loading component [\\#126](https://github.com/konstructio/konstruct-ui/pull/126) ([futjesus](https://github.com/futjesus))
+- ♻️  refactor: enhance Typography component to support custom HTML tags [\\#125](https://github.com/konstructio/konstruct-ui/pull/125) ([futjesus](https://github.com/futjesus))
+- ✨ feat: the tag selector component has been improved [\\#117](https://github.com/konstructio/konstruct-ui/pull/117) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add Command components [\\#68](https://github.com/konstructio/konstruct-ui/pull/68) ([futjesus](https://github.com/futjesus))
 
 ## [0.0.12-alpha.2](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.2) (2025-02-18)
 
