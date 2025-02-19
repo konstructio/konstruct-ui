@@ -84,20 +84,20 @@ export class Terminal {
     });
   }
 
-  open(container: HTMLElement): void {
+  open(container: HTMLElement) {
     this.terminalInstance.open(container);
   }
 
-  dispose(): void {
+  dispose() {
     this.emitter.removeAllListeners();
     this.terminalInstance.dispose();
   }
 
-  findPrevious(term: string): void {
+  findPrevious(term: string) {
     this.searchAddon.findPrevious(term, SEARCH_OPTIONS);
   }
 
-  findNext(term: string): void {
+  findNext(term: string) {
     this.searchAddon.findNext(term, SEARCH_OPTIONS);
   }
 
@@ -105,15 +105,15 @@ export class Terminal {
     this.fitAddon.fit();
   }
 
-  changeVisibilityLogs(showLogs: boolean): void {
+  changeVisibilityLogs(showLogs: boolean) {
     this.emitter.emit(TerminalEvent.CHANGE_VISIBILITY_LOGS, { showLogs });
   }
 
-  searchValue(term: string): void {
+  searchValue(term: string) {
     this.searchAddon.findNext(term);
   }
 
-  write(message: string): void {
+  write(message: string) {
     this.emitter.emit(TerminalEvent.WRITE_LOG, { message });
   }
 }

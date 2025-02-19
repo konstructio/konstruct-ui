@@ -32,6 +32,7 @@ export class EventBus implements IEventEmitter {
       if (this.showLogs) {
         console.log('Event:', event, data);
       }
+
       callback(data);
     };
 

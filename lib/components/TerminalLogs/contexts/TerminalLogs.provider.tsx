@@ -31,15 +31,8 @@ export const TerminalLogsProvider = ({ children, showLogs }: ProviderProps) => {
   }, []);
 
   useEffect(() => {
-    const terminalInstance = terminalRef.current;
-
-    return () => {
-      terminalInstance.dispose();
-    };
-  }, []);
-
-  useEffect(() => {
     const controller = new AbortController();
+    const terminal = terminalRef.current;
 
     window.addEventListener('resize', () => terminalRef.current?.fit(), {
       signal: controller.signal,
@@ -47,6 +40,7 @@ export const TerminalLogsProvider = ({ children, showLogs }: ProviderProps) => {
 
     return () => {
       controller.abort();
+      terminal?.dispose();
     };
   }, []);
 
