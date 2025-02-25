@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Modal as ModalComponent } from './Modal';
-import { ModalProvider } from './contexts';
-import { useModal } from './hooks';
 import { Button } from '../Button/Button';
 import { Theme, ThemeProvider, useTheme } from '../../contexts';
+import { useState, ReactNode } from 'react';
 
 type Story = StoryObj<typeof ModalComponent>;
 
@@ -15,9 +14,14 @@ const meta: Meta<typeof ModalComponent> = {
 
 export const Modal: Story = {
   render: () => {
-    const WrapperButton = () => {
+    const Wrapper = ({
+      onOpen,
+      children,
+    }: {
+      onOpen: () => void;
+      children: ReactNode;
+    }) => {
       const { setTheme } = useTheme();
-      const { onOpen } = useModal();
 
       const handleOpen = (themeName: Theme) => {
         setTheme?.(themeName);
@@ -25,24 +29,35 @@ export const Modal: Story = {
       };
 
       return (
-        <div className="flex flex-col gap-5">
-          <Button onClick={() => handleOpen('kubefirst')} theme="kubefirst">
-            Click me to Open Modal with Kubefirst theme!
-          </Button>
-          <Button onClick={() => handleOpen('colony')} theme="colony">
-            Click me to Open Modal with Colony theme!
-          </Button>
-        </div>
+        <>
+          <div className="flex flex-col gap-5">
+            <Button onClick={() => handleOpen('kubefirst')} theme="kubefirst">
+              Click me to Open Modal with Kubefirst theme!
+            </Button>
+            <Button onClick={() => handleOpen('colony')} theme="colony">
+              Click me to Open Modal with Colony theme!
+            </Button>
+          </div>
+          {children}
+        </>
       );
+    };
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const handleOpen = () => {
+      setIsOpen(true);
+    };
+
+    const handleClose = () => {
+      setIsOpen(false);
     };
 
     return (
       <div className="w-[450px]">
         <ThemeProvider>
-          <ModalProvider>
-            <WrapperButton />
-
-            <ModalComponent>
+          <Wrapper onOpen={handleOpen}>
+            <ModalComponent isOpen={isOpen} onClose={handleClose}>
               <ModalComponent.Header className="text-center text-xl bg-gray-50 p-4 border-b">
                 This is the Header
               </ModalComponent.Header>
@@ -57,7 +72,7 @@ export const Modal: Story = {
                 This is the Footer
               </ModalComponent.Footer>
             </ModalComponent>
-          </ModalProvider>
+          </Wrapper>
         </ThemeProvider>
       </div>
     );

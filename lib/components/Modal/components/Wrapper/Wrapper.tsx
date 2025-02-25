@@ -6,7 +6,6 @@ import { RemoveScroll } from 'react-remove-scroll';
 
 import { useTheme } from '../../../../contexts';
 import { cn } from '../../../../utils';
-import { useModal } from '../../hooks';
 import { Modal } from '../../Modal';
 import { ModalChildProps } from '../../Modal.types';
 
@@ -18,8 +17,8 @@ export const Wrapper: FC<WrapperProps> = ({
   theme,
   className,
   buttonCloseClassName,
+  onClose,
 }) => {
-  const { content, onClose, closeBtnRef } = useModal();
   const { theme: contextTheme } = useTheme();
 
   const header = Children.toArray(children).find(
@@ -65,7 +64,6 @@ export const Wrapper: FC<WrapperProps> = ({
             {header}
 
             <button
-              ref={closeBtnRef}
               className={cn(
                 buttonCloseVariants({
                   className: buttonCloseClassName,
@@ -78,7 +76,7 @@ export const Wrapper: FC<WrapperProps> = ({
               <VisuallyHidden>Dismiss modal</VisuallyHidden>
             </button>
 
-            {body ?? others ?? content}
+            {body ?? others}
 
             {footer}
           </div>

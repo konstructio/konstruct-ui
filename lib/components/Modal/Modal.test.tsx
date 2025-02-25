@@ -1,12 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
+import { useState } from 'react';
 
 import { ModalProps } from './Modal.types';
 import { Modal } from './Modal';
-import { ModalProvider } from './contexts';
 import { Button } from '../Button/Button';
-import { useModal } from './hooks';
 
 describe('Modal', () => {
   const defaultProps = {
@@ -15,21 +14,28 @@ describe('Modal', () => {
 
   const setup = (props?: Partial<ModalProps>) => {
     const Wrapper = () => {
-      const { onOpen } = useModal();
+      const [isOpen, setIsOpen] = useState(false);
+
+      const handleOpen = () => {
+        setIsOpen(true);
+      };
 
       return (
         <>
-          <Modal {...defaultProps} {...props}>
+          <Modal
+            {...defaultProps}
+            {...props}
+            isOpen={isOpen}
+            onClose={() => setIsOpen(false)}
+          >
             Modal Content
           </Modal>
-          <Button onClick={() => onOpen()}>Click me!</Button>
+          <Button onClick={handleOpen}>Click me!</Button>
         </>
       );
     };
 
-    const { container: component } = render(<Wrapper />, {
-      wrapper: ModalProvider,
-    });
+    const { container: component } = render(<Wrapper />);
 
     const user = userEvent.setup();
     const getButton = () => screen.findByRole('button', { name: /click me!/i });
