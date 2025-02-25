@@ -41,10 +41,10 @@ jobs:
           git commit -m "🔖 release: bump version to ${{ github.event.client_payload.version }}" --allow-empty --no-verify
           git push origin main
         env:
-          GITHUB_TOKEN: ${{ secrets.KBOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Authenticate with GitHub Packages
-        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.KBOT_TOKEN }}" > ~/.npmrc
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_TOKEN }}" > ~/.npmrc
 
       - name: Authenticate with npmjs
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc

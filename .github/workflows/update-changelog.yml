@@ -29,7 +29,7 @@ jobs:
 
       - name: Generate Changelog
         env:
-          CHANGELOG_GITHUB_TOKEN: ${{ secrets.KBOT_TOKEN }}
+          CHANGELOG_GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           github_changelog_generator --user konstructio --project konstruct-ui
 
@@ -48,13 +48,13 @@ jobs:
           git commit -m "🚀 chore: update changelog for the version ${RELEASE_VERSION}" --no-verify
           git push origin main
         env:
-          GITHUB_TOKEN: ${{ secrets.KBOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Dispatch release
         run: |
           curl -X POST \
           -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ${{ secrets.KBOT_TOKEN }}" \
+          -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
           -H "Content-Type: application/json" \
           https://api.github.com/repos/${{ github.repository }}/dispatches \
           -d '{
