@@ -8,6 +8,8 @@ export interface ModalProps
     VariantProps<typeof modalVariants> {
   className?: string;
   buttonCloseClassName?: string;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
 export type ModalChildProps = {

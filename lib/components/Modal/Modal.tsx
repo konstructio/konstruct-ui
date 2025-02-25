@@ -1,22 +1,40 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 import { Body, Footer, Header, Wrapper } from './components';
-import { useModal } from './hooks';
 import { ModalChildProps, ModalProps } from './Modal.types';
 
 const Modal: FC<ModalProps> & {
   Header: FC<ModalChildProps>;
   Body: FC<ModalChildProps>;
   Footer: FC<ModalChildProps>;
-} = ({ ...delegated }) => {
-  const { isOpen } = useModal();
+} = ({ isOpen, onClose, ...delegated }) => {
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.code === 'Escape') {
+        onClose?.();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown, {
+      signal: controller.signal,
+    });
+
+    return () => {
+      controller.abort();
+    };
+  }, [onClose]);
 
   if (!isOpen) {
     return null;
   }
 
-  return createPortal(<Wrapper {...delegated} />, document.body);
+  return createPortal(
+    <Wrapper {...delegated} onClose={onClose} />,
+    document.body,
+  );
 };
 
 Modal.Header = Header;
