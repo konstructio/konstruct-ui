@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.0.12-alpha.4](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.4) (2025-02-26)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.3...0.0.12-alpha.4)
+
+**Merged pull requests:**
+
+- feat: change KBOT\_TOKEN to GH\_TOKEN [\#132](https://github.com/konstructio/konstruct-ui/pull/132) ([muse-sisay](https://github.com/muse-sisay))
+- fix: modal, remove unnecessary provider [\#131](https://github.com/konstructio/konstruct-ui/pull/131) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.0.12-alpha.3](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.3) (2025-02-19)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.2...0.0.12-alpha.3)
