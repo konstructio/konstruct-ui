@@ -16,8 +16,6 @@ export const inputVariants = cva(
     'py-1',
     'rounded-md',
     'shadow-sm',
-    'text-base',
-    'text-zinc-700',
     'transition-colors',
     'w-full',
   ],

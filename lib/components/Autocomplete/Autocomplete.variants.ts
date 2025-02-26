@@ -8,7 +8,6 @@ export const autocompleteVariants = cva(
     'border',
     'border-zinc-200',
     'bg-transparent',
-    'text-base',
     'text-zinc-700',
     'transition-colors',
     'placeholder:text-muted-foreground',
