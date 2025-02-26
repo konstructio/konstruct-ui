@@ -168,7 +168,7 @@ declare type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 export declare const Input: ForwardRefExoticComponent<InputProps & RefAttributes<HTMLInputElement>>;
 
 declare interface InputProps extends InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof inputVariants> {
-    label?: string;
+    label?: string | ReactNode;
     labelClassName?: string;
     error?: string;
     onClickIcon?: () => void;
@@ -497,10 +497,9 @@ export declare const TextArea: FC<TextAreaProps>;
 
 declare interface TextAreaProps extends InputHTMLAttributes<HTMLTextAreaElement>, VariantProps<typeof textAreaVariants> {
     rows?: number;
-    label?: string;
+    label?: string | ReactNode;
     name?: string;
     initialValue?: string;
-    onChange?: () => void;
 }
 
 declare const textAreaVariants: (props?: ({
