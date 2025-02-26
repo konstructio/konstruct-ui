@@ -217,6 +217,8 @@ declare type ModalChildProps = {
 declare interface ModalProps extends PropsWithChildren, VariantProps<typeof modalVariants> {
     className?: string;
     buttonCloseClassName?: string;
+    isOpen?: boolean;
+    onClose?: () => void;
 }
 
 declare const modalVariants: (props?: ({
