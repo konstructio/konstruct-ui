@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.12-alpha.5](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.5) (2025-02-26)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.4...0.0.12-alpha.5)
+
+**Merged pull requests:**
+
+- fix: class names [\#133](https://github.com/konstructio/konstruct-ui/pull/133) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.0.12-alpha.4](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.4) (2025-02-26)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.3...0.0.12-alpha.4)
