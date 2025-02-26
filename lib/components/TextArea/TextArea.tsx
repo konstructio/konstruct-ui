@@ -18,7 +18,16 @@ export const TextArea: FC<TextAreaProps> = forwardRef<
   TextAreaProps
 >(
   (
-    { initialValue, label, name, placeholder, rows = 3, theme, onChange },
+    {
+      initialValue,
+      label,
+      name,
+      placeholder,
+      rows = 3,
+      theme,
+      onChange,
+      className,
+    },
     ref,
   ) => {
     const id = useId();
@@ -29,7 +38,7 @@ export const TextArea: FC<TextAreaProps> = forwardRef<
     const handleChange = useCallback(
       (event: ChangeEvent<HTMLTextAreaElement>) => {
         setValue(event.target.value);
-        onChange?.();
+        onChange?.(event);
       },
       [onChange],
     );
@@ -45,7 +54,9 @@ export const TextArea: FC<TextAreaProps> = forwardRef<
         <textarea
           id={htmlId}
           ref={ref}
-          className={cn(textAreaVariants({ theme: theme ?? contextTheme }))}
+          className={cn(
+            textAreaVariants({ className, theme: theme ?? contextTheme }),
+          )}
           rows={rows}
           placeholder={placeholder}
           value={value}
