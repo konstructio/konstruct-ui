@@ -1,4 +1,12 @@
-import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as e}from"./index-dm7SGGLn.js";import{b as n,c}from"./index-BLGQaF4t.js";import"./index-DUAV1Q2A.js";import"./iframe-BgQP6Vxt.js";import"./index-D5_VCx2I.js";import"./index-CqVsPxxY.js";import"./index-Cu4lwwaE.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const i=`# Changelog
+import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as e}from"./index-dm7SGGLn.js";import{b as n,c}from"./index-C867wZRh.js";import"./index-DUAV1Q2A.js";import"./iframe-D9ByNbQA.js";import"./index-D5_VCx2I.js";import"./index-CqVsPxxY.js";import"./index-Cu4lwwaE.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const i=`# Changelog
+
+## [0.0.12-alpha.6](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.6) (2025-03-03)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.5...0.0.12-alpha.6)
+
+**Merged pull requests:**
+
+- fix: error states [\\#137](https://github.com/konstructio/konstruct-ui/pull/137) ([CristhianF7](https://github.com/CristhianF7))
 
 ## [0.0.12-alpha.5](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.5) (2025-02-26)
 
