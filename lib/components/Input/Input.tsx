@@ -28,10 +28,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="flex flex-col gap-1.5 w-full">
         {label ? (
-          <label
-            htmlFor={id}
-            className={cn('pl-1 cursor-pointer', labelClassName)}
-          >
+          <label htmlFor={id} className={cn('cursor-pointer', labelClassName)}>
             {label}
           </label>
         ) : null}
@@ -65,7 +62,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         </div>
 
         {error ? (
-          <span className="text-xs text-red-600 -mt-0.5 pl-2">{error}</span>
+          <span className="text-xs text-red-600 -mt-0.5">{error}</span>
         ) : null}
       </div>
     );
