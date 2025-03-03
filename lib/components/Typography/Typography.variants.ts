@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority';
 
-export const typographyVariants = cva(['font-normal', 'text-zinc-700'], {
+export const typographyVariants = cva([], {
   variants: {
     variant: {
       h1: ['text-[57px]', 'leading-[64px]'],
