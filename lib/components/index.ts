@@ -20,6 +20,7 @@ export * from './Slider/Slider';
 export * from './Switch/Switch';
 export * from './Tag/Tag';
 export * from './TagSelect/TagSelect';
+export * from './TerminalLogs/TerminalLogs';
 export * from './TextArea/TextArea';
 export * from './Toast/Toast';
 export * from './Tooltip/Tooltip';
