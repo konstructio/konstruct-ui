@@ -1,4 +1,10 @@
-import React, { PropsWithChildren, useState } from 'react';
+import {
+  cloneElement,
+  FC,
+  PropsWithChildren,
+  ReactElement,
+  useState,
+} from 'react';
 import {
   render,
   screen,
@@ -15,14 +21,12 @@ describe('Toast', () => {
     title: <h1>Default title</h1>,
     description: 'Default description',
     open: false,
-    setOpen: () => {
-      console.log('setOpen');
-    },
+    setOpen: vi.fn(),
   };
 
   const setup = (
     props?: Partial<ToastProps>,
-    wrapper?: React.FC<PropsWithChildren>,
+    wrapper?: FC<PropsWithChildren>,
   ) => {
     const { container: component } = render(
       <Toast {...defaultProps} {...props} />,
@@ -58,20 +62,17 @@ describe('Toast', () => {
       duration: 500,
     } satisfies ToastProps;
 
-    const Wrapper = ({ children, ...props }: PropsWithChildren) => {
+    const Wrapper = ({ children }: PropsWithChildren) => {
       const [open, setOpen] = useState(true);
 
       return (
-        <div {...props}>
-          {React.cloneElement(children as React.ReactElement<ToastProps>, {
+        <>
+          {cloneElement(children as ReactElement<ToastProps>, {
             ...props,
             open,
-            setOpen: (value: boolean) => {
-              console.log('setOpen', value);
-              setOpen(value);
-            },
+            setOpen,
           })}
-        </div>
+        </>
       );
     };
 
