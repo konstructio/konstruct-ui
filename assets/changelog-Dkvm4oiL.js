@@ -1,4 +1,8 @@
-import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as e}from"./index-dm7SGGLn.js";import{b as n,c}from"./index-DTZGpZiY.js";import"./index-DUAV1Q2A.js";import"./iframe-CY0gmetb.js";import"./index-D5_VCx2I.js";import"./index-CqVsPxxY.js";import"./index-Cu4lwwaE.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const i=`# Changelog
+import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as e}from"./index-dm7SGGLn.js";import{b as n,c}from"./index-BQfC1cTG.js";import"./index-DUAV1Q2A.js";import"./iframe-CR3HK_6o.js";import"./index-D5_VCx2I.js";import"./index-CqVsPxxY.js";import"./index-Cu4lwwaE.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const i=`# Changelog
+
+## [0.0.12-alpha.7](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.7) (2025-03-04)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.6...0.0.12-alpha.7)
 
 ## [0.0.12-alpha.6](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.6) (2025-03-03)
 
