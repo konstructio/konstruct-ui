@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.12-alpha.7](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.7) (2025-03-04)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.6...0.0.12-alpha.7)
+
 ## [0.0.12-alpha.6](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.6) (2025-03-03)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.5...0.0.12-alpha.6)
