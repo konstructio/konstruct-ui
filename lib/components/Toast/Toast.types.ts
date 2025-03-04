@@ -13,4 +13,7 @@ export interface ToastProps
   showCloseButton?: boolean;
   title: string | ReactNode;
   titleClassName?: string;
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  closeButtonClassName?: string;
 }

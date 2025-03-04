@@ -1,11 +1,4 @@
-import {
-  ChangeEvent,
-  FC,
-  forwardRef,
-  useCallback,
-  useId,
-  useState,
-} from 'react';
+import { FC, forwardRef, useId } from 'react';
 
 import { useTheme } from '../../contexts';
 import { cn } from '../../utils';
@@ -25,23 +18,14 @@ export const TextArea: FC<TextAreaProps> = forwardRef<
       placeholder,
       rows = 3,
       theme,
-      onChange,
       className,
+      ...props
     },
     ref,
   ) => {
     const id = useId();
     const { theme: contextTheme } = useTheme();
     const htmlId = name ? `${id}-name` : id;
-    const [value, setValue] = useState(initialValue ?? '');
-
-    const handleChange = useCallback(
-      (event: ChangeEvent<HTMLTextAreaElement>) => {
-        setValue(event.target.value);
-        onChange?.(event);
-      },
-      [onChange],
-    );
 
     return (
       <div className="flex flex-col gap-2">
@@ -59,8 +43,8 @@ export const TextArea: FC<TextAreaProps> = forwardRef<
           )}
           rows={rows}
           placeholder={placeholder}
-          value={value}
-          onChange={handleChange}
+          value={initialValue ?? props.value}
+          {...props}
         />
       </div>
     );

@@ -15,7 +15,6 @@ import {
   useEffect,
   useMemo,
   useRef,
-  useState,
 } from 'react';
 import { X } from 'react-feather';
 
@@ -38,9 +37,11 @@ export const Toast: FC<ToastProps> = ({
   children,
   theme,
   showCloseButton = true,
+  closeButtonClassName,
   className,
+  open = false,
+  setOpen,
 }) => {
-  const [open, setOpen] = useState(false);
   const timerRef = useRef(0);
   const { theme: contextTheme } = useTheme();
   const inheritTheme = theme ?? contextTheme;
@@ -54,7 +55,7 @@ export const Toast: FC<ToastProps> = ({
       return <Slot className={titleClassName}>{title}</Slot>;
     }
 
-    return <h6 className={titleClassName}>{title}</h6>;
+    return title;
   }, [title, titleClassName]);
 
   const descriptionResult = useMemo(() => {
@@ -62,13 +63,13 @@ export const Toast: FC<ToastProps> = ({
       return <Slot className={descriptionClassName}>{description}</Slot>;
     }
 
-    return <h6 className={descriptionClassName}>{description}</h6>;
+    return description;
   }, [description, descriptionClassName]);
 
   const handleClick = useCallback(() => {
     setOpen(false);
     timerRef.current = window.setTimeout(() => setOpen(true), 100);
-  }, []);
+  }, [setOpen]);
 
   return (
     <Provider swipeDirection="right" duration={duration}>
@@ -79,16 +80,25 @@ export const Toast: FC<ToastProps> = ({
         open={open}
         onOpenChange={setOpen}
       >
-        <Title asChild className="text-lg mb-2 font-semibold">
+        <Title asChild className={titleClassName}>
           {titleResult}
         </Title>
 
-        <Description asChild>{descriptionResult}</Description>
+        {descriptionResult && (
+          <Description asChild>{descriptionResult}</Description>
+        )}
 
         {showCloseButton && (
           <Action asChild altText="Close the toast">
             <button type="button" className="absolute right-1.5 top-1.5">
-              <X className={cn(closeToastVariants({ theme: inheritTheme }))} />
+              <X
+                className={cn(
+                  closeToastVariants({
+                    theme: inheritTheme,
+                    className: closeButtonClassName,
+                  }),
+                )}
+              />
               <VisuallyHidden>Close toast</VisuallyHidden>
             </button>
           </Action>

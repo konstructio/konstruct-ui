@@ -1,43 +1,47 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import React, { PropsWithChildren, useState } from 'react';
+import {
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
-
-import { Button } from '../Button/Button';
 
 import { Toast } from './Toast';
 import { ToastProps } from './Toast.types';
 
 describe('Toast', () => {
   const defaultProps: ToastProps = {
-    title: 'Default title',
+    title: <h1>Default title</h1>,
     description: 'Default description',
+    open: false,
+    setOpen: () => {
+      console.log('setOpen');
+    },
   };
 
-  const setup = (props?: Partial<ToastProps>) => {
+  const setup = (
+    props?: Partial<ToastProps>,
+    wrapper?: React.FC<PropsWithChildren>,
+  ) => {
     const { container: component } = render(
-      <Toast {...defaultProps} {...props}>
-        <Button>Show Toast</Button>
-      </Toast>,
+      <Toast {...defaultProps} {...props} />,
+      {
+        wrapper,
+      },
     );
 
     const user = userEvent.setup();
-    const getButton = () => screen.findByRole('button');
-    const getToast = () => screen.findAllByRole('status');
 
     return {
       component,
       user,
-      getButton,
-      getToast,
     };
   };
 
   it('should render correctly', async () => {
-    const { getButton } = setup();
-
-    const button = await getButton();
-
-    expect(button).toBeInTheDocument();
+    setup({ ...defaultProps, open: true });
+    expect(screen.getByText('Default title')).toBeInTheDocument();
   });
 
   it("should doesn't have violations", async () => {
@@ -48,46 +52,35 @@ describe('Toast', () => {
     expect(results).toHaveNoViolations();
   });
 
-  it('should render correctly the toast after the user has been clicked the button', async () => {
+  it('should call setOpen when the toast duration is over', async () => {
     const props = {
-      title: 'Title',
-      description: 'Description',
+      ...defaultProps,
+      duration: 500,
     } satisfies ToastProps;
 
-    const { user, getButton, getToast } = setup(props);
+    const Wrapper = ({ children, ...props }: PropsWithChildren) => {
+      const [open, setOpen] = useState(true);
 
-    const button = await getButton();
+      return (
+        <div {...props}>
+          {React.cloneElement(children as React.ReactElement<ToastProps>, {
+            ...props,
+            open,
+            setOpen: (value: boolean) => {
+              console.log('setOpen', value);
+              setOpen(value);
+            },
+          })}
+        </div>
+      );
+    };
 
-    await user.click(button);
+    setup(props, Wrapper);
 
-    const [toast] = await getToast();
+    expect(screen.getByText('Default title')).toBeInTheDocument();
 
-    expect(toast).toHaveTextContent(props.title);
-    expect(toast).toHaveTextContent(props.description);
-  });
-
-  it('should render the toast but must be hidden after 100ms', async () => {
-    const props = {
-      title: 'Title',
-      description: 'Description',
-      duration: 50,
-    } satisfies ToastProps;
-
-    const { user, getButton, getToast } = setup(props);
-
-    const button = await getButton();
-
-    await user.click(button);
-
-    const [toast] = await getToast();
-
-    await waitFor(
-      () => {
-        expect(toast).not.toBeInTheDocument();
-      },
-      {
-        timeout: 100,
-      },
-    );
+    await waitForElementToBeRemoved(() => screen.queryByText('Default title'), {
+      timeout: 1000,
+    });
   });
 });
