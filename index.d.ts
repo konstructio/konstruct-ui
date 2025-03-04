@@ -536,6 +536,9 @@ declare interface ToastProps extends PropsWithChildren, VariantProps<typeof toas
     showCloseButton?: boolean;
     title: string | ReactNode;
     titleClassName?: string;
+    open: boolean;
+    setOpen: (open: boolean) => void;
+    closeButtonClassName?: string;
 }
 
 declare const toastVariants: (props?: ({
