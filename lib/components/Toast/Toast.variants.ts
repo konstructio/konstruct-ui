@@ -2,7 +2,6 @@ import { cva } from 'class-variance-authority';
 
 export const toastVariants = cva(
   [
-    'bg-white',
     'rounded-md',
     'shadow-md',
     'p-4',
