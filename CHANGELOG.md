@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.0.12-alpha.8](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.8) (2025-03-05)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.7...0.0.12-alpha.8)
+
+**Merged pull requests:**
+
+- fix: remove toast background [\#139](https://github.com/konstructio/konstruct-ui/pull/139) ([CristhianF7](https://github.com/CristhianF7))
+- ⬆️  chore: some dependencies have been updated [\#138](https://github.com/konstructio/konstruct-ui/pull/138) ([futjesus](https://github.com/futjesus))
+
 ## [0.0.12-alpha.7](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.7) (2025-03-04)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.6...0.0.12-alpha.7)
