@@ -1,23 +1,26 @@
 import { cva } from 'class-variance-authority';
 
-export const breadcrumbWrapperVariants = cva(['text-slate-500'], {
-  variants: {
-    theme: {
-      kubefirst: '',
-      colony: '',
-      civo: '',
+export const breadcrumbWrapperVariants = cva(
+  ['text-slate-500', 'cursor-pointer'],
+  {
+    variants: {
+      theme: {
+        kubefirst: '',
+        colony: '',
+        civo: '',
+      },
+      size: {
+        sm: '',
+        base: '',
+        lg: '',
+        xl: '',
+      },
     },
-    size: {
-      sm: '',
-      base: '',
-      lg: '',
-      xl: '',
+    defaultVariants: {
+      theme: 'kubefirst',
     },
   },
-  defaultVariants: {
-    theme: 'kubefirst',
-  },
-});
+);
 
 export const breadcrumbVariants = cva(['flex', 'gap-1', 'items-center'], {
   variants: {

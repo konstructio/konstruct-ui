@@ -9,5 +9,4 @@ export interface InputProps
   label?: string | ReactNode;
   labelClassName?: string;
   error?: string;
-  onClickIcon?: () => void;
 }

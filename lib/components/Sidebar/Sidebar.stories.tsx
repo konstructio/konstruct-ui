@@ -10,6 +10,7 @@ import ScatterPlotIcon from '@/assets/icons/scatter-plot.svg';
 import { Theme } from '@/contexts';
 
 import { Star } from 'react-feather';
+import { Typography } from '../Typography/Typography';
 import {
   Footer,
   Logo,
@@ -89,21 +90,34 @@ export const Sidebar = {
     return (
       <SidebarPrimitive theme={theme}>
         <Logo>
-          <a>
+          <a className="flex items-center gap-2">
             <img
-              className="flex-1 shrink-0"
+              className="flex-1 shrink-0 hidden md:block"
               src="./logo-kubefirst.svg"
               alt="Company logo"
             />
-            <span className="left-[35%]">v1.29.0</span>
+            <img
+              className="block h-10 w-12 md:hidden"
+              src="./ray.svg"
+              alt="Company logo"
+            />
+            <Typography
+              variant="labelSmall"
+              className="md:left-[35%] !bottom-[-20px] md:!bottom-0 text-[#ABADC6] lowercase"
+            >
+              v1.11.1
+            </Typography>
           </a>
         </Logo>
 
-        <Navigation>
+        <Navigation className="mt-4 md:mt-0">
           <NavigationGroup>
             <NavigationOption>
-              <a className="flex items-center gap-2">
-                <ScatterPlotIcon /> Clusters
+              <a className="flex items-center gap-2 md:mt-0">
+                <ScatterPlotIcon className="w-6 h-6" />{' '}
+                <Typography variant="body1" className="hidden md:block">
+                  Clusters
+                </Typography>
               </a>
             </NavigationOption>
 
@@ -112,7 +126,10 @@ export const Sidebar = {
               onClick={() => setTheme('colony')}
               isActive={theme === 'colony'}
             >
-              <GridViewIcon /> Services
+              <GridViewIcon className="w-6 h-6" />{' '}
+              <Typography variant="body1" className="hidden md:block">
+                Services
+              </Typography>
             </NavigationOption>
 
             <NavigationOption
@@ -120,22 +137,34 @@ export const Sidebar = {
               onClick={() => setTheme('kubefirst')}
               isActive={theme === 'kubefirst'}
             >
-              <PhotoLibraryIcon /> Environments
+              <PhotoLibraryIcon className="w-6 h-6" />{' '}
+              <Typography variant="body1" className="hidden md:block">
+                Environments
+              </Typography>
             </NavigationOption>
           </NavigationGroup>
 
-          <NavigationGroup title="Admin settings" titleClassName="uppercase">
+          <NavigationGroup
+            title="Admin settings"
+            titleClassName="uppercase hidden md:block "
+          >
             <NavigationOption
               role="button"
               onClick={() => setTheme('civo')}
               isActive={theme === 'civo'}
             >
-              <ReceiptLongIcon /> Plans & Billing
+              <ReceiptLongIcon className="w-6 h-6" />{' '}
+              <Typography variant="body1" className="hidden md:block">
+                Plans & Billing
+              </Typography>
             </NavigationOption>
 
             <NavigationOption>
               <a className="flex items-center gap-2">
-                <CloudIcon /> Cloud accounts
+                <CloudIcon className="w-6 h-6" />{' '}
+                <Typography variant="body1" className="hidden md:block">
+                  Cloud accounts
+                </Typography>
               </a>
             </NavigationOption>
           </NavigationGroup>
@@ -143,7 +172,10 @@ export const Sidebar = {
 
         <Footer>
           <span className="text-[#81e2b4] flex items-center gap-2 justify-center font-semibold cursor-pointer">
-            <Star className="w-5 h-5" /> Upgrade to Business
+            <Star className="w-5 h-5" />{' '}
+            <Typography variant="body1" className="hidden md:block">
+              Upgrade to Business
+            </Typography>
           </span>
         </Footer>
       </SidebarPrimitive>

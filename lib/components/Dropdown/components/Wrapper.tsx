@@ -89,7 +89,7 @@ export const Wrapper: ForwardRefExoticComponent<
         {label ? (
           <label
             id={htmlFor}
-            className="m-2 cursor-pointer"
+            className="mb-2 cursor-pointer"
             htmlFor={htmlFor}
             onClick={handleOpenIfClosed}
           >

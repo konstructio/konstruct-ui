@@ -12,7 +12,8 @@ export const wrapperSiderbarVariants = cva(
     'px-4',
     'relative',
     'transition-all',
-    'w-[256px]',
+    'w-[72px]',
+    'md:w-[256px]',
   ],
   {
     variants: {

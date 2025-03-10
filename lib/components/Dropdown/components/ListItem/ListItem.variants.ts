@@ -12,11 +12,13 @@ export const listItemVariants = cva(
     'flex',
     'items-center',
     'gap-3',
+    'hover:bg-slate-50',
+    'focus:bg-slate-50',
   ],
   {
     variants: {
       theme: {
-        kubefirst: ['focus:bg-purple-100', 'hover:bg-purple-100'],
+        kubefirst: [''],
         colony: ['focus:bg-red-100', 'hover:bg-red-100'],
         civo: '',
       },
