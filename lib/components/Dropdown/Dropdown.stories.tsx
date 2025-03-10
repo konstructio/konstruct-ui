@@ -24,6 +24,8 @@ export const Dropdown: Story = {
       },
     ],
     placeholder: 'Select an option...',
+    required: false,
+    labelClassName: '',
   },
   render: (args) => {
     const optionsWithoutLeftIcon = args.options.map((option) => ({
@@ -40,6 +42,7 @@ export const Dropdown: Story = {
             theme="kubefirst"
             name="components-dropdown"
             {...args}
+            required
             options={optionsWithoutLeftIcon}
           />
 

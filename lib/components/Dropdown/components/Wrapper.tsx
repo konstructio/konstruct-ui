@@ -13,16 +13,29 @@ import { ChevronUp } from 'react-feather';
 import { cn } from '../../../utils';
 import { useTheme } from '../../../contexts';
 import { DropdownProps } from '../Dropdown.types';
-import { dropdownVariants } from '../Dropdown.variants';
+import { dropdownVariants, labelVariants } from '../Dropdown.variants';
 import { useDropdown } from '../hooks/useDropdown';
 import { useDropdownContext } from '../contexts';
 
 import { List } from './List/List';
+import { Typography } from '@/components/Typography/Typography';
 
 export const Wrapper: ForwardRefExoticComponent<
   DropdownProps & RefAttributes<ComponentRef<'input'>>
 > = forwardRef<ComponentRef<'input'>, DropdownProps>(
-  ({ theme, label, placeholder, name, options, defaultValue }, ref) => {
+  (
+    {
+      theme,
+      label,
+      labelClassName,
+      placeholder,
+      name,
+      options,
+      defaultValue,
+      required,
+    },
+    ref,
+  ) => {
     const id = useId();
     const inputRef = useRef<ComponentRef<'input'>>(null);
     const ulRef = useRef<ComponentRef<'ul'>>(null);
@@ -89,11 +102,15 @@ export const Wrapper: ForwardRefExoticComponent<
         {label ? (
           <label
             id={htmlFor}
-            className="mb-2 cursor-pointer"
+            className={cn(
+              labelVariants({ theme: inheritTheme }),
+              labelClassName,
+            )}
             htmlFor={htmlFor}
             onClick={handleOpenIfClosed}
           >
             {label}
+            {required ? <span className="text-red-500">*</span> : null}
           </label>
         ) : null}
 
@@ -109,18 +126,26 @@ export const Wrapper: ForwardRefExoticComponent<
         >
           <span className="text-base text-inherit">
             {value ? (
-              <span className="flex gap-3 items-center">
+              <Typography
+                variant="body2"
+                className="flex gap-3 items-center text-zinc-700"
+              >
                 {getIcon()}
                 {value.label}
-              </span>
+              </Typography>
             ) : (
-              placeholder
+              <Typography
+                variant="body2"
+                className="flex gap-3 items-center text-zinc-700"
+              >
+                {placeholder}
+              </Typography>
             )}
           </span>
 
           <ChevronUp
             className={cn(
-              'w-4 h-4 text-inherit transition-all duration-50',
+              'w-4 h-4 text-zinc-500 transition-all duration-50',
               isOpen ? 'rotate-0' : 'rotate-180',
             )}
           />
@@ -132,6 +157,7 @@ export const Wrapper: ForwardRefExoticComponent<
           name={name}
           className="hidden"
           aria-hidden="true"
+          required={required}
         />
 
         <List

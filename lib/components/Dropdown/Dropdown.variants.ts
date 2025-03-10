@@ -15,6 +15,7 @@ export const dropdownVariants = cva(
     'transition-all',
     'w-full',
     'outline-none',
+    'h-9',
   ],
   {
     variants: {
@@ -34,6 +35,25 @@ export const dropdownVariants = cva(
     },
     defaultVariants: {
       theme: 'kubefirst',
+    },
+  },
+);
+
+export const labelVariants = cva(
+  [
+    'mb-1',
+    'cursor-pointer',
+    'text-[14px]',
+    'leading-[20px]',
+    'tracking-[0.1px]',
+  ],
+  {
+    variants: {
+      theme: {
+        kubefirst: '',
+        colony: '',
+        civo: '',
+      },
     },
   },
 );
