@@ -1,4 +1,4 @@
-import { forwardRef, useId, useMemo, useState } from 'react';
+import { forwardRef, useId, useState } from 'react';
 import { AlertCircle, Eye, EyeOff } from 'react-feather';
 
 import { cn } from '../../utils';
@@ -25,10 +25,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     const id = useId();
     const { theme: themeContext } = useTheme();
 
-    const EyeIcon = useMemo(
-      () => (showPassword ? Eye : EyeOff),
-      [showPassword],
-    );
+    const EyeIcon = showPassword ? Eye : EyeOff;
 
     return (
       <div className="flex flex-col gap-1.5 w-full">
