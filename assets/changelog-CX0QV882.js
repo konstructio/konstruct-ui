@@ -1,4 +1,12 @@
-import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as e}from"./index-dm7SGGLn.js";import{b as n,c}from"./index-5IAswpkQ.js";import"./index-DUAV1Q2A.js";import"./iframe-BRReTrG-.js";import"./index-D5_VCx2I.js";import"./index-CqVsPxxY.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const i=`# Changelog
+import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as e}from"./index-dm7SGGLn.js";import{b as n,c}from"./index-DVUT_i2D.js";import"./index-DUAV1Q2A.js";import"./iframe-C_Bw-r3-.js";import"./index-D5_VCx2I.js";import"./index-CqVsPxxY.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const i=`# Changelog
+
+## [0.0.12-alpha.9](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.9) (2025-03-10)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.8...0.0.12-alpha.9)
+
+**Merged pull requests:**
+
+- fix: dropdown and mobile sidebar [\\#145](https://github.com/konstructio/konstruct-ui/pull/145) ([CristhianF7](https://github.com/CristhianF7))
 
 ## [0.0.12-alpha.8](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.8) (2025-03-05)
 

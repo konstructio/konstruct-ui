@@ -171,7 +171,6 @@ declare interface InputProps extends InputHTMLAttributes<HTMLInputElement>, Vari
     label?: string | ReactNode;
     labelClassName?: string;
     error?: string;
-    onClickIcon?: () => void;
 }
 
 declare const inputVariants: (props?: ({
