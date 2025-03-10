@@ -6,6 +6,7 @@ import { Option } from '../../Dropdown.types';
 
 import { ListItemProps } from './ListItem.types';
 import { listItemVariants } from './ListItem.variants';
+import { Typography } from '@/components/Typography/Typography';
 
 export const ListItem: FC<ListItemProps> = ({ theme, ...option }) => {
   const { setValue, toggleOpen } = useDropdownContext();
@@ -43,7 +44,9 @@ export const ListItem: FC<ListItemProps> = ({ theme, ...option }) => {
         </span>
       ) : null}
 
-      {option.label}
+      <Typography variant="body2" className="text-zinc-700">
+        {option.label}
+      </Typography>
     </li>
   );
 };
