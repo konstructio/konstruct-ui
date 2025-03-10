@@ -1,5 +1,5 @@
-import { forwardRef, useId } from 'react';
-import { AlertCircle, EyeOff } from 'react-feather';
+import { forwardRef, useId, useMemo, useState } from 'react';
+import { AlertCircle, Eye, EyeOff } from 'react-feather';
 
 import { cn } from '../../utils';
 
@@ -17,13 +17,18 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       name,
       type,
       theme,
-      onClickIcon,
       ...delegated
     },
     ref,
   ) => {
+    const [showPassword, setShowPassword] = useState(false);
     const id = useId();
     const { theme: themeContext } = useTheme();
+
+    const EyeIcon = useMemo(
+      () => (showPassword ? Eye : EyeOff),
+      [showPassword],
+    );
 
     return (
       <div className="flex flex-col gap-1.5 w-full">
@@ -38,7 +43,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             id={id}
             ref={ref}
             name={name}
-            type={type}
+            type={showPassword ? 'text' : type}
             className={inputVariants({
               className,
               theme: theme ?? themeContext,
@@ -47,15 +52,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             {...delegated}
           />
           {error ? (
-            <i className="absolute right-2 text-red-600 top-0 translate-y-[40%]">
+            <i className="absolute right-3 text-red-600 top-0 translate-y-[40%]">
               <AlertCircle className="w-5 h-5" />
             </i>
           ) : null}
-          {type === 'password' ? (
-            <i className="absolute right-2 text-slate-400 top-0 translate-y-[40%]">
-              <EyeOff
+          {type === 'password' && !error ? (
+            <i className="absolute right-3 text-slate-400 top-0 translate-y-[40%]">
+              <EyeIcon
                 className="w-5 h-5 cursor-pointer"
-                onClick={onClickIcon}
+                onClick={() => setShowPassword(!showPassword)}
               />
             </i>
           ) : null}

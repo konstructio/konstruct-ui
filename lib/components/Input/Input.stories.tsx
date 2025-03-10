@@ -13,6 +13,7 @@ export const Input: Story = {
   args: {
     label: 'Normal Input',
     placeholder: 'Type information...',
+    type: 'password',
   },
   render: (args) => (
     <div className="w-[350px]">
