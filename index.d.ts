@@ -140,15 +140,12 @@ export declare const Divider: FunctionComponent<HTMLAttributes<HTMLDivElement>>;
 
 export declare const Dropdown: FC<DropdownProps>;
 
-declare interface DropdownProps extends VariantProps<typeof dropdownVariants> {
-    defaultValue?: string;
-    label?: string;
-    name?: string;
-    options: Option_3[];
-    placeholder?: string;
+declare interface DropdownProps extends VariantProps<typeof dropdownVariants>, Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
     onChange?: (value: Option_3) => void;
+    label?: string;
+    options: Option_3[];
     labelClassName?: string;
-    required?: boolean;
+    value?: Option_3;
 }
 
 declare const dropdownVariants: (props?: ({
