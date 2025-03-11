@@ -7,8 +7,8 @@ import { DropdownProps } from './Dropdown.types';
 export const Dropdown: FC<DropdownProps> = forwardRef<
   ComponentRef<'input'>,
   DropdownProps
->(({ onChange, ...delegated }, ref) => (
-  <DropdownProvider onChange={onChange}>
+>(({ onChange, value, ...delegated }, ref) => (
+  <DropdownProvider onChange={onChange} value={value}>
     <Wrapper ref={ref} {...delegated} />
   </DropdownProvider>
 ));

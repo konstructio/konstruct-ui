@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from 'react';
+import { cloneElement, FC, PropsWithChildren, useState } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
@@ -114,6 +114,7 @@ describe('Dropdown', () => {
     const handleSubmit = vitest.fn();
 
     const Wrapper: FC<PropsWithChildren> = ({ children }) => {
+      const [value, setValue] = useState<Option>();
       return (
         <form
           onSubmit={(e) => {
@@ -123,7 +124,12 @@ describe('Dropdown', () => {
             handleSubmit(data);
           }}
         >
-          {children}
+          {cloneElement(children as React.ReactElement<DropdownProps>, {
+            onChange: (option: Option) => {
+              setValue(option);
+            },
+            value,
+          })}
           <button type="submit">Submit</button>
         </form>
       );
@@ -152,5 +158,17 @@ describe('Dropdown', () => {
     expect(handleSubmit).toHaveBeenCalledWith({
       dropdown: options.at(0)?.value,
     });
+  });
+
+  it('should render the default value correctly', async () => {
+    const { getComboBox, getElement } = setup({ defaultValue: 'option-1' });
+
+    const comboBox = getComboBox();
+
+    await userEvent.click(comboBox);
+
+    const option = getElement(defaultProps.options[0].label);
+
+    expect(option).toBeInTheDocument();
   });
 });

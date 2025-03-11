@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Dropdown as DropdownComponent } from './Dropdown';
+import { useState } from 'react';
+import { Option } from './Dropdown.types';
 
 type Story = StoryObj<typeof DropdownComponent>;
 
@@ -26,49 +28,31 @@ export const Dropdown: Story = {
     placeholder: 'Select an option...',
     required: false,
     labelClassName: '',
+    theme: 'kubefirst',
+    defaultValue: '',
+    value: {
+      label: 'Talos',
+      value: 'talos',
+      leftIcon: <img src="./talos.svg" alt="Talos Logo" />,
+    },
+    onChange: (option) => {
+      console.log(option);
+    },
   },
   render: (args) => {
-    const optionsWithoutLeftIcon = args.options.map((option) => ({
-      ...option,
-      leftIcon: undefined,
-    }));
+    const [value, setValue] = useState<Option>();
 
+    console.log(value);
     return (
       <>
-        <h2 className="text-xl font-bold">Dropdowns without icons</h2>
         <div className="max-w-[350px]">
           <DropdownComponent
             label="Dropdown with Kubefirst theme"
-            theme="kubefirst"
-            name="components-dropdown"
             {...args}
-            required
-            options={optionsWithoutLeftIcon}
-          />
-
-          <DropdownComponent
-            label="Dropdown with Colony theme"
-            theme="colony"
-            name="components-dropdown"
-            {...args}
-            options={optionsWithoutLeftIcon}
-          />
-        </div>
-
-        <h2 className="text-xl font-bold mt-8">Dropdowns with icons</h2>
-        <div className="max-w-[350px]">
-          <DropdownComponent
-            label="Dropdown with Kubefirst theme"
-            theme="kubefirst"
-            name="components-dropdown"
-            {...args}
-          />
-
-          <DropdownComponent
-            label="Dropdown with Colony theme"
-            theme="colony"
-            name="components-dropdown"
-            {...args}
+            onChange={(option) => {
+              setValue(option as unknown as Option);
+            }}
+            value={value}
           />
         </div>
       </>
