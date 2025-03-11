@@ -16,7 +16,7 @@ export const DropdownProvider: FC<
 
   const handleChange = useCallback(
     (value: Option) => {
-      onChange?.(value);
+      onChange?.({ target: { value } });
     },
     [onChange],
   );

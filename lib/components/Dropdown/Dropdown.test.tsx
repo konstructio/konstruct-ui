@@ -85,7 +85,9 @@ describe('Dropdown', () => {
 
     await userEvent.click(option);
 
-    expect(onChange).toHaveBeenCalledWith(defaultProps.options[0]);
+    expect(onChange).toHaveBeenCalledWith({
+      target: { value: defaultProps.options[0] },
+    });
     expect(onChange).toHaveBeenCalledTimes(1);
   });
 
@@ -106,7 +108,9 @@ describe('Dropdown', () => {
 
     await userEvent.click(option2);
 
-    expect(onChange).toHaveBeenLastCalledWith(defaultProps.options[1]);
+    expect(onChange).toHaveBeenLastCalledWith({
+      target: { value: defaultProps.options[1] },
+    });
     expect(onChange).toHaveBeenCalledTimes(2);
   });
 
@@ -125,8 +129,12 @@ describe('Dropdown', () => {
           }}
         >
           {cloneElement(children as React.ReactElement<DropdownProps>, {
-            onChange: (option: Option) => {
-              setValue(option);
+            onChange: ({
+              target: { value },
+            }: {
+              target: { value: Option };
+            }) => {
+              setValue(value);
             },
             value,
           })}
