@@ -12,7 +12,7 @@ export type Option = {
 export interface DropdownProps
   extends VariantProps<typeof dropdownVariants>,
     Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
-  onChange?: (value: Option) => void;
+  onChange?: ({ target: { value } }: { target: { value: Option } }) => void;
   label?: string;
   options: Option[];
   labelClassName?: string;
