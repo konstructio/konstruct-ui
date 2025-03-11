@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.12-alpha.11](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.11) (2025-03-11)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.10...0.0.12-alpha.11)
+
+**Merged pull requests:**
+
+- fix: dropdown state [\#147](https://github.com/konstructio/konstruct-ui/pull/147) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.0.12-alpha.10](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.10) (2025-03-10)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.9...0.0.12-alpha.10)
