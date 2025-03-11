@@ -6,8 +6,6 @@ export const logoVariants = cva(
     'md:py-5',
     'flex',
     'flex-col',
-    'items-center',
-    'items-center',
     'justify-center',
     'gap-1',
     'group',

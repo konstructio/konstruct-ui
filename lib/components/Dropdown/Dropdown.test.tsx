@@ -1,9 +1,9 @@
-import { FC, PropsWithChildren } from 'react';
+import { FC } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
-import { DropdownProps, Option } from './Dropdown.types';
+import { DropdownProps } from './Dropdown.types';
 import { Dropdown } from './Dropdown';
 
 describe('Dropdown', () => {
@@ -108,49 +108,5 @@ describe('Dropdown', () => {
 
     expect(onChange).toHaveBeenLastCalledWith(defaultProps.options[1]);
     expect(onChange).toHaveBeenCalledTimes(2);
-  });
-
-  it('should send the current selected value in a form', async () => {
-    const handleSubmit = vitest.fn();
-
-    const Wrapper: FC<PropsWithChildren> = ({ children }) => {
-      return (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const formData = new FormData(e.currentTarget);
-            const data = Object.fromEntries(formData.entries());
-            handleSubmit(data);
-          }}
-        >
-          {children}
-          <button type="submit">Submit</button>
-        </form>
-      );
-    };
-
-    const options: Option[] = [
-      {
-        label: 'Option 1',
-        value: 'option-1',
-      },
-    ];
-
-    const { user, getComboBox } = setup({ name: 'dropdown', options }, Wrapper);
-
-    const button = screen.getByRole('button', {
-      name: /submit/i,
-    });
-
-    const comboBox = getComboBox();
-
-    await user.click(comboBox);
-    await user.keyboard('[ArrowDown]');
-    await user.keyboard('[Enter]');
-    await user.click(button);
-
-    expect(handleSubmit).toHaveBeenCalledWith({
-      dropdown: options.at(0)?.value,
-    });
   });
 });

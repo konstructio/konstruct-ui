@@ -31,8 +31,8 @@ export const Wrapper: ForwardRefExoticComponent<
       placeholder,
       name,
       options,
-      defaultValue,
       required,
+      defaultValue,
     },
     ref,
   ) => {
@@ -41,7 +41,7 @@ export const Wrapper: ForwardRefExoticComponent<
     const ulRef = useRef<ComponentRef<'ul'>>(null);
     const { wrapperRef, wrapperInputRef, handleOpen, handleOpenIfClosed } =
       useDropdown({ ulRef });
-    const { isOpen, value, setValue, toggleOpen } = useDropdownContext();
+    const { isOpen, toggleOpen, value, setValue } = useDropdownContext();
     const { theme: themeContext } = useTheme();
     const inheritTheme = theme ?? themeContext;
     const htmlFor = name ? `${id}-${name}` : id;
@@ -55,7 +55,7 @@ export const Wrapper: ForwardRefExoticComponent<
     }, [value]);
 
     useEffect(() => {
-      if (defaultValue) {
+      if (defaultValue && !value) {
         const defaultOption = options.find(
           (option) => option.value === defaultValue,
         );
@@ -64,7 +64,7 @@ export const Wrapper: ForwardRefExoticComponent<
           setValue(defaultOption);
         }
       }
-    }, [defaultValue, options, setValue]);
+    }, [defaultValue, options, setValue, value]);
 
     useEffect(() => {
       const controller = new AbortController();
@@ -110,7 +110,7 @@ export const Wrapper: ForwardRefExoticComponent<
             onClick={handleOpenIfClosed}
           >
             {label}
-            {required ? <span className="text-red-500">*</span> : null}
+            {required ? <span className="text-red-500 ml-1">*</span> : null}
           </label>
         ) : null}
 
