@@ -16,6 +16,8 @@ export const listVariants = cva(
     'transition-all',
     'w-full',
     'z-10',
+    'max-h-[185px]',
+    'overflow-y-auto',
   ],
   {
     variants: {
