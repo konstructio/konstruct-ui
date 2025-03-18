@@ -29,12 +29,7 @@ export const Dropdown: Story = {
     required: false,
     labelClassName: '',
     theme: 'kubefirst',
-    defaultValue: '',
-    value: {
-      label: 'Talos',
-      value: 'talos',
-      leftIcon: <img src="./talos.svg" alt="Talos Logo" />,
-    },
+    name: 'dropdown',
     onChange: (option) => {
       console.log(option);
     },
@@ -42,15 +37,14 @@ export const Dropdown: Story = {
   render: (args) => {
     const [value, setValue] = useState<Option>();
 
-    console.log(value);
     return (
       <>
         <div className="max-w-[350px]">
           <DropdownComponent
             label="Dropdown with Kubefirst theme"
             {...args}
-            onChange={(option) => {
-              setValue(option as unknown as Option);
+            onChange={({ target: { value } }) => {
+              setValue(value as unknown as Option);
             }}
             value={value}
           />

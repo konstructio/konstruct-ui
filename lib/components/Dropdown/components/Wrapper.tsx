@@ -56,9 +56,8 @@ export const Wrapper: ForwardRefExoticComponent<
 
     useEffect(() => {
       if (defaultValue && !value) {
-        const defaultOption = options.find(
-          (option) => option.value === defaultValue,
-        );
+        const defaultOption =
+          options && options.find((option) => option.value === defaultValue);
 
         if (defaultOption) {
           setValue(defaultOption);
