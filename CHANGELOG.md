@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.12-alpha.14](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.14) (2025-03-18)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.13...0.0.12-alpha.14)
+
+**Merged pull requests:**
+
+- feat: filter child [\#154](https://github.com/konstructio/konstruct-ui/pull/154) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.0.12-alpha.13](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.13) (2025-03-18)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.12...0.0.12-alpha.13)
