@@ -1,4 +1,12 @@
-import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as n}from"./index-dm7SGGLn.js";import{b as e,c as i}from"./index-0ryVcLGJ.js";import"./index-DUAV1Q2A.js";import"./iframe-BdAIgcuG.js";import"./index-D5_VCx2I.js";import"./index-CqVsPxxY.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const c=`# Changelog
+import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as n}from"./index-dm7SGGLn.js";import{b as e,c as i}from"./index-D2UYktoW.js";import"./index-DUAV1Q2A.js";import"./iframe-oL1WSFch.js";import"./index-D5_VCx2I.js";import"./index-CqVsPxxY.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const c=`# Changelog
+
+## [0.0.12-alpha.16](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.16) (2025-03-18)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.15...0.0.12-alpha.16)
+
+**Merged pull requests:**
+
+- fix: dropdown state text [\\#156](https://github.com/konstructio/konstruct-ui/pull/156) ([CristhianF7](https://github.com/CristhianF7))
 
 ## [0.0.12-alpha.15](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.15) (2025-03-18)
 

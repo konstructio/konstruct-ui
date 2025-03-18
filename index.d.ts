@@ -148,15 +148,16 @@ export declare const Divider: FunctionComponent<HTMLAttributes<HTMLDivElement>>;
 export declare const Dropdown: FC<DropdownProps>;
 
 declare interface DropdownProps extends VariantProps<typeof dropdownVariants>, Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
-    onChange?: ({ target: { value } }: {
+    onChange?: ({ target: { value, name }, }: {
         target: {
-            value: Option_3;
+            value: string;
+            name: string;
         };
     }) => void;
     label?: string;
     options: Option_3[];
     labelClassName?: string;
-    value?: Option_3;
+    value?: string;
     isLoading?: boolean;
 }
 
