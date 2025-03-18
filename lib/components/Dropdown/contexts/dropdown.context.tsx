@@ -1,11 +1,10 @@
 import { createContext } from 'react';
-import { Option } from '../Dropdown.types';
 
 export type DropdownContextType = {
   isOpen: boolean;
   toggleOpen: (value?: boolean) => void;
-  value?: Option;
-  setValue: (value: Option) => void;
+  value?: string;
+  setValue: (value: string) => void;
 };
 
 export const DropdownContext = createContext<DropdownContextType>({

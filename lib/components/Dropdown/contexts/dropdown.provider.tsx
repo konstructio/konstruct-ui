@@ -2,23 +2,24 @@ import { FC, PropsWithChildren, useCallback } from 'react';
 
 import { useToggle } from '../../../hooks';
 
-import { DropdownProps, Option } from '../Dropdown.types';
+import { DropdownProps } from '../Dropdown.types';
 
 import { DropdownContext } from './dropdown.context';
 
 export const DropdownProvider: FC<
   PropsWithChildren & {
     onChange?: DropdownProps['onChange'];
-    value?: Option;
+    value?: string;
+    name?: string;
   }
-> = ({ children, onChange, value }) => {
+> = ({ children, onChange, value, name }) => {
   const [isOpen, toggleOpen] = useToggle(false);
 
   const handleChange = useCallback(
-    (value: Option) => {
-      onChange?.({ target: { value } });
+    (value: string) => {
+      onChange?.({ target: { value, name: name ?? '' } });
     },
-    [onChange],
+    [onChange, name],
   );
 
   return (

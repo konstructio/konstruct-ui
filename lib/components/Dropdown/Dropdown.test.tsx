@@ -86,7 +86,7 @@ describe('Dropdown', () => {
     await userEvent.click(option);
 
     expect(onChange).toHaveBeenCalledWith({
-      target: { value: defaultProps.options[0] },
+      target: { value: defaultProps.options[0].value, name: defaultProps.name },
     });
     expect(onChange).toHaveBeenCalledTimes(1);
   });
@@ -109,7 +109,7 @@ describe('Dropdown', () => {
     await userEvent.click(option2);
 
     expect(onChange).toHaveBeenLastCalledWith({
-      target: { value: defaultProps.options[1] },
+      target: { value: defaultProps.options[1].value, name: defaultProps.name },
     });
     expect(onChange).toHaveBeenCalledTimes(2);
   });
@@ -118,7 +118,7 @@ describe('Dropdown', () => {
     const handleSubmit = vitest.fn();
 
     const Wrapper: FC<PropsWithChildren> = ({ children }) => {
-      const [value, setValue] = useState<Option>();
+      const [value, setValue] = useState<string>();
       return (
         <form
           onSubmit={(e) => {
@@ -132,7 +132,7 @@ describe('Dropdown', () => {
             onChange: ({
               target: { value },
             }: {
-              target: { value: Option };
+              target: { value: string };
             }) => {
               setValue(value);
             },
