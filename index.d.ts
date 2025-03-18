@@ -71,6 +71,13 @@ declare const autocompleteVariants: (props?: ({
     theme?: "kubefirst" | "colony" | "civo" | null | undefined;
 } & ClassProp) | undefined) => string;
 
+declare interface BodyProps extends React.HTMLAttributes<HTMLTableSectionElement>, PropsWithChildren, VariantProps<typeof bodyVariants> {
+}
+
+declare const bodyVariants: (props?: ({
+    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
+} & ClassProp) | undefined) => string;
+
 export declare const Breadcrumb: FC<BreadcrumbProps>;
 
 declare interface BreadcrumbProps extends VariantProps<typeof breadcrumbVariants>, HTMLAttributes<HTMLOListElement> {
@@ -156,6 +163,10 @@ declare const dropdownVariants: (props?: ({
     theme?: "kubefirst" | "colony" | "civo" | null | undefined;
 } & ClassProp) | undefined) => string;
 
+declare interface FilterProps extends React.InputHTMLAttributes<HTMLInputElement>, PropsWithChildren {
+    placeholder?: string;
+}
+
 export declare const Footer: FC_2<FooterProps>;
 
 declare interface FooterProps extends PropsWithChildren_2, VariantProps<typeof footerVariants> {
@@ -167,6 +178,13 @@ declare const footerVariants: (props?: ({
 } & ClassProp) | undefined) => string;
 
 declare type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+
+declare interface HeadProps extends React.HTMLAttributes<HTMLTableSectionElement>, PropsWithChildren, VariantProps<typeof headVariants> {
+}
+
+declare const headVariants: (props?: ({
+    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
+} & ClassProp) | undefined) => string;
 
 export declare const Input: ForwardRefExoticComponent<InputProps & RefAttributes<HTMLInputElement>>;
 
@@ -409,6 +427,17 @@ declare const rangeVariants: (props?: ({
     theme?: "kubefirst" | "colony" | "civo" | null | undefined;
 } & ClassProp) | undefined) => string;
 
+declare interface RowProps extends React.HTMLAttributes<HTMLTableRowElement>, PropsWithChildren, VariantProps<typeof rowVariants> {
+    width?: string;
+    isSelected?: boolean;
+    onSelect?: () => void;
+}
+
+declare const rowVariants: (props?: ({
+    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
+    isSelected?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
+
 export declare const Sidebar: FC<SidebarProps> & SidebarChildrenProps;
 
 declare type SidebarChildrenProps = {
@@ -463,6 +492,20 @@ declare interface SwitchProps extends VariantProps<typeof switchVariants> {
 }
 
 declare const switchVariants: (props?: ({
+    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare const Table: FunctionComponent<TableProps> & {
+    Head: FunctionComponent<HeadProps>;
+    Row: FunctionComponent<RowProps>;
+    Filter: FunctionComponent<FilterProps>;
+    Body: FunctionComponent<BodyProps>;
+};
+
+declare interface TableProps extends React.HTMLAttributes<HTMLTableElement>, PropsWithChildren, VariantProps<typeof tableVariants> {
+}
+
+declare const tableVariants: (props?: ({
     theme?: "kubefirst" | "colony" | "civo" | null | undefined;
 } & ClassProp) | undefined) => string;
 
