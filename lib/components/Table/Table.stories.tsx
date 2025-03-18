@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Table as TableComponent } from './Table';
 import { Typography } from '../Typography/Typography';
 import { useState } from 'react';
+import { Button } from '../Button/Button';
 
 type Story = StoryObj<typeof TableComponent>;
 
@@ -30,7 +31,9 @@ export const Table = {
           placeholder="Search"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-        />
+        >
+          <Button variant="primary">Add cloud account</Button>
+        </TableComponent.Filter>
 
         <TableComponent className="">
           <TableComponent.Head>
