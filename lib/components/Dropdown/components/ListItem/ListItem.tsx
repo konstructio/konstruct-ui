@@ -14,7 +14,7 @@ export const ListItem: FC<ListItemProps> = ({ theme, ...option }) => {
 
   const handleClick = useCallback(
     (option: Option) => {
-      setValue(option);
+      setValue(option.value);
       toggleOpen(false);
     },
     [setValue, toggleOpen],

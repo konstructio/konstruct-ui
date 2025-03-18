@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { Dropdown as DropdownComponent } from './Dropdown';
 import { useState } from 'react';
-import { Option } from './Dropdown.types';
 
 type Story = StoryObj<typeof DropdownComponent>;
 
@@ -31,12 +30,9 @@ export const Dropdown: Story = {
     isLoading: false,
     theme: 'kubefirst',
     name: 'dropdown',
-    onChange: (option) => {
-      console.log(option);
-    },
   },
   render: (args) => {
-    const [value, setValue] = useState<Option>();
+    const [value, setValue] = useState<string>();
 
     return (
       <>
@@ -45,7 +41,8 @@ export const Dropdown: Story = {
             label="Dropdown with Kubefirst theme"
             {...args}
             onChange={({ target: { value } }) => {
-              setValue(value as unknown as Option);
+              console.log('value', value);
+              setValue(value);
             }}
             value={value}
           />

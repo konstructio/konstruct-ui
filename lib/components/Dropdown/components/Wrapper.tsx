@@ -6,6 +6,7 @@ import {
   useEffect,
   useId,
   useImperativeHandle,
+  useMemo,
   useRef,
 } from 'react';
 import { ChevronUp } from 'react-feather';
@@ -50,11 +51,15 @@ export const Wrapper: ForwardRefExoticComponent<
 
     useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
 
+    const internalValue = useMemo(() => {
+      return options.find(({ value: optionValue }) => optionValue === value);
+    }, [options, value]);
+
     useEffect(() => {
       if (inputRef.current) {
-        inputRef.current.value = value ? value.value : '';
+        inputRef.current.value = value ? (internalValue?.value as string) : '';
       }
-    }, [value]);
+    }, [internalValue, value]);
 
     useEffect(() => {
       if (defaultValue && !value) {
@@ -62,7 +67,7 @@ export const Wrapper: ForwardRefExoticComponent<
           options && options.find((option) => option.value === defaultValue);
 
         if (defaultOption) {
-          setValue(defaultOption);
+          setValue(defaultOption.value);
         }
       }
     }, [defaultValue, options, setValue, value]);
@@ -87,13 +92,13 @@ export const Wrapper: ForwardRefExoticComponent<
     }, [toggleOpen, wrapperRef]);
 
     const getIcon = () => {
-      if (!value?.leftIcon) {
+      if (!internalValue?.leftIcon) {
         return null;
       }
 
       return (
         <span className="w-4 h-4 flex justify-center items-center">
-          {value.leftIcon}
+          {internalValue.leftIcon}
         </span>
       );
     };
@@ -132,7 +137,7 @@ export const Wrapper: ForwardRefExoticComponent<
                 className="flex gap-3 items-center text-zinc-700"
               >
                 {getIcon()}
-                {value.label}
+                {internalValue?.label}
               </Typography>
             ) : (
               <Typography
