@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.12-alpha.15](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.15) (2025-03-18)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.14...0.0.12-alpha.15)
+
+**Merged pull requests:**
+
+- feat: loading state for dropdown and switch fix to match designs [\#155](https://github.com/konstructio/konstruct-ui/pull/155) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.0.12-alpha.14](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.14) (2025-03-18)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.13...0.0.12-alpha.14)
