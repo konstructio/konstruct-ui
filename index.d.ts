@@ -157,6 +157,7 @@ declare interface DropdownProps extends VariantProps<typeof dropdownVariants>, O
     options: Option_3[];
     labelClassName?: string;
     value?: Option_3;
+    isLoading?: boolean;
 }
 
 declare const dropdownVariants: (props?: ({

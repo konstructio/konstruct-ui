@@ -1,4 +1,12 @@
-import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as n}from"./index-dm7SGGLn.js";import{b as e,c as i}from"./index-DnBa1ipr.js";import"./index-DUAV1Q2A.js";import"./iframe-BBcr7pgh.js";import"./index-D5_VCx2I.js";import"./index-CqVsPxxY.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const c=`# Changelog
+import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as n}from"./index-dm7SGGLn.js";import{b as e,c as i}from"./index-0ryVcLGJ.js";import"./index-DUAV1Q2A.js";import"./iframe-BdAIgcuG.js";import"./index-D5_VCx2I.js";import"./index-CqVsPxxY.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const c=`# Changelog
+
+## [0.0.12-alpha.15](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.15) (2025-03-18)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.14...0.0.12-alpha.15)
+
+**Merged pull requests:**
+
+- feat: loading state for dropdown and switch fix to match designs [\\#155](https://github.com/konstructio/konstruct-ui/pull/155) ([CristhianF7](https://github.com/CristhianF7))
 
 ## [0.0.12-alpha.14](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.14) (2025-03-18)
 
