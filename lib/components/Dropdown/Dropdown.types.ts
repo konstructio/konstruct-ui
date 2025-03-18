@@ -17,4 +17,5 @@ export interface DropdownProps
   options: Option[];
   labelClassName?: string;
   value?: Option;
+  isLoading?: boolean;
 }

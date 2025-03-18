@@ -28,6 +28,7 @@ export const Dropdown: Story = {
     placeholder: 'Select an option...',
     required: false,
     labelClassName: '',
+    isLoading: false,
     theme: 'kubefirst',
     name: 'dropdown',
     onChange: (option) => {

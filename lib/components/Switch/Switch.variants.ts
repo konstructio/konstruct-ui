@@ -2,8 +2,8 @@ import { cva } from 'class-variance-authority';
 
 export const switchVariants = cva(
   [
-    'w-12',
-    'h-7',
+    'w-[44px]',
+    'h-[22px]',
     'flex',
     'items-center',
     'rounded-full',
@@ -31,8 +31,8 @@ export const switchVariants = cva(
 export const thumbVariants = cva(
   [
     'block',
-    'w-6',
-    'h-6',
+    'w-[18px]',
+    'h-[18px]',
     'bg-white',
     'rounded-full',
     'shadow-md',

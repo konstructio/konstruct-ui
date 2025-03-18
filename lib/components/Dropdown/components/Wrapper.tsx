@@ -19,6 +19,7 @@ import { useDropdownContext } from '../contexts';
 
 import { List } from './List/List';
 import { Typography } from '@/components/Typography/Typography';
+import { Loading } from '@/components/Loading/Loading';
 
 export const Wrapper: ForwardRefExoticComponent<
   DropdownProps & RefAttributes<ComponentRef<'input'>>
@@ -33,6 +34,7 @@ export const Wrapper: ForwardRefExoticComponent<
       options,
       required,
       defaultValue,
+      isLoading,
     },
     ref,
   ) => {
@@ -142,12 +144,16 @@ export const Wrapper: ForwardRefExoticComponent<
             )}
           </span>
 
-          <ChevronUp
-            className={cn(
-              'w-4 h-4 text-zinc-500 transition-all duration-50',
-              isOpen ? 'rotate-0' : 'rotate-180',
-            )}
-          />
+          {isLoading ? (
+            <Loading className="w-4 h-4 text-zinc-500" />
+          ) : (
+            <ChevronUp
+              className={cn(
+                'w-4 h-4 text-zinc-500 transition-all duration-50',
+                isOpen ? 'rotate-0' : 'rotate-180',
+              )}
+            />
+          )}
         </div>
 
         <input
