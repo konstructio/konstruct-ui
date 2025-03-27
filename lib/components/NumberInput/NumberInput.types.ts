@@ -11,6 +11,6 @@ export interface NumberInputProps
   max?: number;
   min?: number;
   name?: string;
-  value: number;
+  value?: number;
   onChange?: ({ target: { value } }: { target: { value: number } }) => void;
 }
