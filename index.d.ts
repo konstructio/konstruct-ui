@@ -322,11 +322,16 @@ export declare const NumberInput: FC<NumberInputProps>;
 declare interface NumberInputProps extends VariantProps<typeof numberInputVariants> {
     className?: string;
     init?: number;
-    label?: string;
+    label?: string | ReactNode;
     max?: number;
     min?: number;
     name?: string;
-    onChange?: (value: number) => void;
+    value: number;
+    onChange?: ({ target: { value } }: {
+        target: {
+            value: number;
+        };
+    }) => void;
 }
 
 declare const numberInputVariants: (props?: ({
