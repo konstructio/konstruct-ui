@@ -18,13 +18,15 @@ import { listVariants } from './List.variants';
 export const List: ForwardRefExoticComponent<
   ListProps & RefAttributes<ComponentRef<'ul'>>
 > = forwardRef<ComponentRef<'ul'>, ListProps>(
-  ({ options, theme, wrapperRef, wrapperInputRef, name }, ref) => {
+  ({ isLoading, options, theme, wrapperRef, wrapperInputRef, name }, ref) => {
     const ulRef = useRef<ComponentRef<'ul'>>(null);
     const { isOpen } = useDropdownContext();
 
     useImperativeHandle(ref, () => ulRef.current!, [ulRef]);
 
     useNavigationUlList({ ulRef, wrapperRef, wrapperInputRef });
+
+    const isEmpty = options.length === 0;
 
     return (
       <ul
@@ -33,9 +35,30 @@ export const List: ForwardRefExoticComponent<
         role="listbox"
         className={cn(listVariants({ theme }), isOpen ? 'flex' : 'hidden')}
       >
-        {options.map((option) => (
-          <ListItem key={option.value} theme={theme} {...option} />
-        ))}
+        {isLoading ? (
+          <ListItem
+            theme={theme}
+            isClickable={false}
+            value="Loading..."
+            label="Loading..."
+          />
+        ) : isEmpty ? (
+          <ListItem
+            theme={theme}
+            isClickable={false}
+            value="No options"
+            label="No options"
+          />
+        ) : (
+          options.map((option) => (
+            <ListItem
+              key={option.value}
+              theme={theme}
+              isClickable
+              {...option}
+            />
+          ))
+        )}
       </ul>
     );
   },

@@ -176,6 +176,7 @@ export const Wrapper: ForwardRefExoticComponent<
           wrapperRef={wrapperRef}
           wrapperInputRef={wrapperInputRef}
           options={options}
+          isLoading={!!isLoading}
           theme={inheritTheme}
         />
       </div>
