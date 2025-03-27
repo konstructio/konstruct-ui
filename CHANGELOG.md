@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.12-alpha.17](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.17) (2025-03-27)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.16...0.0.12-alpha.17)
+
+**Merged pull requests:**
+
+- fix: number input design [\#161](https://github.com/konstructio/konstruct-ui/pull/161) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.0.12-alpha.16](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.16) (2025-03-18)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.15...0.0.12-alpha.16)
