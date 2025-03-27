@@ -24,7 +24,7 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
       min = Infinity,
       name,
       theme,
-      value: count,
+      value,
       onChange,
     },
     ref,
@@ -33,9 +33,7 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
     const defaultTheme = theme ?? themeContext;
     const id = useId();
 
-    if (typeof count !== 'number') {
-      throw new Error('count must be a number');
-    }
+    const count = value ?? 0;
 
     const handleDecrement = useCallback(() => {
       let newValue: number = 0;

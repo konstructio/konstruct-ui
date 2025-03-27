@@ -13,7 +13,7 @@ const meta: Meta<typeof NumberInputComponent> = {
 
 export const NumberInput: Story = {
   render: (args) => {
-    const [count, setCount] = useState(10);
+    const [count, setCount] = useState<number>(10);
 
     return (
       <div className="w-[350px] flex flex-col gap-4">
