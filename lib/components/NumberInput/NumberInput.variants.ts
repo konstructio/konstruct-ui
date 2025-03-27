@@ -10,14 +10,16 @@ export const numberInputVariants = cva(
     'border-x-0',
     'focus-visible:outline-none',
     'focus-visible:ring-transparent',
-    'p-1',
-    'text-center',
+    'h-9',
+    'max-w-16',
+    'text-right',
+    'px-3',
   ],
   {
     variants: {
       theme: {
-        colony: ['border-red-700', 'text-red-700'],
-        kubefirst: ['border-kubefirst-primary', 'text-kubefirst-primary'],
+        colony: [],
+        kubefirst: [],
         civo: '',
       },
     },
@@ -28,23 +30,25 @@ export const numberInputVariants = cva(
 );
 
 export const buttonVariants = cva(
-  ['p-2', 'items-center', 'justify-center', 'border'],
+  [
+    'h-9',
+    'w-9',
+    'flex',
+    'items-center',
+    'justify-center',
+    'border',
+    'text-slate-400',
+  ],
   {
     variants: {
       theme: {
-        colony: ['border-red-700', 'text-red-700', 'hover:bg-red-50'],
-        kubefirst: [
-          'border-kubefirst-primary',
-          'text-kubefirst-primary',
-          'hover:text-kubefirst-secondary',
-          'hover:border-kubefirst-secondary',
-          'hover:bg-purple-100',
-        ],
+        colony: [],
+        kubefirst: [],
         civo: '',
       },
       button: {
-        left: ['rounded-e-sm'],
-        rigth: ['rounded-s-sm'],
+        left: ['rounded-e'],
+        rigth: ['rounded-s'],
       },
     },
     defaultVariants: {
@@ -53,7 +57,7 @@ export const buttonVariants = cva(
   },
 );
 
-export const labelVariants = cva(['pl-1', 'text-base', 'cursor-pointer'], {
+export const labelVariants = cva(['cursor-pointer'], {
   variants: {
     variant: {
       default: '',
