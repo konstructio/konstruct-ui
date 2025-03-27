@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.12-alpha.20](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.20) (2025-03-27)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.19...0.0.12-alpha.20)
+
+**Merged pull requests:**
+
+- feat: loading and empty states for dropdown [\#163](https://github.com/konstructio/konstruct-ui/pull/163) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.0.12-alpha.19](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.19) (2025-03-27)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.18...0.0.12-alpha.19)
