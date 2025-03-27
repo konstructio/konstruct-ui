@@ -8,7 +8,11 @@ import { ListItemProps } from './ListItem.types';
 import { listItemVariants } from './ListItem.variants';
 import { Typography } from '@/components/Typography/Typography';
 
-export const ListItem: FC<ListItemProps> = ({ theme, ...option }) => {
+export const ListItem: FC<ListItemProps> = ({
+  isClickable,
+  theme,
+  ...option
+}) => {
   const { setValue, toggleOpen } = useDropdownContext();
   const liRef = useRef<ComponentRef<'li'>>(null);
 
@@ -35,7 +39,7 @@ export const ListItem: FC<ListItemProps> = ({ theme, ...option }) => {
       role="option"
       className={cn(listItemVariants({ theme }))}
       tabIndex={0}
-      onClick={() => handleClick(option)}
+      onClick={() => isClickable && handleClick(option)}
       onKeyDown={(event) => handleKeyDown(event, option)}
     >
       {option.leftIcon ? (

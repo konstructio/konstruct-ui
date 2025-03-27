@@ -179,4 +179,28 @@ describe('Dropdown', () => {
 
     expect(option).toBeInTheDocument();
   });
+
+  it('should render the loading state correctly', async () => {
+    const { getComboBox, getElement } = setup({ isLoading: true });
+
+    const comboBox = getComboBox();
+
+    await userEvent.click(comboBox);
+
+    const option = getElement('Loading...');
+
+    expect(option).toBeInTheDocument();
+  });
+
+  it('should render the no options state correctly', async () => {
+    const { getComboBox, getElement } = setup({ options: [] });
+
+    const comboBox = getComboBox();
+
+    await userEvent.click(comboBox);
+
+    const option = getElement('No options');
+
+    expect(option).toBeInTheDocument();
+  });
 });
