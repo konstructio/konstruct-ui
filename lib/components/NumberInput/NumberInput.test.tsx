@@ -4,16 +4,31 @@ import { axe } from 'jest-axe';
 import { NumberInputProps } from './NumberInput.types';
 import { NumberInput } from './NumberInput';
 import userEvent from '@testing-library/user-event';
+import { useState } from 'react';
 
 describe('NumberInput', () => {
   const defaultProps = {
     label: 'Number Input',
     init: 0,
+    value: 0,
   } satisfies NumberInputProps;
+
+  const Wrapper = ({ ...delegated }: NumberInputProps) => {
+    const [count, setCount] = useState(0);
+
+    return (
+      <NumberInput
+        {...defaultProps}
+        {...delegated}
+        value={count}
+        onChange={({ target: { value } }) => setCount(value)}
+      />
+    );
+  };
 
   const setup = (props?: Partial<NumberInputProps>) => {
     const { container: component } = render(
-      <NumberInput {...defaultProps} {...props} />,
+      <Wrapper {...defaultProps} {...props} />,
     );
 
     const user = userEvent.setup();

@@ -1,5 +1,5 @@
 import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import { FC, forwardRef, useCallback, useId, useState } from 'react';
+import { FC, forwardRef, useCallback, useId } from 'react';
 import { Minus, Plus } from 'react-feather';
 
 import { useTheme } from '../../contexts';
@@ -19,12 +19,12 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
   (
     {
       className,
-      init,
       label,
       max = -Infinity,
       min = Infinity,
       name,
       theme,
+      value: count,
       onChange,
     },
     ref,
@@ -32,13 +32,6 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
     const { theme: themeContext } = useTheme();
     const defaultTheme = theme ?? themeContext;
     const id = useId();
-    const [count, setCount] = useState(() => {
-      if (!init) {
-        return 0;
-      }
-
-      return init;
-    });
 
     const handleDecrement = useCallback(() => {
       let newValue: number = 0;
@@ -49,8 +42,7 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
         newValue = Math.max(min, count - 1);
       }
 
-      setCount(newValue);
-      onChange?.(newValue);
+      onChange?.({ target: { value: newValue } });
     }, [count, min, onChange]);
 
     const handleIncrement = useCallback(() => {
@@ -62,8 +54,7 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
         newValue = Math.min(max, count + 1);
       }
 
-      setCount(newValue);
-      onChange?.(newValue);
+      onChange?.({ target: { value: newValue } });
     }, [count, max, onChange]);
 
     return (
@@ -102,7 +93,7 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
               numberInputVariants({ className, theme: defaultTheme }),
             )}
             readOnly
-            aria-label={label}
+            aria-label={typeof label === 'string' ? label : 'number input'}
           />
 
           <button
