@@ -326,7 +326,7 @@ declare interface NumberInputProps extends VariantProps<typeof numberInputVarian
     max?: number;
     min?: number;
     name?: string;
-    value: number;
+    value?: number;
     onChange?: ({ target: { value } }: {
         target: {
             value: number;
