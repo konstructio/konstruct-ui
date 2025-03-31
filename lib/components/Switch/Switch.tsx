@@ -2,12 +2,10 @@ import { Root, Thumb } from '@radix-ui/react-switch';
 import {
   FC,
   forwardRef,
-  useCallback,
   useEffect,
   useId,
   useImperativeHandle,
   useRef,
-  useState,
 } from 'react';
 
 import { useTheme } from '../../contexts';
@@ -23,16 +21,17 @@ export const Switch: FC<SwitchProps> = forwardRef<
   (
     {
       name,
-      defaultChecked,
       alignment = 'horizontal',
       theme,
       thumbClassName,
       className,
       label,
+      defaultChecked,
+      onChange,
+      value,
     },
     ref,
   ) => {
-    const [isActive, setIsActive] = useState<boolean>(defaultChecked ?? false);
     const inputRef = useRef<HTMLInputElement>(null);
     const id = useId();
     const { theme: contextTheme } = useTheme();
@@ -43,14 +42,9 @@ export const Switch: FC<SwitchProps> = forwardRef<
 
     useEffect(() => {
       if (inputRef.current) {
-        inputRef.current.value = `${isActive}`;
+        inputRef.current.value = `${value}`;
       }
-    }, [isActive]);
-
-    const handleChange = useCallback(
-      (value: boolean) => setIsActive(value),
-      [],
-    );
+    }, [value]);
 
     return (
       <div
@@ -72,7 +66,8 @@ export const Switch: FC<SwitchProps> = forwardRef<
         <Root
           id={componentId}
           defaultChecked={defaultChecked}
-          onCheckedChange={handleChange}
+          checked={value}
+          onCheckedChange={(e) => onChange?.(e)}
           className={cn(switchVariants({ theme: inheritTheme, className }))}
           aria-label={label}
         >

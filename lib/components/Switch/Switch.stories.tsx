@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Switch as SwitchComponent } from './Switch';
+import { useState } from 'react';
 
 type Story = StoryObj<typeof SwitchComponent>;
 
@@ -11,15 +12,27 @@ const meta: Meta<typeof SwitchComponent> = {
 
 export const Switch: Story = {
   args: {
-    defaultChecked: true,
+    value: true,
   },
-  render: (args) => (
-    <div className="max-w-[350px]">
-      <SwitchComponent label="Kubefirst theme" {...args} />
-      <div className="mt-5" />
-      <SwitchComponent label="Colony theme" theme="colony" {...args} />
-    </div>
-  ),
+  render: (args) => {
+    const [value, setValue] = useState(true);
+
+    const handleChange = (e: boolean) => {
+      console.log('e', e);
+      setValue(e);
+    };
+
+    return (
+      <div className="max-w-[350px]">
+        <SwitchComponent
+          label="Kubefirst theme"
+          {...args}
+          value={value}
+          onChange={handleChange}
+        />
+      </div>
+    );
+  },
 };
 
 export default meta;

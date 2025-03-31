@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from 'react';
+import React, { FC, PropsWithChildren, useState } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
@@ -8,7 +8,6 @@ import { Switch } from './Switch';
 
 describe('Switch', () => {
   const defaultProps = {
-    defaultChecked: false,
     label: 'Switch',
   } satisfies SwitchProps;
 
@@ -50,7 +49,8 @@ describe('Switch', () => {
   it('should activate the switch when the user has been clicked on it', async () => {
     const handleSubmit = vitest.fn();
 
-    const Wrapper: FC<PropsWithChildren> = ({ children }) => {
+    const Wrapper: FC<PropsWithChildren> = ({ children, ...props }) => {
+      const [value, setValue] = useState(false);
       return (
         <form
           onSubmit={(e) => {
@@ -60,7 +60,11 @@ describe('Switch', () => {
             handleSubmit(data);
           }}
         >
-          {children}
+          {React.cloneElement(children as React.ReactElement<SwitchProps>, {
+            ...props,
+            value,
+            onChange: (value: boolean) => setValue(value),
+          })}
           <button type="submit">Submit</button>
         </form>
       );
@@ -83,23 +87,29 @@ describe('Switch', () => {
   it('should send the switch false value when the user has been submitted the form without change the switch status', async () => {
     const handleSubmit = vitest.fn();
 
-    const Wrapper: FC<PropsWithChildren> = ({ children }) => {
+    const Wrapper: FC<PropsWithChildren> = ({ children, ...props }) => {
+      const [value, setValue] = useState(false);
       return (
         <form
           onSubmit={(e) => {
             e.preventDefault();
             const formData = new FormData(e.currentTarget);
             const data = Object.fromEntries(formData.entries());
+            console.log(data);
             handleSubmit(data);
           }}
         >
-          {children}
+          {React.cloneElement(children as React.ReactElement<SwitchProps>, {
+            ...props,
+            value,
+            onChange: (value: boolean) => setValue(value),
+          })}
           <button type="submit">Submit</button>
         </form>
       );
     };
 
-    const { user } = setup({ name: 'switch', defaultChecked: false }, Wrapper);
+    const { user } = setup({ name: 'switch' }, Wrapper);
 
     const button = screen.getByRole('button', {
       name: /submit/i,
