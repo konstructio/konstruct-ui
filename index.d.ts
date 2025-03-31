@@ -492,10 +492,12 @@ export declare const Switch: FC<SwitchProps>;
 declare interface SwitchProps extends VariantProps<typeof switchVariants> {
     alignment?: 'horizontal' | 'vertical';
     className?: string;
-    defaultChecked?: boolean;
     label?: string;
     name?: string;
     thumbClassName?: string;
+    onChange?: (e: boolean) => void;
+    value?: boolean;
+    defaultChecked?: boolean;
 }
 
 declare const switchVariants: (props?: ({
