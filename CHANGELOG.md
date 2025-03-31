@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.12-alpha.21](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.21) (2025-03-31)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.20...0.0.12-alpha.21)
+
+**Merged pull requests:**
+
+- fix: switch [\#168](https://github.com/konstructio/konstruct-ui/pull/168) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.0.12-alpha.20](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.20) (2025-03-27)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.19...0.0.12-alpha.20)
