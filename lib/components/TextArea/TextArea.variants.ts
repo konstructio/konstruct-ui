@@ -13,7 +13,7 @@ export const textAreaVariants = cva(
     'placeholder:text-gray-300',
     'resize-none',
     'rounded-md',
-    'shadow-sm',
+    'shadow-xs',
     'w-full',
   ],
   {

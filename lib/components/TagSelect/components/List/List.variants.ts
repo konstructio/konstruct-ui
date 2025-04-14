@@ -10,15 +10,15 @@ export const wrapperVariants = cva(
     'flex-col',
     'mt-0.5',
     'rounded',
-    'shadow-sm',
+    'shadow-xs',
     'top-full',
     'transition-all',
     'w-full',
     'z-10',
     'animate-in',
-    'fade-in-60',
-    'zoom-in-95',
+    'fade-in-50',
     'overflow-hidden',
+    'border-gray-200',
   ],
   {
     variants: {

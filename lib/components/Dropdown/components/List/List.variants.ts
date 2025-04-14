@@ -18,6 +18,7 @@ export const listVariants = cva(
     'z-10',
     'max-h-[185px]',
     'overflow-y-auto',
+    'border-gray-200',
   ],
   {
     variants: {
