@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 
-import { useTheme } from '../../contexts';
-import { cn } from '../../utils';
+import { useTheme } from '@/contexts';
+import { cn } from '@/utils';
 
-import { ProgressBarProps } from './ProgressBar.types';
+import type { ProgressBarProps } from './ProgressBar.types';
 import {
   progressBarProgress,
   progressBarVariants,

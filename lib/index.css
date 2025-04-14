@@ -1,6 +1,6 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import 'tailwindcss';
+@import './styles/theme.css';
+@import './styles/utilities.css';
 
 html {
   -webkit-font-smoothing: antialiased;

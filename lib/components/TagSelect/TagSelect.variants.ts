@@ -43,6 +43,7 @@ export const tagSelectVariants = cva(
     'rounded',
     'transition-all',
     'w-full',
+    'border-gray-200',
   ],
   {
     variants: {

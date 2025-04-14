@@ -35,7 +35,7 @@ export const progressBarProgress = cva(
       {
         status: 'progress',
         theme: 'kubefirst',
-        class: ['bg-kubefirst-gradient'],
+        class: ['bg-linear-to-r from-[#81e2b4] to-kubefirst-primary'],
       },
       {
         status: 'success',
@@ -45,7 +45,7 @@ export const progressBarProgress = cva(
       {
         status: 'progress',
         theme: 'colony',
-        class: ['bg-kubefirst-gradient'],
+        class: ['bg-linear-to-r from-[#81e2b4] to-kubefirst-primary'],
       },
     ],
     defaultVariants: {

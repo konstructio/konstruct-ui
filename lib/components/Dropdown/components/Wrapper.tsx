@@ -11,16 +11,17 @@ import {
 } from 'react';
 import { ChevronUp } from 'react-feather';
 
-import { cn } from '../../../utils';
-import { useTheme } from '../../../contexts';
+import { Loading } from '@/components/Loading/Loading';
+import { Typography } from '@/components/Typography/Typography';
+import { useTheme } from '@/contexts';
+import { cn } from '@/utils';
+
+import { useDropdownContext } from '../contexts';
 import { DropdownProps } from '../Dropdown.types';
 import { dropdownVariants, labelVariants } from '../Dropdown.variants';
 import { useDropdown } from '../hooks/useDropdown';
-import { useDropdownContext } from '../contexts';
 
 import { List } from './List/List';
-import { Typography } from '@/components/Typography/Typography';
-import { Loading } from '@/components/Loading/Loading';
 
 export const Wrapper: ForwardRefExoticComponent<
   DropdownProps & RefAttributes<ComponentRef<'input'>>

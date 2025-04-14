@@ -8,8 +8,8 @@ import {
   useRef,
 } from 'react';
 
-import { useTheme } from '../../contexts';
-import { cn } from '../../utils';
+import { useTheme } from '@/contexts';
+import { cn } from '@/utils';
 
 import { SwitchProps } from './Switch.types';
 import { switchVariants, thumbVariants } from './Switch.variants';

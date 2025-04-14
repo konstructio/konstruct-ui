@@ -39,8 +39,8 @@ export const AlertDialog: FC<AlertDialogProps> = ({
       <AlertDialogTrigger text={buttonText} theme={theme} onOpen={handleOpen} />
 
       <Portal>
-        <Overlay className="bg-black opacity-75 inset-0 fixed" />
-        <Content className="bg-white rounded-md fixed top-1/2 left-1/2 -translate-y-2/4 -translate-x-2/4 flex flex-col gap-8 p-6">
+        <Overlay className="bg-black opacity-75 inset-0 fixed animate-in fade-in-0" />
+        <Content className="bg-white rounded-md fixed top-1/2 left-1/2 -translate-y-2/4 -translate-x-2/4 flex flex-col gap-8 p-6 animate-in fade-in-0 zoom-in-85">
           <Title className="font-bold text-center text-2xl">{title}</Title>
 
           <Description>{description}</Description>

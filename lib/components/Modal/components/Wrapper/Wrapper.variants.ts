@@ -15,6 +15,9 @@ export const modalVariants = cva(
     'rounded-md',
     'shadow-xs',
     'lg:overflow-hidden',
+    'animate-in',
+    'fade-in-0',
+    'zoom-in-85',
   ],
   {
     variants: {
@@ -31,7 +34,7 @@ export const modalVariants = cva(
 );
 
 export const buttonCloseVariants = cva(
-  ['absolute', 'right-1.5', 'top-1.5', 'text-inherit'],
+  ['absolute', 'right-1.5', 'top-1.5', 'text-inherit', 'cursor-pointer'],
   {
     variants: {
       theme: {

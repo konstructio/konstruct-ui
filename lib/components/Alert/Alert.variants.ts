@@ -54,7 +54,15 @@ export const alertVariants = cva(
 );
 
 export const closeButtonVariants = cva(
-  ['w-4', 'h-4', 'absolute', 'right-2', 'top-2', 'text-inherit'],
+  [
+    'w-4',
+    'h-4',
+    'absolute',
+    'right-2',
+    'top-2',
+    'text-inherit',
+    'cursor-pointer',
+  ],
   {
     variants: {
       theme: {

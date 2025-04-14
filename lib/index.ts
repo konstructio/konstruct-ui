@@ -4,5 +4,3 @@ export * from './components';
 export * from './contexts';
 // Hooks
 export * from './hooks';
-// Plugins
-export * from './plugins';

@@ -13,6 +13,7 @@ export const switchVariants = cva(
     'transition-all',
     'delay-10',
     'duration-250',
+    'cursor-pointer',
   ],
   {
     variants: {
@@ -38,7 +39,7 @@ export const thumbVariants = cva(
     'shadow-md',
     'transition-all',
     'translate-x-1',
-    'data-[state=checked]:translate-x-5',
+    'data-[state=checked]:translate-x-5.5',
     'delay-10',
     'duration-300',
   ],

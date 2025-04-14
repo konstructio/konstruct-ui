@@ -46,7 +46,7 @@ export const Wrapper: FC<WrapperProps> = ({
       <RemoveScroll>
         <div className="fixed inset-0 grid place-content-center">
           <div
-            className="absolute inset-0 bg-black opacity-75"
+            className="absolute inset-0 bg-black opacity-75 animate-in fade-in-0"
             onClick={onClose}
             role="presentation"
           />

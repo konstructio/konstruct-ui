@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import { glob } from 'glob';
 import { extname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import tailwindcss from 'tailwindcss';
+import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import { libInjectCss } from 'vite-plugin-lib-inject-css';
@@ -12,6 +12,7 @@ import { libInjectCss } from 'vite-plugin-lib-inject-css';
 export default defineConfig({
   plugins: [
     react(),
+    tailwindcss(),
     libInjectCss(),
     dts({
       include: ['lib'],
@@ -20,11 +21,6 @@ export default defineConfig({
       rollupTypes: true,
     }),
   ],
-  css: {
-    postcss: {
-      plugins: [tailwindcss()],
-    },
-  },
   build: {
     copyPublicDir: false,
     lib: {

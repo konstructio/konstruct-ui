@@ -16,8 +16,8 @@ const config = {
     name: '@storybook/react-vite',
     options: {},
   },
-  viteFinal: async (config) => {
-    return mergeConfig(config, {
+  viteFinal: (config) =>
+    mergeConfig(config, {
       plugins: [
         tsconfigPaths(),
         svgr({
@@ -27,8 +27,7 @@ const config = {
           },
         }),
       ],
-    });
-  },
+    }),
 } satisfies StorybookConfig;
 
 export default config;

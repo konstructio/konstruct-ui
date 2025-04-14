@@ -34,7 +34,7 @@ export const TagSelect: Story = {
         {...args}
         label="Select tag with kubefirst theme multiselect"
       />
-      <div className="border-t my-3" />
+      <div className="border-t my-3 border-gray-200" />
       <TagSelectComponent
         {...args}
         label="Select tag with kubefirst theme"

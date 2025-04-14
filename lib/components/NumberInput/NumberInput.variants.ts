@@ -14,6 +14,7 @@ export const numberInputVariants = cva(
     'max-w-16',
     'text-right',
     'px-3',
+    'border-gray-200',
   ],
   {
     variants: {
@@ -38,6 +39,7 @@ export const buttonVariants = cva(
     'justify-center',
     'border',
     'text-slate-400',
+    'border-gray-200',
   ],
   {
     variants: {
