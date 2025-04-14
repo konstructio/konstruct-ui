@@ -39,7 +39,7 @@
   },
   "homepage": "https://konstructio.github.io/konstruct-ui",
   "scripts": {
-    "build": "rimraf ./dist & tsc --p ./tsconfig.build.json && vite build && cp ./package.json ./dist/package.json && cp ./lib/theme.css ./dist/theme.css",
+    "build": "rimraf ./dist & tsc --p ./tsconfig.build.json && vite build && chmod +x scripts/copy.sh && ./scripts/copy.sh",
     "build:storybook": "storybook build -o storybook-static && cp -r public/* storybook-static",
     "check:prettier": "prettier lib --check --config ./.prettierrc",
     "check:types": "tsc -p tsconfig.json",
