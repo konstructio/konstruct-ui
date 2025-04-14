@@ -18,7 +18,6 @@ export const Switch: Story = {
     const [value, setValue] = useState(true);
 
     const handleChange = (e: boolean) => {
-      console.log('e', e);
       setValue(e);
     };
 

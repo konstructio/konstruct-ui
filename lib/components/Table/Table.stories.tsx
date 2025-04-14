@@ -57,10 +57,7 @@ export const Table = {
           </TableComponent.Head>
           <TableComponent.Body>
             {filteredData.map((item) => (
-              <TableComponent.Row
-                key={item.name}
-                onSelect={() => console.log('selected', item)}
-              >
+              <TableComponent.Row key={item.name}>
                 <td>
                   <Typography variant="body2">{item.name}</Typography>
                 </td>

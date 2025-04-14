@@ -41,7 +41,6 @@ export const Dropdown: Story = {
             label="Dropdown with Kubefirst theme"
             {...args}
             onChange={({ target: { value } }) => {
-              console.log('value', value);
               setValue(value);
             }}
             value={value}
