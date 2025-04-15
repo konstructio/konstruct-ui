@@ -1,28 +1,19 @@
-import { FunctionComponent } from 'react';
+import { FC } from 'react';
+
+import { cn } from '@/utils';
+
 import { BodyProps } from '../Table.types';
 import { bodyVariants } from '../Table.variants';
-import { cn } from '@/utils';
-import { useTheme } from '@/contexts';
 
-export const Body: FunctionComponent<BodyProps> = ({
-  children,
-  className,
-  theme,
-  ...delegated
-}) => {
-  const { theme: themeContext } = useTheme();
-
-  return (
-    <tbody
-      className={cn(
-        bodyVariants({
-          className,
-          theme: theme ?? themeContext,
-        }),
-      )}
-      {...delegated}
-    >
-      {children}
-    </tbody>
-  );
-};
+export const Body: FC<BodyProps> = ({ children, className, ...delegated }) => (
+  <tbody
+    className={cn(
+      bodyVariants({
+        className,
+      }),
+    )}
+    {...delegated}
+  >
+    {children}
+  </tbody>
+);

@@ -1,27 +1,13 @@
 import { cva } from 'class-variance-authority';
 
-export const tableVariants = cva(
-  [
-    'table-auto',
-    'w-full',
-    'border-collapse',
-    'border-spacing-0',
-    'rounded',
-    'shadow-sm',
-  ],
-  {
-    variants: {
-      theme: {
-        kubefirst: '',
-        colony: '',
-        civo: '',
-      },
-    },
-    defaultVariants: {
-      theme: 'kubefirst',
-    },
-  },
-);
+export const tableVariants = cva([
+  'table-auto',
+  'w-full',
+  'border-collapse',
+  'border-spacing-0',
+  'rounded',
+  'shadow-sm',
+]);
 
 export const rowVariants = cva(
   [
@@ -35,11 +21,6 @@ export const rowVariants = cva(
   ],
   {
     variants: {
-      theme: {
-        kubefirst: '',
-        colony: '',
-        civo: '',
-      },
       isSelected: {
         true: 'bg-purple-50',
         false: '',
@@ -48,31 +29,13 @@ export const rowVariants = cva(
   },
 );
 
-export const headVariants = cva(
-  [
-    'h-[18px]',
-    'bg-slate-100',
-    '[&>tr>th]:py-3',
-    '[&>tr>th]:px-4',
-    '[&>tr>th]:uppercase',
-    'text-left',
-  ],
-  {
-    variants: {
-      theme: {
-        kubefirst: '',
-        colony: '',
-        civo: '',
-      },
-    },
-  },
-);
-export const bodyVariants = cva([], {
-  variants: {
-    theme: {
-      kubefirst: '',
-      colony: '',
-      civo: '',
-    },
-  },
-});
+export const headVariants = cva([
+  'h-[18px]',
+  'bg-slate-100',
+  '[&>tr>th]:py-3',
+  '[&>tr>th]:px-4',
+  '[&>tr>th]:uppercase',
+  'text-left',
+]);
+
+export const bodyVariants = cva([]);
