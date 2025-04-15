@@ -1,3 +1,5 @@
+'use client';
+import { Slot } from '@radix-ui/react-slot';
 import {
   FC,
   forwardRef,
@@ -6,10 +8,8 @@ import {
   useMemo,
   useRef,
 } from 'react';
-import { Slot } from '@radix-ui/react-slot';
 
-import { useTheme } from '../../contexts';
-import { cn } from '../../utils';
+import { cn } from '@/utils';
 
 import { TooltipProps } from './Tooltip.types';
 import { arrowVariants, tooltipVariants } from './Tooltip.variants';
@@ -21,8 +21,6 @@ export const Tooltip: FC<TooltipProps> = forwardRef<HTMLElement, TooltipProps>(
     ref,
   ) => {
     const tooltipRef = useRef(null);
-    const { theme: themeContext } = useTheme();
-    const inheritTheme = theme ?? themeContext;
     const { isVisible, componentRef } = useTooltip();
 
     useImperativeHandle(ref, () => componentRef.current!, [componentRef]);
@@ -34,7 +32,7 @@ export const Tooltip: FC<TooltipProps> = forwardRef<HTMLElement, TooltipProps>(
     );
 
     return (
-      <div className={cn('w-full', wrapperClassName)}>
+      <div className={cn('w-full', wrapperClassName)} data-theme={theme}>
         <div className="relative w-max">
           <Slot ref={componentRef} className={cn('cursor-pointer ', className)}>
             {newChildren}
@@ -42,12 +40,10 @@ export const Tooltip: FC<TooltipProps> = forwardRef<HTMLElement, TooltipProps>(
 
           <div
             ref={tooltipRef}
-            className={cn(tooltipVariants({ theme: inheritTheme, position }))}
+            className={cn(tooltipVariants({ position }))}
             data-visible={isVisible}
           >
-            <span
-              className={cn(arrowVariants({ theme: inheritTheme, position }))}
-            />
+            <span className={cn(arrowVariants({ position }))} />
             <Slot>{content}</Slot>
           </div>
         </div>
