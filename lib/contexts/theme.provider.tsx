@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useState } from 'react';
+import { FC, PropsWithChildren, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 
 import { isClient } from '../utils';
@@ -21,7 +21,13 @@ export const ThemeProvider: FC<ThemeContextProps> = ({
     if (isClient) {
       return Cookies.get('konstruct-theme') as ThemeContextType['theme'];
     }
+
+    return 'kubefirst';
   });
+
+  useEffect(() => {
+    document.querySelector('body')?.setAttribute('data-theme', theme!);
+  }, [theme]);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>

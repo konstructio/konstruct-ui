@@ -1,9 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState, ReactNode } from 'react';
+
+import { ThemeProvider, useTheme } from '@/contexts';
+import { Theme } from '@/domain/theme';
+
+import { Button } from '@/components/Button/Button';
 
 import { Modal as ModalComponent } from './Modal';
-import { Button } from '../Button/Button';
-import { Theme, ThemeProvider, useTheme } from '../../contexts';
-import { useState, ReactNode } from 'react';
 
 type Story = StoryObj<typeof ModalComponent>;
 

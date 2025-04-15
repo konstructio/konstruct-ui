@@ -1,8 +1,7 @@
 import { ComponentRef, FC, forwardRef } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 
-import { cn } from '../../utils';
-import { useTheme } from '../../contexts';
+import { cn } from '@/utils';
 
 import { buttonVariants } from './Button.variants';
 import { ButtonProps } from './Button.types';
@@ -22,17 +21,15 @@ const Button: FC<ButtonProps> = forwardRef<ComponentRef<'button'>, ButtonProps>(
     ref,
   ) => {
     const Comp = asChild ? Slot : 'button';
-    const { theme: themeContext } = useTheme();
-    const inheritTheme = theme ?? themeContext;
 
     return (
       <Comp
         ref={ref}
+        data-theme={theme}
         className={cn(
           buttonVariants({
             variant,
             disabled,
-            theme: inheritTheme,
             size,
             className,
             version,
