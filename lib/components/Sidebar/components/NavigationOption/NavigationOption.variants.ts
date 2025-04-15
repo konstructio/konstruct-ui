@@ -18,20 +18,14 @@ export const navigationOptionVariants = cva(
     'p-2',
     'text-black',
     'w-full',
+    'text-[#9ea2c6]',
+    'hover:text-white',
+    'hover:bg-[#252a41]',
+    'selection:bg-powder-500',
+    'selection:text-white',
   ],
   {
     variants: {
-      theme: {
-        colony: '',
-        kubefirst: [
-          'text-[#9ea2c6]',
-          'hover:text-white',
-          'hover:bg-[#252a41]',
-          'selection:bg-powder-500',
-          'selection:text-white',
-        ],
-        civo: '',
-      },
       isActive: {
         true: '',
         false: '',
@@ -39,13 +33,9 @@ export const navigationOptionVariants = cva(
     },
     compoundVariants: [
       {
-        theme: 'kubefirst',
         isActive: true,
         class: ['text-white', 'bg-[#252a41]'],
       },
     ],
-    defaultVariants: {
-      theme: 'kubefirst',
-    },
   },
 );

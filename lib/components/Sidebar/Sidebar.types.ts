@@ -1,6 +1,8 @@
 import { VariantProps } from 'class-variance-authority';
 import { FC, PropsWithChildren } from 'react';
 
+import { Theme } from '@/domain/theme';
+
 import { wrapperSiderbarVariants } from './Sidebar.variants';
 import {
   FooterProps,
@@ -18,6 +20,7 @@ export interface SidebarProps
   minWith?: number;
   maxWith?: number;
   canResize?: boolean;
+  theme?: Theme;
 }
 
 export type SidebarChildrenProps = {

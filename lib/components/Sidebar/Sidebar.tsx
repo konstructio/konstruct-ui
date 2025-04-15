@@ -1,6 +1,5 @@
+'use client';
 import { FC } from 'react';
-
-import { ThemeProvider } from '@/contexts';
 
 import {
   Footer,
@@ -14,9 +13,7 @@ import {
 import { SidebarChildrenProps, SidebarProps } from './Sidebar.types';
 
 const Sidebar: FC<SidebarProps> & SidebarChildrenProps = (props) => (
-  <ThemeProvider>
-    <Wrapper {...props} />
-  </ThemeProvider>
+  <Wrapper {...props} />
 );
 
 Sidebar.Footer = Footer;

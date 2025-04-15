@@ -6,19 +6,15 @@ import { NavigationTitle } from '../NavigationTitle/NavigationTitle';
 
 import { NavigationGroupProps } from './NavigationGroup.types';
 import { navigationGroupsVariants } from './NavigationGroup.variants';
-import { useTheme } from '@/contexts';
 
 export const NavigationGroup: FC<NavigationGroupProps> = ({
   children,
   title,
   className,
-  theme,
   titleClassName,
   isVisible = true,
   ...delegated
 }) => {
-  const { theme: contextTheme } = useTheme();
-
   if (!isVisible) {
     return null;
   }
@@ -33,11 +29,7 @@ export const NavigationGroup: FC<NavigationGroupProps> = ({
         />
       ) : null}
 
-      <ul
-        className={cn(
-          navigationGroupsVariants({ theme: theme ?? contextTheme, className }),
-        )}
-      >
+      <ul className={cn(navigationGroupsVariants({ className }))}>
         {children}
       </ul>
     </>
