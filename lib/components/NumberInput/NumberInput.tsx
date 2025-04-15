@@ -1,9 +1,9 @@
+'use client';
 import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { FC, forwardRef, useCallback, useId } from 'react';
 import { Minus, Plus } from 'react-feather';
 
-import { useTheme } from '../../contexts';
-import { cn } from '../../utils';
+import { cn } from '@/utils';
 
 import { NumberInputProps } from './NumberInput.types';
 import {
@@ -29,8 +29,6 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
     },
     ref,
   ) => {
-    const { theme: themeContext } = useTheme();
-    const defaultTheme = theme ?? themeContext;
     const id = useId();
 
     const count = value ?? 0;
@@ -60,16 +58,9 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
     }, [count, max, onChange]);
 
     return (
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1" data-theme={theme}>
         {label ? (
-          <label
-            htmlFor={name ?? id}
-            className={cn(
-              labelVariants({
-                theme: defaultTheme,
-              }),
-            )}
-          >
+          <label htmlFor={name ?? id} className={cn(labelVariants())}>
             {label}
           </label>
         ) : null}
@@ -78,9 +69,7 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
           <button
             type="button"
             onClick={handleDecrement}
-            className={cn(
-              buttonVariants({ theme: defaultTheme, button: 'rigth' }),
-            )}
+            className={cn(buttonVariants({ button: 'rigth' }))}
           >
             <Minus className="w-4 h-4" />
             <VisuallyHidden>Decrement</VisuallyHidden>
@@ -91,9 +80,7 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
             type="number"
             value={count}
             name={name}
-            className={cn(
-              numberInputVariants({ className, theme: defaultTheme }),
-            )}
+            className={cn(numberInputVariants({ className }))}
             readOnly
             aria-label={typeof label === 'string' ? label : 'number input'}
           />
@@ -101,9 +88,7 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
           <button
             type="button"
             onClick={handleIncrement}
-            className={cn(
-              buttonVariants({ theme: defaultTheme, button: 'left' }),
-            )}
+            className={cn(buttonVariants({ button: 'left' }))}
           >
             <Plus className="w-4 h-4" />
             <VisuallyHidden>Increment</VisuallyHidden>

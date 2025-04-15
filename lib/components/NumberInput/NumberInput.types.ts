@@ -1,5 +1,7 @@
-import { ReactNode } from 'react';
 import { VariantProps } from 'class-variance-authority';
+import { ReactNode } from 'react';
+
+import { Theme } from '@/domain/theme';
 
 import { numberInputVariants } from './NumberInput.variants';
 
@@ -12,5 +14,6 @@ export interface NumberInputProps
   min?: number;
   name?: string;
   value?: number;
+  theme?: Theme;
   onChange?: ({ target: { value } }: { target: { value: number } }) => void;
 }
