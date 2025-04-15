@@ -8,5 +8,9 @@ import { HeaderProps } from './Header.types';
 export const Header: FC<HeaderProps> = ({ children, asChild, className }) => {
   const Component = asChild ? Slot : 'div';
 
-  return <Component className={cn(className)}>{children}</Component>;
+  return (
+    <Component className={cn('border-zinc-200', className)}>
+      {children}
+    </Component>
+  );
 };
