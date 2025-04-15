@@ -1,9 +1,8 @@
-import { VariantProps } from 'class-variance-authority';
+import { Theme } from '@/domain/theme';
 
-import { buttonAlertDialogVariants } from '../AlertDialog.variants';
-
-export interface AlertDialogTriggerProps
-  extends VariantProps<typeof buttonAlertDialogVariants> {
+export interface AlertDialogTriggerProps {
+  'data-theme'?: Theme;
+  className?: string;
   text?: string;
   onOpen(): void;
 }

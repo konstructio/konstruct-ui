@@ -131,7 +131,7 @@
 
 @utility animate-in {
   animation-name: var(--animate-enter);
-  animation-duration: 0.3s;
+  animation-duration: var(--tw-duration, 300ms);
   --tw-enter-opacity: initial;
   --tw-enter-scale: initial;
   --tw-enter-rotate: initial;
@@ -141,7 +141,7 @@
 
 @utility animate-out {
   animation-name: var(--animate-exit);
-  animation-duration: 0.3s;
+  animation-duration: var(--tw-duration, 300ms);
   --tw-exit-opacity: initial;
   --tw-exit-scale: initial;
   --tw-exit-rotate: initial;

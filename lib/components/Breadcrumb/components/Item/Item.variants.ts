@@ -4,11 +4,6 @@ export const breadcrumbItemVariants = cva(
   ['group', 'font-semibold', 'text-inherit'],
   {
     variants: {
-      theme: {
-        kubefirst: '',
-        colony: '',
-        civo: '',
-      },
       size: {
         sm: 'text-xs',
         base: 'text-sm',
@@ -17,7 +12,6 @@ export const breadcrumbItemVariants = cva(
       },
     },
     defaultVariants: {
-      theme: 'kubefirst',
       size: 'base',
     },
   },
@@ -25,18 +19,12 @@ export const breadcrumbItemVariants = cva(
 
 export const breadcrumbLinkVariants = cva(['text-inherit'], {
   variants: {
-    theme: {
-      kubefirst: '',
-      colony: '',
-      civo: '',
-    },
     isActive: {
       true: '',
       false: ['text-slate-400', 'cursor-auto'],
     },
   },
   defaultVariants: {
-    theme: 'kubefirst',
     isActive: true,
   },
   compoundVariants: [
@@ -45,7 +33,7 @@ export const breadcrumbLinkVariants = cva(['text-inherit'], {
       class: [
         'group-focus-within:no-underline',
         'group-focus-within:outline',
-        'group-focus-within:outline-8',
+        'group-focus-within:outline-2',
         'group-focus-within:outline-offset-4',
         'group-focus-within:outline-slate-500',
         'group-focus-within:rounded-sm',
@@ -59,7 +47,7 @@ export const breadcrumbLinkVariants = cva(['text-inherit'], {
       class: [
         'group-focus-within:no-underline',
         'group-focus-within:outline',
-        'group-focus-within:outline-8',
+        'group-focus-within:outline-2',
         'group-focus-within:outline-offset-4',
         'group-focus-within:outline-slate-500',
         'group-focus-within:rounded-sm',
@@ -73,18 +61,12 @@ export const breadcrumbLinkVariants = cva(['text-inherit'], {
 
 export const breadcrumbLabelVariants = cva(['text-inherit'], {
   variants: {
-    theme: {
-      kubefirst: '',
-      colony: '',
-      civo: '',
-    },
     isActive: {
       true: '',
       false: ['text-slate-400'],
     },
   },
   defaultVariants: {
-    theme: 'kubefirst',
     isActive: true,
   },
 });

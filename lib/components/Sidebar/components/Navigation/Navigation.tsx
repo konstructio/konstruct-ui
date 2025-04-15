@@ -1,6 +1,5 @@
 import { FC } from 'react';
 
-import { useTheme } from '@/contexts';
 import { cn } from '@/utils';
 
 import { NavigationGroup } from '../NavigationGroup/NavigationGroup';
@@ -13,21 +12,8 @@ import { navigationVariants } from './Navigation.variants';
 
 const Navigation: FC<NavigationProps> & NavigationChildrenProps = ({
   className,
-  theme,
   children,
-}) => {
-  const { theme: contextTheme } = useTheme();
-
-  return (
-    <nav
-      className={cn(
-        navigationVariants({ theme: theme ?? contextTheme, className }),
-      )}
-    >
-      {children}
-    </nav>
-  );
-};
+}) => <nav className={cn(navigationVariants({ className }))}>{children}</nav>;
 
 Navigation.NavigationGroup = NavigationGroup;
 Navigation.NavigationOption = NavigationOption;

@@ -1,16 +1,21 @@
+import { VariantProps } from 'class-variance-authority';
 import { PropsWithChildren } from 'react';
+
+import { Theme } from '@/domain/theme';
+
 import {
   bodyVariants,
   headVariants,
   rowVariants,
   tableVariants,
 } from './Table.variants';
-import { VariantProps } from 'class-variance-authority';
 
 export interface TableProps
   extends React.HTMLAttributes<HTMLTableElement>,
     PropsWithChildren,
-    VariantProps<typeof tableVariants> {}
+    VariantProps<typeof tableVariants> {
+  theme?: Theme;
+}
 
 export interface RowProps
   extends React.HTMLAttributes<HTMLTableRowElement>,

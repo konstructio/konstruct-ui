@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
+
+import { Button } from '@/components/Button/Button';
+import { Theme } from '@/domain/theme';
 
 import { Modal as ModalComponent } from './Modal';
-import { Button } from '../Button/Button';
-import { Theme, ThemeProvider, useTheme } from '../../contexts';
-import { useState, ReactNode } from 'react';
 
 type Story = StoryObj<typeof ModalComponent>;
 
@@ -14,66 +15,44 @@ const meta: Meta<typeof ModalComponent> = {
 
 export const Modal: Story = {
   render: () => {
-    const Wrapper = ({
-      onOpen,
-      children,
-    }: {
-      onOpen: () => void;
-      children: ReactNode;
-    }) => {
-      const { setTheme } = useTheme();
-
-      const handleOpen = (themeName: Theme) => {
-        setTheme?.(themeName);
-        onOpen();
-      };
-
-      return (
-        <>
-          <div className="flex flex-col gap-5">
-            <Button onClick={() => handleOpen('kubefirst')} theme="kubefirst">
-              Click me to Open Modal with Kubefirst theme!
-            </Button>
-            <Button onClick={() => handleOpen('colony')} theme="colony">
-              Click me to Open Modal with Colony theme!
-            </Button>
-          </div>
-          {children}
-        </>
-      );
-    };
-
     const [isOpen, setIsOpen] = useState(false);
-
-    const handleOpen = () => {
+    const [currentTheme, setCurrentTheme] = useState<Theme>('kubefirst');
+    const handleClose = () => setIsOpen(false);
+    const handleOpen = (theme?: Theme) => {
       setIsOpen(true);
-    };
-
-    const handleClose = () => {
-      setIsOpen(false);
+      setCurrentTheme(theme);
     };
 
     return (
       <div className="w-[450px]">
-        <ThemeProvider>
-          <Wrapper onOpen={handleOpen}>
-            <ModalComponent isOpen={isOpen} onClose={handleClose}>
-              <ModalComponent.Header className="text-center text-xl bg-gray-50 p-4 border-b">
-                This is the Header
-              </ModalComponent.Header>
+        <div className="flex flex-col gap-5">
+          <Button onClick={() => handleOpen('kubefirst')} theme="kubefirst">
+            Click me to Open Modal with Kubefirst theme!
+          </Button>
+          <Button onClick={() => handleOpen('colony')} theme="colony">
+            Click me to Open Modal with Colony theme!
+          </Button>
+        </div>
 
-              <ModalComponent.Body>
-                <div className="flex justify-center items-center h-full text-gray-900">
-                  This is the Body
-                </div>
-              </ModalComponent.Body>
+        <ModalComponent
+          isOpen={isOpen}
+          onClose={handleClose}
+          theme={currentTheme}
+        >
+          <ModalComponent.Header className="text-center text-xl bg-gray-50 p-4 border-b">
+            This is the Header
+          </ModalComponent.Header>
 
-              <ModalComponent.Footer className="text-center text-sm bg-gray-50 p-4 border-t">
-                This is the Footer
-              </ModalComponent.Footer>
-            </ModalComponent>
-          </Wrapper>
-        </ThemeProvider>
+          <ModalComponent.Body>
+            <div className="flex justify-center items-center h-full text-gray-900">
+              This is the Body
+            </div>
+          </ModalComponent.Body>
+
+          <ModalComponent.Footer className="text-center text-sm bg-gray-50 p-4 border-t">
+            This is the Footer
+          </ModalComponent.Footer>
+        </ModalComponent>
       </div>
     );
   },

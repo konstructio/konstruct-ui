@@ -2,7 +2,6 @@ import { FC, forwardRef, useId, useImperativeHandle } from 'react';
 import { ChevronUp, X } from 'react-feather';
 
 import { Tag } from '@/components/Tag/Tag';
-import { useTheme } from '@/contexts';
 import { cn } from '@/utils';
 
 import { useTagSelect as useTagSelectContext } from '../../contexts';
@@ -32,11 +31,9 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
     ref,
   ) => {
     const id = useId();
-    const { theme: themeContext } = useTheme();
     const { selectedTags, isOpen, onOpen, onRemoveTag, inputRef } =
       useTagSelectContext();
     const { wrapperRef, handleOpen } = useTagSelect();
-    const inheritTheme = theme ?? themeContext;
 
     useImperativeHandle(ref, () => inputRef!.current!, [inputRef]);
 
@@ -45,17 +42,16 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
         ref={wrapperRef}
         className={cn(
           wrapperVariants({
-            theme: inheritTheme,
             className: wrapperClassName,
           }),
         )}
+        data-theme={theme}
       >
         {label ? (
           <label
             htmlFor={name ?? id}
             className={cn(
               labelVariants({
-                theme: inheritTheme,
                 className: labelClassName,
               }),
             )}
@@ -67,7 +63,7 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
 
         <div
           id={name ?? id}
-          className={cn(tagSelectVariants({ theme: inheritTheme }))}
+          className={cn(tagSelectVariants())}
           role="combobox"
           onClick={handleOpen}
           aria-expanded={isOpen}
@@ -102,7 +98,7 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
 
         <input ref={inputRef} type="text" name={name} className="hidden" />
 
-        {isOpen ? <List theme={inheritTheme} /> : null}
+        {isOpen ? <List /> : null}
       </div>
     );
   },

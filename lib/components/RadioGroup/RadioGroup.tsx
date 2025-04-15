@@ -1,7 +1,6 @@
 import { Slot } from '@radix-ui/react-slot';
 import { FC, useCallback, useState } from 'react';
 
-import { useTheme } from '@/contexts';
 import { cn } from '@/utils';
 
 import { Radio } from '../Radio/Radio';
@@ -20,8 +19,7 @@ export const RadioGroup: FC<RadioGroupProps> = ({
   direction,
   onValueChange,
 }) => {
-  const Comp = asChild ? Slot : 'div';
-  const { theme: contextTheme } = useTheme();
+  const Component = asChild ? Slot : 'div';
   const [selected, setSelected] = useState<string | undefined>(
     () => defaultChecked,
   );
@@ -35,25 +33,23 @@ export const RadioGroup: FC<RadioGroupProps> = ({
   );
 
   return (
-    <Comp
+    <Component
       className={cn(
         radioGroupVariants({ className: wrapperClassName, direction }),
       )}
+      data-theme={theme}
     >
-      <>
-        {options.map(({ value, ...delagated }) => (
-          <Radio
-            key={value}
-            value={value}
-            theme={theme ?? contextTheme}
-            name={name}
-            className={cn(className)}
-            checked={selected === value}
-            onChange={() => handleSelected(value)}
-            {...delagated}
-          />
-        ))}
-      </>
-    </Comp>
+      {options.map(({ value, ...delagated }) => (
+        <Radio
+          key={value}
+          value={value}
+          name={name}
+          className={cn(className)}
+          checked={selected === value}
+          onChange={() => handleSelected(value)}
+          {...delagated}
+        />
+      ))}
+    </Component>
   );
 };

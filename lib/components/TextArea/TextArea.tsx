@@ -1,7 +1,6 @@
 import { FC, forwardRef, useId } from 'react';
 
-import { useTheme } from '../../contexts';
-import { cn } from '../../utils';
+import { cn } from '@/utils';
 
 import { TextAreaProps } from './TextArea.types';
 import { textAreaVariants } from './TextArea.variants';
@@ -24,11 +23,10 @@ export const TextArea: FC<TextAreaProps> = forwardRef<
     ref,
   ) => {
     const id = useId();
-    const { theme: contextTheme } = useTheme();
     const htmlId = name ? `${id}-name` : id;
 
     return (
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2" data-theme={theme}>
         {label ? (
           <label htmlFor={htmlId} className="cursor-pointer">
             {label}
@@ -38,9 +36,7 @@ export const TextArea: FC<TextAreaProps> = forwardRef<
         <textarea
           id={htmlId}
           ref={ref}
-          className={cn(
-            textAreaVariants({ className, theme: theme ?? contextTheme }),
-          )}
+          className={cn(textAreaVariants({ className }))}
           rows={rows}
           placeholder={placeholder}
           value={initialValue ?? props.value}

@@ -1,6 +1,8 @@
 import { useContext } from 'react';
 
-import { Theme, ThemeContext } from './theme.context';
+import { Theme } from '@/domain/theme';
+
+import { ThemeContext } from './theme.context';
 
 type ThemeProps = {
   theme?: Theme;

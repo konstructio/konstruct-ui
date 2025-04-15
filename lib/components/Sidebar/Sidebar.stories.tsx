@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import debounce from 'lodash/debounce';
 import { useEffect, useState } from 'react';
+import { Star } from 'react-feather';
 
 import CloudIcon from '@/assets/icons/cloud.svg';
 import GridViewIcon from '@/assets/icons/grid-view.svg';
 import PhotoLibraryIcon from '@/assets/icons/photo-library.svg';
 import ReceiptLongIcon from '@/assets/icons/receipt-long.svg';
 import ScatterPlotIcon from '@/assets/icons/scatter-plot.svg';
-import { Theme } from '@/contexts';
+import { Theme } from '@/domain/theme';
 
-import { Star } from 'react-feather';
 import { Typography } from '../Typography/Typography';
 import {
   Footer,

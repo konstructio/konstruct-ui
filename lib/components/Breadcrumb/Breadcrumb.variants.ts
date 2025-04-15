@@ -4,11 +4,6 @@ export const breadcrumbWrapperVariants = cva(
   ['text-slate-500', 'cursor-pointer'],
   {
     variants: {
-      theme: {
-        kubefirst: '',
-        colony: '',
-        civo: '',
-      },
       size: {
         sm: '',
         base: '',
@@ -16,19 +11,11 @@ export const breadcrumbWrapperVariants = cva(
         xl: '',
       },
     },
-    defaultVariants: {
-      theme: 'kubefirst',
-    },
   },
 );
 
 export const breadcrumbVariants = cva(['flex', 'gap-1', 'items-center'], {
   variants: {
-    theme: {
-      kubefirst: '',
-      colony: '',
-      civo: '',
-    },
     size: {
       sm: '',
       base: '',
@@ -37,18 +24,12 @@ export const breadcrumbVariants = cva(['flex', 'gap-1', 'items-center'], {
     },
   },
   defaultVariants: {
-    theme: 'kubefirst',
     size: 'base',
   },
 });
 
 export const chevronVariants = cva('text-[#abadc6]', {
   variants: {
-    theme: {
-      kubefirst: '',
-      colony: '',
-      civo: '',
-    },
     size: {
       sm: ['w-3', 'h-3'],
       base: ['w-4', 'h-4'],
@@ -57,7 +38,6 @@ export const chevronVariants = cva('text-[#abadc6]', {
     },
   },
   defaultVariants: {
-    theme: 'kubefirst',
     size: 'base',
   },
 });

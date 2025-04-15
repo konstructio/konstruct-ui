@@ -29,7 +29,7 @@ export const Primary: Story = {
           Primary Civo
         </Button>
 
-        <Button variant="primary" theme="civo" disabled>
+        <Button variant="primary" disabled>
           Primary Disabled
         </Button>
       </div>
@@ -53,7 +53,7 @@ export const Secondary: Story = {
           Secondary Civo
         </Button>
 
-        <Button variant="secondary" theme="civo" disabled>
+        <Button variant="secondary" disabled>
           Secondary Disabled
         </Button>
       </div>

@@ -1,6 +1,5 @@
 import { FC, useCallback, useState } from 'react';
 
-import { useTheme } from '@/contexts';
 import { cn } from '@/utils';
 
 import { RadioCard } from '../RadioCard/RadioCard';
@@ -18,7 +17,6 @@ export const RadioCardGroup: FC<RadioCardGroupProps> = ({
   wrapperClassName,
   onValueChange,
 }) => {
-  const { theme: contextTheme } = useTheme();
   const [selected, setSelected] = useState<string | undefined>(defaultChecked);
 
   const handleSelected = useCallback(
@@ -34,13 +32,13 @@ export const RadioCardGroup: FC<RadioCardGroupProps> = ({
       className={cn(
         radioCardGroupVariants({ className: wrapperClassName, direction }),
       )}
+      data-theme={theme}
     >
       <>
         {options.map(({ value, ...delagated }) => (
           <RadioCard
             key={value}
             value={value}
-            theme={theme ?? contextTheme}
             name={name}
             className={cn(className)}
             checked={selected === value}

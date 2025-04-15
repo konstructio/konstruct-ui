@@ -1,13 +1,13 @@
-import { FunctionComponent, HTMLAttributes } from 'react';
+import { FC, HTMLAttributes } from 'react';
+
+import { cn } from '@/utils';
 
 import { dividerVariants } from './Divider.variants';
 
-const Divider: FunctionComponent<HTMLAttributes<HTMLDivElement>> = ({
+const Divider: FC<HTMLAttributes<HTMLDivElement>> = ({
   className,
   ...delegated
-}) => {
-  return <div className={dividerVariants({ className })} {...delegated} />;
-};
+}) => <div className={cn(dividerVariants({ className }))} {...delegated} />;
 
 Divider.displayName = 'Divider';
 

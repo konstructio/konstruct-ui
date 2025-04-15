@@ -13,7 +13,6 @@ import { ChevronUp } from 'react-feather';
 
 import { Loading } from '@/components/Loading/Loading';
 import { Typography } from '@/components/Typography/Typography';
-import { useTheme } from '@/contexts';
 import { cn } from '@/utils';
 
 import { useDropdownContext } from '../contexts';
@@ -46,8 +45,6 @@ export const Wrapper: ForwardRefExoticComponent<
     const { wrapperRef, wrapperInputRef, handleOpen, handleOpenIfClosed } =
       useDropdown({ ulRef });
     const { isOpen, toggleOpen, value, setValue } = useDropdownContext();
-    const { theme: themeContext } = useTheme();
-    const inheritTheme = theme ?? themeContext;
     const htmlFor = name ? `${id}-${name}` : id;
 
     useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
@@ -105,14 +102,15 @@ export const Wrapper: ForwardRefExoticComponent<
     };
 
     return (
-      <div ref={wrapperRef} className="flex flex-col w-full relative">
+      <div
+        ref={wrapperRef}
+        className="flex flex-col w-full relative"
+        data-theme={theme}
+      >
         {label ? (
           <label
             id={htmlFor}
-            className={cn(
-              labelVariants({ theme: inheritTheme }),
-              labelClassName,
-            )}
+            className={cn(labelVariants({ className: labelClassName }))}
             htmlFor={htmlFor}
             onClick={handleOpenIfClosed}
           >
@@ -124,31 +122,29 @@ export const Wrapper: ForwardRefExoticComponent<
         <div
           ref={wrapperInputRef}
           id={htmlFor}
-          className={cn(dropdownVariants({ theme: inheritTheme }))}
+          className={cn(dropdownVariants())}
           role="combobox"
           onClick={handleOpen}
           aria-expanded={isOpen}
           tabIndex={0}
           aria-labelledby={htmlFor}
         >
-          <span className="text-base text-inherit">
-            {value ? (
-              <Typography
-                variant="body2"
-                className="flex gap-3 items-center text-zinc-700"
-              >
-                {getIcon()}
-                {internalValue?.label}
-              </Typography>
-            ) : (
-              <Typography
-                variant="body2"
-                className="flex gap-3 items-center text-zinc-700"
-              >
-                {placeholder}
-              </Typography>
-            )}
-          </span>
+          {value ? (
+            <Typography
+              variant="body2"
+              className="flex gap-3 items-center text-zinc-700 text-base"
+            >
+              {getIcon()}
+              {internalValue?.label}
+            </Typography>
+          ) : (
+            <Typography
+              variant="body2"
+              className="flex gap-3 items-center text-zinc-700 text-base"
+            >
+              {placeholder}
+            </Typography>
+          )}
 
           {isLoading ? (
             <Loading className="w-4 h-4 text-zinc-500" />
@@ -178,7 +174,6 @@ export const Wrapper: ForwardRefExoticComponent<
           wrapperInputRef={wrapperInputRef}
           options={options}
           isLoading={!!isLoading}
-          theme={inheritTheme}
         />
       </div>
     );

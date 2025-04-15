@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Button } from '../Button/Button';
+import { Button } from '@/components/Button/Button';
 
 import { Tooltip as TooltipComponent } from './Tooltip';
-import { ThemeProvider } from '../../contexts';
 
 type Story = StoryObj<typeof TooltipComponent>;
 
@@ -27,14 +26,13 @@ export const Tooltip: Story = {
             <Button>Hover on the top!</Button>
           </TooltipComponent>
 
-          <ThemeProvider theme="colony">
-            <TooltipComponent
-              content={<FancyHover />}
-              wrapperClassName="flex justify-center"
-            >
-              <Button>Hover on the right!</Button>
-            </TooltipComponent>
-          </ThemeProvider>
+          <TooltipComponent
+            content={<FancyHover />}
+            wrapperClassName="flex justify-center"
+            theme="colony"
+          >
+            <Button>Hover on the right!</Button>
+          </TooltipComponent>
 
           <TooltipComponent
             content={<FancyHover />}
@@ -44,15 +42,14 @@ export const Tooltip: Story = {
             <Button>Hover on the left!</Button>
           </TooltipComponent>
 
-          <ThemeProvider theme="colony">
-            <TooltipComponent
-              content={<FancyHover />}
-              position="bottom"
-              wrapperClassName="flex justify-center"
-            >
-              <Button>Hover on the bottom!</Button>
-            </TooltipComponent>
-          </ThemeProvider>
+          <TooltipComponent
+            content={<FancyHover />}
+            position="bottom"
+            wrapperClassName="flex justify-center"
+            theme="colony"
+          >
+            <Button>Hover on the bottom!</Button>
+          </TooltipComponent>
         </div>
       </div>
     );

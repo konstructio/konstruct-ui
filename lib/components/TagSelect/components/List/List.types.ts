@@ -1,5 +1,5 @@
-import { TagSelectProps } from '../../TagSelect.types';
+import { Theme } from '@/domain/theme';
 
 export type ListProps = {
-  theme: TagSelectProps['theme'];
+  theme?: Theme;
 };

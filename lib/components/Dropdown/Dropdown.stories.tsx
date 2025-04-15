@@ -35,18 +35,14 @@ export const Dropdown: Story = {
     const [value, setValue] = useState<string>();
 
     return (
-      <>
-        <div className="max-w-[350px]">
-          <DropdownComponent
-            label="Dropdown with Kubefirst theme"
-            {...args}
-            onChange={({ target: { value } }) => {
-              setValue(value);
-            }}
-            value={value}
-          />
-        </div>
-      </>
+      <div className="max-w-[350px]">
+        <DropdownComponent
+          label="Dropdown with Kubefirst theme"
+          onChange={({ target: { value } }) => setValue(value)}
+          value={value}
+          {...args}
+        />
+      </div>
     );
   },
 };

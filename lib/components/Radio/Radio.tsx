@@ -1,6 +1,5 @@
 import { FC, forwardRef, useCallback, useId } from 'react';
 
-import { useTheme } from '@/contexts';
 import { cn } from '@/utils';
 
 import { RadioProps } from './Radio.types';
@@ -28,9 +27,7 @@ export const Radio: FC<RadioProps> = forwardRef<HTMLInputElement, RadioProps>(
     ref,
   ) => {
     const id = useId();
-    const { theme: contextTheme } = useTheme();
     const defaultFor = `${id}-${name}`;
-    const inheritTheme = theme ?? contextTheme;
 
     const handleChange = useCallback(
       (value: string) => {
@@ -48,6 +45,7 @@ export const Radio: FC<RadioProps> = forwardRef<HTMLInputElement, RadioProps>(
             disabled: disabled || false,
           }),
         )}
+        data-theme={theme}
       >
         <input
           ref={ref}
@@ -66,7 +64,6 @@ export const Radio: FC<RadioProps> = forwardRef<HTMLInputElement, RadioProps>(
           className={cn(
             radioVariants({
               className,
-              theme: inheritTheme,
               disabled: disabled || false,
               checked: checked || defaultChecked || false,
             }),

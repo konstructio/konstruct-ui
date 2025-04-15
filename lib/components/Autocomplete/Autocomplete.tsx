@@ -1,3 +1,4 @@
+'use client';
 import {
   ComponentRef,
   forwardRef,
@@ -6,13 +7,12 @@ import {
   useRef,
 } from 'react';
 
-import { useTheme } from '../../contexts';
-import { cn } from '../../utils';
+import { cn } from '@/utils';
 
-import { useAutocomplete } from './hooks';
-import { List } from './components';
 import { AutocompleteProps } from './Autocomplete.types';
 import { autocompleteVariants, labelVariants } from './Autocomplete.variants';
+import { List } from './components';
+import { useAutocomplete } from './hooks';
 
 const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
   (
@@ -23,9 +23,9 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       labelClassName,
       name,
       options,
+      placeholder,
       placeHolderEmptyValues = 'No values...',
       placeHolderEmptyValuesClassName,
-      placeholder,
       theme,
       variant,
       onChange,
@@ -35,8 +35,6 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     const wrapperRef = useRef<ComponentRef<'div'>>(null);
     const inputRef = useRef<ComponentRef<'input'>>(null);
     const id = useId();
-    const { theme: contextTheme } = useTheme();
-    const inheritTheme = theme ?? contextTheme;
 
     useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
 
@@ -48,13 +46,16 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     });
 
     return (
-      <div ref={wrapperRef} className="relative flex flex-col">
+      <div
+        ref={wrapperRef}
+        className="relative flex flex-col"
+        data-theme={theme}
+      >
         {label ? (
           <label
             htmlFor={name ?? id}
             className={cn(
               labelVariants({
-                theme: inheritTheme,
                 variant,
                 className: labelClassName,
               }),
@@ -73,7 +74,6 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           autoComplete={autoComplete}
           className={cn(
             autocompleteVariants({
-              theme: inheritTheme,
               variant,
               className,
             }),
@@ -85,7 +85,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
         />
 
         {autocomplete.showOptions && (
-          <div className="absolute z-10 top-full w-full rounded-md mt-1 border shadow-sm">
+          <div className="absolute z-10 top-full w-full rounded-md mt-1 border shadow-sm border-zinc-200 overflow-hidden">
             <List
               className={className}
               inputRef={inputRef}
@@ -94,7 +94,6 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
               placeholder={placeHolderEmptyValues}
               placeholderClassName={placeHolderEmptyValuesClassName}
               variant={variant}
-              theme={inheritTheme}
               onClick={autocomplete.handleSelectValue}
             />
           </div>

@@ -16,23 +16,20 @@ export const autocompleteVariants = cva(
     'focus-visible:ring-ring',
     'disabled:cursor-not-allowed',
     'disabled:opacity-50',
-    'shadow-sm',
+    'shadow-2xs',
     'py-1',
     'px-2',
+    'focus:ring-kubefirst-primary',
+    'colony:focus:focus:ring-red-400',
+    'civo:focus:focus:ring-blue-400',
   ],
   {
     variants: {
       variant: {
         default: '',
       },
-      theme: {
-        kubefirst: ['focus:ring-kubefirst-primary'],
-        colony: ['focus:focus:ring-red-400'],
-        civo: '',
-      },
     },
     defaultVariants: {
-      theme: 'kubefirst',
       variant: 'default',
     },
   },
@@ -45,15 +42,9 @@ export const labelVariants = cva(
       variant: {
         default: '',
       },
-      theme: {
-        kubefirst: '',
-        colony: '',
-        civo: '',
-      },
     },
     defaultVariants: {
       variant: 'default',
-      theme: 'kubefirst',
     },
   },
 );

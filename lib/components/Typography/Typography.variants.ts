@@ -48,14 +48,8 @@ export const typographyVariants = cva([], {
       body3: ['text-[12px]', 'leading-[16px]', 'tracking-[0.4px]'],
       tooltip: ['text-[14px]', 'leading-[22px]'],
     },
-    theme: {
-      kubefirst: '',
-      colony: '',
-      civo: '',
-    },
   },
   defaultVariants: {
     variant: 'body1',
-    theme: 'kubefirst',
   },
 });

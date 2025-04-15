@@ -10,8 +10,7 @@ import {
   useState,
 } from 'react';
 
-import { useTheme } from '../../contexts';
-import { cn } from '../../utils';
+import { cn } from '@/utils';
 
 import { SliderProps } from './Slider.types';
 import {
@@ -30,8 +29,6 @@ export const Slider: FC<SliderProps> = forwardRef<
   ) => {
     const inputRef = useRef<ComponentRef<'input'>>(null);
     const [value, setValue] = useState<number[]>(defaultValue);
-    const { theme: contextTheme } = useTheme();
-    const inheritTheme = theme ?? contextTheme;
 
     useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
 
@@ -47,7 +44,7 @@ export const Slider: FC<SliderProps> = forwardRef<
     );
 
     return (
-      <div className="w-full relative flex flex-col gap-3">
+      <div className="w-full relative flex flex-col gap-3" data-theme={theme}>
         <div
           className={cn(
             'flex items-center',
@@ -62,12 +59,12 @@ export const Slider: FC<SliderProps> = forwardRef<
 
         <Root
           value={value}
-          className={cn(sliderVariants({ theme: inheritTheme }))}
+          className={cn(sliderVariants())}
           onValueChange={handleValueChange}
           {...delegated}
         >
-          <Track className={cn(trackVariants({ theme: inheritTheme, size }))} />
-          <Thumb className={cn(thumbVariants({ theme: inheritTheme, size }))} />
+          <Track className={cn(trackVariants({ size }))} />
+          <Thumb className={cn(thumbVariants({ size }))} />
         </Root>
       </div>
     );

@@ -15,8 +15,7 @@ import {
   useState,
 } from 'react';
 
-import { useTheme } from '../../contexts';
-import { cn } from '../../utils';
+import { cn } from '@/utils';
 
 import { RangeProps } from './Range.types';
 import {
@@ -44,8 +43,6 @@ export const Range: FC<RangeProps> = forwardRef<
   ) => {
     const inputRef = useRef<ComponentRef<'input'>>(null);
     const [value, setValue] = useState<number[]>(defaultValue);
-    const { theme: contextTheme } = useTheme();
-    const inheritTheme = theme ?? contextTheme;
 
     useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
 
@@ -61,7 +58,7 @@ export const Range: FC<RangeProps> = forwardRef<
     );
 
     return (
-      <div className="w-full relative flex flex-col gap-3">
+      <div className="w-full relative flex flex-col gap-3" data-theme={theme}>
         <div
           className={cn(
             'flex items-center',
@@ -80,18 +77,16 @@ export const Range: FC<RangeProps> = forwardRef<
 
         <Root
           value={value}
-          className={cn(rangeVariants({ theme: inheritTheme }))}
+          className={cn(rangeVariants())}
           onValueChange={handleValueChange}
           {...delegated}
         >
-          <Track className={cn(trackVariants({ theme: inheritTheme, size }))}>
-            <RangeRadix
-              className={cn(rangeOutsideVariants({ theme: inheritTheme }))}
-            />
+          <Track className={cn(trackVariants({ size }))}>
+            <RangeRadix className={cn(rangeOutsideVariants())} />
           </Track>
 
-          <Thumb className={cn(thumbVariants({ theme: inheritTheme, size }))} />
-          <Thumb className={cn(thumbVariants({ theme: inheritTheme, size }))} />
+          <Thumb className={cn(thumbVariants({ size }))} />
+          <Thumb className={cn(thumbVariants({ size }))} />
         </Root>
       </div>
     );

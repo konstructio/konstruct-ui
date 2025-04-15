@@ -1,32 +1,35 @@
-import { FunctionComponent, useId } from 'react';
+import { FC, useId } from 'react';
 
-import { useTheme } from '@/contexts';
+import { cn } from '@/utils';
 
 import { HeadingTag, TypographyProps } from './Typography.types';
 import { typographyVariants } from './Typography.variants';
+import { Slot } from '@radix-ui/react-slot';
 
-const Typography: FunctionComponent<TypographyProps> = ({
+const Typography: FC<TypographyProps> = ({
   className,
   theme,
   children,
   variant,
   component,
+  asChild = false,
   ...delegated
 }) => {
   const id = useId();
-  const { theme: themeContext } = useTheme();
-
-  const Component =
-    component ?? (variant?.includes('h') ? (variant as HeadingTag) : 'p');
+  const Component = asChild
+    ? Slot
+    : (component ?? (variant?.includes('h') ? (variant as HeadingTag) : 'p'));
 
   return (
     <Component
       id={id}
-      className={typographyVariants({
-        className,
-        theme: theme ?? themeContext,
-        variant,
-      })}
+      data-theme={theme}
+      className={cn(
+        typographyVariants({
+          className,
+          variant,
+        }),
+      )}
       {...delegated}
     >
       {children}

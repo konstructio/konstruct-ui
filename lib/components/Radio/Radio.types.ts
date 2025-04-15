@@ -1,6 +1,8 @@
 import { VariantProps } from 'class-variance-authority';
 import { InputHTMLAttributes, ReactNode } from 'react';
 
+import { Theme } from '@/domain/theme';
+
 import { radioVariants } from './Radio.variants';
 
 export interface RadioProps
@@ -14,5 +16,6 @@ export interface RadioProps
   name: string;
   value: string;
   wrapperClassName?: string;
+  theme?: Theme;
   onChange?: (value: string) => void;
 }

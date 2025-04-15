@@ -1,3 +1,4 @@
+'use client';
 import {
   ComponentRef,
   FC,
@@ -11,7 +12,6 @@ import {
 import { X } from 'react-feather';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
-import { useTheme } from '@/contexts';
 import { cn } from '@/utils';
 
 import { AlertProps } from './Alert.types';
@@ -26,8 +26,6 @@ export const Alert: FC<AlertProps> = ({
 }) => {
   const wrapperRef = useRef<ComponentRef<'div'>>(null);
   const [isVisibleComponent, setIsVisibleComponent] = useState(isVisible);
-  const { theme: contextTheme } = useTheme();
-  const inheritTheme = theme ?? contextTheme;
 
   const contentMemoized = useMemo(
     () => (isValidElement(content) ? content : <p>{content}</p>),
@@ -64,8 +62,9 @@ export const Alert: FC<AlertProps> = ({
   return (
     <div
       ref={wrapperRef}
-      className={cn(alertVariants({ theme: inheritTheme, type, isVisible }))}
+      className={cn(alertVariants({ type, isVisible }))}
       data-state={isVisible ? 'visible' : 'hidden'}
+      data-theme={theme}
       role="alert"
       aria-live="polite"
     >
@@ -73,9 +72,7 @@ export const Alert: FC<AlertProps> = ({
 
       {showCloseButton ? (
         <button role="button" onClick={handleCloseClick}>
-          <X
-            className={cn(closeButtonVariants({ theme: inheritTheme, type }))}
-          />
+          <X className={cn(closeButtonVariants({ type }))} />
           <VisuallyHidden>Dismiss alert</VisuallyHidden>
         </button>
       ) : null}

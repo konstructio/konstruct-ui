@@ -1,30 +1,17 @@
 import { cva } from 'class-variance-authority';
 
-export const progressBarVariants = cva(
-  ['h-2', 'rounded-full', 'overflow-hidden', 'mt-4', 'bg-zinc-200'],
-  {
-    variants: {
-      theme: {
-        kubefirst: '',
-        colony: '',
-        civo: '',
-      },
-    },
-    defaultVariants: {
-      theme: 'kubefirst',
-    },
-  },
-);
+export const progressBarVariants = cva([
+  'h-2',
+  'rounded-full',
+  'overflow-hidden',
+  'mt-4',
+  'bg-zinc-200',
+]);
 
 export const progressBarProgress = cva(
   ['h-full', 'bg-[length:100%_100%]', 'animate-gradient-move'],
   {
     variants: {
-      theme: {
-        kubefirst: '',
-        colony: '',
-        civo: '',
-      },
       status: {
         success: '',
         progress: '',
@@ -34,22 +21,14 @@ export const progressBarProgress = cva(
     compoundVariants: [
       {
         status: 'progress',
-        theme: 'kubefirst',
         class: ['bg-linear-to-r from-[#81e2b4] to-kubefirst-primary'],
       },
       {
         status: 'success',
-        theme: 'kubefirst',
         class: ['bg-[#81E2B4]'],
-      },
-      {
-        status: 'progress',
-        theme: 'colony',
-        class: ['bg-linear-to-r from-[#81e2b4] to-kubefirst-primary'],
       },
     ],
     defaultVariants: {
-      theme: 'kubefirst',
       status: 'success',
     },
   },

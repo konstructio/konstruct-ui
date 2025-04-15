@@ -1,7 +1,7 @@
+import { FC } from 'react';
+
 import { cn } from '@/utils';
-import { FunctionComponent } from 'react';
-import { tableVariants } from './Table.variants';
-import { useTheme } from '@/contexts';
+
 import {
   BodyProps,
   FilterProps,
@@ -9,37 +9,31 @@ import {
   RowProps,
   TableProps,
 } from './Table.types';
-import { Head } from './components/Head';
-import { Row } from './components/Row';
-import { Filter } from './components/Filter';
-import { Body } from './components/Body';
+import { tableVariants } from './Table.variants';
+import { Body, Filter, Head, Row } from './components';
 
-const Table: FunctionComponent<TableProps> & {
-  Head: FunctionComponent<HeadProps>;
-  Row: FunctionComponent<RowProps>;
-  Filter: FunctionComponent<FilterProps>;
-  Body: FunctionComponent<BodyProps>;
-} = ({ children, className, theme, ...delegated }) => {
-  const { theme: themeContext } = useTheme();
+const Table: FC<TableProps> & {
+  Head: FC<HeadProps>;
+  Row: FC<RowProps>;
+  Filter: FC<FilterProps>;
+  Body: FC<BodyProps>;
+} = ({ children, className, theme, ...delegated }) => (
+  <table
+    className={cn(
+      tableVariants({
+        className,
+      }),
+    )}
+    data-theme={theme}
+    {...delegated}
+  >
+    {children}
+  </table>
+);
 
-  return (
-    <table
-      className={cn(
-        tableVariants({
-          className,
-          theme: theme ?? themeContext,
-        }),
-      )}
-      {...delegated}
-    >
-      {children}
-    </table>
-  );
-};
-
+Table.Body = Body;
+Table.Filter = Filter;
 Table.Head = Head;
 Table.Row = Row;
-Table.Filter = Filter;
-Table.Body = Body;
 
 export { Table };

@@ -1,3 +1,4 @@
+'use client';
 import { Slot } from '@radix-ui/react-slot';
 import {
   Action,
@@ -18,8 +19,7 @@ import {
 } from 'react';
 import { X } from 'react-feather';
 
-import { useTheme } from '../../contexts';
-import { cn } from '../../utils';
+import { cn } from '@/utils';
 
 import { ToastProps } from './Toast.types';
 import {
@@ -43,8 +43,6 @@ export const Toast: FC<ToastProps> = ({
   setOpen,
 }) => {
   const timerRef = useRef(0);
-  const { theme: contextTheme } = useTheme();
-  const inheritTheme = theme ?? contextTheme;
 
   useEffect(() => {
     return () => clearTimeout(timerRef.current);
@@ -76,7 +74,8 @@ export const Toast: FC<ToastProps> = ({
       <Slot onClick={handleClick}>{children}</Slot>
 
       <Root
-        className={cn(toastVariants({ theme: inheritTheme, className }))}
+        className={cn(toastVariants({ className }))}
+        data-theme={theme}
         open={open}
         onOpenChange={setOpen}
       >
@@ -94,7 +93,6 @@ export const Toast: FC<ToastProps> = ({
               <X
                 className={cn(
                   closeToastVariants({
-                    theme: inheritTheme,
                     className: closeButtonClassName,
                   }),
                 )}
@@ -105,9 +103,7 @@ export const Toast: FC<ToastProps> = ({
         )}
       </Root>
 
-      <Viewport
-        className={cn(viewportToastVariants({ theme: inheritTheme }))}
-      />
+      <Viewport className={cn(viewportToastVariants())} />
     </Provider>
   );
 };

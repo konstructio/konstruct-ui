@@ -1,6 +1,7 @@
-import { InputHTMLAttributes } from 'react';
 import { VariantProps } from 'class-variance-authority';
+import { InputHTMLAttributes } from 'react';
 
+import { Theme } from '@/domain/theme';
 import { checkboxVariants } from './Checkbox.variants';
 
 export interface CheckboxProps
@@ -14,5 +15,6 @@ export interface CheckboxProps
   label?: string;
   labelClassName?: string;
   name?: string;
+  theme?: Theme;
   onChange?: () => void;
 }

@@ -1,3 +1,4 @@
+'use client';
 import { ComponentRef, FC, forwardRef } from 'react';
 
 import { Wrapper } from './components';

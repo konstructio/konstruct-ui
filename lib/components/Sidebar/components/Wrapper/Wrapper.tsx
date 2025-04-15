@@ -4,12 +4,10 @@ import {
   FC,
   isValidElement,
   useCallback,
-  useEffect,
   useMemo,
   useRef,
 } from 'react';
 
-import { useTheme } from '@/contexts';
 import { cn } from '@/utils';
 
 import { SidebarProps } from '../../Sidebar.types';
@@ -29,7 +27,6 @@ export const Wrapper: FC<SidebarProps> = ({
   const dragRef = useRef<ComponentRef<'div'>>(null);
   const asideRef = useRef<ComponentRef<'aside'>>(null);
   const isResizingRef = useRef(false);
-  const { theme: contextTheme, setTheme } = useTheme();
 
   const handleMouseMove = useCallback(
     (event: MouseEvent) => {
@@ -111,21 +108,15 @@ export const Wrapper: FC<SidebarProps> = ({
     [memoizedChildren],
   );
 
-  useEffect(() => {
-    if (theme) {
-      setTheme!(theme);
-    }
-  }, [setTheme, theme]);
-
   return (
     <aside
       ref={asideRef}
       className={cn(
         wrapperSiderbarVariants({
           className: wrapperClassName,
-          theme: contextTheme,
         }),
       )}
+      data-theme={theme}
     >
       {logo}
       {navigation}
@@ -134,7 +125,7 @@ export const Wrapper: FC<SidebarProps> = ({
       {canResize && (
         <div
           ref={dragRef}
-          className={cn(dragVariants({ theme: contextTheme }))}
+          className={cn(dragVariants())}
           onMouseDown={handleMouseDown}
         />
       )}
