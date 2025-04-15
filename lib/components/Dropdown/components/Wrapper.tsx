@@ -13,7 +13,6 @@ import { ChevronUp } from 'react-feather';
 
 import { Loading } from '@/components/Loading/Loading';
 import { Typography } from '@/components/Typography/Typography';
-import { useTheme } from '@/contexts';
 import { cn } from '@/utils';
 
 import { useDropdownContext } from '../contexts';
@@ -46,8 +45,6 @@ export const Wrapper: ForwardRefExoticComponent<
     const { wrapperRef, wrapperInputRef, handleOpen, handleOpenIfClosed } =
       useDropdown({ ulRef });
     const { isOpen, toggleOpen, value, setValue } = useDropdownContext();
-    const { theme: themeContext } = useTheme();
-    const inheritTheme = theme ?? themeContext;
     const htmlFor = name ? `${id}-${name}` : id;
 
     useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
@@ -105,14 +102,15 @@ export const Wrapper: ForwardRefExoticComponent<
     };
 
     return (
-      <div ref={wrapperRef} className="flex flex-col w-full relative">
+      <div
+        ref={wrapperRef}
+        className="flex flex-col w-full relative"
+        data-theme={theme}
+      >
         {label ? (
           <label
             id={htmlFor}
-            className={cn(
-              labelVariants({ theme: inheritTheme }),
-              labelClassName,
-            )}
+            className={labelVariants({ className: labelClassName })}
             htmlFor={htmlFor}
             onClick={handleOpenIfClosed}
           >
@@ -124,7 +122,7 @@ export const Wrapper: ForwardRefExoticComponent<
         <div
           ref={wrapperInputRef}
           id={htmlFor}
-          className={cn(dropdownVariants({ theme: inheritTheme }))}
+          className={dropdownVariants()}
           role="combobox"
           onClick={handleOpen}
           aria-expanded={isOpen}
@@ -178,7 +176,6 @@ export const Wrapper: ForwardRefExoticComponent<
           wrapperInputRef={wrapperInputRef}
           options={options}
           isLoading={!!isLoading}
-          theme={inheritTheme}
         />
       </div>
     );
