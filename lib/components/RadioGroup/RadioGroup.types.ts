@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
+import { Theme } from '@/domain/theme';
+
 import { RadioProps } from '../Radio/Radio.types';
 
 export interface RadioGroupProps {
@@ -10,7 +12,7 @@ export interface RadioGroupProps {
   label?: string | ReactNode;
   name: string;
   options: Omit<RadioProps, 'name' | 'checked' | 'defaultChecked'>[];
-  theme?: RadioProps['theme'];
+  theme?: Theme;
   wrapperClassName?: string;
   onValueChange?: (value: string) => void;
 }
