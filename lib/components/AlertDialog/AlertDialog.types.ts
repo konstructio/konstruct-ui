@@ -1,19 +1,17 @@
 import { PropsWithChildren } from 'react';
-import { VariantProps } from 'class-variance-authority';
 
-import { buttonAlertDialogVariants } from './AlertDialog.variants';
+import { Theme } from '@/domain/theme';
 
-export interface AlertDialogProps
-  extends PropsWithChildren,
-    VariantProps<typeof buttonAlertDialogVariants> {
+export interface AlertDialogProps extends PropsWithChildren {
   buttonCancelClassName?: string;
   buttonCancelText?: string;
   buttonConfirmClassName?: string;
   buttonConfirmText?: string;
   buttonText?: string;
+  buttonTriggerClassName?: string;
   className?: string;
   description?: string;
-  o?: string;
+  theme?: Theme;
   title?: string;
   onConfirm?: () => void;
 }

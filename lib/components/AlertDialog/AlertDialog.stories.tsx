@@ -14,7 +14,6 @@ export const AlertDialog: Story = {
     <div className="w-[350px]">
       <AlertDialogComponent
         buttonText="Destroy machine"
-        theme="kubefirst"
         title="Are you sure to delete?"
         description="This will permanently delete all data from this host. This action cannot be undone."
       />
