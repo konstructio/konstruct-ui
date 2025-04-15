@@ -11,16 +11,13 @@ export const checkboxVariants = cva(
     'justify-center',
     'items-center',
     'text-white',
+    'border-kubefirst-primary',
+    'colony:border-red-700',
   ],
   {
     variants: {
       variant: {
         default: '',
-      },
-      theme: {
-        colony: '',
-        kubefirst: '',
-        civo: '',
       },
       checked: {
         true: '',
@@ -29,27 +26,12 @@ export const checkboxVariants = cva(
     },
     compoundVariants: [
       {
-        theme: 'kubefirst',
-        class: ['border-kubefirst-primary'],
-      },
-      {
-        theme: 'kubefirst',
         checked: true,
-        class: ['bg-kubefirst-primary'],
-      },
-      {
-        theme: 'colony',
-        class: ['border-red-700'],
-      },
-      {
-        theme: 'colony',
-        checked: true,
-        class: ['bg-red-700'],
+        class: ['bg-kubefirst-primary', 'colony:bg-red-700'],
       },
     ],
     defaultVariants: {
       variant: 'default',
-      theme: 'kubefirst',
     },
   },
 );
@@ -59,14 +41,8 @@ export const labelVariants = cva(['cursor-pointer'], {
     variant: {
       default: '',
     },
-    theme: {
-      colony: '',
-      kubefirst: '',
-      civo: '',
-    },
   },
   defaultVariants: {
     variant: 'default',
-    theme: 'kubefirst',
   },
 });

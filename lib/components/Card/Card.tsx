@@ -9,32 +9,30 @@ const Card: FC<CardProps> = forwardRef<HTMLDivElement, CardProps>(
   (
     { className, theme, isActive, canHover, wrapperClassName, ...props },
     ref,
-  ) => {
-    return (
+  ) => (
+    <div
+      data-theme={theme}
+      className={cn(
+        cardBaseVariants({
+          canHover,
+          className: wrapperClassName,
+          isActive,
+        }),
+      )}
+    >
       <div
-        data-theme={theme}
+        ref={ref}
         className={cn(
-          cardBaseVariants({
-            canHover,
-            className: wrapperClassName,
+          cardVariants({
+            className,
             isActive,
+            canHover,
           }),
         )}
-      >
-        <div
-          ref={ref}
-          className={cn(
-            cardVariants({
-              className,
-              isActive,
-              canHover,
-            }),
-          )}
-          {...props}
-        />
-      </div>
-    );
-  },
+        {...props}
+      />
+    </div>
+  ),
 );
 
 Card.displayName = 'Card';

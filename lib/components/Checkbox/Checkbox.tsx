@@ -1,10 +1,10 @@
+'use client';
 import { Indicator, Root } from '@radix-ui/react-checkbox';
 import { FC, forwardRef, useCallback, useId } from 'react';
 import { Check } from 'react-feather';
 
-import { useTheme } from '../../contexts';
-import { useToggle } from '../../hooks';
-import { cn } from '../../utils';
+import { useToggle } from '@/hooks';
+import { cn } from '@/utils';
 
 import { CheckboxProps } from './Checkbox.types';
 import { checkboxVariants, labelVariants } from './Checkbox.variants';
@@ -32,7 +32,6 @@ export const Checkbox: FC<CheckboxProps> = forwardRef<
   ) => {
     const [checked, setChecked] = useToggle(defaultChecked);
     const defaultId = useId();
-    const { theme: contextTheme } = useTheme();
 
     const handleChange = useCallback(() => {
       setChecked();
@@ -40,7 +39,7 @@ export const Checkbox: FC<CheckboxProps> = forwardRef<
     }, [onChange, setChecked]);
 
     return (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2" data-theme={theme}>
         <Root
           id={id ?? defaultId}
           checked={checked}
@@ -52,7 +51,6 @@ export const Checkbox: FC<CheckboxProps> = forwardRef<
           className={cn(
             checkboxVariants({
               className,
-              theme: theme ?? contextTheme,
               variant,
               checked,
             }),
@@ -70,7 +68,6 @@ export const Checkbox: FC<CheckboxProps> = forwardRef<
             className={cn(
               labelVariants({
                 variant,
-                theme,
                 className: labelClassName,
               }),
             )}
