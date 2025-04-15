@@ -1,17 +1,14 @@
 import { ButtonHTMLAttributes } from '../../../node_modules/react';
 import { ClassProp } from 'class-variance-authority/types';
-import { Config } from 'tailwindcss/types/config';
 import { Context } from '../../node_modules/react';
 import { FC } from '../../../node_modules/react';
 import { FC as FC_2 } from '../../../../../node_modules/react';
 import { FC as FC_3 } from '../../node_modules/react';
 import { ForwardRefExoticComponent } from '../../../node_modules/react';
-import { FunctionComponent } from '../../../node_modules/react';
 import { HTMLAttributes } from '../../../node_modules/react';
 import { HTMLAttributes as HTMLAttributes_2 } from '../../../../../node_modules/react';
 import { HtmlHTMLAttributes } from '../../../../../node_modules/react';
 import { InputHTMLAttributes } from '../../../node_modules/react';
-import { PluginCreator } from 'tailwindcss/types/config';
 import { PropsWithChildren } from '../../../node_modules/react';
 import { PropsWithChildren as PropsWithChildren_2 } from '../../../../../node_modules/react';
 import { PropsWithChildren as PropsWithChildren_3 } from '../../node_modules/react';
@@ -25,15 +22,16 @@ export declare const Alert: FC<AlertProps>;
 
 export declare const AlertDialog: FC<AlertDialogProps>;
 
-declare interface AlertDialogProps extends PropsWithChildren, VariantProps<typeof buttonAlertDialogVariants> {
+declare interface AlertDialogProps extends PropsWithChildren {
     buttonCancelClassName?: string;
     buttonCancelText?: string;
     buttonConfirmClassName?: string;
     buttonConfirmText?: string;
     buttonText?: string;
+    buttonTriggerClassName?: string;
     className?: string;
     description?: string;
-    o?: string;
+    theme?: Theme;
     title?: string;
     onConfirm?: () => void;
 }
@@ -43,10 +41,10 @@ declare interface AlertProps extends VariantProps<typeof alertVariants> {
     content: string | ReactNode;
     isVisible?: boolean;
     showCloseButton?: boolean;
+    theme?: Theme;
 }
 
 declare const alertVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
     type?: "sucess" | "info" | "warning" | "danger" | null | undefined;
     isVisible?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
@@ -60,51 +58,45 @@ declare interface AutocompleteProps extends VariantProps<typeof autocompleteVari
     labelClassName?: string;
     name?: string;
     options: Option_2[];
+    placeholder?: string;
     placeHolderEmptyValues?: string | ReactNode;
     placeHolderEmptyValuesClassName?: string;
-    placeholder?: string;
+    theme?: Theme;
     onChange(value: string): void;
 }
 
 declare const autocompleteVariants: (props?: ({
     variant?: "default" | null | undefined;
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 declare interface BodyProps extends React.HTMLAttributes<HTMLTableSectionElement>, PropsWithChildren, VariantProps<typeof bodyVariants> {
 }
 
-declare const bodyVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const bodyVariants: (props?: ClassProp | undefined) => string;
 
 export declare const Breadcrumb: FC<BreadcrumbProps>;
 
 declare interface BreadcrumbProps extends VariantProps<typeof breadcrumbVariants>, HTMLAttributes<HTMLOListElement> {
     steps: Step[];
     wrapperClassName?: string;
+    theme?: Theme;
 }
 
 declare const breadcrumbVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
     size?: "base" | "sm" | "lg" | "xl" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 export declare const Button: FC<ButtonProps>;
 
-declare const buttonAlertDialogVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | null | undefined;
-} & ClassProp) | undefined) => string;
-
 declare interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'disabled'>, VariantProps<typeof buttonVariants> {
     asChild?: boolean;
     disabled?: boolean;
+    theme?: Theme;
 }
 
 declare const buttonVariants: (props?: ({
     variant?: "danger" | "circle" | "text" | "primary" | "secondary" | null | undefined;
     version?: "default" | "alternate" | null | undefined;
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
     disabled?: boolean | null | undefined;
     size?: "medium" | "large" | null | undefined;
 } & ClassProp) | undefined) => string;
@@ -112,13 +104,13 @@ declare const buttonVariants: (props?: ({
 export declare const Card: FC<CardProps>;
 
 declare interface CardProps extends HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardVariants>, PropsWithChildren {
-    isActive?: boolean;
     canHover?: boolean;
+    isActive?: boolean;
+    theme?: Theme;
     wrapperClassName?: string;
 }
 
 declare const cardVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
     isActive?: boolean | null | undefined;
     canHover?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
@@ -134,36 +126,30 @@ declare interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElemen
     label?: string;
     labelClassName?: string;
     name?: string;
+    theme?: Theme;
     onChange?: () => void;
 }
 
 declare const checkboxVariants: (props?: ({
     variant?: "default" | null | undefined;
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
     checked?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
 
-export declare const Divider: FunctionComponent<HTMLAttributes<HTMLDivElement>>;
+export declare const Divider: FC<HTMLAttributes<HTMLDivElement>>;
 
 export declare const Dropdown: FC<DropdownProps>;
 
 declare interface DropdownProps extends VariantProps<typeof dropdownVariants>, Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
-    onChange?: ({ target: { value, name }, }: {
-        target: {
-            value: string;
-            name: string;
-        };
-    }) => void;
-    label?: string;
-    options: Option_3[];
-    labelClassName?: string;
-    value?: string;
     isLoading?: boolean;
+    label?: string;
+    labelClassName?: string;
+    options: Option_3[];
+    theme?: Theme;
+    value?: string;
+    onChange?: OnChangeFn;
 }
 
-declare const dropdownVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const dropdownVariants: (props?: ClassProp | undefined) => string;
 
 declare interface FilterProps extends React.InputHTMLAttributes<HTMLInputElement>, PropsWithChildren {
     placeholder?: string;
@@ -175,44 +161,35 @@ declare interface FooterProps extends PropsWithChildren_2, VariantProps<typeof f
     className?: string;
 }
 
-declare const footerVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const footerVariants: (props?: ClassProp | undefined) => string;
 
 declare type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 declare interface HeadProps extends React.HTMLAttributes<HTMLTableSectionElement>, PropsWithChildren, VariantProps<typeof headVariants> {
 }
 
-declare const headVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const headVariants: (props?: ClassProp | undefined) => string;
 
 export declare const Input: ForwardRefExoticComponent<InputProps & RefAttributes<HTMLInputElement>>;
 
 declare interface InputProps extends InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof inputVariants> {
+    error?: string;
     label?: string | ReactNode;
     labelClassName?: string;
-    error?: string;
+    theme?: Theme;
 }
 
 declare const inputVariants: (props?: ({
     variant?: "error" | "default" | null | undefined;
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
 } & ClassProp) | undefined) => string;
 
-export declare const konstructPlugin: {
-    handler: PluginCreator;
-    config?: Partial<Config>;
+export declare const Loading: FC<LoadingProps>;
+
+declare type LoadingProps = InputHTMLAttributes<SVGSVGElement> & VariantProps<typeof loadingVariants> & {
+    theme?: Theme;
 };
 
-export declare const Loading: FunctionComponent<LoadingProps>;
-
-declare type LoadingProps = InputHTMLAttributes<SVGSVGElement> & VariantProps<typeof loadingVariants>;
-
-declare const loadingVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const loadingVariants: (props?: ClassProp | undefined) => string;
 
 export declare const Logo: FC_2<LogoProps>;
 
@@ -220,9 +197,7 @@ declare interface LogoProps extends PropsWithChildren_2, VariantProps<typeof log
     className?: string;
 }
 
-declare const logoVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const logoVariants: (props?: ClassProp | undefined) => string;
 
 export declare const Modal: FC<ModalProps> & {
     Header: FC<ModalChildProps>;
@@ -237,15 +212,14 @@ declare type ModalChildProps = {
 };
 
 declare interface ModalProps extends PropsWithChildren, VariantProps<typeof modalVariants> {
-    className?: string;
     buttonCloseClassName?: string;
+    className?: string;
     isOpen?: boolean;
+    theme?: Theme;
     onClose?: () => void;
 }
 
-declare const modalVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const modalVariants: (props?: ClassProp | undefined) => string;
 
 export declare const Navigation: FC_2<NavigationProps> & NavigationChildrenProps;
 
@@ -264,9 +238,7 @@ declare interface NavigationGroupProps extends PropsWithChildren_2, VariantProps
     isVisible?: boolean;
 }
 
-declare const navigationGroupsVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const navigationGroupsVariants: (props?: ClassProp | undefined) => string;
 
 export declare const NavigationOption: FC_2<NavigationOptionProps>;
 
@@ -286,7 +258,6 @@ declare type NavigationOptionProps = NavigationOption_2 & ({
 });
 
 declare const navigationOptionVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
     isActive?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
 
@@ -299,9 +270,7 @@ export declare const NavigationSeparator: FC_2<NavigationSeparatorProps>;
 declare interface NavigationSeparatorProps extends Pick<HTMLAttributes_2<HTMLDivElement>, 'className' | 'style'>, VariantProps<typeof navigationSeparatorVariant> {
 }
 
-declare const navigationSeparatorVariant: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const navigationSeparatorVariant: (props?: ClassProp | undefined) => string;
 
 declare interface NavigationTitleProps extends VariantProps<typeof navigationTitleVariants>, Pick<HtmlHTMLAttributes<HTMLHeadingElement>, 'className'> {
     title: string;
@@ -309,13 +278,9 @@ declare interface NavigationTitleProps extends VariantProps<typeof navigationTit
     isVisible?: boolean;
 }
 
-declare const navigationTitleVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const navigationTitleVariants: (props?: ClassProp | undefined) => string;
 
-declare const navigationVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const navigationVariants: (props?: ClassProp | undefined) => string;
 
 export declare const NumberInput: FC<NumberInputProps>;
 
@@ -327,6 +292,7 @@ declare interface NumberInputProps extends VariantProps<typeof numberInputVarian
     min?: number;
     name?: string;
     value?: number;
+    theme?: Theme;
     onChange?: ({ target: { value } }: {
         target: {
             value: number;
@@ -334,9 +300,14 @@ declare interface NumberInputProps extends VariantProps<typeof numberInputVarian
     }) => void;
 }
 
-declare const numberInputVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const numberInputVariants: (props?: ClassProp | undefined) => string;
+
+declare type OnChangeFn = (params: {
+    target: {
+        value: string;
+        name: string;
+    };
+}) => void;
 
 declare type Option_2 = {
     value: string;
@@ -354,12 +325,11 @@ declare interface ProgressBarProps extends VariantProps<typeof progressBarVarian
     className?: string;
     label?: string;
     percent: number;
+    theme?: Theme;
     status?: 'success' | 'progress';
 }
 
-declare const progressBarVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const progressBarVariants: (props?: ClassProp | undefined) => string;
 
 export declare const Radio: FC<RadioProps>;
 
@@ -374,13 +344,14 @@ declare type RadioCardGroupProps = {
     direction?: 'row' | 'col';
     name: string;
     options: Omit<RadioCardProps, 'name' | 'checked' | 'defaultChecked'>[];
-    theme?: RadioCardProps['theme'];
+    theme?: Theme;
     wrapperClassName?: string;
     onValueChange?: (value: string) => void;
 };
 
 declare type RadioCardProps = Omit<CardProps, 'canHover' | 'isActive'> & Pick<RadioProps, 'name' | 'value' | 'checked' | 'onChange' | 'label' | 'disabled' | 'defaultChecked' | 'labelTextClassName'> & {
     labelWrapperClassName?: string;
+    theme?: Theme;
 };
 
 export declare const RadioGroup: FC<RadioGroupProps>;
@@ -393,7 +364,7 @@ declare interface RadioGroupProps {
     label?: string | ReactNode;
     name: string;
     options: Omit<RadioProps, 'name' | 'checked' | 'defaultChecked'>[];
-    theme?: RadioProps['theme'];
+    theme?: Theme;
     wrapperClassName?: string;
     onValueChange?: (value: string) => void;
 }
@@ -407,11 +378,11 @@ declare interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>,
     name: string;
     value: string;
     wrapperClassName?: string;
+    theme?: Theme;
     onChange?: (value: string) => void;
 }
 
 declare const radioVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
     disabled?: boolean | null | undefined;
     checked?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
@@ -428,11 +399,10 @@ declare interface RangeProps extends VariantProps<typeof rangeVariants> {
     name?: string;
     showValue?: boolean;
     size?: 'sm' | 'md' | 'lg';
+    theme?: Theme;
 }
 
-declare const rangeVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const rangeVariants: (props?: ClassProp | undefined) => string;
 
 declare interface RowProps extends React.HTMLAttributes<HTMLTableRowElement>, PropsWithChildren, VariantProps<typeof rowVariants> {
     width?: string;
@@ -441,7 +411,6 @@ declare interface RowProps extends React.HTMLAttributes<HTMLTableRowElement>, Pr
 }
 
 declare const rowVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
     isSelected?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
 
@@ -461,6 +430,7 @@ declare interface SidebarProps extends VariantProps<typeof wrapperSiderbarVarian
     minWith?: number;
     maxWith?: number;
     canResize?: boolean;
+    theme?: Theme;
 }
 
 export declare const Slider: FC<SliderProps_2>;
@@ -474,11 +444,10 @@ declare interface SliderProps_2 extends VariantProps<typeof sliderVariants> {
     name?: string;
     showValue?: boolean;
     size?: 'sm' | 'md' | 'lg';
+    theme?: Theme;
 }
 
-declare const sliderVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const sliderVariants: (props?: ClassProp | undefined) => string;
 
 declare type Step = {
     label: string;
@@ -492,31 +461,29 @@ export declare const Switch: FC<SwitchProps>;
 declare interface SwitchProps extends VariantProps<typeof switchVariants> {
     alignment?: 'horizontal' | 'vertical';
     className?: string;
+    defaultChecked?: boolean;
     label?: string;
     name?: string;
+    theme?: Theme;
     thumbClassName?: string;
-    onChange?: (e: boolean) => void;
     value?: boolean;
-    defaultChecked?: boolean;
+    onChange?: (e: boolean) => void;
 }
 
-declare const switchVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const switchVariants: (props?: ClassProp | undefined) => string;
 
-export declare const Table: FunctionComponent<TableProps> & {
-    Head: FunctionComponent<HeadProps>;
-    Row: FunctionComponent<RowProps>;
-    Filter: FunctionComponent<FilterProps>;
-    Body: FunctionComponent<BodyProps>;
+export declare const Table: FC<TableProps> & {
+    Head: FC<HeadProps>;
+    Row: FC<RowProps>;
+    Filter: FC<FilterProps>;
+    Body: FC<BodyProps>;
 };
 
 declare interface TableProps extends React.HTMLAttributes<HTMLTableElement>, PropsWithChildren, VariantProps<typeof tableVariants> {
+    theme?: Theme;
 }
 
-declare const tableVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const tableVariants: (props?: ClassProp | undefined) => string;
 
 export declare const Tag: FC<TagProps>;
 
@@ -543,9 +510,7 @@ declare interface TagSelectProps extends VariantProps<typeof tagSelectVariants> 
     multiselect?: boolean;
 }
 
-declare const tagSelectVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const tagSelectVariants: (props?: ClassProp | undefined) => string;
 
 export declare const TextArea: FC<TextAreaProps>;
 
@@ -554,13 +519,12 @@ declare interface TextAreaProps extends InputHTMLAttributes<HTMLTextAreaElement>
     label?: string | ReactNode;
     name?: string;
     initialValue?: string;
+    theme?: Theme;
 }
 
-declare const textAreaVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const textAreaVariants: (props?: ClassProp | undefined) => string;
 
-export declare type Theme = 'kubefirst' | 'colony' | 'civo' | undefined;
+declare type Theme = 'kubefirst' | 'colony' | 'civo' | 'kubefirst-dark' | 'colony-dark' | 'civo-dark' | undefined;
 
 export declare const ThemeContext: Context<ThemeContextType>;
 
@@ -584,20 +548,19 @@ export declare const Toast: FC<ToastProps>;
 
 declare interface ToastProps extends PropsWithChildren, VariantProps<typeof toastVariants> {
     className?: string;
+    closeButtonClassName?: string;
     description: string | ReactNode;
     descriptionClassName?: string;
     duration?: number;
+    open: boolean;
     showCloseButton?: boolean;
+    theme?: Theme;
     title: string | ReactNode;
     titleClassName?: string;
-    open: boolean;
     setOpen: (open: boolean) => void;
-    closeButtonClassName?: string;
 }
 
-declare const toastVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const toastVariants: (props?: ClassProp | undefined) => string;
 
 export declare const Tooltip: FC<TooltipProps>;
 
@@ -605,31 +568,30 @@ declare interface TooltipProps extends PropsWithChildren, VariantProps<typeof to
     content: ReactNode | string;
     className?: string;
     wrapperClassName?: string;
+    theme?: Theme;
 }
 
 declare const tooltipVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
     position?: "left" | "right" | "top" | "bottom" | null | undefined;
 } & ClassProp) | undefined) => string;
 
-export declare const Typography: FunctionComponent<TypographyProps>;
+export declare const Typography: FC<TypographyProps>;
 
 declare interface TypographyProps extends InputHTMLAttributes<HTMLParagraphElement>, VariantProps<typeof typographyVariants> {
+    asChild?: boolean;
     children: ReactNode;
     component?: HeadingTag | 'p' | 'span';
+    theme?: Theme;
 }
 
 declare const typographyVariants: (props?: ({
     variant?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "tooltip" | "subtitle1" | "subtitle2" | "subtitle3" | "labelLarge" | "labelMedium" | "labelSmall" | "buttonSmall" | "body1" | "body2" | "body3" | null | undefined;
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 export declare const useTheme: () => ThemeProps;
 
 export declare const useToggle: (initialState?: boolean) => [boolean, (value?: boolean) => void];
 
-declare const wrapperSiderbarVariants: (props?: ({
-    theme?: "kubefirst" | "colony" | "civo" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const wrapperSiderbarVariants: (props?: ClassProp | undefined) => string;
 
 export { }
