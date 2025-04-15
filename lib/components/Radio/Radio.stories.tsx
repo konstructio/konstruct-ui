@@ -4,42 +4,40 @@ import { Radio as RadioComponent } from './Radio';
 
 type Story = StoryObj<typeof RadioComponent>;
 
-const meta: Meta<typeof RadioComponent> = {
+const meta = {
   title: 'In Review/Radio',
   component: RadioComponent,
-};
+} satisfies Meta<typeof RadioComponent>;
 
-export const Radio: Story = {
+export const Radio = {
   args: {
     value: 'radio-button',
     checked: true,
   },
-  render: (args) => {
-    return (
-      <div className="w-[350px] flex flex-col gap-3">
-        <RadioComponent
-          {...args}
-          label="Radio Button Kubefirst"
-          checked={false}
-        />
+  render: (args) => (
+    <div className="w-[350px] flex flex-col gap-3">
+      <RadioComponent
+        {...args}
+        label="Radio Button Kubefirst"
+        checked={false}
+      />
 
-        <RadioComponent {...args} label="Radio Button Kubefirst" />
+      <RadioComponent {...args} label="Radio Button Kubefirst" />
 
-        <RadioComponent
-          {...args}
-          label="Radio Button Kubefirst"
-          disabled={true}
-        />
+      <RadioComponent
+        {...args}
+        label="Radio Button Kubefirst"
+        disabled={true}
+      />
 
-        <RadioComponent
-          {...args}
-          label="Radio Button Kubefirst"
-          disabled={true}
-          checked={false}
-        />
-      </div>
-    );
-  },
-};
+      <RadioComponent
+        {...args}
+        label="Radio Button Kubefirst"
+        disabled={true}
+        checked={false}
+      />
+    </div>
+  ),
+} satisfies Story;
 
 export default meta;

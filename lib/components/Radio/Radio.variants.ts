@@ -40,11 +40,6 @@ export const radioVariants = cva(
   ],
   {
     variants: {
-      theme: {
-        colony: '',
-        kubefirst: '',
-        civo: '',
-      },
       disabled: {
         true: '',
         false: '',
@@ -56,7 +51,6 @@ export const radioVariants = cva(
     },
     compoundVariants: [
       {
-        theme: 'kubefirst',
         disabled: false,
         checked: [true, false],
         class: [
@@ -65,7 +59,6 @@ export const radioVariants = cva(
         ],
       },
       {
-        theme: 'kubefirst',
         disabled: true,
         checked: true,
         class: [
@@ -76,7 +69,6 @@ export const radioVariants = cva(
         ],
       },
       {
-        theme: 'kubefirst',
         disabled: true,
         checked: false,
         class: [
@@ -90,7 +82,6 @@ export const radioVariants = cva(
       },
     ],
     defaultVariants: {
-      theme: 'kubefirst',
       disabled: false,
     },
   },
