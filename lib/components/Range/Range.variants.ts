@@ -1,52 +1,27 @@
 import { cva } from 'class-variance-authority';
 
-export const rangeVariants = cva(
-  [
-    'relative',
-    'flex',
-    'items-center',
-    'w-full',
-    'border',
-    'border-gray-200',
-    'rounded-full',
-    'shadow-sm',
-  ],
-  {
-    variants: {
-      theme: {
-        kubefirst: '',
-        colony: '',
-        civo: '',
-      },
-    },
-    defaultVariants: {
-      theme: 'kubefirst',
-    },
-  },
-);
+export const rangeVariants = cva([
+  'relative',
+  'flex',
+  'items-center',
+  'w-full',
+  'border',
+  'border-gray-200',
+  'rounded-full',
+  'shadow-sm',
+]);
 
-export const rangeOutsideVariants = cva(['absolute', 'h-full'], {
-  variants: {
-    theme: {
-      kubefirst: ['bg-kubefirst-secondary'],
-      colony: ['bg-red-500'],
-      civo: '',
-    },
-  },
-  defaultVariants: {
-    theme: 'kubefirst',
-  },
-});
+export const rangeOutsideVariants = cva([
+  'absolute',
+  'h-full',
+  'bg-kubefirst-secondary',
+  'colony:bg-red-500',
+]);
 
 export const trackVariants = cva(
   ['relative', 'flex-grow', 'bg-gray-100', 'rounded-full'],
   {
     variants: {
-      theme: {
-        kubefirst: '',
-        colony: '',
-        civo: '',
-      },
       size: {
         sm: ['h-1'],
         md: ['h-2'],
@@ -54,7 +29,6 @@ export const trackVariants = cva(
       },
     },
     defaultVariants: {
-      theme: 'kubefirst',
       size: 'md',
     },
   },
@@ -75,11 +49,6 @@ export const thumbVariants = cva(
   ],
   {
     variants: {
-      theme: {
-        kubefirst: '',
-        colony: '',
-        civo: '',
-      },
       size: {
         sm: ['w-5', 'h-5'],
         md: ['w-6', 'h-6'],
@@ -87,7 +56,6 @@ export const thumbVariants = cva(
       },
     },
     defaultVariants: {
-      theme: 'kubefirst',
       size: 'md',
     },
   },
