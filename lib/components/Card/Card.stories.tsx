@@ -1,9 +1,9 @@
+import type { Meta, StoryObj } from '@storybook/react';
 import { FC } from 'react';
 import { Check } from 'react-feather';
-import type { Meta, StoryObj } from '@storybook/react';
 
-import { ThemeContextType, ThemeProvider } from '../../contexts';
-import { Button } from '../Button/Button';
+import { Button } from '@/components/Button/Button';
+import { Theme } from '@/domain/theme';
 
 import { Card as CardComponent } from './Card';
 import { CardProps } from './Card.types';
@@ -17,13 +17,11 @@ const meta: Meta<typeof CardComponent> = {
 
 export const Card: Story = {
   render: () => {
-    const themes = [
-      'kubefirst',
-      'colony',
-      'civo',
-    ] satisfies ThemeContextType['theme'][];
+    const themes = ['kubefirst', 'colony', 'civo'] satisfies Theme[];
 
-    const Wrapper: FC<Pick<CardProps, 'isActive' | 'canHover'>> = (props) => (
+    const Wrapper: FC<Pick<CardProps, 'isActive' | 'canHover' | 'theme'>> = (
+      props,
+    ) => (
       <div className="max-w-[350px] flex flex-col gap-2 w-[280px]">
         <CardComponent className="flex flex-col gap-3 p-5" {...props}>
           <header className="text-center">
@@ -76,33 +74,25 @@ export const Card: Story = {
     );
 
     return (
-      <>
-        <div className="flex flex-col gap-4">
-          <div className="flex gap-4">
-            {themes.map((theme) => (
-              <ThemeProvider theme={theme}>
-                <Wrapper />
-              </ThemeProvider>
-            ))}
-          </div>
-
-          <div className="flex gap-4">
-            {themes.map((theme) => (
-              <ThemeProvider theme={theme}>
-                <Wrapper canHover={true} />
-              </ThemeProvider>
-            ))}
-          </div>
-
-          <div className="flex gap-4">
-            {themes.map((theme) => (
-              <ThemeProvider theme={theme}>
-                <Wrapper isActive={true} />
-              </ThemeProvider>
-            ))}
-          </div>
+      <div className="flex flex-col gap-4">
+        <div className="flex gap-4">
+          {themes.map((theme) => (
+            <Wrapper theme={theme} />
+          ))}
         </div>
-      </>
+
+        <div className="flex gap-4">
+          {themes.map((theme) => (
+            <Wrapper canHover={true} theme={theme} />
+          ))}
+        </div>
+
+        <div className="flex gap-4">
+          {themes.map((theme) => (
+            <Wrapper isActive={true} theme={theme} />
+          ))}
+        </div>
+      </div>
     );
   },
 };

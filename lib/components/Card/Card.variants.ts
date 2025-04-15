@@ -4,11 +4,6 @@ export const cardBaseVariants = cva(
   ['border', 'border-slate-200', 'rounded-xl'],
   {
     variants: {
-      theme: {
-        colony: '',
-        kubefirst: '',
-        civo: '',
-      },
       isActive: {
         true: 'border-transparent',
         false: '',
@@ -18,9 +13,6 @@ export const cardBaseVariants = cva(
         false: '',
       },
     },
-    defaultVariants: {
-      theme: 'kubefirst',
-    },
   },
 );
 
@@ -28,59 +20,32 @@ export const cardVariants = cva(
   ['border', 'border-4', 'p-3', 'text-card-foreground', 'rounded-xl'],
   {
     variants: {
-      theme: {
-        colony: '',
-        kubefirst: '',
-        civo: '',
-      },
       isActive: {
-        true: '',
+        true: [
+          'border-kubefirst-primary',
+          'shadow',
+          'colony:border-colony-primary',
+          'civo:border-civo-primary',
+        ],
         false: 'border-transparent',
       },
       canHover: {
-        true: 'cursor-pointer border-transparent',
+        true: [
+          'cursor-pointer',
+          'border-transparent',
+          'group-hover:border-kubefirst-primary',
+          'colony:group-hover:border-colony-primary',
+          'civo:group-hover:border-civo-primary',
+        ],
         false: '',
       },
     },
     compoundVariants: [
-      {
-        theme: 'colony',
-        isActive: true,
-        class: ['border-colony-primary', 'shadow'],
-      },
-      {
-        theme: 'kubefirst',
-        isActive: true,
-        class: ['border-kubefirst-primary', 'shadow'],
-      },
-      {
-        theme: 'civo',
-        isActive: true,
-        class: ['border-civo-primary', 'shadow'],
-      },
-      {
-        theme: 'colony',
-        canHover: true,
-        class: 'group-hover:border-colony-primary',
-      },
-      {
-        theme: 'kubefirst',
-        canHover: true,
-        class: 'group-hover:border-kubefirst-primary',
-      },
-      {
-        theme: 'civo',
-        canHover: true,
-        class: 'group-hover:border-civo-primary',
-      },
       {
         canHover: undefined,
         isActive: undefined,
         class: 'border-transparent',
       },
     ],
-    defaultVariants: {
-      theme: 'kubefirst',
-    },
   },
 );
