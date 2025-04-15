@@ -4,10 +4,9 @@ import { X as Close } from 'react-feather';
 import FocusLock from 'react-focus-lock';
 import { RemoveScroll } from 'react-remove-scroll';
 
-import { useTheme } from '../../../../contexts';
-import { cn } from '../../../../utils';
-import { Modal } from '../../Modal';
-import { ModalChildProps } from '../../Modal.types';
+import { Modal } from '@/components/Modal/Modal';
+import { ModalChildProps } from '@/components/Modal/Modal.types';
+import { cn } from '@/utils';
 
 import { WrapperProps } from './Wrapper.types';
 import { buttonCloseVariants, modalVariants } from './Wrapper.variants';
@@ -19,8 +18,6 @@ export const Wrapper: FC<WrapperProps> = ({
   buttonCloseClassName,
   onClose,
 }) => {
-  const { theme: contextTheme } = useTheme();
-
   const header = Children.toArray(children).find(
     (child) => isValidElement(child) && child.type === Modal.Header,
   );
@@ -44,7 +41,10 @@ export const Wrapper: FC<WrapperProps> = ({
   return (
     <FocusLock returnFocus={true}>
       <RemoveScroll>
-        <div className="fixed inset-0 grid place-content-center">
+        <div
+          className="fixed inset-0 grid place-content-center"
+          data-theme={theme}
+        >
           <div
             className="absolute inset-0 bg-black opacity-75 animate-in fade-in-0"
             onClick={onClose}
@@ -55,7 +55,6 @@ export const Wrapper: FC<WrapperProps> = ({
             className={cn(
               modalVariants({
                 className,
-                theme: theme ?? contextTheme,
               }),
             )}
             role="dialog"
@@ -67,7 +66,6 @@ export const Wrapper: FC<WrapperProps> = ({
               className={cn(
                 buttonCloseVariants({
                   className: buttonCloseClassName,
-                  theme: theme ?? contextTheme,
                 }),
               )}
               onClick={onClose}
