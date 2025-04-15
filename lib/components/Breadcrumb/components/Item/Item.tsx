@@ -1,7 +1,6 @@
 import { FC, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useTheme } from '@/contexts';
 import { cn } from '@/utils';
 
 import { useBreadcrumb } from '../../hooks/useBreadcrumb';
@@ -22,9 +21,7 @@ export const Item: FC<ItemProps> = ({
   theme,
   to,
 }) => {
-  const { theme: contextTheme } = useTheme();
   const { isInsideRouter } = useBreadcrumb();
-  const inheritTheme = theme ?? contextTheme;
 
   const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
     if (to === '#') {
@@ -35,7 +32,8 @@ export const Item: FC<ItemProps> = ({
   return (
     <li
       aria-current={isLast ? 'page' : undefined}
-      className={cn(breadcrumbItemVariants({ theme: inheritTheme, size }))}
+      className={cn(breadcrumbItemVariants({ size }))}
+      data-theme={theme}
     >
       {to ? (
         <>
@@ -43,9 +41,7 @@ export const Item: FC<ItemProps> = ({
             <Link
               to={to}
               target={target}
-              className={cn(
-                breadcrumbLinkVariants({ theme: inheritTheme, isActive }),
-              )}
+              className={cn(breadcrumbLinkVariants({ isActive }))}
               aria-disabled={isActive ? 'true' : 'false'}
               onClick={handleClick}
             >
@@ -55,9 +51,7 @@ export const Item: FC<ItemProps> = ({
             <a
               href={to}
               target={target}
-              className={cn(
-                breadcrumbLinkVariants({ theme: inheritTheme, isActive }),
-              )}
+              className={cn(breadcrumbLinkVariants({ isActive }))}
               aria-disabled={isActive ? 'true' : 'false'}
               onClick={handleClick}
             >
@@ -66,11 +60,7 @@ export const Item: FC<ItemProps> = ({
           )}
         </>
       ) : (
-        <span
-          className={cn(
-            breadcrumbLabelVariants({ theme: inheritTheme, isActive }),
-          )}
-        >
+        <span className={cn(breadcrumbLabelVariants({ isActive }))}>
           {label}
         </span>
       )}
