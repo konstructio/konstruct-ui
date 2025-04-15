@@ -1,7 +1,6 @@
 import { FC, Fragment, useId } from 'react';
 import { ChevronRight } from 'react-feather';
 
-import { useTheme } from '@/contexts';
 import { cn } from '@/utils';
 
 import { BreadcrumbProps } from './Breadcrumb.types';
@@ -22,23 +21,19 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
   ...delegated
 }) => {
   const id = useId();
-  const { theme: contextTheme } = useTheme();
-  const inheritTheme = theme ?? contextTheme;
 
   return (
     <nav
       aria-label={ariaLabel}
+      data-theme={theme}
       className={cn(
         breadcrumbWrapperVariants({
           className: wrapperClassName,
-          theme: inheritTheme,
         }),
       )}
     >
       <ol
-        className={cn(
-          breadcrumbVariants({ theme: inheritTheme, className, size }),
-        )}
+        className={cn(breadcrumbVariants({ className, size }))}
         {...delegated}
       >
         {steps.map(({ label, ...delegated }, index) => (
@@ -48,14 +43,11 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
               label={label}
               isLast={index === steps.length - 1}
               size={size}
-              theme={inheritTheme}
             />
 
             {index !== steps.length - 1 && (
               <li aria-hidden="true">
-                <ChevronRight
-                  className={cn(chevronVariants({ size, theme: inheritTheme }))}
-                />
+                <ChevronRight className={cn(chevronVariants({ size }))} />
               </li>
             )}
           </Fragment>
