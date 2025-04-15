@@ -5,54 +5,48 @@ export const listVariants = cva(['max-h-[250px]', 'overflow-y-auto'], {
     variant: {
       default: 'bg-white',
     },
-    theme: {
-      kubefirst: '',
-      colony: '',
-      civo: '',
-    },
   },
   defaultVariants: {
     variant: 'default',
-    theme: 'kubefirst',
   },
 });
 
 export const emptyListVariants = cva(
-  ['p-1', 'text-center', 'w-full block', 'bg-white'],
+  ['p-1', 'text-center', 'w-full', 'block', 'bg-white'],
   {
     variants: {
       variant: {
         default: '',
       },
-      theme: {
-        kubefirst: '',
-        colony: '',
-        civo: '',
-      },
     },
     defaultVariants: {
       variant: 'default',
-      theme: 'kubefirst',
     },
   },
 );
 
-export const listItemVariants = cva(['focus-visible:outline-none'], {
-  variants: {
-    variant: {
-      default: '',
+export const listItemVariants = cva(
+  [
+    'focus-visible:outline-none',
+    'focus:bg-purple-100',
+    'hover:bg-purple-100',
+    'border-transparent',
+    'colony:focus:bg-red-100',
+    'colony:hover:bg-red-100',
+    'civo:focus:bg-blue-100',
+    'civo:hover:bg-blue-100',
+  ],
+  {
+    variants: {
+      variant: {
+        default: '',
+      },
     },
-    theme: {
-      kubefirst: ['focus:bg-purple-100', 'hover:bg-purple-100'],
-      colony: ['focus:bg-red-100', 'hover:bg-red-100'],
-      civo: '',
+    defaultVariants: {
+      variant: 'default',
     },
   },
-  defaultVariants: {
-    variant: 'default',
-    theme: 'kubefirst',
-  },
-});
+);
 
 export const buttonVariants = cva(
   [
@@ -62,21 +56,21 @@ export const buttonVariants = cva(
     'py-1.5',
     'w-full',
     'text-left',
+    'focus:bg-purple-100',
+    'hover:bg-purple-100',
+    'colony:focus:bg-red-100',
+    'colony:hover:bg-red-100',
+    'civo:focus:bg-blue-100',
+    'civo:hover:bg-blue-100',
   ],
   {
     variants: {
       variant: {
         default: '',
       },
-      theme: {
-        kubefirst: ['focus:bg-purple-100', 'hover:bg-purple-100'],
-        colony: ['focus:bg-red-100', 'hover:bg-red-100'],
-        civo: '',
-      },
     },
     defaultVariants: {
       variant: 'default',
-      theme: 'kubefirst',
     },
   },
 );

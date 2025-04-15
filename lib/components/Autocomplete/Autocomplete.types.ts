@@ -1,5 +1,7 @@
-import { ReactNode } from 'react';
 import { VariantProps } from 'class-variance-authority';
+import { ReactNode } from 'react';
+
+import { Theme } from '@/domain/theme';
 
 import { autocompleteVariants } from './Autocomplete.variants';
 
@@ -15,8 +17,9 @@ export interface AutocompleteProps
   labelClassName?: string;
   name?: string;
   options: Option[];
+  placeholder?: string;
   placeHolderEmptyValues?: string | ReactNode;
   placeHolderEmptyValuesClassName?: string;
-  placeholder?: string;
+  theme?: Theme;
   onChange(value: string): void;
 }
