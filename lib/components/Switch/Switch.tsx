@@ -8,7 +8,6 @@ import {
   useRef,
 } from 'react';
 
-import { useTheme } from '@/contexts';
 import { cn } from '@/utils';
 
 import { SwitchProps } from './Switch.types';
@@ -34,8 +33,6 @@ export const Switch: FC<SwitchProps> = forwardRef<
   ) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const id = useId();
-    const { theme: contextTheme } = useTheme();
-    const inheritTheme = theme ?? contextTheme;
     const componentId = name ? `${id}-${name}` : id;
 
     useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
@@ -52,6 +49,7 @@ export const Switch: FC<SwitchProps> = forwardRef<
           'w-full flex gap-3',
           alignment === 'vertical' ? 'flex-col' : 'flex-row',
         )}
+        data-theme={theme}
       >
         {label ? (
           <label
@@ -68,12 +66,11 @@ export const Switch: FC<SwitchProps> = forwardRef<
           defaultChecked={defaultChecked}
           checked={value}
           onCheckedChange={(e) => onChange?.(e)}
-          className={cn(switchVariants({ theme: inheritTheme, className }))}
+          className={cn(switchVariants({ className }))}
           aria-label={label}
         >
           <Thumb
             className={thumbVariants({
-              theme: inheritTheme,
               className: thumbClassName,
             })}
           />
