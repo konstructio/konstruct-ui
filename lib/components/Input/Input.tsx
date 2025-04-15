@@ -1,9 +1,9 @@
+'use client';
 import { forwardRef, useId, useState } from 'react';
 import { AlertCircle, Eye, EyeOff } from 'react-feather';
 
 import { cn } from '../../utils';
 
-import { useTheme } from '../../contexts';
 import { InputProps } from './Input.types';
 import { inputVariants } from './Input.variants';
 
@@ -23,12 +23,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const [showPassword, setShowPassword] = useState(false);
     const id = useId();
-    const { theme: themeContext } = useTheme();
-
     const EyeIcon = showPassword ? Eye : EyeOff;
 
     return (
-      <div className="flex flex-col gap-1.5 w-full">
+      <div className="flex flex-col gap-1.5 w-full" data-theme={theme}>
         {label ? (
           <label htmlFor={id} className={cn('cursor-pointer', labelClassName)}>
             {label}
@@ -41,18 +39,21 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             name={name}
             type={showPassword ? 'text' : type}
-            className={inputVariants({
-              className,
-              theme: theme ?? themeContext,
-              variant: error ? 'error' : 'default',
-            })}
+            className={cn(
+              inputVariants({
+                className,
+                variant: error ? 'error' : 'default',
+              }),
+            )}
             {...delegated}
           />
+
           {error ? (
             <i className="absolute right-3 text-red-600 top-0 translate-y-[40%]">
               <AlertCircle className="w-5 h-5" />
             </i>
           ) : null}
+
           {type === 'password' && !error ? (
             <i className="absolute right-3 text-slate-400 top-0 translate-y-[40%]">
               <EyeIcon

@@ -1,7 +1,8 @@
-import { FC } from 'react';
 import { Trigger } from '@radix-ui/react-alert-dialog';
+import { FC } from 'react';
 
 import { Button } from '@/components/Button/Button';
+import { cn } from '@/utils';
 
 import { AlertDialogTriggerProps } from './AlertDialogTrigger.types';
 
@@ -15,7 +16,7 @@ export const AlertDialogTrigger: FC<AlertDialogTriggerProps> = ({
     <Button
       type="button"
       data-theme={dataTheme}
-      className={className}
+      className={cn(className)}
       onClick={onOpen}
     >
       {text}

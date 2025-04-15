@@ -110,7 +110,7 @@ export const Wrapper: ForwardRefExoticComponent<
         {label ? (
           <label
             id={htmlFor}
-            className={labelVariants({ className: labelClassName })}
+            className={cn(labelVariants({ className: labelClassName }))}
             htmlFor={htmlFor}
             onClick={handleOpenIfClosed}
           >
@@ -122,31 +122,29 @@ export const Wrapper: ForwardRefExoticComponent<
         <div
           ref={wrapperInputRef}
           id={htmlFor}
-          className={dropdownVariants()}
+          className={cn(dropdownVariants())}
           role="combobox"
           onClick={handleOpen}
           aria-expanded={isOpen}
           tabIndex={0}
           aria-labelledby={htmlFor}
         >
-          <span className="text-base text-inherit">
-            {value ? (
-              <Typography
-                variant="body2"
-                className="flex gap-3 items-center text-zinc-700"
-              >
-                {getIcon()}
-                {internalValue?.label}
-              </Typography>
-            ) : (
-              <Typography
-                variant="body2"
-                className="flex gap-3 items-center text-zinc-700"
-              >
-                {placeholder}
-              </Typography>
-            )}
-          </span>
+          {value ? (
+            <Typography
+              variant="body2"
+              className="flex gap-3 items-center text-zinc-700 text-base"
+            >
+              {getIcon()}
+              {internalValue?.label}
+            </Typography>
+          ) : (
+            <Typography
+              variant="body2"
+              className="flex gap-3 items-center text-zinc-700 text-base"
+            >
+              {placeholder}
+            </Typography>
+          )}
 
           {isLoading ? (
             <Loading className="w-4 h-4 text-zinc-500" />

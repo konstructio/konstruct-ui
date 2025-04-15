@@ -2,7 +2,7 @@ import { cva } from 'class-variance-authority';
 
 export const inputVariants = cva(
   [
-    'bg-transparent',
+    'bg-white',
     'border',
     'border-zinc-200',
     'disabled:cursor-not-allowed',
@@ -16,25 +16,20 @@ export const inputVariants = cva(
     'pr-10',
     'py-1',
     'rounded-md',
-    'shadow-sm',
+    'shadow-2xs',
     'transition-colors',
     'w-full',
+    'focus:ring-kubefirst-primary',
   ],
   {
     variants: {
       variant: {
         default: '',
-        error: '!border-red-600 pr-8 focus-visible:ring-transparent',
-      },
-      theme: {
-        kubefirst: 'focus:ring-kubefirst-primary',
-        colony: '',
-        civo: '',
+        error: 'border-red-600 pr-8 focus-visible:ring-transparent',
       },
     },
     defaultVariants: {
       variant: 'default',
-      theme: 'kubefirst',
     },
   },
 );
