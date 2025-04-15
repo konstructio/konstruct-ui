@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.0.13-alpha.1](https://github.com/konstructio/konstruct-ui/tree/0.0.13-alpha.1) (2025-04-15)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.21...0.0.13-alpha.1)
+
+**Merged pull requests:**
+
+- ♻️  chore: refactor components to new schema [\#175](https://github.com/konstructio/konstruct-ui/pull/175) ([futjesus](https://github.com/futjesus))
+- ♻️  refactor: implement tailwind 4 [\#174](https://github.com/konstructio/konstruct-ui/pull/174) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: some dependencies have been updated [\#173](https://github.com/konstructio/konstruct-ui/pull/173) ([futjesus](https://github.com/futjesus))
+
 ## [0.0.12-alpha.21](https://github.com/konstructio/konstruct-ui/tree/0.0.12-alpha.21) (2025-03-31)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.12-alpha.20...0.0.12-alpha.21)
