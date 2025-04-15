@@ -24,11 +24,6 @@ export const alertVariants = cva(
   ],
   {
     variants: {
-      theme: {
-        kubefirst: '',
-        colony: '',
-        civo: '',
-      },
       type: {
         sucess: '',
         info: [
@@ -47,7 +42,6 @@ export const alertVariants = cva(
       },
     },
     defaultVariants: {
-      theme: 'kubefirst',
       isVisible: true,
     },
   },
@@ -65,20 +59,12 @@ export const closeButtonVariants = cva(
   ],
   {
     variants: {
-      theme: {
-        kubefirst: '',
-        colony: '',
-        civo: '',
-      },
       type: {
         sucess: '',
         info: ['text-blue-600'],
         warning: '',
         danger: '',
       },
-    },
-    defaultVariants: {
-      theme: 'kubefirst',
     },
   },
 );
