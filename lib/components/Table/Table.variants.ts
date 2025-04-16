@@ -6,7 +6,6 @@ export const tableVariants = cva([
   'border-collapse',
   'border-spacing-0',
   'rounded',
-  'shadow-sm',
 ]);
 
 export const rowVariants = cva(
