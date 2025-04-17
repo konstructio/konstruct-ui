@@ -38,7 +38,6 @@ export const Badge: FC<BadgeProps> = ({
       () => {
         badgeRef.current?.style.setProperty('display', 'none');
         badgeRef.current?.remove();
-        console.log('ENTRE');
       },
       { signal: controller.signal },
     );
