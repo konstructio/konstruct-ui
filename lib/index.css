@@ -3,16 +3,20 @@
 @import './styles/kubefirst-theme';
 @import './styles/utilities';
 
-html {
-  -webkit-font-smoothing: antialiased;
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+  }
 }
 
-body {
-  font-family: 'Roboto', sans-serif;
-}
-
-.kubefirst-table {
-  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.04);
-  border: 1px solid #e2e8f0;
-  border-radius: 4px;
+@layer components {
+  .kubefirst-table {
+    box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.04);
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+  }
 }
