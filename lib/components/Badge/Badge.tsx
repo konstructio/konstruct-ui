@@ -24,10 +24,8 @@ export const Badge: FC<BadgeProps> = ({
   const handleDismiss = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();
+      onDismiss?.();
       setIsVisible('hidden');
-      setTimeout(() => {
-        onDismiss?.();
-      }, 500);
     },
     [onDismiss],
   );
@@ -40,6 +38,7 @@ export const Badge: FC<BadgeProps> = ({
       () => {
         badgeRef.current?.style.setProperty('display', 'none');
         badgeRef.current?.remove();
+        console.log('ENTRE');
       },
       { signal: controller.signal },
     );
@@ -60,12 +59,14 @@ export const Badge: FC<BadgeProps> = ({
       aria-label={onClick ? `${label} badge` : undefined}
       aria-busy={loading}
       aria-live="polite"
-      data-state={dismissible ? isVisible : undefined}
+      data-state={isVisible}
     >
       {loading && (
         <Loader className="h-3 w-3 animate-spin animate-duration-time-2" />
       )}
+
       {label}
+
       {dismissible && (
         <button
           type="button"
