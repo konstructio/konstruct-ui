@@ -1,12 +1,11 @@
 @theme {
-  /* Animations */
   --animate-enter: enter;
   --animate-exit: exit;
   --animate-hide: hide;
   --animate-slide-in: slideIn;
   --animate-swipe-out: swipeOut;
+  --animate-duration-time: 1s;
 
-  /* Keyframes */
   @keyframes hide {
     from {
       opacity: 1;
@@ -162,4 +161,14 @@
 @utility animate-hide {
   animation-name: var(--animate-hide);
   animation-duration: 0.15s;
+}
+
+@utility animate-duration-time-* {
+  --animate-duration-time: calc(--value(number) * 1s);
+}
+
+@utility animate-spin {
+  animation-name: spin;
+  animation-duration: var(--animate-duration-time, 1s);
+  animation-iteration-count: infinite;
 }
