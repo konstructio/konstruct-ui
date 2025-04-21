@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.0-alpha.2](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.2) (2025-04-21)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.13-alpha.2...0.1.0-alpha.2)
+
+**Merged pull requests:**
+
+- fix: divider [\#184](https://github.com/konstructio/konstruct-ui/pull/184) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.0.13-alpha.2](https://github.com/konstructio/konstruct-ui/tree/0.0.13-alpha.2) (2025-04-16)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.13-alpha.1...0.0.13-alpha.2)
