@@ -1,4 +1,12 @@
-import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as n}from"./index-ikABDTSQ.js";import{e,f as i}from"./index-DViBNwBe.js";import"./index-CDlOlYQx.js";import"./iframe-D1coDVrv.js";import"./index-BGZCjPBa.js";import"./index-CA2ozmjx.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const c=`# Changelog
+import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as n}from"./index-ikABDTSQ.js";import{e,f as i}from"./index-9OgejQPg.js";import"./index-CDlOlYQx.js";import"./iframe-Cd5LPqID.js";import"./index-BGZCjPBa.js";import"./index-CA2ozmjx.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const c=`# Changelog
+
+## [0.1.0-alpha.2](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.2) (2025-04-21)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.13-alpha.2...0.1.0-alpha.2)
+
+**Merged pull requests:**
+
+- fix: divider [\\#184](https://github.com/konstructio/konstruct-ui/pull/184) ([CristhianF7](https://github.com/CristhianF7))
 
 ## [0.0.13-alpha.2](https://github.com/konstructio/konstruct-ui/tree/0.0.13-alpha.2) (2025-04-16)
 
