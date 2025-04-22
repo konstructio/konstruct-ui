@@ -7,7 +7,6 @@ import { useBreadcrumb } from '../../hooks/useBreadcrumb';
 
 import { ItemProps } from './Item.types';
 import {
-  breadcrumbItemVariants,
   breadcrumbLabelVariants,
   breadcrumbLinkVariants,
 } from './Item.variants';
@@ -16,7 +15,6 @@ export const Item: FC<ItemProps> = ({
   isActive,
   isLast,
   label,
-  size,
   target,
   theme,
   to,
@@ -32,7 +30,7 @@ export const Item: FC<ItemProps> = ({
   return (
     <li
       aria-current={isLast ? 'page' : undefined}
-      className={cn(breadcrumbItemVariants({ size }))}
+      className="group font-semibold text-inherit"
       data-theme={theme}
     >
       {to ? (

@@ -5,7 +5,7 @@ import { Breadcrumb as BreadcrumbComponent } from './Breadcrumb';
 type Story = StoryObj<typeof BreadcrumbComponent>;
 
 const meta: Meta<typeof BreadcrumbComponent> = {
-  title: 'Design System/Breadcrumb',
+  title: 'In Review/Breadcrumb',
   component: BreadcrumbComponent,
 };
 
@@ -27,13 +27,7 @@ export const Breadcrumb = {
   },
   render: (args) => (
     <div className="max-w-[350px] flex flex-col gap-1">
-      <BreadcrumbComponent size="sm" {...args} />
-      <div className="mt-3" />
-      <BreadcrumbComponent size="base" {...args} />
-      <div className="mt-3" />
-      <BreadcrumbComponent size="lg" {...args} />
-      <div className="mt-3" />
-      <BreadcrumbComponent size="xl" {...args} />
+      <BreadcrumbComponent {...args} />
     </div>
   ),
 } satisfies Story;
