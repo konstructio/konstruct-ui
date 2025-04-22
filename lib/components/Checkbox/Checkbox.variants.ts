@@ -10,9 +10,11 @@ export const checkboxVariants = cva(
     'flex',
     'justify-center',
     'items-center',
+    'transition-all',
     'text-white',
     'border-kubefirst-primary',
     'colony:border-red-700',
+    'civo:border-civo-primary',
   ],
   {
     variants: {
@@ -27,7 +29,11 @@ export const checkboxVariants = cva(
     compoundVariants: [
       {
         checked: true,
-        class: ['bg-kubefirst-primary', 'colony:bg-red-700'],
+        class: [
+          'bg-kubefirst-primary',
+          'colony:bg-red-700',
+          'civo:bg-civo-primary',
+        ],
       },
     ],
     defaultVariants: {
@@ -36,13 +42,4 @@ export const checkboxVariants = cva(
   },
 );
 
-export const labelVariants = cva(['cursor-pointer'], {
-  variants: {
-    variant: {
-      default: '',
-    },
-  },
-  defaultVariants: {
-    variant: 'default',
-  },
-});
+export const labelVariants = cva(['cursor-pointer', 'text-slate-800']);
