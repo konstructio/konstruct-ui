@@ -44,7 +44,7 @@ describe('Button', () => {
   });
 
   it('should render the component with circle shape', () => {
-    const { button } = setup({ variant: 'circle', children: <HelpIcon /> });
+    const { button } = setup({ shape: 'circle', children: <HelpIcon /> });
 
     expect(button).toHaveClass('rounded-full');
   });

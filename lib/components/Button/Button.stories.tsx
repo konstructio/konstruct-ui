@@ -9,7 +9,7 @@ import { Button } from './Button';
 type Story = StoryObj<typeof Button>;
 
 const meta: Meta<typeof Button> = {
-  title: 'Design System/Button',
+  title: 'In Review/Button',
   component: Button,
 };
 
@@ -17,6 +17,7 @@ export const Primary: Story = {
   render: () => (
     <div className="w-full max-w-[350px]">
       <div className="flex flex-col items-center gap-3">
+        <h6>Default Appearance</h6>
         <Button variant="primary" theme="kubefirst">
           Primary Kubefirst
         </Button>
@@ -25,12 +26,39 @@ export const Primary: Story = {
           Primary Colony
         </Button>
 
+        <Button variant="primary" disabled>
+          Primary Disabled
+        </Button>
+
         <Button variant="primary" theme="civo">
           Primary Civo
         </Button>
 
-        <Button variant="primary" disabled>
+        <Button variant="primary" theme="civo" disabled>
+          Primary Civo Disabled
+        </Button>
+      </div>
+
+      <div className="flex flex-col items-center gap-3 mt-8">
+        <h6>Compact Appearance</h6>
+        <Button variant="primary" theme="kubefirst" appearance="compact">
+          Primary Kubefirst
+        </Button>
+
+        <Button variant="primary" theme="colony" appearance="compact">
+          Primary Colony
+        </Button>
+
+        <Button variant="primary" disabled appearance="compact">
           Primary Disabled
+        </Button>
+
+        <Button variant="primary" theme="civo" appearance="compact">
+          Primary Civo
+        </Button>
+
+        <Button variant="primary" theme="civo" disabled appearance="compact">
+          Primary Civo Disabled
         </Button>
       </div>
     </div>
@@ -41,6 +69,7 @@ export const Secondary: Story = {
   render: () => (
     <div className="w-full max-w-[350px]">
       <div className="flex flex-col items-center gap-3">
+        <h6>Default Style</h6>
         <Button variant="secondary" theme="kubefirst">
           Secondary Kubefirst
         </Button>
@@ -49,12 +78,39 @@ export const Secondary: Story = {
           Secondary Colony
         </Button>
 
+        <Button variant="secondary" disabled>
+          Secondary Disabled
+        </Button>
+
         <Button variant="secondary" theme="civo">
           Secondary Civo
         </Button>
 
-        <Button variant="secondary" disabled>
+        <Button variant="secondary" theme="civo" disabled>
+          Secondary Civo Disabled
+        </Button>
+      </div>
+
+      <div className="flex flex-col items-center gap-3 mt-8">
+        <h6>Compact Appearance</h6>
+        <Button variant="secondary" theme="kubefirst" appearance="compact">
+          Secondary Kubefirst
+        </Button>
+
+        <Button variant="secondary" theme="colony" appearance="compact">
+          Secondary Colony
+        </Button>
+
+        <Button variant="secondary" disabled appearance="compact">
           Secondary Disabled
+        </Button>
+
+        <Button variant="secondary" theme="civo" appearance="compact">
+          Secondary Civo
+        </Button>
+
+        <Button variant="secondary" theme="civo" disabled appearance="compact">
+          Secondary Civo Disabled
         </Button>
       </div>
     </div>
@@ -69,9 +125,27 @@ export const Danger: Story = {
   render: (args) => (
     <div className="w-full max-w-[350px]">
       <div className="flex flex-col items-center gap-3">
+        <h6>Default Appearance</h6>
         <Button {...args} />
 
+        <Button {...args} theme="civo" disabled>
+          Danger Civo Disabled
+        </Button>
+
         <Button {...args} disabled>
+          Danger Disabled
+        </Button>
+      </div>
+
+      <div className="flex flex-col items-center gap-3 mt-8">
+        <h6>Compact Appearance</h6>
+        <Button {...args} appearance="compact" />
+
+        <Button {...args} theme="civo" disabled appearance="compact">
+          Danger Civo Disabled
+        </Button>
+
+        <Button {...args} disabled appearance="compact">
           Danger Disabled
         </Button>
       </div>
@@ -83,6 +157,7 @@ export const TextButton: Story = {
   render: () => (
     <div className="w-full max-w-[350px]">
       <div className="flex flex-col items-center gap-3">
+        <h6>Default Appearance</h6>
         <Button variant="text" theme="kubefirst">
           Text Kubefirst Default Version
         </Button>
@@ -111,6 +186,52 @@ export const TextButton: Story = {
           Text Disabled
         </Button>
       </div>
+
+      <div className="flex flex-col items-center gap-3 mt-8">
+        <h6>Compact Appearance</h6>
+        <Button variant="text" theme="kubefirst" appearance="compact">
+          Text Kubefirst Default Version
+        </Button>
+
+        <Button variant="text" theme="colony" appearance="compact">
+          Text Colony Default Version
+        </Button>
+
+        <Button variant="text" theme="civo" appearance="compact">
+          Text Civo Default Version
+        </Button>
+
+        <Button
+          variant="text"
+          theme="kubefirst"
+          appearance="compact"
+          version="alternate"
+        >
+          Text Kubefirst Alternative Version
+        </Button>
+
+        <Button
+          variant="text"
+          theme="colony"
+          appearance="compact"
+          version="alternate"
+        >
+          Text Colony Alternative Version
+        </Button>
+
+        <Button
+          variant="text"
+          theme="civo"
+          appearance="compact"
+          version="alternate"
+        >
+          Text Civo Alternative Version
+        </Button>
+
+        <Button variant="text" theme="civo" disabled appearance="compact">
+          Text Disabled
+        </Button>
+      </div>
     </div>
   ),
 };
@@ -122,6 +243,7 @@ export const IconButton: Story = {
   render: (args) => (
     <div className="w-full max-w-[350px]">
       <div className="flex flex-col items-center gap-3">
+        <h6>Default Appearance</h6>
         <Button {...args} theme="kubefirst">
           <Check className="w-5 h-5" /> Verified
         </Button>
@@ -138,16 +260,35 @@ export const IconButton: Story = {
           <Check className="w-5 h-5" /> Verified Disabled
         </Button>
       </div>
+
+      <div className="flex flex-col items-center gap-3 mt-8">
+        <h6>Compact Appearance</h6>
+        <Button {...args} theme="kubefirst" appearance="compact">
+          <Check className="w-4 h-4" /> Verified
+        </Button>
+
+        <Button {...args} theme="colony" appearance="compact">
+          <Check className="w-4 h-4" /> Verified
+        </Button>
+
+        <Button {...args} theme="civo" appearance="compact">
+          <Check className="w-4 h-4" /> Verified
+        </Button>
+
+        <Button {...args} theme="civo" disabled appearance="compact">
+          <Check className="w-4 h-4" /> Verified Disabled
+        </Button>
+      </div>
     </div>
   ),
 };
 
 export const Circle: Story = {
   args: {
-    variant: 'circle',
+    shape: 'circle',
   },
   render: (args) => (
-    <div className="w-full max-w-[200px]">
+    <div className="w-full max-w-[300px]">
       <div className="flex flex-col items-center gap-5">
         <div className="flex flex-col items-center gap-2">
           <p className="text-slate-600">Button medium size</p>
@@ -160,6 +301,9 @@ export const Circle: Story = {
               <PagesStackIcon />
             </Button>
             <Button {...args} size="medium" theme="civo">
+              <PagesStackIcon />
+            </Button>
+            <Button {...args} size="medium" variant="danger">
               <PagesStackIcon />
             </Button>
           </div>
@@ -178,6 +322,9 @@ export const Circle: Story = {
             <Button {...args} size="large" theme="civo">
               <HelpIcon />
             </Button>
+            <Button {...args} size="large" variant="danger">
+              <HelpIcon />
+            </Button>
           </div>
         </div>
 
@@ -185,6 +332,10 @@ export const Circle: Story = {
           <p className="text-slate-600">Button disabled</p>
 
           <div className="flex gap-3">
+            <Button {...args} size="medium" disabled>
+              <PagesStackIcon />
+            </Button>
+
             <Button {...args} size="medium" disabled>
               <PagesStackIcon />
             </Button>
