@@ -69,7 +69,7 @@ export const Badge: FC<BadgeProps> = ({
       {dismissible && (
         <button
           type="button"
-          className={cn(buttonDismissVariants({ size }))}
+          className={cn(buttonDismissVariants({ size, variant }))}
           onClick={handleDismiss}
           aria-label="Dismiss"
         >

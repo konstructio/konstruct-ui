@@ -15,42 +15,6 @@ export const Badge = {
   },
   render: (args) => (
     <div className="flex flex-col gap-3">
-      <h3>Badge Small</h3>
-      <div className="max-w-[350px] flex gap-3">
-        <div className="flex flex-col gap-3">
-          <BadgeComponent size="small" {...args} />
-          <BadgeComponent size="small" variant="warning" {...args} />
-          <BadgeComponent size="small" variant="danger" {...args} />
-          <BadgeComponent size="small" variant="success" {...args} />
-          <BadgeComponent size="small" variant="info" {...args} />
-        </div>
-        <div className="flex flex-col gap-3">
-          <BadgeComponent size="small" loading {...args} />
-          <BadgeComponent size="small" loading variant="warning" {...args} />
-          <BadgeComponent size="small" loading variant="danger" {...args} />
-          <BadgeComponent size="small" loading variant="success" {...args} />
-          <BadgeComponent size="small" loading variant="info" {...args} />
-        </div>
-        <div className="flex flex-col gap-3">
-          <BadgeComponent size="small" dismissible {...args} />
-          <BadgeComponent
-            size="small"
-            dismissible
-            variant="warning"
-            {...args}
-          />
-          <BadgeComponent size="small" dismissible variant="danger" {...args} />
-          <BadgeComponent
-            size="small"
-            dismissible
-            variant="success"
-            {...args}
-          />
-          <BadgeComponent size="small" dismissible variant="info" {...args} />
-        </div>
-      </div>
-
-      <h3>Badge Medium</h3>
       <div className="max-w-[350px] flex gap-3">
         <div className="flex flex-col gap-3">
           <BadgeComponent {...args} />
@@ -72,41 +36,6 @@ export const Badge = {
           <BadgeComponent dismissible variant="danger" {...args} />
           <BadgeComponent dismissible variant="success" {...args} />
           <BadgeComponent dismissible variant="info" {...args} />
-        </div>
-      </div>
-
-      <h3>Badge Large</h3>
-      <div className="max-w-[350px] flex gap-3">
-        <div className="flex flex-col gap-3">
-          <BadgeComponent size="large" {...args} />
-          <BadgeComponent size="large" variant="warning" {...args} />
-          <BadgeComponent size="large" variant="danger" {...args} />
-          <BadgeComponent size="large" variant="success" {...args} />
-          <BadgeComponent size="large" variant="info" {...args} />
-        </div>
-        <div className="flex flex-col gap-3">
-          <BadgeComponent size="large" loading {...args} />
-          <BadgeComponent size="large" loading variant="warning" {...args} />
-          <BadgeComponent size="large" loading variant="danger" {...args} />
-          <BadgeComponent size="large" loading variant="success" {...args} />
-          <BadgeComponent size="large" loading variant="info" {...args} />
-        </div>
-        <div className="flex flex-col gap-3">
-          <BadgeComponent size="large" dismissible {...args} />
-          <BadgeComponent
-            size="large"
-            dismissible
-            variant="warning"
-            {...args}
-          />
-          <BadgeComponent size="large" dismissible variant="danger" {...args} />
-          <BadgeComponent
-            size="large"
-            dismissible
-            variant="success"
-            {...args}
-          />
-          <BadgeComponent size="large" dismissible variant="info" {...args} />
         </div>
       </div>
     </div>

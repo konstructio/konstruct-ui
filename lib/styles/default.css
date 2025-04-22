@@ -1,0 +1,17 @@
+@theme {
+  --viewport-padding: 25px;
+
+  --color-kubefirst-primary: #8851c8;
+  --color-kubefirst-secondary: #7037ae;
+  --color-kubefirst-dark-blue-900: #1e2235;
+
+  --color-kubefirst-pro-primary: #1fb4d5;
+  --color-kubefirst-pro-secondary: #3dc3e2;
+
+  --color-colony-primary: #a61b4e;
+  --color-colony-secondary: #d32263;
+  --color-colony-tertiary: #f27da2;
+
+  --color-civo-primary: #239dff;
+  --color-civo-secondary: #4fb1ff;
+}
