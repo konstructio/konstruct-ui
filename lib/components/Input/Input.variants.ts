@@ -21,8 +21,8 @@ export const inputVariants = cva(
     'shadow-2xs',
     'text-slate-800',
     'text-sm',
-    'transition-colors',
     'w-full',
+    'transition-all',
   ],
   {
     variants: {

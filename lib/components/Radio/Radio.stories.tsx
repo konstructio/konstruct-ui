@@ -16,18 +16,13 @@ export const Radio = {
   },
   render: (args) => (
     <div className="w-[350px] flex flex-col gap-3">
-      <RadioComponent
-        {...args}
-        label="Radio Button Kubefirst"
-        checked={false}
-      />
-
       <RadioComponent {...args} label="Radio Button Kubefirst" />
+      <RadioComponent {...args} label="Radio Button Civo" theme="civo" />
 
       <RadioComponent
         {...args}
         label="Radio Button Kubefirst"
-        disabled={true}
+        checked={false}
       />
 
       <RadioComponent
@@ -35,6 +30,12 @@ export const Radio = {
         label="Radio Button Kubefirst"
         disabled={true}
         checked={false}
+      />
+
+      <RadioComponent
+        {...args}
+        label="Radio Button Kubefirst"
+        disabled={true}
       />
     </div>
   ),

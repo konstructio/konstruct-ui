@@ -18,7 +18,7 @@ export const wrapperRadioVariants = cva(
 export const radioVariants = cva(
   [
     'border',
-    'border-zinc-400',
+    'border-gray-300',
     'duration-300',
     'inline-block',
     'rounded-full',
@@ -56,14 +56,16 @@ export const radioVariants = cva(
         class: [
           'peer-checked:border-kubefirst-primary',
           'peer-checked:before:bg-kubefirst-primary',
+          'civo:peer-checked:border-civo-primary',
+          'civo:peer-checked:before:bg-civo-primary',
         ],
       },
       {
         disabled: true,
         checked: true,
         class: [
-          'peer-checked:border-zinc-400',
-          'peer-checked:before:bg-zinc-400',
+          'peer-checked:border-gray-300',
+          'peer-checked:before:bg-gray-300',
           'cursor-not-allowed',
           '[&+span]:cursor-not-allowed',
         ],
@@ -72,12 +74,12 @@ export const radioVariants = cva(
         disabled: true,
         checked: false,
         class: [
-          'peer-checked:border-zinc-300',
-          'peer-checked:border-zinc-300',
-          'peer-checked:before:bg-zinc-300',
+          'peer-checked:border-gray-200',
+          'peer-checked:border-gray-200',
+          'peer-checked:before:bg-gray-200',
           'cursor-not-allowed',
           '[&+span]:cursor-not-allowed',
-          'bg-zinc-50',
+          'bg-gray-50',
         ],
       },
     ],
