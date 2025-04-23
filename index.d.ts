@@ -69,6 +69,22 @@ declare const autocompleteVariants: (props?: ({
     variant?: "default" | null | undefined;
 } & ClassProp) | undefined) => string;
 
+export declare const Badge: FC<BadgeProps>;
+
+declare type BadgeProps = VariantProps<typeof badgeVariants> & {
+    label: string;
+    className?: string;
+    loading?: boolean;
+    dismissible?: true;
+    onClick?: VoidFunction;
+    onDismiss?: VoidFunction;
+};
+
+declare const badgeVariants: (props?: ({
+    variant?: "info" | "warning" | "danger" | "default" | "success" | null | undefined;
+    size?: "small" | "medium" | "large" | "xlarge" | "xxlarge" | null | undefined;
+} & ClassProp) | undefined) => string;
+
 declare interface BodyProps extends React.HTMLAttributes<HTMLTableSectionElement>, PropsWithChildren, VariantProps<typeof bodyVariants> {
 }
 
@@ -572,7 +588,7 @@ declare interface TooltipProps extends PropsWithChildren, VariantProps<typeof to
 }
 
 declare const tooltipVariants: (props?: ({
-    position?: "left" | "right" | "top" | "bottom" | null | undefined;
+    position?: "left" | "right" | "bottom" | "top" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 export declare const Typography: FC<TypographyProps>;
