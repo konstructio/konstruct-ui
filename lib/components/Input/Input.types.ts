@@ -12,4 +12,7 @@ export interface InputProps
   label?: string | ReactNode;
   labelClassName?: string;
   theme?: Theme;
+  isRequired?: boolean;
+  isSearch?: boolean;
+  helperText?: string;
 }

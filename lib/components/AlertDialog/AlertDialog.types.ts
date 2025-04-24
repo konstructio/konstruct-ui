@@ -1,18 +1,31 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
+import { AlertDialogProps as AlertDialogPrimitiveProps } from '@radix-ui/react-alert-dialog';
 
 import { Theme } from '@/domain/theme';
 
-export interface AlertDialogProps extends PropsWithChildren {
-  buttonCancelClassName?: string;
-  buttonCancelText?: string;
-  buttonConfirmClassName?: string;
-  buttonConfirmText?: string;
-  buttonText?: string;
+import { ButtonProps } from '../Button/Button.types';
+
+type ButtonBaseProps = Partial<ButtonProps> & {
+  className?: string;
+  text?: string;
+};
+
+type ButtonCancelProps = ButtonBaseProps;
+type ButtonConfirmProps = ButtonBaseProps;
+
+export interface AlertDialogProps
+  extends PropsWithChildren,
+    AlertDialogPrimitiveProps {
+  buttonCancel?: ButtonCancelProps;
+  buttonConfirm?: ButtonConfirmProps;
+  buttonTriggerText?: string;
   buttonTriggerClassName?: string;
   className?: string;
-  description?: string;
+  description?: string | ReactNode;
+  showCancelButton?: boolean;
   theme?: Theme;
-  title?: string;
+  title?: string | ReactNode;
+  wrapperClassName?: string;
   onConfirm?: () => void;
 }
 

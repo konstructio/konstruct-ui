@@ -1,69 +1,55 @@
 import { cva } from 'class-variance-authority';
 
-export const breadcrumbItemVariants = cva(
-  ['group', 'font-semibold', 'text-inherit'],
+export const breadcrumbLinkVariants = cva(
+  ['text-sm', 'leading-5', 'text-gray-400'],
   {
     variants: {
-      size: {
-        sm: 'text-xs',
-        base: 'text-sm',
-        lg: 'text-base',
-        xl: 'text-lg',
+      isActive: {
+        true: '',
+        false: 'cursor-auto',
       },
     },
     defaultVariants: {
-      size: 'base',
+      isActive: true,
     },
+    compoundVariants: [
+      {
+        isActive: true,
+        class: [
+          'group-[&:has(:focus-visible)]:no-underline',
+          'group-[&:has(:focus-visible)]:outline-2',
+          'group-[&:has(:focus-visible)]:outline-offset-6',
+          'group-[&:has(:focus-visible)]:outline-gray-500',
+          'group-[&:has(:focus-visible)]:text-gray-500',
+          'group-[&:has(:focus-visible)]:rounded-xs',
+          'group-hover:rounded-xs',
+          'hover:no-underline',
+          'hover:text-gray-500',
+        ],
+      },
+      {
+        isActive: undefined,
+        class: [
+          'group-[&:has(:focus-visible)]:no-underline',
+          'group-[&:has(:focus-visible)]:outline-2',
+          'group-[&:has(:focus-visible)]:outline-offset-6',
+          'group-[&:has(:focus-visible)]:outline-gray-500',
+          'group-[&:has(:focus-visible)]:text-gray-500',
+          'group-[&:has(:focus-visible)]:rounded-xs',
+          'group-hover:rounded-xs',
+          'hover:no-underline',
+          'hover:text-gray-500',
+        ],
+      },
+    ],
   },
 );
 
-export const breadcrumbLinkVariants = cva(['text-inherit'], {
+export const breadcrumbLabelVariants = cva(['text-sm', 'leading-5'], {
   variants: {
     isActive: {
-      true: '',
-      false: ['text-slate-400', 'cursor-auto'],
-    },
-  },
-  defaultVariants: {
-    isActive: true,
-  },
-  compoundVariants: [
-    {
-      isActive: true,
-      class: [
-        'group-focus-within:no-underline',
-        'group-focus-within:outline',
-        'group-focus-within:outline-2',
-        'group-focus-within:outline-offset-4',
-        'group-focus-within:outline-slate-500',
-        'group-focus-within:rounded-sm',
-        'group-hover:rounded-sm',
-        'hover:no-underline',
-        'hover:text-slate-500',
-      ],
-    },
-    {
-      isActive: undefined,
-      class: [
-        'group-focus-within:no-underline',
-        'group-focus-within:outline',
-        'group-focus-within:outline-2',
-        'group-focus-within:outline-offset-4',
-        'group-focus-within:outline-slate-500',
-        'group-focus-within:rounded-sm',
-        'group-hover:rounded-sm',
-        'hover:no-underline',
-        'hover:text-slate-500',
-      ],
-    },
-  ],
-});
-
-export const breadcrumbLabelVariants = cva(['text-inherit'], {
-  variants: {
-    isActive: {
-      true: '',
-      false: ['text-slate-400'],
+      true: 'text-gray-500',
+      false: ['text-gray-400', 'cursor-default'],
     },
   },
   defaultVariants: {

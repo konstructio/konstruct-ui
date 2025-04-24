@@ -7,16 +7,14 @@ import { BreadcrumbProps } from './Breadcrumb.types';
 import {
   breadcrumbVariants,
   breadcrumbWrapperVariants,
-  chevronVariants,
 } from './Breadcrumb.variants';
 import { Item } from './components';
 
 export const Breadcrumb: FC<BreadcrumbProps> = ({
+  'aria-label': ariaLabel = 'breadcrumb',
   className,
-  size,
   steps,
   theme,
-  'aria-label': ariaLabel = 'breadcrumb',
   wrapperClassName,
   ...delegated
 }) => {
@@ -32,22 +30,18 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
         }),
       )}
     >
-      <ol
-        className={cn(breadcrumbVariants({ className, size }))}
-        {...delegated}
-      >
+      <ol className={cn(breadcrumbVariants({ className }))} {...delegated}>
         {steps.map(({ label, ...delegated }, index) => (
           <Fragment key={`${id}-${label}`}>
             <Item
               {...delegated}
               label={label}
               isLast={index === steps.length - 1}
-              size={size}
             />
 
             {index !== steps.length - 1 && (
               <li aria-hidden="true">
-                <ChevronRight className={cn(chevronVariants({ size }))} />
+                <ChevronRight className="text-gray-400 w-5 h-5 mt-0.5" />
               </li>
             )}
           </Fragment>

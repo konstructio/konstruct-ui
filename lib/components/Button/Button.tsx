@@ -9,13 +9,15 @@ import { ButtonProps } from './Button.types';
 const Button: FC<ButtonProps> = forwardRef<ComponentRef<'button'>, ButtonProps>(
   (
     {
-      className,
-      variant,
-      theme,
-      size,
-      version,
-      disabled = false,
+      appearance,
       asChild = false,
+      className,
+      disabled = false,
+      shape,
+      size,
+      theme,
+      variant,
+      version,
       ...delegated
     },
     ref,
@@ -28,10 +30,12 @@ const Button: FC<ButtonProps> = forwardRef<ComponentRef<'button'>, ButtonProps>(
         data-theme={theme}
         className={cn(
           buttonVariants({
-            variant,
-            disabled,
-            size,
+            appearance,
             className,
+            disabled,
+            shape,
+            size,
+            variant,
             version,
           }),
         )}

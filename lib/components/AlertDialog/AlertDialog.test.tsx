@@ -7,7 +7,7 @@ import { AlertDialog } from './AlertDialog';
 
 describe('AlertDialog', () => {
   const defaultProps = {
-    buttonText: 'Click Me!',
+    buttonTriggerText: 'Click Me!',
     title: 'Title',
     description: 'Description',
   } satisfies AlertDialogProps;
@@ -20,7 +20,7 @@ describe('AlertDialog', () => {
     const user = userEvent.setup();
     const getButton = () =>
       screen.getByRole('button', {
-        name: props?.buttonText ?? defaultProps.buttonText,
+        name: props?.buttonTriggerText ?? defaultProps.buttonTriggerText,
       });
     const getAlertDialog = () => screen.queryByRole('alertdialog');
     const getButtonCancel = () =>

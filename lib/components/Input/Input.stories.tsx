@@ -11,13 +11,46 @@ const meta: Meta<typeof InputComponent> = {
 
 export const Input: Story = {
   args: {
-    label: 'Normal Input',
-    placeholder: 'Type information...',
-    type: 'password',
+    autoComplete: 'off',
   },
   render: (args) => (
     <div className="w-[350px]">
+      <InputComponent
+        {...args}
+        label="This is a label"
+        isRequired
+        theme="civo"
+        helperText="This is a helper text."
+      />
+      <div className="my-3" />
       <InputComponent {...args} />
+      <div className="my-3" />
+      <InputComponent {...args} theme="civo" />
+      <div className="my-3" />
+      <InputComponent {...args} type="password" />
+      <div className="my-3" />
+      <InputComponent {...args} theme="civo" type="password" />
+      <div className="my-3" />
+      <InputComponent {...args} error="" />
+      <div className="my-3" />
+      <InputComponent
+        {...args}
+        theme="civo"
+        helperText="This is a helper text."
+        error="This is an error."
+      />
+      <div className="my-3" />
+      <InputComponent {...args} placeholder="Search image name" isSearch />
+      <div className="my-3" />
+      <InputComponent
+        {...args}
+        placeholder="Search image name"
+        isSearch
+        theme="civo"
+        helperText="This is a helper text."
+      />
+      <div className="my-3" />
+      <InputComponent {...args} disabled />
     </div>
   ),
 };

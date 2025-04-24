@@ -67,7 +67,6 @@ export const Checkbox: FC<CheckboxProps> = forwardRef<
             htmlFor={name ?? id}
             className={cn(
               labelVariants({
-                variant,
                 className: labelClassName,
               }),
             )}
