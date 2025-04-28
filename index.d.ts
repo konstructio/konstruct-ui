@@ -1,3 +1,4 @@
+import { AlertDialogProps as AlertDialogProps_2 } from '@radix-ui/react-alert-dialog';
 import { ButtonHTMLAttributes } from '../../../node_modules/react';
 import { ClassProp } from 'class-variance-authority/types';
 import { Context } from '../../node_modules/react';
@@ -22,17 +23,17 @@ export declare const Alert: FC<AlertProps>;
 
 export declare const AlertDialog: FC<AlertDialogProps>;
 
-declare interface AlertDialogProps extends PropsWithChildren {
-    buttonCancelClassName?: string;
-    buttonCancelText?: string;
-    buttonConfirmClassName?: string;
-    buttonConfirmText?: string;
-    buttonText?: string;
+declare interface AlertDialogProps extends PropsWithChildren, AlertDialogProps_2 {
+    buttonCancel?: ButtonCancelProps;
+    buttonConfirm?: ButtonConfirmProps;
+    buttonTriggerText?: string;
     buttonTriggerClassName?: string;
     className?: string;
-    description?: string;
+    description?: string | ReactNode;
+    showCancelButton?: boolean;
     theme?: Theme;
-    title?: string;
+    title?: string | ReactNode;
+    wrapperClassName?: string;
     onConfirm?: () => void;
 }
 
@@ -82,7 +83,7 @@ declare type BadgeProps = VariantProps<typeof badgeVariants> & {
 
 declare const badgeVariants: (props?: ({
     variant?: "info" | "warning" | "danger" | "default" | "success" | null | undefined;
-    size?: "small" | "medium" | "large" | "xlarge" | "xxlarge" | null | undefined;
+    size?: "default" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 declare interface BodyProps extends React.HTMLAttributes<HTMLTableSectionElement>, PropsWithChildren, VariantProps<typeof bodyVariants> {
@@ -98,11 +99,18 @@ declare interface BreadcrumbProps extends VariantProps<typeof breadcrumbVariants
     theme?: Theme;
 }
 
-declare const breadcrumbVariants: (props?: ({
-    size?: "base" | "sm" | "lg" | "xl" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const breadcrumbVariants: (props?: ClassProp | undefined) => string;
 
 export declare const Button: FC<ButtonProps>;
+
+declare type ButtonBaseProps = Partial<ButtonProps> & {
+    className?: string;
+    text?: string;
+};
+
+declare type ButtonCancelProps = ButtonBaseProps;
+
+declare type ButtonConfirmProps = ButtonBaseProps;
 
 declare interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'disabled'>, VariantProps<typeof buttonVariants> {
     asChild?: boolean;
@@ -111,10 +119,12 @@ declare interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 declare const buttonVariants: (props?: ({
-    variant?: "danger" | "circle" | "text" | "primary" | "secondary" | null | undefined;
+    variant?: "danger" | "text" | "primary" | "secondary" | null | undefined;
+    shape?: "circle" | null | undefined;
     version?: "default" | "alternate" | null | undefined;
     disabled?: boolean | null | undefined;
     size?: "medium" | "large" | null | undefined;
+    appearance?: "compact" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 export declare const Card: FC<CardProps>;
@@ -193,6 +203,9 @@ declare interface InputProps extends InputHTMLAttributes<HTMLInputElement>, Vari
     label?: string | ReactNode;
     labelClassName?: string;
     theme?: Theme;
+    isRequired?: boolean;
+    isSearch?: boolean;
+    helperText?: string;
 }
 
 declare const inputVariants: (props?: ({
