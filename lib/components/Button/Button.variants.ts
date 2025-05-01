@@ -74,7 +74,14 @@ export const buttonVariants = cva(
         large: '',
       },
       appearance: {
-        compact: ['px-2', 'py-1', 'h-auto', 'text-xs'],
+        compact: [
+          'px-2',
+          'py-1',
+          'h-auto',
+          'text-[0.8125rem]',
+          'leading-[1.375rem]',
+          'h-[30px]',
+        ],
       },
     },
     compoundVariants: [
@@ -210,7 +217,6 @@ export const buttonVariants = cva(
           'hover:text-kubefirst-primary',
           'w-8',
           'h-8',
-
           'colony:text-slate-400',
           'colony:bg-transparent',
           'colony:border-transparent',
@@ -219,7 +225,6 @@ export const buttonVariants = cva(
           'colony:hover:text-colony-primary',
           'colony:[&>svg]:w-5',
           'colony:[&>svg]:h-5',
-
           'civo:text-slate-400',
           'civo:bg-transparent',
           'civo:border-transparent',
@@ -245,7 +250,6 @@ export const buttonVariants = cva(
           'h-11',
           '[&>svg]:w-6',
           '[&>svg]:h-6',
-
           'colony:text-slate-400',
           'colony:bg-transparent',
           'colony:border-transparent',
@@ -256,7 +260,6 @@ export const buttonVariants = cva(
           'colony:h-11',
           'colony:[&>svg]:w-6',
           'colony:[&>svg]:h-6',
-
           'civo:text-slate-400',
           'civo:bg-transparent',
           'civo:border-transparent',
