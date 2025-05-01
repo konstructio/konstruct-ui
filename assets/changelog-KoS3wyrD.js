@@ -1,4 +1,4 @@
-import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as n}from"./index-ikABDTSQ.js";import{e,f as i}from"./index-BTY7thFk.js";import"./index-CDlOlYQx.js";import"./iframe-BrSNWtBb.js";import"./index-BGZCjPBa.js";import"./index-CA2ozmjx.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const c=`# Changelog
+import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as n}from"./index-ikABDTSQ.js";import{e,f as i}from"./index-C4dQPK0t.js";import"./index-CDlOlYQx.js";import"./iframe-B29V2N-W.js";import"./index-BGZCjPBa.js";import"./index-CA2ozmjx.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const c=`# Changelog
 
 ## [0.1.0-alpha.2](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.2) (2025-04-21)
 
