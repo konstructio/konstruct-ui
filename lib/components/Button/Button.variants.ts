@@ -162,7 +162,7 @@ export const buttonVariants = cva(
           'civo:border-transparent',
           'civo:hover:border-transparent',
           'civo:hover:text-civo-primary',
-          'civo:hover:bg-blue-50',
+          'civo:hover:bg-transparent',
         ],
       },
       {
