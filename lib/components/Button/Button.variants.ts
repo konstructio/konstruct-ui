@@ -74,7 +74,14 @@ export const buttonVariants = cva(
         large: '',
       },
       appearance: {
-        compact: ['px-2', 'py-1', 'h-auto', 'text-xs'],
+        compact: [
+          'px-2',
+          'py-1',
+          'h-auto',
+          'text-[0.8125rem]',
+          'leading-[1.375rem]',
+          'h-[30px]',
+        ],
       },
     },
     compoundVariants: [
@@ -131,6 +138,24 @@ export const buttonVariants = cva(
       },
       {
         variant: 'danger',
+        version: 'alternate',
+        class: [
+          'border-red-700',
+          'text-red-700',
+          'bg-white',
+          'hover:bg-red-50',
+          'colony:border-red-700',
+          'colony:text-red-700',
+          'colony:bg-white',
+          'colony:hover:bg-red-50',
+          'civo:border-red-700',
+          'civo:text-red-700',
+          'civo:bg-white',
+          'civo:hover:bg-red-50',
+        ],
+      },
+      {
+        variant: 'danger',
         disabled: true,
         class: [
           'civo:text-white',
@@ -155,7 +180,7 @@ export const buttonVariants = cva(
           'civo:border-transparent',
           'civo:hover:border-transparent',
           'civo:hover:text-civo-primary',
-          'civo:hover:bg-blue-50',
+          'civo:hover:bg-transparent',
         ],
       },
       {
@@ -210,7 +235,6 @@ export const buttonVariants = cva(
           'hover:text-kubefirst-primary',
           'w-8',
           'h-8',
-
           'colony:text-slate-400',
           'colony:bg-transparent',
           'colony:border-transparent',
@@ -219,7 +243,6 @@ export const buttonVariants = cva(
           'colony:hover:text-colony-primary',
           'colony:[&>svg]:w-5',
           'colony:[&>svg]:h-5',
-
           'civo:text-slate-400',
           'civo:bg-transparent',
           'civo:border-transparent',
@@ -245,7 +268,6 @@ export const buttonVariants = cva(
           'h-11',
           '[&>svg]:w-6',
           '[&>svg]:h-6',
-
           'colony:text-slate-400',
           'colony:bg-transparent',
           'colony:border-transparent',
@@ -256,7 +278,6 @@ export const buttonVariants = cva(
           'colony:h-11',
           'colony:[&>svg]:w-6',
           'colony:[&>svg]:h-6',
-
           'civo:text-slate-400',
           'civo:bg-transparent',
           'civo:border-transparent',

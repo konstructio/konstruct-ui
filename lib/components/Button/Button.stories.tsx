@@ -128,6 +128,10 @@ export const Danger: Story = {
         <h6>Default Appearance</h6>
         <Button {...args} />
 
+        <Button variant="danger" version="alternate">
+          Secondary Danger
+        </Button>
+
         <Button {...args} theme="civo" disabled>
           Danger Civo Disabled
         </Button>
@@ -140,6 +144,10 @@ export const Danger: Story = {
       <div className="flex flex-col items-center gap-3 mt-8">
         <h6>Compact Appearance</h6>
         <Button {...args} appearance="compact" />
+
+        <Button variant="danger" version="alternate" appearance="compact">
+          Secondary Danger
+        </Button>
 
         <Button {...args} theme="civo" disabled appearance="compact">
           Danger Civo Disabled
