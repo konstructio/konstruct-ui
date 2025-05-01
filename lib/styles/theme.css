@@ -4,3 +4,14 @@
 @custom-variant civo-dark (&:where([data-theme=civo-dark], [data-theme=civo-dark] *));
 @custom-variant colony (&:where([data-theme=colony], [data-theme=colony] *));
 @custom-variant colony-dark (&:where([data-theme=colony-dark], [data-theme=colony-dark] *));
+
+@layer components {
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
