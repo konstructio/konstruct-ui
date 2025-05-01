@@ -30,7 +30,7 @@ export const Item: FC<ItemProps> = ({
   return (
     <li
       aria-current={isLast ? 'page' : undefined}
-      className="group font-semibold text-inherit"
+      className="group font-medium text-inherit"
       data-theme={theme}
     >
       {to ? (
