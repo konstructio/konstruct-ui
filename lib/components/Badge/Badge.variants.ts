@@ -25,7 +25,7 @@ export const badgeVariants = cva(
         warning: ['bg-yellow-100', 'text-yellow-800'],
       },
       size: {
-        default: 'text-base',
+        default: 'text-sm leading-[16px]',
       },
     },
     defaultVariants: {
