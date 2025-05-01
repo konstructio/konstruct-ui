@@ -43,22 +43,25 @@ const DatePicker: FC<DatePickerProps> = ({
         chevron:
           'cursor-pointer text-slate-500 w-[20px] h-[20px] text-slate-500 w-4 h-4',
         day_button:
-          'h-full w-full aria-selected:opacity-100 font-semibold hover:rounded-full cursor-pointer rounded-full',
-        day: 'w-[30px] h-[30px] text-center text-sm',
-        month_caption: 'text-slate-700 font-semibold text-sm pl-1',
+          'h-[30px] aria-selected:opacity-100 font-semibold hover:rounded-full cursor-pointer rounded-full w-[30px]',
+        day: 'text-center text-[14px] leading-[20px]',
+        month_caption:
+          'text-slate-700 font-semibold text-sm pl-1 h-[32px] flex items-center',
         months:
-          'flex flex-col w-max relative px-5 py-4 rounded-lg shadow-md px-6 py-4',
-        nav: 'absolute right-4 top-2 flex justify-center items-center',
+          'flex flex-col relative px-5 py-4 rounded-lg shadow-md px-6 py-4 w-[307px] justify-center items-center',
+        month: 'flex flex-col gap-4',
+        nav: 'absolute right-4 top-3.5 flex justify-center items-center gap-[4px]',
         outside: 'text-slate-400',
         selected:
-          'bg-blue-600 text-white hover:bg-blue-700 transition-all duration-300 rounded-full',
+          '[&>button]:bg-blue-600 [&>button]:text-white [&>button]:hover:bg-blue-700 [&>button]:transition-all [&>button]:duration-300 [&>button]:rounded-full',
         table: 'w-full',
         weekdays: 'text-slate-500',
-        weeks: 'text-slate-700',
-        weekday: 'font-semibold text-sm uppercase',
+        weeks:
+          'text-slate-700 [&>tr>td]:border-transparent [&>tr>td]:border-r-[8px] [&>tr>td]:last:border-r-0',
+        weekday: 'font-semibold text-sm uppercase text-sm',
         today: 'text-blue-600 data-[selected=true]:text-white',
         month_grid:
-          '[&>thead]:table-header-group [&>thead]:relative [&>thead]:before:block [&>thead]:before:content-[" "] [&>thead]:before:h-4 [&>thead]:after:block [&>thead]:after:content-[" "] [&>thead]:after:h-4',
+          '[&>thead]:table-header-group [&>thead]:relative [&>thead]:after:block [&>thead]:after:content-[" "] [&>thead]:after:h-4',
       }}
       components={{
         Chevron: ({ className, ...props }) => {
