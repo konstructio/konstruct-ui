@@ -138,6 +138,24 @@ export const buttonVariants = cva(
       },
       {
         variant: 'danger',
+        version: 'alternate',
+        class: [
+          'border-red-700',
+          'text-red-700',
+          'bg-white',
+          'hover:bg-red-50',
+          'colony:border-red-700',
+          'colony:text-red-700',
+          'colony:bg-white',
+          'colony:hover:bg-red-50',
+          'civo:border-red-700',
+          'civo:text-red-700',
+          'civo:bg-white',
+          'civo:hover:bg-red-50',
+        ],
+      },
+      {
+        variant: 'danger',
         disabled: true,
         class: [
           'civo:text-white',
