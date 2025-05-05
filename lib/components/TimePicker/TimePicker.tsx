@@ -1,101 +1,75 @@
 'use client';
-import { FC, useMemo, useState } from 'react';
+import { ChevronDownIcon } from 'lucide-react';
+import { FC, useCallback, useId, useMemo, useRef, useState } from 'react';
 
 import { cn } from '@/utils';
 
 import { TimePickerProps } from './TimePicker.types';
+import { List } from './components';
+import { getFormattedTime } from './utils';
 
-const buildMinutes = () =>
-  Array.from({ length: 60 }, (_, index) => (
-    <li
-      key={index}
-      className="px-6 py-3 flex items-center justify-center w-[60px] h-[40px] snap-start"
-    >
-      {`0${index}`.slice(-2)}
-    </li>
-  ));
-
-const buildHoursOptions = (format: '12' | '24') => {
-  if (format === '12') {
-    return Array.from({ length: 12 }, (_, index) => (
-      <li
-        key={index}
-        className="px-6 py-3 flex items-center justify-center w-[60px] h-[40px] snap-start"
-      >
-        {index + 1}
-      </li>
-    ));
-  }
-
-  return Array.from({ length: 24 }, (_, index) => (
-    <li
-      key={index}
-      className="px-6 py-3 flex items-center justify-center w-[60px] h-[40px] snap-start"
-    >
-      {index}
-    </li>
-  ));
-};
-
-export const TimePicker: FC<TimePickerProps> = ({ format = '12' }) => {
+const TimePicker: FC<TimePickerProps> = ({
+  format = '12',
+  scrollBehavior,
+  name,
+}) => {
+  const id = useId();
   const [time] = useState<Date>(new Date());
+  const [isOpen, setIsOpen] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const timeFormatted = useMemo(() => {
-    if (format === '12') {
-      return `${time.getHours() % 12 || 12}:${time.getMinutes().toString().padStart(2, '0')} ${time.getHours() >= 12 ? 'PM' : 'AM'}`;
-    }
+  const handleOpen = useCallback(() => setIsOpen((status) => !status), []);
 
-    return `${time.getHours().toString().padStart(2, '0')}:${time.getMinutes().toString().padStart(2, '0')}`;
-  }, [format, time]);
-
-  const isAM = useMemo(() => time.getHours() >= 12, [time]);
+  const timeFormatted = useMemo(
+    () => getFormattedTime(time, format),
+    [format, time],
+  );
 
   return (
-    <div>
+    <div
+      ref={wrapperRef}
+      className={cn(
+        'relative w-max text-slate-800',
+        format === '12' ? 'w-[208px]' : 'w-[140px]',
+      )}
+    >
       <button
         aria-labelledby="time-label"
         aria-haspopup="listbox"
         aria-expanded="true"
         aria-controls="time-options"
+        className={cn(
+          'border rounded p-[0.625rem] w-full flex items-center justify-between border-gray-300 cursor-pointer',
+          isOpen && 'border-civo-primary',
+        )}
+        onClick={handleOpen}
       >
         {timeFormatted}
+        <ChevronDownIcon
+          className={cn(
+            'w-4 h-4 transition-all text-gray-400',
+            isOpen && 'rotate-180',
+          )}
+        />
       </button>
 
-      <div
-        id="time-options"
-        role="listbox"
-        aria-activedescendant={timeFormatted}
-        className="flex gap-1.5 p-2 rounded-md shadow w-fit max-h-[216px]"
-      >
-        <ul className="snap-y snap-mandatory overflow-y-scroll scrollbar-none">
-          {buildHoursOptions(format)}
-        </ul>
+      <input
+        type="hidden"
+        name={name ?? `time-${id}`}
+        value={timeFormatted}
+        className="hidden"
+      />
 
-        <ul className="snap-y snap-mandatory overflow-y-scroll scrollbar-none">
-          {buildMinutes()}
-        </ul>
-
-        {format === '12' ? (
-          <ul className="flex items-center justify-center flex-col">
-            <li
-              className={cn(
-                'px-6 py-3 flex items-center justify-center rounded w-[60px] h-[40px]',
-                isAM && 'bg-blue-600 text-white',
-              )}
-            >
-              AM
-            </li>
-            <li
-              className={cn(
-                'px-6 py-3 flex items-center justify-center w-[60px] h-[40px]',
-                !isAM && 'bg-blue-600 text-white',
-              )}
-            >
-              PM
-            </li>
-          </ul>
-        ) : undefined}
-      </div>
+      <List
+        isOpen={isOpen}
+        format={format}
+        time={time}
+        scrollBehavior={scrollBehavior}
+      />
     </div>
   );
 };
+
+TimePicker.displayName = 'TimePicker';
+
+export { TimePicker };

@@ -13,7 +13,7 @@ export const TimePicker: Story = {
   render: () => (
     <>
       <div className="max-w-[350px] flex flex-col gap-2">
-        <TimePickerComponent />
+        <TimePickerComponent name="time" />
       </div>
     </>
   ),
