@@ -14,7 +14,7 @@ const TimePicker: FC<TimePickerProps> = ({
   name,
 }) => {
   const id = useId();
-  const [time] = useState<Date>(new Date());
+  const [time, setTime] = useState<Date>(new Date());
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -23,6 +23,26 @@ const TimePicker: FC<TimePickerProps> = ({
   const timeFormatted = useMemo(
     () => getFormattedTime(time, format),
     [format, time],
+  );
+
+  const handleSelectHour = useCallback(
+    (hour: number) => {
+      const newTime = new Date(time);
+
+      newTime.setHours(hour);
+      setTime(newTime);
+    },
+    [time],
+  );
+
+  const handleSelectMinute = useCallback(
+    (minute: number) => {
+      const newTime = new Date(time);
+
+      newTime.setMinutes(minute);
+      setTime(newTime);
+    },
+    [time],
   );
 
   return (
@@ -65,6 +85,8 @@ const TimePicker: FC<TimePickerProps> = ({
         format={format}
         time={time}
         scrollBehavior={scrollBehavior}
+        onSelectHour={handleSelectHour}
+        onSelectMinute={handleSelectMinute}
       />
     </div>
   );

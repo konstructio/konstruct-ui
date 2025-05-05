@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useRef } from 'react';
+import { FC, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { cn } from '@/utils';
 
@@ -6,23 +6,28 @@ import { getFormattedTime, getHours, getMinutes } from '../../utils';
 
 import { HoursProps, ListProps, MinutesProps } from './List.types';
 
-const Minutes: FC<MinutesProps> = ({ minutes, scrollBehavior }) => {
+const Minutes: FC<MinutesProps> = ({
+  minutes,
+  scrollBehavior,
+  onSelectMinute,
+}) => {
   const wrapperRef = useRef<HTMLUListElement>(null);
+  const minutesRef = useRef<number>(minutes);
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
 
     if (wrapper) {
       const item = wrapper.querySelector(
-        `[data-value="${minutes}"]`,
+        `[data-value="${minutesRef.current}"]`,
       ) as HTMLUListElement;
 
       item?.scrollIntoView({
         behavior: scrollBehavior,
-        block: 'start',
+        block: 'center',
       });
     }
-  }, [minutes, scrollBehavior]);
+  }, [scrollBehavior]);
 
   return (
     <ul
@@ -33,12 +38,16 @@ const Minutes: FC<MinutesProps> = ({ minutes, scrollBehavior }) => {
         <li
           key={index}
           className={cn(
-            'px-6 py-3 flex items-center justify-center w-[60px] h-[40px] snap-start rounded',
+            'w-[58px] h-[58px] snap-start rounded transition-all focus-within:outline-2 focus-within:outline-blue-200',
             minutes === index && 'bg-blue-600 text-white',
           )}
           data-value={`0${index}`.slice(-2)}
         >
-          <button role="button" className="cursor-pointer">
+          <button
+            role="button"
+            className="flex items-center justify-center cursor-pointer w-full h-full px-6 py-3"
+            onClick={() => onSelectMinute(index)}
+          >
             {`0${index}`.slice(-2)}
           </button>
         </li>
@@ -47,23 +56,45 @@ const Minutes: FC<MinutesProps> = ({ minutes, scrollBehavior }) => {
   );
 };
 
-const Hours: FC<HoursProps> = ({ format, hours, scrollBehavior }) => {
+const Hours: FC<HoursProps> = ({
+  format,
+  hours,
+  scrollBehavior,
+  onSelectHour,
+}) => {
   const wrapperRef = useRef<HTMLUListElement>(null);
+  const newHours = format === '12' ? (hours >= 12 ? hours - 12 : hours) : hours;
+  const isFirstRender = useRef(true);
+
+  const handleSelectHour = useCallback(
+    (index: number) => {
+      if (format === '12') {
+        onSelectHour(index + 1);
+      } else {
+        onSelectHour(index);
+      }
+    },
+    [format, onSelectHour],
+  );
 
   useEffect(() => {
-    const wrapper = wrapperRef.current;
+    if (isFirstRender.current) {
+      const wrapper = wrapperRef.current;
 
-    if (wrapper) {
-      const item = wrapper.querySelector(
-        `[data-value="${hours}"]`,
-      ) as HTMLUListElement;
+      if (wrapper) {
+        const item = wrapper.querySelector(
+          `[data-value="${`0${newHours}`.slice(-2)}"]`,
+        ) as HTMLUListElement;
 
-      item?.scrollIntoView({
-        behavior: scrollBehavior,
-        block: 'start',
-      });
+        item?.scrollIntoView({
+          behavior: scrollBehavior,
+          block: 'center',
+        });
+      }
+
+      isFirstRender.current = false;
     }
-  }, [hours, scrollBehavior]);
+  }, [format, newHours, scrollBehavior]);
 
   if (format === '12') {
     return (
@@ -75,12 +106,16 @@ const Hours: FC<HoursProps> = ({ format, hours, scrollBehavior }) => {
           <li
             key={index}
             className={cn(
-              'px-6 py-3 flex items-center justify-center w-[60px] h-[40px] snap-start rounded cursor-pointer',
-              hours === index + 1 && 'bg-blue-600 text-white',
+              'w-[60px] h-[40px] snap-start rounded transition-all focus-within:outline-2 focus-within:outline-blue-200',
+              newHours - 1 === index && 'bg-blue-600 text-white',
             )}
             data-value={`0${index + 1}`.slice(-2)}
           >
-            <button role="button" className="cursor-pointer">
+            <button
+              role="button"
+              className="flex items-center justify-center cursor-pointer w-full h-full px-6 py-3"
+              onClick={() => handleSelectHour(index)}
+            >
               {index + 1}
             </button>
           </li>
@@ -98,12 +133,16 @@ const Hours: FC<HoursProps> = ({ format, hours, scrollBehavior }) => {
         <li
           key={index}
           className={cn(
-            'px-6 py-3 flex items-center justify-center w-[60px] h-[40px] snap-start cursor-pointer',
-            hours === index + 1 && 'bg-blue-600 text-white',
+            'w-[60px] h-[40px] snap-start rounded transition-all focus-within:outline-2 focus-within:outline-blue-200',
+            hours === index && 'bg-blue-600 text-white',
           )}
-          data-value={`0${index + 1}`.slice(-2)}
+          data-value={`${index + 1}`.slice(-2)}
         >
-          <button role="button" className="cursor-pointer">
+          <button
+            role="button"
+            className="flex items-center justify-center cursor-pointer w-full h-full px-6 py-3"
+            onClick={() => handleSelectHour(index)}
+          >
             {index}
           </button>
         </li>
@@ -117,10 +156,34 @@ export const List: FC<ListProps> = ({
   format,
   time,
   scrollBehavior,
+  onSelectHour,
+  onSelectMinute,
 }) => {
-  const isAM = useMemo(() => time.getHours() >= 12, [time]);
   const selectedHours = useMemo(() => getHours(time), [time]);
   const selectedMinutes = useMemo(() => getMinutes(time), [time]);
+
+  const isAM = useMemo(() => {
+    if (format === '12') {
+      return time.getHours() <= 12;
+    }
+
+    return time.getHours() >= 12;
+  }, [format, time]);
+
+  const handleSelectAMOrPM = useCallback(
+    (meridiem: 'AM' | 'PM') => {
+      if (meridiem === 'AM') {
+        return onSelectHour(
+          time.getHours() <= 12 ? time.getHours() : time.getHours() - 12,
+        );
+      }
+
+      return onSelectHour(
+        time.getHours() >= 12 ? time.getHours() : time.getHours() + 12,
+      );
+    },
+    [onSelectHour, time],
+  );
 
   if (!isOpen) {
     return null;
@@ -138,29 +201,46 @@ export const List: FC<ListProps> = ({
         format={format}
         hours={selectedHours}
         scrollBehavior={scrollBehavior}
+        onSelectHour={onSelectHour}
       />
 
       <ul className="snap-y snap-mandatory overflow-y-scroll scrollbar-none">
-        <Minutes minutes={selectedMinutes} scrollBehavior={scrollBehavior} />
+        <Minutes
+          minutes={selectedMinutes}
+          scrollBehavior={scrollBehavior}
+          onSelectMinute={onSelectMinute}
+        />
       </ul>
 
       {format === '12' ? (
         <ul className="flex items-center justify-center flex-col">
           <li
             className={cn(
-              'px-6 py-3 flex items-center justify-center rounded w-[60px] h-[40px]',
+              'flex items-center justify-center rounded w-[60px] h-[40px] transition-all',
               isAM && 'bg-blue-600 text-white',
             )}
           >
-            AM
+            <button
+              type="button"
+              className="cursor-pointer w-full h-full"
+              onClick={() => handleSelectAMOrPM('AM')}
+            >
+              AM
+            </button>
           </li>
           <li
             className={cn(
-              'px-6 py-3 flex items-center justify-center w-[60px] h-[40px] rounded',
+              'flex items-center justify-center w-[60px] h-[40px] rounded transition-all',
               !isAM && 'bg-blue-600 text-white',
             )}
           >
-            PM
+            <button
+              type="button"
+              className="cursor-pointer w-full h-full"
+              onClick={() => handleSelectAMOrPM('PM')}
+            >
+              PM
+            </button>
           </li>
         </ul>
       ) : undefined}
