@@ -1,6 +1,14 @@
 'use client';
 import { ChevronDownIcon } from 'lucide-react';
-import { FC, useCallback, useId, useMemo, useRef, useState } from 'react';
+import {
+  FC,
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { cn } from '@/utils';
 
@@ -44,6 +52,34 @@ const TimePicker: FC<TimePickerProps> = ({
     },
     [time],
   );
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const handleKeyboard = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!wrapperRef.current?.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside, {
+      signal: controller.signal,
+    });
+
+    document.addEventListener('keydown', handleKeyboard, {
+      signal: controller.signal,
+    });
+
+    return () => {
+      controller.abort();
+    };
+  }, []);
 
   return (
     <div
