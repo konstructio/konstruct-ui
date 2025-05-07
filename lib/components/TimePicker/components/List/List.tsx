@@ -18,8 +18,9 @@ const Minutes: FC<MinutesProps> = ({
     const wrapper = wrapperRef.current;
 
     if (wrapper) {
+      const minutes = `0${minutesRef.current}`.slice(-2);
       const item = wrapper.querySelector(
-        `[data-value="${minutesRef.current}"]`,
+        `[data-value="${minutes}"]`,
       ) as HTMLUListElement;
 
       item?.scrollIntoView({
@@ -38,7 +39,7 @@ const Minutes: FC<MinutesProps> = ({
         <li
           key={index}
           className={cn(
-            'w-[58px] h-[58px] snap-start rounded transition-all focus-within:outline-2 focus-within:outline-blue-200',
+            'w-[60px] h-[40px] snap-start rounded transition-all focus-within:outline-2 focus-within:outline-blue-200',
             minutes === index && 'bg-blue-600 text-white',
           )}
           data-value={`0${index}`.slice(-2)}
@@ -204,13 +205,11 @@ export const List: FC<ListProps> = ({
         onSelectHour={onSelectHour}
       />
 
-      <ul className="snap-y snap-mandatory overflow-y-scroll scrollbar-none">
-        <Minutes
-          minutes={selectedMinutes}
-          scrollBehavior={scrollBehavior}
-          onSelectMinute={onSelectMinute}
-        />
-      </ul>
+      <Minutes
+        minutes={selectedMinutes}
+        scrollBehavior={scrollBehavior}
+        onSelectMinute={onSelectMinute}
+      />
 
       {format === '12' ? (
         <ul className="flex items-center justify-center flex-col">
