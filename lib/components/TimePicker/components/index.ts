@@ -1,1 +1,1 @@
-export * from './List/List';
+export * from './WrapperList/WrapperList';
