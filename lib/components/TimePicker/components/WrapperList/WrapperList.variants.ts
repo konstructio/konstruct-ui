@@ -9,4 +9,6 @@ export const wrapperVariants = cva([
   'w-full',
   'max-h-[216px]',
   'absolute mt-1',
+  'bg-white',
+  'z-10',
 ]);

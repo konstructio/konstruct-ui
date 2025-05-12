@@ -41,7 +41,7 @@ const MinutesList: FC<MinutesLitProps> = ({ minutes, scrollBehavior }) => {
   );
 
   return (
-    <ul ref={wrapperRef} className={cn(ulVariants())}>
+    <ul ref={wrapperRef} className={cn(ulVariants())} aria-label="minutes">
       {Array.from({ length: 60 }, (_, index) => (
         <li
           key={index}

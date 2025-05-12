@@ -49,7 +49,7 @@ const HoursList: FC<HourListProps> = ({ hours, scrollBehavior }) => {
     const dataActive = newHours === 0 ? 12 : newHours;
 
     return (
-      <ul ref={wrapperRef} className={cn(ulVariants())}>
+      <ul ref={wrapperRef} className={cn(ulVariants())} aria-label="hours">
         {Array.from({ length: 12 }, (_, index) => (
           <li
             key={index}
@@ -71,7 +71,7 @@ const HoursList: FC<HourListProps> = ({ hours, scrollBehavior }) => {
   }
 
   return (
-    <ul ref={wrapperRef} className={cn(ulVariants())}>
+    <ul ref={wrapperRef} className={cn(ulVariants())} aria-label="hours">
       {Array.from({ length: 24 }, (_, index) => (
         <li
           key={index}

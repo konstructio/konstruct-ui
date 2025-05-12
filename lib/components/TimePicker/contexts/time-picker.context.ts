@@ -6,6 +6,7 @@ export type TimePickerContextType = {
   time: Date;
   format: NonNullable<TimePickerProps['format']>;
   formattedTime: string;
+  isAM: boolean;
   onSelectHour: (hour: number) => void;
   onSelectMinute: (minute: number) => void;
   onSelectAM: () => void;
@@ -16,6 +17,7 @@ export const TimePickerContext = createContext<TimePickerContextType>({
   time: new Date(),
   format: '12',
   formattedTime: '',
+  isAM: false,
   onSelectHour() {
     throw new Error('onSelectHour is not implemented');
   },

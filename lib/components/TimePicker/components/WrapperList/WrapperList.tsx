@@ -14,6 +14,9 @@ import { wrapperVariants } from './WrapperList.variants';
 export const WrapperList: FC<WrapperListProps> = ({
   isOpen,
   scrollBehavior,
+  listClassName,
+  listItemClassName,
+  listItemButtonClassName,
 }) => {
   const { time, format } = useTimePickerContext();
   const selectedHours = useMemo(() => getHours(time), [time]);
@@ -29,9 +32,25 @@ export const WrapperList: FC<WrapperListProps> = ({
       aria-activedescendant={getFormattedTime(time, format)}
       className={cn(wrapperVariants())}
     >
-      <HoursList hours={selectedHours} scrollBehavior={scrollBehavior} />
-      <MinutesList minutes={selectedMinutes} scrollBehavior={scrollBehavior} />
-      <MeridianList />
+      <HoursList
+        hours={selectedHours}
+        scrollBehavior={scrollBehavior}
+        listClassName={listClassName}
+        listItemClassName={listItemClassName}
+        listItemButtonClassName={listItemButtonClassName}
+      />
+      <MinutesList
+        minutes={selectedMinutes}
+        scrollBehavior={scrollBehavior}
+        listClassName={listClassName}
+        listItemClassName={listItemClassName}
+        listItemButtonClassName={listItemButtonClassName}
+      />
+      <MeridianList
+        listClassName={listClassName}
+        listItemClassName={listItemClassName}
+        listItemButtonClassName={listItemButtonClassName}
+      />
     </div>
   );
 };

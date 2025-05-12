@@ -1,18 +1,18 @@
+import { FC, MouseEvent, useCallback } from 'react';
+
 import { cn } from '@/utils';
+
 import { buttonVariants, liVariants } from '../../TimePicker.variants';
-import { useMemo, MouseEvent, useCallback } from 'react';
 import { useTimePickerContext } from '../../contexts';
 
-const MeridianList = () => {
-  const { time, format, onSelectAM, onSelectPM } = useTimePickerContext();
+import { MeridianListProps } from './MeridianList.types';
 
-  const isAM = useMemo(() => {
-    if (format === '12') {
-      return time.getHours() <= 12;
-    }
-
-    return time.getHours() >= 12;
-  }, [format, time]);
+const MeridianList: FC<MeridianListProps> = ({
+  listClassName,
+  listItemClassName,
+  listItemButtonClassName,
+}) => {
+  const { format, isAM, onSelectAM, onSelectPM } = useTimePickerContext();
 
   const handleClick = useCallback(
     (event: MouseEvent<HTMLButtonElement>, callback: () => void) => {
@@ -27,21 +27,30 @@ const MeridianList = () => {
   }
 
   return (
-    <ul className="flex items-center justify-center flex-col">
-      <li className={cn(liVariants(), isAM && 'bg-blue-600 text-white')}>
+    <ul
+      className={cn('flex items-center justify-center flex-col', listClassName)}
+      aria-label="meridian"
+    >
+      <li
+        className={cn(liVariants({ className: listItemClassName }))}
+        data-active={isAM}
+      >
         <button
           type="button"
-          className={cn(buttonVariants())}
+          className={cn(buttonVariants({ className: listItemButtonClassName }))}
           onClick={(event) => handleClick(event, onSelectAM)}
         >
           AM
         </button>
       </li>
 
-      <li className={cn(liVariants(), !isAM && 'bg-blue-600 text-white')}>
+      <li
+        className={cn(liVariants({ className: listItemClassName }))}
+        data-active={!isAM}
+      >
         <button
           type="button"
-          className={cn(buttonVariants())}
+          className={cn(buttonVariants({ className: listItemButtonClassName }))}
           onClick={(event) => handleClick(event, onSelectPM)}
         >
           PM
@@ -52,4 +61,5 @@ const MeridianList = () => {
 };
 
 MeridianList.displayName = 'MeridianList';
+
 export { MeridianList };

@@ -4,15 +4,26 @@ import { FC, useCallback, useEffect, useId, useRef, useState } from 'react';
 import { cn } from '@/utils';
 
 import { useTimePickerContext } from '../../contexts';
+import { timePickerVariants } from '../../TimePicker.variants';
 import { WrapperList } from '../WrapperList/WrapperList';
 
 import { WrapperProps } from './Wrapper.types';
 
-export const Wrapper: FC<WrapperProps> = ({ scrollBehavior }) => {
+export const Wrapper: FC<WrapperProps> = ({
+  name,
+  label,
+  required,
+  scrollBehavior,
+  className,
+  listClassName,
+  listItemClassName,
+  listItemButtonClassName,
+}) => {
   const id = useId();
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const { format, formattedTime } = useTimePickerContext();
+  const labelId = name ?? `time-${id}`;
 
   const handleOpen = useCallback(() => setIsOpen((status) => !status), []);
 
@@ -48,34 +59,46 @@ export const Wrapper: FC<WrapperProps> = ({ scrollBehavior }) => {
     <div
       ref={wrapperRef}
       className={cn(
-        'relative w-max text-slate-800',
+        'w-max text-slate-800 text-sm flex flex-col gap-2',
         format === '12' ? 'w-[208px]' : 'w-[140px]',
       )}
     >
-      <button
-        aria-labelledby="time-label"
-        aria-haspopup="listbox"
-        aria-expanded="true"
-        aria-controls="time-options"
-        className="border rounded p-[0.625rem] w-full flex items-center justify-between border-gray-300 cursor-pointer data-[open=true]:border-blue-primary"
-        data-open={isOpen}
-        onClick={handleOpen}
-      >
-        {formattedTime}
-        <ChevronDownIcon
-          className="w-4 h-4 transition-all text-gray-400 data-[open=true]:rotate-180"
+      <label htmlFor={labelId} className="text-slate-500 font-medium">
+        {label} {required && <span className="text-red-600">*</span>}
+      </label>
+
+      <div className="relative">
+        <button
+          aria-labelledby="time-label"
+          aria-haspopup="listbox"
+          aria-expanded="true"
+          aria-controls="time-options"
+          className={cn(timePickerVariants({ className }))}
           data-open={isOpen}
+          onClick={handleOpen}
+        >
+          {formattedTime}
+          <ChevronDownIcon
+            className="w-4 h-4 transition-all text-gray-400 data-[open=true]:rotate-180"
+            data-open={isOpen}
+          />
+        </button>
+
+        <WrapperList
+          isOpen={isOpen}
+          scrollBehavior={scrollBehavior}
+          listClassName={listClassName}
+          listItemClassName={listItemClassName}
+          listItemButtonClassName={listItemButtonClassName}
         />
-      </button>
+      </div>
 
       <input
         type="hidden"
-        name={name ?? `time-${id}`}
+        name={labelId}
         value={formattedTime}
         className="hidden"
       />
-
-      <WrapperList isOpen={isOpen} scrollBehavior={scrollBehavior} />
     </div>
   );
 };

@@ -6,4 +6,10 @@ export type TimePickerProps = VariantProps<typeof timePickerVariants> & {
   format?: '12' | '24';
   scrollBehavior?: 'smooth' | 'auto';
   name?: string;
+  label?: string;
+  required?: boolean;
+  className?: string;
+  listClassName?: string;
+  listItemClassName?: string;
+  listItemButtonClassName?: string;
 };
