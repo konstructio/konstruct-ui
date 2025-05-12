@@ -2,10 +2,12 @@ import { AlertDialogProps as AlertDialogProps_2 } from '@radix-ui/react-alert-di
 import { ButtonHTMLAttributes } from '../../../node_modules/react';
 import { ClassProp } from 'class-variance-authority/types';
 import { Context } from '../../node_modules/react';
+import { DayPickerProps } from 'react-day-picker';
 import { FC } from '../../../node_modules/react';
 import { FC as FC_2 } from '../../../../../node_modules/react';
 import { FC as FC_3 } from '../../node_modules/react';
 import { ForwardRefExoticComponent } from '../../../node_modules/react';
+import { getAllTimezones } from 'countries-and-timezones';
 import { HTMLAttributes } from '../../../node_modules/react';
 import { HTMLAttributes as HTMLAttributes_2 } from '../../../../../node_modules/react';
 import { HtmlHTMLAttributes } from '../../../../../node_modules/react';
@@ -160,6 +162,15 @@ declare const checkboxVariants: (props?: ({
     variant?: "default" | null | undefined;
     checked?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
+
+export declare const DatePicker: FC<DatePickerProps>;
+
+declare type DatePickerProps = Omit<DayPickerProps, 'mode'> & VariantProps<typeof datePickerVariants> & {
+    timeZone?: TimeZone;
+    onSelect?: (date: Date) => void;
+};
+
+declare const datePickerVariants: (props?: ClassProp | undefined) => string;
 
 export declare const Divider: FC<HTMLAttributes<HTMLDivElement>>;
 
@@ -572,6 +583,25 @@ declare type ThemeProps = {
 };
 
 export declare const ThemeProvider: FC_3<ThemeContextProps>;
+
+export declare const TimePicker: FC<TimePickerProps>;
+
+declare type TimePickerProps = VariantProps<typeof timePickerVariants> & {
+    format?: '12' | '24';
+    scrollBehavior?: 'smooth' | 'auto';
+    time?: Date;
+    name?: string;
+    label?: string;
+    required?: boolean;
+    className?: string;
+    listClassName?: string;
+    listItemClassName?: string;
+    listItemButtonClassName?: string;
+};
+
+declare const timePickerVariants: (props?: ClassProp | undefined) => string;
+
+declare type TimeZone = keyof ReturnType<typeof getAllTimezones>;
 
 export declare const Toast: FC<ToastProps>;
 
