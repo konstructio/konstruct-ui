@@ -30,13 +30,16 @@ const MeridianList: FC<MeridianListProps> = ({
     <ul
       className={cn('flex items-center justify-center flex-col', listClassName)}
       aria-label="meridian"
+      role="listbox"
     >
       <li
         className={cn(liVariants({ className: listItemClassName }))}
         data-active={isAM}
+        role="presentation"
       >
         <button
           type="button"
+          role="option"
           className={cn(buttonVariants({ className: listItemButtonClassName }))}
           onClick={(event) => handleClick(event, onSelectAM)}
         >
@@ -47,9 +50,11 @@ const MeridianList: FC<MeridianListProps> = ({
       <li
         className={cn(liVariants({ className: listItemClassName }))}
         data-active={!isAM}
+        role="presentation"
       >
         <button
           type="button"
+          role="option"
           className={cn(buttonVariants({ className: listItemButtonClassName }))}
           onClick={(event) => handleClick(event, onSelectPM)}
         >

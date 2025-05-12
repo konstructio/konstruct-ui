@@ -41,16 +41,23 @@ const MinutesList: FC<MinutesLitProps> = ({ minutes, scrollBehavior }) => {
   );
 
   return (
-    <ul ref={wrapperRef} className={cn(ulVariants())} aria-label="minutes">
+    <ul
+      ref={wrapperRef}
+      className={cn(ulVariants())}
+      aria-label="minutes"
+      role="listbox"
+    >
       {Array.from({ length: 60 }, (_, index) => (
         <li
           key={index}
           className={cn(liVariants())}
           data-value={`0${index}`.slice(-2)}
           data-active={minutes === index}
+          role="presentation"
         >
           <button
-            role="button"
+            type="button"
+            role="option"
             className={cn(buttonVariants())}
             onClick={(event) => handleSelectMinute(index, event)}
           >

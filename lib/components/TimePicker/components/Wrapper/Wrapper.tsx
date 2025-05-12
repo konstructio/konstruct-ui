@@ -63,13 +63,15 @@ export const Wrapper: FC<WrapperProps> = ({
         format === '12' ? 'w-[208px]' : 'w-[140px]',
       )}
     >
-      <label htmlFor={labelId} className="text-slate-500 font-medium">
-        {label} {required && <span className="text-red-600">*</span>}
-      </label>
+      {label ? (
+        <label htmlFor={labelId} className="text-slate-500 font-medium">
+          {label} {required && <span className="text-red-600">*</span>}
+        </label>
+      ) : null}
 
       <div className="relative">
         <button
-          aria-labelledby="time-label"
+          aria-label={labelId}
           aria-haspopup="listbox"
           aria-expanded="true"
           aria-controls="time-options"

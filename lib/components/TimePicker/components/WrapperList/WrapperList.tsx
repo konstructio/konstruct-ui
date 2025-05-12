@@ -3,7 +3,7 @@ import { FC, useMemo } from 'react';
 import { cn } from '@/utils';
 
 import { useTimePickerContext } from '../../contexts';
-import { getFormattedTime, getHours, getMinutes } from '../../utils';
+import { getHours, getMinutes } from '../../utils';
 import { HoursList } from '../HoursList/HoursList';
 import { MeridianList } from '../MeridianList/MeridianList';
 import { MinutesList } from '../MinutesList/MinutesList';
@@ -18,7 +18,7 @@ export const WrapperList: FC<WrapperListProps> = ({
   listItemClassName,
   listItemButtonClassName,
 }) => {
-  const { time, format } = useTimePickerContext();
+  const { time } = useTimePickerContext();
   const selectedHours = useMemo(() => getHours(time), [time]);
   const selectedMinutes = useMemo(() => getMinutes(time), [time]);
 
@@ -27,11 +27,7 @@ export const WrapperList: FC<WrapperListProps> = ({
   }
 
   return (
-    <div
-      role="listbox"
-      aria-activedescendant={getFormattedTime(time, format)}
-      className={cn(wrapperVariants())}
-    >
+    <div role="group" className={cn(wrapperVariants())}>
       <HoursList
         hours={selectedHours}
         scrollBehavior={scrollBehavior}

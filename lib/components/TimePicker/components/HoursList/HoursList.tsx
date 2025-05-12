@@ -49,16 +49,23 @@ const HoursList: FC<HourListProps> = ({ hours, scrollBehavior }) => {
     const dataActive = newHours === 0 ? 12 : newHours;
 
     return (
-      <ul ref={wrapperRef} className={cn(ulVariants())} aria-label="hours">
+      <ul
+        ref={wrapperRef}
+        className={cn(ulVariants())}
+        aria-label="hours"
+        role="listbox"
+      >
         {Array.from({ length: 12 }, (_, index) => (
           <li
             key={index}
             className={cn(liVariants())}
             data-value={`0${index + 1}`.slice(-2)}
             data-active={dataActive - 1 === index}
+            role="presentation"
           >
             <button
-              role="button"
+              type="button"
+              role="option"
               className={cn(buttonVariants())}
               onClick={(event) => handleSelectHour(event, index + 1)}
             >
@@ -71,16 +78,23 @@ const HoursList: FC<HourListProps> = ({ hours, scrollBehavior }) => {
   }
 
   return (
-    <ul ref={wrapperRef} className={cn(ulVariants())} aria-label="hours">
+    <ul
+      ref={wrapperRef}
+      className={cn(ulVariants())}
+      aria-label="hours"
+      role="listbox"
+    >
       {Array.from({ length: 24 }, (_, index) => (
         <li
           key={index}
           className={cn(liVariants())}
           data-value={`0${index}`.slice(-2)}
           data-active={hours === index}
+          role="presentation"
         >
           <button
-            role="button"
+            type="button"
+            role="option"
             className={cn(buttonVariants())}
             onClick={(event) => handleSelectHour(event, index)}
           >
