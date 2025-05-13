@@ -9,6 +9,7 @@ export * from './Checkbox/Checkbox';
 export * from './Datepicker/DatePicker';
 export * from './Divider/Divider';
 export * from './Dropdown/Dropdown';
+export * from './Filter/Filter';
 export * from './Input/Input';
 export * from './Loading/Loading';
 export * from './Modal/Modal';
