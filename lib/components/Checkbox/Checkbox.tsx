@@ -33,10 +33,13 @@ export const Checkbox: FC<CheckboxProps> = forwardRef<
     const [checked, setChecked] = useToggle(defaultChecked);
     const defaultId = useId();
 
-    const handleChange = useCallback(() => {
-      setChecked();
-      onChange?.();
-    }, [onChange, setChecked]);
+    const handleChange = useCallback(
+      (checked: boolean) => {
+        setChecked(checked);
+        onChange?.(checked);
+      },
+      [onChange, setChecked],
+    );
 
     return (
       <div className="flex items-center gap-2" data-theme={theme}>

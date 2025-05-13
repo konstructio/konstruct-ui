@@ -14,6 +14,8 @@ const DatePicker: FC<DatePickerProps> = ({
   className,
   showOutsideDays = true,
   animate = true,
+  arrowClassName,
+  monthsClassName,
   onSelect,
   ...delegated
 }) => {
@@ -47,10 +49,15 @@ const DatePicker: FC<DatePickerProps> = ({
         day: 'text-center text-[14px] leading-[20px]',
         month_caption:
           'text-slate-700 font-semibold text-sm pl-1 h-[32px] flex items-center',
-        months:
+        months: cn(
           'flex flex-col relative px-5 py-4 rounded-lg shadow-md px-6 py-4 w-[307px] justify-center items-center',
+          monthsClassName,
+        ),
         month: 'flex flex-col gap-4',
-        nav: 'absolute right-4 top-3.5 flex justify-center items-center gap-[4px]',
+        nav: cn(
+          'absolute right-4 top-3.5 flex justify-center items-center gap-[4px]',
+          arrowClassName,
+        ),
         outside: 'text-slate-400',
         selected:
           '[&>button]:bg-blue-600 [&>button]:text-white [&>button]:hover:bg-blue-700 [&>button]:transition-all [&>button]:duration-300 [&>button]:rounded-full',

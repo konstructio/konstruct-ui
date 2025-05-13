@@ -1,5 +1,4 @@
 import { ChevronDownIcon } from 'lucide-react';
-import { useCallback, useState } from 'react';
 
 import { Button } from '@/components/Button/Button';
 import { DatePicker } from '@/components/Datepicker/DatePicker';
@@ -9,27 +8,37 @@ import {
   filterButtonIconVariants,
   filterButtonVariants,
 } from '../../Filter.variants';
-export const Created = () => {
-  const [isOpen, setIsOpen] = useState(false);
+import { useFilterContext } from '../../contexts';
 
-  const handleOpen = useCallback(() => setIsOpen(!isOpen), [isOpen]);
+export const Created = () => {
+  const { isCreatedOpen, onOpenCreated } = useFilterContext();
 
   return (
     <div className="relative">
-      <button className={cn(filterButtonVariants())} onClick={handleOpen}>
+      <button
+        className={cn(filterButtonVariants(), {
+          'text-slate-700': isCreatedOpen,
+        })}
+        onClick={onOpenCreated}
+      >
         Created
         <ChevronDownIcon
           className={cn(filterButtonIconVariants(), {
-            'rotate-180': isOpen,
+            'rotate-180': isCreatedOpen,
+            'text-blue-600': isCreatedOpen,
           })}
         />
       </button>
 
-      {isOpen && (
-        <div className="absolute top-full mt-1 left-0 bg-white rounded-md shadow animate-in fade-in-0 z-10">
-          <DatePicker className="[&>div]:shadow-none [&>div]:p-0" />
+      {isCreatedOpen && (
+        <div className="absolute top-full mt-1 left-0 bg-white rounded-md shadow-md animate-in fade-in-0 z-10 border border-gray-200 flex flex-col gap-4 py-4 px-6">
+          <DatePicker
+            className="p-0"
+            arrowClassName="-top-1 right-0"
+            monthsClassName="shadow-none p-0 w-auto"
+          />
 
-          <div className="flex justify-end items-center gap-4 py-4 px-6">
+          <div className="flex justify-end items-center gap-4 py-2">
             <Button variant="secondary" appearance="compact">
               Reset
             </Button>

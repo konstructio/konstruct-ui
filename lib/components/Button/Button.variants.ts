@@ -219,7 +219,7 @@ export const buttonVariants = cva(
           'colony:text-zinc-400',
           'civo:bg-white',
           'civo:border-white',
-          'civo:text-zinc-400',
+          'civo:text-civo-primary/45',
         ],
       },
       {
