@@ -23,15 +23,10 @@ export const FilterProvider: FC<
     setIsCreatedOpen(!isCreatedOpen);
   }, [isCreatedOpen]);
 
-  const onAddSelectStatus = useCallback((option: Option) => {
-    setStatusSelected((prev) => [...prev, option]);
-  }, []);
-
-  const onRemoveSelectStatus = useCallback((option: Option) => {
-    setStatusSelected((prev) =>
-      prev.filter((status) => status.id !== option.id),
-    );
-  }, []);
+  const onSetSelectedStatus = useCallback(
+    (selectedOptions: Option[]) => setStatusSelected(selectedOptions),
+    [],
+  );
 
   return (
     <FilterContext.Provider
@@ -41,8 +36,7 @@ export const FilterProvider: FC<
         statusSelected,
         onOpenCreated,
         onOpenStatus,
-        onAddSelectStatus,
-        onRemoveSelectStatus,
+        onSetSelectedStatus,
       }}
     >
       {children}

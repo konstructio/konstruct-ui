@@ -1,6 +1,6 @@
 'use client';
 import { ChevronDownIcon } from 'lucide-react';
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useState } from 'react';
 
 import { Badge } from '@/components/Badge/Badge';
 import { Button } from '@/components/Button/Button';
@@ -17,24 +17,35 @@ import {
 import { StatusProps } from './Status.types';
 
 export const Status: FC<StatusProps> = ({ options }) => {
-  const {
-    isStatusOpen,
-    statusSelected,
-    onOpenStatus,
-    onAddSelectStatus,
-    onRemoveSelectStatus,
-  } = useFilterContext();
+  const { isStatusOpen, statusSelected, onOpenStatus, onSetSelectedStatus } =
+    useFilterContext();
+  const [selectedOptions, setSelectedOptions] =
+    useState<Option[]>(statusSelected);
 
   const handleSelectStatus = useCallback(
     (option: Option, checked: boolean) => {
       if (checked) {
-        onAddSelectStatus(option);
+        setSelectedOptions([...selectedOptions, option]);
       } else {
-        onRemoveSelectStatus(option);
+        setSelectedOptions(selectedOptions.filter((o) => o.id !== option.id));
       }
     },
-    [onAddSelectStatus, onRemoveSelectStatus],
+    [selectedOptions],
   );
+
+  const handleResetStatus = useCallback(() => {
+    setSelectedOptions([]);
+    onSetSelectedStatus([]);
+  }, [onSetSelectedStatus]);
+
+  const handleApplyStatus = useCallback(() => {
+    onSetSelectedStatus(selectedOptions);
+  }, [onSetSelectedStatus, selectedOptions]);
+
+  const handleOpenStatus = useCallback(() => {
+    onOpenStatus();
+    setSelectedOptions(statusSelected);
+  }, [onOpenStatus, statusSelected]);
 
   if (options.length === 0) {
     return null;
@@ -46,7 +57,7 @@ export const Status: FC<StatusProps> = ({ options }) => {
         className={cn(filterButtonVariants(), {
           'text-slate-700': isStatusOpen,
         })}
-        onClick={onOpenStatus}
+        onClick={handleOpenStatus}
       >
         Status
         {statusSelected.length > 0 && (
@@ -67,14 +78,14 @@ export const Status: FC<StatusProps> = ({ options }) => {
           <div className="py-4">
             <div className="flex flex-col gap-2">
               {options.map((option) => {
-                const isSelected = !!statusSelected.find(
+                const isSelected = !!selectedOptions.find(
                   (status) => status.id === option.id,
                 );
 
                 return (
                   <div key={option.id} className="flex gap-4 px-6">
                     <Checkbox
-                      theme="civo"
+                      key={`${option.id}-${isSelected}`}
                       defaultChecked={isSelected}
                       onChange={(checked) =>
                         handleSelectStatus(option, checked)
@@ -88,10 +99,17 @@ export const Status: FC<StatusProps> = ({ options }) => {
           </div>
 
           <div className="flex justify-center items-center gap-4 py-4 border-t border-gray-200">
-            <Button variant="secondary" appearance="compact">
+            <Button
+              variant="secondary"
+              appearance="compact"
+              onClick={handleResetStatus}
+            >
               Reset
             </Button>
-            <Button appearance="compact">Apply</Button>
+
+            <Button appearance="compact" onClick={handleApplyStatus}>
+              Apply
+            </Button>
           </div>
         </div>
       )}
