@@ -10,9 +10,46 @@ const meta: Meta<typeof FilterComponent> = {
 };
 
 export const Filter: Story = {
-  render: () => (
+  args: {
+    statusOptions: [
+      {
+        id: 'creating',
+        label: 'Creating',
+        variant: 'warning',
+      },
+      {
+        id: 'deleting',
+        label: 'Deleting',
+        variant: 'danger',
+      },
+      {
+        id: 'failed',
+        label: 'Failed',
+        variant: 'danger',
+      },
+      {
+        id: 'pending',
+        label: 'Pending',
+        variant: 'info',
+      },
+      {
+        id: 'ready',
+        label: 'Ready',
+        variant: 'success',
+      },
+      {
+        id: 'retrying',
+        label: 'Retrying',
+        variant: 'warning',
+      },
+    ],
+    onSelectStatus: (...status) => {
+      console.log('onSelectStatus', status);
+    },
+  },
+  render: (args) => (
     <div className="max-w-[350px] flex flex-col gap-2">
-      <FilterComponent />
+      <FilterComponent {...args} />
     </div>
   ),
 };
