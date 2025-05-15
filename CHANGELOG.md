@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.1.0-alpha.3](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.3) (2025-05-15)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.2...0.1.0-alpha.3)
+
+**Merged pull requests:**
+
+- ⬆️  chore: some dependencies have been updated [\#214](https://github.com/konstructio/konstruct-ui/pull/214) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: some dependencies have been updated [\#207](https://github.com/konstructio/konstruct-ui/pull/207) ([futjesus](https://github.com/futjesus))
+- 🐛 fix: remove shadow from inputs and set height to 40px [\#201](https://github.com/konstructio/konstruct-ui/pull/201) ([futjesus](https://github.com/futjesus))
+- 🐛 fix: styles to datapicker [\#200](https://github.com/konstructio/konstruct-ui/pull/200) ([futjesus](https://github.com/futjesus))
+- 🐛 fix: update buttons according to the designs [\#199](https://github.com/konstructio/konstruct-ui/pull/199) ([futjesus](https://github.com/futjesus))
+- 🐛 fix: weight font on breadcrumb [\#198](https://github.com/konstructio/konstruct-ui/pull/198) ([futjesus](https://github.com/futjesus))
+- 🎨 chore: update colors to hexadecimal [\#197](https://github.com/konstructio/konstruct-ui/pull/197) ([futjesus](https://github.com/futjesus))
+- 🐛 fix: height badged and default font size [\#196](https://github.com/konstructio/konstruct-ui/pull/196) ([futjesus](https://github.com/futjesus))
+- fix: ruby setup workflow [\#195](https://github.com/konstructio/konstruct-ui/pull/195) ([CristhianF7](https://github.com/CristhianF7))
+- ✨ feat: timepicker component [\#194](https://github.com/konstructio/konstruct-ui/pull/194) ([futjesus](https://github.com/futjesus))
+- feat: tabs component [\#193](https://github.com/konstructio/konstruct-ui/pull/193) ([CristhianF7](https://github.com/CristhianF7))
+- ⬆️  chore: some dependencies have been updated [\#192](https://github.com/konstructio/konstruct-ui/pull/192) ([futjesus](https://github.com/futjesus))
+- 🎨 chore: updated some styles related to the badge, button, alert dialog, breadcrumbs, radio and checkbox [\#186](https://github.com/konstructio/konstruct-ui/pull/186) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: some dependencies have been updated [\#185](https://github.com/konstructio/konstruct-ui/pull/185) ([futjesus](https://github.com/futjesus))
+- ✨ feat: Datapicker component [\#178](https://github.com/konstructio/konstruct-ui/pull/178) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.2](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.2) (2025-04-21)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.0.13-alpha.2...0.1.0-alpha.2)
