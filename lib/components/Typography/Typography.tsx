@@ -1,4 +1,4 @@
-import { FC, useId } from 'react';
+import { FC } from 'react';
 
 import { cn } from '@/utils';
 
@@ -15,14 +15,12 @@ const Typography: FC<TypographyProps> = ({
   asChild = false,
   ...delegated
 }) => {
-  const id = useId();
   const Component = asChild
     ? Slot
     : (component ?? (variant?.includes('h') ? (variant as HeadingTag) : 'p'));
 
   return (
     <Component
-      id={id}
       data-theme={theme}
       className={cn(
         typographyVariants({
