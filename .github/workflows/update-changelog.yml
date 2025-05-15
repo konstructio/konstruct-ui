@@ -6,7 +6,7 @@ on:
 
 jobs:
   generate-changelog:
-    runs-on: self-hosted 
+    runs-on: ubuntu-latest
 
     permissions:
       contents: write
@@ -21,7 +21,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.3
+          ruby-version: 3.0
 
       - name: Install github-changelog-generator
         run: |
