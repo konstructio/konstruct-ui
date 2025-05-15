@@ -1,5 +1,5 @@
-import{j as o}from"./jsx-runtime-D_zvdyIk.js";import{c as r,a as t}from"./index-DJQVxuCM.js";import{c as l}from"./createLucideIcon-Cf7YIAcO.js";/**
- * @license lucide-react v0.508.0 - ISC
+import{j as o}from"./jsx-runtime-D_zvdyIk.js";import{c as r,a as t}from"./index-DJQVxuCM.js";import{c as l}from"./createLucideIcon-CMELoiyk.js";/**
+ * @license lucide-react v0.510.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
