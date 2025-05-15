@@ -6,22 +6,32 @@ on:
 
 jobs:
   generate-changelog:
-    runs-on: self-hosted 
+    runs-on: self-hosted
 
     permissions:
       contents: write
       actions: write
 
     steps:
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git build-essential libssl-dev libreadline-dev zlib1g-dev
+
+      - name: Clone ruby-build
+        run: |
+          git clone https://github.com/rbenv/ruby-build.git
+          sudo ./ruby-build/install.sh
+
+      - name: Install Ruby 3.3
+        run: |
+          sudo ruby-build 3.3.0 /opt/hostedtoolcache/Ruby/3.3/x64
+          sudo touch /opt/hostedtoolcache/Ruby/3.3/x64.complete
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           ref: main
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.3
 
       - name: Install github-changelog-generator
         run: |
