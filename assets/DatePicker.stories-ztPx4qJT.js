@@ -1,10 +1,10 @@
-import{j as oe}from"./jsx-runtime-D_zvdyIk.js";import{R as h,r as N}from"./index-CDlOlYQx.js";import{c as hn,a as Pe}from"./index-DJQVxuCM.js";import{c as lt}from"./createLucideIcon-CMELoiyk.js";/**
- * @license lucide-react v0.510.0 - ISC
+import{j as oe}from"./jsx-runtime-D_zvdyIk.js";import{R as h,r as N}from"./index-CDlOlYQx.js";import{c as hn,a as Pe}from"./index-DJQVxuCM.js";import{c as lt}from"./createLucideIcon-Ct27RUP0.js";/**
+ * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */const mn=[["path",{d:"m15 18-6-6 6-6",key:"1wnfg3"}]],yn=lt("chevron-left",mn);/**
- * @license lucide-react v0.510.0 - ISC
+ * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
