@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.0-alpha.5](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.5) (2025-05-22)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.4...0.1.0-alpha.5)
+
+**Merged pull requests:**
+
+- 💄 chore: way to apply styles was improved to dropdown [\#225](https://github.com/konstructio/konstruct-ui/pull/225) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.4](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.4) (2025-05-22)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.3...0.1.0-alpha.4)
