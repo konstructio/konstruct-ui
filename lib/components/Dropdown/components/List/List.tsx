@@ -18,7 +18,18 @@ import { listVariants } from './List.variants';
 export const List: ForwardRefExoticComponent<
   ListProps & RefAttributes<ComponentRef<'ul'>>
 > = forwardRef<ComponentRef<'ul'>, ListProps>(
-  ({ isLoading, options, wrapperRef, wrapperInputRef, name }, ref) => {
+  (
+    {
+      className,
+      isLoading,
+      itemClassName,
+      name,
+      options,
+      wrapperInputRef,
+      wrapperRef,
+    },
+    ref,
+  ) => {
     const ulRef = useRef<ComponentRef<'ul'>>(null);
     const { isOpen } = useDropdownContext();
 
@@ -33,15 +44,30 @@ export const List: ForwardRefExoticComponent<
         ref={ulRef}
         title={name}
         role="listbox"
-        className={cn(listVariants(), isOpen ? 'flex' : 'hidden')}
+        className={cn(listVariants({ className }), isOpen ? 'flex' : 'hidden')}
       >
         {isLoading ? (
-          <ListItem isClickable={false} value="Loading..." label="Loading..." />
+          <ListItem
+            className={itemClassName}
+            isClickable={false}
+            value="Loading..."
+            label="Loading..."
+          />
         ) : isEmpty ? (
-          <ListItem isClickable={false} value="No options" label="No options" />
+          <ListItem
+            className={itemClassName}
+            isClickable={false}
+            value="No options"
+            label="No options"
+          />
         ) : (
           options.map((option) => (
-            <ListItem key={option.value} isClickable {...option} />
+            <ListItem
+              key={option.value}
+              className={itemClassName}
+              isClickable
+              {...option}
+            />
           ))
         )}
       </ul>

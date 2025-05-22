@@ -27,15 +27,18 @@ export const Wrapper: ForwardRefExoticComponent<
 > = forwardRef<ComponentRef<'input'>, DropdownProps>(
   (
     {
-      theme,
-      label,
-      labelClassName,
-      placeholder,
-      name,
-      options,
-      required,
+      className,
       defaultValue,
       isLoading,
+      label,
+      labelClassName,
+      listClassName,
+      listItemClassName,
+      name,
+      options,
+      placeholder,
+      required,
+      theme,
     },
     ref,
   ) => {
@@ -122,7 +125,7 @@ export const Wrapper: ForwardRefExoticComponent<
         <div
           ref={wrapperInputRef}
           id={htmlFor}
-          className={cn(dropdownVariants())}
+          className={cn(dropdownVariants({ className }))}
           role="combobox"
           onClick={handleOpen}
           aria-expanded={isOpen}
@@ -169,6 +172,8 @@ export const Wrapper: ForwardRefExoticComponent<
 
         <List
           ref={ulRef}
+          className={listClassName}
+          itemClassName={listItemClassName}
           name={name}
           wrapperRef={wrapperRef}
           wrapperInputRef={wrapperInputRef}
