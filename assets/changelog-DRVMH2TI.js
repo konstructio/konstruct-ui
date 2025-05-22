@@ -1,4 +1,12 @@
-import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as n}from"./index-ikABDTSQ.js";import{c as e,e as i}from"./index-CT10c694.js";import"./index-CDlOlYQx.js";import"./iframe-O-TySkSW.js";import"./index-BGZCjPBa.js";import"./index-CA2ozmjx.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const c=`# Changelog
+import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as n}from"./index-ikABDTSQ.js";import{c as e,e as i}from"./index-D9bYIa1_.js";import"./index-CDlOlYQx.js";import"./iframe-D4KV0iqe.js";import"./index-BGZCjPBa.js";import"./index-CA2ozmjx.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const c=`# Changelog
+
+## [0.1.0-alpha.5](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.5) (2025-05-22)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.4...0.1.0-alpha.5)
+
+**Merged pull requests:**
+
+- 💄 chore: way to apply styles was improved to dropdown [\\#225](https://github.com/konstructio/konstruct-ui/pull/225) ([futjesus](https://github.com/futjesus))
 
 ## [0.1.0-alpha.4](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.4) (2025-05-22)
 

@@ -178,6 +178,7 @@ export declare const Dropdown: FC<DropdownProps>;
 
 declare interface DropdownProps extends VariantProps<typeof dropdownVariants>, Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
     className?: string;
+    iconClassName?: string;
     isLoading?: boolean;
     label?: string;
     labelClassName?: string;
@@ -186,6 +187,7 @@ declare interface DropdownProps extends VariantProps<typeof dropdownVariants>, O
     options: Option_3[];
     theme?: Theme;
     value?: string;
+    wrapperClassName?: string;
     onChange?: OnChangeFn;
 }
 
