@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.0-alpha.4](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.4) (2025-05-22)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.3...0.1.0-alpha.4)
+
+**Merged pull requests:**
+
+- 💄 chore: attributes to modify the styles to dropdown has been added [\#224](https://github.com/konstructio/konstruct-ui/pull/224) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: some dependencies have been updated [\#223](https://github.com/konstructio/konstruct-ui/pull/223) ([futjesus](https://github.com/futjesus))
+- 💄 chore: remove id from typography component [\#216](https://github.com/konstructio/konstruct-ui/pull/216) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.3](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.3) (2025-05-15)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.2...0.1.0-alpha.3)
