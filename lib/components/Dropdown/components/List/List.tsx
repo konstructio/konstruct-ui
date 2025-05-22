@@ -44,7 +44,8 @@ export const List: ForwardRefExoticComponent<
         ref={ulRef}
         title={name}
         role="listbox"
-        className={cn(listVariants({ className }), isOpen ? 'flex' : 'hidden')}
+        className={cn(listVariants({ className }))}
+        data-state={isOpen ? 'open' : 'closed'}
       >
         {isLoading ? (
           <ListItem

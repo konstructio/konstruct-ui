@@ -29,6 +29,7 @@ export const Wrapper: ForwardRefExoticComponent<
     {
       className,
       defaultValue,
+      iconClassName,
       isLoading,
       label,
       labelClassName,
@@ -39,6 +40,7 @@ export const Wrapper: ForwardRefExoticComponent<
       placeholder,
       required,
       theme,
+      wrapperClassName,
     },
     ref,
   ) => {
@@ -107,7 +109,7 @@ export const Wrapper: ForwardRefExoticComponent<
     return (
       <div
         ref={wrapperRef}
-        className="flex flex-col w-full relative"
+        className={cn('flex flex-col w-full relative', wrapperClassName)}
         data-theme={theme}
       >
         {label ? (
@@ -153,9 +155,10 @@ export const Wrapper: ForwardRefExoticComponent<
             <Loading className="w-4 h-4 text-zinc-500" />
           ) : (
             <ChevronUp
+              data-state={isOpen ? 'open' : 'closed'}
               className={cn(
-                'w-4 h-4 text-zinc-500 transition-all duration-50',
-                isOpen ? 'rotate-0' : 'rotate-180',
+                'w-4 h-4 text-zinc-500 transition-all duration-50 data-[state=open]:rotate-0 data-[state=closed]:rotate-180',
+                iconClassName,
               )}
             />
           )}

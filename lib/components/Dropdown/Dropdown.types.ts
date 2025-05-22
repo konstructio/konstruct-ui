@@ -17,6 +17,7 @@ export interface DropdownProps
   extends VariantProps<typeof dropdownVariants>,
     Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
   className?: string;
+  iconClassName?: string;
   isLoading?: boolean;
   label?: string;
   labelClassName?: string;
@@ -25,5 +26,6 @@ export interface DropdownProps
   options: Option[];
   theme?: Theme;
   value?: string;
+  wrapperClassName?: string;
   onChange?: OnChangeFn;
 }
