@@ -16,9 +16,12 @@ type OnChangeFn = (params: { target: { value: string; name: string } }) => void;
 export interface DropdownProps
   extends VariantProps<typeof dropdownVariants>,
     Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
+  className?: string;
   isLoading?: boolean;
   label?: string;
   labelClassName?: string;
+  listClassName?: string;
+  listItemClassName?: string;
   options: Option[];
   theme?: Theme;
   value?: string;

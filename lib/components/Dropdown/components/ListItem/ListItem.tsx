@@ -1,14 +1,19 @@
 import { ComponentRef, FC, KeyboardEvent, useCallback, useRef } from 'react';
 
-import { cn } from '../../../../utils';
+import { Typography } from '@/components/Typography/Typography';
+import { cn } from '@/utils';
+
 import { useDropdownContext } from '../../contexts';
 import { Option } from '../../Dropdown.types';
 
 import { ListItemProps } from './ListItem.types';
 import { listItemVariants } from './ListItem.variants';
-import { Typography } from '@/components/Typography/Typography';
 
-export const ListItem: FC<ListItemProps> = ({ isClickable, ...option }) => {
+export const ListItem: FC<ListItemProps> = ({
+  isClickable,
+  className,
+  ...option
+}) => {
   const { setValue, toggleOpen } = useDropdownContext();
   const liRef = useRef<ComponentRef<'li'>>(null);
 
@@ -33,7 +38,7 @@ export const ListItem: FC<ListItemProps> = ({ isClickable, ...option }) => {
     <li
       ref={liRef}
       role="option"
-      className={cn(listItemVariants())}
+      className={cn(listItemVariants({ className }))}
       tabIndex={0}
       onClick={() => isClickable && handleClick(option)}
       onKeyDown={(event) => handleKeyDown(event, option)}
