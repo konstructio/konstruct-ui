@@ -177,9 +177,12 @@ export declare const Divider: FC<HTMLAttributes<HTMLDivElement>>;
 export declare const Dropdown: FC<DropdownProps>;
 
 declare interface DropdownProps extends VariantProps<typeof dropdownVariants>, Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
+    className?: string;
     isLoading?: boolean;
     label?: string;
     labelClassName?: string;
+    listClassName?: string;
+    listItemClassName?: string;
     options: Option_3[];
     theme?: Theme;
     value?: string;
