@@ -19,6 +19,6 @@ export const listVariants = cva([
   'overflow-y-auto',
   'border-gray-200',
   'text-zinc-700',
-  'data-[state=open]:flex',
+  'data-[state=open]:block',
   'data-[state=closed]:hidden',
 ]);

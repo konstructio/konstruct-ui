@@ -28,6 +28,7 @@ export const ListItem: FC<ListItemProps> = ({
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLLIElement>, option: Option) => {
       if (event.key === 'Enter') {
+        event.stopPropagation();
         handleClick(option);
       }
     },
@@ -40,7 +41,12 @@ export const ListItem: FC<ListItemProps> = ({
       role="option"
       className={cn(listItemVariants({ className }))}
       tabIndex={0}
-      onClick={() => isClickable && handleClick(option)}
+      onClick={(e) => {
+        if (isClickable) {
+          handleClick(option);
+          e.stopPropagation();
+        }
+      }}
       onKeyDown={(event) => handleKeyDown(event, option)}
     >
       {option.leftIcon ? (

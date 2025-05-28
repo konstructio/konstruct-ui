@@ -8,11 +8,11 @@ import {
   useImperativeHandle,
   useMemo,
   useRef,
+  ChangeEvent,
 } from 'react';
 import { ChevronUp } from 'react-feather';
 
 import { Loading } from '@/components/Loading/Loading';
-import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
 
 import { useDropdownContext } from '../contexts';
@@ -21,6 +21,7 @@ import { dropdownVariants, labelVariants } from '../Dropdown.variants';
 import { useDropdown } from '../hooks/useDropdown';
 
 import { List } from './List/List';
+import { Typography } from '@/components/Typography/Typography';
 
 export const Wrapper: ForwardRefExoticComponent<
   DropdownProps & RefAttributes<ComponentRef<'input'>>
@@ -39,6 +40,7 @@ export const Wrapper: ForwardRefExoticComponent<
       options,
       placeholder,
       required,
+      searchable = false,
       theme,
       wrapperClassName,
     },
@@ -49,7 +51,8 @@ export const Wrapper: ForwardRefExoticComponent<
     const ulRef = useRef<ComponentRef<'ul'>>(null);
     const { wrapperRef, wrapperInputRef, handleOpen, handleOpenIfClosed } =
       useDropdown({ ulRef });
-    const { isOpen, toggleOpen, value, setValue } = useDropdownContext();
+    const { isOpen, toggleOpen, value, setValue, setSearchTerm, searchTerm } =
+      useDropdownContext();
     const htmlFor = name ? `${id}-${name}` : id;
 
     useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
@@ -86,24 +89,26 @@ export const Wrapper: ForwardRefExoticComponent<
           !wrapperRef.current?.contains(newFocusElement)
         ) {
           toggleOpen(false);
+          setSearchTerm('');
         }
       });
 
       return () => {
         controller.abort();
       };
-    }, [toggleOpen, wrapperRef]);
+    }, [toggleOpen, wrapperRef, setSearchTerm]);
 
-    const getIcon = () => {
-      if (!internalValue?.leftIcon) {
-        return null;
-      }
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+      const newValue = event.target.value;
+      setSearchTerm(newValue);
 
-      return (
-        <span className="w-4 h-4 flex justify-center items-center">
-          {internalValue.leftIcon}
-        </span>
+      // If there's an exact match, select it
+      const exactMatch = options.find(
+        (option) => option.value.toLowerCase() === newValue.toLowerCase(),
       );
+      if (exactMatch) {
+        setValue(exactMatch.value);
+      }
     };
 
     return (
@@ -134,22 +139,37 @@ export const Wrapper: ForwardRefExoticComponent<
           tabIndex={0}
           aria-labelledby={htmlFor}
         >
-          {value ? (
-            <Typography
-              variant="body2"
-              className="flex gap-3 items-center text-zinc-700 text-base"
-            >
-              {getIcon()}
-              {internalValue?.label}
-            </Typography>
-          ) : (
-            <Typography
-              variant="body2"
-              className="flex gap-3 items-center text-zinc-700 text-base"
-            >
-              {placeholder}
-            </Typography>
-          )}
+          <div className="flex gap-3 items-center flex-1">
+            {internalValue?.leftIcon && (
+              <span className="w-4 h-4 flex justify-center items-center">
+                {internalValue.leftIcon}
+              </span>
+            )}
+            {searchable ? (
+              <input
+                type="text"
+                value={
+                  isOpen ? searchTerm : (internalValue?.label as string) || ''
+                }
+                onChange={handleInputChange}
+                placeholder={placeholder}
+                className="flex-1 bg-transparent border-none outline-none text-zinc-700 text-base"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleOpen();
+                }}
+                aria-label={label || placeholder}
+                aria-labelledby={htmlFor}
+              />
+            ) : (
+              <Typography
+                variant="body2"
+                className="flex-1 text-zinc-700 text-base"
+              >
+                {internalValue?.label || placeholder}
+              </Typography>
+            )}
+          </div>
 
           {isLoading ? (
             <Loading className="w-4 h-4 text-zinc-500" />
@@ -182,6 +202,7 @@ export const Wrapper: ForwardRefExoticComponent<
           wrapperInputRef={wrapperInputRef}
           options={options}
           isLoading={!!isLoading}
+          searchable={searchable}
         />
       </div>
     );

@@ -5,6 +5,8 @@ export type DropdownContextType = {
   toggleOpen: (value?: boolean) => void;
   value?: string;
   setValue: (value: string) => void;
+  searchTerm: string;
+  setSearchTerm: (term: string) => void;
 };
 
 export const DropdownContext = createContext<DropdownContextType>({
@@ -15,5 +17,9 @@ export const DropdownContext = createContext<DropdownContextType>({
   value: undefined,
   setValue() {
     throw new Error('setValue function must be overridden');
+  },
+  searchTerm: '',
+  setSearchTerm() {
+    throw new Error('setSearchTerm function must be overridden');
   },
 });

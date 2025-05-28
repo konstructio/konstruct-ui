@@ -1,7 +1,6 @@
 import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { Children, FC, isValidElement } from 'react';
 import { X as Close } from 'react-feather';
-import FocusLock from 'react-focus-lock';
 import { RemoveScroll } from 'react-remove-scroll';
 
 import { Modal } from '@/components/Modal/Modal';
@@ -39,47 +38,45 @@ export const Wrapper: FC<WrapperProps> = ({
   );
 
   return (
-    <FocusLock returnFocus={true}>
-      <RemoveScroll>
+    <RemoveScroll>
+      <div
+        className="fixed inset-0 grid place-content-center"
+        data-theme={theme}
+      >
         <div
-          className="fixed inset-0 grid place-content-center"
-          data-theme={theme}
-        >
-          <div
-            className="absolute inset-0 bg-black opacity-75 animate-in fade-in-0"
-            onClick={onClose}
-            role="presentation"
-          />
+          className="absolute inset-0 bg-black opacity-75 animate-in fade-in-0"
+          onClick={onClose}
+          role="presentation"
+        />
 
-          <div
+        <div
+          className={cn(
+            modalVariants({
+              className,
+            }),
+          )}
+          role="dialog"
+          aria-modal="true"
+        >
+          {header}
+
+          <button
             className={cn(
-              modalVariants({
-                className,
+              buttonCloseVariants({
+                className: buttonCloseClassName,
               }),
             )}
-            role="dialog"
-            aria-modal="true"
+            onClick={onClose}
           >
-            {header}
+            <Close />
+            <VisuallyHidden>Dismiss modal</VisuallyHidden>
+          </button>
 
-            <button
-              className={cn(
-                buttonCloseVariants({
-                  className: buttonCloseClassName,
-                }),
-              )}
-              onClick={onClose}
-            >
-              <Close />
-              <VisuallyHidden>Dismiss modal</VisuallyHidden>
-            </button>
+          {body ?? others}
 
-            {body ?? others}
-
-            {footer}
-          </div>
+          {footer}
         </div>
-      </RemoveScroll>
-    </FocusLock>
+      </div>
+    </RemoveScroll>
   );
 };
