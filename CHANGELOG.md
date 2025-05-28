@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.0-alpha.6](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.6) (2025-05-28)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.5...0.1.0-alpha.6)
+
+**Merged pull requests:**
+
+- feat: searchable dropdown [\#227](https://github.com/konstructio/konstruct-ui/pull/227) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.1.0-alpha.5](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.5) (2025-05-22)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.4...0.1.0-alpha.5)
