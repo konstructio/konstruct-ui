@@ -1,4 +1,12 @@
-import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as n}from"./index-ikABDTSQ.js";import{c as e,e as i}from"./index-D9bYIa1_.js";import"./index-CDlOlYQx.js";import"./iframe-D4KV0iqe.js";import"./index-BGZCjPBa.js";import"./index-CA2ozmjx.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const c=`# Changelog
+import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as n}from"./index-ikABDTSQ.js";import{c as e,e as i}from"./index-BUSkm41k.js";import"./index-CDlOlYQx.js";import"./iframe-BCoFXFGx.js";import"./index-BGZCjPBa.js";import"./index-CA2ozmjx.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const c=`# Changelog
+
+## [0.1.0-alpha.6](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.6) (2025-05-28)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.5...0.1.0-alpha.6)
+
+**Merged pull requests:**
+
+- feat: searchable dropdown [\\#227](https://github.com/konstructio/konstruct-ui/pull/227) ([CristhianF7](https://github.com/CristhianF7))
 
 ## [0.1.0-alpha.5](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.5) (2025-05-22)
 

@@ -185,6 +185,7 @@ declare interface DropdownProps extends VariantProps<typeof dropdownVariants>, O
     listClassName?: string;
     listItemClassName?: string;
     options: Option_3[];
+    searchable?: boolean;
     theme?: Theme;
     value?: string;
     wrapperClassName?: string;
