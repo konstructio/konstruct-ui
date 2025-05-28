@@ -140,7 +140,7 @@ export const Wrapper: ForwardRefExoticComponent<
           aria-labelledby={htmlFor}
         >
           <div className="flex gap-3 items-center flex-1">
-            {!isOpen && internalValue?.leftIcon && (
+            {internalValue?.leftIcon && (
               <span className="w-4 h-4 flex justify-center items-center">
                 {internalValue.leftIcon}
               </span>
