@@ -25,19 +25,29 @@ export const List: ForwardRefExoticComponent<
       itemClassName,
       name,
       options,
+      searchable = false,
       wrapperInputRef,
       wrapperRef,
     },
     ref,
   ) => {
     const ulRef = useRef<ComponentRef<'ul'>>(null);
-    const { isOpen } = useDropdownContext();
+    const { isOpen, searchTerm } = useDropdownContext();
 
     useImperativeHandle(ref, () => ulRef.current!, [ulRef]);
 
     useNavigationUlList({ ulRef, wrapperRef, wrapperInputRef });
 
-    const isEmpty = options.length === 0;
+    const filteredOptions = searchable
+      ? options.filter((option) => {
+          const searchLower = searchTerm.toLowerCase();
+          const label =
+            typeof option.label === 'string' ? option.label.toLowerCase() : '';
+          return label.includes(searchLower);
+        })
+      : options;
+
+    const isEmpty = filteredOptions.length === 0;
 
     return (
       <ul
@@ -62,7 +72,7 @@ export const List: ForwardRefExoticComponent<
             label="No options"
           />
         ) : (
-          options.map((option) => (
+          filteredOptions.map((option) => (
             <ListItem
               key={option.value}
               className={itemClassName}

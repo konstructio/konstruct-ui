@@ -24,6 +24,7 @@ export interface DropdownProps
   listClassName?: string;
   listItemClassName?: string;
   options: Option[];
+  searchable?: boolean;
   theme?: Theme;
   value?: string;
   wrapperClassName?: string;

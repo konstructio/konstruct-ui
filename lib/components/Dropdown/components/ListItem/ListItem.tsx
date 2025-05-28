@@ -18,7 +18,8 @@ export const ListItem: FC<ListItemProps> = ({
   const liRef = useRef<ComponentRef<'li'>>(null);
 
   const handleClick = useCallback(
-    (option: Option) => {
+    (event: React.MouseEvent, option: Option) => {
+      event.stopPropagation();
       setValue(option.value);
       toggleOpen(false);
     },
@@ -28,7 +29,7 @@ export const ListItem: FC<ListItemProps> = ({
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLLIElement>, option: Option) => {
       if (event.key === 'Enter') {
-        handleClick(option);
+        handleClick(event as unknown as React.MouseEvent, option);
       }
     },
     [handleClick],
@@ -40,7 +41,7 @@ export const ListItem: FC<ListItemProps> = ({
       role="option"
       className={cn(listItemVariants({ className }))}
       tabIndex={0}
-      onClick={() => isClickable && handleClick(option)}
+      onClick={(e) => isClickable && handleClick(e, option)}
       onKeyDown={(event) => handleKeyDown(event, option)}
     >
       {option.leftIcon ? (

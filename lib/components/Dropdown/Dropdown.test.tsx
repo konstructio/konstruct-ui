@@ -5,6 +5,7 @@ import { axe } from 'jest-axe';
 
 import { DropdownProps, Option } from './Dropdown.types';
 import { Dropdown } from './Dropdown';
+import { Modal } from '@/components/Modal/Modal';
 
 describe('Dropdown', () => {
   const defaultProps = {
@@ -202,5 +203,79 @@ describe('Dropdown', () => {
     const option = getElement('No options');
 
     expect(option).toBeInTheDocument();
+  });
+
+  describe('Dropdown in Modal', () => {
+    const ModalWrapper: FC<PropsWithChildren> = ({ children }) => {
+      const [isOpen, setIsOpen] = useState(true);
+      return (
+        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <Modal.Body>
+            <div className="p-6">{children}</div>
+          </Modal.Body>
+        </Modal>
+      );
+    };
+
+    it('should render and interact correctly inside a modal', async () => {
+      const onChange = vitest.fn();
+      const { user, getComboBox, getElement } = setup(
+        { onChange },
+        ModalWrapper,
+      );
+
+      const comboBox = getComboBox();
+      expect(comboBox).toBeInTheDocument();
+
+      await user.click(comboBox);
+      const option = getElement(defaultProps.options[0].label);
+      expect(option).toBeInTheDocument();
+
+      await user.click(option);
+      expect(onChange).toHaveBeenCalledWith({
+        target: {
+          value: defaultProps.options[0].value,
+          name: defaultProps.name,
+        },
+      });
+    });
+
+    it('should close dropdown list after selecting an option in modal', async () => {
+      const { user, getComboBox } = setup({}, ModalWrapper);
+
+      const comboBox = getComboBox();
+      await user.click(comboBox);
+
+      // Get the list element
+      const list = screen.getByRole('listbox');
+      expect(list).toBeInTheDocument();
+
+      // Select an option
+      const option = screen.getByText(defaultProps.options[0].label);
+      await user.click(option);
+
+      // The list should be hidden
+      expect(list).toHaveAttribute('data-state', 'closed');
+    });
+
+    it('should handle keyboard navigation inside modal', async () => {
+      const onChange = vitest.fn();
+      const { user, getComboBox } = setup({ onChange }, ModalWrapper);
+
+      const comboBox = getComboBox();
+      await user.click(comboBox);
+
+      // Navigate to first option
+      await user.keyboard('{ArrowDown}');
+      // Select the option
+      await user.keyboard('{Enter}');
+
+      expect(onChange).toHaveBeenCalledWith({
+        target: {
+          value: defaultProps.options[0].value,
+          name: defaultProps.name,
+        },
+      });
+    });
   });
 });

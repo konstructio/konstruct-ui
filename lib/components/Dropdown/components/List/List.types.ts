@@ -6,6 +6,7 @@ export type ListProps = Pick<DropdownProps, 'name' | 'options' | 'theme'> & {
   className?: string;
   itemClassName?: string;
   isLoading: boolean;
+  searchable?: boolean;
   wrapperInputRef: RefObject<ComponentRef<'div'> | null>;
   wrapperRef: RefObject<ComponentRef<'div'> | null>;
 };

@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useCallback } from 'react';
+import { FC, PropsWithChildren, useCallback, useState } from 'react';
 
 import { useToggle } from '../../../hooks';
 
@@ -14,6 +14,7 @@ export const DropdownProvider: FC<
   }
 > = ({ children, onChange, value, name }) => {
   const [isOpen, toggleOpen] = useToggle(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = useCallback(
     (value: string) => {
@@ -24,7 +25,14 @@ export const DropdownProvider: FC<
 
   return (
     <DropdownContext.Provider
-      value={{ value, isOpen, setValue: handleChange, toggleOpen }}
+      value={{
+        value,
+        isOpen,
+        setValue: handleChange,
+        toggleOpen,
+        searchTerm,
+        setSearchTerm,
+      }}
     >
       {children}
     </DropdownContext.Provider>
