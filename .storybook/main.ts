@@ -5,13 +5,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 const config = {
   stories: ['../docs/**/*.mdx', '../lib/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
-  addons: [
-    '@storybook/addon-docs',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-    '@storybook/addon-links',
-    '@storybook/addon-styling-webpack',
-  ],
+  addons: ['@storybook/addon-docs', '@storybook/addon-links'],
   framework: {
     name: '@storybook/react-vite',
     options: {},

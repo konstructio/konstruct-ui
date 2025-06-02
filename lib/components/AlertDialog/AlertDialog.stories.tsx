@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import WarningIcon from '@/assets/icons/warning.svg';
 import { Checkbox } from '@/components/Checkbox/Checkbox';
