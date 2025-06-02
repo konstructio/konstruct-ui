@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useContext, useEffect } from 'react';
 import { Database, Moon, Sun } from 'react-feather';
 

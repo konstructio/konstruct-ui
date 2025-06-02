@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Info } from 'react-feather';
 
 import { RadioGroup as RadioGroupComponent } from './RadioGroup';

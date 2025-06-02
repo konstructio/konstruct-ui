@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Check } from 'react-feather';
 
 import PagesStackIcon from '@/assets/icons/pages-stack.svg';
