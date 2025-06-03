@@ -71,7 +71,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             id={id}
             ref={ref}
             name={name}
-            type={showPassword ? 'text' : 'password'}
+            type={showPassword ? type : 'password'}
             className={cn(
               inputVariants({
                 className,
