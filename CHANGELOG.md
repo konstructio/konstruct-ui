@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.0-alpha.7](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.7) (2025-06-03)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.6...0.1.0-alpha.7)
+
+**Merged pull requests:**
+
+- 🐛 fix: fix the input prop type [\#233](https://github.com/konstructio/konstruct-ui/pull/233) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: some dependencies have been upgraded [\#232](https://github.com/konstructio/konstruct-ui/pull/232) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.6](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.6) (2025-05-28)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.5...0.1.0-alpha.6)
