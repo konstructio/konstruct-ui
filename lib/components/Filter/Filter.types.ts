@@ -1,8 +1,16 @@
 import { VariantProps } from 'class-variance-authority';
+import { FC, PropsWithChildren } from 'react';
+
+import { Theme } from '@/domain/theme';
 
 import { BadgeProps } from '../Badge/Badge.types';
 
 import { filterVariants } from './Filter.variants';
+import {
+  BadgeMultiSelectProps,
+  DateFilterDropdownProps,
+  ResetButtonProps,
+} from './components';
 
 export type Option = {
   id: string;
@@ -10,8 +18,14 @@ export type Option = {
   variant?: BadgeProps['variant'];
 };
 
-export interface FilterProps extends VariantProps<typeof filterVariants> {
-  className?: string;
-  statusOptions?: Option[];
-  onSelectStatus?: (...status: Option[]) => void;
-}
+export type FilterProps = VariantProps<typeof filterVariants> &
+  PropsWithChildren & {
+    className?: string;
+    theme?: Theme;
+  };
+
+export type FilterComponentProps = FC<FilterProps> & {
+  BadgeMultiSelect: FC<BadgeMultiSelectProps>;
+  DateFilterDropdown: FC<DateFilterDropdownProps>;
+  ResetButton: FC<ResetButtonProps>;
+};

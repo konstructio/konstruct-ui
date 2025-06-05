@@ -9,6 +9,7 @@ export const filterButtonVariants = cva([
   'text-slate-500',
   'cursor-pointer',
   'text-sm',
+  'w-max',
 ]);
 
 export const filterButtonIconVariants = cva([

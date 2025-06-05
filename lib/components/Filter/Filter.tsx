@@ -1,32 +1,27 @@
-import { FC } from 'react';
-
-import { Button } from '@/components/Button/Button';
+'use client';
 import { cn } from '@/utils';
 
-import { FilterProps } from './Filter.types';
+import { FilterComponentProps } from './Filter.types';
 import { filterVariants } from './Filter.variants';
-import { Created, Status, Type } from './components';
-import { FilterProvider } from './contexts';
+import {
+  BadgeMultiSelect,
+  DateFilterDropdown,
+  ResetButton,
+} from './components';
 
-export const Filter: FC<FilterProps> = ({
+const Filter: FilterComponentProps = ({
   className,
-  statusOptions = [],
-  onSelectStatus,
+  theme = 'civo',
+  children,
 }) => (
-  <FilterProvider onSelectStatus={onSelectStatus}>
-    <div className={cn(filterVariants({ className }))} data-theme="civo">
-      <Status options={statusOptions} />
-      <Created />
-      <Type />
-      <Button
-        type="button"
-        variant="text"
-        appearance="compact"
-        version="alternate"
-        disabled
-      >
-        Reset
-      </Button>
-    </div>
-  </FilterProvider>
+  <div className={cn(filterVariants({ className }))} data-theme={theme}>
+    {children}
+  </div>
 );
+
+Filter.displayName = 'Filter';
+Filter.BadgeMultiSelect = BadgeMultiSelect;
+Filter.DateFilterDropdown = DateFilterDropdown;
+Filter.ResetButton = ResetButton;
+
+export { Filter, BadgeMultiSelect, DateFilterDropdown };

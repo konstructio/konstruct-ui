@@ -11,5 +11,6 @@ export type DatePickerProps = Omit<DayPickerPrimitiveProps, 'mode'> &
     arrowClassName?: string;
     monthsClassName?: string;
     timeZone?: TimeZone;
+    defaultSelected?: Date;
     onSelect?: (date: Date) => void;
   };

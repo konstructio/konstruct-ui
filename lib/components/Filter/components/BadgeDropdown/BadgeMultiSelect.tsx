@@ -1,79 +1,60 @@
-'use client';
 import { ChevronDownIcon } from 'lucide-react';
-import { FC, useCallback, useState } from 'react';
+import { FC } from 'react';
 
 import { Badge } from '@/components/Badge/Badge';
 import { Button } from '@/components/Button/Button';
 import { Checkbox } from '@/components/Checkbox/Checkbox';
 import { cn } from '@/utils';
 
-import { useFilterContext } from '../../contexts';
-import { Option } from '../../Filter.types';
 import {
   filterButtonIconVariants,
   filterButtonVariants,
 } from '../../Filter.variants';
 
-import { StatusProps } from './Status.types';
+import { useBadgeMultiSelect } from './BadgeMultiSelect.hook';
+import { BadgeMultiSelectProps } from './BadgeMultiSelect.types';
 
-export const Status: FC<StatusProps> = ({ options }) => {
-  const { isStatusOpen, statusSelected, onOpenStatus, onSetSelectedStatus } =
-    useFilterContext();
-  const [selectedOptions, setSelectedOptions] =
-    useState<Option[]>(statusSelected);
-
-  const handleSelectStatus = useCallback(
-    (option: Option, checked: boolean) => {
-      if (checked) {
-        setSelectedOptions([...selectedOptions, option]);
-      } else {
-        setSelectedOptions(selectedOptions.filter((o) => o.id !== option.id));
-      }
-    },
-    [selectedOptions],
-  );
-
-  const handleResetStatus = useCallback(() => {
-    setSelectedOptions([]);
-    onSetSelectedStatus([]);
-  }, [onSetSelectedStatus]);
-
-  const handleApplyStatus = useCallback(() => {
-    onSetSelectedStatus(selectedOptions);
-  }, [onSetSelectedStatus, selectedOptions]);
-
-  const handleOpenStatus = useCallback(() => {
-    onOpenStatus();
-    setSelectedOptions(statusSelected);
-  }, [onOpenStatus, statusSelected]);
+export const BadgeMultiSelect: FC<BadgeMultiSelectProps> = ({
+  options,
+  label,
+  onApply,
+}) => {
+  const {
+    wrapperRef,
+    isOpen,
+    selectedOptions,
+    selectedCount,
+    handleOpen,
+    handleResetOptions,
+    handleApplyOptions,
+    handleSelectOption,
+  } = useBadgeMultiSelect({ onApply });
 
   if (options.length === 0) {
     return null;
   }
 
   return (
-    <div className="relative">
+    <div ref={wrapperRef} className="relative">
       <button
         className={cn(filterButtonVariants(), {
-          'text-slate-700': isStatusOpen,
+          'text-slate-700': isOpen,
         })}
-        onClick={handleOpenStatus}
+        onClick={handleOpen}
       >
-        Status
-        {statusSelected.length > 0 && (
-          <span className="text-xs text-gray-800 px-2 py-1 bg-gray-100 rounded transition-all duration-100 font-medium">
-            {statusSelected.length}
-          </span>
+        {label}
+        {selectedCount.length > 0 && (
+          <Badge label={selectedCount.length.toString()} />
         )}
         <ChevronDownIcon
           className={cn(filterButtonIconVariants(), {
-            'rotate-180': isStatusOpen,
-            'text-blue-600': isStatusOpen,
+            'rotate-180': isOpen,
+            'text-blue-600': isOpen,
           })}
         />
       </button>
 
-      {isStatusOpen && (
+      {isOpen && (
         <div className="absolute top-full mt-1 left-0 bg-white rounded-md shadow-md animate-in fade-in-0 z-10 border border-gray-200">
           <div className="py-4">
             <div className="flex flex-col gap-2">
@@ -88,7 +69,7 @@ export const Status: FC<StatusProps> = ({ options }) => {
                       key={`${option.id}-${isSelected}`}
                       defaultChecked={isSelected}
                       onChange={(checked) =>
-                        handleSelectStatus(option, checked)
+                        handleSelectOption(option, checked)
                       }
                     />
                     <Badge label={option.label} variant={option.variant} />
@@ -102,12 +83,12 @@ export const Status: FC<StatusProps> = ({ options }) => {
             <Button
               variant="secondary"
               appearance="compact"
-              onClick={handleResetStatus}
+              onClick={handleResetOptions}
             >
               Reset
             </Button>
 
-            <Button appearance="compact" onClick={handleApplyStatus}>
+            <Button appearance="compact" onClick={handleApplyOptions}>
               Apply
             </Button>
           </div>

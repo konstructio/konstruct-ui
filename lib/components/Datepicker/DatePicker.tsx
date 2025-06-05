@@ -16,10 +16,13 @@ const DatePicker: FC<DatePickerProps> = ({
   animate = true,
   arrowClassName,
   monthsClassName,
+  defaultSelected,
   onSelect,
   ...delegated
 }) => {
-  const [selected, setSelected] = useState<Date>();
+  const [selected, setSelected] = useState<Date | undefined>(
+    () => defaultSelected,
+  );
 
   const handleSelect = useCallback(
     (date?: Date) => {
