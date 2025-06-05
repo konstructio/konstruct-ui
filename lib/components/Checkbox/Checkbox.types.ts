@@ -5,7 +5,7 @@ import { Theme } from '@/domain/theme';
 import { checkboxVariants } from './Checkbox.variants';
 
 export interface CheckboxProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'checked'>,
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'checked' | 'onChange'>,
     VariantProps<typeof checkboxVariants> {
   ariaLabelledBy?: string;
   className?: string;
@@ -16,5 +16,5 @@ export interface CheckboxProps
   labelClassName?: string;
   name?: string;
   theme?: Theme;
-  onChange?: () => void;
+  onChange?: (checked: boolean) => void;
 }
