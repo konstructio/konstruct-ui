@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.0-alpha.11](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.11) (2025-06-09)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.10...0.1.0-alpha.11)
+
+**Merged pull requests:**
+
+- ⬆️  chore: some dependencies have been updated [\#242](https://github.com/konstructio/konstruct-ui/pull/242) ([futjesus](https://github.com/futjesus))
+- 🐛 fix: fix attribute in the asset component [\#241](https://github.com/konstructio/konstruct-ui/pull/241) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.10](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.10) (2025-06-09)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.9...0.1.0-alpha.10)
