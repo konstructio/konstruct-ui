@@ -2,9 +2,8 @@
 import { forwardRef, useId, useState } from 'react';
 import { Eye, EyeOff } from 'react-feather';
 
+import { SearchIcon, WarningIcon } from '@/assets/icons/components';
 import { cn } from '@/utils';
-import SearchIcon from '@/assets/icons/search.svg';
-import WarningIcon from '@/assets/icons/warning.svg';
 
 import { InputProps } from './Input.types';
 import { inputVariants } from './Input.variants';
