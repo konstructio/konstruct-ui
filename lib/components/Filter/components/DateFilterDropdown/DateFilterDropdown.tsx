@@ -16,6 +16,7 @@ import { DateFilterDropdownProps } from './DateFilterDropdown.types';
 
 export const DateFilterDropdown: FC<DateFilterDropdownProps> = ({
   label,
+  position = 'left',
   onApply,
 }) => {
   const {
@@ -49,7 +50,15 @@ export const DateFilterDropdown: FC<DateFilterDropdownProps> = ({
       </button>
 
       {isOpen && (
-        <div className="absolute top-full mt-1 left-0 bg-white rounded-md shadow-md animate-in fade-in-0 z-10 border border-gray-200 flex flex-col gap-4 py-4 px-6">
+        <div
+          className={cn(
+            'absolute top-full mt-1 bg-white rounded-md shadow-md animate-in fade-in-0 z-10 border border-gray-200 flex flex-col gap-4 py-4 px-6',
+            {
+              'left-0': position === 'left',
+              'right-0': position === 'right',
+            },
+          )}
+        >
           <DatePicker
             key={selectedDay?.toISOString() ?? id}
             className="p-0"

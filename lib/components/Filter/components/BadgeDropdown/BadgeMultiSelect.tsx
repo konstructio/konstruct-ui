@@ -17,6 +17,7 @@ import { BadgeMultiSelectProps } from './BadgeMultiSelect.types';
 export const BadgeMultiSelect: FC<BadgeMultiSelectProps> = ({
   options,
   label,
+  position = 'left',
   onApply,
 }) => {
   const {
@@ -55,7 +56,15 @@ export const BadgeMultiSelect: FC<BadgeMultiSelectProps> = ({
       </button>
 
       {isOpen && (
-        <div className="absolute top-full mt-1 left-0 bg-white rounded-md shadow-md animate-in fade-in-0 z-10 border border-gray-200">
+        <div
+          className={cn(
+            'absolute top-full mt-1 bg-white rounded-md shadow-md animate-in fade-in-0 z-10 border border-gray-200',
+            {
+              'left-0': position === 'left',
+              'right-0': position === 'right',
+            },
+          )}
+        >
           <div className="py-4">
             <div className="flex flex-col gap-2">
               {options.map((option) => {
