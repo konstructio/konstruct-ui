@@ -14,7 +14,7 @@ const meta: Meta<typeof FilterComponent> = {
 export const Filter: Story = {
   render: (args) => {
     const [selectedStatus, setSelectedStatus] = useState<Option[]>([]);
-    const [data, setDate] = useState<Date | undefined>();
+    const [date, setDate] = useState<Date | undefined>();
 
     const onApplyDate = (date?: Date) => setDate(date);
 
@@ -66,9 +66,12 @@ export const Filter: Story = {
             options={options}
             onApply={onApplyBadge}
           />
-          <FilterComponent.DateFilterDropdown onApply={onApplyDate} />
+          <FilterComponent.DateFilterDropdown
+            label="Created"
+            onApply={onApplyDate}
+          />
           <FilterComponent.ResetButton
-            disabled={!data && selectedStatus.length === 0}
+            disabled={!date && selectedStatus.length === 0}
           />
         </FilterComponent>
       </div>

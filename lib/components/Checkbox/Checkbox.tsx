@@ -27,10 +27,11 @@ export const Checkbox: FC<CheckboxProps> = forwardRef<
       title,
       variant,
       onChange,
+      ...delegated
     },
     ref,
   ) => {
-    const [checked, setChecked] = useToggle(defaultChecked);
+    const [checked, setChecked] = useToggle(defaultChecked ?? false);
     const defaultId = useId();
 
     const handleChange = useCallback(
@@ -59,6 +60,7 @@ export const Checkbox: FC<CheckboxProps> = forwardRef<
             }),
           )}
           onCheckedChange={handleChange}
+          {...delegated}
         >
           <Indicator>
             <Check className="w-4 h-4 stroke-2" />

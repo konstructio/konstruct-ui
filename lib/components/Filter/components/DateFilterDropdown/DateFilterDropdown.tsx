@@ -15,6 +15,7 @@ import { useDateFilterDropdown } from './DateFilterDropdown.hook';
 import { DateFilterDropdownProps } from './DateFilterDropdown.types';
 
 export const DateFilterDropdown: FC<DateFilterDropdownProps> = ({
+  label,
   onApply,
 }) => {
   const {
@@ -37,7 +38,7 @@ export const DateFilterDropdown: FC<DateFilterDropdownProps> = ({
         })}
         onClick={handleOpen}
       >
-        Created
+        {label}
         {appliedDay && <Badge label={appliedDay} />}
         <ChevronDownIcon
           className={cn(filterButtonIconVariants(), {

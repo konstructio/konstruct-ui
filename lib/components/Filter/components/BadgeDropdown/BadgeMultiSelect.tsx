@@ -68,6 +68,7 @@ export const BadgeMultiSelect: FC<BadgeMultiSelectProps> = ({
                     <Checkbox
                       key={`${option.id}-${isSelected}`}
                       defaultChecked={isSelected}
+                      data-label={option.id}
                       onChange={(checked) =>
                         handleSelectOption(option, checked)
                       }

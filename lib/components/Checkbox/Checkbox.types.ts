@@ -1,12 +1,12 @@
+import { CheckboxProps as CheckboxPropsPrimitive } from '@radix-ui/react-checkbox';
 import { VariantProps } from 'class-variance-authority';
-import { InputHTMLAttributes } from 'react';
 
 import { Theme } from '@/domain/theme';
 import { checkboxVariants } from './Checkbox.variants';
 
 export interface CheckboxProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'checked' | 'onChange'>,
-    VariantProps<typeof checkboxVariants> {
+  extends Omit<CheckboxPropsPrimitive, 'onChange'>,
+    Omit<VariantProps<typeof checkboxVariants>, 'checked'> {
   ariaLabelledBy?: string;
   className?: string;
   defaultChecked?: boolean;
