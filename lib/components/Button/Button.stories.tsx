@@ -191,6 +191,10 @@ export const TextButton: Story = {
         </Button>
 
         <Button variant="text" theme="civo" disabled>
+          Text Civo Disabled
+        </Button>
+
+        <Button variant="text" disabled>
           Text Disabled
         </Button>
       </div>

@@ -27,16 +27,20 @@ export const Checkbox: FC<CheckboxProps> = forwardRef<
       title,
       variant,
       onChange,
+      ...delegated
     },
     ref,
   ) => {
-    const [checked, setChecked] = useToggle(defaultChecked);
+    const [checked, setChecked] = useToggle(defaultChecked ?? false);
     const defaultId = useId();
 
-    const handleChange = useCallback(() => {
-      setChecked();
-      onChange?.();
-    }, [onChange, setChecked]);
+    const handleChange = useCallback(
+      (checked: boolean) => {
+        setChecked(checked);
+        onChange?.(checked);
+      },
+      [onChange, setChecked],
+    );
 
     return (
       <div className="flex items-center gap-2" data-theme={theme}>
@@ -56,6 +60,7 @@ export const Checkbox: FC<CheckboxProps> = forwardRef<
             }),
           )}
           onCheckedChange={handleChange}
+          {...delegated}
         >
           <Indicator>
             <Check className="w-4 h-4 stroke-2" />

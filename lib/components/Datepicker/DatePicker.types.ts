@@ -8,6 +8,9 @@ type TimeZone = keyof ReturnType<typeof getAllTimezones>;
 
 export type DatePickerProps = Omit<DayPickerPrimitiveProps, 'mode'> &
   VariantProps<typeof datePickerVariants> & {
+    arrowClassName?: string;
+    monthsClassName?: string;
     timeZone?: TimeZone;
+    defaultSelected?: Date;
     onSelect?: (date: Date) => void;
   };
