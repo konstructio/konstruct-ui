@@ -80,6 +80,7 @@ export declare const BadgeMultiSelect: FC_2<BadgeMultiSelectProps>;
 declare type BadgeMultiSelectProps = {
     label: string;
     options: Option_4[];
+    position?: 'left' | 'right';
     onApply?: (selectedOptions: Option_4[]) => void;
 };
 
@@ -176,6 +177,7 @@ export declare const DateFilterDropdown: FC_2<DateFilterDropdownProps>;
 
 declare type DateFilterDropdownProps = {
     label: string;
+    position?: 'left' | 'right';
     onApply?: (date?: Date) => void;
 };
 
