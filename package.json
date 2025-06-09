@@ -121,7 +121,7 @@
     "@typescript-eslint/eslint-plugin": "^8.33.1",
     "@typescript-eslint/parser": "^8.33.1",
     "@vitejs/plugin-react": "^4.5.1",
-    "@vitest/coverage-v8": "^3.2.2",
+    "@vitest/coverage-v8": "^3.2.3",
     "autoprefixer": "^10.4.21",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.2",
@@ -144,7 +144,7 @@
     "vite-plugin-lib-inject-css": "^2.2.2",
     "vite-plugin-svgr": "^4.3.0",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.2.2"
+    "vitest": "^3.2.3"
   },
   "overrides": {
     "storybook": "$storybook"
