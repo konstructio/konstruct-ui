@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.0-alpha.9](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.9) (2025-06-09)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.8...0.1.0-alpha.9)
+
+**Merged pull requests:**
+
+- 💄 styles: position was added in the badge and date component belongs Filter component [\#239](https://github.com/konstructio/konstruct-ui/pull/239) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.8](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.8) (2025-06-09)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.7...0.1.0-alpha.8)
