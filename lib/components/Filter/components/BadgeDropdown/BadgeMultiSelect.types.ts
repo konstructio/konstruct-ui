@@ -8,5 +8,6 @@ export type SelectedOptions = Option & {
 export type BadgeMultiSelectProps = {
   label: string;
   options: Option[];
+  position?: 'left' | 'right';
   onApply?: (selectedOptions: Option[]) => void;
 };
