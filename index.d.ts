@@ -1,5 +1,6 @@
 import { AlertDialogProps as AlertDialogProps_2 } from '@radix-ui/react-alert-dialog';
 import { ButtonHTMLAttributes } from '../../../node_modules/react';
+import { CheckboxProps as CheckboxProps_2 } from '@radix-ui/react-checkbox';
 import { ClassProp } from 'class-variance-authority/types';
 import { Context } from '../../node_modules/react';
 import { DayPickerProps } from 'react-day-picker';
@@ -74,6 +75,14 @@ declare const autocompleteVariants: (props?: ({
 
 export declare const Badge: FC<BadgeProps>;
 
+export declare const BadgeMultiSelect: FC_2<BadgeMultiSelectProps>;
+
+declare type BadgeMultiSelectProps = {
+    label: string;
+    options: Option_4[];
+    onApply?: (selectedOptions: Option_4[]) => void;
+};
+
 declare type BadgeProps = VariantProps<typeof badgeVariants> & {
     label: string;
     className?: string;
@@ -145,7 +154,7 @@ declare const cardVariants: (props?: ({
 
 export declare const Checkbox: FC<CheckboxProps>;
 
-declare interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'checked'>, VariantProps<typeof checkboxVariants> {
+declare interface CheckboxProps extends Omit<CheckboxProps_2, 'onChange'>, Omit<VariantProps<typeof checkboxVariants>, 'checked'> {
     ariaLabelledBy?: string;
     className?: string;
     defaultChecked?: boolean;
@@ -155,7 +164,7 @@ declare interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElemen
     labelClassName?: string;
     name?: string;
     theme?: Theme;
-    onChange?: () => void;
+    onChange?: (checked: boolean) => void;
 }
 
 declare const checkboxVariants: (props?: ({
@@ -163,10 +172,20 @@ declare const checkboxVariants: (props?: ({
     checked?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
 
+export declare const DateFilterDropdown: FC_2<DateFilterDropdownProps>;
+
+declare type DateFilterDropdownProps = {
+    label: string;
+    onApply?: (date?: Date) => void;
+};
+
 export declare const DatePicker: FC<DatePickerProps>;
 
 declare type DatePickerProps = Omit<DayPickerProps, 'mode'> & VariantProps<typeof datePickerVariants> & {
+    arrowClassName?: string;
+    monthsClassName?: string;
     timeZone?: TimeZone;
+    defaultSelected?: Date;
     onSelect?: (date: Date) => void;
 };
 
@@ -194,9 +213,24 @@ declare interface DropdownProps extends VariantProps<typeof dropdownVariants>, O
 
 declare const dropdownVariants: (props?: ClassProp | undefined) => string;
 
-declare interface FilterProps extends React.InputHTMLAttributes<HTMLInputElement>, PropsWithChildren {
+export declare const Filter: FilterComponentProps;
+
+declare type FilterComponentProps = FC<FilterProps> & {
+    BadgeMultiSelect: FC<BadgeMultiSelectProps>;
+    DateFilterDropdown: FC<DateFilterDropdownProps>;
+    ResetButton: FC<ResetButtonProps>;
+};
+
+declare type FilterProps = VariantProps<typeof filterVariants> & PropsWithChildren & {
+    className?: string;
+    theme?: Theme;
+};
+
+declare interface FilterProps_2 extends React.InputHTMLAttributes<HTMLInputElement>, PropsWithChildren {
     placeholder?: string;
 }
+
+declare const filterVariants: (props?: ClassProp | undefined) => string;
 
 export declare const Footer: FC_2<FooterProps>;
 
@@ -365,6 +399,12 @@ declare type Option_3 = {
     value: string;
 };
 
+declare type Option_4 = {
+    id: string;
+    label: string;
+    variant?: BadgeProps['variant'];
+};
+
 export declare const ProgressBar: FC<ProgressBarProps>;
 
 declare interface ProgressBarProps extends VariantProps<typeof progressBarVariants> {
@@ -450,6 +490,10 @@ declare interface RangeProps extends VariantProps<typeof rangeVariants> {
 
 declare const rangeVariants: (props?: ClassProp | undefined) => string;
 
+declare type ResetButtonProps = {
+    disabled?: boolean;
+};
+
 declare interface RowProps extends React.HTMLAttributes<HTMLTableRowElement>, PropsWithChildren, VariantProps<typeof rowVariants> {
     width?: string;
     isSelected?: boolean;
@@ -521,7 +565,7 @@ declare const switchVariants: (props?: ClassProp | undefined) => string;
 export declare const Table: FC<TableProps> & {
     Head: FC<HeadProps>;
     Row: FC<RowProps>;
-    Filter: FC<FilterProps>;
+    Filter: FC<FilterProps_2>;
     Body: FC<BodyProps>;
 };
 
