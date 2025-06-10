@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.0-alpha.13](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.13) (2025-06-10)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.12...0.1.0-alpha.13)
+
+**Merged pull requests:**
+
+- 📦️ chore: update exports components [\#244](https://github.com/konstructio/konstruct-ui/pull/244) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.12](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.12) (2025-06-10)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.11...0.1.0-alpha.12)
