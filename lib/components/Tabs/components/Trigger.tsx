@@ -1,13 +1,14 @@
-import { Typography } from '@/components/Typography/Typography';
 import * as Tabs from '@radix-ui/react-tabs';
 import { FunctionComponent } from 'react';
-import { TriggerProps } from '../Tabs.types';
 
+import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
+
+import { TriggerProps } from '../Tabs.types';
 
 import { triggerVariants } from '../Tabs.variants';
 
-const Trigger: FunctionComponent<TriggerProps> = ({
+export const Trigger: FunctionComponent<TriggerProps> = ({
   tab,
   label,
   isActive,
@@ -29,5 +30,3 @@ const Trigger: FunctionComponent<TriggerProps> = ({
     </Tabs.Trigger>
   );
 };
-
-export default Trigger;

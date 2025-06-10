@@ -1,6 +1,8 @@
 import * as ReactTabs from '@radix-ui/react-tabs';
-import { contentVariants } from '../Tabs.variants';
+
 import { cn } from '@/utils';
+
+import { contentVariants } from '../Tabs.variants';
 
 export const Content = ({
   children,

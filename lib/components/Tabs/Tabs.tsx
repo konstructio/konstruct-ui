@@ -1,11 +1,11 @@
 import * as ReactTabs from '@radix-ui/react-tabs';
 import { FunctionComponent } from 'react';
-import { ListProps, TriggerProps, TabsProps } from './Tabs.types';
-import { List } from './components/List';
-import Trigger from './components/Trigger';
-import { Content } from './components/Content';
-import { rootVariants } from './Tabs.variants';
+
 import { cn } from '@/utils';
+
+import { ListProps, TabsProps, TriggerProps } from './Tabs.types';
+import { rootVariants } from './Tabs.variants';
+import { Content, List, Trigger } from './components';
 
 const Tabs: FunctionComponent<TabsProps> & {
   List: FunctionComponent<ListProps>;
