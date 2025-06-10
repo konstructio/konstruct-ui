@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.0-alpha.12](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.12) (2025-06-10)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.11...0.1.0-alpha.12)
+
+**Merged pull requests:**
+
+- 📦️ chore: Tabs component was added to exports [\#243](https://github.com/konstructio/konstruct-ui/pull/243) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.11](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.11) (2025-06-09)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.10...0.1.0-alpha.11)
