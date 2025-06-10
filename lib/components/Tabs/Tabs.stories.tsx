@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-
-import TabsComponent from './Tabs';
 import { useState } from 'react';
+
+import { Tabs as TabsComponent } from './Tabs';
 
 type Story = StoryObj<typeof TabsComponent>;
 

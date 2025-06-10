@@ -29,4 +29,4 @@ Tabs.List = List;
 Tabs.Trigger = Trigger;
 Tabs.Content = Content;
 
-export default Tabs;
+export { Tabs, List, Trigger, Content };
