@@ -8,16 +8,20 @@ import { FC } from '../../../node_modules/react';
 import { FC as FC_2 } from '../../../../../node_modules/react';
 import { FC as FC_3 } from '../../node_modules/react';
 import { ForwardRefExoticComponent } from '../../../node_modules/react';
+import { FunctionComponent } from '../../../node_modules/react';
+import { FunctionComponent as FunctionComponent_2 } from '../../../../node_modules/react';
 import { getAllTimezones } from 'countries-and-timezones';
 import { HTMLAttributes } from '../../../node_modules/react';
 import { HTMLAttributes as HTMLAttributes_2 } from '../../../../../node_modules/react';
 import { HtmlHTMLAttributes } from '../../../../../node_modules/react';
 import { InputHTMLAttributes } from '../../../node_modules/react';
+import { JSX } from 'react/jsx-runtime';
 import { PropsWithChildren } from '../../../node_modules/react';
 import { PropsWithChildren as PropsWithChildren_2 } from '../../../../../node_modules/react';
 import { PropsWithChildren as PropsWithChildren_3 } from '../../node_modules/react';
 import { ReactNode } from '../../../node_modules/react';
 import { ReactNode as ReactNode_2 } from '../../../../../node_modules/react';
+import * as ReactTabs from '@radix-ui/react-tabs';
 import { RefAttributes } from '../../../node_modules/react';
 import { SliderProps } from '@radix-ui/react-slider';
 import { VariantProps } from 'class-variance-authority';
@@ -173,6 +177,8 @@ declare const checkboxVariants: (props?: ({
     checked?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
 
+export declare const Content: ({ children, className, ...rest }: ReactTabs.TabsContentProps) => JSX.Element;
+
 export declare const DateFilterDropdown: FC_2<DateFilterDropdownProps>;
 
 declare type DateFilterDropdownProps = {
@@ -264,6 +270,12 @@ declare interface InputProps extends InputHTMLAttributes<HTMLInputElement>, Vari
 declare const inputVariants: (props?: ({
     variant?: "error" | "default" | null | undefined;
 } & ClassProp) | undefined) => string;
+
+export declare const List: FunctionComponent_2<ListProps>;
+
+declare interface ListProps extends React.HTMLAttributes<HTMLDivElement>, PropsWithChildren {
+    orientation: 'horizontal' | 'vertical';
+}
 
 export declare const Loading: FC<LoadingProps>;
 
@@ -577,6 +589,16 @@ declare interface TableProps extends React.HTMLAttributes<HTMLTableElement>, Pro
 
 declare const tableVariants: (props?: ClassProp | undefined) => string;
 
+export declare const Tabs: FunctionComponent<TabsProps> & {
+    List: FunctionComponent<ListProps>;
+    Trigger: FunctionComponent<TriggerProps>;
+    Content: FunctionComponent<ReactTabs.TabsContentProps>;
+};
+
+declare interface TabsProps extends ReactTabs.TabsProps, PropsWithChildren {
+    theme?: Theme;
+}
+
 export declare const Tag: FC<TagProps>;
 
 declare type TagProps = {
@@ -684,6 +706,18 @@ declare interface TooltipProps extends PropsWithChildren, VariantProps<typeof to
 
 declare const tooltipVariants: (props?: ({
     position?: "left" | "right" | "bottom" | "top" | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare const Trigger: FunctionComponent_2<TriggerProps>;
+
+declare interface TriggerProps extends VariantProps<typeof triggerVariants>, React.HTMLAttributes<HTMLDivElement> {
+    tab: string;
+    label: string;
+    isActive: boolean;
+}
+
+declare const triggerVariants: (props?: ({
+    variant?: "default" | "active" | "inactive" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 export declare const Typography: FC<TypographyProps>;
