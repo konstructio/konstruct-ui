@@ -10,3 +10,4 @@ updates:
       - dependency-name: 'eslint-plugin-react-hooks'
       - dependency-name: 'eslint-plugin-react-refresh'
       - dependency-name: 'eslint-plugin-storybook'
+      - dependency-name: 'vite'
