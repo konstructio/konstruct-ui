@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.0-alpha.14](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.14) (2025-07-07)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.13...0.1.0-alpha.14)
+
+**Merged pull requests:**
+
+- ⬆️  chore: some dependencies have been updated [\#268](https://github.com/konstructio/konstruct-ui/pull/268) ([futjesus](https://github.com/futjesus))
+- ✨ feat: onclick action was added to filter component [\#267](https://github.com/konstructio/konstruct-ui/pull/267) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: storybook was upgraded and skip vite version [\#263](https://github.com/konstructio/konstruct-ui/pull/263) ([futjesus](https://github.com/futjesus))
+-  ⬆️  chore: some dependencies have been updated [\#262](https://github.com/konstructio/konstruct-ui/pull/262) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: some dependencies have been updated [\#256](https://github.com/konstructio/konstruct-ui/pull/256) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: some dependencies have been updated [\#250](https://github.com/konstructio/konstruct-ui/pull/250) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.13](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.13) (2025-06-10)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.12...0.1.0-alpha.13)
