@@ -506,6 +506,7 @@ declare const rangeVariants: (props?: ClassProp | undefined) => string;
 
 declare type ResetButtonProps = {
     disabled?: boolean;
+    onClick?: VoidFunction;
 };
 
 declare interface RowProps extends React.HTMLAttributes<HTMLTableRowElement>, PropsWithChildren, VariantProps<typeof rowVariants> {
