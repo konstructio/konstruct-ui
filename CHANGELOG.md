@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.0-alpha.16](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.16) (2025-07-07)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.15...0.1.0-alpha.16)
+
+**Merged pull requests:**
+
+- 📦️ chore: export dropdown component [\#269](https://github.com/konstructio/konstruct-ui/pull/269) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.15](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.15) (2025-07-07)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.14...0.1.0-alpha.15)
