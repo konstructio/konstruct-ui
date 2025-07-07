@@ -84,9 +84,9 @@ export declare const BadgeMultiSelect: FC_2<BadgeMultiSelectProps>;
 
 declare type BadgeMultiSelectProps = {
     label: string;
-    options: Option_4[];
+    options: Option_5[];
     position?: 'left' | 'right';
-    onApply?: (selectedOptions: Option_4[]) => void;
+    onApply?: (selectedOptions: Option_5[]) => void;
 };
 
 declare type BadgeProps = VariantProps<typeof badgeVariants> & {
@@ -204,6 +204,8 @@ declare const datePickerVariants: (props?: ClassProp | undefined) => string;
 export declare const Divider: FC<HTMLAttributes<HTMLDivElement>>;
 
 export declare const Dropdown: FC<DropdownProps>;
+
+export declare const DropdownButton: FC<Props>;
 
 declare interface DropdownProps extends VariantProps<typeof dropdownVariants>, Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
     className?: string;
@@ -416,6 +418,11 @@ declare type Option_3 = {
 };
 
 declare type Option_4 = {
+    label: string | ReactNode;
+    onClick?: VoidFunction;
+};
+
+declare type Option_5 = {
     id: string;
     label: string;
     variant?: BadgeProps['variant'];
@@ -432,6 +439,14 @@ declare interface ProgressBarProps extends VariantProps<typeof progressBarVarian
 }
 
 declare const progressBarVariants: (props?: ClassProp | undefined) => string;
+
+declare type Props = {
+    buttonClassName?: string;
+    className?: string;
+    itemClassName?: string;
+    listClassName?: string;
+    options: Option_4[];
+};
 
 export declare const Radio: FC<RadioProps>;
 
