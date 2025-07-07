@@ -13,7 +13,7 @@ export const DropdownButton: Story = {
   args: {
     options: [
       {
-        label: 'Pdf',
+        label: 'PDF',
       },
       {
         label: 'CSV',

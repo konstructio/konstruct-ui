@@ -1,17 +1,28 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'react-feather';
 
-import { Button } from '../Button/Button';
-
-import { Props } from './DropdownButton.types';
 import { cn } from '@/utils';
 
-export const DropdownButton: FC<Props> = ({ options }) => {
+import { Button } from '../Button/Button';
+
+import { Props, Option } from './DropdownButton.types';
+
+export const DropdownButton: FC<Props> = ({
+  buttonClassName,
+  className,
+  itemClassName,
+  listClassName,
+  options,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = useCallback(() => setIsOpen((prev) => !prev), []);
+  const handleOptionClick = useCallback((onClick?: Option['onClick']) => {
+    setIsOpen(false);
+    onClick?.();
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -54,10 +65,13 @@ export const DropdownButton: FC<Props> = ({ options }) => {
   }, [wrapperRef]);
 
   return (
-    <div ref={wrapperRef} className="relative w-full">
+    <div ref={wrapperRef} className={cn('relative w-full', className)}>
       <Button
         ref={buttonRef}
-        className="flex gap-2 items-center justify-between w-full"
+        className={cn(
+          'flex gap-2 items-center justify-between w-full',
+          buttonClassName,
+        )}
         onClick={toggleDropdown}
       >
         Download Invoice as
@@ -70,12 +84,20 @@ export const DropdownButton: FC<Props> = ({ options }) => {
       </Button>
 
       {isOpen && (
-        <ul className="absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded shadow-xs animate-in fade-in-0 py-2">
+        <ul
+          className={cn(
+            'absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded shadow-xs animate-in fade-in-0 py-2',
+            listClassName,
+          )}
+        >
           {options.map((option, index) => (
             <li
               key={index}
-              className="hover:bg-gray-50 px-6 py-1.5 hover:cursor-pointer"
-              onClick={option.onClick}
+              className={cn(
+                'hover:bg-gray-50 px-6 py-1.5 hover:cursor-pointer',
+                itemClassName,
+              )}
+              onClick={() => handleOptionClick(option.onClick)}
             >
               {option.label}
             </li>
