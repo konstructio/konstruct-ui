@@ -22,6 +22,7 @@ import { PropsWithChildren as PropsWithChildren_3 } from '../../node_modules/rea
 import { ReactNode } from '../../../node_modules/react';
 import { ReactNode as ReactNode_2 } from '../../../../../node_modules/react';
 import * as ReactTabs from '@radix-ui/react-tabs';
+import { Ref } from '../../../node_modules/react';
 import { RefAttributes } from '../../../node_modules/react';
 import { SliderProps } from '@radix-ui/react-slider';
 import { VariantProps } from 'class-variance-authority';
@@ -129,6 +130,7 @@ declare type ButtonCancelProps = ButtonBaseProps;
 declare type ButtonConfirmProps = ButtonBaseProps;
 
 declare interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'disabled'>, VariantProps<typeof buttonVariants> {
+    ref?: Ref<HTMLButtonElement>;
     asChild?: boolean;
     disabled?: boolean;
     theme?: Theme;
