@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.0-alpha.15](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.15) (2025-07-07)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.14...0.1.0-alpha.15)
+
+**Merged pull requests:**
+
+- ✨ feat: dropdown button was added [\#264](https://github.com/konstructio/konstruct-ui/pull/264) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.14](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.14) (2025-07-07)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.13...0.1.0-alpha.14)
