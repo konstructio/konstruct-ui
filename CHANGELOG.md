@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.0-alpha.17](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.17) (2025-07-23)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.16...0.1.0-alpha.17)
+
+**Merged pull requests:**
+
+- 🐛 fix: when you select and deselect one option in the filter component [\#281](https://github.com/konstructio/konstruct-ui/pull/281) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: some dependencies have been updated [\#280](https://github.com/konstructio/konstruct-ui/pull/280) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.16](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.16) (2025-07-07)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.15...0.1.0-alpha.16)
