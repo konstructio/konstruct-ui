@@ -101,13 +101,13 @@ export const useBadgeMultiSelect = ({
   }, [onApply]);
 
   const handleApplyOptions = useCallback(() => {
-    setSelectedOptions((prev) =>
-      prev
-        ?.filter((option) => !option.isRemoved)
-        .map((option) => ({ ...option, isApplied: true })),
-    );
+    const newOptions = selectedOptions
+      ?.filter((option) => !option.isRemoved)
+      .map((option) => ({ ...option, isApplied: true }));
+
+    setSelectedOptions(newOptions);
     onApply?.(
-      selectedOptions.map(
+      newOptions.map(
         ({ isApplied: _isApplied, isRemoved: _isRemoved, ...option }) => option,
       ),
     );
