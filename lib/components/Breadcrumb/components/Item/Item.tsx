@@ -18,6 +18,7 @@ export const Item: FC<ItemProps> = ({
   target,
   theme,
   to,
+  component = 'a',
 }) => {
   const { isInsideRouter } = useBreadcrumb();
 
@@ -26,6 +27,8 @@ export const Item: FC<ItemProps> = ({
       e.preventDefault();
     }
   };
+
+  const Component = component;
 
   return (
     <li
@@ -46,7 +49,7 @@ export const Item: FC<ItemProps> = ({
               {label}
             </Link>
           ) : (
-            <a
+            <Component
               href={to}
               target={target}
               className={cn(breadcrumbLinkVariants({ isActive }))}
@@ -54,7 +57,7 @@ export const Item: FC<ItemProps> = ({
               onClick={handleClick}
             >
               {label}
-            </a>
+            </Component>
           )}
         </>
       ) : (

@@ -1,5 +1,5 @@
 import { VariantProps } from 'class-variance-authority';
-import { HTMLAttributes } from 'react';
+import { FC, HTMLAttributes } from 'react';
 
 import { Theme } from '@/domain/theme';
 
@@ -10,6 +10,8 @@ export type Step = {
   to?: string;
   target?: '_self' | '_blank';
   isActive?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  component?: FC<any>;
 };
 
 export interface BreadcrumbProps
