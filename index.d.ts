@@ -576,6 +576,7 @@ declare type Step = {
     to?: string;
     target?: '_self' | '_blank';
     isActive?: boolean;
+    component?: FC<any>;
 };
 
 export declare const Switch: FC<SwitchProps>;
