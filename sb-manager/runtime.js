@@ -11560,19 +11560,19 @@ var qI = ["active", "critical", "negative", "positive", "warning"], $o, YI = /* 
     r.onload = () => i({ href: o, status: t }), r.onerror = () => i({ href: $o, status: t }), r.src = o;
   });
 }, "getFaviconUrl"), zd = /* @__PURE__ */ a((e) => {
-  let t = U(document.head.querySelector("link[rel*='icon']"));
+  let t = U(document.head.querySelectorAll("link[rel*='icon']"));
   H(() => {
-    let o = t.current;
-    if (o)
-      return YI(o.href, e).then(
-        (i) => {
-          i.status === e && (o.href = i.href, o.dataset.status = i.status);
+    let o = !0, [i, ...r] = t.current;
+    if (i && !r.length)
+      return YI(i.href, e).then(
+        (n) => {
+          o && n.status === e && i.dataset.status !== e && (i.href = n.href, n.status ? i.dataset.status = n.status : delete i.dataset.status);
         },
         () => {
-          o.href = $o;
+          o && (i.href = $o);
         }
       ), () => {
-        o.href = $o;
+        o = !1, i.href = $o;
       };
   }, [e]);
 }, "useDynamicFavicon");

@@ -1,0 +1,20 @@
+import{j as e}from"./jsx-runtime-D_zvdyIk.js";import{R as j,T as k,a as N,b as d}from"./index-CXJEpi2U.js";import{r as s}from"./iframe-D4eurkNF.js";import{c as o,a as r}from"./index-Cr-WShRT.js";import"./index-BqFL9TN3.js";import"./index-DUfHYozX.js";import"./index-DhNXTl9l.js";import"./index-DnrPPNVF.js";import"./index-BL4YB7VF.js";import"./index-BCQQQiaW.js";import"./index-TDqQY4_o.js";import"./index-DIqipYr0.js";import"./preload-helper-Dp1pzeXC.js";const T=o(["relative","flex","items-center","w-full","border","border-gray-200","rounded-full","shadow-sm"]),q=o(["absolute","h-full","bg-kubefirst-secondary","colony:bg-red-500"]),S=o(["relative","flex-grow","bg-gray-100","rounded-full"],{variants:{size:{sm:["h-1"],md:["h-2"],lg:["h-3"]}},defaultVariants:{size:"md"}}),u=o(["block","w-5","h-5","rounded-full","cursor-pointer","focus-visible:outline-none","shadow-md","bg-white","border","border-gray-300"],{variants:{size:{sm:["w-5","h-5"],md:["w-6","h-6"],lg:["w-7","h-7"]}},defaultVariants:{size:"md"}}),i=s.forwardRef(({label:a,defaultValue:h=[0,100],name:g,theme:x,size:m,showValue:v,...b},w)=>{const n=s.useRef(null),[t,y]=s.useState(h);s.useImperativeHandle(w,()=>n.current,[n]),s.useEffect(()=>{n.current&&(n.current.value=`[${t.toString()}]`)},[t]);const V=s.useCallback(R=>y(R),[]);return e.jsxs("div",{className:"w-full relative flex flex-col gap-3","data-theme":x,children:[e.jsxs("div",{className:r("flex items-center",a?"justify-between":"justify-end"),children:[a?e.jsx("label",{children:a}):null,v?e.jsxs("span",{className:"text-xs",children:[t[0]," - ",t[1]]}):null]}),e.jsx("input",{ref:n,name:g,className:"hidden",type:"text"}),e.jsxs(j,{value:t,className:r(T()),onValueChange:V,...b,children:[e.jsx(k,{className:r(S({size:m})),children:e.jsx(N,{className:r(q())})}),e.jsx(d,{className:r(u({size:m}))}),e.jsx(d,{className:r(u({size:m}))})]})]})});i.__docgenInfo={description:"",methods:[],displayName:"Range",props:{className:{required:!1,tsType:{name:"string"},description:""},defaultValue:{required:!1,tsType:{name:"SliderPropsBase['defaultValue']",raw:"SliderPropsBase['defaultValue']"},description:"",defaultValue:{value:"[0, 100]",computed:!1}},label:{required:!1,tsType:{name:"string"},description:""},max:{required:!1,tsType:{name:"SliderPropsBase['max']",raw:"SliderPropsBase['max']"},description:""},min:{required:!1,tsType:{name:"SliderPropsBase['min']",raw:"SliderPropsBase['min']"},description:""},name:{required:!1,tsType:{name:"string"},description:""},showValue:{required:!1,tsType:{name:"boolean"},description:""},size:{required:!1,tsType:{name:"union",raw:"'sm' | 'md' | 'lg'",elements:[{name:"literal",value:"'sm'"},{name:"literal",value:"'md'"},{name:"literal",value:"'lg'"}]},description:""},theme:{required:!1,tsType:{name:"union",raw:`| 'kubefirst'
+| 'colony'
+| 'civo'
+| 'kubefirst-dark'
+| 'colony-dark'
+| 'civo-dark'
+| undefined`,elements:[{name:"literal",value:"'kubefirst'"},{name:"literal",value:"'colony'"},{name:"literal",value:"'civo'"},{name:"literal",value:"'kubefirst-dark'"},{name:"literal",value:"'colony-dark'"},{name:"literal",value:"'civo-dark'"},{name:"undefined"}]},description:""}},composes:["VariantProps"]};const F={title:"In Review/Range",component:i},l={args:{min:0,max:100,showValue:!0},render:a=>e.jsxs("div",{className:"max-w-[350px]",children:[e.jsx(i,{theme:"kubefirst",label:"Range with Kubefirst theme",defaultValue:[10,77],...a}),e.jsx("div",{className:"mt-10"}),e.jsx(i,{theme:"colony",label:"Range with Colony theme",defaultValue:[0,50],...a})]})};var c,p,f;l.parameters={...l.parameters,docs:{...(c=l.parameters)==null?void 0:c.docs,source:{originalSource:`{
+  args: {
+    min: 0,
+    max: 100,
+    showValue: true
+  },
+  render: args => <div className="max-w-[350px]">
+      <RangeComponent theme="kubefirst" label="Range with Kubefirst theme" defaultValue={[10, 77]} {...args} />
+
+      <div className="mt-10" />
+
+      <RangeComponent theme="colony" label="Range with Colony theme" defaultValue={[0, 50]} {...args} />
+    </div>
+}`,...(f=(p=l.parameters)==null?void 0:p.docs)==null?void 0:f.source}}};const G=["Range"];export{l as Range,G as __namedExportsOrder,F as default};

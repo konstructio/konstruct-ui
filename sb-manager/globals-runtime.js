@@ -47120,9 +47120,8 @@ ue();
 function jU() {
   try {
     return (
-      // @ts-expect-error this property exists in certain environments
-      !!globalThis.__vitest_browser__ || // @ts-expect-error this property exists in certain environments
-      !!globalThis.__playwright__binding__
+      // @ts-expect-error This property exists in Vitest browser mode
+      !!globalThis.__vitest_browser__ || !!globalThis.window?.navigator?.userAgent?.match(/StorybookTestRunner/)
     );
   } catch {
     return !1;
@@ -50828,7 +50827,7 @@ prototype.toString.call(e) === "[object Module]", "isModule"), J7e = /* @__PURE_
     return {};
   }
 }, "construct"), B7 = /* @__PURE__ */ a(() => ({
-  renderPhase: void 0,
+  renderPhase: "preparing",
   isDebugging: !1,
   isPlaying: !1,
   isLocked: !1,
@@ -50872,18 +50871,20 @@ prototype.toString.call(e) === "[object Module]", "isModule"), J7e = /* @__PURE_
     this.loadParentWindowState();
     let t = /* @__PURE__ */ a(({
       storyId: u,
-      isPlaying: c = !0,
-      isDebugging: d = !1
+      renderPhase: c,
+      isPlaying: d = !0,
+      isDebugging: f = !1
     }) => {
-      let f = this.getState(u);
+      let p = this.getState(u);
       this.setState(u, {
         ...B7(),
-        ...lY(f, d),
-        shadowCalls: d ? f.shadowCalls : [],
-        chainedCallIds: d ? f.chainedCallIds : /* @__PURE__ */ new Set(),
-        playUntil: d ? f.playUntil : void 0,
-        isPlaying: c,
-        isDebugging: d
+        ...lY(p, f),
+        renderPhase: c || p.renderPhase,
+        shadowCalls: f ? p.shadowCalls : [],
+        chainedCallIds: f ? p.chainedCallIds : /* @__PURE__ */ new Set(),
+        playUntil: f ? p.playUntil : void 0,
+        isPlaying: d,
+        isDebugging: f
       }), this.sync(u);
     }, "resetState"), r = /* @__PURE__ */ a((u) => ({ storyId: c, playUntil: d }) => {
       this.getState(c).isDebugging || this.setState(c, ({ calls: p }) => ({
@@ -50921,17 +50922,31 @@ prototype.toString.call(e) === "[object Module]", "isModule"), J7e = /* @__PURE_
       }
     }, "next"), s = /* @__PURE__ */ a(({ storyId: u }) => {
       this.setState(u, { playUntil: void 0, isDebugging: !1 }), Object.values(this.getState(u).resolvers).forEach((c) => c());
-    }, "end"), l = /* @__PURE__ */ a(({ storyId: u, newPhase: c }) => {
+    }, "end"), l = /* @__PURE__ */ a(({
+      storyId: u,
+      newPhase: c
+    }) => {
       let { isDebugging: d } = this.getState(u);
-      this.setState(u, { renderPhase: c }), c === "preparing" && d && t({ storyId: u }), c === "playing" && t({ storyId: u, isDebugging: d }),
-      c === "played" && this.setState(u, {
+      if (c === "preparing" && d)
+        return t({ storyId: u, renderPhase: c });
+      if (c === "playing")
+        return t({ storyId: u, renderPhase: c, isDebugging: d });
+      c === "played" ? this.setState(u, {
+        renderPhase: c,
         isLocked: !1,
         isPlaying: !1,
         isDebugging: !1
-      }), c === "errored" && this.setState(u, {
+      }) : c === "errored" ? this.setState(u, {
+        renderPhase: c,
         isLocked: !1,
         isPlaying: !1
-      });
+      }) : c === "aborted" ? this.setState(u, {
+        renderPhase: c,
+        isLocked: !0,
+        isPlaying: !1
+      }) : this.setState(u, {
+        renderPhase: c
+      }), this.sync(u);
     }, "renderPhaseChanged");
     Gv && Gv.ready().then(() => {
       this.channel = Gv.getChannel(), this.channel.on(xu, t), this.channel.on(q4, l), this.channel.on(Vs, () => {
@@ -50944,8 +50959,10 @@ prototype.toString.call(e) === "[object Module]", "isModule"), J7e = /* @__PURE_
     return this.state[t] || B7();
   }
   setState(t, r) {
-    let n = this.getState(t), o = typeof r == "function" ? r(n) : r;
-    this.state = { ...this.state, [t]: { ...n, ...o } }, this.updateParentWindowState();
+    if (t) {
+      let n = this.getState(t), o = typeof r == "function" ? r(n) : r;
+      this.state = { ...this.state, [t]: { ...n, ...o } }, this.updateParentWindowState();
+    }
   }
   cleanup() {
     this.state = Object.entries(this.state).reduce(
@@ -68997,7 +69014,7 @@ Ct();
 var Ome = N(Wa(), 1), Nn = N(Pme(), 1);
 
 // src/manager-api/version.ts
-var Tme = "9.1.0-alpha.9";
+var Tme = "9.1.1";
 
 // src/manager-api/modules/versions.ts
 var { VERSIONCHECK: bst } = Z, Ame = (0, Ome.default)(1)(() => {
