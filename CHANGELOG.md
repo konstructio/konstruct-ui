@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.0-alpha.20](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.20) (2025-08-13)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.19...0.1.0-alpha.20)
+
+**Merged pull requests:**
+
+- ✨ feat: Pie Chart component [\#299](https://github.com/konstructio/konstruct-ui/pull/299) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.19](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.19) (2025-08-13)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.18...0.1.0-alpha.19)
