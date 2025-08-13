@@ -34,19 +34,17 @@ export const RadioCardGroup: FC<RadioCardGroupProps> = ({
       )}
       data-theme={theme}
     >
-      <>
-        {options.map(({ value, ...delagated }) => (
-          <RadioCard
-            key={value}
-            value={value}
-            name={name}
-            className={cn(className)}
-            checked={selected === value}
-            onChange={() => handleSelected(value)}
-            {...delagated}
-          />
-        ))}
-      </>
+      {options.map(({ value, ...delagated }) => (
+        <RadioCard
+          key={value}
+          value={value}
+          name={name}
+          className={cn(className)}
+          checked={selected === value}
+          onChange={() => handleSelected(value)}
+          {...delagated}
+        />
+      ))}
     </div>
   );
 };

@@ -18,6 +18,8 @@ export const Radio: FC<RadioProps> = forwardRef<HTMLInputElement, RadioProps>(
       disabled,
       label,
       labelTextClassName,
+      description,
+      descriptionClassName,
       name,
       theme,
       value,
@@ -69,11 +71,24 @@ export const Radio: FC<RadioProps> = forwardRef<HTMLInputElement, RadioProps>(
             }),
           )}
         />
-        <span
-          className={cn(labelRadioVariants({ className: labelTextClassName }))}
-        >
-          {label}
-        </span>
+        <div className={cn(description && 'flex flex-col gap-1')}>
+          <span
+            className={cn(
+              labelRadioVariants({ className: labelTextClassName }),
+            )}
+          >
+            {label}
+          </span>
+          {description && (
+            <span
+              className={cn(
+                labelRadioVariants({ className: descriptionClassName }),
+              )}
+            >
+              {description}
+            </span>
+          )}
+        </div>
       </label>
     );
   },

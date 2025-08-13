@@ -69,6 +69,64 @@ describe('RadioCardGroup', () => {
     );
   });
 
+  it('should render radio options with descriptions when provided', () => {
+    const options = [
+      {
+        label: 'Option 1',
+        value: '1',
+        description: 'Description for option 1',
+      },
+      {
+        label: 'Option 2',
+        value: '2',
+        description: 'Description for option 2',
+      },
+    ];
+
+    setup({ options });
+
+    expect(screen.getByText('Description for option 1')).toBeInTheDocument();
+    expect(screen.getByText('Description for option 2')).toBeInTheDocument();
+  });
+
+  it('should render radio options without descriptions when not provided', () => {
+    const options = [
+      { label: 'Option 1', value: '1' },
+      { label: 'Option 2', value: '2' },
+    ];
+
+    setup({ options });
+
+    // Should not find any description text
+    expect(
+      screen.queryByText(/Description for option/),
+    ).not.toBeInTheDocument();
+  });
+
+  it('should render radio options with mixed descriptions', () => {
+    const options = [
+      {
+        label: 'Option 1',
+        value: '1',
+        description: 'Description for option 1',
+      },
+      { label: 'Option 2', value: '2' },
+      {
+        label: 'Option 3',
+        value: '3',
+        description: 'Description for option 3',
+      },
+    ];
+
+    setup({ options });
+
+    expect(screen.getByText('Description for option 1')).toBeInTheDocument();
+    expect(
+      screen.queryByText(/Description for option 2/),
+    ).not.toBeInTheDocument();
+    expect(screen.getByText('Description for option 3')).toBeInTheDocument();
+  });
+
   it('should send the value of radio whe submit the form', async () => {
     const mockSubmit = vitest.fn();
     const options = [
