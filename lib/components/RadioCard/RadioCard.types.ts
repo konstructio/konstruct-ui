@@ -14,6 +14,8 @@ export type RadioCardProps = Omit<CardProps, 'canHover' | 'isActive'> &
     | 'disabled'
     | 'defaultChecked'
     | 'labelTextClassName'
+    | 'description'
+    | 'descriptionClassName'
   > & {
     labelWrapperClassName?: string;
     theme?: Theme;

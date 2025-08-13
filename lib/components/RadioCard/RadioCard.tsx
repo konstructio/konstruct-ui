@@ -13,6 +13,7 @@ export const RadioCard: FC<RadioCardProps> = ({
   theme,
   labelWrapperClassName,
   checked,
+  description,
   ...delegated
 }) => (
   <Card
@@ -22,12 +23,13 @@ export const RadioCard: FC<RadioCardProps> = ({
         className: wrapperClassName,
       }),
     )}
-    wrapperClassName="w-max"
+    wrapperClassName={cn('w-max', wrapperClassName)}
     isActive={checked}
   >
     <Radio
       wrapperClassName={cn('w-full h-full p-3 gap-3', labelWrapperClassName)}
       checked={checked}
+      description={description}
       {...delegated}
     />
   </Card>

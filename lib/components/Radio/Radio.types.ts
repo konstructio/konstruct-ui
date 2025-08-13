@@ -14,6 +14,8 @@ export interface RadioProps
   label?: string | ReactNode;
   labelTextClassName?: string;
   name: string;
+  description?: string | ReactNode;
+  descriptionClassName?: string;
   value: string;
   wrapperClassName?: string;
   theme?: Theme;
