@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.0-alpha.19](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.19) (2025-08-13)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.18...0.1.0-alpha.19)
+
+**Merged pull requests:**
+
+- feat: added radio card description [\#300](https://github.com/konstructio/konstruct-ui/pull/300) ([CristhianF7](https://github.com/CristhianF7))
+- ⬆️  chore: some dependencies have been updated [\#293](https://github.com/konstructio/konstruct-ui/pull/293) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.18](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.18) (2025-07-29)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.17...0.1.0-alpha.18)
