@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.0-alpha.21](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.21) (2025-08-14)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.20...0.1.0-alpha.21)
+
+**Merged pull requests:**
+
+- ⬆️  chore: some dependencies have been updated [\#302](https://github.com/konstructio/konstruct-ui/pull/302) ([futjesus](https://github.com/futjesus))
+- ✨ feat: civo and colony theme were added to the dropdown [\#301](https://github.com/konstructio/konstruct-ui/pull/301) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.20](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.20) (2025-08-13)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.19...0.1.0-alpha.20)
