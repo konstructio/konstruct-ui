@@ -48,9 +48,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             )}
           >
             {label}{' '}
-            {isRequired ? (
+            {isRequired && (
               <span className="text-red-600 text-xs mt-0.5">*</span>
-            ) : null}
+            )}
           </label>
         ) : null}
 
@@ -59,7 +59,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             <i
               className={cn(
                 'absolute left-2.5 top-1/2 -translate-y-[50%] text-slate-400',
-                hasError && 'text-red-600',
+                {
+                  'text-red-700': hasError,
+                },
               )}
             >
               <SearchIcon className="w-5 h-5" />
@@ -83,7 +85,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           />
 
           {hasError ? (
-            <i className="absolute right-3 text-red-600 top-1/2 -translate-y-[50%]">
+            <i className="absolute right-3 text-red-700 top-1/2 -translate-y-[50%]">
               <WarningIcon className="w-5 h-5" />
             </i>
           ) : null}
@@ -98,7 +100,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           ) : null}
         </div>
 
-        {error ? <span className="text-xs text-red-600">{error}</span> : null}
+        {error ? <span className="text-xs text-red-700">{error}</span> : null}
 
         {!error && helperText ? (
           <span className="text-xs text-slate-600">{helperText}</span>

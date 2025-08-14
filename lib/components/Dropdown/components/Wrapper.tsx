@@ -1,4 +1,5 @@
 import {
+  ChangeEvent,
   ComponentRef,
   forwardRef,
   ForwardRefExoticComponent,
@@ -8,11 +9,11 @@ import {
   useImperativeHandle,
   useMemo,
   useRef,
-  ChangeEvent,
 } from 'react';
 import { ChevronUp } from 'react-feather';
 
 import { Loading } from '@/components/Loading/Loading';
+import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
 
 import { useDropdownContext } from '../contexts';
@@ -21,15 +22,15 @@ import { dropdownVariants, labelVariants } from '../Dropdown.variants';
 import { useDropdown } from '../hooks/useDropdown';
 
 import { List } from './List/List';
-import { Typography } from '@/components/Typography/Typography';
 
 export const Wrapper: ForwardRefExoticComponent<
   DropdownProps & RefAttributes<ComponentRef<'input'>>
-> = forwardRef<ComponentRef<'input'>, DropdownProps>(
+> = forwardRef<ComponentRef<'input'>, Omit<DropdownProps, 'helperText'>>(
   (
     {
       className,
       defaultValue,
+      error,
       iconClassName,
       isLoading,
       label,
@@ -39,7 +40,7 @@ export const Wrapper: ForwardRefExoticComponent<
       name,
       options,
       placeholder,
-      required,
+      isRequired,
       searchable = false,
       theme,
       wrapperClassName,
@@ -127,14 +128,14 @@ export const Wrapper: ForwardRefExoticComponent<
             onClick={handleOpenIfClosed}
           >
             {label}
-            {required ? <span className="text-red-500 ml-1">*</span> : null}
+            {isRequired ? <span className="text-red-600 ml-1">*</span> : null}
           </label>
         ) : null}
 
         <div
           ref={wrapperInputRef}
           id={htmlFor}
-          className={cn(dropdownVariants({ className }))}
+          className={cn(dropdownVariants({ className, hasError: !!error }))}
           role="combobox"
           onClick={handleOpen}
           aria-expanded={isOpen}
@@ -155,7 +156,12 @@ export const Wrapper: ForwardRefExoticComponent<
                 }
                 onChange={handleInputChange}
                 placeholder={placeholder}
-                className="flex-1 bg-transparent border-none outline-none text-zinc-700 text-base"
+                className={cn(
+                  'flex-1 bg-transparent border-none outline-none text-zinc-700 text-base',
+                  {
+                    'text-red-700 placeholder:text-red-700': !!error,
+                  },
+                )}
                 onClick={(e) => {
                   e.stopPropagation();
                   handleOpen();
@@ -166,7 +172,9 @@ export const Wrapper: ForwardRefExoticComponent<
             ) : (
               <Typography
                 variant="body2"
-                className="flex-1 text-zinc-700 text-base"
+                className={cn('flex-1 text-zinc-700 text-base', {
+                  'text-red-700': !!error,
+                })}
               >
                 {internalValue?.label || placeholder}
               </Typography>
@@ -181,6 +189,9 @@ export const Wrapper: ForwardRefExoticComponent<
               className={cn(
                 'w-4 h-4 text-zinc-500 transition-all duration-50 data-[state=open]:rotate-0 data-[state=closed]:rotate-180',
                 iconClassName,
+                {
+                  'text-red-700': !!error,
+                },
               )}
             />
           )}
@@ -192,7 +203,7 @@ export const Wrapper: ForwardRefExoticComponent<
           name={name}
           className="hidden"
           aria-hidden="true"
-          required={required}
+          required={isRequired}
         />
 
         <List
