@@ -1,18 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
+
+import { Button } from '@/components/Button/Button';
+import { Modal } from '@/components/Modal/Modal';
 
 import { Dropdown as DropdownComponent } from './Dropdown';
-import { useState } from 'react';
-import { Modal } from '@/components/Modal/Modal';
-import { Button } from '@/components/Button/Button';
 
 type Story = StoryObj<typeof DropdownComponent>;
 
-const meta: Meta<typeof DropdownComponent> = {
+const meta = {
   title: 'In Review/Dropdown',
   component: DropdownComponent,
-};
+} satisfies Meta<typeof DropdownComponent>;
 
-export const Dropdown: Story = {
+export const Dropdown = {
   args: {
     options: [
       {
@@ -67,9 +68,9 @@ export const Dropdown: Story = {
       </div>
     );
   },
-};
+} satisfies Story;
 
-export const DropdownInModal: Story = {
+export const DropdownInModal = {
   render: () => {
     const [isOpen, setIsOpen] = useState(false);
     const [value, setValue] = useState<string>();
@@ -117,6 +118,6 @@ export const DropdownInModal: Story = {
       </div>
     );
   },
-};
+} satisfies Story;
 
 export default meta;
