@@ -31,5 +31,6 @@ export interface DropdownProps
   theme?: Theme;
   value?: string;
   wrapperClassName?: string;
+  onBlur?: VoidFunction;
   onChange?: OnChangeFn;
 }

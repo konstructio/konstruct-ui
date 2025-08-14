@@ -44,6 +44,7 @@ export const Wrapper: ForwardRefExoticComponent<
       searchable = false,
       theme,
       wrapperClassName,
+      onBlur,
     },
     ref,
   ) => {
@@ -52,7 +53,7 @@ export const Wrapper: ForwardRefExoticComponent<
     const ulRef = useRef<ComponentRef<'ul'>>(null);
     const { wrapperRef, wrapperInputRef, handleOpen, handleOpenIfClosed } =
       useDropdown({ ulRef });
-    const { isOpen, toggleOpen, value, setValue, setSearchTerm, searchTerm } =
+    const { isOpen, searchTerm, value, toggleOpen, setValue, setSearchTerm } =
       useDropdownContext();
     const htmlFor = name ? `${id}-${name}` : id;
 
@@ -91,13 +92,17 @@ export const Wrapper: ForwardRefExoticComponent<
         ) {
           toggleOpen(false);
           setSearchTerm('');
+
+          if (!inputRef.current?.value) {
+            onBlur?.();
+          }
         }
       });
 
       return () => {
         controller.abort();
       };
-    }, [toggleOpen, wrapperRef, setSearchTerm]);
+    }, [toggleOpen, wrapperRef, setSearchTerm, onBlur, value]);
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
       const newValue = event.target.value;

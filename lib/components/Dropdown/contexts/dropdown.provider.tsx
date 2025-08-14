@@ -8,9 +8,9 @@ import { DropdownContext } from './dropdown.context';
 
 export const DropdownProvider: FC<
   PropsWithChildren & {
-    onChange?: DropdownProps['onChange'];
-    value?: string;
     name?: string;
+    value?: string;
+    onChange?: DropdownProps['onChange'];
   }
 > = ({ children, onChange, value, name }) => {
   const [isOpen, toggleOpen] = useToggle(false);
@@ -28,10 +28,10 @@ export const DropdownProvider: FC<
       value={{
         value,
         isOpen,
-        setValue: handleChange,
-        toggleOpen,
         searchTerm,
         setSearchTerm,
+        setValue: handleChange,
+        toggleOpen,
       }}
     >
       {children}
