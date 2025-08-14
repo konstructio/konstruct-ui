@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.0-alpha.22](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.22) (2025-08-14)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.21...0.1.0-alpha.22)
+
+**Merged pull requests:**
+
+- ✨ chore: helper text and error text were added to dropdown component [\#303](https://github.com/konstructio/konstruct-ui/pull/303) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.21](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.21) (2025-08-14)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.20...0.1.0-alpha.21)
