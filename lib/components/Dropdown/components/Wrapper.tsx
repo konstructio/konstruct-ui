@@ -104,8 +104,10 @@ export const Wrapper: ForwardRefExoticComponent<
 
       // If there's an exact match, select it
       const exactMatch = options.find(
-        (option) => option.value.toLowerCase() === newValue.toLowerCase(),
+        (option) =>
+          option.value.toLocaleLowerCase() === newValue.toLocaleLowerCase(),
       );
+
       if (exactMatch) {
         setValue(exactMatch.value);
       }

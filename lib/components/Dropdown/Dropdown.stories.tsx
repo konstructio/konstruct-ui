@@ -30,19 +30,36 @@ export const Dropdown: Story = {
     required: false,
     labelClassName: '',
     isLoading: false,
-    theme: 'kubefirst',
     name: 'dropdown',
     searchable: true,
   },
   render: (args) => {
-    const [value, setValue] = useState<string>();
+    const [value1, setValue1] = useState<string>();
+    const [value2, setValue2] = useState<string>();
+    const [value3, setValue3] = useState<string>();
 
     return (
-      <div className="max-w-[350px]">
+      <div className="max-w-[350px] flex flex-col gap-6">
         <DropdownComponent
           label="Dropdown with Kubefirst theme"
-          onChange={({ target: { value } }) => setValue(value)}
-          value={value}
+          onChange={({ target: { value } }) => setValue1(value)}
+          value={value1}
+          {...args}
+        />
+
+        <DropdownComponent
+          label="Dropdown with Colony theme"
+          onChange={({ target: { value } }) => setValue2(value)}
+          theme="colony"
+          value={value2}
+          {...args}
+        />
+
+        <DropdownComponent
+          label="Dropdown with Civo theme"
+          onChange={({ target: { value } }) => setValue3(value)}
+          theme="civo"
+          value={value3}
           {...args}
         />
       </div>

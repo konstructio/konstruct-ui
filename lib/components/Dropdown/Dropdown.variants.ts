@@ -21,7 +21,8 @@ export const dropdownVariants = cva([
   'focus-visible:bg-zinc-50',
   'colony:aria-expanded:border-red-400',
   'colony:aria-expanded:text-red-400',
-  'colony:focus-visible:bg-red-100',
+  'civo:aria-expanded:border-civo-primary',
+  'civo:aria-expanded:text-civo-primary',
 ]);
 
 export const labelVariants = cva([
