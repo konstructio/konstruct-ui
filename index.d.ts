@@ -223,6 +223,7 @@ declare interface DropdownProps extends VariantProps<typeof dropdownVariants>, O
     theme?: Theme;
     value?: string;
     wrapperClassName?: string;
+    onBlur?: VoidFunction;
     onChange?: OnChangeFn;
 }
 
