@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.0-alpha.24](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.24) (2025-08-14)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.23...0.1.0-alpha.24)
+
+**Merged pull requests:**
+
+- ✨ chore: add onBlur validation when the dropdown has a change [\#305](https://github.com/konstructio/konstruct-ui/pull/305) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.23](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.23) (2025-08-14)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.22...0.1.0-alpha.23)
