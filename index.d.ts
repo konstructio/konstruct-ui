@@ -209,8 +209,11 @@ export declare const DropdownButton: FC<Props>;
 
 declare interface DropdownProps extends VariantProps<typeof dropdownVariants>, Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
     className?: string;
+    error?: string;
+    helperText?: string;
     iconClassName?: string;
     isLoading?: boolean;
+    isRequired?: boolean;
     label?: string;
     labelClassName?: string;
     listClassName?: string;
@@ -223,7 +226,9 @@ declare interface DropdownProps extends VariantProps<typeof dropdownVariants>, O
     onChange?: OnChangeFn;
 }
 
-declare const dropdownVariants: (props?: ClassProp | undefined) => string;
+declare const dropdownVariants: (props?: ({
+    hasError?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
 
 export declare const Filter: FilterComponentProps;
 
