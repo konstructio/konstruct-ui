@@ -31,7 +31,6 @@ export const Dropdown: Story = {
     labelClassName: '',
     isLoading: false,
     name: 'dropdown',
-    searchable: true,
   },
   render: (args) => {
     const [value1, setValue1] = useState<string>();
@@ -44,6 +43,7 @@ export const Dropdown: Story = {
           label="Dropdown with Kubefirst theme"
           onChange={({ target: { value } }) => setValue1(value)}
           value={value1}
+          searchable={true}
           {...args}
         />
 
@@ -52,6 +52,7 @@ export const Dropdown: Story = {
           onChange={({ target: { value } }) => setValue2(value)}
           theme="colony"
           value={value2}
+          searchable={true}
           {...args}
         />
 
@@ -60,6 +61,7 @@ export const Dropdown: Story = {
           onChange={({ target: { value } }) => setValue3(value)}
           theme="civo"
           value={value3}
+          searchable={false}
           {...args}
         />
       </div>
