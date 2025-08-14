@@ -11,16 +11,18 @@ export const DropdownProvider: FC<
     name?: string;
     value?: string;
     onChange?: DropdownProps['onChange'];
+    onBlur?: DropdownProps['onBlur'];
   }
-> = ({ children, onChange, value, name }) => {
+> = ({ children, value, name, onChange, onBlur }) => {
   const [isOpen, toggleOpen] = useToggle(false);
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = useCallback(
     (value: string) => {
       onChange?.({ target: { value, name: name ?? '' } });
+      onBlur?.();
     },
-    [onChange, name],
+    [onChange, name, onBlur],
   );
 
   return (
