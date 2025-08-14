@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.0-alpha.23](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.23) (2025-08-14)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.22...0.1.0-alpha.23)
+
+**Merged pull requests:**
+
+- ✨ feat: add the blur option to the dropdown component [\#304](https://github.com/konstructio/konstruct-ui/pull/304) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.22](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.22) (2025-08-14)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.21...0.1.0-alpha.22)
