@@ -26,6 +26,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     ref,
   ) => {
     const id = useId();
+
     const [showPassword, setShowPassword] = useState(() => {
       if (type === 'password') {
         return false;
@@ -72,7 +73,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             id={id}
             ref={ref}
             name={name}
-            type={showPassword ? type : 'password'}
+            type={showPassword ? 'text' : 'password'}
             className={cn(
               inputVariants({
                 className,
