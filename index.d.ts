@@ -2,6 +2,7 @@ import { AlertDialogProps as AlertDialogProps_2 } from '@radix-ui/react-alert-di
 import { ButtonHTMLAttributes } from '../../../node_modules/react';
 import { CheckboxProps as CheckboxProps_2 } from '@radix-ui/react-checkbox';
 import { ClassProp } from 'class-variance-authority/types';
+import { ComponentRef } from '../../../node_modules/react';
 import { Context } from '../../node_modules/react';
 import { DayPickerProps } from 'react-day-picker';
 import { FC } from '../../../node_modules/react';
@@ -827,10 +828,10 @@ declare const triggerVariants: (props?: ({
     variant?: "default" | "active" | "inactive" | null | undefined;
 } & ClassProp) | undefined) => string;
 
-export declare const Typography: FC<TypographyProps>;
+export declare const Typography: ForwardRefExoticComponent<Omit<TypographyProps, 'ref'>>;
 
-declare interface TypographyProps extends InputHTMLAttributes<HTMLParagraphElement>, VariantProps<typeof typographyVariants> {
-    asChild?: boolean;
+declare interface TypographyProps extends HTMLAttributes<ComponentRef<HeadingTag | 'p' | 'span'>>, VariantProps<typeof typographyVariants> {
+    ref?: Ref<HTMLHeadingElement | HTMLParagraphElement | HTMLSpanElement>;
     children: ReactNode;
     component?: HeadingTag | 'p' | 'span';
     theme?: Theme;
