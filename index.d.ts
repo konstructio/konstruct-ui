@@ -828,7 +828,7 @@ declare const triggerVariants: (props?: ({
     variant?: "default" | "active" | "inactive" | null | undefined;
 } & ClassProp) | undefined) => string;
 
-export declare const Typography: ForwardRefExoticComponent<Omit<TypographyProps, 'ref'>>;
+export declare const Typography: ForwardRefExoticComponent<Omit<TypographyProps, 'ref'> & RefAttributes<HTMLParagraphElement | HTMLHeadingElement>>;
 
 declare interface TypographyProps extends HTMLAttributes<ComponentRef<HeadingTag | 'p' | 'span'>>, VariantProps<typeof typographyVariants> {
     ref?: Ref<HTMLHeadingElement | HTMLParagraphElement | HTMLSpanElement>;
