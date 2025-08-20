@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.0-alpha.26](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.26) (2025-08-20)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.25...0.1.0-alpha.26)
+
+**Merged pull requests:**
+
+- ✨ feat: ref was added as an optional params in Typography component [\#308](https://github.com/konstructio/konstruct-ui/pull/308) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.25](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.25) (2025-08-19)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.24...0.1.0-alpha.25)
