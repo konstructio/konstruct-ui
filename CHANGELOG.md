@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.0-alpha.27](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.27) (2025-08-20)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.26...0.1.0-alpha.27)
+
+**Merged pull requests:**
+
+- 🐛 fix: error with the ref in typography component [\#309](https://github.com/konstructio/konstruct-ui/pull/309) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.26](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.26) (2025-08-20)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.25...0.1.0-alpha.26)
