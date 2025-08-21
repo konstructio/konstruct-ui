@@ -440,11 +440,17 @@ export declare const PieChart: FC<Props_2>;
 export declare const ProgressBar: FC<ProgressBarProps>;
 
 declare interface ProgressBarProps extends VariantProps<typeof progressBarVariants> {
+    backgroundBarClassName?: string;
     className?: string;
     label?: string;
+    labelClassName?: string;
+    labelWrapperClassName?: string;
     percent: number;
-    theme?: Theme;
+    percentClassName?: string;
+    progressBarClassName?: string;
     status?: 'success' | 'progress';
+    theme?: Theme;
+    wrapperClassName?: string;
 }
 
 declare const progressBarVariants: (props?: ClassProp | undefined) => string;
