@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.0-alpha.28](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.28) (2025-08-21)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.27...0.1.0-alpha.28)
+
+**Merged pull requests:**
+
+- ✨ feat: optional classes were added to progress bar component [\#310](https://github.com/konstructio/konstruct-ui/pull/310) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.27](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.27) (2025-08-20)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.26...0.1.0-alpha.27)
