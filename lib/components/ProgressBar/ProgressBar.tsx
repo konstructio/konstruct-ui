@@ -9,21 +9,41 @@ import {
 } from './ProgressBar.variants';
 
 export const ProgressBar: FC<ProgressBarProps> = ({
+  backgroundBarClassName,
   label,
-  theme,
+  labelClassName,
+  labelWrapperClassName,
   percent,
+  percentClassName,
+  progressBarClassName,
   status,
+  theme,
+  wrapperClassName,
 }) => (
-  <div className="w-full" data-theme={theme}>
-    <div className={cn('flex', label ? 'justify-between' : 'justify-end')}>
-      {label ? <label className="font-semibold">{label}</label> : null}
-      <span className="font-semibold">{percent}%</span>
+  <div
+    className={cn('w-full text-inherit', wrapperClassName)}
+    data-theme={theme}
+  >
+    <div
+      className={cn(
+        'flex font-semibold',
+        {
+          'justify-between': label,
+          'justify-end': !label,
+        },
+        labelWrapperClassName,
+      )}
+    >
+      {label ? <label className={cn(labelClassName)}>{label}</label> : null}
+      <span className={cn(percentClassName)}>{percent}%</span>
     </div>
 
-    <div className={cn(progressBarVariants())}>
+    <div
+      className={cn(progressBarVariants({ className: backgroundBarClassName }))}
+    >
       <div
         className={cn(
-          progressBarProgress({ status }),
+          progressBarProgress({ status, className: progressBarClassName }),
           percent > 0 && percent < 99
             ? 'transition-width duration-500'
             : 'transition-colors duration-0',
