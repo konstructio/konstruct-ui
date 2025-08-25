@@ -1,5 +1,5 @@
 'use client';
-import { forwardRef, useId, useState } from 'react';
+import { forwardRef, useId, useRef, useState } from 'react';
 import { Eye, EyeOff } from 'react-feather';
 
 import { SearchIcon, WarningIcon } from '@/assets/icons/components';
@@ -26,6 +26,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     ref,
   ) => {
     const id = useId();
+    const isDefaultTypePassword = useRef(type === 'password');
 
     const [showPassword, setShowPassword] = useState(() => {
       if (type === 'password') {
@@ -73,7 +74,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             id={id}
             ref={ref}
             name={name}
-            type={showPassword ? 'text' : 'password'}
+            type={
+              showPassword
+                ? isDefaultTypePassword.current
+                  ? 'text'
+                  : type
+                : 'password'
+            }
             className={cn(
               inputVariants({
                 className,
