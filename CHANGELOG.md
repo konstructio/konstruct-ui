@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.0-alpha.29](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.29) (2025-08-25)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.28...0.1.0-alpha.29)
+
+**Merged pull requests:**
+
+- 🐛 fix: error whe the default type is different to password [\#316](https://github.com/konstructio/konstruct-ui/pull/316) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.0-alpha.28](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.28) (2025-08-21)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.27...0.1.0-alpha.28)
