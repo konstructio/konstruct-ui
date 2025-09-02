@@ -18,7 +18,7 @@ const data = [
 ];
 
 export const Table = {
-  render: () => {
+  render: function TableStory() {
     const [filter, setFilter] = useState('');
 
     const filteredData = data.filter((item) =>

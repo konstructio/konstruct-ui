@@ -1,3 +1,5 @@
+type HexColor = `#${string}`;
+
 /**
  * Props for the PieChart component
  */

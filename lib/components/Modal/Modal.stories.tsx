@@ -14,7 +14,7 @@ const meta: Meta<typeof ModalComponent> = {
 };
 
 export const Modal: Story = {
-  render: () => {
+  render: function ModalStory() {
     const [isOpen, setIsOpen] = useState(false);
     const [currentTheme, setCurrentTheme] = useState<Theme>('kubefirst');
     const handleClose = () => setIsOpen(false);

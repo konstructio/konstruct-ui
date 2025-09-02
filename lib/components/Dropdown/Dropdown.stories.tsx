@@ -33,7 +33,7 @@ export const Dropdown = {
     isLoading: false,
     name: 'dropdown',
   },
-  render: (args) => {
+  render: function DropdownStory(args) {
     const [value1, setValue1] = useState<string>();
     const [value2, setValue2] = useState<string>();
     const [value3, setValue3] = useState<string>();
@@ -71,7 +71,7 @@ export const Dropdown = {
 } satisfies Story;
 
 export const DropdownInModal = {
-  render: () => {
+  render: function DropdownInModalStory() {
     const [isOpen, setIsOpen] = useState(false);
     const [value, setValue] = useState<string>();
 

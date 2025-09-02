@@ -84,7 +84,7 @@ const meta = {
 } satisfies Meta<typeof SidebarPrimitive>;
 
 export const Sidebar = {
-  render: () => {
+  render: function SidebarStory() {
     const [theme, setTheme] = useState<Theme>('kubefirst');
 
     return (

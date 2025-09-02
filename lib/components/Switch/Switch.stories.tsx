@@ -14,7 +14,7 @@ export const Switch: Story = {
   args: {
     value: true,
   },
-  render: (args) => {
+  render: function SwitchStory(args) {
     const [value, setValue] = useState(true);
 
     const handleChange = (e: boolean) => {
