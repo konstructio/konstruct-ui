@@ -20,8 +20,8 @@ export const dropdownVariants = cva(
     'aria-expanded:border-kubefirst-primary',
     'aria-expanded:text-kubefirst-secondary',
     'focus-visible:bg-zinc-50',
-    'civo:aria-expanded:border-civo-primary',
-    'civo:aria-expanded:text-civo-primary',
+    'civo:aria-expanded:border-aurora-500',
+    'civo:aria-expanded:text-aurora-500',
   ],
   {
     variants: {
