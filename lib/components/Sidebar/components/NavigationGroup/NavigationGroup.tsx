@@ -7,7 +7,7 @@ import { NavigationTitle } from '../NavigationTitle/NavigationTitle';
 import { NavigationGroupProps } from './NavigationGroup.types';
 import { navigationGroupsVariants } from './NavigationGroup.variants';
 
-export const NavigationGroup: FC<NavigationGroupProps> = ({
+const NavigationGroup: FC<NavigationGroupProps> = ({
   children,
   title,
   className,
@@ -35,3 +35,7 @@ export const NavigationGroup: FC<NavigationGroupProps> = ({
     </>
   );
 };
+
+NavigationGroup.displayName = 'KonstructSidebarNavigationGroup';
+
+export { NavigationGroup };

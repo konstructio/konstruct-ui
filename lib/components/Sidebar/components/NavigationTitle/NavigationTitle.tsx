@@ -5,7 +5,7 @@ import { cn } from '@/utils';
 import { NavigationTitleProps } from './NavigationTitle.types';
 import { navigationTitleVariants } from './NavigationTitle.variants';
 
-export const NavigationTitle: FC<NavigationTitleProps> = ({
+const NavigationTitle: FC<NavigationTitleProps> = ({
   title,
   className,
   isVisible = true,
@@ -18,3 +18,7 @@ export const NavigationTitle: FC<NavigationTitleProps> = ({
     <h2 className={cn(navigationTitleVariants({ className }))}>{title}</h2>
   );
 };
+
+NavigationTitle.displayName = 'KonstructSidebarNavigationTitle';
+
+export { NavigationTitle };

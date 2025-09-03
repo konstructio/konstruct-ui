@@ -16,6 +16,8 @@ const Sidebar: FC<SidebarProps> & SidebarChildrenProps = (props) => (
   <Wrapper {...props} />
 );
 
+Sidebar.displayName = 'KonstructSidebar';
+
 Sidebar.Footer = Footer;
 Sidebar.Logo = Logo;
 Sidebar.Navigation = Navigation;

@@ -15,6 +15,8 @@ const Navigation: FC<NavigationProps> & NavigationChildrenProps = ({
   children,
 }) => <nav className={cn(navigationVariants({ className }))}>{children}</nav>;
 
+Navigation.displayName = 'KonstructSidebarNavigation';
+
 Navigation.NavigationGroup = NavigationGroup;
 Navigation.NavigationOption = NavigationOption;
 Navigation.NavigationSeparator = NavigationSeparator;

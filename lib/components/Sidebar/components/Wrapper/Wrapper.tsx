@@ -16,7 +16,7 @@ import { Footer } from '../Footer/Footer';
 import { Logo } from '../Logo/Logo';
 import { Navigation } from '../Navigation/Navigation';
 
-export const Wrapper: FC<SidebarProps> = ({
+const Wrapper: FC<SidebarProps> = ({
   canResize = true,
   children,
   maxWith = 300,
@@ -132,3 +132,7 @@ export const Wrapper: FC<SidebarProps> = ({
     </aside>
   );
 };
+
+Wrapper.displayName = 'Sidebar.Wrapper';
+
+export { Wrapper };
