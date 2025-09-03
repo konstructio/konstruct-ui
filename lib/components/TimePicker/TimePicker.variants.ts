@@ -12,8 +12,7 @@ export const timePickerVariants = cva([
   'cursor-pointer',
   'transition-all',
   'transition-duration-100',
-  'data-[open=true]:border-blue-primary',
-  'data-[open=true]:border-civo-primary',
+  'data-[open=true]:border-aurora-500',
   'text-sm',
 ]);
 
