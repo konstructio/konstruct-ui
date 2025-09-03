@@ -8,7 +8,7 @@ import { Radio } from '../Radio/Radio';
 import { RadioCardProps } from './RadioCard.types';
 import { radioCardVariants } from './RadioCard.variants';
 
-export const RadioCard: FC<RadioCardProps> = ({
+const RadioCard: FC<RadioCardProps> = ({
   wrapperClassName,
   theme,
   labelWrapperClassName,
@@ -34,3 +34,7 @@ export const RadioCard: FC<RadioCardProps> = ({
     />
   </Card>
 );
+
+RadioCard.displayName = 'KonstructRadioCard';
+
+export { RadioCard };

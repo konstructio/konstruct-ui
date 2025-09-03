@@ -14,7 +14,7 @@ const meta: Meta<typeof TabsComponent> = {
 };
 
 export const Tabs: Story = {
-  render: (args) => {
+  render: function TabsStory(args) {
     const [selectedTab, setSelectedTab] = useState('tab1');
 
     const handleValueChange = (value: string) => {

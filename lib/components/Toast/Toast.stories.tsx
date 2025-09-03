@@ -23,7 +23,7 @@ export const Toast: Story = {
       </h6>
     ),
   },
-  render: (args) => {
+  render: function ToastStory(args) {
     const [open, setOpen] = useState(false);
 
     return (

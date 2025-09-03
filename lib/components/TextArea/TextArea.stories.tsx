@@ -19,11 +19,6 @@ export const TextArea: Story = {
         {...args}
         label="This is a textarea with Kubefirst theme"
       />
-      <TextAreaComponent
-        {...args}
-        theme="colony"
-        label="This is a textarea with Colony theme"
-      />
     </div>
   ),
 };

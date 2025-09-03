@@ -14,7 +14,7 @@ const meta: Meta<typeof ModalComponent> = {
 };
 
 export const Modal: Story = {
-  render: () => {
+  render: function ModalStory() {
     const [isOpen, setIsOpen] = useState(false);
     const [currentTheme, setCurrentTheme] = useState<Theme>('kubefirst');
     const handleClose = () => setIsOpen(false);
@@ -28,9 +28,6 @@ export const Modal: Story = {
         <div className="flex flex-col gap-5">
           <Button onClick={() => handleOpen('kubefirst')} theme="kubefirst">
             Click me to Open Modal with Kubefirst theme!
-          </Button>
-          <Button onClick={() => handleOpen('colony')} theme="colony">
-            Click me to Open Modal with Colony theme!
           </Button>
         </div>
 

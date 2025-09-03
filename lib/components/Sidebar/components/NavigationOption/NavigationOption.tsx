@@ -5,7 +5,7 @@ import { cn } from '@/utils';
 import { NavigationOptionProps } from './NavigationOption.types';
 import { navigationOptionVariants } from './NavigationOption.variants';
 
-export const NavigationOption: FC<NavigationOptionProps> = ({
+const NavigationOption: FC<NavigationOptionProps> = ({
   children,
   className,
   isVisible = true,
@@ -31,3 +31,7 @@ export const NavigationOption: FC<NavigationOptionProps> = ({
     </li>
   );
 };
+
+NavigationOption.displayName = 'KonstructSidebarNavigationOption';
+
+export { NavigationOption };

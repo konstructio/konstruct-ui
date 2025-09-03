@@ -28,27 +28,10 @@ export const Tooltip: Story = {
 
           <TooltipComponent
             content={<FancyHover />}
-            wrapperClassName="flex justify-center"
-            theme="colony"
-          >
-            <Button>Hover on the right!</Button>
-          </TooltipComponent>
-
-          <TooltipComponent
-            content={<FancyHover />}
             position="left"
             wrapperClassName="flex justify-center"
           >
             <Button>Hover on the left!</Button>
-          </TooltipComponent>
-
-          <TooltipComponent
-            content={<FancyHover />}
-            position="bottom"
-            wrapperClassName="flex justify-center"
-            theme="colony"
-          >
-            <Button>Hover on the bottom!</Button>
           </TooltipComponent>
         </div>
       </div>

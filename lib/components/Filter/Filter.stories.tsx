@@ -12,7 +12,7 @@ const meta: Meta<typeof FilterComponent> = {
 };
 
 export const Filter: Story = {
-  render: (args) => {
+  render: function FilterStory(args) {
     const [selectedStatus, setSelectedStatus] = useState<Option[]>([]);
     const [date, setDate] = useState<Date | undefined>();
 

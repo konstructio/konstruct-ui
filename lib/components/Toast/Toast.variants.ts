@@ -16,8 +16,6 @@ export const toastVariants = cva([
   'data-[swipe=end]:animate-swipe-out',
   'shadow-purple-200',
   'border-purple-100',
-  'colony:shadow-red-200',
-  'colony:border-red-100',
 ]);
 
 export const viewportToastVariants = cva([
@@ -41,5 +39,4 @@ export const closeToastVariants = cva([
   'w-4',
   'h-4',
   'text-kubefirst-primary',
-  'colony:text-red-400',
 ]);

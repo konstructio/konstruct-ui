@@ -8,7 +8,6 @@
     "paths": {
       "@/*": ["./lib/*"]
     },
-
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -19,7 +18,6 @@
     "declaration": true,
     "sourceMap": true,
     "emitDeclarationOnly": true,
-
     /* Linting */
     "strict": true,
     "noImplicitOverride": true,
@@ -28,6 +26,6 @@
     "noFallthroughCasesInSwitch": true,
     "types": ["vitest/globals", "@testing-library/jest-dom/vitest"]
   },
-  "include": ["lib", "./tests/setup.d.ts"],
+  "include": ["lib", "./tests/setup.d.ts", "globals.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -22,10 +22,6 @@ export const Primary: Story = {
           Primary Kubefirst
         </Button>
 
-        <Button variant="primary" theme="colony">
-          Primary Colony
-        </Button>
-
         <Button variant="primary" disabled>
           Primary Disabled
         </Button>
@@ -43,10 +39,6 @@ export const Primary: Story = {
         <h6>Compact Appearance</h6>
         <Button variant="primary" theme="kubefirst" appearance="compact">
           Primary Kubefirst
-        </Button>
-
-        <Button variant="primary" theme="colony" appearance="compact">
-          Primary Colony
         </Button>
 
         <Button variant="primary" disabled appearance="compact">
@@ -74,10 +66,6 @@ export const Secondary: Story = {
           Secondary Kubefirst
         </Button>
 
-        <Button variant="secondary" theme="colony">
-          Secondary Colony
-        </Button>
-
         <Button variant="secondary" disabled>
           Secondary Disabled
         </Button>
@@ -95,10 +83,6 @@ export const Secondary: Story = {
         <h6>Compact Appearance</h6>
         <Button variant="secondary" theme="kubefirst" appearance="compact">
           Secondary Kubefirst
-        </Button>
-
-        <Button variant="secondary" theme="colony" appearance="compact">
-          Secondary Colony
         </Button>
 
         <Button variant="secondary" disabled appearance="compact">
@@ -170,20 +154,12 @@ export const TextButton: Story = {
           Text Kubefirst Default Version
         </Button>
 
-        <Button variant="text" theme="colony">
-          Text Colony Default Version
-        </Button>
-
         <Button variant="text" theme="civo">
           Text Civo Default Version
         </Button>
 
         <Button variant="text" theme="kubefirst" version="alternate">
           Text Kubefirst Alternative Version
-        </Button>
-
-        <Button variant="text" theme="colony" version="alternate">
-          Text Colony Alternative Version
         </Button>
 
         <Button variant="text" theme="civo" version="alternate">
@@ -205,10 +181,6 @@ export const TextButton: Story = {
           Text Kubefirst Default Version
         </Button>
 
-        <Button variant="text" theme="colony" appearance="compact">
-          Text Colony Default Version
-        </Button>
-
         <Button variant="text" theme="civo" appearance="compact">
           Text Civo Default Version
         </Button>
@@ -220,15 +192,6 @@ export const TextButton: Story = {
           version="alternate"
         >
           Text Kubefirst Alternative Version
-        </Button>
-
-        <Button
-          variant="text"
-          theme="colony"
-          appearance="compact"
-          version="alternate"
-        >
-          Text Colony Alternative Version
         </Button>
 
         <Button
@@ -260,10 +223,6 @@ export const IconButton: Story = {
           <Check className="w-5 h-5" /> Verified
         </Button>
 
-        <Button {...args} theme="colony">
-          <Check className="w-5 h-5" /> Verified
-        </Button>
-
         <Button {...args} theme="civo">
           <Check className="w-5 h-5" /> Verified
         </Button>
@@ -276,10 +235,6 @@ export const IconButton: Story = {
       <div className="flex flex-col items-center gap-3 mt-8">
         <h6>Compact Appearance</h6>
         <Button {...args} theme="kubefirst" appearance="compact">
-          <Check className="w-4 h-4" /> Verified
-        </Button>
-
-        <Button {...args} theme="colony" appearance="compact">
           <Check className="w-4 h-4" /> Verified
         </Button>
 
@@ -309,9 +264,6 @@ export const Circle: Story = {
             <Button {...args} size="medium">
               <PagesStackIcon />
             </Button>
-            <Button {...args} size="medium" theme="colony">
-              <PagesStackIcon />
-            </Button>
             <Button {...args} size="medium" theme="civo">
               <PagesStackIcon />
             </Button>
@@ -326,9 +278,6 @@ export const Circle: Story = {
 
           <div className="flex gap-3">
             <Button {...args} size="large">
-              <HelpIcon />
-            </Button>
-            <Button {...args} size="large" theme="colony">
               <HelpIcon />
             </Button>
             <Button {...args} size="large" theme="civo">

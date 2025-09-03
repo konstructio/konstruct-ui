@@ -24,7 +24,6 @@ export const cardVariants = cva(
         true: [
           'border-kubefirst-primary',
           'shadow',
-          'colony:border-colony-primary',
           'civo:border-civo-primary',
         ],
         false: 'border-transparent',
@@ -34,7 +33,6 @@ export const cardVariants = cva(
           'cursor-pointer',
           'border-transparent',
           'group-hover:border-kubefirst-primary',
-          'colony:group-hover:border-colony-primary',
           'civo:group-hover:border-civo-primary',
         ],
         false: '',

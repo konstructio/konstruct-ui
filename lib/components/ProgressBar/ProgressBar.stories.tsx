@@ -11,7 +11,7 @@ const meta: Meta<typeof ProgressBarComponent> = {
 };
 
 export const ProgressBar: Story = {
-  render: () => {
+  render: function ProgressBarStory() {
     const [percent, setPercent] = useState(10);
 
     useEffect(() => {

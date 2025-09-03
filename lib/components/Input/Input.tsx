@@ -45,7 +45,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           <label
             htmlFor={id}
             className={cn(
-              'cursor-pointer text-slate-500 flex gap-1 text-sm font-medium',
+              'cursor-pointer text-slate-500 flex gap-1 text-sm font-medium civo-dark:text-slate-50 kubefirst-dark:text-slate-50',
               labelClassName,
             )}
           >
@@ -71,7 +71,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           ) : null}
 
           <input
-            id={id}
+            id={label ? id : undefined}
             ref={ref}
             name={name}
             type={
@@ -81,13 +81,16 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                   : type
                 : 'password'
             }
+            data-error={hasError}
             className={cn(
               inputVariants({
                 className,
                 variant: hasError ? 'error' : 'default',
               }),
-              (type === 'password' || hasError) && 'pr-10',
-              isSearch && 'pl-8',
+              {
+                'pr-10': type === 'password' || hasError,
+                'pl-8': isSearch,
+              },
             )}
             {...delegated}
           />
@@ -111,13 +114,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {error ? <span className="text-xs text-red-700">{error}</span> : null}
 
         {!error && helperText ? (
-          <span className="text-xs text-slate-600">{helperText}</span>
+          <span className="text-xs text-slate-600 civo-dark:text-slate-200 kubefirst-dark:text-slate-200">
+            {helperText}
+          </span>
         ) : null}
       </div>
     );
   },
 );
 
-Input.displayName = 'Input';
+Input.displayName = 'KonstructInput';
 
 export { Input };

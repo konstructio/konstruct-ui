@@ -20,8 +20,6 @@ export const dropdownVariants = cva(
     'aria-expanded:border-kubefirst-primary',
     'aria-expanded:text-kubefirst-secondary',
     'focus-visible:bg-zinc-50',
-    'colony:aria-expanded:border-red-400',
-    'colony:aria-expanded:text-red-400',
     'civo:aria-expanded:border-civo-primary',
     'civo:aria-expanded:text-civo-primary',
   ],
@@ -31,8 +29,6 @@ export const dropdownVariants = cva(
         true: [
           'border-red-600',
           'text-red-600',
-          'colony:aria-expanded:border-red-600',
-          'colony:aria-expanded:text-red-600',
           'civo:aria-expanded:border-red-600',
           'civo:aria-expanded:text-red-600',
         ],

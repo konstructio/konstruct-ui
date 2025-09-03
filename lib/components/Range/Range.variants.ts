@@ -15,7 +15,6 @@ export const rangeOutsideVariants = cva([
   'absolute',
   'h-full',
   'bg-kubefirst-secondary',
-  'colony:bg-red-500',
 ]);
 
 export const trackVariants = cva(

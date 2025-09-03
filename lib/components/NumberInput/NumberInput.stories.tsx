@@ -12,7 +12,7 @@ const meta: Meta<typeof NumberInputComponent> = {
 };
 
 export const NumberInput: Story = {
-  render: (args) => {
+  render: function NumberInputStory(args) {
     const [count, setCount] = useState<number>(10);
 
     return (

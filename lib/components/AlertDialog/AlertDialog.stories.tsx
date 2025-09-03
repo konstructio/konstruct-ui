@@ -66,6 +66,7 @@ export const AlertDialog = {
       </div>
 
       <div className="my-3" />
+
       <div className="w-[350px]">
         <AlertDialogComponent
           buttonTriggerText="Destroy"
@@ -86,7 +87,7 @@ export const AlertDialog = {
 
               <Checkbox
                 defaultChecked
-                label="This is a checkbox with colony colors"
+                label="This is a checkbox with civo colors"
               />
             </div>
           }

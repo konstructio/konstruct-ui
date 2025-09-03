@@ -17,7 +17,6 @@ export const modalVariants = cva([
   'zoom-in-95',
   'duration-150',
   'shadow-kubefirst-primary',
-  'colony:shadow-red-400',
 ]);
 
 export const buttonCloseVariants = cva([
@@ -27,5 +26,4 @@ export const buttonCloseVariants = cva([
   'text-inherit',
   'cursor-pointer',
   'text-kubefirst-primary',
-  'colony:text-red-400',
 ]);

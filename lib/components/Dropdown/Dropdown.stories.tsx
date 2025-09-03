@@ -33,10 +33,9 @@ export const Dropdown = {
     isLoading: false,
     name: 'dropdown',
   },
-  render: (args) => {
+  render: function DropdownStory(args) {
     const [value1, setValue1] = useState<string>();
     const [value2, setValue2] = useState<string>();
-    const [value3, setValue3] = useState<string>();
 
     return (
       <div className="max-w-[350px] flex flex-col gap-6">
@@ -49,19 +48,10 @@ export const Dropdown = {
         />
 
         <DropdownComponent
-          label="Dropdown with Colony theme"
-          onChange={({ target: { value } }) => setValue2(value)}
-          theme="colony"
-          value={value2}
-          searchable={true}
-          {...args}
-        />
-
-        <DropdownComponent
           label="Dropdown with Civo theme"
-          onChange={({ target: { value } }) => setValue3(value)}
+          onChange={({ target: { value } }) => setValue2(value)}
           theme="civo"
-          value={value3}
+          value={value2}
           searchable={false}
           {...args}
         />
@@ -71,7 +61,7 @@ export const Dropdown = {
 } satisfies Story;
 
 export const DropdownInModal = {
-  render: () => {
+  render: function DropdownInModalStory() {
     const [isOpen, setIsOpen] = useState(false);
     const [value, setValue] = useState<string>();
 

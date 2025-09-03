@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useContext, useEffect } from 'react';
-import { Database, Moon, Sun } from 'react-feather';
+import { Sun } from 'react-feather';
 
 import { ThemeProvider, useTheme } from '@/contexts';
 
@@ -69,16 +69,6 @@ export const Command: Story = {
                 <Sun />
                 Kubefirst
               </CommandItem>
-
-              <CommandItem onSelect={() => setTheme!('colony')}>
-                <Moon />
-                Colony
-              </CommandItem>
-
-              <CommandItem onSelect={() => setTheme!('colony')}>
-                <Database />
-                Civo
-              </CommandItem>
             </CommandGroup>
 
             <CommandSeparator />
@@ -87,16 +77,6 @@ export const Command: Story = {
               <CommandItem onSelect={() => setTheme!('kubefirst')}>
                 <Sun />
                 Kubefirst
-              </CommandItem>
-
-              <CommandItem onSelect={() => setTheme!('colony')}>
-                <Moon />
-                Colony
-              </CommandItem>
-
-              <CommandItem onSelect={() => setTheme!('colony')}>
-                <Database />
-                Civo
               </CommandItem>
             </CommandGroup>
           </CommandComponent>

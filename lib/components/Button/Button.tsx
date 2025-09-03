@@ -46,6 +46,6 @@ const Button: FC<ButtonProps> = forwardRef<ComponentRef<'button'>, ButtonProps>(
   },
 );
 
-Button.displayName = 'Button';
+Button.displayName = 'KonstructButton';
 
 export { Button };

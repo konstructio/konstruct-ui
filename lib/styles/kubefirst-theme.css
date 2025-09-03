@@ -3,6 +3,7 @@
 
   --color-black: #000000;
   --color-white: #ffffff;
+
   --color-amber-50: #fffbeb;
   --color-amber-100: #fef3c7;
   --color-amber-200: #fde68a;
@@ -13,6 +14,9 @@
   --color-amber-700: #b45309;
   --color-amber-800: #92400e;
   --color-amber-900: #78350f;
+
+  --color-aurora-400: #47ff97;
+  --color-aurora-500: #00ff6f;
 
   --color-blue-50: #eff6ff;
   --color-blue-100: #dbeafe;
@@ -286,10 +290,6 @@
 
   --color-kubefirst-pro-primary: #1fb4d5;
   --color-kubefirst-pro-secondary: #3dc3e2;
-
-  --color-colony-primary: #a61b4e;
-  --color-colony-secondary: #d32263;
-  --color-colony-tertiary: #f27da2;
 
   --color-civo-primary: #239dff;
   --color-civo-secondary: #007be0;
