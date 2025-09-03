@@ -14,7 +14,6 @@ export const switchVariants = cva([
   'duration-250',
   'cursor-pointer',
   'bg-kubefirst-primary',
-  'colony:bg-red-600',
 ]);
 
 export const thumbVariants = cva([

@@ -13,8 +13,6 @@ export const listItemVariants = cva([
   'gap-3',
   'hover:bg-slate-50',
   'focus:bg-slate-50',
-  'colony:focus:bg-red-100/20',
-  'colony:hover:bg-red-100/20',
   'civo:focus:bg-civo-primary/5',
   'civo:hover:bg-civo-primary/5',
 ]);

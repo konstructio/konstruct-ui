@@ -21,15 +21,6 @@ export const Slider: Story = {
         defaultValue={[50]}
         {...args}
       />
-
-      <div className="mt-10" />
-
-      <SliderComponent
-        theme="colony"
-        label="Slider with Colony theme"
-        defaultValue={[35]}
-        {...args}
-      />
     </div>
   ),
 };

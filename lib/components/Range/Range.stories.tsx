@@ -23,15 +23,6 @@ export const Range: Story = {
         defaultValue={[10, 77]}
         {...args}
       />
-
-      <div className="mt-10" />
-
-      <RangeComponent
-        theme="colony"
-        label="Range with Colony theme"
-        defaultValue={[0, 50]}
-        {...args}
-      />
     </div>
   ),
 };

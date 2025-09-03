@@ -16,9 +16,6 @@ export const Loading = {
         <LoadingComponent />
       </div>
       <div className="w-[350px]">
-        <LoadingComponent theme="colony" />
-      </div>
-      <div className="w-[350px]">
         <LoadingComponent theme="civo" />
       </div>
     </>

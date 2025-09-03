@@ -47,8 +47,6 @@ export const triggerVariants = cva(['cursor-pointer', 'h-[27px]', 'w-fit'], {
         'civo:border-civo-primary',
         'kubefirst:border-b-2',
         'kubefirst:border-kubefirst-primary',
-        'colony:border-b-2',
-        'colony:border-colony-primary',
       ],
       inactive: 'text-slate-500 font-[600]',
     },

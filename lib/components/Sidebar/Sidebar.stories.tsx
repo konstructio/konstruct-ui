@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { Star } from 'react-feather';
 
 import CloudIcon from '@/assets/icons/cloud.svg';
-import GridViewIcon from '@/assets/icons/grid-view.svg';
 import PhotoLibraryIcon from '@/assets/icons/photo-library.svg';
 import ReceiptLongIcon from '@/assets/icons/receipt-long.svg';
 import ScatterPlotIcon from '@/assets/icons/scatter-plot.svg';
@@ -119,17 +118,6 @@ export const Sidebar = {
                   Clusters
                 </Typography>
               </a>
-            </NavigationOption>
-
-            <NavigationOption
-              role="button"
-              onClick={() => setTheme('colony')}
-              isActive={theme === 'colony'}
-            >
-              <GridViewIcon className="w-6 h-6" />{' '}
-              <Typography variant="body1" className="hidden md:block">
-                Services
-              </Typography>
             </NavigationOption>
 
             <NavigationOption

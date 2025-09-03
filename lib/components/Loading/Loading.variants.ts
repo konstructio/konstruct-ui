@@ -6,6 +6,5 @@ export const loadingVariants = cva([
   'animate-spin',
   'text-inherit',
   'text-kubefirst-primary',
-  'colony:text-colony-primary',
   'civo:text-civo-primary',
 ]);

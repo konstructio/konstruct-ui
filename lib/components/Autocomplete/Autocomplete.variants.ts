@@ -20,7 +20,6 @@ export const autocompleteVariants = cva(
     'py-1',
     'px-2',
     'focus:ring-kubefirst-primary',
-    'colony:focus:focus:ring-red-400',
     'civo:focus:focus:ring-blue-400',
   ],
   {

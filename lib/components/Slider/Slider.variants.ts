@@ -8,13 +8,7 @@ export const sliderVariants = cva([
 ]);
 
 export const trackVariants = cva(
-  [
-    'relative',
-    'flex-grow',
-    'rounded-full',
-    'bg-kubefirst-secondary',
-    'colony:bg-red-500',
-  ],
+  ['relative', 'flex-grow', 'rounded-full', 'bg-kubefirst-secondary'],
   {
     variants: {
       size: {

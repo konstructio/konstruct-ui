@@ -254,10 +254,8 @@
   --color-kubefirst-pro-primary: #1fb4d5;
   --color-kubefirst-pro-secondary: #3dc3e2;
 
-  --color-colony-primary: #a61b4e;
-  --color-colony-secondary: #d32263;
-  --color-colony-tertiary: #f27da2;
-
   --color-civo-primary: #239dff;
   --color-civo-secondary: #007be0;
+
+  /* --color-aurora: #00ff6f; */
 }

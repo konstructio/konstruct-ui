@@ -17,7 +17,7 @@ const meta: Meta<typeof CardComponent> = {
 
 export const Card: Story = {
   render: () => {
-    const themes = ['kubefirst', 'colony', 'civo'] satisfies Theme[];
+    const themes = ['kubefirst', 'civo'] satisfies Theme[];
 
     const Wrapper: FC<Pick<CardProps, 'isActive' | 'canHover' | 'theme'>> = (
       props,

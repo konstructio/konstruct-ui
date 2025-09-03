@@ -14,7 +14,6 @@ export const tooltipVariants = cva(
     "[&[data-visible='true']]:opacity-100",
     'delay-100',
     'bg-kubefirst-primary',
-    'colony:bg-red-700',
   ],
   {
     variants: {
@@ -32,13 +31,7 @@ export const tooltipVariants = cva(
 );
 
 export const arrowVariants = cva(
-  [
-    'absolute',
-    'w-0',
-    'h-0',
-    'border-kubefirst-primary',
-    'colony:border-red-700',
-  ],
+  ['absolute', 'w-0', 'h-0', 'border-kubefirst-primary'],
   {
     variants: {
       position: {

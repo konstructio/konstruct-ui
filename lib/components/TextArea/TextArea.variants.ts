@@ -15,5 +15,4 @@ export const textAreaVariants = cva([
   'shadow-xs',
   'w-full',
   'focus:ring-kubefirst-primary',
-  'colony:focus:ring-red-700',
 ]);
