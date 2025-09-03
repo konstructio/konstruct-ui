@@ -7,16 +7,14 @@ import { Context } from '../../node_modules/react';
 import { DayPickerProps } from 'react-day-picker';
 import { FC } from '../../../node_modules/react';
 import { FC as FC_2 } from '../../../../../node_modules/react';
-import { FC as FC_3 } from '../../node_modules/react';
+import { FC as FC_3 } from '../../../../node_modules/react';
+import { FC as FC_4 } from '../../node_modules/react';
 import { ForwardRefExoticComponent } from '../../../node_modules/react';
-import { FunctionComponent } from '../../../node_modules/react';
-import { FunctionComponent as FunctionComponent_2 } from '../../../../node_modules/react';
 import { getAllTimezones } from 'countries-and-timezones';
 import { HTMLAttributes } from '../../../node_modules/react';
 import { HTMLAttributes as HTMLAttributes_2 } from '../../../../../node_modules/react';
 import { HtmlHTMLAttributes } from '../../../../../node_modules/react';
 import { InputHTMLAttributes } from '../../../node_modules/react';
-import { JSX } from 'react/jsx-runtime';
 import { PropsWithChildren } from '../../../node_modules/react';
 import { PropsWithChildren as PropsWithChildren_2 } from '../../../../../node_modules/react';
 import { PropsWithChildren as PropsWithChildren_3 } from '../../node_modules/react';
@@ -26,6 +24,7 @@ import * as ReactTabs from '@radix-ui/react-tabs';
 import { Ref } from '../../../node_modules/react';
 import { RefAttributes } from '../../../node_modules/react';
 import { SliderProps } from '@radix-ui/react-slider';
+import { TabsContentProps } from '@radix-ui/react-tabs';
 import { VariantProps } from 'class-variance-authority';
 
 export declare const Alert: FC<AlertProps>;
@@ -180,7 +179,7 @@ declare const checkboxVariants: (props?: ({
     checked?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
 
-export declare const Content: ({ children, className, ...rest }: ReactTabs.TabsContentProps) => JSX.Element;
+export declare const Content: FC_3<TabsContentProps>;
 
 export declare const DateFilterDropdown: FC_2<DateFilterDropdownProps>;
 
@@ -266,6 +265,8 @@ declare interface HeadProps extends React.HTMLAttributes<HTMLTableSectionElement
 
 declare const headVariants: (props?: ClassProp | undefined) => string;
 
+declare type HexColor = `#${string}`;
+
 export declare const Input: ForwardRefExoticComponent<InputProps & RefAttributes<HTMLInputElement>>;
 
 declare interface InputProps extends InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof inputVariants> {
@@ -282,7 +283,7 @@ declare const inputVariants: (props?: ({
     variant?: "error" | "default" | null | undefined;
 } & ClassProp) | undefined) => string;
 
-export declare const List: FunctionComponent_2<ListProps>;
+export declare const List: FC_3<ListProps>;
 
 declare interface ListProps extends React.HTMLAttributes<HTMLDivElement>, PropsWithChildren {
     orientation: 'horizontal' | 'vertical';
@@ -703,10 +704,10 @@ declare interface TableProps extends React.HTMLAttributes<HTMLTableElement>, Pro
 
 declare const tableVariants: (props?: ClassProp | undefined) => string;
 
-export declare const Tabs: FunctionComponent<TabsProps> & {
-    List: FunctionComponent<ListProps>;
-    Trigger: FunctionComponent<TriggerProps>;
-    Content: FunctionComponent<ReactTabs.TabsContentProps>;
+export declare const Tabs: FC<TabsProps> & {
+    List: FC<ListProps>;
+    Trigger: FC<TriggerProps>;
+    Content: FC<ReactTabs.TabsContentProps>;
 };
 
 declare interface TabsProps extends ReactTabs.TabsProps, PropsWithChildren {
@@ -752,7 +753,7 @@ declare interface TextAreaProps extends InputHTMLAttributes<HTMLTextAreaElement>
 
 declare const textAreaVariants: (props?: ClassProp | undefined) => string;
 
-declare type Theme = 'kubefirst' | 'colony' | 'civo' | 'kubefirst-dark' | 'colony-dark' | 'civo-dark' | undefined;
+declare type Theme = 'kubefirst' | 'civo' | 'kubefirst-dark' | 'civo-dark' | undefined;
 
 export declare const ThemeContext: Context<ThemeContextType>;
 
@@ -770,7 +771,7 @@ declare type ThemeProps = {
     setTheme?: (theme: Theme) => void;
 };
 
-export declare const ThemeProvider: FC_3<ThemeContextProps>;
+export declare const ThemeProvider: FC_4<ThemeContextProps>;
 
 export declare const TimePicker: FC<TimePickerProps>;
 
@@ -822,7 +823,7 @@ declare const tooltipVariants: (props?: ({
     position?: "left" | "right" | "bottom" | "top" | null | undefined;
 } & ClassProp) | undefined) => string;
 
-export declare const Trigger: FunctionComponent_2<TriggerProps>;
+export declare const Trigger: FC_3<TriggerProps>;
 
 declare interface TriggerProps extends VariantProps<typeof triggerVariants>, React.HTMLAttributes<HTMLDivElement> {
     tab: string;
