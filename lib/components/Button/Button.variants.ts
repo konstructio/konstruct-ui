@@ -25,10 +25,11 @@ export const buttonVariants = cva(
     'bg-kubefirst-primary',
     'hover:bg-kubefirst-secondary',
     'hover:border-kubefirst-secondary',
-    'civo:bg-civo-primary',
-    'civo:border-civo-primary',
-    'civo:hover:bg-civo-secondary',
-    'civo:hover:border-civo-secondary',
+    'civo:bg-aurora-500',
+    'civo:border-aurora-500',
+    'civo:text-slate-700',
+    'civo:hover:bg-aurora-400',
+    'civo:hover:border-aurora-400',
   ],
   {
     variants: {
@@ -101,9 +102,8 @@ export const buttonVariants = cva(
           'bg-zinc-200',
           'border-zinc-200',
           'text-zinc-500',
-          'civo:bg-civo-primary/45',
-          'civo:border-civo-primary/5',
-          'civo:text-white',
+          'civo:text-gray-700',
+          'civo:opacity-45',
         ],
       },
       {

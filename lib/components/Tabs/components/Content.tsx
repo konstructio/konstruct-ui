@@ -1,20 +1,22 @@
-import * as ReactTabs from '@radix-ui/react-tabs';
+import {
+  Content as ContentPrimitive,
+  TabsContentProps,
+} from '@radix-ui/react-tabs';
+import { FC } from 'react';
 
 import { cn } from '@/utils';
 
 import { contentVariants } from '../Tabs.variants';
 
-export const Content = ({
-  children,
-  className,
-  ...rest
-}: ReactTabs.TabsContentProps) => {
-  return (
-    <ReactTabs.Content
-      {...rest}
-      className={cn(contentVariants({ variant: 'default', className }))}
-    >
-      {children}
-    </ReactTabs.Content>
-  );
-};
+const Content: FC<TabsContentProps> = ({ children, className, ...rest }) => (
+  <ContentPrimitive
+    {...rest}
+    className={cn(contentVariants({ variant: 'default', className }))}
+  >
+    {children}
+  </ContentPrimitive>
+);
+
+Content.displayName = 'KonstructTabsContent';
+
+export { Content };
