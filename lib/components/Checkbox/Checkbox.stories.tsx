@@ -20,6 +20,12 @@ export const Checkbox: Story = {
           label="This is a checkbox with kubefirst colors"
           {...args}
         />
+
+        <CheckboxComponent
+          theme="civo"
+          label="This is a checkbox with civo colors"
+          {...args}
+        />
       </div>
     </>
   ),

@@ -9,7 +9,7 @@ import {
   wrapperRadioVariants,
 } from './Radio.variants';
 
-export const Radio: FC<RadioProps> = forwardRef<HTMLInputElement, RadioProps>(
+const Radio: FC<RadioProps> = forwardRef<HTMLInputElement, RadioProps>(
   (
     {
       checked = false,
@@ -93,3 +93,7 @@ export const Radio: FC<RadioProps> = forwardRef<HTMLInputElement, RadioProps>(
     );
   },
 );
+
+Radio.displayName = 'KonstructRadio';
+
+export { Radio };

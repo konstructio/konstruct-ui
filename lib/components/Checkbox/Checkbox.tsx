@@ -1,4 +1,3 @@
-'use client';
 import { Indicator, Root } from '@radix-ui/react-checkbox';
 import { FC, forwardRef, useCallback, useId } from 'react';
 import { Check } from 'react-feather';
@@ -9,7 +8,7 @@ import { cn } from '@/utils';
 import { CheckboxProps } from './Checkbox.types';
 import { checkboxVariants, labelVariants } from './Checkbox.variants';
 
-export const Checkbox: FC<CheckboxProps> = forwardRef<
+const Checkbox: FC<CheckboxProps> = forwardRef<
   HTMLButtonElement,
   CheckboxProps
 >(
@@ -63,7 +62,7 @@ export const Checkbox: FC<CheckboxProps> = forwardRef<
           {...delegated}
         >
           <Indicator>
-            <Check className="w-4 h-4 stroke-2" />
+            <Check className="w-4 h-4 stroke-2 civo:text-slate-700" />
           </Indicator>
         </Root>
 
@@ -83,3 +82,7 @@ export const Checkbox: FC<CheckboxProps> = forwardRef<
     );
   },
 );
+
+Checkbox.displayName = 'KonstructCheckbox';
+
+export { Checkbox };

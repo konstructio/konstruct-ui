@@ -30,8 +30,8 @@ export const checkboxVariants = cva(
         checked: true,
         class: [
           'bg-kubefirst-primary',
-          'civo:bg-civo-primary',
-          'civo:border-civo-primary',
+          'civo:bg-aurora-500',
+          'civo:border-aurora-500',
         ],
       },
     ],

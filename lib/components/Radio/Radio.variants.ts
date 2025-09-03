@@ -56,8 +56,8 @@ export const radioVariants = cva(
         class: [
           'peer-checked:border-kubefirst-primary',
           'peer-checked:before:bg-kubefirst-primary',
-          'civo:peer-checked:border-civo-primary',
-          'civo:peer-checked:before:bg-civo-primary',
+          'civo:peer-checked:border-aurora-500',
+          'civo:peer-checked:before:bg-aurora-500',
         ],
       },
       {
