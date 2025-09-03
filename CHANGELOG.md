@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.1-alpha.2](https://github.com/konstructio/konstruct-ui/tree/0.1.1-alpha.2) (2025-09-03)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.1-alpha.1...0.1.1-alpha.2)
+
+**Merged pull requests:**
+
+- 💄 chore: dropdown styles were updated [\#323](https://github.com/konstructio/konstruct-ui/pull/323) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.1-alpha.1](https://github.com/konstructio/konstruct-ui/tree/0.1.1-alpha.1) (2025-09-03)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.29...0.1.1-alpha.1)
