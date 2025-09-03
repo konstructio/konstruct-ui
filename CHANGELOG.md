@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.1-alpha.1](https://github.com/konstructio/konstruct-ui/tree/0.1.1-alpha.1) (2025-09-03)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.29...0.1.1-alpha.1)
+
+**Merged pull requests:**
+
+- ✨ feat: new theme was added [\#322](https://github.com/konstructio/konstruct-ui/pull/322) ([futjesus](https://github.com/futjesus))
+- build\(deps\): bump lucide-react from 0.540.0 to 0.541.0 [\#315](https://github.com/konstructio/konstruct-ui/pull/315) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [0.1.0-alpha.29](https://github.com/konstructio/konstruct-ui/tree/0.1.0-alpha.29) (2025-08-25)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.0-alpha.28...0.1.0-alpha.29)
