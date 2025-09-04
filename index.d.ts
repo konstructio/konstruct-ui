@@ -320,6 +320,7 @@ declare type ModalChildProps = {
 declare interface ModalProps extends PropsWithChildren, VariantProps<typeof modalVariants> {
     buttonCloseClassName?: string;
     className?: string;
+    container?: Element | DocumentFragment;
     isOpen?: boolean;
     theme?: Theme;
     onClose?: () => void;
