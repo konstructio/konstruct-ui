@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.1-alpha.3](https://github.com/konstructio/konstruct-ui/tree/0.1.1-alpha.3) (2025-09-04)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.1-alpha.2...0.1.1-alpha.3)
+
+**Merged pull requests:**
+
+- feat: add optional container to modal [\#324](https://github.com/konstructio/konstruct-ui/pull/324) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.1.1-alpha.2](https://github.com/konstructio/konstruct-ui/tree/0.1.1-alpha.2) (2025-09-03)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.1-alpha.1...0.1.1-alpha.2)
