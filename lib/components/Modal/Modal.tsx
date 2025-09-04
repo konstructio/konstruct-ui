@@ -9,7 +9,7 @@ const Modal: FC<ModalProps> & {
   Header: FC<ModalChildProps>;
   Body: FC<ModalChildProps>;
   Footer: FC<ModalChildProps>;
-} = ({ isOpen, onClose, ...delegated }) => {
+} = ({ isOpen, onClose, container, ...delegated }) => {
   useEffect(() => {
     const controller = new AbortController();
 
@@ -34,7 +34,7 @@ const Modal: FC<ModalProps> & {
 
   return createPortal(
     <Wrapper {...delegated} onClose={onClose} />,
-    document.body,
+    container || document.body,
   );
 };
 

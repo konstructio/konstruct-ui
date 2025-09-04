@@ -9,6 +9,7 @@ export interface ModalProps
     VariantProps<typeof modalVariants> {
   buttonCloseClassName?: string;
   className?: string;
+  container?: Element | DocumentFragment;
   isOpen?: boolean;
   theme?: Theme;
   onClose?: () => void;
