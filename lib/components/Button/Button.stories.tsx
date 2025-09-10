@@ -96,6 +96,15 @@ export const Secondary: Story = {
         <Button variant="secondary" theme="civo" disabled appearance="compact">
           Secondary Civo Disabled
         </Button>
+
+        <div
+          data-theme="civo-dark"
+          className="bg-gray-900 w-full h-[100px] flex items-center justify-center"
+        >
+          <Button variant="secondary" theme="civo">
+            Secondary Civo Dark
+          </Button>
+        </div>
       </div>
     </div>
   ),
