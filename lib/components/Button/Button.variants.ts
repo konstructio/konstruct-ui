@@ -93,6 +93,9 @@ export const buttonVariants = cva(
           'civo:hover:text-slate-700',
           'civo:hover:border-slate-300',
           'civo:hover:bg-slate-50',
+          'civo-dark:bg-transparent',
+          'civo-dark:text-white',
+          'civo-dark:border-gray-600',
         ],
       },
       {
