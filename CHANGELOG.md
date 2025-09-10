@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.1-alpha.4](https://github.com/konstructio/konstruct-ui/tree/0.1.1-alpha.4) (2025-09-10)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.1-alpha.3...0.1.1-alpha.4)
+
+**Merged pull requests:**
+
+- feat: civo dark button [\#330](https://github.com/konstructio/konstruct-ui/pull/330) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.1.1-alpha.3](https://github.com/konstructio/konstruct-ui/tree/0.1.1-alpha.3) (2025-09-04)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.1-alpha.2...0.1.1-alpha.3)
