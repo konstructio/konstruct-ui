@@ -15,4 +15,5 @@ export interface InputProps
   isRequired?: boolean;
   isSearch?: boolean;
   helperText?: string;
+  helperTextClassName?: string;
 }
