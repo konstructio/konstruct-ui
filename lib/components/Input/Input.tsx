@@ -21,6 +21,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       theme,
       type = 'text',
       helperText,
+      helperTextClassName,
       ...delegated
     },
     ref,
@@ -96,7 +97,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           />
 
           {hasError ? (
-            <i className="absolute right-3 text-red-700 top-1/2 -translate-y-[50%]">
+            <i className="absolute right-3 text-red-700 dark:text-red-500 top-1/2 -translate-y-[50%]">
               <WarningIcon className="w-5 h-5" />
             </i>
           ) : null}
@@ -111,10 +112,19 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           ) : null}
         </div>
 
-        {error ? <span className="text-xs text-red-700">{error}</span> : null}
+        {error ? (
+          <span className="text-xs text-red-700 dark:text-red-500">
+            {error}
+          </span>
+        ) : null}
 
         {!error && helperText ? (
-          <span className="text-xs text-slate-600 civo-dark:text-slate-200 kubefirst-dark:text-slate-200">
+          <span
+            className={cn(
+              'text-xs text-slate-600 civo-dark:text-slate-200 kubefirst-dark:text-slate-200',
+              helperTextClassName,
+            )}
+          >
             {helperText}
           </span>
         ) : null}
