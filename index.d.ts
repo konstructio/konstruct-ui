@@ -277,6 +277,7 @@ declare interface InputProps extends InputHTMLAttributes<HTMLInputElement>, Vari
     isRequired?: boolean;
     isSearch?: boolean;
     helperText?: string;
+    helperTextClassName?: string;
 }
 
 declare const inputVariants: (props?: ({
