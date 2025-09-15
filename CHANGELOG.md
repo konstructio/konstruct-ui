@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.1-alpha.5](https://github.com/konstructio/konstruct-ui/tree/0.1.1-alpha.5) (2025-09-15)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.1-alpha.4...0.1.1-alpha.5)
+
+**Merged pull requests:**
+
+- feat: helper text class name, dark mode error colors [\#331](https://github.com/konstructio/konstruct-ui/pull/331) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.1.1-alpha.4](https://github.com/konstructio/konstruct-ui/tree/0.1.1-alpha.4) (2025-09-10)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.1-alpha.3...0.1.1-alpha.4)
