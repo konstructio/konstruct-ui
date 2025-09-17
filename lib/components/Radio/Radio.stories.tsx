@@ -16,8 +16,12 @@ export const Radio = {
   },
   render: (args) => (
     <div className="w-[350px] flex flex-col gap-3">
-      <RadioComponent {...args} label="Radio Button Kubefirst" />
-      <RadioComponent {...args} label="Radio Button Civo" theme="civo" />
+      <RadioComponent
+        {...args}
+        label="Radio Button Kubefirst"
+        theme="kubefirst"
+      />
+      <RadioComponent {...args} label="Radio Button Civo" />
 
       <RadioComponent
         {...args}

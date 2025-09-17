@@ -13,10 +13,10 @@ export const Loading = {
   render: () => (
     <>
       <div className="w-[350px]">
-        <LoadingComponent />
+        <LoadingComponent theme="kubefirst" />
       </div>
       <div className="w-[350px]">
-        <LoadingComponent theme="civo" />
+        <LoadingComponent />
       </div>
     </>
   ),

@@ -1,7 +1,7 @@
+@custom-variant light (&:where([data-theme=light], [data-theme=light] *));
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 @custom-variant kubefirst (&:where([data-theme=kubefirst], [data-theme=kubefirst] *));
 @custom-variant kubefirst-dark (&:where([data-theme=kubefirst-dark], [data-theme=kubefirst-dark] *));
-@custom-variant civo (&:where([data-theme=civo], [data-theme=civo] *));
-@custom-variant civo-dark (&:where([data-theme=civo-dark], [data-theme=civo-dark] *));
 
 @layer components {
   .scrollbar-none {

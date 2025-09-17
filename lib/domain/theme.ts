@@ -1,6 +1,6 @@
 export type Theme =
   | 'kubefirst'
-  | 'civo'
+  | 'light'
   | 'kubefirst-dark'
-  | 'civo-dark'
+  | 'dark'
   | undefined;

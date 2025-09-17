@@ -23,8 +23,12 @@ export const Autocomplete: Story = {
   },
   render: (args) => (
     <div className="w-[350px] flex flex-col gap-3">
-      <AutocompleteComponent label="Kubefirst colors" {...args} />
-      <AutocompleteComponent label="Civo colors" theme="civo" {...args} />
+      <AutocompleteComponent
+        label="Kubefirst colors"
+        theme="kubefirst"
+        {...args}
+      />
+      <AutocompleteComponent label="Civo colors" {...args} />
     </div>
   ),
 };

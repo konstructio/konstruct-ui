@@ -17,7 +17,6 @@ export const List: FC<Props> = ({
   options,
   placeholder,
   placeholderClassName,
-  variant,
   wrapperRef,
   onClick,
 }) => {
@@ -30,7 +29,6 @@ export const List: FC<Props> = ({
       <span
         className={cn(
           emptyListVariants({
-            variant,
             className: placeholderClassName,
           }),
         )}
@@ -41,22 +39,18 @@ export const List: FC<Props> = ({
   }
 
   return (
-    <ul
-      ref={ulRef}
-      role="listbox"
-      className={cn(listVariants({ variant, className }))}
-    >
+    <ul ref={ulRef} role="listbox" className={cn(listVariants({ className }))}>
       {options.map(({ value }) => (
         <li
           key={value}
           role="option"
           tabIndex={0}
-          className={cn(listItemVariants({ variant }))}
+          className={cn(listItemVariants())}
         >
           <button
             type="button"
             role="button"
-            className={cn(buttonVariants({ variant }))}
+            className={cn(buttonVariants())}
             onClick={() => onClick(value)}
           >
             {value}

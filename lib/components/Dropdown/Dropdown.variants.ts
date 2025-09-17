@@ -17,20 +17,20 @@ export const dropdownVariants = cva(
     'outline-none',
     'h-9',
     'border-gray-200',
-    'aria-expanded:border-kubefirst-primary',
-    'aria-expanded:text-kubefirst-secondary',
     'focus-visible:bg-zinc-50',
-    'civo:aria-expanded:border-aurora-500',
-    'civo:aria-expanded:text-aurora-500',
+    'aria-expanded:border-aurora-500',
+    'aria-expanded:text-aurora-500',
+    'kubefirst:aria-expanded:border-kubefirst-primary',
+    'kubefirst:aria-expanded:text-kubefirst-secondary',
   ],
   {
     variants: {
       hasError: {
         true: [
-          'border-red-600',
-          'text-red-600',
-          'civo:aria-expanded:border-red-600',
-          'civo:aria-expanded:text-red-600',
+          'aria-expanded:border-red-600',
+          'aria-expanded:text-red-600',
+          'kubefirst:border-red-600',
+          'kubefirst:text-red-600',
         ],
         false: '',
       },

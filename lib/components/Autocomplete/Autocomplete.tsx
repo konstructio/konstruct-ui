@@ -27,7 +27,6 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       placeHolderEmptyValues = 'No values...',
       placeHolderEmptyValuesClassName,
       theme,
-      variant,
       onChange,
     },
     ref,
@@ -56,7 +55,6 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
             htmlFor={name ?? id}
             className={cn(
               labelVariants({
-                variant,
                 className: labelClassName,
               }),
             )}
@@ -67,17 +65,12 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
 
         <input
           ref={inputRef}
-          id={name ?? id}
+          id={label ? (name ?? id) : undefined}
           type="text"
           name={name}
           role="combobox"
           autoComplete={autoComplete}
-          className={cn(
-            autocompleteVariants({
-              variant,
-              className,
-            }),
-          )}
+          className={cn(autocompleteVariants({ className }))}
           onChange={autocomplete.handleChange}
           value={autocomplete.value}
           placeholder={placeholder}
@@ -93,7 +86,6 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
               options={autocomplete.newOptions}
               placeholder={placeHolderEmptyValues}
               placeholderClassName={placeHolderEmptyValuesClassName}
-              variant={variant}
               onClick={autocomplete.handleSelectValue}
             />
           </div>

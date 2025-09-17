@@ -43,7 +43,7 @@ export const AlertDialog = {
       <div className="w-[350px]">
         <AlertDialogComponent
           buttonTriggerText="Destroy machine"
-          theme="civo"
+          theme="light"
           title={
             <span className="flex flex-row gap-4 items-center font-semibold">
               <WarningIcon className="text-red-700 w-6 h-6" /> Delete image?
@@ -70,7 +70,7 @@ export const AlertDialog = {
       <div className="w-[350px]">
         <AlertDialogComponent
           buttonTriggerText="Destroy"
-          theme="civo"
+          theme="light"
           title={
             <span className="flex flex-row gap-4 items-center font-semibold">
               <WarningIcon className="text-civo-primary w-6 h-6" /> Upload will
