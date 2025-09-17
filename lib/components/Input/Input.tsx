@@ -46,7 +46,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           <label
             htmlFor={id}
             className={cn(
-              'cursor-pointer text-slate-500 flex gap-1 text-sm font-medium civo-dark:text-slate-50 kubefirst-dark:text-slate-50',
+              'cursor-pointer text-slate-500 flex gap-1 text-sm font-medium dark:text-slate-50 kubefirst-dark:text-slate-50',
               labelClassName,
             )}
           >
@@ -121,7 +121,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {!error && helperText ? (
           <span
             className={cn(
-              'text-xs text-slate-600 civo-dark:text-slate-200 kubefirst-dark:text-slate-200',
+              'text-xs text-slate-600 dark:text-slate-200 kubefirst-dark:text-slate-200',
               helperTextClassName,
             )}
           >

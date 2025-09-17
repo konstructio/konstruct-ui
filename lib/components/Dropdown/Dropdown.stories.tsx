@@ -44,13 +44,13 @@ export const Dropdown = {
           onChange={({ target: { value } }) => setValue1(value)}
           value={value1}
           searchable={true}
+          theme="kubefirst"
           {...args}
         />
 
         <DropdownComponent
           label="Dropdown with Civo theme"
           onChange={({ target: { value } }) => setValue2(value)}
-          theme="civo"
           value={value2}
           searchable={false}
           {...args}

@@ -26,8 +26,9 @@ export const Switch: FC<SwitchProps> = forwardRef<
       className,
       label,
       defaultChecked,
-      onChange,
       value,
+      helperText,
+      onChange,
     },
     ref,
   ) => {
@@ -51,16 +52,6 @@ export const Switch: FC<SwitchProps> = forwardRef<
         )}
         data-theme={theme}
       >
-        {label ? (
-          <label
-            className="text-base"
-            htmlFor={componentId}
-            style={{ paddingRight: 15 }}
-          >
-            {label}
-          </label>
-        ) : null}
-
         <Root
           id={componentId}
           defaultChecked={defaultChecked}
@@ -75,6 +66,21 @@ export const Switch: FC<SwitchProps> = forwardRef<
             })}
           />
         </Root>
+
+        {label ? (
+          <label
+            className="flex flex-col text-slate-800 dark:text-white text-sm"
+            htmlFor={componentId}
+            style={{ paddingRight: 15 }}
+          >
+            {label}
+            {helperText ? (
+              <span className="text-slate-600 dark:text-slate-400 text-xs">
+                {helperText}
+              </span>
+            ) : null}
+          </label>
+        ) : null}
 
         <input
           ref={inputRef}

@@ -138,8 +138,8 @@ export const Sidebar = {
           >
             <NavigationOption
               role="button"
-              onClick={() => setTheme('civo')}
-              isActive={theme === 'civo'}
+              onClick={() => setTheme('light')}
+              isActive={theme === 'light'}
             >
               <ReceiptLongIcon className="w-6 h-6" />{' '}
               <Typography variant="body1" className="hidden md:block">

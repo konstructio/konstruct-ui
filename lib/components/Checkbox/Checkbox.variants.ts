@@ -12,8 +12,8 @@ export const checkboxVariants = cva(
     'items-center',
     'transition-all',
     'text-white',
-    'border-kubefirst-primary',
-    'civo:border-zinc-400',
+    'border-zinc-400',
+    'kubefirst:border-kubefirst-primary',
   ],
   {
     variants: {
@@ -29,9 +29,9 @@ export const checkboxVariants = cva(
       {
         checked: true,
         class: [
-          'bg-kubefirst-primary',
-          'civo:bg-aurora-500',
-          'civo:border-aurora-500',
+          'kubefirst:bg-kubefirst-primary',
+          'bg-aurora-500',
+          'border-aurora-500',
         ],
       },
     ],

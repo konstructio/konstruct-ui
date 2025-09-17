@@ -26,11 +26,9 @@ export const Primary: Story = {
           Primary Disabled
         </Button>
 
-        <Button variant="primary" theme="civo">
-          Primary Civo
-        </Button>
+        <Button variant="primary">Primary Civo</Button>
 
-        <Button variant="primary" theme="civo" disabled>
+        <Button variant="primary" disabled>
           Primary Civo Disabled
         </Button>
       </div>
@@ -45,11 +43,11 @@ export const Primary: Story = {
           Primary Disabled
         </Button>
 
-        <Button variant="primary" theme="civo" appearance="compact">
+        <Button variant="primary" appearance="compact">
           Primary Civo
         </Button>
 
-        <Button variant="primary" theme="civo" disabled appearance="compact">
+        <Button variant="primary" disabled appearance="compact">
           Primary Civo Disabled
         </Button>
       </div>
@@ -59,7 +57,7 @@ export const Primary: Story = {
 
 export const Secondary: Story = {
   render: () => (
-    <div className="w-full max-w-[350px]">
+    <div className="w-full max-w-[350px] flex flex-col gap-8">
       <div className="flex flex-col items-center gap-3">
         <h6>Default Style</h6>
         <Button variant="secondary" theme="kubefirst">
@@ -70,11 +68,9 @@ export const Secondary: Story = {
           Secondary Disabled
         </Button>
 
-        <Button variant="secondary" theme="civo">
-          Secondary Civo
-        </Button>
+        <Button variant="secondary">Secondary Civo</Button>
 
-        <Button variant="secondary" theme="civo" disabled>
+        <Button variant="secondary" disabled>
           Secondary Civo Disabled
         </Button>
       </div>
@@ -89,22 +85,25 @@ export const Secondary: Story = {
           Secondary Disabled
         </Button>
 
-        <Button variant="secondary" theme="civo" appearance="compact">
+        <Button variant="secondary" appearance="compact">
           Secondary Civo
         </Button>
 
-        <Button variant="secondary" theme="civo" disabled appearance="compact">
+        <Button variant="secondary" disabled appearance="compact">
           Secondary Civo Disabled
         </Button>
+      </div>
 
-        <div
-          data-theme="civo-dark"
-          className="bg-gray-900 w-full h-[100px] flex items-center justify-center"
-        >
-          <Button variant="secondary" theme="civo">
-            Secondary Civo Dark
-          </Button>
-        </div>
+      <div
+        data-theme="dark"
+        className="bg-gray-900 flex flex-col gap-3 rounded-sm p-8 items-center"
+      >
+        <Button variant="secondary" className="w-fit">
+          Secondary Civo Dark
+        </Button>
+        <Button variant="secondary" appearance="compact" className="w-fit">
+          Secondary Compact Civo Dark
+        </Button>
       </div>
     </div>
   ),
@@ -125,10 +124,6 @@ export const Danger: Story = {
           Secondary Danger
         </Button>
 
-        <Button {...args} theme="civo" disabled>
-          Danger Civo Disabled
-        </Button>
-
         <Button {...args} disabled>
           Danger Disabled
         </Button>
@@ -140,10 +135,6 @@ export const Danger: Story = {
 
         <Button variant="danger" version="alternate" appearance="compact">
           Secondary Danger
-        </Button>
-
-        <Button {...args} theme="civo" disabled appearance="compact">
-          Danger Civo Disabled
         </Button>
 
         <Button {...args} disabled appearance="compact">
@@ -163,23 +154,21 @@ export const TextButton: Story = {
           Text Kubefirst Default Version
         </Button>
 
-        <Button variant="text" theme="civo">
-          Text Civo Default Version
-        </Button>
+        <Button variant="text">Text Civo Default Version</Button>
 
         <Button variant="text" theme="kubefirst" version="alternate">
           Text Kubefirst Alternative Version
         </Button>
 
-        <Button variant="text" theme="civo" version="alternate">
+        <Button variant="text" version="alternate">
           Text Civo Alternative Version
         </Button>
 
-        <Button variant="text" theme="civo" disabled>
+        <Button variant="text" disabled>
           Text Civo Disabled
         </Button>
 
-        <Button variant="text" disabled>
+        <Button variant="text" theme="kubefirst" disabled>
           Text Disabled
         </Button>
       </div>
@@ -190,7 +179,7 @@ export const TextButton: Story = {
           Text Kubefirst Default Version
         </Button>
 
-        <Button variant="text" theme="civo" appearance="compact">
+        <Button variant="text" appearance="compact">
           Text Civo Default Version
         </Button>
 
@@ -203,16 +192,11 @@ export const TextButton: Story = {
           Text Kubefirst Alternative Version
         </Button>
 
-        <Button
-          variant="text"
-          theme="civo"
-          appearance="compact"
-          version="alternate"
-        >
+        <Button variant="text" appearance="compact" version="alternate">
           Text Civo Alternative Version
         </Button>
 
-        <Button variant="text" theme="civo" disabled appearance="compact">
+        <Button variant="text" disabled appearance="compact">
           Text Disabled
         </Button>
       </div>
@@ -232,11 +216,11 @@ export const IconButton: Story = {
           <Check className="w-5 h-5" /> Verified
         </Button>
 
-        <Button {...args} theme="civo">
+        <Button {...args}>
           <Check className="w-5 h-5" /> Verified
         </Button>
 
-        <Button {...args} theme="civo" disabled>
+        <Button {...args} disabled>
           <Check className="w-5 h-5" /> Verified Disabled
         </Button>
       </div>
@@ -247,11 +231,11 @@ export const IconButton: Story = {
           <Check className="w-4 h-4" /> Verified
         </Button>
 
-        <Button {...args} theme="civo" appearance="compact">
+        <Button {...args} appearance="compact">
           <Check className="w-4 h-4" /> Verified
         </Button>
 
-        <Button {...args} theme="civo" disabled appearance="compact">
+        <Button {...args} disabled appearance="compact">
           <Check className="w-4 h-4" /> Verified Disabled
         </Button>
       </div>
@@ -264,59 +248,104 @@ export const Circle: Story = {
     shape: 'circle',
   },
   render: (args) => (
-    <div className="w-full max-w-[300px]">
-      <div className="flex flex-col items-center gap-5">
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-slate-600">Button medium size</p>
+    <div className="flex flex-col gap-1">
+      <div className="w-full max-w-[300px] p-8">
+        <div className="flex flex-col items-center gap-5">
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-slate-600">Button medium size</p>
 
-          <div className="flex gap-3">
-            <Button {...args} size="medium">
-              <PagesStackIcon />
-            </Button>
-            <Button {...args} size="medium" theme="civo">
-              <PagesStackIcon />
-            </Button>
-            <Button {...args} size="medium" variant="danger">
-              <PagesStackIcon />
-            </Button>
+            <div className="flex gap-3">
+              <Button {...args} size="medium" theme="kubefirst">
+                <PagesStackIcon />
+              </Button>
+              <Button {...args} size="medium">
+                <PagesStackIcon />
+              </Button>
+              <Button {...args} size="medium" variant="danger">
+                <PagesStackIcon />
+              </Button>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-slate-600">Button large size</p>
+
+            <div className="flex gap-3">
+              <Button {...args} size="large" theme="kubefirst">
+                <HelpIcon />
+              </Button>
+              <Button {...args} size="large">
+                <HelpIcon />
+              </Button>
+              <Button {...args} size="large" variant="danger">
+                <HelpIcon />
+              </Button>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-slate-600">Button disabled</p>
+
+            <div className="flex gap-3 items-center">
+              <Button {...args} size="medium" disabled>
+                <PagesStackIcon />
+              </Button>
+              <Button {...args} size="large" disabled>
+                <PagesStackIcon />
+              </Button>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-slate-600">Button large size</p>
+      <div
+        className="w-full max-w-[300px] bg-slate-950 p-8 rounded-sm"
+        data-theme="dark"
+      >
+        <div className="flex flex-col items-center gap-5">
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-slate-300">Button medium size</p>
 
-          <div className="flex gap-3">
-            <Button {...args} size="large">
-              <HelpIcon />
-            </Button>
-            <Button {...args} size="large" theme="civo">
-              <HelpIcon />
-            </Button>
-            <Button {...args} size="large" variant="danger">
-              <HelpIcon />
-            </Button>
+            <div className="flex gap-3">
+              <Button {...args} size="medium" theme="kubefirst-dark">
+                <PagesStackIcon />
+              </Button>
+              <Button {...args} size="medium">
+                <PagesStackIcon />
+              </Button>
+              <Button {...args} size="medium" variant="danger">
+                <PagesStackIcon />
+              </Button>
+            </div>
           </div>
-        </div>
 
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-slate-600">Button disabled</p>
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-slate-300">Button large size</p>
 
-          <div className="flex gap-3">
-            <Button {...args} size="medium" disabled>
-              <PagesStackIcon />
-            </Button>
+            <div className="flex gap-3">
+              <Button {...args} size="large" theme="kubefirst-dark">
+                <HelpIcon />
+              </Button>
+              <Button {...args} size="large">
+                <HelpIcon />
+              </Button>
+              <Button {...args} size="large" variant="danger">
+                <HelpIcon />
+              </Button>
+            </div>
+          </div>
 
-            <Button {...args} size="medium" disabled>
-              <PagesStackIcon />
-            </Button>
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-slate-300">Button disabled</p>
 
-            <Button {...args} size="medium" disabled>
-              <PagesStackIcon />
-            </Button>
-
-            <Button {...args} size="medium" disabled>
-              <PagesStackIcon />
-            </Button>
+            <div className="flex gap-3 items-center">
+              <Button {...args} size="medium" disabled>
+                <PagesStackIcon />
+              </Button>
+              <Button {...args} size="large" disabled>
+                <PagesStackIcon />
+              </Button>
+            </div>
           </div>
         </div>
       </div>
