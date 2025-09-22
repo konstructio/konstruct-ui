@@ -74,9 +74,7 @@ declare interface AutocompleteProps extends VariantProps<typeof autocompleteVari
     onChange(value: string): void;
 }
 
-declare const autocompleteVariants: (props?: ({
-    variant?: "default" | null | undefined;
-} & ClassProp) | undefined) => string;
+declare const autocompleteVariants: (props?: ClassProp | undefined) => string;
 
 export declare const Badge: FC<BadgeProps>;
 
@@ -684,6 +682,7 @@ declare interface SwitchProps extends VariantProps<typeof switchVariants> {
     className?: string;
     defaultChecked?: boolean;
     label?: string;
+    helperText?: string;
     name?: string;
     theme?: Theme;
     thumbClassName?: string;
@@ -755,7 +754,7 @@ declare interface TextAreaProps extends InputHTMLAttributes<HTMLTextAreaElement>
 
 declare const textAreaVariants: (props?: ClassProp | undefined) => string;
 
-declare type Theme = 'kubefirst' | 'civo' | 'kubefirst-dark' | 'civo-dark' | undefined;
+declare type Theme = 'kubefirst' | 'light' | 'kubefirst-dark' | 'dark' | undefined;
 
 export declare const ThemeContext: Context<ThemeContextType>;
 
