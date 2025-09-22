@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.1](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.1) (2025-09-22)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.1-alpha.6...0.1.2-alpha.1)
+
+**Merged pull requests:**
+
+- ✨ feat: light mode and dark mode for civo theme were added [\#333](https://github.com/konstructio/konstruct-ui/pull/333) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.1-alpha.6](https://github.com/konstructio/konstruct-ui/tree/0.1.1-alpha.6) (2025-09-15)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.1-alpha.5...0.1.1-alpha.6)
