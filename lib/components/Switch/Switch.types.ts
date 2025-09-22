@@ -9,6 +9,7 @@ export interface SwitchProps extends VariantProps<typeof switchVariants> {
   className?: string;
   defaultChecked?: boolean;
   label?: string;
+  helperText?: string;
   name?: string;
   theme?: Theme;
   thumbClassName?: string;

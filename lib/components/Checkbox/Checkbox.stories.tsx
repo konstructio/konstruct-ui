@@ -18,11 +18,11 @@ export const Checkbox: Story = {
       <div className="max-w-[350px] flex flex-col gap-2">
         <CheckboxComponent
           label="This is a checkbox with kubefirst colors"
+          theme="kubefirst"
           {...args}
         />
 
         <CheckboxComponent
-          theme="civo"
           label="This is a checkbox with civo colors"
           {...args}
         />

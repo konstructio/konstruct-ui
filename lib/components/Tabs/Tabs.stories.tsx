@@ -26,7 +26,7 @@ export const Tabs: Story = {
       <TabsComponent
         onValueChange={handleValueChange}
         value={selectedTab}
-        theme="civo"
+        theme="light"
         orientation="horizontal"
         {...args}
       >

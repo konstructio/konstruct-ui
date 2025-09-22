@@ -15,8 +15,10 @@
   --color-amber-800: #92400e;
   --color-amber-900: #78350f;
 
+  --color-aurora-50: #ebfff3;
   --color-aurora-400: #47ff97;
   --color-aurora-500: #00ff6f;
+  --color-aurora-900: #002912;
 
   --color-blue-50: #eff6ff;
   --color-blue-100: #dbeafe;
@@ -65,7 +67,7 @@
   --color-gray-50: #f9fafb;
   --color-gray-100: #f3f4f6;
   --color-gray-200: #e5e7eb;
-  --color-gray-300: #d1d5db;
+  --color-gray-300: #d1d5dc;
   --color-gray-400: #9ca3af;
   --color-gray-500: #6b7280;
   --color-gray-600: #4b5563;
