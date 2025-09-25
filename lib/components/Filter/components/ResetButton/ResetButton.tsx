@@ -6,7 +6,11 @@ import { resetEvent } from '../../events';
 
 import { ResetButtonProps } from './ResetButton.types';
 
-export const ResetButton: FC<ResetButtonProps> = ({ disabled, onClick }) => {
+export const ResetButton: FC<ResetButtonProps> = ({
+  disabled,
+  onClick,
+  ...delegated
+}) => {
   const handleClick = useCallback(() => {
     resetEvent();
     onClick?.();
@@ -20,6 +24,7 @@ export const ResetButton: FC<ResetButtonProps> = ({ disabled, onClick }) => {
       version="alternate"
       onClick={handleClick}
       disabled={disabled}
+      {...delegated}
     >
       Reset
     </Button>
