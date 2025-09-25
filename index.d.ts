@@ -617,7 +617,7 @@ declare interface RangeProps extends VariantProps<typeof rangeVariants> {
 
 declare const rangeVariants: (props?: ClassProp | undefined) => string;
 
-declare type ResetButtonProps = {
+declare type ResetButtonProps = ButtonProps & {
     disabled?: boolean;
     onClick?: VoidFunction;
 };
