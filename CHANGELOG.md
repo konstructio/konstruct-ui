@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.3](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.3) (2025-09-25)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.2...0.1.2-alpha.3)
+
+**Merged pull requests:**
+
+- 💄 chore: styles on checkbox were updated [\#338](https://github.com/konstructio/konstruct-ui/pull/338) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.2](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.2) (2025-09-25)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.1...0.1.2-alpha.2)
