@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.2](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.2) (2025-09-25)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.1...0.1.2-alpha.2)
+
+**Merged pull requests:**
+
+- ✨ chore: reset button on filter component now receive the buttons props [\#337](https://github.com/konstructio/konstruct-ui/pull/337) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.1](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.1) (2025-09-22)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.1-alpha.6...0.1.2-alpha.1)
