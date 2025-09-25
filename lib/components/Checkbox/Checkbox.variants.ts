@@ -11,9 +11,10 @@ export const checkboxVariants = cva(
     'justify-center',
     'items-center',
     'transition-all',
-    'text-white',
+    'text-slate-800',
     'border-zinc-400',
     'kubefirst:border-kubefirst-primary',
+    'kubefirst:text-white',
   ],
   {
     variants: {
