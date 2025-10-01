@@ -22,6 +22,7 @@ export const dropdownVariants = cva(
     'aria-expanded:text-aurora-500',
     'kubefirst:aria-expanded:border-kubefirst-primary',
     'kubefirst:aria-expanded:text-kubefirst-secondary',
+    'dark:border-slate-600',
   ],
   {
     variants: {
@@ -41,10 +42,23 @@ export const dropdownVariants = cva(
   },
 );
 
+export const inputVariants = cva([
+  'flex-1',
+  'bg-transparent',
+  'border-none',
+  'outline-none',
+  'text-zinc-700',
+  'text-sm',
+  'placeholder:text-sm',
+  'dark:placeholder:text-slate-400',
+  'dark:text-slate-400',
+]);
+
 export const labelVariants = cva([
   'mb-1',
   'cursor-pointer',
-  'text-[14px]',
+  'text-sm',
   'leading-[20px]',
   'tracking-[0.1px]',
+  'dark:text-slate-50',
 ]);

@@ -10,7 +10,7 @@ import {
   useMemo,
   useRef,
 } from 'react';
-import { ChevronUp } from 'react-feather';
+import { Search, ChevronUp } from 'lucide-react';
 
 import { Loading } from '@/components/Loading/Loading';
 import { Typography } from '@/components/Typography/Typography';
@@ -18,7 +18,11 @@ import { cn } from '@/utils';
 
 import { useDropdownContext } from '../contexts';
 import { DropdownProps } from '../Dropdown.types';
-import { dropdownVariants, labelVariants } from '../Dropdown.variants';
+import {
+  dropdownVariants,
+  inputVariants,
+  labelVariants,
+} from '../Dropdown.variants';
 import { useDropdown } from '../hooks/useDropdown';
 
 import { List } from './List/List';
@@ -32,7 +36,9 @@ export const Wrapper: ForwardRefExoticComponent<
       defaultValue,
       error,
       iconClassName,
+      inputClassName,
       isLoading,
+      isRequired,
       label,
       labelClassName,
       listClassName,
@@ -40,11 +46,12 @@ export const Wrapper: ForwardRefExoticComponent<
       name,
       options,
       placeholder,
-      isRequired,
       searchable = false,
+      showSearchIcon,
       theme,
       wrapperClassName,
       onBlur,
+      ...delegated
     },
     ref,
   ) => {
@@ -148,31 +155,37 @@ export const Wrapper: ForwardRefExoticComponent<
           aria-labelledby={htmlFor}
         >
           <div className="flex gap-3 items-center flex-1">
-            {internalValue?.leftIcon && (
-              <span className="w-4 h-4 flex justify-center items-center">
+            {internalValue?.leftIcon && !showSearchIcon && (
+              <span className="w-4 h-4 flex justify-center items-center dark:text-slate-50">
                 {internalValue.leftIcon}
               </span>
             )}
+
+            {showSearchIcon && (
+              <Search className="w-4 h-4 text-zinc-500 select-none dark:text-slate-300" />
+            )}
+
             {searchable ? (
               <input
+                ref={inputRef}
                 type="text"
                 value={
                   isOpen ? searchTerm : (internalValue?.label as string) || ''
                 }
+                name={name}
                 onChange={handleInputChange}
                 placeholder={placeholder}
-                className={cn(
-                  'flex-1 bg-transparent border-none outline-none text-zinc-700 text-base',
-                  {
-                    'text-red-700 placeholder:text-red-700': !!error,
-                  },
-                )}
+                className={cn(inputVariants({ className: inputClassName }), {
+                  'text-red-700 placeholder:text-red-700': !!error,
+                })}
                 onClick={(e) => {
                   e.stopPropagation();
                   handleOpen();
                 }}
                 aria-label={label || placeholder}
                 aria-labelledby={htmlFor}
+                required={isRequired}
+                {...delegated}
               />
             ) : (
               <Typography
@@ -187,29 +200,33 @@ export const Wrapper: ForwardRefExoticComponent<
           </div>
 
           {isLoading ? (
-            <Loading className="w-4 h-4 text-zinc-500" />
+            <Loading className="w-4 h-4 text-zinc-500 select-none" />
           ) : (
-            <ChevronUp
-              data-state={isOpen ? 'open' : 'closed'}
-              className={cn(
-                'w-4 h-4 text-zinc-500 transition-all duration-50 data-[state=open]:rotate-0 data-[state=closed]:rotate-180',
-                iconClassName,
-                {
-                  'text-red-700': !!error,
-                },
-              )}
-            />
+            !showSearchIcon && (
+              <ChevronUp
+                data-state={isOpen ? 'open' : 'closed'}
+                className={cn(
+                  'w-4 h-4 text-zinc-500 transition-all duration-50 data-[state=open]:rotate-0 data-[state=closed]:rotate-180 select-none',
+                  iconClassName,
+                  {
+                    'text-red-700': !!error,
+                  },
+                )}
+              />
+            )
           )}
         </div>
 
-        <input
-          ref={inputRef}
-          type="text"
-          name={name}
-          className="hidden"
-          aria-hidden="true"
-          required={isRequired}
-        />
+        {!searchable && (
+          <input
+            ref={inputRef}
+            type="text"
+            name={name}
+            className="hidden"
+            aria-hidden="true"
+            required={isRequired}
+          />
+        )}
 
         <List
           ref={ulRef}

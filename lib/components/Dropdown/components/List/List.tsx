@@ -59,14 +59,14 @@ export const List: ForwardRefExoticComponent<
       >
         {isLoading ? (
           <ListItem
-            className={itemClassName}
+            className={cn('select-none', itemClassName)}
             isClickable={false}
             value="Loading..."
             label="Loading..."
           />
         ) : isEmpty ? (
           <ListItem
-            className={itemClassName}
+            className={cn('select-none', itemClassName)}
             isClickable={false}
             value="No options"
             label="No options"
@@ -75,7 +75,7 @@ export const List: ForwardRefExoticComponent<
           filteredOptions.map((option) => (
             <ListItem
               key={option.value}
-              className={itemClassName}
+              className={cn('select-none', itemClassName)}
               isClickable
               {...option}
             />
