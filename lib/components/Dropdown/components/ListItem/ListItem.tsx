@@ -55,7 +55,7 @@ export const ListItem: FC<ListItemProps> = ({
         </span>
       ) : null}
 
-      <Typography variant="body2" className="text-zinc-700">
+      <Typography variant="body2" className="text-zinc-700 dark:text-slate-50">
         {option.label}
       </Typography>
     </li>

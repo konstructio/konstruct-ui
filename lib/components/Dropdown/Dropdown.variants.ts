@@ -23,6 +23,7 @@ export const dropdownVariants = cva(
     'kubefirst:aria-expanded:border-kubefirst-primary',
     'kubefirst:aria-expanded:text-kubefirst-secondary',
     'dark:border-slate-600',
+    'dark:focus-visible:bg-slate-800',
   ],
   {
     variants: {
@@ -52,6 +53,7 @@ export const inputVariants = cva([
   'placeholder:text-sm',
   'dark:placeholder:text-slate-400',
   'dark:text-slate-400',
+  'placeholder:select-none',
 ]);
 
 export const labelVariants = cva([

@@ -1,3 +1,4 @@
+import { ChevronUp, Search } from 'lucide-react';
 import {
   ChangeEvent,
   ComponentRef,
@@ -10,7 +11,6 @@ import {
   useMemo,
   useRef,
 } from 'react';
-import { Search, ChevronUp } from 'lucide-react';
 
 import { Loading } from '@/components/Loading/Loading';
 import { Typography } from '@/components/Typography/Typography';
@@ -154,7 +154,7 @@ export const Wrapper: ForwardRefExoticComponent<
           tabIndex={0}
           aria-labelledby={htmlFor}
         >
-          <div className="flex gap-3 items-center flex-1">
+          <div className="flex gap-2.5 items-center flex-1">
             {internalValue?.leftIcon && !showSearchIcon && (
               <span className="w-4 h-4 flex justify-center items-center dark:text-slate-50">
                 {internalValue.leftIcon}
@@ -190,9 +190,13 @@ export const Wrapper: ForwardRefExoticComponent<
             ) : (
               <Typography
                 variant="body2"
-                className={cn('flex-1 text-zinc-700 text-base', {
-                  'text-red-700': !!error,
-                })}
+                className={cn(
+                  'flex-1 text-zinc-700 text-sm dark:text-slate-400',
+                  {
+                    'text-red-700': !!error,
+                    'select-none': !internalValue,
+                  },
+                )}
               >
                 {internalValue?.label || placeholder}
               </Typography>
@@ -228,17 +232,20 @@ export const Wrapper: ForwardRefExoticComponent<
           />
         )}
 
-        <List
-          ref={ulRef}
-          className={listClassName}
-          itemClassName={listItemClassName}
-          name={name}
-          wrapperRef={wrapperRef}
-          wrapperInputRef={wrapperInputRef}
-          options={options}
-          isLoading={!!isLoading}
-          searchable={searchable}
-        />
+        {isOpen && (
+          <List
+            ref={ulRef}
+            className={listClassName}
+            itemClassName={listItemClassName}
+            name={name}
+            wrapperRef={wrapperRef}
+            wrapperInputRef={wrapperInputRef}
+            inputRef={inputRef}
+            options={options}
+            isLoading={!!isLoading}
+            searchable={searchable}
+          />
+        )}
       </div>
     );
   },

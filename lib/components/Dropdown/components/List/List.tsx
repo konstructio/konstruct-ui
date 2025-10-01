@@ -7,9 +7,11 @@ import {
   useRef,
 } from 'react';
 
-import { cn } from '../../../../utils';
-import { useNavigationUlList } from '../../hooks/useNavigationList';
+import { cn } from '@/utils';
+
 import { useDropdownContext } from '../../contexts';
+import { useNavigationUlList } from '../../hooks/useNavigationList';
+
 import { ListItem } from '../ListItem/ListItem';
 
 import { ListProps } from './List.types';
@@ -21,6 +23,7 @@ export const List: ForwardRefExoticComponent<
   (
     {
       className,
+      inputRef,
       isLoading,
       itemClassName,
       name,
@@ -36,7 +39,13 @@ export const List: ForwardRefExoticComponent<
 
     useImperativeHandle(ref, () => ulRef.current!, [ulRef]);
 
-    useNavigationUlList({ ulRef, wrapperRef, wrapperInputRef });
+    useNavigationUlList({
+      ulRef,
+      wrapperRef,
+      wrapperInputRef,
+      inputRef,
+      searchable,
+    });
 
     const filteredOptions = searchable
       ? options.filter((option) => {
