@@ -4,12 +4,13 @@ import { useDropdownContext } from '../contexts';
 
 type UseDropDownParams = {
   ulRef: RefObject<ComponentRef<'ul'> | null>;
+  inputRef?: RefObject<ComponentRef<'input'> | null>;
 };
 
-export const useDropdown = ({ ulRef }: UseDropDownParams) => {
+export const useDropdown = ({ ulRef, inputRef }: UseDropDownParams) => {
   const wrapperRef = useRef<ComponentRef<'div'>>(null);
   const wrapperInputRef = useRef<ComponentRef<'div'>>(null);
-  const { isOpen, toggleOpen } = useDropdownContext();
+  const { toggleOpen } = useDropdownContext();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -81,18 +82,14 @@ export const useDropdown = ({ ulRef }: UseDropDownParams) => {
     };
   }, [wrapperInputRef, ulRef]);
 
-  const handleOpen = useCallback(() => toggleOpen(true), [toggleOpen]);
-
-  const handleOpenIfClosed = useCallback(() => {
-    if (!isOpen) {
-      toggleOpen(false);
-    }
-  }, [isOpen, toggleOpen]);
+  const handleOpen = useCallback(() => {
+    toggleOpen(true);
+    requestAnimationFrame(() => inputRef?.current?.focus());
+  }, [inputRef, toggleOpen]);
 
   return {
     wrapperRef,
     wrapperInputRef,
     handleOpen,
-    handleOpenIfClosed,
   };
 };

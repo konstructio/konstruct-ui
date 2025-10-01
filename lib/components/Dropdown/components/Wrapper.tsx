@@ -58,8 +58,10 @@ export const Wrapper: ForwardRefExoticComponent<
     const id = useId();
     const inputRef = useRef<ComponentRef<'input'>>(null);
     const ulRef = useRef<ComponentRef<'ul'>>(null);
-    const { wrapperRef, wrapperInputRef, handleOpen, handleOpenIfClosed } =
-      useDropdown({ ulRef });
+    const { wrapperRef, wrapperInputRef, handleOpen } = useDropdown({
+      ulRef,
+      inputRef,
+    });
     const { isOpen, searchTerm, value, toggleOpen, setValue, setSearchTerm } =
       useDropdownContext();
     const htmlFor = name ? `${id}-${name}` : id;
@@ -97,7 +99,6 @@ export const Wrapper: ForwardRefExoticComponent<
           !newFocusElement ||
           !wrapperRef.current?.contains(newFocusElement)
         ) {
-          toggleOpen(false);
           setSearchTerm('');
 
           if (!inputRef.current?.value) {
@@ -137,10 +138,10 @@ export const Wrapper: ForwardRefExoticComponent<
             id={htmlFor}
             className={cn(labelVariants({ className: labelClassName }))}
             htmlFor={htmlFor}
-            onClick={handleOpenIfClosed}
+            onClick={handleOpen}
           >
             {label}
-            {isRequired ? <span className="text-red-600 ml-1">*</span> : null}
+            {isRequired && <span className="text-red-600 ml-1">*</span>}
           </label>
         ) : null}
 

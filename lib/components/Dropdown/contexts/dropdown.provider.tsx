@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren, useCallback, useRef, useState } from 'react';
 
-import { useToggle } from '../../../hooks';
+import { useToggle } from '@/hooks';
 
 import { DropdownProps } from '../Dropdown.types';
 
