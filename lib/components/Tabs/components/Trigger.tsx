@@ -11,6 +11,7 @@ const Trigger: FC<TriggerProps> = ({ tab, label, isActive, className }) => (
   <Tabs.Trigger value={tab}>
     <Typography
       variant="body2"
+      component="span"
       className={cn(
         triggerVariants({
           variant: isActive ? 'active' : 'inactive',
