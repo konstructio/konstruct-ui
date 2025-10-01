@@ -162,7 +162,7 @@ export const Wrapper: ForwardRefExoticComponent<
             )}
 
             {showSearchIcon && (
-              <Search className="w-4 h-4 text-zinc-500 select-none dark:text-slate-300" />
+              <Search className="w-4 h-4 text-zinc-500 select-none dark:text-slate-300 dark:group-focus-within:text-slate-50 transition-colors duration-300" />
             )}
 
             {searchable ? (
@@ -185,16 +185,19 @@ export const Wrapper: ForwardRefExoticComponent<
                 aria-label={label || placeholder}
                 aria-labelledby={htmlFor}
                 required={isRequired}
+                autoComplete="off"
+                autoCapitalize="words"
                 {...delegated}
               />
             ) : (
               <Typography
                 variant="body2"
                 className={cn(
-                  'flex-1 text-zinc-700 text-sm dark:text-slate-400',
+                  'flex-1 text-zinc-400 text-sm dark:text-slate-400',
                   {
                     'text-red-700': !!error,
                     'select-none': !internalValue,
+                    'text-slate-800 dark:text-slate-50': internalValue,
                   },
                 )}
               >
@@ -210,7 +213,7 @@ export const Wrapper: ForwardRefExoticComponent<
               <ChevronUp
                 data-state={isOpen ? 'open' : 'closed'}
                 className={cn(
-                  'w-4 h-4 text-zinc-500 transition-all duration-50 data-[state=open]:rotate-0 data-[state=closed]:rotate-180 select-none',
+                  'w-4 h-4 text-zinc-500 transition-all duration-100 data-[state=open]:rotate-0 data-[state=closed]:rotate-180 select-none dark:group-focus-within:text-slate-50',
                   iconClassName,
                   {
                     'text-red-700': !!error,
@@ -229,6 +232,7 @@ export const Wrapper: ForwardRefExoticComponent<
             className="hidden"
             aria-hidden="true"
             required={isRequired}
+            {...delegated}
           />
         )}
 

@@ -37,10 +37,13 @@ export const Dropdown = {
     const [value1, setValue1] = useState<string>();
     const [value2, setValue2] = useState<string>();
     const [value3, setValue3] = useState<string>();
+    const [value4, setValue4] = useState<string>();
+    const [value5, setValue5] = useState<string>();
+    const [value6, setValue6] = useState<string>();
 
     return (
-      <div className="flex flex-col gap-10">
-        <div className="max-w-[350px] flex flex-col gap-6">
+      <div className="flex flex-col gap-6">
+        <div className="max-w-[350px] flex flex-col gap-6 p-6">
           <DropdownComponent
             label="Searchable dropdown with Kubefirst theme"
             onChange={({ target: { value } }) => setValue1(value)}
@@ -57,6 +60,7 @@ export const Dropdown = {
             searchable={true}
             showSearchIcon={true}
             inputMode="text"
+            highlightSearch={true}
             {...args}
           />
 
@@ -70,13 +74,13 @@ export const Dropdown = {
         </div>
 
         <div
-          className="max-w-[350px] flex flex-col gap-6 p-4 bg-slate-800 rounded-sm"
+          className="max-w-[350px] flex flex-col gap-6 p-6 bg-slate-800 rounded-sm"
           data-theme="dark"
         >
           <DropdownComponent
             label="Searchable dropdown with Kubefirst theme"
-            onChange={({ target: { value } }) => setValue1(value)}
-            value={value1}
+            onChange={({ target: { value } }) => setValue4(value)}
+            value={value4}
             searchable={true}
             theme="kubefirst"
             {...args}
@@ -84,18 +88,19 @@ export const Dropdown = {
 
           <DropdownComponent
             label="Searchable dropdown with Civo theme"
-            onChange={({ target: { value } }) => setValue2(value)}
-            value={value2}
+            onChange={({ target: { value } }) => setValue5(value)}
+            value={value5}
             searchable={true}
             showSearchIcon={true}
             inputMode="text"
+            highlightSearch={true}
             {...args}
           />
 
           <DropdownComponent
             label="Dropdown with Civo theme"
-            onChange={({ target: { value } }) => setValue3(value)}
-            value={value3}
+            onChange={({ target: { value } }) => setValue6(value)}
+            value={value6}
             searchable={false}
             {...args}
           />

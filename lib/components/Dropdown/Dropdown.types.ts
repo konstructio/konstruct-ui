@@ -18,6 +18,7 @@ export type DropdownProps = VariantProps<typeof dropdownVariants> &
     className?: string;
     error?: string;
     helperText?: string;
+    highlightSearch?: boolean;
     iconClassName?: string;
     inputClassName?: string;
     isLoading?: boolean;

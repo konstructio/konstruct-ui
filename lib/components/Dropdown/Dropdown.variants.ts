@@ -2,6 +2,7 @@ import { cva } from 'class-variance-authority';
 
 export const dropdownVariants = cva(
   [
+    'group',
     'border',
     'cursor-pointer',
     'ease-in-out',
@@ -50,10 +51,12 @@ export const inputVariants = cva([
   'outline-none',
   'text-zinc-700',
   'text-sm',
+  'capitalize',
   'placeholder:text-sm',
-  'dark:placeholder:text-slate-400',
-  'dark:text-slate-400',
+  'placeholder:normal-case',
   'placeholder:select-none',
+  'dark:placeholder:text-slate-400',
+  'dark:text-slate-50',
 ]);
 
 export const labelVariants = cva([
