@@ -1,3 +1,4 @@
+import { ChevronUp, Search } from 'lucide-react';
 import {
   ChangeEvent,
   ComponentRef,
@@ -10,7 +11,6 @@ import {
   useMemo,
   useRef,
 } from 'react';
-import { ChevronUp } from 'react-feather';
 
 import { Loading } from '@/components/Loading/Loading';
 import { Typography } from '@/components/Typography/Typography';
@@ -18,7 +18,11 @@ import { cn } from '@/utils';
 
 import { useDropdownContext } from '../contexts';
 import { DropdownProps } from '../Dropdown.types';
-import { dropdownVariants, labelVariants } from '../Dropdown.variants';
+import {
+  dropdownVariants,
+  inputVariants,
+  labelVariants,
+} from '../Dropdown.variants';
 import { useDropdown } from '../hooks/useDropdown';
 
 import { List } from './List/List';
@@ -28,11 +32,14 @@ export const Wrapper: ForwardRefExoticComponent<
 > = forwardRef<ComponentRef<'input'>, Omit<DropdownProps, 'helperText'>>(
   (
     {
+      additionalOptions,
       className,
       defaultValue,
       error,
       iconClassName,
+      inputClassName,
       isLoading,
+      isRequired,
       label,
       labelClassName,
       listClassName,
@@ -40,19 +47,22 @@ export const Wrapper: ForwardRefExoticComponent<
       name,
       options,
       placeholder,
-      isRequired,
       searchable = false,
+      showSearchIcon,
       theme,
       wrapperClassName,
       onBlur,
+      ...delegated
     },
     ref,
   ) => {
     const id = useId();
     const inputRef = useRef<ComponentRef<'input'>>(null);
     const ulRef = useRef<ComponentRef<'ul'>>(null);
-    const { wrapperRef, wrapperInputRef, handleOpen, handleOpenIfClosed } =
-      useDropdown({ ulRef });
+    const { wrapperRef, wrapperInputRef, handleOpen } = useDropdown({
+      ulRef,
+      inputRef,
+    });
     const { isOpen, searchTerm, value, toggleOpen, setValue, setSearchTerm } =
       useDropdownContext();
     const htmlFor = name ? `${id}-${name}` : id;
@@ -90,7 +100,6 @@ export const Wrapper: ForwardRefExoticComponent<
           !newFocusElement ||
           !wrapperRef.current?.contains(newFocusElement)
         ) {
-          toggleOpen(false);
           setSearchTerm('');
 
           if (!inputRef.current?.value) {
@@ -130,10 +139,10 @@ export const Wrapper: ForwardRefExoticComponent<
             id={htmlFor}
             className={cn(labelVariants({ className: labelClassName }))}
             htmlFor={htmlFor}
-            onClick={handleOpenIfClosed}
+            onClick={handleOpen}
           >
             {label}
-            {isRequired ? <span className="text-red-600 ml-1">*</span> : null}
+            {isRequired && <span className="text-red-600 ml-1">*</span>}
           </label>
         ) : null}
 
@@ -147,39 +156,52 @@ export const Wrapper: ForwardRefExoticComponent<
           tabIndex={0}
           aria-labelledby={htmlFor}
         >
-          <div className="flex gap-3 items-center flex-1">
-            {internalValue?.leftIcon && (
-              <span className="w-4 h-4 flex justify-center items-center">
+          <div className="flex gap-2.5 items-center flex-1">
+            {internalValue?.leftIcon && !showSearchIcon && (
+              <span className="w-4 h-4 flex justify-center items-center dark:text-slate-50">
                 {internalValue.leftIcon}
               </span>
             )}
+
+            {showSearchIcon && (
+              <Search className="w-4 h-4 text-zinc-500 select-none dark:text-slate-300 dark:group-focus-within:text-slate-50 transition-colors duration-300" />
+            )}
+
             {searchable ? (
               <input
+                ref={inputRef}
                 type="text"
                 value={
                   isOpen ? searchTerm : (internalValue?.label as string) || ''
                 }
+                name={name}
                 onChange={handleInputChange}
                 placeholder={placeholder}
-                className={cn(
-                  'flex-1 bg-transparent border-none outline-none text-zinc-700 text-base',
-                  {
-                    'text-red-700 placeholder:text-red-700': !!error,
-                  },
-                )}
+                className={cn(inputVariants({ className: inputClassName }), {
+                  'text-red-700 placeholder:text-red-700': !!error,
+                })}
                 onClick={(e) => {
                   e.stopPropagation();
                   handleOpen();
                 }}
                 aria-label={label || placeholder}
                 aria-labelledby={htmlFor}
+                required={isRequired}
+                autoComplete="off"
+                autoCapitalize="words"
+                {...delegated}
               />
             ) : (
               <Typography
                 variant="body2"
-                className={cn('flex-1 text-zinc-700 text-base', {
-                  'text-red-700': !!error,
-                })}
+                className={cn(
+                  'flex-1 text-zinc-400 text-sm dark:text-slate-400',
+                  {
+                    'text-red-700': !!error,
+                    'select-none': !internalValue,
+                    'text-slate-800 dark:text-slate-50': internalValue,
+                  },
+                )}
               >
                 {internalValue?.label || placeholder}
               </Typography>
@@ -187,41 +209,50 @@ export const Wrapper: ForwardRefExoticComponent<
           </div>
 
           {isLoading ? (
-            <Loading className="w-4 h-4 text-zinc-500" />
+            <Loading className="w-4 h-4 text-zinc-500 select-none" />
           ) : (
-            <ChevronUp
-              data-state={isOpen ? 'open' : 'closed'}
-              className={cn(
-                'w-4 h-4 text-zinc-500 transition-all duration-50 data-[state=open]:rotate-0 data-[state=closed]:rotate-180',
-                iconClassName,
-                {
-                  'text-red-700': !!error,
-                },
-              )}
-            />
+            !showSearchIcon && (
+              <ChevronUp
+                data-state={isOpen ? 'open' : 'closed'}
+                className={cn(
+                  'w-4 h-4 text-zinc-500 transition-all duration-100 data-[state=open]:rotate-0 data-[state=closed]:rotate-180 select-none dark:group-focus-within:text-slate-50',
+                  iconClassName,
+                  {
+                    'text-red-700': !!error,
+                  },
+                )}
+              />
+            )
           )}
         </div>
 
-        <input
-          ref={inputRef}
-          type="text"
-          name={name}
-          className="hidden"
-          aria-hidden="true"
-          required={isRequired}
-        />
+        {!searchable && (
+          <input
+            ref={inputRef}
+            type="text"
+            name={name}
+            className="hidden"
+            aria-hidden="true"
+            required={isRequired}
+            {...delegated}
+          />
+        )}
 
-        <List
-          ref={ulRef}
-          className={listClassName}
-          itemClassName={listItemClassName}
-          name={name}
-          wrapperRef={wrapperRef}
-          wrapperInputRef={wrapperInputRef}
-          options={options}
-          isLoading={!!isLoading}
-          searchable={searchable}
-        />
+        {isOpen && (
+          <List
+            ref={ulRef}
+            additionalOptions={additionalOptions}
+            className={listClassName}
+            itemClassName={listItemClassName}
+            name={name}
+            wrapperRef={wrapperRef}
+            wrapperInputRef={wrapperInputRef}
+            inputRef={inputRef}
+            options={options}
+            isLoading={!!isLoading}
+            searchable={searchable}
+          />
+        )}
       </div>
     );
   },

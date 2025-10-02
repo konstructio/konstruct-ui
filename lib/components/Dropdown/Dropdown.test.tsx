@@ -1,11 +1,12 @@
-import { cloneElement, FC, PropsWithChildren, useState } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
+import { cloneElement, FC, PropsWithChildren, useState } from 'react';
 
-import { DropdownProps, Option } from './Dropdown.types';
-import { Dropdown } from './Dropdown';
 import { Modal } from '@/components/Modal/Modal';
+
+import { Dropdown } from './Dropdown';
+import { DropdownProps, Option } from './Dropdown.types';
 
 describe('Dropdown', () => {
   const defaultProps = {
@@ -63,11 +64,11 @@ describe('Dropdown', () => {
   });
 
   it('should render the options correctly', async () => {
-    const { getComboBox } = setup();
+    const { user, getComboBox } = setup();
 
     const comboBox = getComboBox();
 
-    await userEvent.click(comboBox);
+    await user.click(comboBox);
 
     const options = screen.getAllByRole('option');
 
@@ -76,15 +77,15 @@ describe('Dropdown', () => {
 
   it('should call the onChange function when an option is selected', async () => {
     const onChange = vitest.fn();
-    const { getComboBox, getElement } = setup({ onChange });
+    const { user, getComboBox, getElement } = setup({ onChange });
 
     const comboBox = getComboBox();
 
-    await userEvent.click(comboBox);
+    await user.click(comboBox);
 
     const option = getElement(defaultProps.options[0].label);
 
-    await userEvent.click(option);
+    await user.click(option);
 
     expect(onChange).toHaveBeenCalledWith({
       target: { value: defaultProps.options[0].value, name: defaultProps.name },
@@ -94,20 +95,20 @@ describe('Dropdown', () => {
 
   it('should call the onChange function when select two times the options', async () => {
     const onChange = vitest.fn();
-    const { getComboBox, getElement } = setup({ onChange });
+    const { user, getComboBox, getElement } = setup({ onChange });
 
     const comboBox = getComboBox();
 
-    await userEvent.click(comboBox);
+    await user.click(comboBox);
 
     const option1 = getElement(defaultProps.options[0].label);
 
-    await userEvent.click(option1);
-    await userEvent.click(comboBox);
+    await user.click(option1);
+    await user.click(comboBox);
 
     const option2 = getElement(defaultProps.options[1].label);
 
-    await userEvent.click(option2);
+    await user.click(option2);
 
     expect(onChange).toHaveBeenLastCalledWith({
       target: { value: defaultProps.options[1].value, name: defaultProps.name },
@@ -170,11 +171,13 @@ describe('Dropdown', () => {
   });
 
   it('should render the default value correctly', async () => {
-    const { getComboBox, getElement } = setup({ defaultValue: 'option-1' });
+    const { user, getComboBox, getElement } = setup({
+      defaultValue: 'option-1',
+    });
 
     const comboBox = getComboBox();
 
-    await userEvent.click(comboBox);
+    await user.click(comboBox);
 
     const option = getElement(defaultProps.options[0].label);
 
@@ -182,11 +185,11 @@ describe('Dropdown', () => {
   });
 
   it('should render the loading state correctly', async () => {
-    const { getComboBox, getElement } = setup({ isLoading: true });
+    const { user, getComboBox, getElement } = setup({ isLoading: true });
 
     const comboBox = getComboBox();
 
-    await userEvent.click(comboBox);
+    await user.click(comboBox);
 
     const option = getElement('Loading...');
 
@@ -194,11 +197,11 @@ describe('Dropdown', () => {
   });
 
   it('should render the no options state correctly', async () => {
-    const { getComboBox, getElement } = setup({ options: [] });
+    const { user, getComboBox, getElement } = setup({ options: [] });
 
     const comboBox = getComboBox();
 
-    await userEvent.click(comboBox);
+    await user.click(comboBox);
 
     const option = getElement('No options');
 
@@ -208,6 +211,7 @@ describe('Dropdown', () => {
   describe('Dropdown in Modal', () => {
     const ModalWrapper: FC<PropsWithChildren> = ({ children }) => {
       const [isOpen, setIsOpen] = useState(true);
+
       return (
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <Modal.Body>
@@ -254,8 +258,8 @@ describe('Dropdown', () => {
       const option = screen.getByText(defaultProps.options[0].label);
       await user.click(option);
 
-      // The list should be hidden
-      expect(list).toHaveAttribute('data-state', 'closed');
+      const queryList = screen.queryByRole('listbox');
+      expect(queryList).not.toBeInTheDocument();
     });
 
     it('should handle keyboard navigation inside modal', async () => {

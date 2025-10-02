@@ -1,5 +1,5 @@
 import { VariantProps } from 'class-variance-authority';
-import { ReactNode } from 'react';
+import { InputHTMLAttributes, ReactNode } from 'react';
 
 import { Theme } from '@/domain/theme';
 
@@ -13,24 +13,27 @@ export type Option = {
 
 type OnChangeFn = (params: { target: { value: string; name: string } }) => void;
 
-export interface DropdownProps
-  extends VariantProps<typeof dropdownVariants>,
-    Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
-  className?: string;
-  error?: string;
-  helperText?: string;
-  iconClassName?: string;
-  isLoading?: boolean;
-  isRequired?: boolean;
-  label?: string;
-  labelClassName?: string;
-  listClassName?: string;
-  listItemClassName?: string;
-  options: Option[];
-  searchable?: boolean;
-  theme?: Theme;
-  value?: string;
-  wrapperClassName?: string;
-  onBlur?: VoidFunction;
-  onChange?: OnChangeFn;
-}
+export type DropdownProps = VariantProps<typeof dropdownVariants> &
+  Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> & {
+    additionalOptions?: ReactNode[] | string[];
+    className?: string;
+    error?: string;
+    helperText?: string;
+    highlightSearch?: boolean;
+    iconClassName?: string;
+    inputClassName?: string;
+    isLoading?: boolean;
+    isRequired?: boolean;
+    label?: string;
+    labelClassName?: string;
+    listClassName?: string;
+    listItemClassName?: string;
+    options: Option[];
+    searchable?: boolean;
+    showSearchIcon?: boolean;
+    theme?: Theme;
+    value?: string;
+    wrapperClassName?: string;
+    onBlur?: VoidFunction;
+    onChange?: OnChangeFn;
+  };

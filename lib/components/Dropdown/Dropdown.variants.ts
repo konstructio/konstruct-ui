@@ -2,6 +2,7 @@ import { cva } from 'class-variance-authority';
 
 export const dropdownVariants = cva(
   [
+    'group',
     'border',
     'cursor-pointer',
     'ease-in-out',
@@ -22,6 +23,8 @@ export const dropdownVariants = cva(
     'aria-expanded:text-aurora-500',
     'kubefirst:aria-expanded:border-kubefirst-primary',
     'kubefirst:aria-expanded:text-kubefirst-secondary',
+    'dark:border-slate-600',
+    'dark:focus-visible:bg-slate-800',
   ],
   {
     variants: {
@@ -41,10 +44,26 @@ export const dropdownVariants = cva(
   },
 );
 
+export const inputVariants = cva([
+  'flex-1',
+  'bg-transparent',
+  'border-none',
+  'outline-none',
+  'text-zinc-700',
+  'text-sm',
+  'capitalize',
+  'placeholder:text-sm',
+  'placeholder:normal-case',
+  'placeholder:select-none',
+  'dark:placeholder:text-slate-400',
+  'dark:text-slate-50',
+]);
+
 export const labelVariants = cva([
   'mb-1',
   'cursor-pointer',
-  'text-[14px]',
+  'text-sm',
   'leading-[20px]',
   'tracking-[0.1px]',
+  'dark:text-slate-50',
 ]);

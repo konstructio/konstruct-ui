@@ -1,4 +1,11 @@
-import { ComponentRef, FC, KeyboardEvent, useCallback, useRef } from 'react';
+import {
+  ComponentRef,
+  FC,
+  KeyboardEvent,
+  ReactNode,
+  useCallback,
+  useRef,
+} from 'react';
 
 import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
@@ -14,7 +21,8 @@ export const ListItem: FC<ListItemProps> = ({
   className,
   ...option
 }) => {
-  const { setValue, toggleOpen } = useDropdownContext();
+  const { searchTerm, highlightSearchEnabled, setValue, toggleOpen } =
+    useDropdownContext();
   const liRef = useRef<ComponentRef<'li'>>(null);
 
   const handleClick = useCallback(
@@ -35,10 +43,47 @@ export const ListItem: FC<ListItemProps> = ({
     [handleClick],
   );
 
+  const getLabelValue = useCallback(
+    (value: string | ReactNode) => {
+      if (typeof value !== 'string') {
+        return value;
+      }
+
+      const newValue =
+        highlightSearchEnabled && searchTerm.length > 0
+          ? value.split(new RegExp(`(${searchTerm})`, 'gi')).map((value) => {
+              if (value.toLowerCase() === searchTerm.toLowerCase()) {
+                return (
+                  <mark
+                    key={value}
+                    className="bg-transparent font-semibold text-slate-800 dark:text-slate-50"
+                  >
+                    {value}
+                  </mark>
+                );
+              }
+
+              return value;
+            })
+          : [value];
+
+      return (
+        <Typography
+          variant="body2"
+          className="text-zinc-700 dark:text-slate-50"
+        >
+          {newValue}
+        </Typography>
+      );
+    },
+    [highlightSearchEnabled, searchTerm],
+  );
+
   return (
     <li
       ref={liRef}
       role="option"
+      data-action="false"
       className={cn(listItemVariants({ className }))}
       tabIndex={0}
       onClick={(e) => {
@@ -55,9 +100,7 @@ export const ListItem: FC<ListItemProps> = ({
         </span>
       ) : null}
 
-      <Typography variant="body2" className="text-zinc-700">
-        {option.label}
-      </Typography>
+      {getLabelValue(option.label)}
     </li>
   );
 };

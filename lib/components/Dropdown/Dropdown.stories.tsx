@@ -5,6 +5,7 @@ import { Button } from '@/components/Button/Button';
 import { Modal } from '@/components/Modal/Modal';
 
 import { Dropdown as DropdownComponent } from './Dropdown';
+import { Plus } from 'lucide-react';
 
 type Story = StoryObj<typeof DropdownComponent>;
 
@@ -36,25 +37,85 @@ export const Dropdown = {
   render: function DropdownStory(args) {
     const [value1, setValue1] = useState<string>();
     const [value2, setValue2] = useState<string>();
+    const [value3, setValue3] = useState<string>();
+    const [value4, setValue4] = useState<string>();
+    const [value5, setValue5] = useState<string>();
+    const [value6, setValue6] = useState<string>();
 
     return (
-      <div className="max-w-[350px] flex flex-col gap-6">
-        <DropdownComponent
-          label="Dropdown with Kubefirst theme"
-          onChange={({ target: { value } }) => setValue1(value)}
-          value={value1}
-          searchable={true}
-          theme="kubefirst"
-          {...args}
-        />
+      <div className="flex flex-col gap-6">
+        <div className="max-w-[350px] flex flex-col gap-6 p-6">
+          <DropdownComponent
+            label="Searchable dropdown with Kubefirst theme"
+            onChange={({ target: { value } }) => setValue1(value)}
+            value={value1}
+            searchable={true}
+            theme="kubefirst"
+            {...args}
+          />
 
-        <DropdownComponent
-          label="Dropdown with Civo theme"
-          onChange={({ target: { value } }) => setValue2(value)}
-          value={value2}
-          searchable={false}
-          {...args}
-        />
+          <DropdownComponent
+            label="Searchable dropdown with Civo theme"
+            onChange={({ target: { value } }) => setValue2(value)}
+            value={value2}
+            searchable={true}
+            showSearchIcon={true}
+            inputMode="text"
+            highlightSearch={true}
+            additionalOptions={[
+              <button className="text-blue-600 dark:text-aurora-500">
+                <Plus /> New Team
+              </button>,
+            ]}
+            {...args}
+          />
+
+          <DropdownComponent
+            label="Dropdown with Civo theme"
+            onChange={({ target: { value } }) => setValue3(value)}
+            value={value3}
+            searchable={false}
+            {...args}
+          />
+        </div>
+
+        <div
+          className="max-w-[350px] flex flex-col gap-6 p-6 bg-slate-800 rounded-sm"
+          data-theme="dark"
+        >
+          <DropdownComponent
+            label="Searchable dropdown with Kubefirst theme"
+            onChange={({ target: { value } }) => setValue4(value)}
+            value={value4}
+            searchable={true}
+            theme="kubefirst"
+            {...args}
+          />
+
+          <DropdownComponent
+            label="Searchable dropdown with Civo theme"
+            onChange={({ target: { value } }) => setValue5(value)}
+            value={value5}
+            searchable={true}
+            showSearchIcon={true}
+            inputMode="text"
+            highlightSearch={true}
+            additionalOptions={[
+              <button className="text-blue-600 dark:text-aurora-500">
+                <Plus /> New Team
+              </button>,
+            ]}
+            {...args}
+          />
+
+          <DropdownComponent
+            label="Dropdown with Civo theme"
+            onChange={({ target: { value } }) => setValue6(value)}
+            value={value6}
+            searchable={false}
+            {...args}
+          />
+        </div>
       </div>
     );
   },
