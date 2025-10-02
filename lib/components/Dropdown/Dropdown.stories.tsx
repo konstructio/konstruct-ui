@@ -5,6 +5,7 @@ import { Button } from '@/components/Button/Button';
 import { Modal } from '@/components/Modal/Modal';
 
 import { Dropdown as DropdownComponent } from './Dropdown';
+import { Plus } from 'lucide-react';
 
 type Story = StoryObj<typeof DropdownComponent>;
 
@@ -61,6 +62,11 @@ export const Dropdown = {
             showSearchIcon={true}
             inputMode="text"
             highlightSearch={true}
+            additionalOptions={[
+              <button className="text-blue-600 dark:text-aurora-500">
+                <Plus /> New Team
+              </button>,
+            ]}
             {...args}
           />
 
@@ -94,6 +100,11 @@ export const Dropdown = {
             showSearchIcon={true}
             inputMode="text"
             highlightSearch={true}
+            additionalOptions={[
+              <button className="text-blue-600 dark:text-aurora-500">
+                <Plus /> New Team
+              </button>,
+            ]}
             {...args}
           />
 

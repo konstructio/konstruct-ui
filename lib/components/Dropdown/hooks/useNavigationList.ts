@@ -20,7 +20,10 @@ export const useNavigationUlList = ({
   const { isOpen } = useDropdownContext();
 
   useEffect(() => {
-    const items = ulRef.current?.querySelectorAll('li') ?? [];
+    const allItems = ulRef.current?.querySelectorAll('li') ?? [];
+    const items = Array.from(allItems).filter(
+      (item) => item.getAttribute('data-action') !== 'true',
+    );
     const controller = new AbortController();
 
     const goNext = () => {

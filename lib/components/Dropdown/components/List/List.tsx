@@ -16,12 +16,14 @@ import { ListItem } from '../ListItem/ListItem';
 
 import { ListProps } from './List.types';
 import { listVariants } from './List.variants';
+import { Slot } from '@radix-ui/react-slot';
 
 export const List: ForwardRefExoticComponent<
   ListProps & RefAttributes<ComponentRef<'ul'>>
 > = forwardRef<ComponentRef<'ul'>, ListProps>(
   (
     {
+      additionalOptions,
       className,
       inputRef,
       isLoading,
@@ -81,14 +83,24 @@ export const List: ForwardRefExoticComponent<
             label="No options"
           />
         ) : (
-          filteredOptions.map((option) => (
-            <ListItem
-              key={option.value}
-              className={cn('select-none', itemClassName)}
-              isClickable
-              {...option}
-            />
-          ))
+          <>
+            {filteredOptions.map((option) => (
+              <ListItem
+                key={option.value}
+                className={cn('select-none', itemClassName)}
+                isClickable
+                {...option}
+              />
+            ))}
+
+            {additionalOptions?.map((option, index) => (
+              <li key={index} role="option" data-action="true">
+                <Slot className="flex p-2 w-full h-full gap-1 items-center text-sm [&>svg]:w-3.5 [&>svg]:h-3.5 [&>svg]:shrink-0 cursor-pointer select-none hover:bg-gray-50 hover:dark:bg-slate-700 focus:outline-0">
+                  {option}
+                </Slot>
+              </li>
+            ))}
+          </>
         )}
       </ul>
     );

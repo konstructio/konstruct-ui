@@ -83,6 +83,7 @@ export const ListItem: FC<ListItemProps> = ({
     <li
       ref={liRef}
       role="option"
+      data-action="false"
       className={cn(listItemVariants({ className }))}
       tabIndex={0}
       onClick={(e) => {

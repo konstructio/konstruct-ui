@@ -32,6 +32,7 @@ export const Wrapper: ForwardRefExoticComponent<
 > = forwardRef<ComponentRef<'input'>, Omit<DropdownProps, 'helperText'>>(
   (
     {
+      additionalOptions,
       className,
       defaultValue,
       error,
@@ -240,6 +241,7 @@ export const Wrapper: ForwardRefExoticComponent<
         {isOpen && (
           <List
             ref={ulRef}
+            additionalOptions={additionalOptions}
             className={listClassName}
             itemClassName={listItemClassName}
             name={name}
