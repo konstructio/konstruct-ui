@@ -205,11 +205,14 @@ export declare const Dropdown: FC<DropdownProps>;
 
 export declare const DropdownButton: FC<Props>;
 
-declare interface DropdownProps extends VariantProps<typeof dropdownVariants>, Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
+declare type DropdownProps = VariantProps<typeof dropdownVariants> & Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> & {
+    additionalOptions?: ReactNode[] | string[];
     className?: string;
     error?: string;
     helperText?: string;
+    highlightSearch?: boolean;
     iconClassName?: string;
+    inputClassName?: string;
     isLoading?: boolean;
     isRequired?: boolean;
     label?: string;
@@ -218,12 +221,13 @@ declare interface DropdownProps extends VariantProps<typeof dropdownVariants>, O
     listItemClassName?: string;
     options: Option_3[];
     searchable?: boolean;
+    showSearchIcon?: boolean;
     theme?: Theme;
     value?: string;
     wrapperClassName?: string;
     onBlur?: VoidFunction;
     onChange?: OnChangeFn;
-}
+};
 
 declare const dropdownVariants: (props?: ({
     hasError?: boolean | null | undefined;
