@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.2-alpha.4](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.4) (2025-10-02)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.3...0.1.2-alpha.4)
+
+**Merged pull requests:**
+
+- ✨ feat: dropdown component was improved [\#346](https://github.com/konstructio/konstruct-ui/pull/346) ([futjesus](https://github.com/futjesus))
+- 💄 chore: animation on tabs component was added [\#345](https://github.com/konstructio/konstruct-ui/pull/345) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: some dependencies have been updated [\#344](https://github.com/konstructio/konstruct-ui/pull/344) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.3](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.3) (2025-09-25)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.2...0.1.2-alpha.3)
