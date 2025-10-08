@@ -15,6 +15,13 @@ const queryClient = new QueryClient();
 
 export const VirtualizedTable: Story = {
   args: {
+    showFilter: true,
+    showPagination: false,
+    // showTotalItems: false,
+    // showDotPagination: false,
+    // showFormPagination: false,
+    // showDropdownPagination: false,
+    ariaLabel: 'List of accounts',
     columns: [
       {
         header: 'Name',

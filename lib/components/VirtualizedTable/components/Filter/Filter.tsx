@@ -1,10 +1,10 @@
 import debounce from 'lodash/debounce';
-import { ChangeEvent, useCallback, useMemo, useRef } from 'react';
+import { ChangeEvent, FC, useCallback, useMemo, useRef } from 'react';
 
 import { Filter as FilterPrimitive } from '@/components/Filter/Filter';
 import { Input } from '@/components/Input/Input';
 
-import { OptionType } from './Filter.types';
+import { OptionType, Props } from './Filter.types';
 
 const options: OptionType[] = [
   {
@@ -19,7 +19,7 @@ const options: OptionType[] = [
   },
 ];
 
-export const Filter = () => {
+export const Filter: FC<Props> = ({ placeholder }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const selectedStatus = '';
   const selectedTerm = '';
@@ -57,7 +57,7 @@ export const Filter = () => {
     <div className="w-full flex items-center justify-end pb-6">
       <Input
         ref={inputRef}
-        placeholder="Search by name, email"
+        placeholder={placeholder}
         isSearch
         autoComplete="false"
         className="w-72"

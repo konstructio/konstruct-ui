@@ -11,7 +11,6 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
   ariaLabel?: string;
   columns: ColumnDef<TData, string>[];
   data: TData[];
-  showFilter?: boolean;
 } & (
     | {
         showPagination: true;
@@ -26,5 +25,15 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         showDropdownPagination?: never;
         showDotPagination?: never;
         showFormPagination?: never;
+      }
+  ) &
+  (
+    | {
+        showFilter: true;
+        filterSearchPlaceholder?: string;
+      }
+    | {
+        showFilter?: false | undefined;
+        filterSearchPlaceholder?: never;
       }
   );

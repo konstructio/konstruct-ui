@@ -3,3 +3,7 @@ export type OptionType = {
   label: string;
   variant?: 'info' | 'danger' | 'success' | 'default' | 'warning' | null;
 };
+
+export type Props = {
+  placeholder: string;
+};

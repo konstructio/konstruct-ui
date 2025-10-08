@@ -1,10 +1,12 @@
-import { useTableContext } from '../../contexts';
 import { FC } from 'react';
 
+import { DEFAULT_PAGE_SIZE } from '../../constants';
+import { useTableContext } from '../../contexts';
+
+import { DotPaginate } from '../DotPaginate/DotPaginate';
 import { DropdownPaginate } from '../DropdownPaginate/DropdownPaginate';
 import { FormPaginate } from '../FormPaginate/FormPaginate';
-import { DotPaginate } from '../DotPaginate/DotPaginate';
-import { DEFAULT_PAGE_SIZE } from '../../constants';
+
 import { Props } from './Pagination.types';
 
 export const Pagination: FC<Props> = ({
@@ -14,7 +16,6 @@ export const Pagination: FC<Props> = ({
   showFormPagination = true,
 }) => {
   const { totalItems = 0, tableFetching } = useTableContext();
-
   if (totalItems <= DEFAULT_PAGE_SIZE || tableFetching) {
     return null;
   }
@@ -24,7 +25,7 @@ export const Pagination: FC<Props> = ({
       <div className="bg-slate-50 border border-y-transparent border-x-slate-100 text-slate-500 text-xs not-italic py-2 px-6 rounded-b-lg shadow">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
-            {totalItems || showTotalItems ? (
+            {totalItems && showTotalItems ? (
               <span className="text-slate-800">{totalItems} Results</span>
             ) : null}
 
