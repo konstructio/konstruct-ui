@@ -47,6 +47,10 @@ describe('Dropdown', () => {
     };
   };
 
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   it('should render correctly', () => {
     const { getComboBox } = setup();
 
