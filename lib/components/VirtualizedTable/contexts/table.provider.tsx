@@ -50,6 +50,7 @@ export const TableProvider = <TData extends RowData = RowData>({
         table: table as unknown as Table<RowData>,
         tableFetching: isFetching,
         tableLoading: isLoading,
+        totalItems: 300,
         onSorting: setSortedData,
       }}
     >

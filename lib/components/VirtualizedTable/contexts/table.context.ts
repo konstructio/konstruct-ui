@@ -8,6 +8,7 @@ export type ContextType<TData extends RowData = RowData> = {
   table: Table<TData>;
   tableFetching?: boolean;
   tableLoading?: boolean;
+  totalItems?: number;
   onSorting: Dispatch<SetStateAction<SortingState>>;
 };
 
@@ -16,6 +17,7 @@ export const TableContext = createContext<ContextType<RowData>>({
   table: {} as Table<RowData>,
   tableFetching: false,
   tableLoading: false,
+  totalItems: 0,
   onSorting() {
     throw new Error('onSorting function is not implemented');
   },

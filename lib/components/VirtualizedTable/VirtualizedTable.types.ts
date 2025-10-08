@@ -8,6 +8,7 @@ export type RowData = RowDataPrimitive;
 export type Props<TData extends RowDataPrimitive> = VariantProps<
   typeof virtualizeTableVariants
 > & {
+  ariaLabel?: string;
   columns: ColumnDef<TData, string>[];
   data: TData[];
 };

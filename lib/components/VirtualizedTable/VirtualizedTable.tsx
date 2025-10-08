@@ -1,21 +1,32 @@
-import { JSX } from 'react';
+import { FC, JSX } from 'react';
 
 import { Props, RowData } from './VirtualizedTable.types';
-import { Body, Header } from './components';
+import { Actions, Body, Footer, Header, TruncateText } from './components';
+import { Props as ActionProps } from './components/Actions/Actions.types';
 import { TableProvider } from './contexts';
 
 const VirtualizedTable = <T extends RowData = RowData>({
-  data,
+  ariaLabel,
   columns,
-}: Props<T>): JSX.Element => (
+  data,
+}: Props<T> & { TruncateText: FC; Actions: FC<ActionProps> }): JSX.Element => (
   <TableProvider<T> columns={columns} data={data}>
-    <table className="w-full border-collapse" aria-label="List of accounts">
-      <Header<T> />
-      <Body />
-    </table>
+    <section>
+      <div className="shadow rounded-t-lg">
+        <table className="w-full border-collapse" aria-label={ariaLabel}>
+          <Header />
+          <Body />
+        </table>
+      </div>
+
+      <Footer />
+    </section>
   </TableProvider>
 );
 
 VirtualizedTable.displayName = 'KonstructVirtualizedTable';
 
-export { VirtualizedTable };
+VirtualizedTable.TruncateText = TruncateText;
+VirtualizedTable.Actions = Actions;
+
+export { TruncateText, VirtualizedTable };
