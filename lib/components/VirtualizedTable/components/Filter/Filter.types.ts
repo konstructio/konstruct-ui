@@ -1,3 +1,5 @@
+import { MultiSelectFilter } from '../../VirtualizedTable.types';
+
 export type OptionType = {
   id: string;
   label: string;
@@ -6,4 +8,6 @@ export type OptionType = {
 
 export type Props = {
   placeholder: string;
+  multiSelectFilter?: MultiSelectFilter[];
+  showFilterInput?: boolean;
 };

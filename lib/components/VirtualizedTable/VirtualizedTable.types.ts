@@ -2,12 +2,20 @@ import { ColumnDef, RowData as RowDataPrimitive } from '@tanstack/react-table';
 import { VariantProps } from 'class-variance-authority';
 
 import { virtualizeTableVariants } from './VirtualizedTable.variants';
+import { OptionType } from './components/Filter/Filter.types';
 
 export type RowData = RowDataPrimitive;
+
+export type MultiSelectFilter = {
+  label: string;
+  position?: 'right' | 'left';
+  options: OptionType[];
+};
 
 export type Props<TData extends RowDataPrimitive> = VariantProps<
   typeof virtualizeTableVariants
 > & {
+  id: string;
   ariaLabel?: string;
   columns: ColumnDef<TData, string>[];
   data: TData[];
@@ -18,6 +26,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         showDropdownPagination?: boolean;
         showDotPagination?: boolean;
         showFormPagination?: boolean;
+        pageSizes?: number[] | string[];
       }
     | {
         showPagination?: false | undefined;
@@ -25,15 +34,20 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         showDropdownPagination?: never;
         showDotPagination?: never;
         showFormPagination?: never;
+        pageSizes?: never;
       }
   ) &
   (
     | {
-        showFilter: true;
         filterSearchPlaceholder?: string;
+        multiSelectFilter?: MultiSelectFilter[];
+        showFilter: true;
+        showFilterInput?: boolean;
       }
     | {
-        showFilter?: false | undefined;
         filterSearchPlaceholder?: never;
+        multiSelectFilter?: never;
+        showFilter?: false | undefined;
+        showFilterInput?: never;
       }
   );

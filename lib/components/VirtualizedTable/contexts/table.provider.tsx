@@ -14,19 +14,21 @@ import { RowData } from '../VirtualizedTable.types';
 import { TableContext } from './table.context';
 
 type Props<TData extends RowData = RowData> = PropsWithChildren & {
+  id: string;
   data: TData[];
   columns: ColumnDef<TData, string>[];
 };
 
 export const TableProvider = <TData extends RowData = RowData>({
   children,
+  id,
   data: defaultData = [],
   columns = [],
 }: Props<TData>) => {
   const [sortedData, setSortedData] = useState<SortingState>([]);
 
   const { data, isLoading, isFetching } = useQuery({
-    queryKey: ['accounts'],
+    queryKey: [id],
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     initialData: defaultData,

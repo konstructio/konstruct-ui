@@ -14,6 +14,7 @@ export const Pagination: FC<Props> = ({
   showDropdownPagination = true,
   showDotPagination = true,
   showFormPagination = true,
+  pageSizes,
 }) => {
   const { totalItems = 0, tableFetching } = useTableContext();
   if (totalItems <= DEFAULT_PAGE_SIZE || tableFetching) {
@@ -31,7 +32,7 @@ export const Pagination: FC<Props> = ({
 
             {showDropdownPagination && (
               <div className="flex items-center gap-2">
-                <DropdownPaginate />
+                <DropdownPaginate pageSizes={pageSizes} />
               </div>
             )}
           </div>

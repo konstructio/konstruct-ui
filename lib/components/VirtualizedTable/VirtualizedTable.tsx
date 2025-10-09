@@ -15,6 +15,7 @@ import { Props as ActionProps } from './components/Actions/Actions.types';
 import { TableProvider } from './contexts';
 
 const VirtualizedTable = <T extends RowData = RowData>({
+  id,
   ariaLabel,
   columns,
   data,
@@ -24,9 +25,12 @@ const VirtualizedTable = <T extends RowData = RowData>({
   showDropdownPagination,
   showDotPagination,
   showFormPagination,
+  pageSizes,
   // Filter
   showFilter = false,
+  showFilterInput,
   filterSearchPlaceholder = '',
+  multiSelectFilter,
 }: Props<T> & { TruncateText: FC; Actions: FC<ActionProps> }): JSX.Element => {
   const showPagination = useMemo(
     () =>
@@ -41,9 +45,15 @@ const VirtualizedTable = <T extends RowData = RowData>({
   );
 
   return (
-    <TableProvider<T> columns={columns} data={data}>
+    <TableProvider<T> id={id} columns={columns} data={data}>
       <section>
-        {showFilter && <Filter placeholder={filterSearchPlaceholder} />}
+        {showFilter && (
+          <Filter
+            placeholder={filterSearchPlaceholder}
+            multiSelectFilter={multiSelectFilter}
+            showFilterInput={showFilterInput}
+          />
+        )}
 
         <div
           className={cn('shadow rounded-t-lg', {
@@ -62,6 +72,7 @@ const VirtualizedTable = <T extends RowData = RowData>({
             showDropdownPagination={showDropdownPagination}
             showDotPagination={showDotPagination}
             showFormPagination={showFormPagination}
+            pageSizes={pageSizes}
           />
         )}
       </section>

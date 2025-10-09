@@ -1,11 +1,17 @@
-import { useMemo } from 'react';
+import { FC, useMemo } from 'react';
 
 import { Dropdown } from '@/components/Dropdown/Dropdown';
 
-export const DropdownPaginate = () => {
+import { DEFAULT_PAGE_SIZES } from '../../constants';
+
+import { Props } from './DropdownPaginate.types';
+
+export const DropdownPaginate: FC<Props> = ({
+  pageSizes = DEFAULT_PAGE_SIZES,
+}) => {
   // const { pageSize, onPageSize, handlePage } = useTableContext();
   const options = useMemo(
-    () => ['10', '20', '50', '100'].map((value) => ({ label: value, value })),
+    () => pageSizes.map(String).map((value) => ({ label: value, value })),
     [],
   );
 

@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useId } from 'react';
 
 import { VirtualizedTable as VirtualizedTableComponent } from './VirtualizedTable';
 
@@ -16,11 +17,8 @@ const queryClient = new QueryClient();
 export const VirtualizedTable: Story = {
   args: {
     showFilter: true,
-    showPagination: false,
-    // showTotalItems: false,
-    // showDotPagination: false,
-    // showFormPagination: false,
-    // showDropdownPagination: false,
+    filterSearchPlaceholder: 'Search by name, email or role...',
+    showPagination: true,
     ariaLabel: 'List of accounts',
     columns: [
       {
@@ -62,8 +60,27 @@ export const VirtualizedTable: Story = {
         header: () => <span className="sr-only">Action Buttons</span>,
       },
     ],
+    multiSelectFilter: [
+      {
+        label: 'Status',
+        options: [
+          {
+            id: 'active',
+            label: 'Active',
+            variant: 'success',
+          },
+          {
+            id: 'inactive',
+            label: 'Inactive',
+            variant: 'danger',
+          },
+        ],
+      },
+    ],
   },
   render: (args) => {
+    const id = useId();
+
     const data = Array.from({ length: 10 }).map((_, index) => ({
       name: faker.person.firstName() + ' ' + faker.person.lastName(),
       email: faker.internet.email(),
@@ -76,7 +93,7 @@ export const VirtualizedTable: Story = {
     return (
       <div className="w-full">
         <QueryClientProvider client={queryClient}>
-          <VirtualizedTableComponent {...args} data={data} />
+          <VirtualizedTableComponent {...args} id={id} data={data} />
         </QueryClientProvider>
       </div>
     );

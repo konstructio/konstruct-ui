@@ -6,20 +6,11 @@ import { Input } from '@/components/Input/Input';
 
 import { OptionType, Props } from './Filter.types';
 
-const options: OptionType[] = [
-  {
-    id: 'new',
-    label: 'New',
-    variant: 'info',
-  },
-  {
-    id: 'pending',
-    label: 'Pending',
-    variant: 'warning',
-  },
-];
-
-export const Filter: FC<Props> = ({ placeholder }) => {
+export const Filter: FC<Props> = ({
+  placeholder,
+  multiSelectFilter,
+  showFilterInput = true,
+}) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const selectedStatus = '';
   const selectedTerm = '';
@@ -55,22 +46,27 @@ export const Filter: FC<Props> = ({ placeholder }) => {
 
   return (
     <div className="w-full flex items-center justify-end pb-6">
-      <Input
-        ref={inputRef}
-        placeholder={placeholder}
-        isSearch
-        autoComplete="false"
-        className="w-72"
-        onChange={handleChangeSearch}
-      />
+      {showFilterInput && (
+        <Input
+          ref={inputRef}
+          placeholder={placeholder}
+          isSearch
+          autoComplete="false"
+          className="w-72"
+          onChange={handleChangeSearch}
+        />
+      )}
 
       <FilterPrimitive>
-        <FilterPrimitive.BadgeMultiSelect
-          label="Status"
-          position="right"
-          options={options}
-          onApply={handleChangeStatus}
-        />
+        {multiSelectFilter?.map(({ label, position = 'right', options }) => (
+          <FilterPrimitive.BadgeMultiSelect
+            label={label}
+            position={position}
+            options={options}
+            onApply={handleChangeStatus}
+          />
+        ))}
+
         <FilterPrimitive.ResetButton
           className="text-slate-700 hover:text-slate-700 disabled:text-slate-700/45"
           disabled={!hasData}
