@@ -49,6 +49,7 @@ export default defineConfig({
               'lib/**/*.stories.*',
               'lib/**/*.test.*',
               'lib/**/*.types.*',
+              'lib/**/mocks/**',
             ],
           })
           .map((file) => [

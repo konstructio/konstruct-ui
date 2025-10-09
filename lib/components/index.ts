@@ -34,3 +34,4 @@ export * from './TimePicker/TimePicker';
 export * from './Toast/Toast';
 export * from './Tooltip/Tooltip';
 export * from './Typography/Typography';
+export * from './VirtualizedTable/VirtualizedTable';
