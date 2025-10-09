@@ -62,6 +62,7 @@ export const VirtualizedTable: Story = {
     ],
     multiSelectFilter: [
       {
+        key: 'status',
         label: 'Status',
         options: [
           {

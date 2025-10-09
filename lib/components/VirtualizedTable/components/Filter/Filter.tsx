@@ -4,6 +4,8 @@ import { ChangeEvent, FC, useCallback, useMemo, useRef } from 'react';
 import { Filter as FilterPrimitive } from '@/components/Filter/Filter';
 import { Input } from '@/components/Input/Input';
 
+import { useTableContext } from '../../contexts';
+
 import { OptionType, Props } from './Filter.types';
 
 export const Filter: FC<Props> = ({
@@ -12,36 +14,45 @@ export const Filter: FC<Props> = ({
   showFilterInput = true,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const selectedStatus = '';
-  const selectedTerm = '';
-  const onSelectedStatus = (status: string[]) => console.log(status);
-  const onSelectedTerm = (term: string) => console.log(term);
+  const {
+    termOfSearch,
+    multiselectSelected,
+    onChangeTermOfSearch,
+    onSelectMultiselect,
+  } = useTableContext();
 
-  const handleChangeStatus = useCallback(
-    (selected: OptionType[]) =>
-      onSelectedStatus(selected.map((option) => option.id)),
-    [onSelectedStatus],
+  const handleChangeMultiselectFilter = useCallback(
+    (key: string, selected: OptionType[]) =>
+      onSelectMultiselect(
+        key,
+        selected.map((option) => option.id),
+      ),
+    [onSelectMultiselect],
   );
 
   const handleResetFilters = useCallback(() => {
-    onSelectedTerm('');
+    onChangeTermOfSearch('');
 
     if (inputRef.current) {
       inputRef.current.value = '';
     }
-  }, [onSelectedTerm]);
+  }, [onChangeTermOfSearch]);
 
-  const handleChangeSearch = useMemo(
+  const handleChangeTermOfSearch = useMemo(
     () =>
       debounce((event: ChangeEvent<HTMLInputElement>) => {
-        onSelectedTerm(event.target.value);
+        onChangeTermOfSearch(event.target.value);
       }, 500),
-    [onSelectedTerm],
+    [onChangeTermOfSearch],
   );
 
   const hasData = useMemo(
-    () => !!selectedStatus || !!selectedTerm,
-    [selectedStatus, selectedTerm],
+    () =>
+      !!termOfSearch ||
+      Object.entries(multiselectSelected ?? {})
+        .map(([, values]) => values)
+        .flat().length > 0,
+    [termOfSearch, multiselectSelected],
   );
 
   return (
@@ -53,19 +64,25 @@ export const Filter: FC<Props> = ({
           isSearch
           autoComplete="false"
           className="w-72"
-          onChange={handleChangeSearch}
+          inputMode="search"
+          onChange={handleChangeTermOfSearch}
         />
       )}
 
       <FilterPrimitive>
-        {multiSelectFilter?.map(({ label, position = 'right', options }) => (
-          <FilterPrimitive.BadgeMultiSelect
-            label={label}
-            position={position}
-            options={options}
-            onApply={handleChangeStatus}
-          />
-        ))}
+        {multiSelectFilter?.map(
+          ({ key, label, position = 'right', options }) => (
+            <FilterPrimitive.BadgeMultiSelect
+              key={label}
+              label={label}
+              position={position}
+              options={options}
+              onApply={(selected: OptionType[]) =>
+                handleChangeMultiselectFilter(key, selected)
+              }
+            />
+          ),
+        )}
 
         <FilterPrimitive.ResetButton
           className="text-slate-700 hover:text-slate-700 disabled:text-slate-700/45"

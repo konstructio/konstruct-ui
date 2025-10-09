@@ -7,6 +7,7 @@ import { OptionType } from './components/Filter/Filter.types';
 export type RowData = RowDataPrimitive;
 
 export type MultiSelectFilter = {
+  key: string;
   label: string;
   position?: 'right' | 'left';
   options: OptionType[];

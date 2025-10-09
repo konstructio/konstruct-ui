@@ -7,7 +7,7 @@ import {
   Table,
   useReactTable,
 } from '@tanstack/react-table';
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren, useCallback, useState } from 'react';
 
 import { RowData } from '../VirtualizedTable.types';
 
@@ -26,13 +26,32 @@ export const TableProvider = <TData extends RowData = RowData>({
   columns = [],
 }: Props<TData>) => {
   const [sortedData, setSortedData] = useState<SortingState>([]);
+  const [page, setPage] = useState(0);
+  const [termOfSearch, setTermOfSearch] = useState<string>();
+  const [multiselectSelected, setMultiselectSelected] = useState<
+    Record<string, string[]>
+  >({});
 
   const { data, isLoading, isFetching } = useQuery({
-    queryKey: [id],
+    queryKey: [id, termOfSearch],
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     initialData: defaultData,
   });
+
+  const onChangeTermOfSearch = useCallback((term: string) => {
+    setTermOfSearch(term);
+    setPage(0);
+  }, []);
+
+  const onSelectMultiselect = useCallback((key: string, selected: string[]) => {
+    const newKey = key.toLowerCase().replace(/\s+/g, '_');
+
+    setMultiselectSelected((prev) => ({
+      ...prev,
+      [newKey]: selected,
+    }));
+  }, []);
 
   const table = useReactTable<TData>({
     data,
@@ -53,7 +72,12 @@ export const TableProvider = <TData extends RowData = RowData>({
         tableFetching: isFetching,
         tableLoading: isLoading,
         totalItems: 300,
+        termOfSearch,
+        page,
+        multiselectSelected,
+        onChangeTermOfSearch,
         onSorting: setSortedData,
+        onSelectMultiselect,
       }}
     >
       {children}
