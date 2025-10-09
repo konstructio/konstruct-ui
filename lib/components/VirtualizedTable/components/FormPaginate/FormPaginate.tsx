@@ -2,12 +2,11 @@ import { FormEvent, useCallback, useRef } from 'react';
 
 import { Input } from '@/components/Input/Input';
 
+import { useTableContext } from '../../contexts';
+
 export const FormPaginate = () => {
   const formRef = useRef<HTMLFormElement>(null);
-  const totalPages = 10;
-  const handlePage = (page: number) => {
-    console.log('Navigating to page:', page + 1);
-  };
+  const { totalPages, handlePage } = useTableContext();
 
   const handleSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {

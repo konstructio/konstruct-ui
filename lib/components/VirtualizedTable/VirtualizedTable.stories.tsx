@@ -1,9 +1,11 @@
-import { faker } from '@faker-js/faker';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useId } from 'react';
+import { useCallback, useEffect, useId, useState } from 'react';
 
 import { VirtualizedTable as VirtualizedTableComponent } from './VirtualizedTable';
+import { DEFAULT_PAGE_SIZE } from './constants';
+import { getPokemons } from './mocks/repositories';
+import { Pokemon } from './mocks/repositories/pokemon.types';
 
 type Story = StoryObj<typeof VirtualizedTableComponent>;
 
@@ -20,36 +22,49 @@ export const VirtualizedTable: Story = {
     filterSearchPlaceholder: 'Search by name, email or role...',
     showPagination: true,
     ariaLabel: 'List of accounts',
+    pageSizes: [5, 10, 20, 30, 50],
     columns: [
+      {
+        header: 'Id',
+        accessorKey: 'id',
+      },
       {
         header: 'Name',
         accessorKey: 'name',
-        cell: (props) => <VirtualizedTableComponent.TruncateText {...props} />,
+        cell: (props) => (
+          <VirtualizedTableComponent.TruncateText
+            {...props}
+            value={`${props.getValue().charAt(0).toUpperCase()}${props.getValue().slice(1)}`}
+          />
+        ),
       },
       {
-        header: 'Email',
-        accessorKey: 'email',
-        cell: (props) => <VirtualizedTableComponent.TruncateText {...props} />,
+        header: 'Type',
+        accessorKey: 'type',
+        cell: (props) => (
+          <VirtualizedTableComponent.TruncateText
+            {...props}
+            value={`${props.getValue().charAt(0).toUpperCase()}${props.getValue().slice(1)}`}
+          />
+        ),
       },
       {
-        header: 'Title',
-        accessorKey: 'title',
-        cell: (props) => <VirtualizedTableComponent.TruncateText {...props} />,
+        header: 'Height',
+        accessorKey: 'height',
       },
       {
-        header: 'Department',
-        accessorKey: 'department',
-        cell: (props) => <VirtualizedTableComponent.TruncateText {...props} />,
+        header: 'Weight',
+        accessorKey: 'weight',
       },
       {
-        header: 'Status',
-        accessorKey: 'status',
-        cell: (props) => <VirtualizedTableComponent.TruncateText {...props} />,
-      },
-      {
-        header: 'Role',
-        accessorKey: 'role',
-        cell: (props) => <VirtualizedTableComponent.TruncateText {...props} />,
+        header: 'Ability',
+        accessorKey: 'ability',
+        cell: (props) => (
+          <VirtualizedTableComponent.TruncateText
+            {...props}
+            value={`${props.getValue().charAt(0).toUpperCase()}${props.getValue().slice(1)}`}
+          />
+        ),
       },
       {
         id: 'actions',
@@ -62,18 +77,33 @@ export const VirtualizedTable: Story = {
     ],
     multiSelectFilter: [
       {
-        key: 'status',
-        label: 'Status',
+        key: 'ability',
+        label: 'Ability',
         options: [
           {
-            id: 'active',
-            label: 'Active',
+            id: 'grass',
+            label: 'Grass',
             variant: 'success',
           },
           {
-            id: 'inactive',
-            label: 'Inactive',
+            id: 'fire',
+            label: 'Fire',
             variant: 'danger',
+          },
+          {
+            id: 'water',
+            label: 'Water',
+            variant: 'info',
+          },
+          {
+            id: 'bug',
+            label: 'Bug',
+            variant: 'warning',
+          },
+          {
+            id: 'normal',
+            label: 'Normal',
+            variant: undefined,
           },
         ],
       },
@@ -81,20 +111,68 @@ export const VirtualizedTable: Story = {
   },
   render: (args) => {
     const id = useId();
+    const [{ data, totalItemsCount }, setData] = useState<{
+      data: Pokemon[];
+      totalItemsCount: number;
+    }>({
+      data: [],
+      totalItemsCount: 0,
+    });
 
-    const data = Array.from({ length: 10 }).map((_, index) => ({
-      name: faker.person.firstName() + ' ' + faker.person.lastName(),
-      email: faker.internet.email(),
-      title: faker.person.jobTitle(),
-      department: faker.commerce.department(),
-      status: index % 2 === 0 ? 'Active' : 'Inactive',
-      role: faker.person.jobType(),
-    }));
+    useEffect(() => {
+      const init = async () => {
+        const result = await getPokemons({
+          page: 1,
+          pageSize: DEFAULT_PAGE_SIZE,
+        });
+
+        setData({
+          data: result.results,
+          totalItemsCount: result.totalItemsCount,
+        });
+      };
+
+      init();
+    }, []);
+
+    const getNewData = useCallback(
+      async ({
+        page = 1,
+        pageSize = DEFAULT_PAGE_SIZE,
+        searchFilter = undefined,
+        ability = undefined,
+      }: {
+        page?: number;
+        pageSize?: number;
+        searchFilter?: string;
+        ability?: 'grass' | 'fire' | 'water' | 'bug' | 'normal' | undefined;
+      }) => {
+        const result = await getPokemons({
+          page,
+          pageSize,
+          searchFilter,
+          ability,
+        });
+
+        return result.results;
+      },
+      [],
+    );
+
+    if (data.length === 0) {
+      return <div>Loading...</div>;
+    }
 
     return (
       <div className="w-full">
         <QueryClientProvider client={queryClient}>
-          <VirtualizedTableComponent {...args} id={id} data={data} />
+          <VirtualizedTableComponent
+            {...args}
+            id={id}
+            data={data}
+            fetchData={getNewData}
+            totalItems={totalItemsCount}
+          />
         </QueryClientProvider>
       </div>
     );

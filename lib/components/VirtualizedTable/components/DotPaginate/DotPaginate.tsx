@@ -3,6 +3,8 @@ import { memo } from 'react';
 
 import { cn } from '@/utils';
 
+import { useTableContext } from '../../contexts';
+
 const PageButton = memo(
   ({
     index,
@@ -31,7 +33,7 @@ PageButton.displayName = 'PageButton';
 
 const Ellipsis = memo(({ keyValue }: { keyValue: string }) => (
   <li key={keyValue} className="px-2">
-    <span className="text-blue-600">...</span>
+    <span className="text-blue-600 select-none">...</span>
   </li>
 ));
 
@@ -67,11 +69,7 @@ const NavigationButton = memo(
 NavigationButton.displayName = 'NavigationButton';
 
 export const DotPaginate = () => {
-  const totalPages = 10;
-  const page = 0;
-  const handlePage = (page: number) => {
-    console.log('Go to page:', page);
-  };
+  const { totalPages, page, handlePage } = useTableContext();
 
   const renderPageButtons = () => {
     // If 5 or fewer total pages, show all

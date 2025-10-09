@@ -20,6 +20,10 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
   ariaLabel?: string;
   columns: ColumnDef<TData, string>[];
   data: TData[];
+  totalItems: number;
+  fetchData: (
+    params: Record<string, string | number | string[] | number[] | undefined>,
+  ) => Promise<TData[]>;
 } & (
     | {
         showPagination: true;

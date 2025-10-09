@@ -19,6 +19,8 @@ const VirtualizedTable = <T extends RowData = RowData>({
   ariaLabel,
   columns,
   data,
+  fetchData,
+  totalItems,
   // Pagination
   showPagination: showPaginationProp,
   showTotalItems,
@@ -45,7 +47,13 @@ const VirtualizedTable = <T extends RowData = RowData>({
   );
 
   return (
-    <TableProvider<T> id={id} columns={columns} data={data}>
+    <TableProvider<T>
+      id={id}
+      columns={columns}
+      data={data}
+      fetchData={fetchData}
+      totalItems={totalItems}
+    >
       <section>
         {showFilter && (
           <Filter

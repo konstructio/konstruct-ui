@@ -7,9 +7,10 @@ import {
   Table,
   useReactTable,
 } from '@tanstack/react-table';
-import { PropsWithChildren, useCallback, useState } from 'react';
+import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 
 import { RowData } from '../VirtualizedTable.types';
+import { DEFAULT_PAGE_SIZE } from '../constants';
 
 import { TableContext } from './table.context';
 
@@ -17,6 +18,10 @@ type Props<TData extends RowData = RowData> = PropsWithChildren & {
   id: string;
   data: TData[];
   columns: ColumnDef<TData, string>[];
+  totalItems: number;
+  fetchData: (
+    params: Record<string, string | number | string[] | number[] | undefined>,
+  ) => Promise<TData[]>;
 };
 
 export const TableProvider = <TData extends RowData = RowData>({
@@ -24,19 +29,42 @@ export const TableProvider = <TData extends RowData = RowData>({
   id,
   data: defaultData = [],
   columns = [],
+  totalItems,
+  fetchData,
 }: Props<TData>) => {
   const [sortedData, setSortedData] = useState<SortingState>([]);
   const [page, setPage] = useState(0);
   const [termOfSearch, setTermOfSearch] = useState<string>();
+  const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
+  const totalPages = useMemo(
+    () => Math.ceil(totalItems / pageSize),
+    [totalItems, pageSize],
+  );
   const [multiselectSelected, setMultiselectSelected] = useState<
     Record<string, string[]>
   >({});
 
   const { data, isLoading, isFetching } = useQuery({
-    queryKey: [id, termOfSearch],
+    queryKey: [
+      id,
+      page,
+      pageSize,
+      termOfSearch,
+      JSON.stringify(multiselectSelected),
+    ],
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     initialData: defaultData,
+    queryFn: () => {
+      return fetchData({
+        page: Math.max(page + 1, 1),
+        pageSize,
+        termOfSearch,
+        ...(Object.keys(multiselectSelected).length > 0
+          ? multiselectSelected
+          : {}),
+      });
+    },
   });
 
   const onChangeTermOfSearch = useCallback((term: string) => {
@@ -52,6 +80,12 @@ export const TableProvider = <TData extends RowData = RowData>({
       [newKey]: selected,
     }));
   }, []);
+
+  const handlePage = useCallback((newPage: number) => setPage(newPage), []);
+  const onPageSize = useCallback(
+    (newPageSize: number) => setPageSize(newPageSize),
+    [],
+  );
 
   const table = useReactTable<TData>({
     data,
@@ -71,10 +105,14 @@ export const TableProvider = <TData extends RowData = RowData>({
         table: table as unknown as Table<RowData>,
         tableFetching: isFetching,
         tableLoading: isLoading,
-        totalItems: 300,
+        totalItems,
         termOfSearch,
         page,
         multiselectSelected,
+        pageSize,
+        totalPages,
+        handlePage,
+        onPageSize,
         onChangeTermOfSearch,
         onSorting: setSortedData,
         onSelectMultiselect,
