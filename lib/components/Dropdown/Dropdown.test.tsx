@@ -7,6 +7,7 @@ import { Modal } from '@/components/Modal/Modal';
 
 import { Dropdown } from './Dropdown';
 import { DropdownProps, Option } from './Dropdown.types';
+import { Button } from '../Button/Button';
 
 describe('Dropdown', () => {
   const defaultProps = {
@@ -35,22 +36,26 @@ describe('Dropdown', () => {
     );
 
     const user = userEvent.setup();
-    const getComboBox = () => screen.getByRole('combobox');
+    const findComboBox = async () => screen.findByRole('combobox');
     const getElement = (value: string | RegExp) =>
       screen.getByText(new RegExp(value, 'i'));
 
     return {
       component,
       user,
-      getComboBox,
+      findComboBox,
       getElement,
     };
   };
 
-  it('should render correctly', () => {
-    const { getComboBox } = setup();
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
 
-    const comboBox = getComboBox();
+  it('should render correctly', async () => {
+    const { findComboBox } = setup();
+
+    const comboBox = await findComboBox();
 
     expect(comboBox).toBeInTheDocument();
   });
@@ -64,9 +69,9 @@ describe('Dropdown', () => {
   });
 
   it('should render the options correctly', async () => {
-    const { user, getComboBox } = setup();
+    const { user, findComboBox } = setup();
 
-    const comboBox = getComboBox();
+    const comboBox = await findComboBox();
 
     await user.click(comboBox);
 
@@ -77,9 +82,9 @@ describe('Dropdown', () => {
 
   it('should call the onChange function when an option is selected', async () => {
     const onChange = vitest.fn();
-    const { user, getComboBox, getElement } = setup({ onChange });
+    const { user, findComboBox, getElement } = setup({ onChange });
 
-    const comboBox = getComboBox();
+    const comboBox = await findComboBox();
 
     await user.click(comboBox);
 
@@ -95,9 +100,9 @@ describe('Dropdown', () => {
 
   it('should call the onChange function when select two times the options', async () => {
     const onChange = vitest.fn();
-    const { user, getComboBox, getElement } = setup({ onChange });
+    const { user, findComboBox, getElement } = setup({ onChange });
 
-    const comboBox = getComboBox();
+    const comboBox = await findComboBox();
 
     await user.click(comboBox);
 
@@ -152,13 +157,16 @@ describe('Dropdown', () => {
       },
     ];
 
-    const { user, getComboBox } = setup({ name: 'dropdown', options }, Wrapper);
+    const { user, findComboBox } = setup(
+      { name: 'dropdown', options },
+      Wrapper,
+    );
 
     const button = screen.getByRole('button', {
       name: /submit/i,
     });
 
-    const comboBox = getComboBox();
+    const comboBox = await findComboBox();
 
     await user.click(comboBox);
     await user.keyboard('[ArrowDown]');
@@ -171,11 +179,11 @@ describe('Dropdown', () => {
   });
 
   it('should render the default value correctly', async () => {
-    const { user, getComboBox, getElement } = setup({
+    const { user, findComboBox, getElement } = setup({
       defaultValue: 'option-1',
     });
 
-    const comboBox = getComboBox();
+    const comboBox = await findComboBox();
 
     await user.click(comboBox);
 
@@ -185,9 +193,9 @@ describe('Dropdown', () => {
   });
 
   it('should render the loading state correctly', async () => {
-    const { user, getComboBox, getElement } = setup({ isLoading: true });
+    const { user, findComboBox, getElement } = setup({ isLoading: true });
 
-    const comboBox = getComboBox();
+    const comboBox = await findComboBox();
 
     await user.click(comboBox);
 
@@ -197,9 +205,9 @@ describe('Dropdown', () => {
   });
 
   it('should render the no options state correctly', async () => {
-    const { user, getComboBox, getElement } = setup({ options: [] });
+    const { user, findComboBox, getElement } = setup({ options: [] });
 
-    const comboBox = getComboBox();
+    const comboBox = await findComboBox();
 
     await user.click(comboBox);
 
@@ -210,25 +218,35 @@ describe('Dropdown', () => {
 
   describe('Dropdown in Modal', () => {
     const ModalWrapper: FC<PropsWithChildren> = ({ children }) => {
-      const [isOpen, setIsOpen] = useState(true);
+      const [isOpen, setIsOpen] = useState(false);
 
       return (
-        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-          <Modal.Body>
-            <div className="p-6">{children}</div>
-          </Modal.Body>
-        </Modal>
+        <>
+          <Button onClick={() => setIsOpen(true)}>Open Modal</Button>
+          <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+            <Modal.Body>
+              <div className="p-6">{children}</div>
+            </Modal.Body>
+          </Modal>
+        </>
       );
     };
 
     it('should render and interact correctly inside a modal', async () => {
       const onChange = vitest.fn();
-      const { user, getComboBox, getElement } = setup(
+      const { user, findComboBox, getElement } = setup(
         { onChange },
         ModalWrapper,
       );
 
-      const comboBox = getComboBox();
+      const buttonOpenModal = await screen.findByRole('button', {
+        name: /open modal/i,
+      });
+      expect(buttonOpenModal).toBeInTheDocument();
+
+      await user.click(buttonOpenModal);
+
+      const comboBox = await findComboBox();
       expect(comboBox).toBeInTheDocument();
 
       await user.click(comboBox);
@@ -245,9 +263,16 @@ describe('Dropdown', () => {
     });
 
     it('should close dropdown list after selecting an option in modal', async () => {
-      const { user, getComboBox } = setup({}, ModalWrapper);
+      const { user, findComboBox } = setup({}, ModalWrapper);
 
-      const comboBox = getComboBox();
+      const buttonOpenModal = await screen.findByRole('button', {
+        name: /open modal/i,
+      });
+      expect(buttonOpenModal).toBeInTheDocument();
+
+      await user.click(buttonOpenModal);
+
+      const comboBox = await findComboBox();
       await user.click(comboBox);
 
       // Get the list element
@@ -264,9 +289,16 @@ describe('Dropdown', () => {
 
     it('should handle keyboard navigation inside modal', async () => {
       const onChange = vitest.fn();
-      const { user, getComboBox } = setup({ onChange }, ModalWrapper);
+      const { user, findComboBox } = setup({ onChange }, ModalWrapper);
 
-      const comboBox = getComboBox();
+      const buttonOpenModal = await screen.findByRole('button', {
+        name: /open modal/i,
+      });
+      expect(buttonOpenModal).toBeInTheDocument();
+
+      await user.click(buttonOpenModal);
+
+      const comboBox = await findComboBox();
       await user.click(comboBox);
 
       // Navigate to first option
