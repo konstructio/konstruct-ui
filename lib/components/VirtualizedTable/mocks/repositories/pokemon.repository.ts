@@ -2,21 +2,34 @@ import { chunk } from 'lodash';
 
 import { POKEMON_JSON } from '../models/pokemon.db';
 
-import { PokemonResponse } from './pokemon.types';
+import { PokemonQueryParams, PokemonResponse } from './pokemon.types';
 
 export const getPokemons = async ({
-  page,
+  page = 1,
   pageSize,
-  // searchFilter,
-  ability,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-}: any): Promise<PokemonResponse> => {
-  const chunkedPokemons = chunk(POKEMON_JSON, pageSize).at(page - 1) || [];
+  termOfSearch,
+  type,
+}: PokemonQueryParams): Promise<PokemonResponse> => {
+  let filteredPokemons = POKEMON_JSON;
 
-  console.log('ENTRE', ability);
+  if (termOfSearch) {
+    filteredPokemons = filteredPokemons.filter((pokemon) =>
+      pokemon.name
+        .toLocaleLowerCase()
+        .includes(termOfSearch.toLocaleLowerCase()),
+    );
+  }
+
+  if (type && type.length > 0) {
+    filteredPokemons = filteredPokemons.filter((pokemon) =>
+      type.some((t) => pokemon.type.includes(t)),
+    );
+  }
+
+  const chunkedPokemons = chunk(filteredPokemons, pageSize).at(page - 1) || [];
 
   return {
-    totalItemsCount: POKEMON_JSON.length,
+    totalItemsCount: filteredPokemons.length,
     results: chunkedPokemons,
   };
 };

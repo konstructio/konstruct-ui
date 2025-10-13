@@ -19,8 +19,11 @@ const VirtualizedTable = <T extends RowData = RowData>({
   ariaLabel,
   columns,
   data,
-  fetchData,
   totalItems,
+  classNameHeaderTable,
+  classNameHeaderArrows,
+  classNameHeaderActiveArrows,
+  fetchData,
   // Pagination
   showPagination: showPaginationProp,
   showTotalItems,
@@ -69,7 +72,11 @@ const VirtualizedTable = <T extends RowData = RowData>({
           })}
         >
           <table className="w-full border-collapse" aria-label={ariaLabel}>
-            <Header />
+            <Header
+              className={classNameHeaderTable}
+              classNameArrows={classNameHeaderArrows}
+              classNameActiveArrows={classNameHeaderActiveArrows}
+            />
             <Body />
           </table>
         </div>

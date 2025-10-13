@@ -19,6 +19,7 @@ export const Filter: FC<Props> = ({
     multiselectSelected,
     onChangeTermOfSearch,
     onSelectMultiselect,
+    // handlePage,
   } = useTableContext();
 
   const handleChangeMultiselectFilter = useCallback(
@@ -32,6 +33,7 @@ export const Filter: FC<Props> = ({
 
   const handleResetFilters = useCallback(() => {
     onChangeTermOfSearch('');
+    // handlePage(0);
 
     if (inputRef.current) {
       inputRef.current.value = '';
@@ -85,7 +87,7 @@ export const Filter: FC<Props> = ({
         )}
 
         <FilterPrimitive.ResetButton
-          className="text-slate-700 hover:text-slate-700 disabled:text-slate-700/45"
+          className="text-slate-700 hover:text-slate-700 disabled:text-slate-700/45 select-none"
           disabled={!hasData}
           onClick={handleResetFilters}
         />

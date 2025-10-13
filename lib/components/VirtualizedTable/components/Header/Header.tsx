@@ -7,7 +7,13 @@ import { ChevronDown, ChevronUp } from '../../assets';
 import { useTableContext } from '../../contexts';
 import { RowData } from '../../VirtualizedTable.types';
 
-export const Header = <TData extends RowData>() => {
+import { Props } from './Header.types';
+
+export const Header = <TData extends RowData>({
+  className,
+  classNameArrows,
+  classNameActiveArrows,
+}: Props) => {
   const { table, onSorting } = useTableContext<TData>();
   const handleAscSort = useCallback(
     (column: Column<TData, unknown>) =>
@@ -21,7 +27,12 @@ export const Header = <TData extends RowData>() => {
   );
 
   return (
-    <thead className="font-semibold uppercase text-slate-500 text-xs not-italic bg-slate-100 w-full relative block overflow-hidden [clip-path:inset(-1px_-1px_0px_-1px_round_8px_8px_0px_0px)]">
+    <thead
+      className={cn(
+        'font-semibold uppercase text-slate-500 text-xs not-italic bg-slate-100 w-full relative block overflow-hidden [clip-path:inset(-1px_-1px_0px_-1px_round_8px_8px_0px_0px)]',
+        className,
+      )}
+    >
       {table.getHeaderGroups().map(({ id, headers }) => (
         <tr key={id} className="table w-full table-fixed">
           {headers.map(({ id, column, getContext }) => (
@@ -35,20 +46,31 @@ export const Header = <TData extends RowData>() => {
                 {flexRender(column.columnDef.header, getContext())}
                 {column.getCanSort() && (
                   <div
-                    className="flex flex-col text-slate-400 justify-center items-center gap-1"
+                    className={cn(
+                      'flex flex-col text-slate-400 justify-center items-center gap-1',
+                      classNameArrows,
+                    )}
                     role="presentation"
                   >
                     <ChevronUp
-                      className={cn('w-2 h-2 cursor-pointer', {
-                        'text-blue-600': column.getIsSorted() === 'asc',
-                      })}
+                      className={cn(
+                        'w-2 h-2 cursor-pointer',
+                        {
+                          'text-blue-600': column.getIsSorted() === 'asc',
+                        },
+                        classNameActiveArrows,
+                      )}
                       onClick={() => handleAscSort(column)}
                     />
 
                     <ChevronDown
-                      className={cn('w-2 h-2 cursor-pointer', {
-                        'text-blue-600': column.getIsSorted() === 'desc',
-                      })}
+                      className={cn(
+                        'w-2 h-2 cursor-pointer',
+                        {
+                          'text-blue-600': column.getIsSorted() === 'desc',
+                        },
+                        classNameActiveArrows,
+                      )}
                       onClick={() => handleDescSort(column)}
                     />
                   </div>

@@ -17,3 +17,10 @@ export type PokemonResponse = {
   totalItemsCount: number;
   results: Pokemon[];
 };
+
+export type PokemonQueryParams = {
+  page?: number;
+  pageSize?: number;
+  termOfSearch?: string;
+  type?: ('grass' | 'fire' | 'water' | 'bug' | 'normal')[];
+};

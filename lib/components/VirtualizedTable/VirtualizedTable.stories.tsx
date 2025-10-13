@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useCallback, useEffect, useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 
 import { VirtualizedTable as VirtualizedTableComponent } from './VirtualizedTable';
 import { DEFAULT_PAGE_SIZE } from './constants';
@@ -77,8 +77,8 @@ export const VirtualizedTable: Story = {
     ],
     multiSelectFilter: [
       {
-        key: 'ability',
-        label: 'Ability',
+        key: 'type',
+        label: 'Type',
         options: [
           {
             id: 'grass',
@@ -135,29 +135,29 @@ export const VirtualizedTable: Story = {
       init();
     }, []);
 
-    const getNewData = useCallback(
-      async ({
-        page = 1,
-        pageSize = DEFAULT_PAGE_SIZE,
-        searchFilter = undefined,
-        ability = undefined,
-      }: {
-        page?: number;
-        pageSize?: number;
-        searchFilter?: string;
-        ability?: 'grass' | 'fire' | 'water' | 'bug' | 'normal' | undefined;
-      }) => {
-        const result = await getPokemons({
-          page,
-          pageSize,
-          searchFilter,
-          ability,
-        });
+    const getNewData = async ({
+      page = 1,
+      pageSize = DEFAULT_PAGE_SIZE,
+      termOfSearch = undefined,
+      type = undefined,
+    }: {
+      page?: number;
+      pageSize?: number;
+      termOfSearch?: string;
+      type?: ('grass' | 'fire' | 'water' | 'bug' | 'normal')[];
+    }) => {
+      const result = await getPokemons({
+        page,
+        pageSize,
+        termOfSearch,
+        type,
+      });
 
-        return result.results;
-      },
-      [],
-    );
+      return {
+        data: result.results,
+        totalItemsCount: result.totalItemsCount,
+      };
+    };
 
     if (data.length === 0) {
       return <div>Loading...</div>;

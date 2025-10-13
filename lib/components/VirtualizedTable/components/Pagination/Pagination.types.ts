@@ -4,4 +4,5 @@ export type Props = {
   showDotPagination?: boolean;
   showFormPagination?: boolean;
   pageSizes?: number[] | string[];
+  classNamePagination?: string;
 };

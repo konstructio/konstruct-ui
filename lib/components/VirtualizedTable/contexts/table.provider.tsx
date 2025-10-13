@@ -21,7 +21,7 @@ type Props<TData extends RowData = RowData> = PropsWithChildren & {
   totalItems: number;
   fetchData: (
     params: Record<string, string | number | string[] | number[] | undefined>,
-  ) => Promise<TData[]>;
+  ) => Promise<{ data: TData[]; totalItemsCount: number }>;
 };
 
 export const TableProvider = <TData extends RowData = RowData>({
@@ -36,9 +36,10 @@ export const TableProvider = <TData extends RowData = RowData>({
   const [page, setPage] = useState(0);
   const [termOfSearch, setTermOfSearch] = useState<string>();
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
+  const [totalItemsCount, setTotalItemsCount] = useState(totalItems);
   const totalPages = useMemo(
-    () => Math.ceil(totalItems / pageSize),
-    [totalItems, pageSize],
+    () => Math.ceil(totalItemsCount / pageSize),
+    [totalItemsCount, pageSize],
   );
   const [multiselectSelected, setMultiselectSelected] = useState<
     Record<string, string[]>
@@ -55,16 +56,19 @@ export const TableProvider = <TData extends RowData = RowData>({
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     initialData: defaultData,
-    queryFn: () => {
-      return fetchData({
+    queryFn: () =>
+      fetchData({
         page: Math.max(page + 1, 1),
         pageSize,
         termOfSearch,
         ...(Object.keys(multiselectSelected).length > 0
           ? multiselectSelected
           : {}),
-      });
-    },
+      }).then(({ data, totalItemsCount }) => {
+        setTotalItemsCount(totalItemsCount);
+
+        return data;
+      }),
   });
 
   const onChangeTermOfSearch = useCallback((term: string) => {
@@ -105,7 +109,7 @@ export const TableProvider = <TData extends RowData = RowData>({
         table: table as unknown as Table<RowData>,
         tableFetching: isFetching,
         tableLoading: isLoading,
-        totalItems,
+        totalItems: totalItemsCount,
         termOfSearch,
         page,
         multiselectSelected,

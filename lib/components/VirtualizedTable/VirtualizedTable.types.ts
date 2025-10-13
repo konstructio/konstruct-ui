@@ -23,7 +23,10 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
   totalItems: number;
   fetchData: (
     params: Record<string, string | number | string[] | number[] | undefined>,
-  ) => Promise<TData[]>;
+  ) => Promise<{ data: TData[]; totalItemsCount: number }>;
+  classNameHeaderTable?: string;
+  classNameHeaderArrows?: string;
+  classNameHeaderActiveArrows?: string;
 } & (
     | {
         showPagination: true;
