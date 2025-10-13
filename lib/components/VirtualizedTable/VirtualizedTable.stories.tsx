@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ColumnDef } from '@tanstack/react-table';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useEffect, useId, useState } from 'react';
 
@@ -16,6 +17,81 @@ const meta: Meta<typeof VirtualizedTableComponent> = {
 
 const queryClient = new QueryClient();
 
+const columns: ColumnDef<Pokemon, string>[] = [
+  {
+    header: 'Id',
+    accessorKey: 'id',
+  },
+  {
+    header: 'Name',
+    accessorKey: 'name',
+    cell: (props) => (
+      <VirtualizedTableComponent.TruncateText
+        {...props}
+        value={`${props.getValue().charAt(0).toUpperCase()}${props
+          .getValue()
+          .slice(1)}`}
+      />
+    ),
+  },
+  {
+    header: 'Type',
+    accessorKey: 'type',
+    cell: (props) => (
+      <VirtualizedTableComponent.TruncateText
+        {...props}
+        value={`${props.getValue().charAt(0).toUpperCase()}${props
+          .getValue()
+          .slice(1)}`}
+      />
+    ),
+  },
+  {
+    header: 'Height',
+    accessorKey: 'height',
+  },
+  {
+    header: 'Weight',
+    accessorKey: 'weight',
+  },
+  {
+    header: 'Ability',
+    accessorKey: 'ability',
+    cell: (props) => (
+      <VirtualizedTableComponent.TruncateText
+        {...props}
+        value={`${props.getValue().charAt(0).toUpperCase()}${props
+          .getValue()
+          .slice(1)}`}
+      />
+    ),
+  },
+  {
+    id: 'actions',
+    enableSorting: false,
+    size: 44,
+    enableResizing: false,
+    cell: (props) => (
+      <VirtualizedTableComponent.Actions
+        {...props}
+        actions={[
+          {
+            label: 'First Action',
+            onClick: (row) =>
+              console.log(`Viewing details for ${JSON.stringify(row)}`),
+          },
+          {
+            label: 'Second Action',
+            onClick: (row) =>
+              console.log(`Viewing details for ${JSON.stringify(row)}`),
+          },
+        ]}
+      />
+    ),
+    header: () => <span className="sr-only">Action Buttons</span>,
+  },
+];
+
 export const VirtualizedTable: Story = {
   args: {
     showFilter: true,
@@ -23,58 +99,6 @@ export const VirtualizedTable: Story = {
     showPagination: true,
     ariaLabel: 'List of accounts',
     pageSizes: [5, 10, 20, 30, 50],
-    columns: [
-      {
-        header: 'Id',
-        accessorKey: 'id',
-      },
-      {
-        header: 'Name',
-        accessorKey: 'name',
-        cell: (props) => (
-          <VirtualizedTableComponent.TruncateText
-            {...props}
-            value={`${props.getValue().charAt(0).toUpperCase()}${props.getValue().slice(1)}`}
-          />
-        ),
-      },
-      {
-        header: 'Type',
-        accessorKey: 'type',
-        cell: (props) => (
-          <VirtualizedTableComponent.TruncateText
-            {...props}
-            value={`${props.getValue().charAt(0).toUpperCase()}${props.getValue().slice(1)}`}
-          />
-        ),
-      },
-      {
-        header: 'Height',
-        accessorKey: 'height',
-      },
-      {
-        header: 'Weight',
-        accessorKey: 'weight',
-      },
-      {
-        header: 'Ability',
-        accessorKey: 'ability',
-        cell: (props) => (
-          <VirtualizedTableComponent.TruncateText
-            {...props}
-            value={`${props.getValue().charAt(0).toUpperCase()}${props.getValue().slice(1)}`}
-          />
-        ),
-      },
-      {
-        id: 'actions',
-        enableSorting: false,
-        size: 44,
-        enableResizing: false,
-        cell: (props) => <VirtualizedTableComponent.Actions {...props} />,
-        header: () => <span className="sr-only">Action Buttons</span>,
-      },
-    ],
     multiSelectFilter: [
       {
         key: 'type',
@@ -166,10 +190,11 @@ export const VirtualizedTable: Story = {
     return (
       <div className="w-full">
         <QueryClientProvider client={queryClient}>
-          <VirtualizedTableComponent
+          <VirtualizedTableComponent<Pokemon>
             {...args}
             id={id}
             data={data}
+            columns={columns}
             fetchData={getNewData}
             totalItems={totalItemsCount}
           />

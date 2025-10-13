@@ -239,7 +239,7 @@ describe('Dropdown', () => {
         ModalWrapper,
       );
 
-      const buttonOpenModal = screen.getByRole('button', {
+      const buttonOpenModal = await screen.findByRole('button', {
         name: /open modal/i,
       });
       expect(buttonOpenModal).toBeInTheDocument();
@@ -265,7 +265,7 @@ describe('Dropdown', () => {
     it('should close dropdown list after selecting an option in modal', async () => {
       const { user, findComboBox } = setup({}, ModalWrapper);
 
-      const buttonOpenModal = screen.getByRole('button', {
+      const buttonOpenModal = await screen.findByRole('button', {
         name: /open modal/i,
       });
       expect(buttonOpenModal).toBeInTheDocument();
@@ -291,7 +291,7 @@ describe('Dropdown', () => {
       const onChange = vitest.fn();
       const { user, findComboBox } = setup({ onChange }, ModalWrapper);
 
-      const buttonOpenModal = screen.getByRole('button', {
+      const buttonOpenModal = await screen.findByRole('button', {
         name: /open modal/i,
       });
       expect(buttonOpenModal).toBeInTheDocument();

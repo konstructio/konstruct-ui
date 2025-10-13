@@ -1,10 +1,10 @@
 import { Content, Provider, Root, Trigger } from '@radix-ui/react-tooltip';
 import debounce from 'lodash/debounce';
-import { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { Props } from './TruncateText.types';
 
-export const TruncateText: FC<Props> = ({ getValue, value }) => {
+export const TruncateText = <TData,>({ getValue, value }: Props<TData>) => {
   const textRef = useRef<HTMLParagraphElement>(null);
   const [isTruncated, setIsTruncated] = useState(false);
   const text = value ?? getValue<string>().toLocaleLowerCase();

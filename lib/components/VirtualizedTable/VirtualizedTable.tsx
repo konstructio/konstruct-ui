@@ -1,4 +1,4 @@
-import { FC, JSX, useMemo } from 'react';
+import { JSX, useMemo } from 'react';
 
 import { cn } from '@/utils';
 
@@ -14,7 +14,7 @@ import {
 import { Props as ActionProps } from './components/Actions/Actions.types';
 import { TableProvider } from './contexts';
 
-const VirtualizedTable = <T extends RowData = RowData>({
+const VirtualizedTableInner = <TData extends RowData>({
   id,
   ariaLabel,
   columns,
@@ -36,7 +36,7 @@ const VirtualizedTable = <T extends RowData = RowData>({
   showFilterInput,
   filterSearchPlaceholder = '',
   multiSelectFilter,
-}: Props<T> & { TruncateText: FC; Actions: FC<ActionProps> }): JSX.Element => {
+}: Props<TData>): JSX.Element => {
   const showPagination = useMemo(
     () =>
       showPaginationProp ||
@@ -50,7 +50,7 @@ const VirtualizedTable = <T extends RowData = RowData>({
   );
 
   return (
-    <TableProvider<T>
+    <TableProvider<TData>
       id={id}
       columns={columns}
       data={data}
@@ -94,6 +94,18 @@ const VirtualizedTable = <T extends RowData = RowData>({
     </TableProvider>
   );
 };
+
+type VirtualizedTableCompound = (<TData extends RowData>(
+  props: Props<TData>,
+) => JSX.Element) & {
+  TruncateText: typeof TruncateText;
+  Actions: <TData extends RowData>(
+    props: ActionProps<TData>,
+  ) => JSX.Element | null;
+  displayName?: string;
+};
+
+const VirtualizedTable = VirtualizedTableInner as VirtualizedTableCompound;
 
 VirtualizedTable.displayName = 'KonstructVirtualizedTable';
 

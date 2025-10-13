@@ -19,7 +19,6 @@ export const Filter: FC<Props> = ({
     multiselectSelected,
     onChangeTermOfSearch,
     onSelectMultiselect,
-    // handlePage,
   } = useTableContext();
 
   const handleChangeMultiselectFilter = useCallback(
