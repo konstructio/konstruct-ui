@@ -19,6 +19,7 @@ export const Item: FC<ItemProps> = ({
   theme,
   to,
   component = 'a',
+  isReactRouterDom = false,
 }) => {
   const { isInsideRouter } = useBreadcrumb();
 
@@ -38,7 +39,7 @@ export const Item: FC<ItemProps> = ({
     >
       {to ? (
         <>
-          {isInsideRouter ? (
+          {isInsideRouter || isReactRouterDom ? (
             <Link
               to={to}
               target={target}
