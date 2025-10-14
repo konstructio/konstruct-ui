@@ -84,8 +84,8 @@ export const useNavigationUlList = ({
           }
 
           case 'Enter': {
-            const button = items[index.current].querySelector('button');
-            button?.click();
+            const currentLiItem = items[index.current];
+            currentLiItem?.click();
 
             break;
           }

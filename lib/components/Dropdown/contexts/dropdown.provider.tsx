@@ -1,4 +1,12 @@
-import { FC, PropsWithChildren, useCallback, useRef, useState } from 'react';
+import {
+  ComponentRef,
+  FC,
+  PropsWithChildren,
+  RefObject,
+  useCallback,
+  useRef,
+  useState,
+} from 'react';
 
 import { useToggle } from '@/hooks';
 
@@ -20,7 +28,11 @@ export const DropdownProvider: FC<
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = useCallback(
-    (value: string) => {
+    (value: string, input?: RefObject<ComponentRef<'input'> | null>) => {
+      if (input?.current) {
+        input.current.value = value;
+      }
+
       onChange?.({ target: { value, name: name ?? '' } });
       onBlur?.();
     },

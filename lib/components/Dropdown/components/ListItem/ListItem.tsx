@@ -19,6 +19,7 @@ import { listItemVariants } from './ListItem.variants';
 export const ListItem: FC<ListItemProps> = ({
   isClickable,
   className,
+  inputRef,
   ...option
 }) => {
   const { searchTerm, highlightSearchEnabled, setValue, toggleOpen } =
@@ -27,7 +28,7 @@ export const ListItem: FC<ListItemProps> = ({
 
   const handleClick = useCallback(
     (option: Option) => {
-      setValue(option.value);
+      setValue(option.value, inputRef);
       toggleOpen(false);
     },
     [setValue, toggleOpen],

@@ -68,7 +68,7 @@ describe('Radio', () => {
   });
 
   it('should send the value of radio whe submit the form', async () => {
-    const mockSubmit = vitest.fn();
+    const mockSubmit = vi.fn();
     const value = 'radio-value';
 
     const Wrapper: FC<PropsWithChildren> = ({ children }) => {

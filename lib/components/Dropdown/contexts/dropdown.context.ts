@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { ComponentRef, createContext, RefObject } from 'react';
 
 export type DropdownContextType = {
   highlightSearchEnabled: boolean;
@@ -6,7 +6,10 @@ export type DropdownContextType = {
   searchTerm: string;
   value?: string;
   setSearchTerm: (term: string) => void;
-  setValue: (value: string) => void;
+  setValue: (
+    value: string,
+    inputRef?: RefObject<ComponentRef<'input'> | null>,
+  ) => void;
   toggleOpen: (value?: boolean) => void;
 };
 
