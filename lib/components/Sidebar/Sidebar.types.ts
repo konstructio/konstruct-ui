@@ -16,11 +16,12 @@ import {
 export interface SidebarProps
   extends VariantProps<typeof wrapperSiderbarVariants>,
     PropsWithChildren {
-  wrapperClassName?: string;
-  minWith?: number;
-  maxWith?: number;
   canResize?: boolean;
+  dividerClassName?: string;
+  maxWith?: number;
+  minWith?: number;
   theme?: Theme;
+  wrapperClassName?: string;
 }
 
 export type SidebarChildrenProps = {
