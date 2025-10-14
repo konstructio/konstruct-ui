@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.2-alpha.5](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.5) (2025-10-14)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.4...0.1.2-alpha.5)
+
+**Merged pull requests:**
+
+- ✨ feat: new prop for breadcrumb was added [\#358](https://github.com/konstructio/konstruct-ui/pull/358) ([futjesus](https://github.com/futjesus))
+- ✨ feat: new prop for sidebar component was added [\#357](https://github.com/konstructio/konstruct-ui/pull/357) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: some dependencies have been updated [\#356](https://github.com/konstructio/konstruct-ui/pull/356) ([futjesus](https://github.com/futjesus))
+- ✨ feat: new type was added to identify columns on table component [\#355](https://github.com/konstructio/konstruct-ui/pull/355) ([futjesus](https://github.com/futjesus))
+- ✨  feat: virtualized table [\#352](https://github.com/konstructio/konstruct-ui/pull/352) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.4](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.4) (2025-10-02)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.3...0.1.2-alpha.4)
