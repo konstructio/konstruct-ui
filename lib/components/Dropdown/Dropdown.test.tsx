@@ -1,13 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
-import { cloneElement, FC, PropsWithChildren, useState } from 'react';
+import { FC, PropsWithChildren, useState } from 'react';
 
 import { Modal } from '@/components/Modal/Modal';
 
+import { Button } from '../Button/Button';
+
 import { Dropdown } from './Dropdown';
 import { DropdownProps, Option } from './Dropdown.types';
-import { Button } from '../Button/Button';
 
 describe('Dropdown', () => {
   const defaultProps = {
@@ -122,29 +123,20 @@ describe('Dropdown', () => {
   });
 
   it('should send the current selected value in a form', async () => {
-    const handleSubmit = vitest.fn();
+    const mockSubmit = vi.fn();
 
     const Wrapper: FC<PropsWithChildren> = ({ children }) => {
-      const [value, setValue] = useState<string>();
       return (
         <form
           onSubmit={(e) => {
             e.preventDefault();
             const formData = new FormData(e.currentTarget);
             const data = Object.fromEntries(formData.entries());
-            handleSubmit(data);
+            mockSubmit(data);
           }}
         >
-          {cloneElement(children as React.ReactElement<DropdownProps>, {
-            onChange: ({
-              target: { value },
-            }: {
-              target: { value: string };
-            }) => {
-              setValue(value);
-            },
-            value,
-          })}
+          {children}
+
           <button type="submit">Submit</button>
         </form>
       );
@@ -162,20 +154,23 @@ describe('Dropdown', () => {
       Wrapper,
     );
 
-    const button = screen.getByRole('button', {
-      name: /submit/i,
-    });
-
     const comboBox = await findComboBox();
 
     await user.click(comboBox);
     await user.keyboard('[ArrowDown]');
     await user.keyboard('[Enter]');
+
+    const button = await screen.findByRole('button', {
+      name: /submit/i,
+    });
+
     await user.click(button);
 
-    expect(handleSubmit).toHaveBeenCalledWith({
-      dropdown: options.at(0)?.value,
-    });
+    expect(mockSubmit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        dropdown: options.at(0)!.value,
+      }),
+    );
   });
 
   it('should render the default value correctly', async () => {

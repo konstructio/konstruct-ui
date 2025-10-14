@@ -72,6 +72,7 @@ export const List: ForwardRefExoticComponent<
           <ListItem
             className={cn('select-none', itemClassName)}
             isClickable={false}
+            inputRef={inputRef}
             value="Loading..."
             label="Loading..."
           />
@@ -79,6 +80,7 @@ export const List: ForwardRefExoticComponent<
           <ListItem
             className={cn('select-none', itemClassName)}
             isClickable={false}
+            inputRef={inputRef}
             value="No options"
             label="No options"
           />
@@ -89,6 +91,7 @@ export const List: ForwardRefExoticComponent<
                 key={option.value}
                 className={cn('select-none', itemClassName)}
                 isClickable
+                inputRef={inputRef}
                 {...option}
               />
             ))}
