@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.6](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.6) (2025-10-14)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.5...0.1.2-alpha.6)
+
+**Merged pull requests:**
+
+- ♻️  chore: change prop in breadcrumb component [\#359](https://github.com/konstructio/konstruct-ui/pull/359) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.5](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.5) (2025-10-14)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.4...0.1.2-alpha.5)
