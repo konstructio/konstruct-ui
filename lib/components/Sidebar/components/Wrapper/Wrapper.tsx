@@ -19,6 +19,7 @@ import { Navigation } from '../Navigation/Navigation';
 const Wrapper: FC<SidebarProps> = ({
   canResize = true,
   children,
+  dividerClassName,
   maxWith = 300,
   minWith = 240,
   theme,
@@ -125,7 +126,7 @@ const Wrapper: FC<SidebarProps> = ({
       {canResize && (
         <div
           ref={dragRef}
-          className={cn(dragVariants())}
+          className={cn(dragVariants({ className: dividerClassName }))}
           onMouseDown={handleMouseDown}
         />
       )}
