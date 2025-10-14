@@ -1,14 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import type { ColumnDef } from '@tanstack/react-table';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useEffect, useId, useState } from 'react';
+import { useCallback, useEffect, useId, useState } from 'react';
 
-import { VirtualizedTable as VirtualizedTableComponent } from './VirtualizedTable';
 import { DEFAULT_PAGE_SIZE } from './constants';
-import { getPokemons } from './mocks/repositories';
-import { Pokemon } from './mocks/repositories/pokemon.types';
+import { getPokemons, Pokemon } from './mocks';
+import { VirtualizedTable as VirtualizedTableComponent } from './VirtualizedTable';
+import { ColumnDef } from './VirtualizedTable.types';
 
 type Story = StoryObj<typeof VirtualizedTableComponent>;
+
+type PokemonResponse = {
+  page?: number;
+  pageSize?: number;
+  termOfSearch?: string;
+  type?: ('grass' | 'fire' | 'water' | 'bug' | 'normal')[];
+};
 
 const meta: Meta<typeof VirtualizedTableComponent> = {
   title: 'In Review/VirtualizedTable',
@@ -17,7 +23,7 @@ const meta: Meta<typeof VirtualizedTableComponent> = {
 
 const queryClient = new QueryClient();
 
-const columns: ColumnDef<Pokemon, string>[] = [
+const columns: ColumnDef<Pokemon>[] = [
   {
     header: 'Id',
     accessorKey: 'id',
@@ -77,13 +83,15 @@ const columns: ColumnDef<Pokemon, string>[] = [
         actions={[
           {
             label: 'First Action',
-            onClick: (row) =>
-              console.log(`Viewing details for ${JSON.stringify(row)}`),
+            onClick: (row) => {
+              console.log(`Viewing details for ${JSON.stringify(row)}`);
+            },
           },
           {
             label: 'Second Action',
-            onClick: (row) =>
-              console.log(`Viewing details for ${JSON.stringify(row)}`),
+            onClick: (row) => {
+              console.log(`Viewing details for ${JSON.stringify(row)}`);
+            },
           },
         ]}
       />
@@ -95,9 +103,9 @@ const columns: ColumnDef<Pokemon, string>[] = [
 export const VirtualizedTable: Story = {
   args: {
     showFilter: true,
-    filterSearchPlaceholder: 'Search by name, email or role...',
+    filterSearchPlaceholder: 'Search by name...',
     showPagination: true,
-    ariaLabel: 'List of accounts',
+    ariaLabel: 'List of pokemons',
     pageSizes: [5, 10, 20, 30, 50],
     multiSelectFilter: [
       {
@@ -159,29 +167,27 @@ export const VirtualizedTable: Story = {
       init();
     }, []);
 
-    const getNewData = async ({
-      page = 1,
-      pageSize = DEFAULT_PAGE_SIZE,
-      termOfSearch = undefined,
-      type = undefined,
-    }: {
-      page?: number;
-      pageSize?: number;
-      termOfSearch?: string;
-      type?: ('grass' | 'fire' | 'water' | 'bug' | 'normal')[];
-    }) => {
-      const result = await getPokemons({
-        page,
-        pageSize,
-        termOfSearch,
-        type,
-      });
+    const getNewData = useCallback(
+      async ({
+        page = 1,
+        pageSize = DEFAULT_PAGE_SIZE,
+        termOfSearch = undefined,
+        type = undefined,
+      }: PokemonResponse) => {
+        const result = await getPokemons({
+          page,
+          pageSize,
+          termOfSearch,
+          type,
+        });
 
-      return {
-        data: result.results,
-        totalItemsCount: result.totalItemsCount,
-      };
-    };
+        return {
+          data: result.results,
+          totalItemsCount: result.totalItemsCount,
+        };
+      },
+      [getPokemons],
+    );
 
     if (data.length === 0) {
       return <div>Loading...</div>;

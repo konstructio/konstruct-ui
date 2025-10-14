@@ -1,10 +1,18 @@
-import { ColumnDef, RowData as RowDataPrimitive } from '@tanstack/react-table';
+import type {
+  ColumnDef as ColumnDefPrimitive,
+  RowData as RowDataPrimitive,
+} from '@tanstack/react-table';
 import { VariantProps } from 'class-variance-authority';
 
 import { virtualizeTableVariants } from './VirtualizedTable.variants';
 import { OptionType } from './components/Filter/Filter.types';
 
 export type RowData = RowDataPrimitive;
+
+export type ColumnDef<TData extends RowData> = ColumnDefPrimitive<
+  TData,
+  string
+>;
 
 export type MultiSelectFilter = {
   key: string;
@@ -18,7 +26,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
 > & {
   id: string;
   ariaLabel?: string;
-  columns: ColumnDef<TData, string>[];
+  columns: ColumnDefPrimitive<TData, string>[];
   data: TData[];
   totalItems: number;
   fetchData: (
