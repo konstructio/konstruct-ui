@@ -1,7 +1,9 @@
 import { AlertDialogProps as AlertDialogProps_2 } from '@radix-ui/react-alert-dialog';
 import { ButtonHTMLAttributes } from '../../../node_modules/react';
+import { CellContext } from '@tanstack/react-table';
 import { CheckboxProps as CheckboxProps_2 } from '@radix-ui/react-checkbox';
 import { ClassProp } from 'class-variance-authority/types';
+import { ColumnDef } from '@tanstack/react-table';
 import { ComponentRef } from '../../../node_modules/react';
 import { Context } from '../../node_modules/react';
 import { DayPickerProps } from 'react-day-picker';
@@ -15,6 +17,8 @@ import { HTMLAttributes } from '../../../node_modules/react';
 import { HTMLAttributes as HTMLAttributes_2 } from '../../../../../node_modules/react';
 import { HtmlHTMLAttributes } from '../../../../../node_modules/react';
 import { InputHTMLAttributes } from '../../../node_modules/react';
+import { JSX } from 'react/jsx-runtime';
+import { JSX as JSX_2 } from '../../../node_modules/react';
 import { PropsWithChildren } from '../../../node_modules/react';
 import { PropsWithChildren as PropsWithChildren_2 } from '../../../../../node_modules/react';
 import { PropsWithChildren as PropsWithChildren_3 } from '../../node_modules/react';
@@ -23,9 +27,15 @@ import { ReactNode as ReactNode_2 } from '../../../../../node_modules/react';
 import * as ReactTabs from '@radix-ui/react-tabs';
 import { Ref } from '../../../node_modules/react';
 import { RefAttributes } from '../../../node_modules/react';
+import { RowData as RowData_2 } from '@tanstack/react-table';
 import { SliderProps } from '@radix-ui/react-slider';
 import { TabsContentProps } from '@radix-ui/react-tabs';
 import { VariantProps } from 'class-variance-authority';
+
+declare type Action<TData> = {
+    label: string;
+    onClick: (rowData: TData) => void;
+};
 
 export declare const Alert: FC<AlertProps>;
 
@@ -331,6 +341,13 @@ declare interface ModalProps extends PropsWithChildren, VariantProps<typeof moda
 
 declare const modalVariants: (props?: ClassProp | undefined) => string;
 
+declare type MultiSelectFilter = {
+    key: string;
+    label: string;
+    position?: 'right' | 'left';
+    options: OptionType[];
+};
+
 export declare const Navigation: FC_2<NavigationProps> & NavigationChildrenProps;
 
 declare type NavigationChildrenProps = {
@@ -440,6 +457,12 @@ declare type Option_5 = {
     variant?: BadgeProps['variant'];
 };
 
+declare type OptionType = {
+    id: string;
+    label: string;
+    variant?: 'info' | 'danger' | 'success' | 'default' | 'warning' | null;
+};
+
 export declare const PieChart: FC<Props_2>;
 
 export declare const ProgressBar: FC<ProgressBarProps>;
@@ -546,6 +569,53 @@ declare type Props_2 = {
     subtitle?: string;
 });
 
+declare type Props_3<TData extends RowData> = CellContext<TData, string> & {
+    value?: string;
+};
+
+declare type Props_4<TData extends RowData_2> = VariantProps<typeof virtualizeTableVariants> & {
+    id: string;
+    ariaLabel?: string;
+    columns: ColumnDef<TData, string>[];
+    data: TData[];
+    totalItems: number;
+    fetchData: (params: Record<string, string | number | string[] | number[] | undefined>) => Promise<{
+        data: TData[];
+        totalItemsCount: number;
+    }>;
+    classNameHeaderTable?: string;
+    classNameHeaderArrows?: string;
+    classNameHeaderActiveArrows?: string;
+} & ({
+    showPagination: true;
+    showTotalItems?: boolean;
+    showDropdownPagination?: boolean;
+    showDotPagination?: boolean;
+    showFormPagination?: boolean;
+    pageSizes?: number[] | string[];
+} | {
+    showPagination?: false | undefined;
+    showTotalItems?: never;
+    showDropdownPagination?: never;
+    showDotPagination?: never;
+    showFormPagination?: never;
+    pageSizes?: never;
+}) & ({
+    filterSearchPlaceholder?: string;
+    multiSelectFilter?: MultiSelectFilter[];
+    showFilter: true;
+    showFilterInput?: boolean;
+} | {
+    filterSearchPlaceholder?: never;
+    multiSelectFilter?: never;
+    showFilter?: false | undefined;
+    showFilterInput?: never;
+});
+
+declare type Props_5<TData extends RowData> = CellContext<TData, unknown> & {
+    actions: Action<TData>[];
+};
+
 export declare const Radio: FC<RadioProps>;
 
 export declare const RadioCard: FC<RadioCardProps>;
@@ -626,6 +696,8 @@ declare type ResetButtonProps = ButtonProps & {
     onClick?: VoidFunction;
 };
 
+declare type RowData = RowData_2;
+
 declare interface RowProps extends React.HTMLAttributes<HTMLTableRowElement>, PropsWithChildren, VariantProps<typeof rowVariants> {
     width?: string;
     isSelected?: boolean;
@@ -648,11 +720,12 @@ declare type SidebarChildrenProps = {
 };
 
 declare interface SidebarProps extends VariantProps<typeof wrapperSiderbarVariants>, PropsWithChildren {
-    wrapperClassName?: string;
-    minWith?: number;
-    maxWith?: number;
     canResize?: boolean;
+    dividerClassName?: string;
+    maxWith?: number;
+    minWith?: number;
     theme?: Theme;
+    wrapperClassName?: string;
 }
 
 export declare const Slider: FC<SliderProps_2>;
@@ -840,6 +913,8 @@ declare const triggerVariants: (props?: ({
     variant?: "default" | "active" | "inactive" | null | undefined;
 } & ClassProp) | undefined) => string;
 
+export declare const TruncateText: <TData>({ getValue, value }: Props_3<TData>) => JSX.Element;
+
 export declare const Typography: ForwardRefExoticComponent<Omit<TypographyProps, 'ref'> & RefAttributes<HTMLParagraphElement | HTMLHeadingElement>>;
 
 declare interface TypographyProps extends HTMLAttributes<ComponentRef<HeadingTag | 'p' | 'span'>>, VariantProps<typeof typographyVariants> {
@@ -856,6 +931,16 @@ declare const typographyVariants: (props?: ({
 export declare const useTheme: () => ThemeProps;
 
 export declare const useToggle: (initialState?: boolean) => [boolean, (value?: boolean) => void];
+
+export declare const VirtualizedTable: VirtualizedTableCompound;
+
+declare type VirtualizedTableCompound = (<TData extends RowData>(props: Props_4<TData>) => JSX_2.Element) & {
+    TruncateText: typeof TruncateText;
+    Actions: <TData extends RowData>(props: Props_5<TData>) => JSX_2.Element | null;
+    displayName?: string;
+};
+
+declare const virtualizeTableVariants: (props?: ClassProp | undefined) => string;
 
 declare const wrapperSiderbarVariants: (props?: ClassProp | undefined) => string;
 
