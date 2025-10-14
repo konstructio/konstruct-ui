@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { FC, PropsWithChildren, useState } from 'react';
@@ -36,6 +36,7 @@ describe('Dropdown', () => {
       { wrapper },
     );
 
+    // const user = userEvent.setup({ delay: 10 });
     const user = userEvent.setup();
     const findComboBox = async () => screen.findByRole('combobox');
     const getElement = (value: string | RegExp) =>
@@ -166,11 +167,13 @@ describe('Dropdown', () => {
 
     await user.click(button);
 
-    expect(mockSubmit).toHaveBeenCalledWith(
-      expect.objectContaining({
-        dropdown: options.at(0)!.value,
-      }),
-    );
+    await waitFor(() => {
+      expect(mockSubmit).toHaveBeenCalledWith(
+        expect.objectContaining({
+          dropdown: options.at(0)!.value,
+        }),
+      );
+    });
   });
 
   it('should render the default value correctly', async () => {

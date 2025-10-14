@@ -19,7 +19,6 @@ export const Item: FC<ItemProps> = ({
   theme,
   to,
   component = 'a',
-  isReactRouterDom = false,
 }) => {
   const { isInsideRouter } = useBreadcrumb();
 
@@ -39,7 +38,7 @@ export const Item: FC<ItemProps> = ({
     >
       {to ? (
         <>
-          {isInsideRouter || isReactRouterDom ? (
+          {isInsideRouter ? (
             <Link
               to={to}
               target={target}
@@ -51,7 +50,8 @@ export const Item: FC<ItemProps> = ({
             </Link>
           ) : (
             <Component
-              href={to}
+              href={Component === 'a' ? to : undefined}
+              to={Component !== 'a' ? to : undefined}
               target={target}
               className={cn(breadcrumbLinkVariants({ isActive }))}
               aria-disabled={isActive ? 'true' : 'false'}
