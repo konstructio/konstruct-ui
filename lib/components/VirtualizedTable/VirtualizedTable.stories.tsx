@@ -201,6 +201,7 @@ export const VirtualizedTable: Story = {
             id={id}
             data={data}
             columns={columns}
+            showPagination={true}
             fetchData={getNewData}
             totalItems={totalItemsCount}
           />

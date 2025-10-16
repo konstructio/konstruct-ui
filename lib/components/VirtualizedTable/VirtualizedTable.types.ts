@@ -28,13 +28,15 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
   ariaLabel?: string;
   columns: ColumnDefPrimitive<TData, string>[];
   data: TData[];
-  totalItems: number;
+  className?: string;
+  classNameHeaderActiveArrows?: string;
+  classNameHeaderArrows?: string;
+  classNameHeaderTable?: string;
+  classNameTable?: string;
+  classNameWrapperTable?: string;
   fetchData: (
     params: Record<string, string | number | string[] | number[] | undefined>,
   ) => Promise<{ data: TData[]; totalItemsCount: number }>;
-  classNameHeaderTable?: string;
-  classNameHeaderArrows?: string;
-  classNameHeaderActiveArrows?: string;
 } & (
     | {
         showPagination: true;
@@ -43,6 +45,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         showDotPagination?: boolean;
         showFormPagination?: boolean;
         pageSizes?: number[] | string[];
+        totalItems: number;
       }
     | {
         showPagination?: false | undefined;
@@ -51,6 +54,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         showDotPagination?: never;
         showFormPagination?: never;
         pageSizes?: never;
+        totalItems: never;
       }
   ) &
   (
