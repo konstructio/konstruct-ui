@@ -30,7 +30,12 @@ export default defineConfig({
     minify: 'esbuild',
     sourcemap: false,
     rollupOptions: {
-      external: ['react', 'react/jsx-runtime'],
+      external: [
+        'react',
+        'react/jsx-runtime',
+        'react-dom',
+        '@tanstack/react-query',
+      ],
       treeshake: {
         moduleSideEffects: false,
         preset: 'smallest',
