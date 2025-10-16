@@ -36,7 +36,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
   classNameWrapperTable?: string;
   fetchData: (
     params: Record<string, string | number | string[] | number[] | undefined>,
-  ) => Promise<{ data: TData[]; totalItemsCount: number }>;
+  ) => Promise<{ data: TData[]; totalItemsCount?: number }>;
 } & (
     | {
         showPagination: true;
@@ -54,7 +54,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         showDotPagination?: never;
         showFormPagination?: never;
         pageSizes?: never;
-        totalItems: never;
+        totalItems?: never;
       }
   ) &
   (

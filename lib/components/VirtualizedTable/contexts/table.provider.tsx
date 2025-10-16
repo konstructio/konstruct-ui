@@ -21,7 +21,7 @@ type Props<TData extends RowData = RowData> = PropsWithChildren & {
   totalItems: number;
   fetchData: (
     params: Record<string, string | number | string[] | number[] | undefined>,
-  ) => Promise<{ data: TData[]; totalItemsCount: number }>;
+  ) => Promise<{ data: TData[]; totalItemsCount?: number }>;
 };
 
 export const TableProvider = <TData extends RowData = RowData>({
@@ -65,7 +65,9 @@ export const TableProvider = <TData extends RowData = RowData>({
           ? multiselectSelected
           : {}),
       }).then(({ data, totalItemsCount }) => {
-        setTotalItemsCount(totalItemsCount);
+        if (totalItemsCount) {
+          setTotalItemsCount(totalItemsCount);
+        }
 
         return data;
       }),
