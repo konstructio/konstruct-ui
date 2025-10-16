@@ -586,7 +586,7 @@ declare type Props_4<TData extends RowData_2> = VariantProps<typeof virtualizeTa
     classNameWrapperTable?: string;
     fetchData: (params: Record<string, string | number | string[] | number[] | undefined>) => Promise<{
         data: TData[];
-        totalItemsCount: number;
+        totalItemsCount?: number;
     }>;
 } & ({
     showPagination: true;
@@ -603,7 +603,7 @@ declare type Props_4<TData extends RowData_2> = VariantProps<typeof virtualizeTa
     showDotPagination?: never;
     showFormPagination?: never;
     pageSizes?: never;
-    totalItems: never;
+    totalItems?: never;
 }) & ({
     filterSearchPlaceholder?: string;
     multiSelectFilter?: MultiSelectFilter[];
