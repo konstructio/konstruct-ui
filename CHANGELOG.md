@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.7](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.7) (2025-10-16)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.6...0.1.2-alpha.7)
+
+**Merged pull requests:**
+
+- ➕ chore: react query was added as peer dependency [\#360](https://github.com/konstructio/konstruct-ui/pull/360) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.6](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.6) (2025-10-14)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.5...0.1.2-alpha.6)
