@@ -20,9 +20,12 @@ const VirtualizedTableInner = <TData extends RowData>({
   columns,
   data,
   totalItems,
-  classNameHeaderTable,
-  classNameHeaderArrows,
+  className,
   classNameHeaderActiveArrows,
+  classNameHeaderArrows,
+  classNameHeaderTable,
+  classNameTable,
+  classNameWrapperTable,
   fetchData,
   // Pagination
   showPagination: showPaginationProp,
@@ -57,7 +60,7 @@ const VirtualizedTableInner = <TData extends RowData>({
       fetchData={fetchData}
       totalItems={totalItems}
     >
-      <section>
+      <section className={className}>
         {showFilter && (
           <Filter
             placeholder={filterSearchPlaceholder}
@@ -67,11 +70,18 @@ const VirtualizedTableInner = <TData extends RowData>({
         )}
 
         <div
-          className={cn('shadow rounded-t-lg', {
-            'overflow-hidden rounded-lg': !showPagination,
-          })}
+          className={cn(
+            'shadow rounded-t-lg',
+            {
+              'overflow-hidden rounded-lg': !showPagination,
+            },
+            classNameWrapperTable,
+          )}
         >
-          <table className="w-full border-collapse" aria-label={ariaLabel}>
+          <table
+            className={cn('w-full border-collapse', classNameTable)}
+            aria-label={ariaLabel}
+          >
             <Header
               className={classNameHeaderTable}
               classNameArrows={classNameHeaderArrows}
