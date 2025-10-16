@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.8](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.8) (2025-10-16)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.7...0.1.2-alpha.8)
+
+**Merged pull requests:**
+
+- ✨ chore: more props to virtualized table were added [\#361](https://github.com/konstructio/konstruct-ui/pull/361) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.7](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.7) (2025-10-16)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.6...0.1.2-alpha.7)
