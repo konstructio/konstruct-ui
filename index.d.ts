@@ -578,14 +578,16 @@ declare type Props_4<TData extends RowData_2> = VariantProps<typeof virtualizeTa
     ariaLabel?: string;
     columns: ColumnDef<TData, string>[];
     data: TData[];
-    totalItems: number;
+    className?: string;
+    classNameHeaderActiveArrows?: string;
+    classNameHeaderArrows?: string;
+    classNameHeaderTable?: string;
+    classNameTable?: string;
+    classNameWrapperTable?: string;
     fetchData: (params: Record<string, string | number | string[] | number[] | undefined>) => Promise<{
         data: TData[];
         totalItemsCount: number;
     }>;
-    classNameHeaderTable?: string;
-    classNameHeaderArrows?: string;
-    classNameHeaderActiveArrows?: string;
 } & ({
     showPagination: true;
     showTotalItems?: boolean;
@@ -593,6 +595,7 @@ declare type Props_4<TData extends RowData_2> = VariantProps<typeof virtualizeTa
     showDotPagination?: boolean;
     showFormPagination?: boolean;
     pageSizes?: number[] | string[];
+    totalItems: number;
 } | {
     showPagination?: false | undefined;
     showTotalItems?: never;
@@ -600,6 +603,7 @@ declare type Props_4<TData extends RowData_2> = VariantProps<typeof virtualizeTa
     showDotPagination?: never;
     showFormPagination?: never;
     pageSizes?: never;
+    totalItems: never;
 }) & ({
     filterSearchPlaceholder?: string;
     multiSelectFilter?: MultiSelectFilter[];
