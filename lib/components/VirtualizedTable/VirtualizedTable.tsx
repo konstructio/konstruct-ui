@@ -19,7 +19,7 @@ const VirtualizedTableInner = <TData extends RowData>({
   ariaLabel,
   columns,
   data,
-  totalItems,
+  totalItems = -Infinity,
   className,
   classNameHeaderActiveArrows,
   classNameHeaderArrows,
