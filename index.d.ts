@@ -245,6 +245,12 @@ declare const dropdownVariants: (props?: ({
 
 export declare const Filter: FilterComponentProps;
 
+declare type FilterAction = {
+    label: string;
+    onClick: () => void;
+    variant?: ButtonProps['variant'];
+};
+
 declare type FilterComponentProps = FC<FilterProps> & {
     BadgeMultiSelect: FC<BadgeMultiSelectProps>;
     DateFilterDropdown: FC<DateFilterDropdownProps>;
@@ -609,11 +615,15 @@ declare type Props_4<TData extends RowData_2> = VariantProps<typeof virtualizeTa
     multiSelectFilter?: MultiSelectFilter[];
     showFilter: true;
     showFilterInput?: boolean;
+    filterActions?: FilterAction[];
+    showResetButton?: boolean;
 } | {
     filterSearchPlaceholder?: never;
     multiSelectFilter?: never;
     showFilter?: false | undefined;
     showFilterInput?: never;
+    filterActions?: FilterAction[];
+    showResetButton?: never;
 });
 
 declare type Props_5<TData extends RowData> = CellContext<TData, unknown> & {
