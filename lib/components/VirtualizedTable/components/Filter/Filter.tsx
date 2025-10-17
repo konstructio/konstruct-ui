@@ -7,11 +7,14 @@ import { Input } from '@/components/Input/Input';
 import { useTableContext } from '../../contexts';
 
 import { OptionType, Props } from './Filter.types';
+import { Button } from '@/components/Button/Button';
 
 export const Filter: FC<Props> = ({
-  placeholder,
+  actions,
   multiSelectFilter,
+  placeholder,
   showFilterInput = true,
+  showResetButton = true,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const {
@@ -85,11 +88,24 @@ export const Filter: FC<Props> = ({
           ),
         )}
 
-        <FilterPrimitive.ResetButton
-          className="text-slate-700 hover:text-slate-700 disabled:text-slate-700/45 select-none"
-          disabled={!hasData}
-          onClick={handleResetFilters}
-        />
+        {actions?.map(({ label, onClick, variant = 'secondary' }) => (
+          <Button
+            key={label}
+            variant={variant}
+            appearance="compact"
+            onClick={onClick}
+          >
+            {label}
+          </Button>
+        ))}
+
+        {showResetButton && (
+          <FilterPrimitive.ResetButton
+            className="text-slate-700 hover:text-slate-700 disabled:text-slate-700/45 select-none"
+            disabled={!hasData}
+            onClick={handleResetFilters}
+          />
+        )}
       </FilterPrimitive>
     </div>
   );

@@ -39,6 +39,8 @@ const VirtualizedTableInner = <TData extends RowData>({
   showFilterInput,
   filterSearchPlaceholder = '',
   multiSelectFilter,
+  filterActions,
+  showResetButton = true,
 }: Props<TData>): JSX.Element => {
   const showPagination = useMemo(
     () =>
@@ -63,9 +65,11 @@ const VirtualizedTableInner = <TData extends RowData>({
       <section className={className}>
         {showFilter && (
           <Filter
-            placeholder={filterSearchPlaceholder}
+            actions={filterActions}
             multiSelectFilter={multiSelectFilter}
+            placeholder={filterSearchPlaceholder}
             showFilterInput={showFilterInput}
+            showResetButton={showResetButton}
           />
         )}
 
