@@ -2,7 +2,7 @@
   "name": "@konstructio/ui",
   "description": "A set of reusable and customizable React components built for konstruct.io",
   "private": false,
-  "version": "0.1.2-alpha.9",
+  "version": "0.1.2-alpha.10",
   "type": "module",
   "license": "MIT",
   "main": "dist/index.js",
