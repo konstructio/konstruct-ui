@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.10](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.10) (2025-10-17)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.9...0.1.2-alpha.10)
+
+**Merged pull requests:**
+
+- feat: filter action buttons [\#363](https://github.com/konstructio/konstruct-ui/pull/363) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.1.2-alpha.9](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.9) (2025-10-16)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.8...0.1.2-alpha.9)
