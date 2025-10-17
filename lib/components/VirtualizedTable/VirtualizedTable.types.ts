@@ -5,7 +5,7 @@ import type {
 import { VariantProps } from 'class-variance-authority';
 
 import { virtualizeTableVariants } from './VirtualizedTable.variants';
-import { OptionType } from './components/Filter/Filter.types';
+import { FilterAction, OptionType } from './components/Filter/Filter.types';
 
 export type RowData = RowDataPrimitive;
 
@@ -63,11 +63,15 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         multiSelectFilter?: MultiSelectFilter[];
         showFilter: true;
         showFilterInput?: boolean;
+        filterActions?: FilterAction[];
+        showResetButton?: boolean;
       }
     | {
         filterSearchPlaceholder?: never;
         multiSelectFilter?: never;
         showFilter?: false | undefined;
         showFilterInput?: never;
+        filterActions?: FilterAction[];
+        showResetButton?: never;
       }
   );

@@ -103,10 +103,20 @@ const columns: ColumnDef<Pokemon>[] = [
 export const VirtualizedTable: Story = {
   args: {
     showFilter: true,
+    showResetButton: true,
     filterSearchPlaceholder: 'Search by name...',
     showPagination: true,
     ariaLabel: 'List of pokemons',
     pageSizes: [5, 10, 20, 30, 50],
+    filterActions: [
+      {
+        label: 'Export',
+        variant: 'secondary',
+        onClick: () => {
+          console.log('Export');
+        },
+      },
+    ],
     multiSelectFilter: [
       {
         key: 'type',
