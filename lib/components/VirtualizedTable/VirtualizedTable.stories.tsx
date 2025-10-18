@@ -6,6 +6,7 @@ import { DEFAULT_PAGE_SIZE } from './constants';
 import { getPokemons, Pokemon } from './mocks';
 import { VirtualizedTable as VirtualizedTableComponent } from './VirtualizedTable';
 import { ColumnDef } from './VirtualizedTable.types';
+import { EyeIcon } from 'lucide-react';
 
 type Story = StoryObj<typeof VirtualizedTableComponent>;
 
@@ -82,10 +83,16 @@ const columns: ColumnDef<Pokemon>[] = [
         {...props}
         actions={[
           {
-            label: 'First Action',
+            label: (
+              <span className="text-blue-800 flex items-center gap-2">
+                <EyeIcon className="w-4 h-4" />
+                First Action
+              </span>
+            ),
             onClick: (row) => {
               console.log(`Viewing details for ${JSON.stringify(row)}`);
             },
+            className: 'text-slate-800',
           },
           {
             label: 'Second Action',
