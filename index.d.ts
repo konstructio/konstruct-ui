@@ -33,8 +33,9 @@ import { TabsContentProps } from '@radix-ui/react-tabs';
 import { VariantProps } from 'class-variance-authority';
 
 declare type Action<TData> = {
-    label: string;
+    label: string | React.ReactNode;
     onClick: (rowData: TData) => void;
+    className?: string;
 };
 
 export declare const Alert: FC<AlertProps>;
