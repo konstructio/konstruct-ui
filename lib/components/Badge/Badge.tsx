@@ -7,11 +7,13 @@ import { cn } from '@/utils';
 
 import { BadgeProps } from './Badge.types';
 import { badgeVariants, buttonDismissVariants } from './Badge.variants';
+import { Slot } from '@radix-ui/react-slot';
 
 export const Badge: FC<BadgeProps> = ({
   className,
   dismissible = false,
   label,
+  leftIcon,
   loading = false,
   size,
   variant,
@@ -63,6 +65,8 @@ export const Badge: FC<BadgeProps> = ({
       {loading && (
         <Loader className="h-3 w-3 animate-spin animate-duration-time-2" />
       )}
+
+      {leftIcon ? <Slot className="h-3 w-3">{leftIcon}</Slot> : null}
 
       {label}
 

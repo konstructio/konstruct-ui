@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Badge as BadgeComponent } from './Badge';
+import { Check } from 'lucide-react';
 
 type Story = StoryObj<typeof BadgeComponent>;
 
@@ -22,6 +23,7 @@ export const Badge = {
           <BadgeComponent variant="danger" {...args} />
           <BadgeComponent variant="success" {...args} />
           <BadgeComponent variant="info" {...args} />
+          <BadgeComponent variant="violet" {...args} />
         </div>
         <div className="flex flex-col gap-3">
           <BadgeComponent loading {...args} />
@@ -29,6 +31,7 @@ export const Badge = {
           <BadgeComponent loading variant="danger" {...args} />
           <BadgeComponent loading variant="success" {...args} />
           <BadgeComponent loading variant="info" {...args} />
+          <BadgeComponent loading variant="violet" {...args} />
         </div>
         <div className="flex flex-col gap-3">
           <BadgeComponent dismissible {...args} />
@@ -36,6 +39,15 @@ export const Badge = {
           <BadgeComponent dismissible variant="danger" {...args} />
           <BadgeComponent dismissible variant="success" {...args} />
           <BadgeComponent dismissible variant="info" {...args} />
+          <BadgeComponent dismissible variant="violet" {...args} />
+        </div>
+        <div className="flex flex-col gap-3">
+          <BadgeComponent leftIcon={<Check />} {...args} />
+          <BadgeComponent leftIcon={<Check />} variant="warning" {...args} />
+          <BadgeComponent leftIcon={<Check />} variant="danger" {...args} />
+          <BadgeComponent leftIcon={<Check />} variant="success" {...args} />
+          <BadgeComponent leftIcon={<Check />} variant="info" {...args} />
+          <BadgeComponent leftIcon={<Check />} variant="violet" {...args} />
         </div>
       </div>
     </div>

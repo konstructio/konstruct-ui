@@ -5,7 +5,7 @@ import type {
 import { VariantProps } from 'class-variance-authority';
 
 import { virtualizeTableVariants } from './VirtualizedTable.variants';
-import { FilterAction, OptionType } from './components/Filter/Filter.types';
+import { FilterAction, Option } from './components/Filter/Filter.types';
 
 export type RowData = RowDataPrimitive;
 
@@ -18,7 +18,7 @@ export type MultiSelectFilter = {
   key: string;
   label: string;
   position?: 'right' | 'left';
-  options: OptionType[];
+  options: Option[];
 };
 
 export type Props<TData extends RowDataPrimitive> = VariantProps<

@@ -1,12 +1,14 @@
 import { VariantProps } from 'class-variance-authority';
+import { ReactNode } from 'react';
 
 import { badgeVariants } from './Badge.variants';
 
 export type BadgeProps = VariantProps<typeof badgeVariants> & {
-  label: string;
   className?: string;
-  loading?: boolean;
   dismissible?: true;
+  label: string;
+  leftIcon?: ReactNode;
+  loading?: boolean;
   onClick?: VoidFunction;
   onDismiss?: VoidFunction;
 };

@@ -1,11 +1,6 @@
 import { ButtonProps } from '@/components/Button/Button.types';
 import { MultiSelectFilter } from '../../VirtualizedTable.types';
-
-export type OptionType = {
-  id: string;
-  label: string;
-  variant?: 'info' | 'danger' | 'success' | 'default' | 'warning' | null;
-};
+export type { Option } from '@/components/Filter/Filter.types';
 
 export type FilterAction = {
   label: string;
