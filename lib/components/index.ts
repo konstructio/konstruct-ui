@@ -35,3 +35,7 @@ export * from './Toast/Toast';
 export * from './Tooltip/Tooltip';
 export * from './Typography/Typography';
 export * from './VirtualizedTable/VirtualizedTable';
+export type {
+  ColumnDef,
+  RowData,
+} from './VirtualizedTable/VirtualizedTable.types';

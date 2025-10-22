@@ -6,7 +6,7 @@ import { Input } from '@/components/Input/Input';
 
 import { useTableContext } from '../../contexts';
 
-import { OptionType, Props } from './Filter.types';
+import { Option, Props } from './Filter.types';
 import { Button } from '@/components/Button/Button';
 
 export const Filter: FC<Props> = ({
@@ -25,7 +25,7 @@ export const Filter: FC<Props> = ({
   } = useTableContext();
 
   const handleChangeMultiselectFilter = useCallback(
-    (key: string, selected: OptionType[]) =>
+    (key: string, selected: Option[]) =>
       onSelectMultiselect(
         key,
         selected.map((option) => option.id),
@@ -81,9 +81,9 @@ export const Filter: FC<Props> = ({
               label={label}
               position={position}
               options={options}
-              onApply={(selected: OptionType[]) =>
-                handleChangeMultiselectFilter(key, selected)
-              }
+              onApply={(selected: Option[]) => {
+                handleChangeMultiselectFilter(key, selected);
+              }}
             />
           ),
         )}
