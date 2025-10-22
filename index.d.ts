@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes } from '../../../node_modules/react';
 import { CellContext } from '@tanstack/react-table';
 import { CheckboxProps as CheckboxProps_2 } from '@radix-ui/react-checkbox';
 import { ClassProp } from 'class-variance-authority/types';
-import { ColumnDef } from '@tanstack/react-table';
+import { ColumnDef as ColumnDef_2 } from '@tanstack/react-table';
 import { ComponentRef } from '../../../node_modules/react';
 import { Context } from '../../node_modules/react';
 import { DayPickerProps } from 'react-day-picker';
@@ -99,16 +99,17 @@ declare type BadgeMultiSelectProps = {
 };
 
 declare type BadgeProps = VariantProps<typeof badgeVariants> & {
-    label: string;
     className?: string;
-    loading?: boolean;
     dismissible?: true;
+    label: string;
+    leftIcon?: ReactNode;
+    loading?: boolean;
     onClick?: VoidFunction;
     onDismiss?: VoidFunction;
 };
 
 declare const badgeVariants: (props?: ({
-    variant?: "info" | "warning" | "danger" | "default" | "success" | null | undefined;
+    variant?: "info" | "warning" | "danger" | "default" | "success" | "violet" | null | undefined;
     size?: "default" | null | undefined;
 } & ClassProp) | undefined) => string;
 
@@ -187,6 +188,8 @@ declare const checkboxVariants: (props?: ({
     variant?: "default" | null | undefined;
     checked?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
+
+export declare type ColumnDef<TData extends RowData> = ColumnDef_2<TData, string>;
 
 export declare const Content: FC_3<TabsContentProps>;
 
@@ -352,7 +355,7 @@ declare type MultiSelectFilter = {
     key: string;
     label: string;
     position?: 'right' | 'left';
-    options: OptionType[];
+    options: Option_5[];
 };
 
 export declare const Navigation: FC_2<NavigationProps> & NavigationChildrenProps;
@@ -462,12 +465,6 @@ declare type Option_5 = {
     id: string;
     label: string;
     variant?: BadgeProps['variant'];
-};
-
-declare type OptionType = {
-    id: string;
-    label: string;
-    variant?: 'info' | 'danger' | 'success' | 'default' | 'warning' | null;
 };
 
 export declare const PieChart: FC<Props_2>;
@@ -583,7 +580,7 @@ declare type Props_3<TData extends RowData> = CellContext<TData, string> & {
 declare type Props_4<TData extends RowData_2> = VariantProps<typeof virtualizeTableVariants> & {
     id: string;
     ariaLabel?: string;
-    columns: ColumnDef<TData, string>[];
+    columns: ColumnDef_2<TData, string>[];
     data: TData[];
     className?: string;
     classNameHeaderActiveArrows?: string;
@@ -711,7 +708,7 @@ declare type ResetButtonProps = ButtonProps & {
     onClick?: VoidFunction;
 };
 
-declare type RowData = RowData_2;
+export declare type RowData = RowData_2;
 
 declare interface RowProps extends React.HTMLAttributes<HTMLTableRowElement>, PropsWithChildren, VariantProps<typeof rowVariants> {
     width?: string;
