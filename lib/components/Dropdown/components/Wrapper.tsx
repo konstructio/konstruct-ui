@@ -245,6 +245,7 @@ export const Wrapper: ForwardRefExoticComponent<
             className="hidden"
             aria-hidden="true"
             required={isRequired}
+            inert
             {...delegated}
           />
         )}
