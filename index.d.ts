@@ -193,6 +193,8 @@ export declare type ColumnDef<TData extends RowData> = ColumnDef_2<TData, string
 
 export declare const Content: FC_3<TabsContentProps>;
 
+declare type CSSColor = `var(--${string})` | `rgb(${number}, ${number}, ${number})` | `rgba(${number}, ${number}, ${number}, ${number})` | `hsl(${number}, ${number}%, ${number}%)` | `hsla(${number}, ${number}%, ${number}%, ${number})`;
+
 export declare const DateFilterDropdown: FC_2<DateFilterDropdownProps>;
 
 declare type DateFilterDropdownProps = {
@@ -503,7 +505,7 @@ declare type Props_2 = {
      * Array of hexadecimal colors for the borders of the pie chart segments
      * @default ['#FFFFFF', '#FFFFFF']
      */
-    borderColors?: HexColor[];
+    borderColors?: HexColor[] | CSSColor[] | (HexColor | CSSColor)[];
     /**
      * Width of the border for pie chart segments in pixels
      * @default 0
@@ -513,7 +515,7 @@ declare type Props_2 = {
      * Array of hexadecimal colors for filling the pie chart segments
      * @default ['#525252', '#00D492']
      */
-    colors?: HexColor[];
+    colors?: HexColor[] | CSSColor[] | (HexColor | CSSColor)[];
     /**
      * Percentage of the pie chart's center that should be cut out, creating a donut chart effect
      * @default 80
