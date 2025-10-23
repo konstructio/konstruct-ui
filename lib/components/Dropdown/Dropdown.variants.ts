@@ -37,9 +37,14 @@ export const dropdownVariants = cva(
         ],
         false: '',
       },
+      disabled: {
+        true: ['cursor-default', 'bg-gray-100', 'dark:bg-slate-700/80'],
+        false: [],
+      },
     },
     defaultVariants: {
       hasError: false,
+      disabled: false,
     },
   },
 );
@@ -63,7 +68,7 @@ export const labelVariants = cva([
   'mb-1',
   'cursor-pointer',
   'text-sm',
-  'leading-[20px]',
+  'leading-5',
   'tracking-[0.1px]',
   'dark:text-slate-50',
 ]);

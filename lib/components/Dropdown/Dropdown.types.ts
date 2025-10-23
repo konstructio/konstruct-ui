@@ -17,6 +17,7 @@ export type DropdownProps = VariantProps<typeof dropdownVariants> &
   Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> & {
     additionalOptions?: ReactNode[] | string[];
     className?: string;
+    disabled?: boolean;
     error?: string;
     helperText?: string;
     highlightSearch?: boolean;

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
-import { FC, PropsWithChildren, useState } from 'react';
+import { FC, FormEvent, PropsWithChildren, useState } from 'react';
 
 import { Modal } from '@/components/Modal/Modal';
 
@@ -10,26 +10,26 @@ import { Button } from '../Button/Button';
 import { Dropdown } from './Dropdown';
 import { DropdownProps } from './Dropdown.types';
 
-describe('Dropdown', () => {
-  const defaultProps = {
-    label: 'Dropdown',
-    name: 'dropdown-label',
-    options: [
-      {
-        label: 'Option 1',
-        value: 'option-1',
-      },
-      {
-        label: 'Option 2',
-        value: 'option-2',
-      },
-      {
-        label: 'Option 3',
-        value: 'option-3',
-      },
-    ],
-  } satisfies DropdownProps;
+const defaultProps = {
+  label: 'Dropdown',
+  name: 'dropdown-label',
+  options: [
+    {
+      label: 'Option 1',
+      value: 'option-1',
+    },
+    {
+      label: 'Option 2',
+      value: 'option-2',
+    },
+    {
+      label: 'Option 3',
+      value: 'option-3',
+    },
+  ],
+} satisfies DropdownProps;
 
+describe('Dropdown', () => {
   const setup = (props?: Partial<DropdownProps>, wrapper?: FC) => {
     const { container: component } = render(
       <Dropdown {...defaultProps} {...props} />,
@@ -53,130 +53,141 @@ describe('Dropdown', () => {
     vi.clearAllMocks();
   });
 
-  it('should render correctly', async () => {
-    const { findComboBox } = setup();
-
-    const comboBox = await findComboBox();
-
-    expect(comboBox).toBeInTheDocument();
-  });
-
-  it("should doesn't have violations", async () => {
-    const { component } = setup();
-
-    const results = await axe(component);
-
-    expect(results).toHaveNoViolations();
-  });
-
-  it('should render the options correctly', async () => {
-    const { user, findComboBox } = setup();
-
-    const comboBox = await findComboBox();
-
-    await user.click(comboBox);
-
-    const options = screen.getAllByRole('option');
-
-    expect(options).toHaveLength(defaultProps.options.length);
-  });
-
-  it('should call the onChange function when an option is selected', async () => {
-    const onChange = vitest.fn();
-    const { user, findComboBox, getElement } = setup({ onChange });
-
-    const comboBox = await findComboBox();
-
-    await user.click(comboBox);
-
-    const option = getElement(defaultProps.options[0].label);
-
-    await user.click(option);
-
-    expect(onChange).toHaveBeenCalledWith({
-      target: { value: defaultProps.options[0].value, name: defaultProps.name },
-    });
-    expect(onChange).toHaveBeenCalledTimes(1);
-  });
-
-  it('should call the onChange function when select two times the options', async () => {
-    const onChange = vitest.fn();
-    const { user, findComboBox, getElement } = setup({ onChange });
-
-    const comboBox = await findComboBox();
-
-    await user.click(comboBox);
-
-    const option1 = getElement(defaultProps.options[0].label);
-
-    await user.click(option1);
-    await user.click(comboBox);
-
-    const option2 = getElement(defaultProps.options[1].label);
-
-    await user.click(option2);
-
-    expect(onChange).toHaveBeenLastCalledWith({
-      target: { value: defaultProps.options[1].value, name: defaultProps.name },
-    });
-    expect(onChange).toHaveBeenCalledTimes(2);
-  });
-
-  it('should render the default value correctly', async () => {
-    const { user, findComboBox, getElement } = setup({
-      defaultValue: 'option-1',
+  describe('General test for dropdown', () => {
+    beforeEach(() => {
+      vi.clearAllMocks();
     });
 
-    const comboBox = await findComboBox();
+    it('should render correctly', async () => {
+      const { findComboBox } = setup();
 
-    await user.click(comboBox);
+      const comboBox = await findComboBox();
 
-    const option = getElement(defaultProps.options[0].label);
+      expect(comboBox).toBeInTheDocument();
+    });
 
-    expect(option).toBeInTheDocument();
-  });
+    it("should doesn't have violations", async () => {
+      const { component } = setup();
 
-  it('should render the loading state correctly', async () => {
-    const { user, findComboBox, getElement } = setup({ isLoading: true });
+      const results = await axe(component);
 
-    const comboBox = await findComboBox();
+      expect(results).toHaveNoViolations();
+    });
 
-    await user.click(comboBox);
+    it('should render the options correctly', async () => {
+      const { user, findComboBox } = setup();
 
-    const option = getElement('Loading...');
+      const comboBox = await findComboBox();
 
-    expect(option).toBeInTheDocument();
-  });
+      await user.click(comboBox);
 
-  it('should render the no options state correctly', async () => {
-    const { user, findComboBox, getElement } = setup({ options: [] });
+      const options = screen.getAllByRole('option');
 
-    const comboBox = await findComboBox();
+      expect(options).toHaveLength(defaultProps.options.length);
+    });
 
-    await user.click(comboBox);
+    it('should call the onChange function when an option is selected', async () => {
+      const onChange = vitest.fn();
+      const { user, findComboBox, getElement } = setup({ onChange });
 
-    const option = getElement('No options');
+      const comboBox = await findComboBox();
 
-    expect(option).toBeInTheDocument();
+      await user.click(comboBox);
+
+      const option = getElement(defaultProps.options[0].label);
+
+      await user.click(option);
+
+      expect(onChange).toHaveBeenCalledWith({
+        target: {
+          value: defaultProps.options[0].value,
+          name: defaultProps.name,
+        },
+      });
+      expect(onChange).toHaveBeenCalledTimes(1);
+    });
+
+    it('should call the onChange function when select two times the options', async () => {
+      const onChange = vitest.fn();
+      const { user, findComboBox, getElement } = setup({ onChange });
+
+      const comboBox = await findComboBox();
+
+      await user.click(comboBox);
+
+      const option1 = getElement(defaultProps.options[0].label);
+
+      await user.click(option1);
+      await user.click(comboBox);
+
+      const option2 = getElement(defaultProps.options[1].label);
+
+      await user.click(option2);
+
+      expect(onChange).toHaveBeenLastCalledWith({
+        target: {
+          value: defaultProps.options[1].value,
+          name: defaultProps.name,
+        },
+      });
+      expect(onChange).toHaveBeenCalledTimes(2);
+    });
+
+    it('should render the default value correctly', async () => {
+      const { user, findComboBox, getElement } = setup({
+        defaultValue: 'option-1',
+      });
+
+      const comboBox = await findComboBox();
+
+      await user.click(comboBox);
+
+      const option = getElement(defaultProps.options[0].label);
+
+      expect(option).toBeInTheDocument();
+    });
+
+    it('should render the loading state correctly', async () => {
+      const { user, findComboBox, getElement } = setup({ isLoading: true });
+
+      const comboBox = await findComboBox();
+
+      await user.click(comboBox);
+
+      const option = getElement('Loading...');
+
+      expect(option).toBeInTheDocument();
+    });
+
+    it('should render the no options state correctly', async () => {
+      const { user, findComboBox, getElement } = setup({ options: [] });
+
+      const comboBox = await findComboBox();
+
+      await user.click(comboBox);
+
+      const option = getElement('No options');
+
+      expect(option).toBeInTheDocument();
+    });
   });
 
   describe('Dropdown inside a form', () => {
+    const mockSubmit = vi.fn();
+    const mockOnSubmit = (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const formData = new FormData(e.currentTarget);
+      const data = Object.fromEntries(formData.entries());
+      mockSubmit(data);
+    };
+
     beforeEach(() => {
       vi.clearAllMocks();
     });
 
     it('should send the current selected value in a form', async () => {
-      const mockSubmit = vi.fn();
-
       const Wrapper: FC<PropsWithChildren> = ({ children }) => (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const formData = new FormData(e.currentTarget);
-            const data = Object.fromEntries(formData.entries());
-            mockSubmit(data);
-          }}
-        >
+        <form onSubmit={mockOnSubmit}>
           {children}
 
           <button type="submit">Submit</button>
@@ -282,22 +293,22 @@ describe('Dropdown', () => {
     });
 
     it('should handle keyboard navigation inside modal', async () => {
-      const onChange = vitest.fn();
+      const onChange = vi.fn();
       const { user, findComboBox } = setup({ onChange }, ModalWrapper);
 
       const buttonOpenModal = await screen.findByRole('button', {
         name: /open modal/i,
       });
+
       expect(buttonOpenModal).toBeInTheDocument();
 
       await user.click(buttonOpenModal);
 
       const comboBox = await findComboBox();
       await user.click(comboBox);
+      comboBox.focus();
 
-      // Navigate to first option
       await user.keyboard('{ArrowDown}');
-      // Select the option
       await user.keyboard('{Enter}');
 
       expect(onChange).toHaveBeenCalledWith({

@@ -5,9 +5,14 @@ import { useDropdownContext } from '../contexts';
 type UseDropDownParams = {
   ulRef: RefObject<ComponentRef<'ul'> | null>;
   inputRef?: RefObject<ComponentRef<'input'> | null>;
+  disabled: boolean;
 };
 
-export const useDropdown = ({ ulRef, inputRef }: UseDropDownParams) => {
+export const useDropdown = ({
+  ulRef,
+  inputRef,
+  disabled,
+}: UseDropDownParams) => {
   const wrapperRef = useRef<ComponentRef<'div'>>(null);
   const wrapperInputRef = useRef<ComponentRef<'div'>>(null);
   const { toggleOpen } = useDropdownContext();
@@ -50,7 +55,9 @@ export const useDropdown = ({ ulRef, inputRef }: UseDropDownParams) => {
     wrapperInputRef.current?.addEventListener(
       'focus',
       () => {
-        toggleOpen(true);
+        if (!disabled) {
+          toggleOpen(true);
+        }
       },
       { signal: controller.signal },
     );
