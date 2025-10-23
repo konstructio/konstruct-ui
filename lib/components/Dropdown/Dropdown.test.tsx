@@ -165,9 +165,9 @@ describe('Dropdown', () => {
       vi.clearAllMocks();
     });
 
-    it('should send the current selected value in a form', async () => {
-      const mockSubmit = vi.fn();
+    const mockSubmit = vi.fn();
 
+    it('should send the current selected value in a form', async () => {
       const Wrapper: FC<PropsWithChildren> = ({ children }) => (
         <form
           onSubmit={(e) => {
@@ -198,6 +198,8 @@ describe('Dropdown', () => {
       });
 
       await user.click(button);
+
+      await new Promise((r) => setTimeout(r, 100));
 
       expect(mockSubmit).toHaveBeenCalledWith({
         dropdown: defaultProps.options.at(0)!.value,
@@ -294,11 +296,14 @@ describe('Dropdown', () => {
 
       const comboBox = await findComboBox();
       await user.click(comboBox);
+      comboBox.focus();
 
       // Navigate to first option
       await user.keyboard('{ArrowDown}');
       // Select the option
       await user.keyboard('{Enter}');
+
+      await new Promise((r) => setTimeout(r, 100));
 
       expect(onChange).toHaveBeenCalledWith({
         target: {

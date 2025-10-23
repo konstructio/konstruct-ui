@@ -35,6 +35,7 @@ export const Wrapper: ForwardRefExoticComponent<
       additionalOptions,
       className,
       defaultValue,
+      disabled = false,
       error,
       iconClassName,
       inputClassName,
@@ -62,6 +63,7 @@ export const Wrapper: ForwardRefExoticComponent<
     const { wrapperRef, wrapperInputRef, handleOpen } = useDropdown({
       ulRef,
       inputRef,
+      disabled,
     });
     const { isOpen, searchTerm, value, toggleOpen, setValue, setSearchTerm } =
       useDropdownContext();
@@ -139,7 +141,7 @@ export const Wrapper: ForwardRefExoticComponent<
             id={htmlFor}
             className={cn(labelVariants({ className: labelClassName }))}
             htmlFor={htmlFor}
-            onClick={handleOpen}
+            onClick={() => !disabled && handleOpen()}
           >
             {label}
             {isRequired && <span className="text-red-600 ml-1">*</span>}
@@ -149,9 +151,11 @@ export const Wrapper: ForwardRefExoticComponent<
         <div
           ref={wrapperInputRef}
           id={htmlFor}
-          className={cn(dropdownVariants({ className, hasError: !!error }))}
+          className={cn(
+            dropdownVariants({ className, hasError: !!error, disabled }),
+          )}
           role="combobox"
-          onClick={handleOpen}
+          onClick={() => !disabled && handleOpen()}
           aria-expanded={isOpen}
           tabIndex={0}
           aria-labelledby={htmlFor}
@@ -182,13 +186,17 @@ export const Wrapper: ForwardRefExoticComponent<
                 })}
                 onClick={(e) => {
                   e.stopPropagation();
-                  handleOpen();
+
+                  if (!disabled) {
+                    handleOpen();
+                  }
                 }}
                 aria-label={label || placeholder}
                 aria-labelledby={htmlFor}
                 required={isRequired}
                 autoComplete="off"
                 autoCapitalize="words"
+                disabled={disabled}
                 {...delegated}
               />
             ) : (
@@ -200,6 +208,7 @@ export const Wrapper: ForwardRefExoticComponent<
                     'text-red-700': !!error,
                     'select-none': !internalValue,
                     'text-slate-800 dark:text-slate-50': internalValue,
+                    'text-slate-400/50 dark:text-slate-50/50': disabled,
                   },
                 )}
               >
@@ -219,6 +228,8 @@ export const Wrapper: ForwardRefExoticComponent<
                   iconClassName,
                   {
                     'text-red-700': !!error,
+                    'text-slate-400/50 dark:group-focus-within:text-zinc-500':
+                      disabled,
                   },
                 )}
               />
