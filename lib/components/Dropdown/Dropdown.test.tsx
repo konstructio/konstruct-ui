@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { FC, PropsWithChildren, useState } from 'react';
@@ -8,7 +8,7 @@ import { Modal } from '@/components/Modal/Modal';
 import { Button } from '../Button/Button';
 
 import { Dropdown } from './Dropdown';
-import { DropdownProps, Option } from './Dropdown.types';
+import { DropdownProps } from './Dropdown.types';
 
 describe('Dropdown', () => {
   const defaultProps = {
@@ -36,7 +36,6 @@ describe('Dropdown', () => {
       { wrapper },
     );
 
-    // const user = userEvent.setup({ delay: 10 });
     const user = userEvent.setup();
     const findComboBox = async () => screen.findByRole('combobox');
     const getElement = (value: string | RegExp) =>
@@ -123,59 +122,6 @@ describe('Dropdown', () => {
     expect(onChange).toHaveBeenCalledTimes(2);
   });
 
-  it('should send the current selected value in a form', async () => {
-    const mockSubmit = vi.fn();
-
-    const Wrapper: FC<PropsWithChildren> = ({ children }) => {
-      return (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const formData = new FormData(e.currentTarget);
-            const data = Object.fromEntries(formData.entries());
-            mockSubmit(data);
-          }}
-        >
-          {children}
-
-          <button type="submit">Submit</button>
-        </form>
-      );
-    };
-
-    const options: Option[] = [
-      {
-        label: 'Option 1',
-        value: 'option-1',
-      },
-    ];
-
-    const { user, findComboBox } = setup(
-      { name: 'dropdown', options },
-      Wrapper,
-    );
-
-    const comboBox = await findComboBox();
-
-    await user.click(comboBox);
-    await user.keyboard('[ArrowDown]');
-    await user.keyboard('[Enter]');
-
-    const button = await screen.findByRole('button', {
-      name: /submit/i,
-    });
-
-    await user.click(button);
-
-    await waitFor(() => {
-      expect(mockSubmit).toHaveBeenCalledWith(
-        expect.objectContaining({
-          dropdown: options.at(0)!.value,
-        }),
-      );
-    });
-  });
-
   it('should render the default value correctly', async () => {
     const { user, findComboBox, getElement } = setup({
       defaultValue: 'option-1',
@@ -214,7 +160,56 @@ describe('Dropdown', () => {
     expect(option).toBeInTheDocument();
   });
 
+  describe('Dropdown inside a form', () => {
+    beforeEach(() => {
+      vi.clearAllMocks();
+    });
+
+    it('should send the current selected value in a form', async () => {
+      const mockSubmit = vi.fn();
+
+      const Wrapper: FC<PropsWithChildren> = ({ children }) => (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            const formData = new FormData(e.currentTarget);
+            const data = Object.fromEntries(formData.entries());
+            mockSubmit(data);
+          }}
+        >
+          {children}
+
+          <button type="submit">Submit</button>
+        </form>
+      );
+
+      const { user, findComboBox } = setup({ name: 'dropdown' }, Wrapper);
+
+      const comboBox = await findComboBox();
+
+      await user.click(comboBox);
+      comboBox.focus();
+
+      await user.keyboard('{ArrowDown}');
+      await user.keyboard('{Enter}');
+
+      const button = await screen.findByRole('button', {
+        name: /submit/i,
+      });
+
+      await user.click(button);
+
+      expect(mockSubmit).toHaveBeenCalledWith({
+        dropdown: defaultProps.options.at(0)!.value,
+      });
+    });
+  });
+
   describe('Dropdown in Modal', () => {
+    beforeEach(() => {
+      vi.clearAllMocks();
+    });
+
     const ModalWrapper: FC<PropsWithChildren> = ({ children }) => {
       const [isOpen, setIsOpen] = useState(false);
 
@@ -252,6 +247,7 @@ describe('Dropdown', () => {
       expect(option).toBeInTheDocument();
 
       await user.click(option);
+
       expect(onChange).toHaveBeenCalledWith({
         target: {
           value: defaultProps.options[0].value,
