@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.13](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.13) (2025-10-23)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.12...0.1.2-alpha.13)
+
+**Merged pull requests:**
+
+- ✨ chore: posibility to use css colors on pie char component [\#371](https://github.com/konstructio/konstruct-ui/pull/371) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.12](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.12) (2025-10-22)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.11...0.1.2-alpha.12)
