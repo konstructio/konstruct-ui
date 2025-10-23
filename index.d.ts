@@ -224,6 +224,7 @@ export declare const DropdownButton: FC<Props>;
 declare type DropdownProps = VariantProps<typeof dropdownVariants> & Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> & {
     additionalOptions?: ReactNode[] | string[];
     className?: string;
+    disabled?: boolean;
     error?: string;
     helperText?: string;
     highlightSearch?: boolean;
@@ -247,6 +248,7 @@ declare type DropdownProps = VariantProps<typeof dropdownVariants> & Omit<InputH
 
 declare const dropdownVariants: (props?: ({
     hasError?: boolean | null | undefined;
+    disabled?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
 
 export declare const Filter: FilterComponentProps;
