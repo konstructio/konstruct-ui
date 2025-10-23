@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.14](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.14) (2025-10-23)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.13...0.1.2-alpha.14)
+
+**Merged pull requests:**
+
+- ✨ feat: disabled option for dropdown was added [\#372](https://github.com/konstructio/konstruct-ui/pull/372) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.13](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.13) (2025-10-23)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.12...0.1.2-alpha.13)
