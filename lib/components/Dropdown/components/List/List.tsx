@@ -31,6 +31,7 @@ export const List: ForwardRefExoticComponent<
       name,
       options,
       searchable = false,
+      listItemSecondRowClassName,
       wrapperInputRef,
       wrapperRef,
     },
@@ -75,6 +76,7 @@ export const List: ForwardRefExoticComponent<
             inputRef={inputRef}
             value="Loading..."
             label="Loading..."
+            listItemSecondRowClassName={listItemSecondRowClassName}
           />
         ) : isEmpty ? (
           <ListItem
@@ -83,6 +85,7 @@ export const List: ForwardRefExoticComponent<
             inputRef={inputRef}
             value="No options"
             label="No options"
+            listItemSecondRowClassName={listItemSecondRowClassName}
           />
         ) : (
           <>
@@ -92,6 +95,7 @@ export const List: ForwardRefExoticComponent<
                 className={cn('select-none', itemClassName)}
                 isClickable
                 inputRef={inputRef}
+                listItemSecondRowClassName={listItemSecondRowClassName}
                 {...option}
               />
             ))}

@@ -7,6 +7,7 @@ import { dropdownVariants } from './Dropdown.variants';
 
 export type Option = {
   label: string | ReactNode;
+  subLabel?: string | ReactNode;
   leftIcon?: ReactNode | string;
   value: string;
 };
@@ -29,6 +30,7 @@ export type DropdownProps = VariantProps<typeof dropdownVariants> &
     labelClassName?: string;
     listClassName?: string;
     listItemClassName?: string;
+    listItemSecondRowClassName?: string;
     options: Option[];
     searchable?: boolean;
     showSearchIcon?: boolean;

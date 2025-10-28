@@ -71,22 +71,20 @@ describe('Radio', () => {
     const mockSubmit = vi.fn();
     const value = 'radio-value';
 
-    const Wrapper: FC<PropsWithChildren> = ({ children }) => {
-      return (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const formData = new FormData(e.currentTarget);
-            const data = Object.fromEntries(formData.entries());
-            mockSubmit(data);
-          }}
-        >
-          {children}
+    const Wrapper: FC<PropsWithChildren> = ({ children }) => (
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          const formData = new FormData(e.currentTarget);
+          const data = Object.fromEntries(formData.entries());
+          mockSubmit(data);
+        }}
+      >
+        {children}
 
-          <Button type="submit">Submit</Button>
-        </form>
-      );
-    };
+        <Button type="submit">Submit</Button>
+      </form>
+    );
 
     const { getButton, user } = setup({ value, checked: true }, Wrapper);
 

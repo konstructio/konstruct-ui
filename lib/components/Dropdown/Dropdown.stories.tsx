@@ -19,11 +19,13 @@ export const Dropdown = {
     options: [
       {
         label: 'Talos',
+        subLabel: 'A modern OS for Kubernetes',
         value: 'talos',
         leftIcon: <img src="./talos.svg" alt="Talos Logo" />,
       },
       {
         label: 'K3S',
+        subLabel: 'Lightweight Kubernetes',
         value: 'k3s',
         leftIcon: <img src="./k3s.svg" alt="K3S Logo" />,
       },

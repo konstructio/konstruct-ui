@@ -11,6 +11,7 @@ export type ListProps = Pick<
   isLoading: boolean;
   itemClassName?: string;
   searchable?: boolean;
+  listItemSecondRowClassName?: string;
   wrapperInputRef: RefObject<ComponentRef<'div'> | null>;
   wrapperRef: RefObject<ComponentRef<'div'> | null>;
 };
