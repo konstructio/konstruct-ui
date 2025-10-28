@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.15](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.15) (2025-10-28)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.14...0.1.2-alpha.15)
+
+**Merged pull requests:**
+
+- ✨ chore: second row was added on dropdown component [\#378](https://github.com/konstructio/konstruct-ui/pull/378) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.14](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.14) (2025-10-23)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.13...0.1.2-alpha.14)
