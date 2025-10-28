@@ -45,6 +45,7 @@ export const Wrapper: ForwardRefExoticComponent<
       labelClassName,
       listClassName,
       listItemClassName,
+      listItemSecondRowClassName,
       name,
       options,
       placeholder,
@@ -263,6 +264,7 @@ export const Wrapper: ForwardRefExoticComponent<
             options={options}
             isLoading={!!isLoading}
             searchable={searchable}
+            listItemSecondRowClassName={listItemSecondRowClassName}
           />
         )}
       </div>

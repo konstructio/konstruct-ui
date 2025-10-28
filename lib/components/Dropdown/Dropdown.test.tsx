@@ -201,8 +201,8 @@ describe('Dropdown', () => {
       await user.click(comboBox);
       comboBox.focus();
 
-      await user.keyboard('{ArrowDown}');
-      await user.keyboard('{Enter}');
+      const option = await screen.findByText(defaultProps.options.at(0)!.label);
+      await user.click(option);
 
       const button = await screen.findByRole('button', {
         name: /submit/i,
@@ -306,10 +306,9 @@ describe('Dropdown', () => {
 
       const comboBox = await findComboBox();
       await user.click(comboBox);
-      comboBox.focus();
 
-      await user.keyboard('{ArrowDown}');
-      await user.keyboard('{Enter}');
+      const option = await screen.findByText(defaultProps.options.at(0)!.label);
+      await user.click(option);
 
       expect(onChange).toHaveBeenCalledWith({
         target: {

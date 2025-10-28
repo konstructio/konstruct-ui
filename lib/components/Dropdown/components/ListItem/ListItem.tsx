@@ -20,6 +20,7 @@ export const ListItem: FC<ListItemProps> = ({
   isClickable,
   className,
   inputRef,
+  listItemSecondRowClassName,
   ...option
 }) => {
   const { searchTerm, highlightSearchEnabled, setValue, toggleOpen } =
@@ -45,7 +46,7 @@ export const ListItem: FC<ListItemProps> = ({
   );
 
   const getLabelValue = useCallback(
-    (value: string | ReactNode) => {
+    (value: string | ReactNode, subLabel?: string | ReactNode) => {
       if (typeof value !== 'string') {
         return value;
       }
@@ -71,9 +72,19 @@ export const ListItem: FC<ListItemProps> = ({
       return (
         <Typography
           variant="body2"
-          className="text-zinc-700 dark:text-slate-50"
+          className="text-zinc-700 dark:text-slate-50 font-medium"
         >
           {newValue}
+          {subLabel ? (
+            <span
+              className={cn(
+                'block font-normal text-sm text-slate-800 dark:text-slate-50',
+                listItemSecondRowClassName,
+              )}
+            >
+              {subLabel}
+            </span>
+          ) : null}
         </Typography>
       );
     },
@@ -96,12 +107,17 @@ export const ListItem: FC<ListItemProps> = ({
       onKeyDown={(event) => handleKeyDown(event, option)}
     >
       {option.leftIcon ? (
-        <span className="w-4 h-4 flex justify-center items-center">
+        <span
+          className={cn('w-4 h-4 flex justify-center', {
+            'items-center': !option.subLabel,
+            'items-baseline -translate-y-2': !!option.subLabel,
+          })}
+        >
           {option.leftIcon}
         </span>
       ) : null}
 
-      {getLabelValue(option.label)}
+      {getLabelValue(option.label, option.subLabel)}
     </li>
   );
 };

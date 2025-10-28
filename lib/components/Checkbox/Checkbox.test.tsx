@@ -1,7 +1,9 @@
-import { FC, PropsWithChildren } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
+import { FC, PropsWithChildren } from 'react';
+
+import { Button } from '../Button/Button';
 
 import { Checkbox } from './Checkbox';
 import { CheckboxProps } from './Checkbox.types';
@@ -28,14 +30,18 @@ describe('Checkbox', () => {
     return {
       component: container,
       user,
-      getCheckbox: () => screen.getByRole('checkbox'),
+      getCheckbox: async () => screen.findByRole('checkbox'),
     };
   };
 
-  it('should render the component', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('should render the component', async () => {
     const { getCheckbox } = setup();
 
-    const checkbox = getCheckbox();
+    const checkbox = await getCheckbox();
 
     expect(checkbox).toBeInTheDocument();
   });
@@ -48,59 +54,64 @@ describe('Checkbox', () => {
     expect(results).toHaveNoViolations();
   });
 
-  it('should render not checked component', () => {
+  it('should render not checked component', async () => {
     const { getCheckbox } = setup();
 
-    const checkbox = getCheckbox();
+    const checkbox = await getCheckbox();
 
     expect(checkbox).not.toBeChecked();
   });
 
-  it('should render checked component', () => {
+  it('should render checked component', async () => {
     const { getCheckbox } = setup({ defaultChecked: true });
 
-    const checkbox = getCheckbox();
+    const checkbox = await getCheckbox();
 
     expect(checkbox).toBeChecked();
   });
 
-  it('should render disabled component', () => {
+  it('should render disabled component', async () => {
     const { getCheckbox } = setup({ disabled: true });
 
-    const checkbox = getCheckbox();
+    const checkbox = await getCheckbox();
 
     expect(checkbox).toBeDisabled();
   });
 
-  it('should send the checkbox name inside form', async () => {
-    const handleSubmit = vitest.fn();
+  describe('Form', () => {
+    const mockSubmit = vi.fn();
 
-    const Wrapper: FC<PropsWithChildren> = ({ children }) => {
-      return (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const formData = new FormData(e.currentTarget);
-            const data = Object.fromEntries(formData.entries());
-            handleSubmit(data);
-          }}
-        >
-          {children}
-          <button type="submit">Submit</button>
-        </form>
-      );
-    };
+    const Wrapper: FC<PropsWithChildren> = ({ children }) => (
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          const formData = new FormData(e.currentTarget);
+          const data = Object.fromEntries(formData.entries());
+          mockSubmit(data);
+        }}
+      >
+        {children}
 
-    const { user, getCheckbox } = setup({ name: 'checkbox' }, Wrapper);
+        <Button type="submit">Submit</Button>
+      </form>
+    );
 
-    const checkbox = getCheckbox();
-    const button = screen.getByRole('button', {
-      name: /submit/i,
+    beforeEach(() => {
+      vi.clearAllMocks();
     });
 
-    await user.click(checkbox);
-    await user.click(button);
+    it('should send the checkbox name inside a form', async () => {
+      const { user, getCheckbox } = setup({ name: 'checkbox' }, Wrapper);
 
-    expect(handleSubmit).toHaveBeenCalledWith({ checkbox: 'on' });
+      const checkbox = await getCheckbox();
+      const button = screen.getByRole('button', {
+        name: /submit/i,
+      });
+
+      await user.click(checkbox);
+      await user.click(button);
+
+      expect(mockSubmit).toHaveBeenCalledWith({ checkbox: 'on' });
+    });
   });
 });

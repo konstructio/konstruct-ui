@@ -67,7 +67,7 @@ export const buttonVariants = cva(
           'py-1',
           'h-auto',
           'text-[0.8125rem]',
-          'leading-[1.375rem]',
+          'leading-5.5',
           'h-[30px]',
         ],
       },
