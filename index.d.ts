@@ -236,6 +236,7 @@ declare type DropdownProps = VariantProps<typeof dropdownVariants> & Omit<InputH
     labelClassName?: string;
     listClassName?: string;
     listItemClassName?: string;
+    listItemSecondRowClassName?: string;
     options: Option_3[];
     searchable?: boolean;
     showSearchIcon?: boolean;
@@ -456,6 +457,7 @@ declare type Option_2 = {
 
 declare type Option_3 = {
     label: string | ReactNode;
+    subLabel?: string | ReactNode;
     leftIcon?: ReactNode | string;
     value: string;
 };
