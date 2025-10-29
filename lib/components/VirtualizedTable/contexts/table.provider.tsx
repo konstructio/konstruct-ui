@@ -15,14 +15,15 @@ import { DEFAULT_PAGE_SIZE } from '../constants';
 import { TableContext } from './table.context';
 
 type Props<TData extends RowData = RowData> = PropsWithChildren & {
-  id: string | string[];
+  id: string | string[] | number | number[];
   data: TData[];
   columns: ColumnDef<TData, string>[];
   totalItems: number;
+  queryOptions?: TableProps<TData>['queryOptions'];
+  isPaginationEnabled?: boolean;
   fetchData?: (
     params: Record<string, string | number | string[] | number[] | undefined>,
   ) => Promise<{ data: TData[]; totalItemsCount?: number }>;
-  queryOptions?: TableProps<TData>['queryOptions'];
 };
 
 export const TableProvider = <TData extends RowData = RowData>({
@@ -31,8 +32,9 @@ export const TableProvider = <TData extends RowData = RowData>({
   data: defaultData = [],
   columns = [],
   totalItems,
-  fetchData,
+  isPaginationEnabled,
   queryOptions = {},
+  fetchData,
 }: Props<TData>) => {
   const [sortedData, setSortedData] = useState<SortingState>([]);
   const [page, setPage] = useState(0);
@@ -47,14 +49,27 @@ export const TableProvider = <TData extends RowData = RowData>({
     Record<string, string[]>
   >({});
 
+  const getQueryKey = () => {
+    const queryKey =
+      typeof id === 'string' || typeof id === 'number' ? [id] : id;
+
+    if (isPaginationEnabled) {
+      queryKey.push(page, pageSize);
+    }
+
+    if (termOfSearch) {
+      queryKey.push(termOfSearch);
+    }
+
+    Object.entries(multiselectSelected).forEach(([key, value]) => {
+      queryKey.push(`${key}:${value.join(',')}`);
+    });
+
+    return queryKey;
+  };
+
   const { data, isLoading, isFetching } = useQuery<TData[]>({
-    queryKey: [
-      ...(typeof id === 'string' ? [id] : id),
-      page,
-      pageSize,
-      termOfSearch,
-      JSON.stringify(multiselectSelected),
-    ],
+    queryKey: getQueryKey(),
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     initialData: defaultData,

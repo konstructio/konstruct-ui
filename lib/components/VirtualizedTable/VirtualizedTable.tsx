@@ -63,6 +63,7 @@ const VirtualizedTableInner = <TData extends RowData>({
       fetchData={fetchData}
       totalItems={totalItems}
       queryOptions={queryOptions}
+      isPaginationEnabled={showPagination}
     >
       <section className={className}>
         {showFilter && (
