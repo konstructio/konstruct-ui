@@ -6,6 +6,7 @@ import { VariantProps } from 'class-variance-authority';
 
 import { virtualizeTableVariants } from './VirtualizedTable.variants';
 import { FilterAction, Option } from './components/Filter/Filter.types';
+import { UseQueryOptions } from '@tanstack/react-query';
 
 export type RowData = RowDataPrimitive;
 
@@ -24,7 +25,7 @@ export type MultiSelectFilter = {
 export type Props<TData extends RowDataPrimitive> = VariantProps<
   typeof virtualizeTableVariants
 > & {
-  id: string;
+  id: string | string[];
   ariaLabel?: string;
   columns: ColumnDefPrimitive<TData, string>[];
   data: TData[];
@@ -34,7 +35,12 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
   classNameHeaderTable?: string;
   classNameTable?: string;
   classNameWrapperTable?: string;
-  fetchData: (
+  queryOptions?: Omit<
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    UseQueryOptions<any, any, any, any>,
+    'queryKey' | 'queryFn'
+  >;
+  fetchData?: (
     params: Record<string, string | number | string[] | number[] | undefined>,
   ) => Promise<{ data: TData[]; totalItemsCount?: number }>;
 } & (

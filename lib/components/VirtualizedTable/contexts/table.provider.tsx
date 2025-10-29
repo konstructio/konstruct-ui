@@ -9,19 +9,20 @@ import {
 } from '@tanstack/react-table';
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 
-import { RowData } from '../VirtualizedTable.types';
+import { RowData, Props as TableProps } from '../VirtualizedTable.types';
 import { DEFAULT_PAGE_SIZE } from '../constants';
 
 import { TableContext } from './table.context';
 
 type Props<TData extends RowData = RowData> = PropsWithChildren & {
-  id: string;
+  id: string | string[];
   data: TData[];
   columns: ColumnDef<TData, string>[];
   totalItems: number;
-  fetchData: (
+  fetchData?: (
     params: Record<string, string | number | string[] | number[] | undefined>,
   ) => Promise<{ data: TData[]; totalItemsCount?: number }>;
+  queryOptions?: TableProps<TData>['queryOptions'];
 };
 
 export const TableProvider = <TData extends RowData = RowData>({
@@ -31,6 +32,7 @@ export const TableProvider = <TData extends RowData = RowData>({
   columns = [],
   totalItems,
   fetchData,
+  queryOptions = {},
 }: Props<TData>) => {
   const [sortedData, setSortedData] = useState<SortingState>([]);
   const [page, setPage] = useState(0);
@@ -45,9 +47,9 @@ export const TableProvider = <TData extends RowData = RowData>({
     Record<string, string[]>
   >({});
 
-  const { data, isLoading, isFetching } = useQuery({
+  const { data, isLoading, isFetching } = useQuery<TData[]>({
     queryKey: [
-      id,
+      ...(typeof id === 'string' ? [id] : id),
       page,
       pageSize,
       termOfSearch,
@@ -56,21 +58,24 @@ export const TableProvider = <TData extends RowData = RowData>({
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     initialData: defaultData,
-    queryFn: () =>
-      fetchData({
-        page: Math.max(page + 1, 1),
-        pageSize,
-        termOfSearch,
-        ...(Object.keys(multiselectSelected).length > 0
-          ? multiselectSelected
-          : {}),
-      }).then(({ data, totalItemsCount }) => {
-        if (totalItemsCount) {
-          setTotalItemsCount(totalItemsCount);
-        }
+    queryFn: fetchData
+      ? () =>
+          fetchData({
+            page: Math.max(page + 1, 1),
+            pageSize,
+            termOfSearch,
+            ...(Object.keys(multiselectSelected).length > 0
+              ? multiselectSelected
+              : {}),
+          }).then(({ data, totalItemsCount }) => {
+            if (totalItemsCount) {
+              setTotalItemsCount(totalItemsCount);
+            }
 
-        return data;
-      }),
+            return data;
+          })
+      : undefined,
+    ...queryOptions,
   });
 
   const onChangeTermOfSearch = useCallback((term: string) => {
