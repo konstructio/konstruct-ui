@@ -30,6 +30,7 @@ import { RefAttributes } from '../../../node_modules/react';
 import { RowData as RowData_2 } from '@tanstack/react-table';
 import { SliderProps } from '@radix-ui/react-slider';
 import { TabsContentProps } from '@radix-ui/react-tabs';
+import { UseQueryOptions } from '@tanstack/react-query';
 import { VariantProps } from 'class-variance-authority';
 
 declare type Action<TData> = {
@@ -584,7 +585,7 @@ declare type Props_3<TData extends RowData> = CellContext<TData, string> & {
 };
 
 declare type Props_4<TData extends RowData_2> = VariantProps<typeof virtualizeTableVariants> & {
-    id: string;
+    id: string | string[];
     ariaLabel?: string;
     columns: ColumnDef_2<TData, string>[];
     data: TData[];
@@ -594,7 +595,8 @@ declare type Props_4<TData extends RowData_2> = VariantProps<typeof virtualizeTa
     classNameHeaderTable?: string;
     classNameTable?: string;
     classNameWrapperTable?: string;
-    fetchData: (params: Record<string, string | number | string[] | number[] | undefined>) => Promise<{
+    queryOptions?: Omit<UseQueryOptions<any, any, any, any>, 'queryKey' | 'queryFn'>;
+    fetchData?: (params: Record<string, string | number | string[] | number[] | undefined>) => Promise<{
         data: TData[];
         totalItemsCount?: number;
     }>;
