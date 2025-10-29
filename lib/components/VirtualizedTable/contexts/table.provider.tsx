@@ -58,23 +58,27 @@ export const TableProvider = <TData extends RowData = RowData>({
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     initialData: defaultData,
-    queryFn: fetchData
-      ? () =>
-          fetchData({
-            page: Math.max(page + 1, 1),
-            pageSize,
-            termOfSearch,
-            ...(Object.keys(multiselectSelected).length > 0
-              ? multiselectSelected
-              : {}),
-          }).then(({ data, totalItemsCount }) => {
-            if (totalItemsCount) {
-              setTotalItemsCount(totalItemsCount);
-            }
+    queryFn: async () => {
+      if (fetchData) {
+        return fetchData({
+          page: Math.max(page + 1, 1),
+          pageSize,
+          termOfSearch,
+          ...(Object.keys(multiselectSelected).length > 0
+            ? multiselectSelected
+            : {}),
+        }).then(({ data, totalItemsCount }) => {
+          if (totalItemsCount) {
+            setTotalItemsCount(totalItemsCount);
+          }
 
-            return data;
-          })
-      : undefined,
+          return data;
+        });
+      }
+
+      return defaultData ?? [];
+    },
+
     ...queryOptions,
   });
 
