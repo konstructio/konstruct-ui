@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.17](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.17) (2025-10-29)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.16...0.1.2-alpha.17)
+
+**Merged pull requests:**
+
+- 🐛 fix: default query function on virtualized table [\#380](https://github.com/konstructio/konstruct-ui/pull/380) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.16](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.16) (2025-10-29)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.15...0.1.2-alpha.16)
