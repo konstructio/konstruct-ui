@@ -596,6 +596,7 @@ declare type Props_4<TData extends RowData_2> = VariantProps<typeof virtualizeTa
     classNameTable?: string;
     classNameWrapperTable?: string;
     queryOptions?: Omit<UseQueryOptions<any, any, any, any>, 'queryKey' | 'queryFn'>;
+    isLoading?: boolean;
     fetchData?: (params: Record<string, string | number | string[] | number[] | undefined>) => Promise<{
         data: TData[];
         totalItemsCount?: number;
