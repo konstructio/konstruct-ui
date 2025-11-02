@@ -40,6 +40,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
     UseQueryOptions<any, any, any, any>,
     'queryKey' | 'queryFn'
   >;
+  isLoading?: boolean;
   fetchData?: (
     params: Record<string, string | number | string[] | number[] | undefined>,
   ) => Promise<{ data: TData[]; totalItemsCount?: number }>;
