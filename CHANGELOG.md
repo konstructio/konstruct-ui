@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.19](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.19) (2025-11-02)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.18...0.1.2-alpha.19)
+
+**Merged pull requests:**
+
+- feat: table skeleton [\#382](https://github.com/konstructio/konstruct-ui/pull/382) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.1.2-alpha.18](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.18) (2025-10-29)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.17...0.1.2-alpha.18)
