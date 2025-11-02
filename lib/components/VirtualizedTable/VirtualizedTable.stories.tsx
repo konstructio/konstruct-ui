@@ -113,6 +113,7 @@ export const VirtualizedTable: Story = {
     showResetButton: true,
     filterSearchPlaceholder: 'Search by name...',
     showPagination: true,
+    isLoading: false,
     ariaLabel: 'List of pokemons',
     pageSizes: [5, 10, 20, 30, 50],
     filterActions: [

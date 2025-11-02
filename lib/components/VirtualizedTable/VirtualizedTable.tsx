@@ -26,6 +26,7 @@ const VirtualizedTableInner = <TData extends RowData>({
   classNameHeaderTable,
   classNameTable,
   classNameWrapperTable,
+  isLoading,
   fetchData,
   queryOptions,
   // Pagination
@@ -94,7 +95,7 @@ const VirtualizedTableInner = <TData extends RowData>({
               classNameArrows={classNameHeaderArrows}
               classNameActiveArrows={classNameHeaderActiveArrows}
             />
-            <Body />
+            <Body isLoading={isLoading} />
           </table>
         </div>
 
