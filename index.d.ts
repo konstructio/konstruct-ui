@@ -246,6 +246,7 @@ declare type DropdownProps = VariantProps<typeof dropdownVariants> & Omit<InputH
     wrapperClassName?: string;
     onBlur?: VoidFunction;
     onChange?: OnChangeFn;
+    onSearchChange?: (searchTerm: string) => void;
 };
 
 declare const dropdownVariants: (props?: ({
