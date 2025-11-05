@@ -50,6 +50,7 @@ export const Wrapper: ForwardRefExoticComponent<
       options,
       placeholder,
       searchable = false,
+      onSearchChange,
       showSearchIcon,
       theme,
       wrapperClassName,
@@ -118,6 +119,7 @@ export const Wrapper: ForwardRefExoticComponent<
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
       const newValue = event.target.value;
+      onSearchChange?.(newValue);
       setSearchTerm(newValue);
 
       // If there's an exact match, select it

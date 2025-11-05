@@ -39,4 +39,5 @@ export type DropdownProps = VariantProps<typeof dropdownVariants> &
     wrapperClassName?: string;
     onBlur?: VoidFunction;
     onChange?: OnChangeFn;
+    onSearchChange?: (searchTerm: string) => void;
   };
