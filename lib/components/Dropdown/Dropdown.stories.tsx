@@ -35,6 +35,9 @@ export const Dropdown = {
     labelClassName: '',
     isLoading: false,
     name: 'dropdown',
+    onSearchChange: (searchTerm: string) => {
+      console.log('searchTerm', searchTerm);
+    },
   },
   render: function DropdownStory(args) {
     const [value1, setValue1] = useState<string>();
