@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.20](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.20) (2025-11-05)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.19...0.1.2-alpha.20)
+
+**Merged pull requests:**
+
+- feat: search change [\#388](https://github.com/konstructio/konstruct-ui/pull/388) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.1.2-alpha.19](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.19) (2025-11-02)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.18...0.1.2-alpha.19)
