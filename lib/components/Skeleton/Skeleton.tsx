@@ -13,15 +13,15 @@ export const Skeleton = <T,>({ numberOfRows, table }: SkeletonProps<T>) =>
         column.id !== 'actions' ? (
           <td
             key={`skeleton-${column.id}`}
-            className="px-4 py-3 text-xs"
+            className="px-4"
             style={{ width: column.getSize() }}
           >
-            <div className={`h-5 bg-gray-200 animate-pulse rounded`} />
+            <div className="bg-gray-200 animate-pulse rounded h-5" />
           </td>
         ) : (
           <td
             key={`skeleton-${column.id}`}
-            className="px-4 py-3 text-xs"
+            className=""
             style={{ width: column.getSize() }}
           >
             <Button

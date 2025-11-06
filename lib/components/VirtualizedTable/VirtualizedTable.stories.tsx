@@ -41,42 +41,45 @@ const columns: ColumnDef<Pokemon>[] = [
       />
     ),
   },
-  {
-    header: 'Type',
-    accessorKey: 'type',
-    cell: (props) => (
-      <VirtualizedTableComponent.TruncateText
-        {...props}
-        value={`${props.getValue().charAt(0).toUpperCase()}${props
-          .getValue()
-          .slice(1)}`}
-      />
-    ),
-  },
-  {
-    header: 'Height',
-    accessorKey: 'height',
-  },
-  {
-    header: 'Weight',
-    accessorKey: 'weight',
-  },
-  {
-    header: 'Ability',
-    accessorKey: 'ability',
-    cell: (props) => (
-      <VirtualizedTableComponent.TruncateText
-        {...props}
-        value={`${props.getValue().charAt(0).toUpperCase()}${props
-          .getValue()
-          .slice(1)}`}
-      />
-    ),
-  },
+  // {
+  //   header: 'Type',
+  //   accessorKey: 'type',
+  //   cell: (props) => (
+  //     <VirtualizedTableComponent.TruncateText
+  //       {...props}
+  //       value={`${props.getValue().charAt(0).toUpperCase()}${props
+  //         .getValue()
+  //         .slice(1)}`}
+  //     />
+  //   ),
+  // },
+  // {
+  //   header: 'Height',
+  //   accessorKey: 'height',
+  // },
+  // {
+  //   header: 'Weight',
+  //   accessorKey: 'weight',
+  // },
+  // {
+  //   header: 'Ability',
+  //   accessorKey: 'ability',
+  //   cell: (props) => (
+  //     <VirtualizedTableComponent.TruncateText
+  //       {...props}
+  //       value={`${props.getValue().charAt(0).toUpperCase()}${props
+  //         .getValue()
+  //         .slice(1)}`}
+  //     />
+  //   ),
+  //   meta: {
+  //     className: 'bg-red-500',
+  //   },
+  // },
   {
     id: 'actions',
     enableSorting: false,
-    size: 44,
+    size: 92,
     enableResizing: false,
     cell: (props) => (
       <VirtualizedTableComponent.Actions
@@ -217,11 +220,12 @@ export const VirtualizedTable: Story = {
           <VirtualizedTableComponent<Pokemon>
             {...args}
             id={id}
-            data={data}
+            data={[data[0]]}
             columns={columns}
             showPagination={true}
             fetchData={getNewData}
             totalItems={totalItemsCount}
+            // isLoading
           />
         </QueryClientProvider>
       </div>

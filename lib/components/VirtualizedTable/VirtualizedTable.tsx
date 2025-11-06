@@ -66,7 +66,7 @@ const VirtualizedTableInner = <TData extends RowData>({
       queryOptions={queryOptions}
       isPaginationEnabled={showPagination}
     >
-      <section className={className}>
+      <section className={cn('w-full min-w-fit', className)}>
         {showFilter && (
           <Filter
             actions={filterActions}
