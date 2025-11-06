@@ -20,6 +20,7 @@ declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
     className?: string;
     attributes?: Record<string, string | number | boolean>;
+    headerClassName?: string;
   }
 }
 

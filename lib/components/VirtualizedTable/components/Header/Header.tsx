@@ -15,11 +15,13 @@ export const Header = <TData extends RowData>({
   classNameActiveArrows,
 }: Props) => {
   const { table, onSorting } = useTableContext<TData>();
+
   const handleAscSort = useCallback(
     (column: Column<TData, unknown>) =>
       onSorting([{ id: column.id, desc: false }]),
     [onSorting],
   );
+
   const handleDescSort = useCallback(
     (column: Column<TData, unknown>) =>
       onSorting([{ id: column.id, desc: true }]),
@@ -29,7 +31,7 @@ export const Header = <TData extends RowData>({
   return (
     <thead
       className={cn(
-        'font-semibold uppercase text-slate-500 text-xs not-italic bg-slate-100 w-full relative overflow-hidden [clip-path:inset(-1px_-1px_0px_-1px_round_8px_8px_0px_0px)]',
+        'font-semibold uppercase text-slate-500 text-xs not-italic bg-slate-100 overflow-hidden [clip-path:inset(-1px_-1px_0px_-1px_round_8px_8px_0px_0px)]',
         className,
       )}
     >
@@ -39,8 +41,10 @@ export const Header = <TData extends RowData>({
             <th
               scope="col"
               key={id}
-              className="px-4 py-3 text-left text-xs"
-              style={{ width: column.columnDef.size }}
+              className={cn(
+                'px-4 py-3 text-left text-xs',
+                column.columnDef.meta?.headerClassName,
+              )}
             >
               <span className="flex items-center gap-2 w-full">
                 {flexRender(column.columnDef.header, getContext())}

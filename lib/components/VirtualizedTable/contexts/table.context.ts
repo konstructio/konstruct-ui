@@ -15,6 +15,7 @@ export type ContextType<TData extends RowData = RowData> = {
   page: number;
   multiselectSelected?: Record<string, string[]>;
   totalPages: number;
+  isFirstLoad: boolean;
   handlePage: (newPage: number) => void;
   onPageSize: (newPageSize: number) => void;
   onSorting: Dispatch<SetStateAction<SortingState>>;
@@ -32,6 +33,7 @@ export const TableContext = createContext<ContextType<RowData>>({
   page: 0,
   pageSize: DEFAULT_PAGE_SIZE,
   totalPages: Infinity,
+  isFirstLoad: true,
   onSorting() {
     throw new Error('onSorting function is not implemented');
   },

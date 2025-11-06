@@ -37,6 +37,7 @@ export const TableProvider = <TData extends RowData = RowData>({
   fetchData,
 }: Props<TData>) => {
   const [sortedData, setSortedData] = useState<SortingState>([]);
+  const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
   const [page, setPage] = useState(0);
   const [termOfSearch, setTermOfSearch] = useState<string>();
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
@@ -83,6 +84,8 @@ export const TableProvider = <TData extends RowData = RowData>({
             ? multiselectSelected
             : {}),
         }).then(({ data, totalItemsCount }) => {
+          setIsFirstLoad(false);
+
           if (totalItemsCount) {
             setTotalItemsCount(totalItemsCount);
           }
@@ -141,6 +144,7 @@ export const TableProvider = <TData extends RowData = RowData>({
         multiselectSelected,
         pageSize,
         totalPages,
+        isFirstLoad,
         handlePage,
         onPageSize,
         onChangeTermOfSearch,

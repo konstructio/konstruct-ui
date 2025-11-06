@@ -28,6 +28,9 @@ const columns: ColumnDef<Pokemon>[] = [
   {
     header: 'Id',
     accessorKey: 'id',
+    meta: {
+      headerClassName: 'w-12',
+    },
   },
   {
     header: 'Name',
@@ -41,45 +44,41 @@ const columns: ColumnDef<Pokemon>[] = [
       />
     ),
   },
-  // {
-  //   header: 'Type',
-  //   accessorKey: 'type',
-  //   cell: (props) => (
-  //     <VirtualizedTableComponent.TruncateText
-  //       {...props}
-  //       value={`${props.getValue().charAt(0).toUpperCase()}${props
-  //         .getValue()
-  //         .slice(1)}`}
-  //     />
-  //   ),
-  // },
-  // {
-  //   header: 'Height',
-  //   accessorKey: 'height',
-  // },
-  // {
-  //   header: 'Weight',
-  //   accessorKey: 'weight',
-  // },
-  // {
-  //   header: 'Ability',
-  //   accessorKey: 'ability',
-  //   cell: (props) => (
-  //     <VirtualizedTableComponent.TruncateText
-  //       {...props}
-  //       value={`${props.getValue().charAt(0).toUpperCase()}${props
-  //         .getValue()
-  //         .slice(1)}`}
-  //     />
-  //   ),
-  //   meta: {
-  //     className: 'bg-red-500',
-  //   },
-  // },
+  {
+    header: 'Type',
+    accessorKey: 'type',
+    cell: (props) => (
+      <VirtualizedTableComponent.TruncateText
+        {...props}
+        value={`${props.getValue().charAt(0).toUpperCase()}${props
+          .getValue()
+          .slice(1)}`}
+      />
+    ),
+  },
+  {
+    header: 'Height',
+    accessorKey: 'height',
+  },
+  {
+    header: 'Weight',
+    accessorKey: 'weight',
+  },
+  {
+    header: 'Ability',
+    accessorKey: 'ability',
+    cell: (props) => (
+      <VirtualizedTableComponent.TruncateText
+        {...props}
+        value={`${props.getValue().charAt(0).toUpperCase()}${props
+          .getValue()
+          .slice(1)}`}
+      />
+    ),
+  },
   {
     id: 'actions',
     enableSorting: false,
-    size: 92,
     enableResizing: false,
     cell: (props) => (
       <VirtualizedTableComponent.Actions
@@ -107,6 +106,10 @@ const columns: ColumnDef<Pokemon>[] = [
       />
     ),
     header: () => <span className="sr-only">Action Buttons</span>,
+    meta: {
+      headerClassName: 'w-[92px]',
+      className: 'flex justify-center',
+    },
   },
 ];
 
@@ -202,6 +205,8 @@ export const VirtualizedTable: Story = {
           type,
         });
 
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
         return {
           data: result.results,
           totalItemsCount: result.totalItemsCount,
@@ -220,12 +225,11 @@ export const VirtualizedTable: Story = {
           <VirtualizedTableComponent<Pokemon>
             {...args}
             id={id}
-            data={[data[0]]}
+            data={data}
             columns={columns}
             showPagination={true}
             fetchData={getNewData}
             totalItems={totalItemsCount}
-            // isLoading
           />
         </QueryClientProvider>
       </div>
