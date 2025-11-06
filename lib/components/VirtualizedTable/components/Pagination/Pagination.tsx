@@ -18,7 +18,11 @@ export const Pagination: FC<Props> = ({
   pageSizes,
   classNamePagination,
 }) => {
-  const { totalItems = -Infinity, tableFetching } = useTableContext();
+  const {
+    totalItems = -Infinity,
+    tableFetching,
+    isFirstLoad,
+  } = useTableContext();
 
   if (totalItems <= DEFAULT_PAGE_SIZE || tableFetching) {
     return null;
@@ -30,6 +34,9 @@ export const Pagination: FC<Props> = ({
         className={cn(
           'bg-slate-50 border border-y-transparent border-x-slate-100 text-slate-500 text-xs not-italic py-2 px-6 rounded-b-lg shadow',
           classNamePagination,
+          {
+            'animate-in fade-in-10': !isFirstLoad,
+          },
         )}
       >
         <div className="flex items-center justify-between">

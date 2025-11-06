@@ -15,6 +15,25 @@ export type ColumnDef<TData extends RowData> = ColumnDefPrimitive<
   string
 >;
 
+declare module '@tanstack/react-table' {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface ColumnMeta<TData extends RowData, TValue> {
+    className?: string;
+    attributes?: Record<string, string | number | boolean>;
+    headerClassName?: string;
+  }
+}
+
+export interface RowMetadata {
+  className?: string;
+  attributes?: Record<string, string | number | boolean>;
+  [key: string]: unknown;
+}
+
+export type RowDataWithMeta = Record<string, unknown> & {
+  meta?: RowMetadata;
+};
+
 export type MultiSelectFilter = {
   key: string;
   label: string;

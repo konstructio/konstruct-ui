@@ -28,6 +28,9 @@ const columns: ColumnDef<Pokemon>[] = [
   {
     header: 'Id',
     accessorKey: 'id',
+    meta: {
+      headerClassName: 'w-12',
+    },
   },
   {
     header: 'Name',
@@ -76,7 +79,6 @@ const columns: ColumnDef<Pokemon>[] = [
   {
     id: 'actions',
     enableSorting: false,
-    size: 44,
     enableResizing: false,
     cell: (props) => (
       <VirtualizedTableComponent.Actions
@@ -104,6 +106,10 @@ const columns: ColumnDef<Pokemon>[] = [
       />
     ),
     header: () => <span className="sr-only">Action Buttons</span>,
+    meta: {
+      headerClassName: 'w-[92px]',
+      className: 'flex justify-center',
+    },
   },
 ];
 
@@ -198,6 +204,8 @@ export const VirtualizedTable: Story = {
           termOfSearch,
           type,
         });
+
+        await new Promise((resolve) => setTimeout(resolve, 1000));
 
         return {
           data: result.results,

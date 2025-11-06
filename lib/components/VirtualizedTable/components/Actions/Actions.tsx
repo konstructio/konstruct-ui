@@ -16,7 +16,7 @@ export const Actions = <TData extends RowData>({
   }
 
   return (
-    <div className="relative group w-fit">
+    <div className="relative group">
       <Button
         variant="text"
         shape="circle"
