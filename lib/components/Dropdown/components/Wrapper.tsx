@@ -79,7 +79,9 @@ export const Wrapper: ForwardRefExoticComponent<
 
     useEffect(() => {
       if (inputRef.current) {
-        inputRef.current.value = value ? (internalValue?.value as string) : '';
+        inputRef.current.value = value
+          ? (internalValue?.value as string) || ''
+          : '';
       }
     }, [internalValue, value]);
 
@@ -104,8 +106,6 @@ export const Wrapper: ForwardRefExoticComponent<
           !newFocusElement ||
           !wrapperRef.current?.contains(newFocusElement)
         ) {
-          setSearchTerm('');
-
           if (!inputRef.current?.value) {
             onBlur?.();
           }
@@ -120,7 +120,8 @@ export const Wrapper: ForwardRefExoticComponent<
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
       const newValue = event.target.value;
       onSearchChange?.(newValue);
-      setSearchTerm(newValue);
+      setValue('');
+      setSearchTerm(newValue || '');
 
       // If there's an exact match, select it
       const exactMatch = options.find(
