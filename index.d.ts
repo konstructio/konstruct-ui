@@ -967,3 +967,12 @@ declare const virtualizeTableVariants: (props?: ClassProp | undefined) => string
 declare const wrapperSiderbarVariants: (props?: ClassProp | undefined) => string;
 
 export { }
+
+
+declare module '@tanstack/react-table' {
+    interface ColumnMeta<TData extends RowData, TValue> {
+        className?: string;
+        attributes?: Record<string, string | number | boolean>;
+        headerClassName?: string;
+    }
+}
