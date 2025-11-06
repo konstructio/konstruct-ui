@@ -1,0 +1,1 @@
+import{r as e,a as s}from"./iframe-RSsA-um9.js";import{u}from"./index-HHYpoll8.js";var c=s[" useId ".trim().toString()]||(()=>{}),i=0;function f(t){const[r,a]=e.useState(c());return u(()=>{a(o=>o??String(i++))},[t]),t||(r?`radix-${r}`:"")}export{f as u};
