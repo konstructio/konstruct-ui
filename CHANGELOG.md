@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.21](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.21) (2025-11-06)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.20...0.1.2-alpha.21)
+
+**Merged pull requests:**
+
+- fix: search state [\#389](https://github.com/konstructio/konstruct-ui/pull/389) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.1.2-alpha.20](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.20) (2025-11-05)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.19...0.1.2-alpha.20)
