@@ -10,6 +10,7 @@ import {
   Header,
   Pagination,
   TruncateText,
+  WrapperBody,
 } from './components';
 import { Props as ActionProps } from './components/Actions/Actions.types';
 import { TableProvider } from './contexts';
@@ -77,14 +78,10 @@ const VirtualizedTableInner = <TData extends RowData>({
           />
         )}
 
-        <div
-          className={cn(
-            'shadow rounded-t-lg',
-            {
-              'overflow-hidden rounded-lg': !showPagination,
-            },
-            classNameWrapperTable,
-          )}
+        <WrapperBody
+          showPagination={showPagination}
+          classNameWrapperTable={classNameWrapperTable}
+          isLoading={isLoading}
         >
           <table
             className={cn('w-full border-collapse table-fixed', classNameTable)}
@@ -97,7 +94,7 @@ const VirtualizedTableInner = <TData extends RowData>({
             />
             <Body isLoading={isLoading} />
           </table>
-        </div>
+        </WrapperBody>
 
         {showPagination && (
           <Pagination

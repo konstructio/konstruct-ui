@@ -26,7 +26,7 @@ export const Body = <TData extends RowData = RowData>({
           <tr
             key={id}
             className={cn(
-              'border border-x-transparent border-t-gray-200 border-b-transparent',
+              'border-b border-b-gray-200 bg-white last:border-b-transparent',
               meta.className,
             )}
             data-row-id={id}
