@@ -92,7 +92,7 @@ const VirtualizedTableInner = <TData extends RowData>({
               classNameArrows={classNameHeaderArrows}
               classNameActiveArrows={classNameHeaderActiveArrows}
             />
-            <Body isLoading={isLoading} />
+            <Body isLoading={isLoading} showPagination={showPagination} />
           </table>
         </WrapperBody>
 
@@ -103,6 +103,7 @@ const VirtualizedTableInner = <TData extends RowData>({
             showDotPagination={showDotPagination}
             showFormPagination={showFormPagination}
             pageSizes={pageSizes}
+            isLoading={isLoading}
           />
         )}
       </section>

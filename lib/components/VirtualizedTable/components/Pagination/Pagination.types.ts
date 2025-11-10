@@ -5,4 +5,5 @@ export type Props = {
   showFormPagination?: boolean;
   pageSizes?: number[] | string[];
   classNamePagination?: string;
+  isLoading?: boolean;
 };
