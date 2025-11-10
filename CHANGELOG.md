@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.23](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.23) (2025-11-10)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.22...0.1.2-alpha.23)
+
+**Merged pull requests:**
+
+- ✨ chore: some style changes were added to the virtualizd table [\#397](https://github.com/konstructio/konstruct-ui/pull/397) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.22](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.22) (2025-11-06)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.21...0.1.2-alpha.22)
