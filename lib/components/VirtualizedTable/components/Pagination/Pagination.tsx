@@ -17,6 +17,7 @@ export const Pagination: FC<Props> = ({
   showFormPagination = true,
   pageSizes,
   classNamePagination,
+  isLoading,
 }) => {
   const {
     totalItems = -Infinity,
@@ -24,7 +25,7 @@ export const Pagination: FC<Props> = ({
     isFirstLoad,
   } = useTableContext();
 
-  if (totalItems <= DEFAULT_PAGE_SIZE || tableFetching) {
+  if (totalItems <= DEFAULT_PAGE_SIZE || tableFetching || isLoading) {
     return null;
   }
 
