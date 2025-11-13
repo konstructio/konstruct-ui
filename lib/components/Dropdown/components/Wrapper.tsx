@@ -50,11 +50,11 @@ export const Wrapper: ForwardRefExoticComponent<
       options,
       placeholder,
       searchable = false,
-      onSearchChange,
       showSearchIcon,
       theme,
       wrapperClassName,
       onBlur,
+      onSearchChange,
       ...delegated
     },
     ref,
@@ -67,8 +67,17 @@ export const Wrapper: ForwardRefExoticComponent<
       inputRef,
       disabled,
     });
-    const { isOpen, searchTerm, value, toggleOpen, setValue, setSearchTerm } =
-      useDropdownContext();
+
+    const {
+      isOpen,
+      searchTerm,
+      value,
+      canFilter,
+      toggleOpen,
+      setValue,
+      setSearchTerm,
+      setCanFilter,
+    } = useDropdownContext();
     const htmlFor = name ? `${id}-${name}` : id;
 
     useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
@@ -117,8 +126,42 @@ export const Wrapper: ForwardRefExoticComponent<
       };
     }, [toggleOpen, wrapperRef, setSearchTerm, onBlur, value]);
 
+    useEffect(() => {
+      const controller = new AbortController();
+
+      inputRef.current?.addEventListener(
+        'focusin',
+        () => {
+          setSearchTerm(internalValue?.value ?? '');
+          setCanFilter(false);
+        },
+        { signal: controller.signal },
+      );
+
+      inputRef.current?.addEventListener(
+        'focusout',
+        () => {
+          setCanFilter(true);
+        },
+        { signal: controller.signal },
+      );
+
+      wrapperInputRef.current?.addEventListener(
+        'focus',
+        () => {
+          setCanFilter(false);
+        },
+        { signal: controller.signal },
+      );
+
+      return () => {
+        controller.abort();
+      };
+    }, [value]);
+
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
       const newValue = event.target.value;
+      setCanFilter(true);
       onSearchChange?.(newValue);
       setValue('');
       setSearchTerm(newValue || '');
@@ -131,6 +174,8 @@ export const Wrapper: ForwardRefExoticComponent<
 
       if (exactMatch) {
         setValue(exactMatch.value);
+      } else {
+        setValue(internalValue?.value ?? '');
       }
     };
 
@@ -179,9 +224,7 @@ export const Wrapper: ForwardRefExoticComponent<
               <input
                 ref={inputRef}
                 type="text"
-                value={
-                  isOpen ? searchTerm : (internalValue?.label as string) || ''
-                }
+                value={canFilter ? searchTerm : internalValue?.value}
                 name={name}
                 onChange={handleInputChange}
                 placeholder={placeholder}
@@ -201,6 +244,7 @@ export const Wrapper: ForwardRefExoticComponent<
                 autoComplete="off"
                 autoCapitalize="words"
                 disabled={disabled}
+                tabIndex={-1}
                 {...delegated}
               />
             ) : (

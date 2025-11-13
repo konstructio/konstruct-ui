@@ -38,7 +38,7 @@ export const List: ForwardRefExoticComponent<
     ref,
   ) => {
     const ulRef = useRef<ComponentRef<'ul'>>(null);
-    const { isOpen, searchTerm } = useDropdownContext();
+    const { isOpen, searchTerm, canFilter } = useDropdownContext();
 
     useImperativeHandle(ref, () => ulRef.current!, [ulRef]);
 
@@ -50,14 +50,17 @@ export const List: ForwardRefExoticComponent<
       searchable,
     });
 
-    const filteredOptions = searchable
-      ? options.filter((option) => {
-          const searchLower = searchTerm.toLowerCase();
-          const label =
-            typeof option.label === 'string' ? option.label.toLowerCase() : '';
-          return label.includes(searchLower);
-        })
-      : options;
+    const filteredOptions =
+      searchable && canFilter
+        ? options.filter((option) => {
+            const searchLower = searchTerm.toLowerCase();
+            const label =
+              typeof option.label === 'string'
+                ? option.label.toLowerCase()
+                : '';
+            return label.includes(searchLower);
+          })
+        : options;
 
     const isEmpty = filteredOptions.length === 0;
 
