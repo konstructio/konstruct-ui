@@ -26,6 +26,7 @@ export const DropdownProvider: FC<
   const highlightSearchEnabled = useRef(highlightSearch);
   const [isOpen, toggleOpen] = useToggle(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [canFilter, setCanFilter] = useState(true);
 
   const handleChange = useCallback(
     (value: string, input?: RefObject<ComponentRef<'input'> | null>) => {
@@ -46,6 +47,8 @@ export const DropdownProvider: FC<
         isOpen,
         searchTerm,
         value,
+        canFilter,
+        setCanFilter,
         setSearchTerm,
         setValue: handleChange,
         toggleOpen,

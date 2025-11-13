@@ -5,6 +5,8 @@ export type DropdownContextType = {
   isOpen: boolean;
   searchTerm: string;
   value?: string;
+  canFilter: boolean;
+  setCanFilter: (canFilter: boolean) => void;
   setSearchTerm: (term: string) => void;
   setValue: (
     value: string,
@@ -18,6 +20,10 @@ export const DropdownContext = createContext<DropdownContextType>({
   isOpen: false,
   searchTerm: '',
   value: undefined,
+  canFilter: true,
+  setCanFilter() {
+    throw new Error('setCanFilter function must be overridden');
+  },
   setSearchTerm() {
     throw new Error('setSearchTerm function must be overridden');
   },
