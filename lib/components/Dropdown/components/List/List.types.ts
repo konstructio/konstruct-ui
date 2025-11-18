@@ -13,5 +13,6 @@ export type ListProps = Pick<
   searchable?: boolean;
   listItemSecondRowClassName?: string;
   wrapperInputRef: RefObject<ComponentRef<'div'> | null>;
-  wrapperRef: RefObject<ComponentRef<'div'> | null>;
+  isInfiniteScrollEnabled: DropdownProps['isInfiniteScrollEnabled'];
+  onFetchMoreOptions?: DropdownProps['onFetchMoreOptions'];
 };

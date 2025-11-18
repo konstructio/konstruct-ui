@@ -1,21 +1,27 @@
 import { ComponentRef, RefObject, useCallback, useEffect, useRef } from 'react';
 
 import { useDropdownContext } from '../contexts';
+import { DropdownProps, Option } from '../Dropdown.types';
 
 type UseDropDownParams = {
   ulRef: RefObject<ComponentRef<'ul'> | null>;
   inputRef?: RefObject<ComponentRef<'input'> | null>;
   disabled: boolean;
+  internalValue?: Option;
+  onBlur?: DropdownProps['onBlur'];
 };
 
 export const useDropdown = ({
   ulRef,
   inputRef,
   disabled,
+  internalValue,
+  onBlur,
 }: UseDropDownParams) => {
   const wrapperRef = useRef<ComponentRef<'div'>>(null);
   const wrapperInputRef = useRef<ComponentRef<'div'>>(null);
-  const { toggleOpen } = useDropdownContext();
+  const { value, setSearchTerm, setCanFilter, toggleOpen } =
+    useDropdownContext();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -53,7 +59,7 @@ export const useDropdown = ({
     );
 
     wrapperInputRef.current?.addEventListener(
-      'focus',
+      'focusin',
       () => {
         if (!disabled) {
           toggleOpen(true);
@@ -88,6 +94,75 @@ export const useDropdown = ({
       controller.abort();
     };
   }, [wrapperInputRef, ulRef]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    inputRef?.current?.addEventListener(
+      'focusin',
+      () => {
+        setSearchTerm(internalValue?.value ?? '');
+        setCanFilter(false);
+      },
+      { signal: controller.signal },
+    );
+
+    inputRef?.current?.addEventListener(
+      'focusout',
+      () => {
+        setCanFilter(true);
+      },
+      { signal: controller.signal },
+    );
+
+    wrapperInputRef.current?.addEventListener(
+      'focus',
+      () => {
+        setCanFilter(false);
+      },
+      { signal: controller.signal },
+    );
+
+    wrapperRef.current?.addEventListener(
+      'focusout',
+      (event) => {
+        if (!wrapperRef.current?.contains(event.relatedTarget as Node)) {
+          toggleOpen(false);
+        }
+      },
+      { signal: controller.signal },
+    );
+
+    return () => {
+      controller.abort();
+    };
+  }, [value]);
+
+  useEffect(() => {
+    if (inputRef?.current) {
+      inputRef.current.value = value
+        ? (internalValue?.value as string) || ''
+        : '';
+    }
+  }, [internalValue, value]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    wrapperRef.current?.addEventListener('focusout', (event) => {
+      const newFocusElement = event.relatedTarget as Node;
+
+      if (!newFocusElement || !wrapperRef.current?.contains(newFocusElement)) {
+        if (!inputRef?.current?.value) {
+          onBlur?.();
+        }
+      }
+    });
+
+    return () => {
+      controller.abort();
+    };
+  }, [toggleOpen, wrapperRef, setSearchTerm, onBlur, value]);
 
   const handleOpen = useCallback(() => {
     toggleOpen(true);

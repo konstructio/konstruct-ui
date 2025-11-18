@@ -1,5 +1,6 @@
-'use client';
 import { ComponentRef, FC, forwardRef } from 'react';
+
+import { cn } from '@/utils';
 
 import { Wrapper } from './components';
 import { DropdownProvider } from './contexts';
@@ -11,13 +12,17 @@ export const Dropdown: FC<DropdownProps> = forwardRef<
 >(
   (
     {
+      error,
+      errorClassName,
+      helperText,
+      helperTextClassName,
+      highlightSearch,
+      mainWrapperClassName,
+      name,
+      value,
+      options,
       onChange,
       onBlur,
-      value,
-      error,
-      helperText,
-      name,
-      highlightSearch,
       ...delegated
     },
     ref,
@@ -26,22 +31,29 @@ export const Dropdown: FC<DropdownProps> = forwardRef<
       highlightSearch={highlightSearch}
       name={name}
       value={value}
+      options={options}
       onBlur={onBlur}
       onChange={onChange}
     >
-      <div className="relative w-full">
+      <div className={cn('relative w-full', mainWrapperClassName)}>
         <Wrapper
-          name={name}
           error={error}
+          name={name}
           ref={ref}
           onBlur={onBlur}
           {...delegated}
         />
 
-        {error ? <span className="text-xs text-red-700">{error}</span> : null}
+        {error ? (
+          <span className={cn('text-xs text-red-700', errorClassName)}>
+            {error}
+          </span>
+        ) : null}
 
         {!error && helperText ? (
-          <span className="text-xs text-slate-600">{helperText}</span>
+          <span className={cn('text-xs text-slate-600', helperTextClassName)}>
+            {helperText}
+          </span>
         ) : null}
       </div>
     </DropdownProvider>

@@ -6,7 +6,7 @@ import { Theme } from '@/domain/theme';
 import { dropdownVariants } from './Dropdown.variants';
 
 export type Option = {
-  label: string | ReactNode;
+  label: string;
   subLabel?: string | ReactNode;
   leftIcon?: ReactNode | string;
   value: string;
@@ -31,13 +31,29 @@ export type DropdownProps = VariantProps<typeof dropdownVariants> &
     listClassName?: string;
     listItemClassName?: string;
     listItemSecondRowClassName?: string;
+    mainWrapperClassName?: string;
     options: Option[];
     searchable?: boolean;
     showSearchIcon?: boolean;
     theme?: Theme;
     value?: string;
     wrapperClassName?: string;
+    errorClassName?: string;
+    helperTextClassName?: string;
     onBlur?: VoidFunction;
     onChange?: OnChangeFn;
     onSearchChange?: (searchTerm: string) => void;
-  };
+  } & (
+    | {
+        isInfiniteScrollEnabled: true;
+        onFetchMoreOptions: (params: {
+          page: number;
+          pageSize: number;
+          termOfSearch?: string;
+        }) => Promise<{ data: Option[]; hasMore: boolean }>;
+      }
+    | {
+        isInfiniteScrollEnabled?: false | undefined;
+        onFetchMoreOptions?: never;
+      }
+  );
