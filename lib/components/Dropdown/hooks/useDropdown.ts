@@ -33,7 +33,7 @@ export const useDropdown = ({
     };
 
     const handleClickOutside = (event: MouseEvent) => {
-      if (!wrapperRef.current?.contains(event.relatedTarget as Node)) {
+      if (!wrapperRef.current?.contains(event.target as Node)) {
         toggleOpen(false);
       }
     };

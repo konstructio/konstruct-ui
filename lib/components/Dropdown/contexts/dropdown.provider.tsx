@@ -38,9 +38,9 @@ export const DropdownProvider: FC<
         input.current.value = value;
       }
 
-      onChange?.({ target: { value, name: name ?? '' } });
       setCanContinueFetching(true);
       setPage(DEFAULT_INIT_PAGE);
+      onChange?.({ target: { value, name: name ?? '' } });
       onBlur?.();
     },
     [onChange, name, onBlur],

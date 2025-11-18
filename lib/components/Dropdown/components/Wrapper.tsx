@@ -69,7 +69,7 @@ export const Wrapper: ForwardRefExoticComponent<
       isOpen,
       searchTerm,
       value,
-      canFilter,
+      // canFilter,
       setValue,
       setSearchTerm,
       setCanFilter,
@@ -165,9 +165,10 @@ export const Wrapper: ForwardRefExoticComponent<
 
             {searchable ? (
               <input
-                ref={inputRef}
                 type="text"
-                value={canFilter ? searchTerm : internalValue?.value}
+                value={
+                  isOpen ? searchTerm : (internalValue?.label as string) || ''
+                }
                 name={name}
                 onChange={handleInputChange}
                 placeholder={placeholder}
@@ -228,18 +229,16 @@ export const Wrapper: ForwardRefExoticComponent<
           )}
         </div>
 
-        {!searchable && (
-          <input
-            ref={inputRef}
-            type="text"
-            name={name}
-            className="hidden"
-            aria-hidden="true"
-            required={isRequired}
-            inert
-            {...delegated}
-          />
-        )}
+        <input
+          ref={inputRef}
+          type="text"
+          name={name}
+          className="hidden"
+          aria-hidden="true"
+          required={isRequired}
+          inert
+          {...delegated}
+        />
 
         {isOpen && (
           <List
@@ -248,7 +247,6 @@ export const Wrapper: ForwardRefExoticComponent<
             className={listClassName}
             itemClassName={listItemClassName}
             name={name}
-            wrapperRef={wrapperRef}
             wrapperInputRef={wrapperInputRef}
             inputRef={inputRef}
             options={options}

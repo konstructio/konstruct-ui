@@ -1,3 +1,5 @@
+import { Slot } from '@radix-ui/react-slot';
+import { debounce } from 'lodash';
 import {
   ComponentRef,
   forwardRef,
@@ -10,8 +12,10 @@ import {
   useState,
 } from 'react';
 
+import { Loading } from '@/components/Loading/Loading';
 import { cn } from '@/utils';
 
+import { DEFAULT_LIST_SIZE } from '../../constants';
 import { useDropdownContext } from '../../contexts';
 import { useNavigationUlList } from '../../hooks/useNavigationList';
 
@@ -19,10 +23,6 @@ import { ListItem } from '../ListItem/ListItem';
 
 import { ListProps } from './List.types';
 import { listVariants } from './List.variants';
-import { Slot } from '@radix-ui/react-slot';
-import { DEFAULT_LIST_SIZE } from '../../constants';
-import { Loading } from '@/components/Loading/Loading';
-import { debounce } from 'lodash';
 
 export const List: ForwardRefExoticComponent<
   ListProps & RefAttributes<ComponentRef<'ul'>>
@@ -39,7 +39,6 @@ export const List: ForwardRefExoticComponent<
       searchable = false,
       listItemSecondRowClassName,
       wrapperInputRef,
-      wrapperRef,
       isInfiniteScrollEnabled,
       onFetchMoreOptions,
     },
@@ -61,14 +60,6 @@ export const List: ForwardRefExoticComponent<
 
     useImperativeHandle(ref, () => ulRef.current!, [ulRef]);
 
-    useNavigationUlList({
-      ulRef,
-      wrapperRef,
-      wrapperInputRef,
-      inputRef,
-      searchable,
-    });
-
     const filteredOptions =
       searchable && canFilter
         ? options.filter((option) => {
@@ -80,6 +71,14 @@ export const List: ForwardRefExoticComponent<
             return label.includes(searchLower);
           })
         : options;
+
+    useNavigationUlList({
+      ulRef,
+      wrapperInputRef,
+      inputRef,
+      searchable,
+      options: filteredOptions,
+    });
 
     const uniqueFilteredOptions = filteredOptions.filter(
       (option, index, self) =>
@@ -184,6 +183,7 @@ export const List: ForwardRefExoticComponent<
             role="option"
             data-action="true"
             className="flex items-center justify-center py-3"
+            onClick={(e) => e.stopPropagation()}
           >
             <Loading className="w-4 h-4 text-aurora-500 select-none" />
           </li>

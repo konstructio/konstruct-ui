@@ -1,12 +1,14 @@
 import { ComponentRef, RefObject, useEffect, useRef } from 'react';
+
 import { useDropdownContext } from '../contexts';
+import { Option } from '../Dropdown.types';
 
 type UseNavigationListProps = {
   inputRef?: RefObject<ComponentRef<'input'> | null>;
   searchable?: boolean;
   ulRef: RefObject<ComponentRef<'ul'> | null>;
   wrapperInputRef: RefObject<ComponentRef<'div'> | null>;
-  wrapperRef: RefObject<ComponentRef<'div'> | null>;
+  options: Option[];
 };
 
 export const useNavigationUlList = ({
@@ -14,7 +16,7 @@ export const useNavigationUlList = ({
   searchable,
   ulRef,
   wrapperInputRef,
-  wrapperRef,
+  options,
 }: UseNavigationListProps) => {
   const index = useRef(0);
   const { isOpen } = useDropdownContext();
@@ -97,24 +99,7 @@ export const useNavigationUlList = ({
     return () => {
       controller.abort();
     };
-  }, [ulRef, index, wrapperInputRef, inputRef, searchable]);
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    wrapperRef.current?.addEventListener(
-      'mouseenter',
-      () => {
-        const items = ulRef.current?.querySelectorAll('li') ?? [];
-        items.forEach((item) => item.blur());
-      },
-      { signal: controller.signal },
-    );
-
-    return () => {
-      controller.abort();
-    };
-  }, [ulRef, wrapperRef]);
+  }, [ulRef, index, wrapperInputRef, inputRef, searchable, options.length]);
 
   useEffect(() => {
     if (!isOpen) {
