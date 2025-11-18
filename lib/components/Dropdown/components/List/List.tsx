@@ -76,6 +76,7 @@ export const List: ForwardRefExoticComponent<
       ulRef,
       wrapperInputRef,
       searchable,
+      filteredOptions,
     });
 
     const uniqueFilteredOptions = filteredOptions.filter(
