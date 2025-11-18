@@ -14,6 +14,8 @@ import { DropdownProps } from '../Dropdown.types';
 
 import { DropdownContext } from './dropdown.context';
 
+const DEFAULT_INIT_PAGE = 1;
+
 export const DropdownProvider: FC<
   PropsWithChildren & {
     highlightSearch?: boolean;
@@ -27,6 +29,8 @@ export const DropdownProvider: FC<
   const [isOpen, toggleOpen] = useToggle(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [canFilter, setCanFilter] = useState(true);
+  const [canContinueFetching, setCanContinueFetching] = useState(true);
+  const [page, setPage] = useState(DEFAULT_INIT_PAGE);
 
   const handleChange = useCallback(
     (value: string, input?: RefObject<ComponentRef<'input'> | null>) => {
@@ -35,9 +39,20 @@ export const DropdownProvider: FC<
       }
 
       onChange?.({ target: { value, name: name ?? '' } });
+      setCanContinueFetching(true);
+      setPage(DEFAULT_INIT_PAGE);
       onBlur?.();
     },
     [onChange, name, onBlur],
+  );
+
+  const handleToggle = useCallback(
+    (value?: boolean) => {
+      toggleOpen(value);
+      setCanContinueFetching(true);
+      setPage(DEFAULT_INIT_PAGE);
+    },
+    [toggleOpen],
   );
 
   return (
@@ -48,10 +63,14 @@ export const DropdownProvider: FC<
         searchTerm,
         value,
         canFilter,
+        canContinueFetching,
+        page,
+        setPage,
+        setCanContinueFetching,
         setCanFilter,
         setSearchTerm,
         setValue: handleChange,
-        toggleOpen,
+        toggleOpen: handleToggle,
       }}
     >
       {children}

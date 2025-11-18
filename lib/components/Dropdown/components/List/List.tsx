@@ -3,8 +3,11 @@ import {
   forwardRef,
   ForwardRefExoticComponent,
   RefAttributes,
+  useCallback,
+  useEffect,
   useImperativeHandle,
   useRef,
+  useState,
 } from 'react';
 
 import { cn } from '@/utils';
@@ -17,6 +20,9 @@ import { ListItem } from '../ListItem/ListItem';
 import { ListProps } from './List.types';
 import { listVariants } from './List.variants';
 import { Slot } from '@radix-ui/react-slot';
+import { DEFAULT_LIST_SIZE } from '../../constants';
+import { Loading } from '@/components/Loading/Loading';
+import { debounce } from 'lodash';
 
 export const List: ForwardRefExoticComponent<
   ListProps & RefAttributes<ComponentRef<'ul'>>
@@ -29,16 +35,29 @@ export const List: ForwardRefExoticComponent<
       isLoading,
       itemClassName,
       name,
-      options,
+      options: defaultOptions,
       searchable = false,
       listItemSecondRowClassName,
       wrapperInputRef,
       wrapperRef,
+      isInfiniteScrollEnabled,
+      onFetchMoreOptions,
     },
     ref,
   ) => {
     const ulRef = useRef<ComponentRef<'ul'>>(null);
-    const { isOpen, searchTerm, canFilter } = useDropdownContext();
+    const loadingRef = useRef<HTMLLIElement>(null);
+    const [isFetching, setIsFetching] = useState(false);
+    const [options, setOptions] = useState(defaultOptions);
+    const {
+      isOpen,
+      searchTerm,
+      canFilter,
+      canContinueFetching,
+      page,
+      setPage,
+      setCanContinueFetching,
+    } = useDropdownContext();
 
     useImperativeHandle(ref, () => ulRef.current!, [ulRef]);
 
@@ -62,7 +81,63 @@ export const List: ForwardRefExoticComponent<
           })
         : options;
 
+    const uniqueFilteredOptions = filteredOptions.filter(
+      (option, index, self) =>
+        index === self.findIndex((o) => o.value === option.value),
+    );
+
     const isEmpty = filteredOptions.length === 0;
+
+    const debouncedFetching = useCallback(
+      debounce(async (entries) => {
+        const [entry] = entries;
+
+        if (entry.isIntersecting) {
+          try {
+            if (onFetchMoreOptions && !isFetching && canContinueFetching) {
+              setIsFetching(true);
+              const newPage = page + 1;
+
+              const { data, hasMore } = await onFetchMoreOptions({
+                page: newPage,
+                pageSize: DEFAULT_LIST_SIZE,
+                termOfSearch: searchTerm,
+              });
+
+              setPage(newPage);
+              setCanContinueFetching(hasMore);
+              setOptions((prevOptions) => [...prevOptions, ...data]);
+            }
+          } catch {
+            console.error('Error fetching more options');
+          } finally {
+            setIsFetching(false);
+          }
+        }
+      }, 100),
+      [page, onFetchMoreOptions, searchTerm, canContinueFetching, isFetching],
+    );
+
+    useEffect(() => {
+      if (isInfiniteScrollEnabled && canContinueFetching) {
+        if (loadingRef.current) {
+          const observer = new IntersectionObserver(debouncedFetching, {
+            threshold: 0.1,
+          });
+
+          observer.observe(loadingRef.current);
+
+          return () => observer.disconnect();
+        }
+      }
+    }, [
+      page,
+      searchTerm,
+      isInfiniteScrollEnabled,
+      onFetchMoreOptions,
+      canContinueFetching,
+      isFetching,
+    ]);
 
     return (
       <ul
@@ -91,27 +166,36 @@ export const List: ForwardRefExoticComponent<
             listItemSecondRowClassName={listItemSecondRowClassName}
           />
         ) : (
-          <>
-            {filteredOptions.map((option) => (
-              <ListItem
-                key={option.value}
-                className={cn('select-none', itemClassName)}
-                isClickable
-                inputRef={inputRef}
-                listItemSecondRowClassName={listItemSecondRowClassName}
-                {...option}
-              />
-            ))}
-
-            {additionalOptions?.map((option, index) => (
-              <li key={index} role="option" data-action="true">
-                <Slot className="flex p-2 w-full h-full gap-1 items-center text-sm [&>svg]:w-3.5 [&>svg]:h-3.5 [&>svg]:shrink-0 cursor-pointer select-none hover:bg-gray-50 hover:dark:bg-slate-700 focus:outline-0">
-                  {option}
-                </Slot>
-              </li>
-            ))}
-          </>
+          uniqueFilteredOptions.map((option) => (
+            <ListItem
+              key={option.value}
+              className={cn('select-none', itemClassName)}
+              isClickable
+              inputRef={inputRef}
+              listItemSecondRowClassName={listItemSecondRowClassName}
+              {...option}
+            />
+          ))
         )}
+
+        {isInfiniteScrollEnabled && canContinueFetching && (
+          <li
+            ref={loadingRef}
+            role="option"
+            data-action="true"
+            className="flex items-center justify-center py-3"
+          >
+            <Loading className="w-4 h-4 text-aurora-500 select-none" />
+          </li>
+        )}
+
+        {additionalOptions?.map((option, index) => (
+          <li key={index} role="option" data-action="true">
+            <Slot className="flex p-2 w-full h-full gap-1 items-center text-sm [&>svg]:w-3.5 [&>svg]:h-3.5 [&>svg]:shrink-0 cursor-pointer select-none hover:bg-gray-50 hover:dark:bg-slate-700 focus:outline-0">
+              {option}
+            </Slot>
+          </li>
+        ))}
       </ul>
     );
   },

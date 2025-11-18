@@ -1,11 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { Plus } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/Button/Button';
 import { Modal } from '@/components/Modal/Modal';
 
+import { getPokemons } from '../../../mocks';
+
+import { DEFAULT_LIST_SIZE } from './constants';
 import { Dropdown as DropdownComponent } from './Dropdown';
-import { Plus } from 'lucide-react';
+import { Option } from './Dropdown.types';
 
 type Story = StoryObj<typeof DropdownComponent>;
 
@@ -43,6 +47,28 @@ export const Dropdown = {
     const [value4, setValue4] = useState<string>();
     const [value5, setValue5] = useState<string>();
     const [value6, setValue6] = useState<string>();
+    const [value7, setValue7] = useState<string>();
+    const [value8, setValue8] = useState<string>();
+
+    const [pokemons, setPokemons] = useState<Option[]>([]);
+
+    useEffect(() => {
+      const init = async () => {
+        const result = await getPokemons({
+          page: 1,
+          pageSize: DEFAULT_LIST_SIZE,
+        });
+
+        setPokemons(
+          result.results.map(({ id, name }) => ({
+            value: id.toString(),
+            label: `${name.charAt(0).toUpperCase() + name.slice(1)}`,
+          })),
+        );
+      };
+
+      init();
+    }, []);
 
     return (
       <div className="flex flex-col gap-6">
@@ -79,6 +105,57 @@ export const Dropdown = {
             searchable={false}
             {...args}
           />
+
+          <DropdownComponent
+            {...args}
+            label="Dropdown infinity scroll without search"
+            onChange={({ target: { value } }) => setValue4(value)}
+            value={value4}
+            searchable={false}
+            isInfiniteScrollEnabled={true}
+            onFetchMoreOptions={async ({ page, pageSize, termOfSearch }) => {
+              const { results, totalItemsCount } = await getPokemons({
+                page,
+                pageSize,
+                termOfSearch,
+              });
+
+              return {
+                data: results.map(({ id, name }) => ({
+                  value: id.toString(),
+                  label: `${name.charAt(0).toUpperCase() + name.slice(1)}`,
+                })),
+                hasMore: page <= Math.ceil(totalItemsCount / pageSize),
+              };
+            }}
+            options={pokemons}
+          />
+
+          <DropdownComponent
+            {...args}
+            label="Dropdown infinity scroll with search"
+            onChange={({ target: { value } }) => setValue5(value)}
+            value={value5}
+            searchable={true}
+            isInfiniteScrollEnabled={true}
+            highlightSearch
+            onFetchMoreOptions={async ({ page, pageSize, termOfSearch }) => {
+              const { results, totalItemsCount } = await getPokemons({
+                page,
+                pageSize,
+                termOfSearch,
+              });
+
+              return {
+                data: results.map(({ id, name }) => ({
+                  value: id.toString(),
+                  label: `${name.charAt(0).toUpperCase() + name.slice(1)}`,
+                })),
+                hasMore: page <= Math.ceil(totalItemsCount / pageSize),
+              };
+            }}
+            options={pokemons}
+          />
         </div>
 
         <div
@@ -87,8 +164,8 @@ export const Dropdown = {
         >
           <DropdownComponent
             label="Searchable dropdown with Kubefirst theme"
-            onChange={({ target: { value } }) => setValue4(value)}
-            value={value4}
+            onChange={({ target: { value } }) => setValue6(value)}
+            value={value6}
             searchable={true}
             theme="kubefirst"
             {...args}
@@ -96,8 +173,8 @@ export const Dropdown = {
 
           <DropdownComponent
             label="Searchable dropdown with Civo theme"
-            onChange={({ target: { value } }) => setValue5(value)}
-            value={value5}
+            onChange={({ target: { value } }) => setValue7(value)}
+            value={value7}
             searchable={true}
             showSearchIcon={true}
             inputMode="text"
@@ -112,8 +189,8 @@ export const Dropdown = {
 
           <DropdownComponent
             label="Dropdown with Civo theme"
-            onChange={({ target: { value } }) => setValue6(value)}
-            value={value6}
+            onChange={({ target: { value } }) => setValue8(value)}
+            value={value8}
             searchable={false}
             {...args}
           />

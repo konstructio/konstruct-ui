@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { EyeIcon } from 'lucide-react';
 import { useCallback, useEffect, useId, useState } from 'react';
 
+import { getPokemons, Pokemon } from '../../../mocks';
+
 import { DEFAULT_PAGE_SIZE } from './constants';
-import { getPokemons, Pokemon } from './mocks';
 import { VirtualizedTable as VirtualizedTableComponent } from './VirtualizedTable';
 import { ColumnDef } from './VirtualizedTable.types';
-import { EyeIcon } from 'lucide-react';
 
 type Story = StoryObj<typeof VirtualizedTableComponent>;
 

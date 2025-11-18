@@ -53,6 +53,8 @@ export const Wrapper: ForwardRefExoticComponent<
       showSearchIcon,
       theme,
       wrapperClassName,
+      isInfiniteScrollEnabled = false,
+      onFetchMoreOptions,
       onBlur,
       onSearchChange,
       ...delegated
@@ -62,37 +64,32 @@ export const Wrapper: ForwardRefExoticComponent<
     const id = useId();
     const inputRef = useRef<ComponentRef<'input'>>(null);
     const ulRef = useRef<ComponentRef<'ul'>>(null);
-    const { wrapperRef, wrapperInputRef, handleOpen } = useDropdown({
-      ulRef,
-      inputRef,
-      disabled,
-    });
-
+    const isWrapperInputFocusable = useRef<number>(0);
     const {
       isOpen,
       searchTerm,
       value,
       canFilter,
-      toggleOpen,
       setValue,
       setSearchTerm,
       setCanFilter,
     } = useDropdownContext();
-    const htmlFor = name ? `${id}-${name}` : id;
-
-    useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
 
     const internalValue = useMemo(() => {
       return options.find(({ value: optionValue }) => optionValue === value);
     }, [options, value]);
 
-    useEffect(() => {
-      if (inputRef.current) {
-        inputRef.current.value = value
-          ? (internalValue?.value as string) || ''
-          : '';
-      }
-    }, [internalValue, value]);
+    const { wrapperRef, wrapperInputRef, handleOpen } = useDropdown({
+      ulRef,
+      inputRef,
+      disabled,
+      internalValue,
+      onBlur,
+    });
+
+    const htmlFor = name ? `${id}-${name}` : id;
+
+    useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
 
     useEffect(() => {
       if (defaultValue && !value) {
@@ -104,60 +101,6 @@ export const Wrapper: ForwardRefExoticComponent<
         }
       }
     }, [defaultValue, options, setValue, value]);
-
-    useEffect(() => {
-      const controller = new AbortController();
-
-      wrapperRef.current?.addEventListener('focusout', (event) => {
-        const newFocusElement = event.relatedTarget as Node;
-
-        if (
-          !newFocusElement ||
-          !wrapperRef.current?.contains(newFocusElement)
-        ) {
-          if (!inputRef.current?.value) {
-            onBlur?.();
-          }
-        }
-      });
-
-      return () => {
-        controller.abort();
-      };
-    }, [toggleOpen, wrapperRef, setSearchTerm, onBlur, value]);
-
-    useEffect(() => {
-      const controller = new AbortController();
-
-      inputRef.current?.addEventListener(
-        'focusin',
-        () => {
-          setSearchTerm(internalValue?.value ?? '');
-          setCanFilter(false);
-        },
-        { signal: controller.signal },
-      );
-
-      inputRef.current?.addEventListener(
-        'focusout',
-        () => {
-          setCanFilter(true);
-        },
-        { signal: controller.signal },
-      );
-
-      wrapperInputRef.current?.addEventListener(
-        'focus',
-        () => {
-          setCanFilter(false);
-        },
-        { signal: controller.signal },
-      );
-
-      return () => {
-        controller.abort();
-      };
-    }, [value]);
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
       const newValue = event.target.value;
@@ -206,7 +149,7 @@ export const Wrapper: ForwardRefExoticComponent<
           role="combobox"
           onClick={() => !disabled && handleOpen()}
           aria-expanded={isOpen}
-          tabIndex={0}
+          tabIndex={isWrapperInputFocusable.current}
           aria-labelledby={htmlFor}
         >
           <div className="flex gap-2.5 items-center flex-1">
@@ -312,6 +255,8 @@ export const Wrapper: ForwardRefExoticComponent<
             isLoading={!!isLoading}
             searchable={searchable}
             listItemSecondRowClassName={listItemSecondRowClassName}
+            isInfiniteScrollEnabled={isInfiniteScrollEnabled}
+            onFetchMoreOptions={onFetchMoreOptions}
           />
         )}
       </div>

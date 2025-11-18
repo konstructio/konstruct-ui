@@ -3,9 +3,8 @@ import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { FC, FormEvent, PropsWithChildren, useState } from 'react';
 
+import { Button } from '@/components/Button/Button';
 import { Modal } from '@/components/Modal/Modal';
-
-import { Button } from '../Button/Button';
 
 import { Dropdown } from './Dropdown';
 import { DropdownProps } from './Dropdown.types';
@@ -27,13 +26,18 @@ const defaultProps = {
       value: 'option-3',
     },
   ],
+  isInfiniteScrollEnabled: false,
 } satisfies DropdownProps;
 
 describe('Dropdown', () => {
   const setup = (props?: Partial<DropdownProps>, wrapper?: FC) => {
+    const { onFetchMoreOptions: _, ...restProps } = props || {};
+
     const { container: component } = render(
-      <Dropdown {...defaultProps} {...props} />,
-      { wrapper },
+      <Dropdown {...defaultProps} {...restProps} />,
+      {
+        wrapper,
+      },
     );
 
     const user = userEvent.setup();

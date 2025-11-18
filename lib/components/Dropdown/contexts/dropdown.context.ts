@@ -6,6 +6,10 @@ export type DropdownContextType = {
   searchTerm: string;
   value?: string;
   canFilter: boolean;
+  canContinueFetching: boolean;
+  page: number;
+  setPage: (page: number) => void;
+  setCanContinueFetching: (canFilter: boolean) => void;
   setCanFilter: (canFilter: boolean) => void;
   setSearchTerm: (term: string) => void;
   setValue: (
@@ -21,6 +25,14 @@ export const DropdownContext = createContext<DropdownContextType>({
   searchTerm: '',
   value: undefined,
   canFilter: true,
+  canContinueFetching: true,
+  page: 1,
+  setPage() {
+    throw new Error('setPage function must be overridden');
+  },
+  setCanContinueFetching() {
+    throw new Error('setCanContinueFetching function must be overridden');
+  },
   setCanFilter() {
     throw new Error('setCanFilter function must be overridden');
   },
