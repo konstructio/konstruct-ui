@@ -238,16 +238,32 @@ declare type DropdownProps = VariantProps<typeof dropdownVariants> & Omit<InputH
     listClassName?: string;
     listItemClassName?: string;
     listItemSecondRowClassName?: string;
+    mainWrapperClassName?: string;
     options: Option_3[];
     searchable?: boolean;
     showSearchIcon?: boolean;
     theme?: Theme;
     value?: string;
     wrapperClassName?: string;
+    errorClassName?: string;
+    helperTextClassName?: string;
     onBlur?: VoidFunction;
     onChange?: OnChangeFn;
     onSearchChange?: (searchTerm: string) => void;
-};
+} & ({
+    isInfiniteScrollEnabled: true;
+    onFetchMoreOptions: (params: {
+        page: number;
+        pageSize: number;
+        termOfSearch?: string;
+    }) => Promise<{
+        data: Option_3[];
+        hasMore: boolean;
+    }>;
+} | {
+    isInfiniteScrollEnabled?: false | undefined;
+    onFetchMoreOptions?: never;
+});
 
 declare const dropdownVariants: (props?: ({
     hasError?: boolean | null | undefined;
@@ -458,7 +474,7 @@ declare type Option_2 = {
 };
 
 declare type Option_3 = {
-    label: string | ReactNode;
+    label: string;
     subLabel?: string | ReactNode;
     leftIcon?: ReactNode | string;
     value: string;
