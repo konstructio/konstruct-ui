@@ -28,8 +28,11 @@ import { useDropdown } from '../hooks/useDropdown';
 import { List } from './List/List';
 
 export const Wrapper: ForwardRefExoticComponent<
-  DropdownProps & RefAttributes<ComponentRef<'input'>>
-> = forwardRef<ComponentRef<'input'>, Omit<DropdownProps, 'helperText'>>(
+  Omit<DropdownProps, 'options'> & RefAttributes<ComponentRef<'input'>>
+> = forwardRef<
+  ComponentRef<'input'>,
+  Omit<DropdownProps, 'helperText' | 'options'>
+>(
   (
     {
       additionalOptions,
@@ -47,7 +50,6 @@ export const Wrapper: ForwardRefExoticComponent<
       listItemClassName,
       listItemSecondRowClassName,
       name,
-      options,
       placeholder,
       searchable = false,
       showSearchIcon,
@@ -70,6 +72,7 @@ export const Wrapper: ForwardRefExoticComponent<
       searchTerm,
       value,
       // canFilter,
+      options,
       setValue,
       setSearchTerm,
       setCanFilter,
@@ -167,9 +170,8 @@ export const Wrapper: ForwardRefExoticComponent<
               <input
                 type="text"
                 value={
-                  isOpen ? searchTerm : (internalValue?.label as string) || ''
+                  isOpen ? searchTerm : (internalValue?.label ?? value ?? '')
                 }
-                name={name}
                 onChange={handleInputChange}
                 placeholder={placeholder}
                 className={cn(inputVariants({ className: inputClassName }), {
@@ -237,6 +239,7 @@ export const Wrapper: ForwardRefExoticComponent<
           aria-hidden="true"
           required={isRequired}
           inert
+          defaultValue={internalValue?.value ?? value ?? undefined}
           {...delegated}
         />
 

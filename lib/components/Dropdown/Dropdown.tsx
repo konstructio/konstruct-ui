@@ -20,6 +20,7 @@ export const Dropdown: FC<DropdownProps> = forwardRef<
       mainWrapperClassName,
       name,
       value,
+      options,
       onChange,
       onBlur,
       ...delegated
@@ -30,6 +31,7 @@ export const Dropdown: FC<DropdownProps> = forwardRef<
       highlightSearch={highlightSearch}
       name={name}
       value={value}
+      options={options}
       onBlur={onBlur}
       onChange={onChange}
     >

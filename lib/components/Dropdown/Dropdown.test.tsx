@@ -26,7 +26,6 @@ const defaultProps = {
       value: 'option-3',
     },
   ],
-  isInfiniteScrollEnabled: false,
 } satisfies DropdownProps;
 
 describe('Dropdown', () => {
@@ -34,7 +33,11 @@ describe('Dropdown', () => {
     const { onFetchMoreOptions: _, ...restProps } = props || {};
 
     const { container: component } = render(
-      <Dropdown {...defaultProps} {...restProps} />,
+      <Dropdown
+        {...defaultProps}
+        {...restProps}
+        isInfiniteScrollEnabled={false}
+      />,
       {
         wrapper,
       },

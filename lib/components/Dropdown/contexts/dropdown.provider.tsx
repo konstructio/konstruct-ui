@@ -4,13 +4,14 @@ import {
   PropsWithChildren,
   RefObject,
   useCallback,
+  useEffect,
   useRef,
   useState,
 } from 'react';
 
 import { useToggle } from '@/hooks';
 
-import { DropdownProps } from '../Dropdown.types';
+import { DropdownProps, Option } from '../Dropdown.types';
 
 import { DropdownContext } from './dropdown.context';
 
@@ -21,10 +22,20 @@ export const DropdownProvider: FC<
     highlightSearch?: boolean;
     name?: string;
     value?: string;
+    options: Option[];
     onChange?: DropdownProps['onChange'];
     onBlur?: DropdownProps['onBlur'];
   }
-> = ({ children, value, name, highlightSearch = false, onChange, onBlur }) => {
+> = ({
+  children,
+  value,
+  name,
+  highlightSearch = false,
+  options: defaultOptions,
+  onChange,
+  onBlur,
+}) => {
+  const [options, setOptions] = useState<Option[]>(defaultOptions);
   const highlightSearchEnabled = useRef(highlightSearch);
   const [isOpen, toggleOpen] = useToggle(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -55,6 +66,10 @@ export const DropdownProvider: FC<
     [toggleOpen],
   );
 
+  useEffect(() => {
+    setOptions(defaultOptions);
+  }, [defaultOptions.length]);
+
   return (
     <DropdownContext.Provider
       value={{
@@ -65,6 +80,8 @@ export const DropdownProvider: FC<
         canFilter,
         canContinueFetching,
         page,
+        options,
+        setOptions,
         setPage,
         setCanContinueFetching,
         setCanFilter,

@@ -6,7 +6,7 @@ import { Theme } from '@/domain/theme';
 import { dropdownVariants } from './Dropdown.variants';
 
 export type Option = {
-  label: string | ReactNode;
+  label: string;
   subLabel?: string | ReactNode;
   leftIcon?: ReactNode | string;
   value: string;

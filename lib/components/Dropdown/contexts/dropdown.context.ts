@@ -1,5 +1,7 @@
 import { ComponentRef, createContext, RefObject } from 'react';
 
+import { Option } from '../Dropdown.types';
+
 export type DropdownContextType = {
   highlightSearchEnabled: boolean;
   isOpen: boolean;
@@ -8,6 +10,8 @@ export type DropdownContextType = {
   canFilter: boolean;
   canContinueFetching: boolean;
   page: number;
+  options: Option[];
+  setOptions: (options: Option[]) => void;
   setPage: (page: number) => void;
   setCanContinueFetching: (canFilter: boolean) => void;
   setCanFilter: (canFilter: boolean) => void;
@@ -27,6 +31,10 @@ export const DropdownContext = createContext<DropdownContextType>({
   canFilter: true,
   canContinueFetching: true,
   page: 1,
+  options: [],
+  setOptions() {
+    throw new Error('setOptions function must be overridden');
+  },
   setPage() {
     throw new Error('setPage function must be overridden');
   },

@@ -1,5 +1,5 @@
 import { Slot } from '@radix-ui/react-slot';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import {
   ComponentRef,
   forwardRef,
@@ -35,7 +35,6 @@ export const List: ForwardRefExoticComponent<
       isLoading,
       itemClassName,
       name,
-      options: defaultOptions,
       searchable = false,
       listItemSecondRowClassName,
       wrapperInputRef,
@@ -47,13 +46,14 @@ export const List: ForwardRefExoticComponent<
     const ulRef = useRef<ComponentRef<'ul'>>(null);
     const loadingRef = useRef<HTMLLIElement>(null);
     const [isFetching, setIsFetching] = useState(false);
-    const [options, setOptions] = useState(defaultOptions);
     const {
       isOpen,
       searchTerm,
       canFilter,
       canContinueFetching,
       page,
+      options,
+      setOptions,
       setPage,
       setCanContinueFetching,
     } = useDropdownContext();
@@ -75,9 +75,7 @@ export const List: ForwardRefExoticComponent<
     useNavigationUlList({
       ulRef,
       wrapperInputRef,
-      inputRef,
       searchable,
-      options: filteredOptions,
     });
 
     const uniqueFilteredOptions = filteredOptions.filter(
@@ -105,7 +103,7 @@ export const List: ForwardRefExoticComponent<
 
               setPage(newPage);
               setCanContinueFetching(hasMore);
-              setOptions((prevOptions) => [...prevOptions, ...data]);
+              setOptions([...options, ...data]);
             }
           } catch {
             console.error('Error fetching more options');

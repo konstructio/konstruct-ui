@@ -1,25 +1,21 @@
 import { ComponentRef, RefObject, useEffect, useRef } from 'react';
 
 import { useDropdownContext } from '../contexts';
-import { Option } from '../Dropdown.types';
 
 type UseNavigationListProps = {
   inputRef?: RefObject<ComponentRef<'input'> | null>;
   searchable?: boolean;
   ulRef: RefObject<ComponentRef<'ul'> | null>;
   wrapperInputRef: RefObject<ComponentRef<'div'> | null>;
-  options: Option[];
 };
 
 export const useNavigationUlList = ({
-  inputRef,
   searchable,
   ulRef,
   wrapperInputRef,
-  options,
 }: UseNavigationListProps) => {
   const index = useRef(0);
-  const { isOpen } = useDropdownContext();
+  const { isOpen, options } = useDropdownContext();
 
   useEffect(() => {
     const allItems = ulRef.current?.querySelectorAll('li') ?? [];
@@ -45,8 +41,8 @@ export const useNavigationUlList = ({
       } else {
         index.current = 0;
 
-        if (inputRef?.current && searchable) {
-          inputRef.current.focus();
+        if (wrapperInputRef?.current && searchable) {
+          wrapperInputRef.current.querySelector('input')?.focus();
         } else {
           wrapperInputRef.current?.focus();
         }
@@ -99,7 +95,7 @@ export const useNavigationUlList = ({
     return () => {
       controller.abort();
     };
-  }, [ulRef, index, wrapperInputRef, inputRef, searchable, options.length]);
+  }, [ulRef, index, wrapperInputRef, searchable, options]);
 
   useEffect(() => {
     if (!isOpen) {
