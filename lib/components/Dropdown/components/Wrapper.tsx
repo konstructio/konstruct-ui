@@ -71,7 +71,6 @@ export const Wrapper: ForwardRefExoticComponent<
       isOpen,
       searchTerm,
       value,
-      // canFilter,
       options,
       setValue,
       setSearchTerm,
@@ -107,10 +106,11 @@ export const Wrapper: ForwardRefExoticComponent<
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
       const newValue = event.target.value;
+
       setCanFilter(true);
-      onSearchChange?.(newValue);
       setValue('');
-      setSearchTerm(newValue || '');
+      setSearchTerm(newValue ?? '');
+      onSearchChange?.(newValue);
 
       // If there's an exact match, select it
       const exactMatch = options.find(

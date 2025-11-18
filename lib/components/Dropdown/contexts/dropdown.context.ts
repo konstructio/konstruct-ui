@@ -1,4 +1,10 @@
-import { ComponentRef, createContext, RefObject } from 'react';
+import {
+  ComponentRef,
+  createContext,
+  Dispatch,
+  RefObject,
+  SetStateAction,
+} from 'react';
 
 import { Option } from '../Dropdown.types';
 
@@ -11,11 +17,12 @@ export type DropdownContextType = {
   canContinueFetching: boolean;
   page: number;
   options: Option[];
-  setOptions: (options: Option[]) => void;
-  setPage: (page: number) => void;
-  setCanContinueFetching: (canFilter: boolean) => void;
-  setCanFilter: (canFilter: boolean) => void;
-  setSearchTerm: (term: string) => void;
+  isTyping?: boolean;
+  setOptions: Dispatch<SetStateAction<Option[]>>;
+  setPage: Dispatch<SetStateAction<number>>;
+  setCanContinueFetching: Dispatch<SetStateAction<boolean>>;
+  setCanFilter: Dispatch<SetStateAction<boolean>>;
+  setSearchTerm: Dispatch<SetStateAction<string>>;
   setValue: (
     value: string,
     inputRef?: RefObject<ComponentRef<'input'> | null>,
@@ -32,6 +39,7 @@ export const DropdownContext = createContext<DropdownContextType>({
   canContinueFetching: true,
   page: 1,
   options: [],
+  isTyping: false,
   setOptions() {
     throw new Error('setOptions function must be overridden');
   },
