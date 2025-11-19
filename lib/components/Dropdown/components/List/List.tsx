@@ -5,9 +5,9 @@ import {
   forwardRef,
   ForwardRefExoticComponent,
   RefAttributes,
-  useCallback,
   useEffect,
   useImperativeHandle,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -53,6 +53,7 @@ export const List: ForwardRefExoticComponent<
       canContinueFetching,
       page,
       options,
+      isTyping,
       setOptions,
       setPage,
       setCanContinueFetching,
@@ -86,13 +87,18 @@ export const List: ForwardRefExoticComponent<
 
     const isEmpty = filteredOptions.length === 0;
 
-    const debouncedFetching = useCallback(
-      debounce(async (entries) => {
-        const [entry] = entries;
+    const debouncedFetching = useMemo(
+      () =>
+        debounce(async (entries) => {
+          const [entry] = entries;
 
-        if (entry.isIntersecting) {
-          try {
-            if (onFetchMoreOptions && !isFetching && canContinueFetching) {
+          if (
+            entry.isIntersecting &&
+            !isFetching &&
+            onFetchMoreOptions &&
+            canContinueFetching
+          ) {
+            try {
               setIsFetching(true);
               const newPage = page + 1;
 
@@ -104,38 +110,33 @@ export const List: ForwardRefExoticComponent<
 
               setPage(newPage);
               setCanContinueFetching(hasMore);
-              setOptions([...options, ...data]);
+              setOptions((prevOptions) => [...prevOptions, ...data]);
+            } catch {
+              console.error('Error fetching more options');
+            } finally {
+              setIsFetching(false);
             }
-          } catch {
-            console.error('Error fetching more options');
-          } finally {
-            setIsFetching(false);
           }
-        }
-      }, 100),
-      [page, onFetchMoreOptions, searchTerm, canContinueFetching, isFetching],
+        }, 100),
+      [isFetching, onFetchMoreOptions, searchTerm],
     );
 
     useEffect(() => {
-      if (isInfiniteScrollEnabled && canContinueFetching) {
-        if (loadingRef.current) {
-          const observer = new IntersectionObserver(debouncedFetching, {
-            threshold: 0.1,
-          });
+      if (
+        isInfiniteScrollEnabled &&
+        canContinueFetching &&
+        !!loadingRef.current &&
+        !isTyping
+      ) {
+        const observer = new IntersectionObserver(debouncedFetching, {
+          threshold: 0.1,
+        });
 
-          observer.observe(loadingRef.current);
+        observer.observe(loadingRef.current);
 
-          return () => observer.disconnect();
-        }
+        return () => observer.disconnect();
       }
-    }, [
-      page,
-      searchTerm,
-      isInfiniteScrollEnabled,
-      onFetchMoreOptions,
-      canContinueFetching,
-      isFetching,
-    ]);
+    }, [isInfiniteScrollEnabled, canContinueFetching, isFetching, isTyping]);
 
     return (
       <ul

@@ -16,6 +16,7 @@ import { DropdownProps, Option } from '../Dropdown.types';
 import { DropdownContext } from './dropdown.context';
 
 const DEFAULT_INIT_PAGE = 1;
+const DELAY_TYPING = 300;
 
 export const DropdownProvider: FC<
   PropsWithChildren & {
@@ -42,6 +43,8 @@ export const DropdownProvider: FC<
   const [canFilter, setCanFilter] = useState(true);
   const [canContinueFetching, setCanContinueFetching] = useState(true);
   const [page, setPage] = useState(DEFAULT_INIT_PAGE);
+  const [isTyping, setIsTyping] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const handleChange = useCallback(
     (value: string, input?: RefObject<ComponentRef<'input'> | null>) => {
@@ -49,10 +52,19 @@ export const DropdownProvider: FC<
         input.current.value = value;
       }
 
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
+      setIsTyping(true);
       setCanContinueFetching(true);
       setPage(DEFAULT_INIT_PAGE);
       onChange?.({ target: { value, name: name ?? '' } });
       onBlur?.();
+
+      timeoutRef.current = setTimeout(() => {
+        setIsTyping(false);
+      }, DELAY_TYPING);
     },
     [onChange, name, onBlur],
   );
@@ -70,6 +82,14 @@ export const DropdownProvider: FC<
     setOptions(defaultOptions);
   }, [defaultOptions.length]);
 
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
     <DropdownContext.Provider
       value={{
@@ -81,6 +101,7 @@ export const DropdownProvider: FC<
         canContinueFetching,
         page,
         options,
+        isTyping,
         setOptions,
         setPage,
         setCanContinueFetching,

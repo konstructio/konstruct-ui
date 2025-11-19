@@ -16,6 +16,26 @@ import { Option } from '../../Dropdown.types';
 import { ListItemProps } from './ListItem.types';
 import { listItemVariants } from './ListItem.variants';
 
+function highlightText(value: string, searchTerm: string) {
+  const escaped = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp(`(${escaped})`, 'gi');
+
+  return value.split(regex).map((part, index) => {
+    if (part.toLowerCase() === searchTerm.toLowerCase()) {
+      return (
+        <mark
+          key={index}
+          className="bg-transparent font-semibold text-slate-800 dark:text-slate-50"
+        >
+          {part}
+        </mark>
+      );
+    }
+
+    return <span key={index}>{part}</span>;
+  });
+}
+
 export const ListItem: FC<ListItemProps> = ({
   isClickable,
   className,
@@ -53,20 +73,7 @@ export const ListItem: FC<ListItemProps> = ({
 
       const newValue =
         highlightSearchEnabled && searchTerm.length > 0
-          ? value.split(new RegExp(`(${searchTerm})`, 'gi')).map((value) => {
-              if (value.toLowerCase() === searchTerm.toLowerCase()) {
-                return (
-                  <mark
-                    key={value}
-                    className="bg-transparent font-semibold text-slate-800 dark:text-slate-50"
-                  >
-                    {value}
-                  </mark>
-                );
-              }
-
-              return value;
-            })
+          ? highlightText(value, searchTerm)
           : [value];
 
       return (

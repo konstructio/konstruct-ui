@@ -62,7 +62,7 @@ export const Dropdown = {
         setPokemons(
           result.results.map(({ id, name }) => ({
             value: id.toString(),
-            label: `${name.charAt(0).toUpperCase() + name.slice(1)}`,
+            label: `${name.charAt(0).toLocaleUpperCase() + name.slice(1)}`,
           })),
         );
       };
@@ -123,7 +123,7 @@ export const Dropdown = {
               return {
                 data: results.map(({ id, name }) => ({
                   value: id.toString(),
-                  label: `${name.charAt(0).toUpperCase() + name.slice(1)}`,
+                  label: `${name.charAt(0).toLocaleUpperCase() + name.slice(1)}`,
                 })),
                 hasMore: page <= Math.ceil(totalItemsCount / pageSize),
               };
@@ -149,7 +149,7 @@ export const Dropdown = {
               return {
                 data: results.map(({ id, name }) => ({
                   value: id.toString(),
-                  label: `${name.charAt(0).toUpperCase() + name.slice(1)}`,
+                  label: `${name.charAt(0).toLocaleUpperCase() + name.slice(1)}`,
                 })),
                 hasMore: page <= Math.ceil(totalItemsCount / pageSize),
               };
