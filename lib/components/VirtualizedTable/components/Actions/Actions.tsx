@@ -9,6 +9,11 @@ import { cn } from '@/utils';
 
 export const Actions = <TData extends RowData>({
   actions,
+  wrapperClassName,
+  triggerButtonClassName,
+  iconTriggerButtonClassName,
+  wrapperActionsClassName,
+  wrapperContentActionsClassName,
   ...delegated
 }: Props<TData>) => {
   if (!actions) {
@@ -16,21 +21,37 @@ export const Actions = <TData extends RowData>({
   }
 
   return (
-    <div className="relative group">
+    <div className={cn('relative group', wrapperClassName)}>
       <Button
         variant="text"
         shape="circle"
         size="large"
-        className="text-slate-400 group-hover:text-slate-800 group-hover:bg-aurora-50"
+        className={cn(
+          'text-slate-400 group-hover:text-slate-800 group-hover:bg-aurora-50',
+          triggerButtonClassName,
+        )}
         role="presentation"
       >
-        <EllipsisVertical aria-hidden="true" className="w-7 h-7" />
+        <EllipsisVertical
+          aria-hidden="true"
+          className={cn('w-7 h-7', iconTriggerButtonClassName)}
+        />
         <span className="sr-only">Show Actions</span>
       </Button>
 
-      <div className="absolute top-full right-0 w-[215px] hidden group-hover:block z-10">
-        <div className="bg-white mt-0.5 py-2 rounded-lg shadow-lg border border-zinc-100 animate-in fade-in-0">
-          {actions.map(({ label, onClick, className }) => (
+      <div
+        className={cn(
+          'absolute top-full right-0 w-[215px] hidden group-hover:block z-10',
+          wrapperActionsClassName,
+        )}
+      >
+        <div
+          className={cn(
+            'bg-white mt-0.5 py-2 rounded-lg shadow-lg border border-zinc-100 animate-in fade-in-0',
+            wrapperContentActionsClassName,
+          )}
+        >
+          {actions.map(({ label, className, onClick }) => (
             <Button
               key={label as string}
               className={cn(

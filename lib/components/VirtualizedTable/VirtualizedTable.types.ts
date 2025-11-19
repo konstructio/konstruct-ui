@@ -18,7 +18,7 @@ export type ColumnDef<TData extends RowData> = ColumnDefPrimitive<
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ColumnMeta<TData extends RowData, TValue> {
-    className?: string;
+    className?: string | ((row: TData) => string);
     attributes?: Record<string, string | number | boolean>;
     headerClassName?: string;
   }

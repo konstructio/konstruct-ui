@@ -38,12 +38,17 @@ export const Body = <TData extends RowData = RowData>({
             {...(meta.attributes ?? {})}
           >
             {columns.map(({ id, column, getContext }, columnIndex) => {
+              const classNameFromMeta =
+                typeof column.columnDef.meta?.className === 'function'
+                  ? column.columnDef.meta?.className(original)
+                  : column.columnDef.meta?.className;
+
               return (
                 <td
                   key={id}
                   className={cn(
                     'px-4 py-1 text-sm bg-white',
-                    column.columnDef.meta?.className,
+                    classNameFromMeta,
                     {
                       '[tr:last-child_&:first-of-type]:rounded-bl-lg':
                         (rowIndex === rows.length - 1 && columnIndex === 0) ||
