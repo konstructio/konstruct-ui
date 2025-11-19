@@ -10,4 +10,9 @@ export type Action<TData> = {
 
 export type Props<TData extends RowData> = CellContext<TData, unknown> & {
   actions: Action<TData>[];
+  iconTriggerButtonClassName?: string;
+  triggerButtonClassName?: string;
+  wrapperActionsClassName?: string;
+  wrapperClassName?: string;
+  wrapperContentActionsClassName?: string;
 };
