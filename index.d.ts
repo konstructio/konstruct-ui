@@ -652,6 +652,11 @@ declare type Props_4<TData extends RowData_2> = VariantProps<typeof virtualizeTa
 
 declare type Props_5<TData extends RowData> = CellContext<TData, unknown> & {
     actions: Action<TData>[];
+    iconTriggerButtonClassName?: string;
+    triggerButtonClassName?: string;
+    wrapperActionsClassName?: string;
+    wrapperClassName?: string;
+    wrapperContentActionsClassName?: string;
 };
 
 export declare const Radio: FC<RadioProps>;
@@ -987,7 +992,7 @@ export { }
 
 declare module '@tanstack/react-table' {
     interface ColumnMeta<TData extends RowData, TValue> {
-        className?: string;
+        className?: string | ((row: TData) => string);
         attributes?: Record<string, string | number | boolean>;
         headerClassName?: string;
     }
