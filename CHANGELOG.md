@@ -1,8 +1,20 @@
 # Changelog
 
+## [0.1.2-alpha.25](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.25) (2025-11-19)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.24...0.1.2-alpha.25)
+
+**Merged pull requests:**
+
+- 🐛  fix: behavior when the user is writing on the dropdown component [\#399](https://github.com/konstructio/konstruct-ui/pull/399) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.24](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.24) (2025-11-18)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.23...0.1.2-alpha.24)
+
+**Merged pull requests:**
+
+- ✨ chore: dropdown have been improved [\#398](https://github.com/konstructio/konstruct-ui/pull/398) ([futjesus](https://github.com/futjesus))
 
 ## [0.1.2-alpha.23](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.23) (2025-11-10)
 
