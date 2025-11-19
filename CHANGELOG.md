@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.26](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.26) (2025-11-19)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.25...0.1.2-alpha.26)
+
+**Merged pull requests:**
+
+- 💄 chore: classes to configure actions on virtualizaed table and each td in the body were added [\#400](https://github.com/konstructio/konstruct-ui/pull/400) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.25](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.25) (2025-11-19)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.24...0.1.2-alpha.25)
