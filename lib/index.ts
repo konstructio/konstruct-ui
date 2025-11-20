@@ -4,3 +4,5 @@ export * from './components';
 export * from './contexts';
 // Hooks
 export * from './hooks';
+// Utils
+export { cn } from './utils';
