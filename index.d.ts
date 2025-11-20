@@ -3,6 +3,7 @@ import { ButtonHTMLAttributes } from '../../../node_modules/react';
 import { CellContext } from '@tanstack/react-table';
 import { CheckboxProps as CheckboxProps_2 } from '@radix-ui/react-checkbox';
 import { ClassProp } from 'class-variance-authority/types';
+import { ClassValue } from 'clsx';
 import { ColumnDef as ColumnDef_2 } from '@tanstack/react-table';
 import { ComponentRef } from '../../../node_modules/react';
 import { Context } from '../../node_modules/react';
@@ -189,6 +190,8 @@ declare const checkboxVariants: (props?: ({
     variant?: "default" | null | undefined;
     checked?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
+
+export declare const cn: (...inputs: ClassValue[]) => string;
 
 export declare type ColumnDef<TData extends RowData> = ColumnDef_2<TData, string>;
 
