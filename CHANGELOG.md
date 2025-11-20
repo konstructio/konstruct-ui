@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.27](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.27) (2025-11-20)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.26...0.1.2-alpha.27)
+
+**Merged pull requests:**
+
+- ✨ chore: classnames utilitary was exported [\#401](https://github.com/konstructio/konstruct-ui/pull/401) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.26](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.26) (2025-11-19)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.25...0.1.2-alpha.26)
