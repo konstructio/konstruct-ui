@@ -12,7 +12,7 @@ const meta: Meta<typeof PhoneNumberInputComponent> = {
 export const PhoneNumberInput: Story = {
   render: function PhoneNumberInputStory() {
     return (
-      <div className="w-[350px] flex flex-col gap-4">
+      <div className="w-[350px]">
         <PhoneNumberInputComponent />
       </div>
     );
