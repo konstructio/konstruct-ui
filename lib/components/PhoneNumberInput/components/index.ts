@@ -1,1 +1,2 @@
-export { Flag } from './Flag/Flag';
+export { FlagSelector } from './FlagSelector/FlagSelector';
+export { Wrapper } from './Wrapper';
