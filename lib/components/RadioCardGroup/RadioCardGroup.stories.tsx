@@ -79,7 +79,6 @@ export const RadioCardGroup = {
       <h6 className="mt-5">Column with description</h6>
       <RadioCardGroupComponent
         defaultChecked="option-1"
-        theme="kubefirst"
         options={optionsWithDescription}
         wrapperClassName="w-full"
         name="radio-card-group-3"
