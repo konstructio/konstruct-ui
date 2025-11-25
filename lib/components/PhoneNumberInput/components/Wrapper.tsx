@@ -1,10 +1,13 @@
+import { useMask } from '@react-input/mask';
 import isoCountries from 'i18n-iso-countries';
 import IsoCountriesLang from 'i18n-iso-countries/langs/en.json';
 import {
+  ChangeEvent,
   ComponentRef,
   forwardRef,
   ForwardRefExoticComponent,
   RefAttributes,
+  useCallback,
   useEffect,
   useId,
   useImperativeHandle,
@@ -16,8 +19,9 @@ import {
   labelVariants,
   phoneNumberInputVariants,
 } from '../PhoneNumberInput.variants';
-
 import { usePhoneNumberContext } from '../contexts/phone-number.hook';
+import { getPhoneMask } from '../utils';
+
 import { FlagContent } from './FlagContent/FlagContent';
 import { FlagSelectorWrapper } from './FlagSelectorWrapper/FlagSelectorWrapper';
 
@@ -41,13 +45,37 @@ export const Wrapper: ForwardRefExoticComponent<
     },
     ref,
   ) => {
-    const inputRef = useRef<ComponentRef<'input'>>(null);
     const id = name ?? useId();
     const wrapperRef = useRef<ComponentRef<'div'>>(null);
-    const { isOpenSelector, handleOpenSelector } = usePhoneNumberContext();
+    const {
+      isOpenSelector,
+      value,
+      selectedCountry,
+      onChangeValue,
+      handleOpenSelector,
+    } = usePhoneNumberContext();
+
     const htmlFor = name ? `${id}-${name}` : id;
 
+    const inputRef = useMask({
+      mask: getPhoneMask(selectedCountry),
+      replacement: { _: /\d/ },
+    });
+
     useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
+
+    const onChange = useCallback(
+      (event: ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+
+        if (value.startsWith(selectedCountry.prefix)) {
+          onChangeValue(event.target.value);
+        } else {
+          onChangeValue(`${selectedCountry.prefix} `);
+        }
+      },
+      [selectedCountry.prefix, onChangeValue],
+    );
 
     useEffect(() => {
       const controller = new AbortController();
@@ -89,6 +117,12 @@ export const Wrapper: ForwardRefExoticComponent<
       };
     }, [handleOpenSelector, wrapperRef]);
 
+    useEffect(() => {
+      if (inputRef.current) {
+        inputRef.current.value = selectedCountry.prefix + ' ';
+      }
+    }, [selectedCountry.code]);
+
     return (
       <div className="w-full flex flex-col">
         {label ? (
@@ -115,10 +149,12 @@ export const Wrapper: ForwardRefExoticComponent<
               ref={inputRef}
               name={name}
               autoComplete="off"
-              className="outline-0 w-full caret-slate-800"
+              className="outline-0 w-full caret-slate-800 text-slate-800"
               type="tel"
               inputMode="tel"
               id={id}
+              value={value}
+              onChange={onChange}
               {...delegated}
             />
           </div>

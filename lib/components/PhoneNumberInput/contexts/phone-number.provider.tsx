@@ -36,6 +36,11 @@ export const PhoneNumberProvider: FC<Props> = ({
   const [selectedCountry, setSelectedCuntry] = useState<Country>(
     () => countriesList.find(({ code }) => code === defaultCountryCode)!,
   );
+
+  const [value, setValue] = useState<string>(() => {
+    return selectedCountry ? `${selectedCountry.prefix} ` : '';
+  });
+
   const [isOpenSelector, setIsOpenSelector] = useState(false);
   const [termOfSearch, setTermOfSearch] = useState('');
 
@@ -54,15 +59,21 @@ export const PhoneNumberProvider: FC<Props> = ({
   const handleSelectCountry = useCallback((country: Country) => {
     setSelectedCuntry(country);
     setIsOpenSelector(false);
+    setTermOfSearch('');
   }, []);
 
   const handleChangeTermOfSearch = useCallback((term: string) => {
     setTermOfSearch(term);
   }, []);
 
+  const handleChangeValue = useCallback((value: string) => {
+    setValue(value);
+  }, []);
+
   return (
     <PhoneNumberContext.Provider
       value={{
+        value,
         countries: countriesList,
         isOpenSelector,
         selectedCountry,
@@ -70,6 +81,7 @@ export const PhoneNumberProvider: FC<Props> = ({
         handleOpenSelector,
         handleSelectCountry,
         onChangeTermOfSearch: handleChangeTermOfSearch,
+        onChangeValue: handleChangeValue,
       }}
     >
       {children}
