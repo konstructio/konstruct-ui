@@ -21,11 +21,7 @@ export const cardVariants = cva(
   {
     variants: {
       isActive: {
-        true: [
-          'border-kubefirst-primary',
-          'shadow',
-          'civo:border-civo-primary',
-        ],
+        true: ['border-aurora-500', 'shadow'],
         false: 'border-transparent',
       },
       canHover: {
