@@ -9,4 +9,6 @@ export type Props = {
   showNameOnSearch?: boolean;
   showFlagOnSearch?: boolean;
   showInputFilter?: boolean;
+  disabled?: boolean;
+  labelClassName?: string;
 };

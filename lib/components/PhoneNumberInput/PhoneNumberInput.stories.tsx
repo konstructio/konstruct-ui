@@ -10,10 +10,14 @@ const meta: Meta<typeof PhoneNumberInputComponent> = {
 };
 
 export const PhoneNumberInput: Story = {
-  render: function PhoneNumberInputStory() {
+  args: {
+    label: 'Phone Number',
+    isRequired: true,
+  },
+  render: function PhoneNumberInputStory(args) {
     return (
-      <div className="w-[350px]">
-        <PhoneNumberInputComponent />
+      <div className="w-[300px]">
+        <PhoneNumberInputComponent {...args} />
       </div>
     );
   },

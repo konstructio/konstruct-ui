@@ -1,3 +1,4 @@
 export type Props = {
-  text?: string;
+  text: string;
+  prefix: string;
 };
