@@ -1,6 +1,7 @@
 import { RegionCode } from 'google-libphonenumber';
+import { InputHTMLAttributes } from 'react';
 
-export type Props = {
+export type Props = InputHTMLAttributes<HTMLInputElement> & {
   name?: string;
   label?: string;
   isRequired?: boolean;

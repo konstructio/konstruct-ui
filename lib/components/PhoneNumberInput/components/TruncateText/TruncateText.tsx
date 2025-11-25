@@ -46,9 +46,9 @@ export const TruncateText: FC<Props> = ({ text, prefix }) => {
     <Provider delayDuration={0}>
       <Root>
         <Trigger asChild>
-          <p ref={textRef} className="w-full truncate cursor-pointer">
+          <span ref={textRef} className="w-full truncate cursor-pointer">
             {text} {prefix}
-          </p>
+          </span>
         </Trigger>
 
         <Content
