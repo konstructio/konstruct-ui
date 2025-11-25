@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.2-alpha.28](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.28) (2025-11-25)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.27...0.1.2-alpha.28)
+
+**Merged pull requests:**
+
+- fix: radio card group [\#410](https://github.com/konstructio/konstruct-ui/pull/410) ([CristhianF7](https://github.com/CristhianF7))
+- ⬆️  chore: some dependencies have been updated [\#409](https://github.com/konstructio/konstruct-ui/pull/409) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: some dependencies have been updated [\#408](https://github.com/konstructio/konstruct-ui/pull/408) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.27](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.27) (2025-11-20)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.26...0.1.2-alpha.27)
