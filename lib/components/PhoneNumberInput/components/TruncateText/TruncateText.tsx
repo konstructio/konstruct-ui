@@ -32,12 +32,13 @@ export const TruncateText: FC<Props> = ({ text, prefix }) => {
 
   useEffect(() => {
     handleResize();
-  }, [handleResize]);
+  }, [text, handleResize]);
 
   if (!isTruncated) {
     return (
       <span ref={textRef} className="w-full truncate">
-        {text} <span className="text-slate-500">{prefix}</span>
+        {text}
+        <span className="text-slate-500">{prefix}</span>
       </span>
     );
   }

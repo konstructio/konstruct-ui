@@ -68,6 +68,7 @@ export const PhoneNumberProvider: FC<Props> = ({
 
   const handleChangeValue = useCallback((value: string) => {
     setValue(value);
+    setIsOpenSelector(false);
   }, []);
 
   return (

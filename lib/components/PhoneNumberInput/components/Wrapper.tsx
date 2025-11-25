@@ -148,7 +148,7 @@ export const Wrapper: ForwardRefExoticComponent<
             variant: hasError ? 'error' : 'default',
           })}
         >
-          <div className="p-2 flex items-center gap-4">
+          <div className="p-2 flex items-center gap-2.5">
             <FlagContent />
 
             <input
@@ -156,7 +156,7 @@ export const Wrapper: ForwardRefExoticComponent<
               ref={inputRef}
               name={name}
               autoComplete="off"
-              className="outline-0 w-full caret-slate-800 text-slate-800"
+              className="outline-0 w-full caret-slate-800 text-slate-800 bg-transparent dark:caret-slate-50 dark:text-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
               type="tel"
               inputMode="tel"
               value={value}

@@ -40,7 +40,13 @@ export const FlagSelectorList: FC<Props> = ({
       <div className="overflow-y-auto max-h-60 snap-y snap-mandatory">
         <ul className="relative">
           <li className="w-full flex items-center h-10 select-none px-6">
-            No options
+            <Typography
+              variant="body2"
+              component="span"
+              className="flex gap-2 items-center text-left text-slate-800 dark:text-slate-50"
+            >
+              No options
+            </Typography>
           </li>
         </ul>
       </div>
@@ -70,13 +76,13 @@ export const FlagSelectorList: FC<Props> = ({
               }}
             >
               <button
-                className="w-full h-full cursor-pointer px-6 hover:bg-gray-50 transition-colors duration-150 focus-visible:outline-0 hover:outline-gray-100 focus:bg-gray-50"
+                className="w-full h-full cursor-pointer px-6 hover:bg-gray-50 transition-colors duration-150 focus-visible:outline-0 hover:outline-gray-100 focus:bg-gray-50 dark:hover:bg-slate-700"
                 onClick={() => handleSelectCountry(contry)}
               >
                 <Typography
                   variant="body2"
                   component="span"
-                  className="flex gap-2 items-center text-left text-slate-800"
+                  className="flex gap-2 items-center text-left text-slate-800 dark:text-slate-50"
                 >
                   {showFlagOnSearch && <Flag />}
 

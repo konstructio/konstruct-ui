@@ -19,7 +19,7 @@ export const FlagSelectorWrapper: FC<Props> = ({
   }, []);
 
   return (
-    <div className="absolute top-full mt-1.5 animate-in fade-in-0 zoom-in-95 w-full border border-transparent bg-white shadow-sm py-2 z-10 rounded-sm">
+    <div className="absolute top-full mt-1.5 animate-in fade-in-0 zoom-in-95 w-full border border-transparent bg-white shadow-sm py-2 z-10 rounded-sm dark:bg-slate-800 dark:border-slate-600">
       {showInputFilter && (
         <div className="px-6 py-2.5">
           <Input isSearch placeholder="Search" onChange={onChange} />

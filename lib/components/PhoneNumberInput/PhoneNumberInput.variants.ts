@@ -10,6 +10,10 @@ export const phoneNumberInputVariants = cva(
     'focus-within:border-aurora-500',
     'transition-colors',
     'duration-150',
+    'dark:border-slate-500',
+    'dark:bg-slate-800',
+    'dark:data-[state=open]:border-slate-500',
+    'dark:focus-within:border-slate-500',
   ],
   {
     variants: {
