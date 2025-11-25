@@ -12,4 +12,7 @@ export type Props = InputHTMLAttributes<HTMLInputElement> & {
   showInputFilter?: boolean;
   disabled?: boolean;
   labelClassName?: string;
+  helperText?: string;
+  helperTextClassName?: string;
+  error?: string;
 };

@@ -14,6 +14,8 @@ import {
   useRef,
 } from 'react';
 
+import { cn } from '@/utils';
+
 import { Props } from '../PhoneNumberInput.types';
 import {
   labelVariants,
@@ -41,6 +43,9 @@ export const Wrapper: ForwardRefExoticComponent<
       showInputFilter = true,
       showNameOnSearch = true,
       wrapperClassName,
+      helperText,
+      helperTextClassName,
+      error,
       ...delegated
     },
     ref,
@@ -54,8 +59,7 @@ export const Wrapper: ForwardRefExoticComponent<
       onChangeValue,
       handleOpenSelector,
     } = usePhoneNumberContext();
-
-    const htmlFor = name ? `${id}-${name}` : id;
+    const hasError = typeof error === 'string' && error.length >= 0;
 
     const inputRef = useMask({
       mask: getPhoneMask(selectedCountry),
@@ -124,13 +128,12 @@ export const Wrapper: ForwardRefExoticComponent<
     }, [selectedCountry.code]);
 
     return (
-      <div className="w-full flex flex-col">
+      <div className="w-full flex flex-col gap-2">
         {label ? (
           <label
-            id={htmlFor}
+            id={id}
             className={labelVariants({ className: labelClassName })}
-            htmlFor={htmlFor}
-            onClick={() => !disabled && handleOpenSelector()}
+            onClick={() => !disabled && inputRef.current?.focus()}
           >
             {label}
             {isRequired && <span className="text-red-600 ml-1">*</span>}
@@ -140,21 +143,25 @@ export const Wrapper: ForwardRefExoticComponent<
         <div
           ref={wrapperRef}
           data-state={isOpenSelector ? 'open' : 'closed'}
-          className={phoneNumberInputVariants({ className: wrapperClassName })}
+          className={phoneNumberInputVariants({
+            className: wrapperClassName,
+            variant: hasError ? 'error' : 'default',
+          })}
         >
           <div className="p-2 flex items-center gap-4">
             <FlagContent />
 
             <input
+              id={label ? id : undefined}
               ref={inputRef}
               name={name}
               autoComplete="off"
               className="outline-0 w-full caret-slate-800 text-slate-800"
               type="tel"
               inputMode="tel"
-              id={id}
               value={value}
               onChange={onChange}
+              disabled={disabled}
               {...delegated}
             />
           </div>
@@ -167,6 +174,23 @@ export const Wrapper: ForwardRefExoticComponent<
             />
           )}
         </div>
+
+        {error ? (
+          <span className="text-xs text-red-700 dark:text-red-500">
+            {error}
+          </span>
+        ) : null}
+
+        {!error && helperText ? (
+          <span
+            className={cn(
+              'text-xs text-slate-600 dark:text-slate-200 kubefirst-dark:text-slate-200',
+              helperTextClassName,
+            )}
+          >
+            {helperText}
+          </span>
+        ) : null}
       </div>
     );
   },

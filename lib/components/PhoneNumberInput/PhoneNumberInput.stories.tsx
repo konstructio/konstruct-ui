@@ -13,6 +13,7 @@ export const PhoneNumberInput: Story = {
   args: {
     label: 'Phone Number',
     isRequired: true,
+    helperText: 'Please enter your phone number',
   },
   render: function PhoneNumberInputStory(args) {
     return (

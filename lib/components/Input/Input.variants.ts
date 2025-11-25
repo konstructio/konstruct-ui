@@ -41,7 +41,7 @@ export const inputVariants = cva(
       variant: {
         default: '',
         error:
-          'border-red-600 kubefirst-dark:border-red-500 dark:border-red-500 dark:border-red-500 pr-8 focus-visible:ring-transparent',
+          'border-red-600 kubefirst-dark:border-red-500 dark:border-red-500 pr-8 focus-visible:ring-transparent',
       },
     },
     defaultVariants: {
