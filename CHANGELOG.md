@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.2-alpha.29](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.29) (2025-11-26)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.28...0.1.2-alpha.29)
+
+**Merged pull requests:**
+
+- 💄 styles: tailwind classes were updated on typography component [\#412](https://github.com/konstructio/konstruct-ui/pull/412) ([futjesus](https://github.com/futjesus))
+- 🐛 fix: error when the user make clock over dropdown and fix error in infinity scroll [\#411](https://github.com/konstructio/konstruct-ui/pull/411) ([futjesus](https://github.com/futjesus))
+- ✨ feat: phone number component was added [\#402](https://github.com/konstructio/konstruct-ui/pull/402) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.28](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.28) (2025-11-25)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.27...0.1.2-alpha.28)
