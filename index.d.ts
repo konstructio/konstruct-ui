@@ -28,6 +28,7 @@ import { ReactNode as ReactNode_2 } from '../../../../../node_modules/react';
 import * as ReactTabs from '@radix-ui/react-tabs';
 import { Ref } from '../../../node_modules/react';
 import { RefAttributes } from '../../../node_modules/react';
+import { RegionCode } from 'google-libphonenumber';
 import { RowData as RowData_2 } from '@tanstack/react-table';
 import { SliderProps } from '@radix-ui/react-slider';
 import { TabsContentProps } from '@radix-ui/react-tabs';
@@ -319,13 +320,13 @@ export declare const Input: ForwardRefExoticComponent<InputProps & RefAttributes
 
 declare interface InputProps extends InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof inputVariants> {
     error?: string;
+    helperText?: string;
+    helperTextClassName?: string;
+    isRequired?: boolean;
+    isSearch?: boolean;
     label?: string | ReactNode;
     labelClassName?: string;
     theme?: Theme;
-    isRequired?: boolean;
-    isSearch?: boolean;
-    helperText?: string;
-    helperTextClassName?: string;
 }
 
 declare const inputVariants: (props?: ({
@@ -494,7 +495,9 @@ declare type Option_5 = {
     variant?: BadgeProps['variant'];
 };
 
-export declare const PieChart: FC<Props_2>;
+export declare const PhoneNumberInput: FC<Props_2>;
+
+export declare const PieChart: FC<Props_3>;
 
 export declare const ProgressBar: FC<ProgressBarProps>;
 
@@ -522,10 +525,26 @@ declare type Props = {
     options: Option_4[];
 };
 
+declare type Props_2 = InputHTMLAttributes<HTMLInputElement> & {
+    name?: string;
+    label?: string;
+    isRequired?: boolean;
+    wrapperClassName?: string;
+    defaultCountryCode?: RegionCode;
+    showNameOnSearch?: boolean;
+    showFlagOnSearch?: boolean;
+    showInputFilter?: boolean;
+    disabled?: boolean;
+    labelClassName?: string;
+    helperText?: string;
+    helperTextClassName?: string;
+    error?: string;
+};
+
 /**
  * Props for the PieChart component
  */
-declare type Props_2 = {
+declare type Props_3 = {
     /**
      * Array of hexadecimal colors for the borders of the pie chart segments
      * @default ['#FFFFFF', '#FFFFFF']
@@ -600,11 +619,11 @@ declare type Props_2 = {
     subtitle?: string;
 });
 
-declare type Props_3<TData extends RowData> = CellContext<TData, string> & {
+declare type Props_4<TData extends RowData> = CellContext<TData, string> & {
     value?: string;
 };
 
-declare type Props_4<TData extends RowData_2> = VariantProps<typeof virtualizeTableVariants> & {
+declare type Props_5<TData extends RowData_2> = VariantProps<typeof virtualizeTableVariants> & {
     id: string | string[];
     ariaLabel?: string;
     columns: ColumnDef_2<TData, string>[];
@@ -653,7 +672,7 @@ declare type Props_4<TData extends RowData_2> = VariantProps<typeof virtualizeTa
     showResetButton?: never;
 });
 
-declare type Props_5<TData extends RowData> = CellContext<TData, unknown> & {
+declare type Props_6<TData extends RowData> = CellContext<TData, unknown> & {
     actions: Action<TData>[];
     iconTriggerButtonClassName?: string;
     triggerButtonClassName?: string;
@@ -944,7 +963,7 @@ declare interface TooltipProps extends PropsWithChildren, VariantProps<typeof to
 }
 
 declare const tooltipVariants: (props?: ({
-    position?: "left" | "right" | "bottom" | "top" | null | undefined;
+    position?: "left" | "right" | "top" | "bottom" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 export declare const Trigger: FC_3<TriggerProps>;
@@ -959,7 +978,7 @@ declare const triggerVariants: (props?: ({
     variant?: "default" | "active" | "inactive" | null | undefined;
 } & ClassProp) | undefined) => string;
 
-export declare const TruncateText: <TData>({ getValue, value }: Props_3<TData>) => JSX.Element;
+export declare const TruncateText: <TData>({ getValue, value }: Props_4<TData>) => JSX.Element;
 
 export declare const Typography: ForwardRefExoticComponent<Omit<TypographyProps, 'ref'> & RefAttributes<HTMLParagraphElement | HTMLHeadingElement>>;
 
@@ -980,9 +999,9 @@ export declare const useToggle: (initialState?: boolean) => [boolean, (value?: b
 
 export declare const VirtualizedTable: VirtualizedTableCompound;
 
-declare type VirtualizedTableCompound = (<TData extends RowData>(props: Props_4<TData>) => JSX_2.Element) & {
+declare type VirtualizedTableCompound = (<TData extends RowData>(props: Props_5<TData>) => JSX_2.Element) & {
     TruncateText: typeof TruncateText;
-    Actions: <TData extends RowData>(props: Props_5<TData>) => JSX_2.Element | null;
+    Actions: <TData extends RowData>(props: Props_6<TData>) => JSX_2.Element | null;
     displayName?: string;
 };
 
