@@ -11,10 +11,11 @@ import { WrapperProps } from './Wrapper.types';
 import { buttonCloseVariants, modalVariants } from './Wrapper.variants';
 
 export const Wrapper: FC<WrapperProps> = ({
-  children,
-  theme,
-  className,
   buttonCloseClassName,
+  children,
+  className,
+  showCloseButton = true,
+  theme,
   onClose,
 }) => {
   const header = Children.toArray(children).find(
@@ -60,17 +61,19 @@ export const Wrapper: FC<WrapperProps> = ({
         >
           {header}
 
-          <button
-            className={cn(
-              buttonCloseVariants({
-                className: buttonCloseClassName,
-              }),
-            )}
-            onClick={onClose}
-          >
-            <Close />
-            <VisuallyHidden>Dismiss modal</VisuallyHidden>
-          </button>
+          {showCloseButton && (
+            <button
+              className={cn(
+                buttonCloseVariants({
+                  className: buttonCloseClassName,
+                }),
+              )}
+              onClick={onClose}
+            >
+              <Close />
+              <VisuallyHidden>Dismiss modal</VisuallyHidden>
+            </button>
+          )}
 
           {body ?? others}
 

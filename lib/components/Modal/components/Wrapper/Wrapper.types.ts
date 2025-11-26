@@ -10,6 +10,7 @@ export interface WrapperProps
     VariantProps<typeof modalVariants> {
   buttonCloseClassName?: string;
   className?: string;
+  showCloseButton?: boolean;
   theme?: Theme;
   onClose?: () => void;
 }

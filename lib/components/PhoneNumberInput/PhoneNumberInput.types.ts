@@ -2,17 +2,19 @@ import { RegionCode } from 'google-libphonenumber';
 import { InputHTMLAttributes } from 'react';
 
 export type Props = InputHTMLAttributes<HTMLInputElement> & {
-  name?: string;
-  label?: string;
-  isRequired?: boolean;
-  wrapperClassName?: string;
   defaultCountryCode?: RegionCode;
-  showNameOnSearch?: boolean;
-  showFlagOnSearch?: boolean;
-  showInputFilter?: boolean;
   disabled?: boolean;
-  labelClassName?: string;
+  error?: string;
   helperText?: string;
   helperTextClassName?: string;
-  error?: string;
+  isRequired?: boolean;
+  label?: string;
+  labelClassName?: string;
+  name?: string;
+  placeholder?: string;
+  showFlagOnSearch?: boolean;
+  showInputFilter?: boolean;
+  showNameOnSearch?: boolean;
+  showPlaceHolder?: boolean;
+  wrapperClassName?: string;
 };

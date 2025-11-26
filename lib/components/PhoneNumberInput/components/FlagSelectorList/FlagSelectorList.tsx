@@ -9,8 +9,8 @@ import { TruncateText } from '../TruncateText/TruncateText';
 import { Props } from './FlagSelectorList.types';
 
 export const FlagSelectorList: FC<Props> = ({
-  showNameOnSearch,
   showFlagOnSearch,
+  showNameOnSearch,
 }) => {
   const parentRef = useRef<ComponentRef<'div'>>(null);
   const { termOfSearch, countries, handleSelectCountry } =
