@@ -9,11 +9,11 @@ export interface InputProps
   extends InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof inputVariants> {
   error?: string;
+  helperText?: string;
+  helperTextClassName?: string;
+  isRequired?: boolean;
+  isSearch?: boolean;
   label?: string | ReactNode;
   labelClassName?: string;
   theme?: Theme;
-  isRequired?: boolean;
-  isSearch?: boolean;
-  helperText?: string;
-  helperTextClassName?: string;
 }
