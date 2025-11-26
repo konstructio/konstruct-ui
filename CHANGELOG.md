@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.30](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.30) (2025-11-26)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.29...0.1.2-alpha.30)
+
+**Merged pull requests:**
+
+- 💄 chore: some styles props were added for modal and phone input components [\#413](https://github.com/konstructio/konstruct-ui/pull/413) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.29](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.29) (2025-11-26)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.28...0.1.2-alpha.29)
