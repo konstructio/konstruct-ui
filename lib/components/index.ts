@@ -15,6 +15,7 @@ export * from './Input/Input';
 export * from './Loading/Loading';
 export * from './Modal/Modal';
 export * from './NumberInput/NumberInput';
+export * from './PhoneNumberInput/PhoneNumberInput';
 export * from './PieChart/PieChart';
 export * from './ProgressBar/ProgressBar';
 export * from './Radio/Radio';
