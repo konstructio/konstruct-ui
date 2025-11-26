@@ -45,20 +45,19 @@ const DatePicker: FC<DatePickerProps> = ({
       role="dialog"
       aria-label="Datepicker"
       classNames={{
-        chevron:
-          'cursor-pointer text-slate-500 w-[20px] h-[20px] text-slate-500 w-4 h-4',
+        chevron: 'cursor-pointer text-slate-500 w-5 h-5 text-slate-500 w-4 h-4',
         day_button:
           'h-[30px] aria-selected:opacity-100 font-semibold hover:rounded-full cursor-pointer rounded-full w-[30px]',
-        day: 'text-center text-[14px] leading-[20px]',
+        day: 'text-center text-sm leading-5',
         month_caption:
-          'text-slate-700 font-semibold text-sm pl-1 h-[32px] flex items-center',
+          'text-slate-700 font-semibold text-sm pl-1 h-8 flex items-center',
         months: cn(
           'flex flex-col relative px-5 py-4 rounded-lg shadow-md px-6 py-4 w-[307px] justify-center items-center',
           monthsClassName,
         ),
         month: 'flex flex-col gap-4',
         nav: cn(
-          'absolute right-4 top-3.5 flex justify-center items-center gap-[4px]',
+          'absolute right-4 top-3.5 flex justify-center items-center gap-1',
           arrowClassName,
         ),
         outside: 'text-slate-400',

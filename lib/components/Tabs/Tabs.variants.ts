@@ -47,7 +47,7 @@ export const triggerVariants = cva(
     'after:bottom-0',
     'after:left-0',
     'after:right-0',
-    'after:h-[2px]',
+    'after:h-0.5',
     'after:bg-aurora-500',
     'after:origin-bottom',
     'after:content-[""]',

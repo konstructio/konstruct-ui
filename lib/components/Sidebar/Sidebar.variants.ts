@@ -11,8 +11,8 @@ export const wrapperSiderbarVariants = cva([
   'px-4',
   'relative',
   'transition-all',
-  'w-[72px]',
-  'md:w-[256px]',
+  'w-18',
+  'md:w-64',
   'bg-kubefirst-dark-blue-900',
 ]);
 

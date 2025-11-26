@@ -31,7 +31,7 @@ export const FormPaginate = () => {
       <span className="min-w-fit">Jump to</span>
       <Input
         type="number"
-        className="w-[72px] text-xs no-spinner"
+        className="w-18 text-xs no-spinner"
         name="jump-to"
         min={1}
         max={totalPages}
