@@ -372,6 +372,7 @@ declare interface ModalProps extends PropsWithChildren, VariantProps<typeof moda
     className?: string;
     container?: Element | DocumentFragment;
     isOpen?: boolean;
+    showCloseButton?: boolean;
     theme?: Theme;
     onClose?: () => void;
 }
@@ -526,19 +527,21 @@ declare type Props = {
 };
 
 declare type Props_2 = InputHTMLAttributes<HTMLInputElement> & {
-    name?: string;
-    label?: string;
-    isRequired?: boolean;
-    wrapperClassName?: string;
     defaultCountryCode?: RegionCode;
-    showNameOnSearch?: boolean;
-    showFlagOnSearch?: boolean;
-    showInputFilter?: boolean;
     disabled?: boolean;
-    labelClassName?: string;
+    error?: string;
     helperText?: string;
     helperTextClassName?: string;
-    error?: string;
+    isRequired?: boolean;
+    label?: string;
+    labelClassName?: string;
+    name?: string;
+    placeholder?: string;
+    showFlagOnSearch?: boolean;
+    showInputFilter?: boolean;
+    showNameOnSearch?: boolean;
+    showPlaceHolder?: boolean;
+    wrapperClassName?: string;
 };
 
 /**
