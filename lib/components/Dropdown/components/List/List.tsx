@@ -118,7 +118,7 @@ export const List: ForwardRefExoticComponent<
             }
           }
         }, 100),
-      [isFetching, onFetchMoreOptions, searchTerm],
+      [isFetching, onFetchMoreOptions, searchTerm, page],
     );
 
     useEffect(() => {
@@ -136,7 +136,13 @@ export const List: ForwardRefExoticComponent<
 
         return () => observer.disconnect();
       }
-    }, [isInfiniteScrollEnabled, canContinueFetching, isFetching, isTyping]);
+    }, [
+      isInfiniteScrollEnabled,
+      canContinueFetching,
+      isFetching,
+      isTyping,
+      page,
+    ]);
 
     return (
       <ul
