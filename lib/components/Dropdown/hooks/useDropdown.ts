@@ -60,8 +60,8 @@ export const useDropdown = ({
 
     wrapperInputRef.current?.addEventListener(
       'focusin',
-      () => {
-        if (!disabled) {
+      (event: FocusEvent) => {
+        if (!disabled && (event.target as Element)?.matches(':focus-visible')) {
           toggleOpen(true);
         }
       },

@@ -75,6 +75,7 @@ export const Wrapper: ForwardRefExoticComponent<
       setValue,
       setSearchTerm,
       setCanFilter,
+      toggleOpen,
     } = useDropdownContext();
 
     const internalValue = useMemo(() => {
@@ -150,7 +151,7 @@ export const Wrapper: ForwardRefExoticComponent<
             dropdownVariants({ className, hasError: !!error, disabled }),
           )}
           role="combobox"
-          onClick={() => !disabled && handleOpen()}
+          onClick={() => !disabled && toggleOpen(!isOpen)}
           aria-expanded={isOpen}
           tabIndex={isWrapperInputFocusable.current}
           aria-labelledby={htmlFor}
