@@ -26,8 +26,8 @@ export const ulVariants = cva([
 ]);
 
 export const liVariants = cva([
-  'w-[60px]',
-  'h-[40px]',
+  'w-15',
+  'h-10',
   'snap-start',
   'rounded',
   'transition-all',

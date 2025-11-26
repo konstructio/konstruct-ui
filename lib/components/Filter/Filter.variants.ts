@@ -14,8 +14,8 @@ export const filterButtonVariants = cva([
 
 export const filterButtonIconVariants = cva([
   'text-slate-400',
-  'h-[20px]',
-  'w-[20px]',
+  'h-5',
+  'w-5',
   'transition-all',
   'duration-150',
   'ease-in-out',

@@ -28,7 +28,7 @@ export const DropdownPaginate: FC<Props> = ({
     <div className="flex items-center gap-2">
       <span>Show</span>
       <Dropdown
-        className="w-[88px] [&>div>p]:text-xs bg-white"
+        className="w-22 [&>div>p]:text-xs bg-white"
         listItemClassName="[&>p]:text-xs"
         options={options}
         value={pageSize.toString()}

@@ -60,7 +60,7 @@ export const Wrapper: FC<WrapperProps> = ({
       ref={wrapperRef}
       className={cn(
         'w-max text-slate-800 text-sm flex flex-col gap-2',
-        format === '12' ? 'w-[208px]' : 'w-[140px]',
+        format === '12' ? 'w-52' : 'w-[140px]',
       )}
     >
       {label ? (

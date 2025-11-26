@@ -26,7 +26,7 @@ export const badgeVariants = cva(
         violet: ['bg-violet-50', 'text-violet-800'],
       },
       size: {
-        default: 'text-sm leading-[16px]',
+        default: 'text-sm leading-4',
       },
     },
     defaultVariants: {
