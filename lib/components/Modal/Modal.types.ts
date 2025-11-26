@@ -11,6 +11,7 @@ export interface ModalProps
   className?: string;
   container?: Element | DocumentFragment;
   isOpen?: boolean;
+  showCloseButton?: boolean;
   theme?: Theme;
   onClose?: () => void;
 }

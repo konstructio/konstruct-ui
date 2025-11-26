@@ -35,17 +35,19 @@ export const Wrapper: ForwardRefExoticComponent<
   (
     {
       disabled = false,
+      error,
+      helperText,
+      helperTextClassName,
       isRequired,
       label,
       labelClassName,
       name,
+      placeholder,
       showFlagOnSearch = true,
       showInputFilter = true,
       showNameOnSearch = true,
       wrapperClassName,
-      helperText,
-      helperTextClassName,
-      error,
+      showPlaceHolder,
       ...delegated
     },
     ref,
@@ -168,9 +170,11 @@ export const Wrapper: ForwardRefExoticComponent<
 
           {isOpenSelector && (
             <FlagSelectorWrapper
-              showNameOnSearch={showNameOnSearch}
+              placeholder={placeholder}
               showFlagOnSearch={showFlagOnSearch}
               showInputFilter={showInputFilter}
+              showNameOnSearch={showNameOnSearch}
+              showPlaceHolder={showPlaceHolder}
             />
           )}
         </div>
