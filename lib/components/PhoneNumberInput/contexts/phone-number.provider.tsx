@@ -38,7 +38,11 @@ export const PhoneNumberProvider: FC<Props> = ({
   );
 
   const [value, setValue] = useState<string>(() => {
-    return selectedCountry ? `${selectedCountry.prefix} ` : '';
+    const country = countriesList.find(
+      ({ code }) => code === defaultCountryCode,
+    )!;
+
+    return `${country.prefix} `;
   });
 
   const [isOpenSelector, setIsOpenSelector] = useState(false);
