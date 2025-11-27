@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.32](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.32) (2025-11-27)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.31...0.1.2-alpha.32)
+
+**Merged pull requests:**
+
+- 🐛 fix: default prop on phonenumber input component [\#415](https://github.com/konstructio/konstruct-ui/pull/415) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.31](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.31) (2025-11-27)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.30...0.1.2-alpha.31)
