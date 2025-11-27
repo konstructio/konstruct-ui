@@ -2,7 +2,14 @@ import { countries, hasFlag } from 'country-flag-icons';
 import { PhoneNumberUtil, RegionCode } from 'google-libphonenumber';
 import isoCountries from 'i18n-iso-countries';
 import * as flags from 'country-flag-icons/react/3x2';
-import { FC, PropsWithChildren, useCallback, useMemo, useState } from 'react';
+import {
+  FC,
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 import { Country, PhoneNumberContext } from './phone-number.context';
 
@@ -38,11 +45,7 @@ export const PhoneNumberProvider: FC<Props> = ({
   );
 
   const [value, setValue] = useState<string>(() => {
-    const country = countriesList.find(
-      ({ code }) => code === defaultCountryCode,
-    )!;
-
-    return `${country.prefix} `;
+    return selectedCountry ? `${selectedCountry.prefix} ` : '';
   });
 
   const [isOpenSelector, setIsOpenSelector] = useState(false);
@@ -74,6 +77,17 @@ export const PhoneNumberProvider: FC<Props> = ({
     setValue(value);
     setIsOpenSelector(false);
   }, []);
+
+  useEffect(() => {
+    if (defaultCountryCode) {
+      const country = countriesList.find(
+        ({ code }) => code === defaultCountryCode,
+      )!;
+
+      setSelectedCuntry(country);
+      setValue(`${country.prefix} `);
+    }
+  }, [defaultCountryCode]);
 
   return (
     <PhoneNumberContext.Provider
