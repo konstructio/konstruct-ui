@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.31](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.31) (2025-11-27)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.30...0.1.2-alpha.31)
+
+**Merged pull requests:**
+
+- 🐛 fix: default country and some styles [\#414](https://github.com/konstructio/konstruct-ui/pull/414) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.30](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.30) (2025-11-26)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.29...0.1.2-alpha.30)
