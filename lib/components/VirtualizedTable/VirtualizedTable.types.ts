@@ -91,6 +91,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         showFilterInput?: boolean;
         filterActions?: FilterAction[];
         showResetButton?: boolean;
+        resetButtonClassName?: string;
       }
     | {
         filterSearchPlaceholder?: never;
@@ -99,5 +100,6 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         showFilterInput?: never;
         filterActions?: FilterAction[];
         showResetButton?: never;
+        resetButtonClassName?: never;
       }
   );

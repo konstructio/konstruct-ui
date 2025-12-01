@@ -1,13 +1,14 @@
 import debounce from 'lodash/debounce';
 import { ChangeEvent, FC, useCallback, useMemo, useRef } from 'react';
 
+import { Button } from '@/components/Button/Button';
 import { Filter as FilterPrimitive } from '@/components/Filter/Filter';
 import { Input } from '@/components/Input/Input';
+import { cn } from '@/utils';
 
 import { useTableContext } from '../../contexts';
 
 import { Option, Props } from './Filter.types';
-import { Button } from '@/components/Button/Button';
 
 export const Filter: FC<Props> = ({
   actions,
@@ -15,6 +16,7 @@ export const Filter: FC<Props> = ({
   placeholder,
   showFilterInput = true,
   showResetButton = true,
+  resetButtonClassName,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const {
@@ -101,7 +103,10 @@ export const Filter: FC<Props> = ({
 
         {showResetButton && (
           <FilterPrimitive.ResetButton
-            className="text-slate-700 hover:text-slate-700 disabled:text-slate-700/45 select-none"
+            className={cn(
+              'text-slate-700 hover:text-slate-700 disabled:text-slate-700/45 select-none',
+              resetButtonClassName,
+            )}
             disabled={!hasData}
             onClick={handleResetFilters}
           />
