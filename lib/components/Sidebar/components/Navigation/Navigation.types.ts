@@ -9,8 +9,7 @@ import { NavigationTitleProps } from '../NavigationTitle/NavigationTitle.types';
 import { navigationVariants } from './Navigation.variants';
 
 export interface NavigationProps
-  extends PropsWithChildren,
-    VariantProps<typeof navigationVariants> {
+  extends PropsWithChildren, VariantProps<typeof navigationVariants> {
   className?: string;
 }
 

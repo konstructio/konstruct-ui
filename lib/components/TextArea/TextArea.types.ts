@@ -6,7 +6,8 @@ import { Theme } from '@/domain/theme';
 import { textAreaVariants } from './TextArea.variants';
 
 export interface TextAreaProps
-  extends InputHTMLAttributes<HTMLTextAreaElement>,
+  extends
+    InputHTMLAttributes<HTMLTextAreaElement>,
     VariantProps<typeof textAreaVariants> {
   rows?: number;
   label?: string | ReactNode;

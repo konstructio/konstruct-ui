@@ -6,7 +6,8 @@ import { Theme } from '@/domain/theme';
 import { cardVariants } from './Card.variants';
 
 export interface CardProps
-  extends HTMLAttributes<HTMLDivElement>,
+  extends
+    HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof cardVariants>,
     PropsWithChildren {
   canHover?: boolean;

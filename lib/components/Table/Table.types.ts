@@ -11,14 +11,16 @@ import {
 } from './Table.variants';
 
 export interface TableProps
-  extends React.HTMLAttributes<HTMLTableElement>,
+  extends
+    React.HTMLAttributes<HTMLTableElement>,
     PropsWithChildren,
     VariantProps<typeof tableVariants> {
   theme?: Theme;
 }
 
 export interface RowProps
-  extends React.HTMLAttributes<HTMLTableRowElement>,
+  extends
+    React.HTMLAttributes<HTMLTableRowElement>,
     PropsWithChildren,
     VariantProps<typeof rowVariants> {
   width?: string;
@@ -27,17 +29,18 @@ export interface RowProps
 }
 
 export interface HeadProps
-  extends React.HTMLAttributes<HTMLTableSectionElement>,
+  extends
+    React.HTMLAttributes<HTMLTableSectionElement>,
     PropsWithChildren,
     VariantProps<typeof headVariants> {}
 
 export interface BodyProps
-  extends React.HTMLAttributes<HTMLTableSectionElement>,
+  extends
+    React.HTMLAttributes<HTMLTableSectionElement>,
     PropsWithChildren,
     VariantProps<typeof bodyVariants> {}
 
 export interface FilterProps
-  extends React.InputHTMLAttributes<HTMLInputElement>,
-    PropsWithChildren {
+  extends React.InputHTMLAttributes<HTMLInputElement>, PropsWithChildren {
   placeholder?: string;
 }
