@@ -14,8 +14,7 @@ import {
 } from './components';
 
 export interface SidebarProps
-  extends VariantProps<typeof wrapperSiderbarVariants>,
-    PropsWithChildren {
+  extends VariantProps<typeof wrapperSiderbarVariants>, PropsWithChildren {
   canResize?: boolean;
   dividerClassName?: string;
   maxWith?: number;

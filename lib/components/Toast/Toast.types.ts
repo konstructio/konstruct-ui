@@ -6,8 +6,7 @@ import { Theme } from '@/domain/theme';
 import { toastVariants } from './Toast.variants';
 
 export interface ToastProps
-  extends PropsWithChildren,
-    VariantProps<typeof toastVariants> {
+  extends PropsWithChildren, VariantProps<typeof toastVariants> {
   className?: string;
   closeButtonClassName?: string;
   description: string | ReactNode;

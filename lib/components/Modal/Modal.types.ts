@@ -5,8 +5,7 @@ import { modalVariants } from './components/Wrapper/Wrapper.variants';
 import { Theme } from '@/domain/theme';
 
 export interface ModalProps
-  extends PropsWithChildren,
-    VariantProps<typeof modalVariants> {
+  extends PropsWithChildren, VariantProps<typeof modalVariants> {
   buttonCloseClassName?: string;
   className?: string;
   container?: Element | DocumentFragment;

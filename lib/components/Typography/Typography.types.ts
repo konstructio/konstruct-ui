@@ -8,7 +8,8 @@ import { typographyVariants } from './Typography.variants';
 export type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 export interface TypographyProps
-  extends HTMLAttributes<ComponentRef<HeadingTag | 'p' | 'span'>>,
+  extends
+    HTMLAttributes<ComponentRef<HeadingTag | 'p' | 'span'>>,
     VariantProps<typeof typographyVariants> {
   ref?: Ref<HTMLHeadingElement | HTMLParagraphElement | HTMLSpanElement>;
   children: ReactNode;

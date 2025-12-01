@@ -14,8 +14,7 @@ type ButtonCancelProps = ButtonBaseProps;
 type ButtonConfirmProps = ButtonBaseProps;
 
 export interface AlertDialogProps
-  extends PropsWithChildren,
-    AlertDialogPrimitiveProps {
+  extends PropsWithChildren, AlertDialogPrimitiveProps {
   buttonCancel?: ButtonCancelProps;
   buttonConfirm?: ButtonConfirmProps;
   buttonTriggerText?: string;

@@ -6,7 +6,8 @@ import { Theme } from '@/domain/theme';
 import { inputVariants } from './Input.variants';
 
 export interface InputProps
-  extends InputHTMLAttributes<HTMLInputElement>,
+  extends
+    InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof inputVariants> {
   error?: string;
   helperText?: string;

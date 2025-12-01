@@ -5,8 +5,9 @@ import { Theme } from '@/domain/theme';
 
 import { numberInputVariants } from './NumberInput.variants';
 
-export interface NumberInputProps
-  extends VariantProps<typeof numberInputVariants> {
+export interface NumberInputProps extends VariantProps<
+  typeof numberInputVariants
+> {
   className?: string;
   init?: number;
   label?: string | ReactNode;

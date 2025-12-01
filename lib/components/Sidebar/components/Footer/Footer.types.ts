@@ -4,7 +4,6 @@ import { PropsWithChildren } from 'react';
 import { footerVariants } from './Footer.variants';
 
 export interface FooterProps
-  extends PropsWithChildren,
-    VariantProps<typeof footerVariants> {
+  extends PropsWithChildren, VariantProps<typeof footerVariants> {
   className?: string;
 }

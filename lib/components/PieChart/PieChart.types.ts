@@ -81,12 +81,11 @@ export type Props = {
    * @required
    */
   values: number[];
-} &
-  /**
-   * Union type that enforces either:
-   * - No title and no subtitle
-   * - Title with optional subtitle
-   */
-  (| { title?: undefined; subtitle?: never }
-    | { title: string; subtitle?: string }
-  );
+} /**
+ * Union type that enforces either:
+ * - No title and no subtitle
+ * - Title with optional subtitle
+ */ & (
+  | { title?: undefined; subtitle?: never }
+  | { title: string; subtitle?: string }
+);

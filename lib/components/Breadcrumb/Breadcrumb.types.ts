@@ -15,7 +15,8 @@ export type Step = {
 };
 
 export interface BreadcrumbProps
-  extends VariantProps<typeof breadcrumbVariants>,
+  extends
+    VariantProps<typeof breadcrumbVariants>,
     HTMLAttributes<HTMLOListElement> {
   steps: Step[];
   wrapperClassName?: string;

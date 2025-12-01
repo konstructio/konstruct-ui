@@ -5,7 +5,8 @@ import { Theme } from '@/domain/theme';
 import { checkboxVariants } from './Checkbox.variants';
 
 export interface CheckboxProps
-  extends Omit<CheckboxPropsPrimitive, 'onChange'>,
+  extends
+    Omit<CheckboxPropsPrimitive, 'onChange'>,
     Omit<VariantProps<typeof checkboxVariants>, 'checked'> {
   ariaLabelledBy?: string;
   className?: string;

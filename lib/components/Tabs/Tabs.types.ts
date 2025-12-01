@@ -10,7 +10,8 @@ export interface TabsProps extends ReactTabs.TabsProps, PropsWithChildren {
 }
 
 export interface TriggerProps
-  extends VariantProps<typeof triggerVariants>,
+  extends
+    VariantProps<typeof triggerVariants>,
     React.HTMLAttributes<HTMLDivElement> {
   tab: string;
   label: string;
@@ -18,7 +19,6 @@ export interface TriggerProps
 }
 
 export interface ListProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    PropsWithChildren {
+  extends React.HTMLAttributes<HTMLDivElement>, PropsWithChildren {
   orientation: 'horizontal' | 'vertical';
 }

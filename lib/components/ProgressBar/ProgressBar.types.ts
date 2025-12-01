@@ -4,8 +4,9 @@ import { Theme } from '@/domain/theme';
 
 import { progressBarVariants } from './ProgressBar.variants';
 
-export interface ProgressBarProps
-  extends VariantProps<typeof progressBarVariants> {
+export interface ProgressBarProps extends VariantProps<
+  typeof progressBarVariants
+> {
   backgroundBarClassName?: string;
   className?: string;
   label?: string;

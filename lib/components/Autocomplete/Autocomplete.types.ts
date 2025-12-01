@@ -9,8 +9,9 @@ export type Option = {
   value: string;
 };
 
-export interface AutocompleteProps
-  extends VariantProps<typeof autocompleteVariants> {
+export interface AutocompleteProps extends VariantProps<
+  typeof autocompleteVariants
+> {
   autoComplete?: 'off';
   className?: string;
   label?: string;
