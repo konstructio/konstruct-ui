@@ -2,6 +2,7 @@ import { cva } from 'class-variance-authority';
 
 export const phoneNumberInputVariants = cva(
   [
+    'text-sm',
     'relative',
     'border',
     'border-gray-300',

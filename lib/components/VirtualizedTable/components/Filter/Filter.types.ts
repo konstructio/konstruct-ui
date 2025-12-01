@@ -14,4 +14,5 @@ export type Props = {
   placeholder: string;
   showFilterInput?: boolean;
   showResetButton?: boolean;
+  resetButtonClassName?: string;
 };

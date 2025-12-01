@@ -20,6 +20,7 @@ export const inputVariants = cva(
     'text-sm',
     'w-full',
     'transition-all',
+    'focus-visible:border-transparent',
     'data-[error=false]:dark:focus:ring-aurora-500',
     'data-[error=false]:focus:ring-aurora-500',
     'data-[error=false]:kubefirst:focus:ring-kubefirst-primary',
@@ -41,7 +42,7 @@ export const inputVariants = cva(
       variant: {
         default: '',
         error:
-          'border-red-600 kubefirst-dark:border-red-500 dark:border-red-500 pr-8 focus-visible:ring-transparent',
+          'border-red-600 kubefirst-dark:border-red-500 dark:border-red-500 pr-8 focus-visible:border-red-600 focus-visible:ring-transparent',
       },
     },
     defaultVariants: {
