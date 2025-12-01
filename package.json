@@ -77,7 +77,7 @@
     "google-libphonenumber": "^3.2.43",
     "i18n-iso-countries": "^7.14.0",
     "js-cookie": "^3.0.5",
-    "lucide-react": "^0.554.0",
+    "lucide-react": "^0.555.0",
     "react-chartjs-2": "^5.3.1",
     "react-day-picker": "^9.11.2",
     "react-feather": "^2.0.10",
