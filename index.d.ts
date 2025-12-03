@@ -608,13 +608,11 @@ declare type Props_3 = {
      * @required
      */
     values: number[];
-} & 
-/**
+} /**
 * Union type that enforces either:
 * - No title and no subtitle
 * - Title with optional subtitle
-*/
-({
+*/ & ({
     title?: undefined;
     subtitle?: never;
 } | {
@@ -666,6 +664,7 @@ declare type Props_5<TData extends RowData_2> = VariantProps<typeof virtualizeTa
     showFilterInput?: boolean;
     filterActions?: FilterAction[];
     showResetButton?: boolean;
+    resetButtonClassName?: string;
 } | {
     filterSearchPlaceholder?: never;
     multiSelectFilter?: never;
@@ -673,6 +672,7 @@ declare type Props_5<TData extends RowData_2> = VariantProps<typeof virtualizeTa
     showFilterInput?: never;
     filterActions?: FilterAction[];
     showResetButton?: never;
+    resetButtonClassName?: never;
 });
 
 declare type Props_6<TData extends RowData> = CellContext<TData, unknown> & {
