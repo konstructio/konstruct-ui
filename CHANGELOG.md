@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.2-alpha.33](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.33) (2025-12-01)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.32...0.1.2-alpha.33)
+
+**Merged pull requests:**
+
+- ⬆️  chore: some dependencies have been updated [\#422](https://github.com/konstructio/konstruct-ui/pull/422) ([futjesus](https://github.com/futjesus))
+- 💄 chore: some styles have been added [\#421](https://github.com/konstructio/konstruct-ui/pull/421) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.32](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.32) (2025-11-27)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.31...0.1.2-alpha.32)
