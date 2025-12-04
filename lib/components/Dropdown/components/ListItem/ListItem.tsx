@@ -1,15 +1,8 @@
-import {
-  ComponentRef,
-  FC,
-  KeyboardEvent,
-  ReactNode,
-  useCallback,
-  useRef,
-} from 'react';
+import { ComponentRef, FC, KeyboardEvent, useCallback, useRef } from 'react';
 
-import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
 
+import { Typography } from '../../../Typography/Typography';
 import { useDropdownContext } from '../../contexts';
 import { Option } from '../../Dropdown.types';
 
@@ -66,22 +59,31 @@ export const ListItem: FC<ListItemProps> = ({
   );
 
   const getLabelValue = useCallback(
-    (value: string | ReactNode, subLabel?: string | ReactNode) => {
-      if (typeof value !== 'string') {
-        return value;
+    ({ label, rightComponent, subLabel, rightComponentClassName }: Option) => {
+      if (typeof label !== 'string') {
+        return label;
       }
 
       const newValue =
         highlightSearchEnabled && searchTerm.length > 0
-          ? highlightText(value, searchTerm)
-          : [value];
+          ? highlightText(label, searchTerm)
+          : [label];
 
       return (
         <Typography
           variant="body2"
           className="text-zinc-700 dark:text-slate-50 font-medium"
         >
-          {newValue}
+          {rightComponent ? (
+            <span
+              className={cn('flex gap-2 items-center', rightComponentClassName)}
+            >
+              {newValue} {rightComponent}
+            </span>
+          ) : (
+            newValue
+          )}
+
           {subLabel ? (
             <span
               className={cn(
@@ -115,16 +117,20 @@ export const ListItem: FC<ListItemProps> = ({
     >
       {option.leftIcon ? (
         <span
-          className={cn('w-4 h-4 flex justify-center', {
-            'items-center': !option.subLabel,
-            'items-baseline -translate-y-2': !!option.subLabel,
-          })}
+          className={cn(
+            'w-4 h-4 flex justify-center',
+            {
+              'items-center': !option.subLabel,
+              'items-baseline -translate-y-2': !!option.subLabel,
+            },
+            option.leftIconClassName,
+          )}
         >
           {option.leftIcon}
         </span>
       ) : null}
 
-      {getLabelValue(option.label, option.subLabel)}
+      {getLabelValue(option)}
     </li>
   );
 };
