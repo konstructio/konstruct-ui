@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.35](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.35) (2025-12-04)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.34...0.1.2-alpha.35)
+
+**Merged pull requests:**
+
+- fix: toast variants and dropdown no options [\#424](https://github.com/konstructio/konstruct-ui/pull/424) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.1.2-alpha.34](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.34) (2025-12-04)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.33...0.1.2-alpha.34)
