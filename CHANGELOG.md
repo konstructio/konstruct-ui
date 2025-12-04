@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.34](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.34) (2025-12-04)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.33...0.1.2-alpha.34)
+
+**Merged pull requests:**
+
+- ✨ chore: more props were added to dropdown options [\#423](https://github.com/konstructio/konstruct-ui/pull/423) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.33](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.33) (2025-12-01)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.32...0.1.2-alpha.33)
