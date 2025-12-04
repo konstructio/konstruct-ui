@@ -19,7 +19,7 @@ export const Tooltip: Story = {
       <div className="w-[350px] h-[350px] flex items-center justify-center">
         <div className="flex flex-col gap-5">
           <TooltipComponent
-            content={<FancyHover />}
+            content="Hello"
             position="top"
             wrapperClassName="flex justify-center"
           >
