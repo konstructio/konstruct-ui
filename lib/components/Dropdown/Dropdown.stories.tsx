@@ -107,6 +107,19 @@ export const Dropdown = {
           />
 
           <DropdownComponent
+            label="Dropdown with no options text"
+            searchable={false}
+            noOptionsText="No cloud account exists"
+            {...args}
+            options={[]}
+            additionalOptions={[
+              <button className="text-blue-600 dark:text-aurora-500">
+                <Plus /> New Cloud Account
+              </button>,
+            ]}
+          />
+
+          <DropdownComponent
             {...args}
             label="Dropdown infinity scroll without search"
             onChange={({ target: { value } }) => setValue4(value)}
@@ -193,6 +206,16 @@ export const Dropdown = {
             value={value8}
             searchable={false}
             {...args}
+          />
+
+          <DropdownComponent
+            {...args}
+            label="Dropdown with no options text"
+            onChange={({ target: { value } }) => setValue8(value)}
+            value={value8}
+            searchable={false}
+            noOptionsText="No options"
+            options={[]}
           />
         </div>
       </div>

@@ -40,6 +40,7 @@ export const List: ForwardRefExoticComponent<
       wrapperInputRef,
       isInfiniteScrollEnabled,
       onFetchMoreOptions,
+      noOptionsText,
     },
     ref,
   ) => {
@@ -163,11 +164,12 @@ export const List: ForwardRefExoticComponent<
           />
         ) : isEmpty ? (
           <ListItem
+            isEmpty
             className={cn('select-none', itemClassName)}
             isClickable={false}
             inputRef={inputRef}
-            value="No options"
-            label="No options"
+            value={noOptionsText ?? ''}
+            label={noOptionsText ?? 'No options'}
             listItemSecondRowClassName={listItemSecondRowClassName}
           />
         ) : (

@@ -2,6 +2,7 @@ import { ComponentRef, RefObject } from 'react';
 import { Option } from '../../Dropdown.types';
 
 export type ListItemProps = Option & {
+  isEmpty?: boolean;
   className?: string;
   listItemSecondRowClassName?: string;
   isClickable: boolean;

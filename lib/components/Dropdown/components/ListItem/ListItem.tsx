@@ -30,6 +30,7 @@ function highlightText(value: string, searchTerm: string) {
 }
 
 export const ListItem: FC<ListItemProps> = ({
+  isEmpty,
   isClickable,
   className,
   inputRef,
@@ -60,6 +61,17 @@ export const ListItem: FC<ListItemProps> = ({
 
   const getLabelValue = useCallback(
     ({ label, rightComponent, subLabel, rightComponentClassName }: Option) => {
+      if (isEmpty) {
+        return (
+          <Typography
+            variant="body2"
+            className="text-zinc-800 dark:text-slate-50 italic"
+          >
+            {label}
+          </Typography>
+        );
+      }
+
       if (typeof label !== 'string') {
         return label;
       }

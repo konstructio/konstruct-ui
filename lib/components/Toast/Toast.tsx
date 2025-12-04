@@ -41,6 +41,7 @@ export const Toast: FC<ToastProps> = ({
   className,
   open = false,
   setOpen,
+  variant,
 }) => {
   const timerRef = useRef(0);
 
@@ -74,18 +75,20 @@ export const Toast: FC<ToastProps> = ({
       <Slot onClick={handleClick}>{children}</Slot>
 
       <Root
-        className={cn(toastVariants({ className }))}
+        className={cn(toastVariants({ variant, className }))}
         data-theme={theme}
         open={open}
         onOpenChange={setOpen}
       >
-        <Title asChild className={titleClassName}>
-          {titleResult}
-        </Title>
+        <div className="flex gap-2 items-center flex-1">
+          <Title asChild className={titleClassName}>
+            {titleResult}
+          </Title>
 
-        {descriptionResult && (
-          <Description asChild>{descriptionResult}</Description>
-        )}
+          {descriptionResult && (
+            <Description asChild>{descriptionResult}</Description>
+          )}
+        </div>
 
         {showCloseButton && (
           <Action asChild altText="Close the toast">

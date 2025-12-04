@@ -46,6 +46,7 @@ export type DropdownProps = VariantProps<typeof dropdownVariants> &
     onBlur?: VoidFunction;
     onChange?: OnChangeFn;
     onSearchChange?: (searchTerm: string) => void;
+    noOptionsText?: string;
   } & (
     | {
         isInfiniteScrollEnabled: true;
