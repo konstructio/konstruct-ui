@@ -14,6 +14,7 @@ import { cn } from '@/utils';
 import { TooltipProps } from './Tooltip.types';
 import { arrowVariants, tooltipVariants } from './Tooltip.variants';
 import { useTooltip } from './hooks/useTooltip';
+import { Typography } from '..';
 
 export const Tooltip: FC<TooltipProps> = forwardRef<HTMLElement, TooltipProps>(
   (
@@ -44,7 +45,9 @@ export const Tooltip: FC<TooltipProps> = forwardRef<HTMLElement, TooltipProps>(
             data-visible={isVisible}
           >
             <span className={cn(arrowVariants({ position }))} />
-            <Slot>{content}</Slot>
+            <Typography variant="tooltip" className="text-white">
+              {content}
+            </Typography>
           </div>
         </div>
       </div>

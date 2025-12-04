@@ -4,8 +4,9 @@ export const tooltipVariants = cva(
   [
     'absolute',
     'w-max',
-    'p-2.5',
-    'rounded-lg',
+    'py-2',
+    'px-[6px]',
+    'rounded-xs',
     'shadow-md',
     'transition-all',
     'ease-linear',
@@ -13,7 +14,7 @@ export const tooltipVariants = cva(
     'duration-250',
     "[&[data-visible='true']]:opacity-100",
     'delay-100',
-    'bg-kubefirst-primary',
+    'bg-slate-700',
   ],
   {
     variants: {
@@ -31,7 +32,7 @@ export const tooltipVariants = cva(
 );
 
 export const arrowVariants = cva(
-  ['absolute', 'w-0', 'h-0', 'border-kubefirst-primary'],
+  ['absolute', 'w-0', 'h-0', 'border-slate-700'],
   {
     variants: {
       position: {
