@@ -482,6 +482,9 @@ declare type Option_3 = {
     label: string;
     subLabel?: string | ReactNode;
     leftIcon?: ReactNode | string;
+    leftIconClassName?: string;
+    rightComponent?: ReactNode | string;
+    rightComponentClassName?: string;
     value: string;
 };
 
