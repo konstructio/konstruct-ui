@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.37](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.37) (2025-12-04)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.36...0.1.2-alpha.37)
+
+**Merged pull requests:**
+
+- fix: tooltip styles [\#425](https://github.com/konstructio/konstruct-ui/pull/425) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.1.2-alpha.36](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.36) (2025-12-04)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.35...0.1.2-alpha.36)
