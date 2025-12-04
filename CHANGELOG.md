@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.2-alpha.36](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.36) (2025-12-04)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.35...0.1.2-alpha.36)
+
 ## [0.1.2-alpha.35](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.35) (2025-12-04)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.34...0.1.2-alpha.35)
