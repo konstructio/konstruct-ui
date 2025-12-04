@@ -199,16 +199,20 @@ export const Wrapper: ForwardRefExoticComponent<
               <Typography
                 variant="body2"
                 className={cn(
-                  'flex-1 text-zinc-400 text-sm dark:text-slate-400',
+                  'flex-1 text-zinc-400 text-sm dark:text-slate-400 flex gap-2 items-center',
                   {
                     'text-red-700': !!error,
                     'select-none': !internalValue,
                     'text-slate-800 dark:text-slate-50': internalValue,
                     'text-slate-400/50 dark:text-slate-50/50': disabled,
                   },
+                  internalValue?.wrapperClassNameOnSelectedValue,
                 )}
               >
-                {internalValue?.label || placeholder}
+                {internalValue?.label || placeholder}{' '}
+                {internalValue?.showRightComponentOnselectedValue
+                  ? internalValue?.rightComponent
+                  : null}
               </Typography>
             )}
           </div>

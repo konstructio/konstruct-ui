@@ -10,8 +10,10 @@ export type Option = {
   subLabel?: string | ReactNode;
   leftIcon?: ReactNode | string;
   leftIconClassName?: string;
+  showRightComponentOnselectedValue?: boolean;
   rightComponent?: ReactNode | string;
   rightComponentClassName?: string;
+  wrapperClassNameOnSelectedValue?: string;
   value: string;
 };
 
