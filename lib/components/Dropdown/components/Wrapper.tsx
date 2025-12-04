@@ -12,7 +12,7 @@ import {
   useRef,
 } from 'react';
 
-import { Loading } from '@/components/Loading/Loading';
+import Loader from '@/assets/icons/loader.svg';
 import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
 
@@ -59,6 +59,7 @@ export const Wrapper: ForwardRefExoticComponent<
       onFetchMoreOptions,
       onBlur,
       onSearchChange,
+      noOptionsText,
       ...delegated
     },
     ref,
@@ -213,7 +214,7 @@ export const Wrapper: ForwardRefExoticComponent<
           </div>
 
           {isLoading ? (
-            <Loading className="w-4 h-4 text-zinc-500 select-none" />
+            <Loader className="w-4 h-4 text-slate-400 animate-spin select-none" />
           ) : (
             !showSearchIcon && (
               <ChevronUp
@@ -259,6 +260,7 @@ export const Wrapper: ForwardRefExoticComponent<
             listItemSecondRowClassName={listItemSecondRowClassName}
             isInfiniteScrollEnabled={isInfiniteScrollEnabled}
             onFetchMoreOptions={onFetchMoreOptions}
+            noOptionsText={noOptionsText}
           />
         )}
       </div>

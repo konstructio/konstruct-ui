@@ -1,24 +1,37 @@
 import { cva } from 'class-variance-authority';
 
-export const toastVariants = cva([
-  'rounded-md',
-  'shadow-md',
-  'p-4',
-  'flex',
-  'flex-col',
-  'relative',
-  'border',
-  'overflow-hidden',
-  'data-[state=open]:animate-slide-in',
-  'data-[state=closed]:animate-hide',
-  'data-[swipe=move]:translate-x-4',
-  'data-[swipe=cancel]:translate-x-0',
-  'data-[swipe=end]:animate-swipe-out',
-  'shadow-purple-200',
-  'border-purple-100',
-  'dark:border-none',
-  'dark:shadow-none',
-]);
+export const toastVariants = cva(
+  [
+    'rounded-md',
+    'p-4',
+    'flex',
+    'flex-row',
+    'relative',
+    'overflow-hidden',
+    'h-14',
+    'items-center',
+    'gap-8',
+    'data-[state=open]:animate-slide-in',
+    'data-[state=closed]:animate-hide',
+    'data-[swipe=move]:translate-x-4',
+    'data-[swipe=cancel]:translate-x-0',
+    'data-[swipe=end]:animate-swipe-out',
+    'text-white',
+    'shadow-[0px_2px_4px_0px_rgba(100,116,139,0.25)]',
+  ],
+  {
+    variants: {
+      variant: {
+        success: ['bg-green-800'],
+        error: ['bg-red-800'],
+        warning: ['bg-amber-800'],
+      },
+    },
+    defaultVariants: {
+      variant: 'success',
+    },
+  },
+);
 
 export const viewportToastVariants = cva([
   'fixed',
@@ -40,5 +53,5 @@ export const closeToastVariants = cva([
   'right-2',
   'w-4',
   'h-4',
-  'text-kubefirst-primary',
+  'text-white',
 ]);

@@ -15,4 +15,5 @@ export type ListProps = Pick<
   wrapperInputRef: RefObject<ComponentRef<'div'> | null>;
   isInfiniteScrollEnabled: DropdownProps['isInfiniteScrollEnabled'];
   onFetchMoreOptions?: DropdownProps['onFetchMoreOptions'];
+  noOptionsText?: DropdownProps['noOptionsText'];
 };
