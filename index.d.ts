@@ -254,6 +254,7 @@ declare type DropdownProps = VariantProps<typeof dropdownVariants> & Omit<InputH
     onBlur?: VoidFunction;
     onChange?: OnChangeFn;
     onSearchChange?: (searchTerm: string) => void;
+    noOptionsText?: string;
 } & ({
     isInfiniteScrollEnabled: true;
     onFetchMoreOptions: (params: {
@@ -957,7 +958,9 @@ declare interface ToastProps extends PropsWithChildren, VariantProps<typeof toas
     setOpen: (open: boolean) => void;
 }
 
-declare const toastVariants: (props?: ClassProp | undefined) => string;
+declare const toastVariants: (props?: ({
+    variant?: "warning" | "error" | "success" | null | undefined;
+} & ClassProp) | undefined) => string;
 
 export declare const Tooltip: FC<TooltipProps>;
 
