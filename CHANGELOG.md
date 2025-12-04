@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.38](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.38) (2025-12-04)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.37...0.1.2-alpha.38)
+
+**Merged pull requests:**
+
+- ✨ chore: show right component on selected valut in dropdown component [\#426](https://github.com/konstructio/konstruct-ui/pull/426) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.37](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.37) (2025-12-04)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.36...0.1.2-alpha.37)
