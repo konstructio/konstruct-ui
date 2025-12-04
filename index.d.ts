@@ -484,8 +484,10 @@ declare type Option_3 = {
     subLabel?: string | ReactNode;
     leftIcon?: ReactNode | string;
     leftIconClassName?: string;
+    showRightComponentOnselectedValue?: boolean;
     rightComponent?: ReactNode | string;
     rightComponentClassName?: string;
+    wrapperClassNameOnSelectedValue?: string;
     value: string;
 };
 
