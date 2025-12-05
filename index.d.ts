@@ -380,6 +380,31 @@ declare interface ModalProps extends PropsWithChildren, VariantProps<typeof moda
 
 declare const modalVariants: (props?: ClassProp | undefined) => string;
 
+export declare const MultiSelectDropdown: FC<MultiSelectDropdownProps>;
+
+declare type MultiSelectDropdownOption = {
+    id: string | number;
+    label: string;
+    tagLabel: string;
+    tagColor?: TagProps['color'];
+    value?: string;
+};
+
+declare interface MultiSelectDropdownProps extends VariantProps<typeof multiSelectDropdownVariants>, Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'onBlur'> {
+    label?: string;
+    options: MultiSelectDropdownOption[];
+    name?: string;
+    placeholder?: string;
+    labelClassName?: string;
+    wrapperClassName?: string;
+    multiselect?: boolean;
+    value?: MultiSelectDropdownOption[];
+    onChange?: OnChangeFn_2;
+    onBlur?: VoidFunction;
+}
+
+declare const multiSelectDropdownVariants: (props?: ClassProp | undefined) => string;
+
 declare type MultiSelectFilter = {
     key: string;
     label: string;
@@ -471,6 +496,13 @@ declare const numberInputVariants: (props?: ClassProp | undefined) => string;
 declare type OnChangeFn = (params: {
     target: {
         value: string;
+        name: string;
+    };
+}) => void;
+
+declare type OnChangeFn_2 = (params: {
+    target: {
+        value: MultiSelectDropdownOption[];
         name: string;
     };
 }) => void;
@@ -869,7 +901,7 @@ declare interface TabsProps extends ReactTabs.TabsProps, PropsWithChildren {
 export declare const Tag: FC<TagProps>;
 
 declare type TagProps = {
-    color?: 'gray' | 'cyan' | 'gold' | 'green' | 'light blue' | 'lime' | 'pink' | 'purple' | 'emerald' | 'fuscia' | 'indigo' | 'light-orange' | 'dark-sky-blue' | 'mistery';
+    color?: 'gray' | 'gray-800' | 'cyan' | 'gold' | 'green' | 'light blue' | 'lime' | 'pink' | 'purple' | 'emerald' | 'fuscia' | 'indigo' | 'light-orange' | 'dark-sky-blue' | 'mistery';
     id: string | number;
     label: string;
     rightIcon?: ReactNode;
