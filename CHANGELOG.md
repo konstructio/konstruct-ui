@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.41](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.41) (2025-12-05)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.40...0.1.2-alpha.41)
+
+**Merged pull requests:**
+
+- fix: selected value [\#429](https://github.com/konstructio/konstruct-ui/pull/429) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.1.2-alpha.40](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.40) (2025-12-05)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.39...0.1.2-alpha.40)
