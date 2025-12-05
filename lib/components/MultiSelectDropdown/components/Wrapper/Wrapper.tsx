@@ -79,7 +79,7 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
                 <Tag
                   key={option.id}
                   id={option.id}
-                  label={option.tagLabel || option.label || ''}
+                  label={option.value || option.tagLabel || ''}
                   color={option.tagColor || 'gray-800'}
                   className="select-none gap-2"
                   rightIcon={
