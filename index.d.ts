@@ -385,7 +385,7 @@ export declare const MultiSelectDropdown: FC<MultiSelectDropdownProps>;
 declare type MultiSelectDropdownOption = {
     id: string | number;
     label: string;
-    tagLabel: string;
+    tagLabel?: string;
     tagColor?: TagProps['color'];
     value?: string;
 };
@@ -400,7 +400,9 @@ declare interface MultiSelectDropdownProps extends VariantProps<typeof multiSele
     multiselect?: boolean;
     value?: MultiSelectDropdownOption[];
     onChange?: OnChangeFn_2;
-    onBlur?: VoidFunction;
+    onBlur?: OnBlurFn;
+    isLoading?: boolean;
+    noOptionsText?: string;
 }
 
 declare const multiSelectDropdownVariants: (props?: ClassProp | undefined) => string;
@@ -492,6 +494,11 @@ declare interface NumberInputProps extends VariantProps<typeof numberInputVarian
 }
 
 declare const numberInputVariants: (props?: ClassProp | undefined) => string;
+
+declare type OnBlurFn = (event: {
+    target: HTMLInputElement | null;
+    type?: string;
+}) => void;
 
 declare type OnChangeFn = (params: {
     target: {
