@@ -16,6 +16,8 @@ const initialState: State = {
   onOpen() {
     throw new Error('Function not implemented.');
   },
+  isLoading: false,
+  noOptionsText: undefined,
 };
 
 export const MultiSelectDropdownContext = createContext<State>(initialState);

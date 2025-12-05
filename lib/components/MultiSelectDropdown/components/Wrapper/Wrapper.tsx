@@ -1,7 +1,8 @@
 import { FC, forwardRef, useId, useImperativeHandle } from 'react';
 import { ChevronUp } from 'react-feather';
 
-import { Tag } from '@/components/Tag/Tag';
+import { Tag } from '@/components';
+import Loader from '@/assets/icons/loader.svg';
 import { cn } from '@/utils';
 
 import { useMultiSelectDropdown as useMultiSelectDropdownContext } from '../../contexts';
@@ -25,8 +26,14 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
     ref,
   ) => {
     const id = useId();
-    const { selectedOptions, isOpen, onOpen, onRemoveOption, inputRef } =
-      useMultiSelectDropdownContext();
+    const {
+      selectedOptions,
+      isOpen,
+      onOpen,
+      onRemoveOption,
+      inputRef,
+      isLoading,
+    } = useMultiSelectDropdownContext();
     const { wrapperRef, handleOpen } = useMultiSelectDropdown();
 
     useImperativeHandle(ref, () => inputRef!.current!, [inputRef]);
@@ -72,7 +79,7 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
                 <Tag
                   key={option.id}
                   id={option.id}
-                  label={option.tagLabel}
+                  label={option.tagLabel || option.label || ''}
                   color={option.tagColor || 'gray-800'}
                   className="select-none gap-2"
                   rightIcon={
@@ -87,12 +94,16 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
             </div>
           )}
 
-          <ChevronUp
-            className={cn(
-              'w-4 h-4 text-inherit transition-all duration-50 shrink-0',
-              isOpen ? 'rotate-0' : 'rotate-180',
-            )}
-          />
+          {isLoading ? (
+            <Loader className="w-4 h-4 text-slate-400 animate-spin shrink-0" />
+          ) : (
+            <ChevronUp
+              className={cn(
+                'w-4 h-4 text-inherit transition-all duration-50 shrink-0',
+                isOpen ? 'rotate-0' : 'rotate-180',
+              )}
+            />
+          )}
         </div>
 
         <input
@@ -108,3 +119,5 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
     );
   },
 );
+
+Wrapper.displayName = 'MultiSelectDropdownWrapper';
