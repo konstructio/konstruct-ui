@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 export type TagProps = {
   color?:
     | 'gray'
+    | 'gray-800'
     | 'cyan'
     | 'gold'
     | 'green'
