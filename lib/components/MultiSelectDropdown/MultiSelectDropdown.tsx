@@ -10,7 +10,17 @@ export const MultiSelectDropdown: FC<MultiSelectDropdownProps> = forwardRef<
   MultiSelectDropdownProps
 >(
   (
-    { options, multiselect, value, onChange, onBlur, name, ...delegated },
+    {
+      options,
+      multiselect,
+      value,
+      onChange,
+      onBlur,
+      name,
+      isLoading,
+      noOptionsText,
+      ...delegated
+    },
     ref,
   ) => (
     <MultiSelectDropdownProvider
@@ -20,8 +30,12 @@ export const MultiSelectDropdown: FC<MultiSelectDropdownProps> = forwardRef<
       onChange={onChange}
       onBlur={onBlur}
       name={name}
+      isLoading={isLoading}
+      noOptionsText={noOptionsText}
     >
       <Wrapper ref={ref} {...delegated} name={name} />
     </MultiSelectDropdownProvider>
   ),
 );
+
+MultiSelectDropdown.displayName = 'MultiSelectDropdown';

@@ -10,6 +10,8 @@ export type State = {
   onSelectOption: (option: MultiSelectDropdownOption) => void;
   onRemoveOption: (option: MultiSelectDropdownOption) => void;
   onOpen: (value?: boolean) => void;
+  isLoading?: boolean;
+  noOptionsText?: string;
 };
 
 export type MultiSelectDropdownProviderProps = PropsWithChildren & {
@@ -19,6 +21,8 @@ export type MultiSelectDropdownProviderProps = PropsWithChildren & {
   onChange?: (params: {
     target: { value: MultiSelectDropdownOption[]; name: string };
   }) => void;
-  onBlur?: VoidFunction;
+  onBlur?: (event: { target: HTMLInputElement | null; type?: string }) => void;
   name?: string;
+  isLoading?: boolean;
+  noOptionsText?: string;
 };
