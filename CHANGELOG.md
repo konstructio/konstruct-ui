@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.39](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.39) (2025-12-05)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.38...0.1.2-alpha.39)
+
+**Merged pull requests:**
+
+- feat: multi select dropdown [\#427](https://github.com/konstructio/konstruct-ui/pull/427) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.1.2-alpha.38](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.38) (2025-12-04)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.37...0.1.2-alpha.38)
