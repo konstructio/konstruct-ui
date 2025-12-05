@@ -6,4 +6,5 @@ export type ItemProps = {
   option: MultiSelectDropdownOption;
   theme?: Theme;
   isSelected?: boolean;
+  className?: string;
 };

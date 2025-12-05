@@ -34,8 +34,6 @@ export const MultiSelectDropdown: Story = {
         value: 'prod',
       },
     ],
-    onBlur: () => console.log('blur'),
-    onChange: (args) => console.log('change', args),
   },
   render: (args) => (
     <div className="max-w-[300px] flex flex-col gap-3">

@@ -23,6 +23,8 @@ export const MultiSelectDropdownProvider: FC<
   onChange,
   onBlur,
   name,
+  isLoading,
+  noOptionsText,
 }) => {
   const inputRef = useRef<ComponentRef<'input'>>(null);
   const [isOpen, setIsOpen] = useToggle(false);
@@ -33,7 +35,24 @@ export const MultiSelectDropdownProvider: FC<
   >([]);
   const isControlled = value !== undefined;
 
-  // Sync value prop to selected options
+  // Sync defaultOptions to options state (for uncontrolled mode)
+  useEffect(() => {
+    if (!isControlled) {
+      const selectedIdsSet = new Set(
+        selectedOptions.map((option) => option.id),
+      );
+      setOptions(
+        multiselect
+          ? defaultOptions.filter((option) => !selectedIdsSet.has(option.id))
+          : defaultOptions.map((option) => ({
+              ...option,
+              isSelected: selectedIdsSet.has(option.id),
+            })),
+      );
+    }
+  }, [defaultOptions, multiselect, isControlled, selectedOptions]);
+
+  // Sync value prop to selected options (for controlled mode)
   useEffect(() => {
     if (isControlled) {
       const selected = value || [];
@@ -83,11 +102,14 @@ export const MultiSelectDropdownProvider: FC<
       setIsOpen(value);
 
       // Call onBlur when closing the dropdown
-      if (wasOpen && value === false && onBlur) {
-        onBlur();
+      if (wasOpen && value === false && onBlur && inputRef.current) {
+        onBlur({
+          target: inputRef.current,
+          type: 'blur',
+        });
       }
     },
-    [isOpen, setIsOpen, onBlur],
+    [isOpen, setIsOpen, onBlur, inputRef],
   );
 
   const handleSelectOption = useCallback(
@@ -179,6 +201,8 @@ export const MultiSelectDropdownProvider: FC<
         onSelectOption: handleSelectOption,
         onRemoveOption: handleRemoveOption,
         onOpen: handleOpen,
+        isLoading,
+        noOptionsText,
       }}
     >
       {children}

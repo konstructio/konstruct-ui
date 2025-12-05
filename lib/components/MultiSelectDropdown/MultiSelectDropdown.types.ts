@@ -8,13 +8,18 @@ import { multiSelectDropdownVariants } from './MultiSelectDropdown.variants';
 export type MultiSelectDropdownOption = {
   id: string | number;
   label: string;
-  tagLabel: string;
+  tagLabel?: string;
   tagColor?: TagProps['color'];
   value?: string;
 };
 
 type OnChangeFn = (params: {
   target: { value: MultiSelectDropdownOption[]; name: string };
+}) => void;
+
+type OnBlurFn = (event: {
+  target: HTMLInputElement | null;
+  type?: string;
 }) => void;
 
 export interface MultiSelectDropdownProps
@@ -33,5 +38,7 @@ export interface MultiSelectDropdownProps
   multiselect?: boolean;
   value?: MultiSelectDropdownOption[];
   onChange?: OnChangeFn;
-  onBlur?: VoidFunction;
+  onBlur?: OnBlurFn;
+  isLoading?: boolean;
+  noOptionsText?: string;
 }
