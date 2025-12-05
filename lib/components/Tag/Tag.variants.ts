@@ -16,6 +16,7 @@ export const tagVariants = cva(
     variants: {
       color: {
         gray: ['bg-[#f4f4f5]', 'text-[#71717a]'],
+        'gray-800': ['bg-gray-100', 'text-gray-800'],
         cyan: ['bg-[#ecfeff]', 'text-[#0e7490]'],
         gold: ['bg-[#fef9c3]', 'text-[#a16207]'],
         green: ['bg-[#dcfce7]', 'text-[#15803d]'],
