@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.40](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.40) (2025-12-05)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.39...0.1.2-alpha.40)
+
+**Merged pull requests:**
+
+- feat: multi select loading state [\#428](https://github.com/konstructio/konstruct-ui/pull/428) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.1.2-alpha.39](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.39) (2025-12-05)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.38...0.1.2-alpha.39)
