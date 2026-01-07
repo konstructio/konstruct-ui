@@ -12,6 +12,7 @@ import { Slot } from '@radix-ui/react-slot';
 export const Badge: FC<BadgeProps> = ({
   className,
   dismissible = false,
+  isSelectable = true,
   label,
   leftIcon,
   loading = false,
@@ -50,10 +51,10 @@ export const Badge: FC<BadgeProps> = ({
   return (
     <span
       ref={badgeRef}
-      className={cn(
-        badgeVariants({ variant, size, className }),
-        onClick && 'cursor-pointer',
-      )}
+      className={cn(badgeVariants({ variant, size, className }), {
+        'select-none': !isSelectable,
+        'cursor-pointer': onClick,
+      })}
       role={onClick ? 'button' : undefined}
       onClick={onClick}
       tabIndex={onClick ? 0 : undefined}
