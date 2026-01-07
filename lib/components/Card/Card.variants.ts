@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 
 export const cardBaseVariants = cva(
-  ['border', 'border-slate-200', 'rounded-xl'],
+  ['rounded-xl', 'border', 'border-gray-200', 'dark:border-metal-700'],
   {
     variants: {
       isActive: {
@@ -28,8 +28,7 @@ export const cardVariants = cva(
         true: [
           'cursor-pointer',
           'border-transparent',
-          'group-hover:border-kubefirst-primary',
-          'civo:group-hover:border-civo-primary',
+          'group-hover:border-aurora-500',
         ],
         false: '',
       },
