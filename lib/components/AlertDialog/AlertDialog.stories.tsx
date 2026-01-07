@@ -4,6 +4,7 @@ import WarningIcon from '@/assets/icons/warning.svg';
 import { Checkbox } from '@/components/Checkbox/Checkbox';
 
 import { AlertDialog as AlertDialogComponent } from './AlertDialog';
+import { Typography } from '../Typography/Typography';
 
 type Story = StoryObj<typeof AlertDialogComponent>;
 
@@ -15,6 +16,10 @@ const meta = {
 export const AlertDialog = {
   render: () => (
     <>
+      <Typography className="my-6 text-lg font-semibold">
+        Light Theme
+      </Typography>
+
       <div className="w-[350px]">
         <AlertDialogComponent
           buttonTriggerText="Destroy machine"
@@ -40,6 +45,7 @@ export const AlertDialog = {
       </div>
 
       <div className="my-3" />
+
       <div className="w-[350px]">
         <AlertDialogComponent
           buttonTriggerText="Destroy machine"
@@ -79,6 +85,90 @@ export const AlertDialog = {
           }
           description={
             <div className="text-sm text-slate-800 pl-9">
+              <p className="mb-4">
+                Uploading an image may take up to a few minutes depending on
+                image size and connection speed. We'll let you know when the
+                import is complete.
+              </p>
+
+              <Checkbox
+                defaultChecked
+                label="This is a checkbox with civo colors"
+              />
+            </div>
+          }
+          showCancelButton={false}
+          wrapperClassName="max-w-[500px] gap-4"
+          buttonConfirm={{
+            text: 'Got it!',
+          }}
+        />
+      </div>
+
+      <Typography className="my-6 text-lg font-semibold">Dark Theme</Typography>
+
+      <div className="w-[350px]" data-theme="dark">
+        <AlertDialogComponent
+          buttonTriggerText="Destroy machine"
+          title={
+            <span className="flex flex-row gap-4 items-center font-semibold text-slate-200">
+              <WarningIcon className="text-aurora-500 w-6 h-6" /> Delete image?
+            </span>
+          }
+          description={
+            <div className="text-sm text-slate-50 pl-9">
+              <p className="mb-4">
+                Are you sure you want to delete image? Once deleted the image
+                cannot be recovered.
+              </p>
+            </div>
+          }
+          wrapperClassName="max-w-[500px] gap-4"
+          buttonConfirm={{
+            text: 'Yes, delete',
+          }}
+        />
+      </div>
+
+      <div className="my-3" />
+
+      <div className="w-[350px]" data-theme="dark">
+        <AlertDialogComponent
+          buttonTriggerText="Destroy machine"
+          title={
+            <span className="flex flex-row gap-4 items-center font-semibold text-slate-200">
+              <WarningIcon className="text-red-700 w-6 h-6" /> Delete image?
+            </span>
+          }
+          description={
+            <div className="text-sm pl-9 text-slate-50">
+              <p className="mb-4">
+                Are you sure you want to delete image? Once deleted the image
+                cannot be recovered.
+              </p>
+            </div>
+          }
+          wrapperClassName="max-w-[500px] gap-4"
+          buttonConfirm={{
+            text: 'Yes, delete',
+            variant: 'danger',
+          }}
+        />
+      </div>
+
+      <div className="my-3" />
+
+      <div className="w-[350px]" data-theme="dark">
+        <AlertDialogComponent
+          buttonTriggerText="Destroy"
+          title={
+            <span className="flex flex-row gap-4 items-center font-semibold text-slate-200">
+              <WarningIcon className="text-civo-primary w-6 h-6" /> Upload will
+              take a few minutes...
+            </span>
+          }
+          description={
+            <div className="text-sm text-slate-50 pl-9">
               <p className="mb-4">
                 Uploading an image may take up to a few minutes depending on
                 image size and connection speed. We'll let you know when the

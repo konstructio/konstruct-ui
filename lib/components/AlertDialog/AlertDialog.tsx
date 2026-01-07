@@ -9,7 +9,7 @@ import {
   Root,
   Title,
 } from '@radix-ui/react-alert-dialog';
-import { FC } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 
 import { Button } from '@/components/Button/Button';
 import { cn } from '@/utils';
@@ -18,7 +18,7 @@ import { AlertDialogProps } from './AlertDialog.types';
 import { AlertDialogTrigger } from './components';
 import { useAlertDialog } from './hooks';
 
-export const AlertDialog: FC<AlertDialogProps> = ({
+const AlertDialog: FC<AlertDialogProps> = ({
   buttonCancel: {
     className: buttonCancelClassName,
     text: buttonCancelText = 'Cancel',
@@ -39,26 +39,59 @@ export const AlertDialog: FC<AlertDialogProps> = ({
   onConfirm,
   ...delegated
 }) => {
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const [container, setContainer] = useState<HTMLElement | null>(null);
   const { isOpen, handleCancel, handleConfirm, handleOpen } = useAlertDialog({
     onConfirm,
   });
 
+  useEffect(() => {
+    if (!triggerRef.current || theme) {
+      return;
+    }
+
+    const parent = triggerRef.current.closest('[data-theme]');
+
+    if (parent) {
+      setContainer(parent as HTMLElement);
+    }
+  }, []);
+
   return (
     <Root open={isOpen} {...delegated}>
       <AlertDialogTrigger
+        ref={triggerRef}
         className={buttonTriggerClassName}
         text={buttonTriggerText}
         data-theme={theme}
         onOpen={handleOpen}
       />
 
-      <Portal>
-        <Overlay className="bg-black opacity-70 inset-0 fixed animate-in fade-in-0" />
+      <Portal container={container}>
+        <Overlay className="bg-black opacity-70 dark:opacity-85 inset-0 fixed animate-in fade-in-0" />
 
         <Content
           data-theme={theme}
           className={cn(
-            'bg-white rounded-md fixed top-1/2 left-1/2 -translate-y-2/4 -translate-x-2/4 flex flex-col gap-8 p-8 animate-in fade-in-0 zoom-in-85',
+            'bg-white',
+            'rounded-md',
+            'fixed',
+            'top-1/2',
+            'left-1/2',
+            '-translate-y-2/4',
+            '-translate-x-2/4',
+            'flex',
+            'flex-col',
+            'gap-8',
+            'p-8',
+            'animate-in',
+            'fade-in-0',
+            'zoom-in-85',
+            'border',
+            'border-transparent',
+            'dark:bg-metal-800',
+            'dark:border-metal-700',
+            'dark:border-slate-700',
             wrapperClassName,
           )}
         >
@@ -102,3 +135,7 @@ export const AlertDialog: FC<AlertDialogProps> = ({
     </Root>
   );
 };
+
+AlertDialog.displayName = 'KonstructAlertDialog';
+
+export { AlertDialog };
