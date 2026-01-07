@@ -64,7 +64,10 @@ export const Wrapper: FC<WrapperProps> = ({
       )}
     >
       {label ? (
-        <label htmlFor={labelId} className="text-slate-500 font-medium">
+        <label
+          htmlFor={labelId}
+          className="text-slate-500 dark:text-metal-50 font-medium"
+        >
           {label} {required && <span className="text-red-600">*</span>}
         </label>
       ) : null}

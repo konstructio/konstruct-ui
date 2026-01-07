@@ -9,7 +9,6 @@ import { MeridianList } from '../MeridianList/MeridianList';
 import { MinutesList } from '../MinutesList/MinutesList';
 
 import { WrapperListProps } from './WrapperList.types';
-import { wrapperVariants } from './WrapperList.variants';
 
 export const WrapperList: FC<WrapperListProps> = ({
   isOpen,
@@ -27,7 +26,12 @@ export const WrapperList: FC<WrapperListProps> = ({
   }
 
   return (
-    <div role="group" className={cn(wrapperVariants())}>
+    <div
+      role="group"
+      className={cn(
+        'flex gap-1.5 p-2 rounded-md shadow w-full max-h-[216px] absolute mt-1 bg-white z-10 animate-in fade-in-0 zoom-in-95 dark:bg-metal-800 dark:border dark:border-metal-700',
+      )}
+    >
       <HoursList
         hours={selectedHours}
         scrollBehavior={scrollBehavior}
@@ -35,6 +39,7 @@ export const WrapperList: FC<WrapperListProps> = ({
         listItemClassName={listItemClassName}
         listItemButtonClassName={listItemButtonClassName}
       />
+
       <MinutesList
         minutes={selectedMinutes}
         scrollBehavior={scrollBehavior}
@@ -42,6 +47,7 @@ export const WrapperList: FC<WrapperListProps> = ({
         listItemClassName={listItemClassName}
         listItemButtonClassName={listItemButtonClassName}
       />
+
       <MeridianList
         listClassName={listClassName}
         listItemClassName={listItemClassName}

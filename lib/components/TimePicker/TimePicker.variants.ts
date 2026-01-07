@@ -3,17 +3,20 @@ import { cva } from 'class-variance-authority';
 export const timePickerVariants = cva([
   'border',
   'rounded',
-  'p-[0.625rem]',
+  'p-2.5',
   'w-full',
   'flex',
   'items-center',
   'justify-between',
   'border-gray-300',
+  'dark:border-metal-700',
   'cursor-pointer',
   'transition-all',
   'transition-duration-100',
   'data-[open=true]:border-aurora-500',
   'text-sm',
+  'text-slate-800',
+  'dark:text-slate-50',
 ]);
 
 export const ulVariants = cva([
@@ -23,6 +26,7 @@ export const ulVariants = cva([
   'scrollbar-none',
   'flex',
   'flex-col',
+  'dark:text-metal-50',
 ]);
 
 export const liVariants = cva([
@@ -45,6 +49,9 @@ export const liVariants = cva([
   'data-[active=true]:font-medium',
   'focus-visible:border-blue-200',
   'focus-within:border-blue-200',
+  'dark:focus-within:border-aurora-50',
+  'dark:data-[active=true]:bg-aurora-500',
+  'dark:data-[active=true]:text-metal-900',
 ]);
 
 export const buttonVariants = cva([
