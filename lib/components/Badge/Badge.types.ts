@@ -9,6 +9,7 @@ export type BadgeProps = VariantProps<typeof badgeVariants> & {
   label: string;
   leftIcon?: ReactNode;
   loading?: boolean;
+  isSelectable?: boolean;
   onClick?: VoidFunction;
   onDismiss?: VoidFunction;
 };
