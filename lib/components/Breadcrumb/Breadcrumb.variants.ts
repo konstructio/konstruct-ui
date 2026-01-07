@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 
 export const breadcrumbWrapperVariants = cva([
-  'text-slate-500',
+  'text-gray-600',
   'text-md',
   'flex',
   'gap-2',

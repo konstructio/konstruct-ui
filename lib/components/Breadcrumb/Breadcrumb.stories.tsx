@@ -26,8 +26,17 @@ export const Breadcrumb = {
     ],
   },
   render: (args) => (
-    <div className="max-w-[350px] flex flex-col gap-1">
-      <BreadcrumbComponent {...args} />
+    <div>
+      <div className="max-w-[250px] p-4 flex justify-center">
+        <BreadcrumbComponent {...args} />
+      </div>
+
+      <div
+        className="max-w-[250px] mt-2 bg-metal-900 p-4 rounded-lg flex justify-center"
+        data-theme="dark"
+      >
+        <BreadcrumbComponent {...args} />
+      </div>
     </div>
   ),
 } satisfies Story;
