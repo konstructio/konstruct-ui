@@ -1,4 +1,3 @@
-'use client';
 import { FC } from 'react';
 
 import { TimePickerProps } from './TimePicker.types';
@@ -11,6 +10,6 @@ const TimePicker: FC<TimePickerProps> = ({ format = '12', ...delegated }) => (
   </TimePickerProvider>
 );
 
-TimePicker.displayName = 'TimePicker';
+TimePicker.displayName = 'KonstructTimePicker';
 
 export { TimePicker };
