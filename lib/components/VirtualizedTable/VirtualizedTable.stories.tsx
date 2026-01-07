@@ -7,7 +7,7 @@ import { getPokemons, Pokemon } from '../../../mocks';
 
 import { DEFAULT_PAGE_SIZE } from './constants';
 import { VirtualizedTable as VirtualizedTableComponent } from './VirtualizedTable';
-import { ColumnDef } from './VirtualizedTable.types';
+import { ColumnDef, Props } from './VirtualizedTable.types';
 
 type Story = StoryObj<typeof VirtualizedTableComponent>;
 
@@ -114,58 +114,60 @@ const columns: ColumnDef<Pokemon>[] = [
   },
 ];
 
-export const VirtualizedTable: Story = {
-  args: {
-    showFilter: true,
-    showResetButton: true,
-    filterSearchPlaceholder: 'Search by name...',
-    showPagination: true,
-    isLoading: false,
-    ariaLabel: 'List of pokemons',
-    pageSizes: [5, 10, 20, 30, 50],
-    filterActions: [
-      {
-        label: 'Export',
-        variant: 'secondary',
-        onClick: () => {
-          console.log('Export');
+const args = {
+  showFilter: true,
+  showResetButton: true,
+  filterSearchPlaceholder: 'Search by name...',
+  showPagination: true,
+  isLoading: false,
+  ariaLabel: 'List of pokemons',
+  pageSizes: [5, 10, 20, 30, 50],
+  filterActions: [
+    {
+      label: 'Export',
+      variant: 'secondary',
+      onClick: () => {
+        console.log('Export');
+      },
+    },
+  ],
+  multiSelectFilter: [
+    {
+      key: 'type',
+      label: 'Type',
+      options: [
+        {
+          id: 'grass',
+          label: 'Grass',
+          variant: 'success',
         },
-      },
-    ],
-    multiSelectFilter: [
-      {
-        key: 'type',
-        label: 'Type',
-        options: [
-          {
-            id: 'grass',
-            label: 'Grass',
-            variant: 'success',
-          },
-          {
-            id: 'fire',
-            label: 'Fire',
-            variant: 'danger',
-          },
-          {
-            id: 'water',
-            label: 'Water',
-            variant: 'info',
-          },
-          {
-            id: 'bug',
-            label: 'Bug',
-            variant: 'warning',
-          },
-          {
-            id: 'normal',
-            label: 'Normal',
-            variant: undefined,
-          },
-        ],
-      },
-    ],
-  },
+        {
+          id: 'fire',
+          label: 'Fire',
+          variant: 'danger',
+        },
+        {
+          id: 'water',
+          label: 'Water',
+          variant: 'info',
+        },
+        {
+          id: 'bug',
+          label: 'Bug',
+          variant: 'warning',
+        },
+        {
+          id: 'normal',
+          label: 'Normal',
+          variant: undefined,
+        },
+      ],
+    },
+  ],
+} satisfies Partial<Props<unknown>>;
+
+export const Light: Story = {
+  args,
   render: (args) => {
     const id = useId();
     const [{ data, totalItemsCount }, setData] = useState<{
@@ -221,7 +223,81 @@ export const VirtualizedTable: Story = {
     }
 
     return (
-      <div className="w-full">
+      <div className="w-full p-4">
+        <QueryClientProvider client={queryClient}>
+          <VirtualizedTableComponent<Pokemon>
+            {...args}
+            id={id}
+            data={data}
+            columns={columns}
+            showPagination={true}
+            fetchData={getNewData}
+            totalItems={totalItemsCount}
+          />
+        </QueryClientProvider>
+      </div>
+    );
+  },
+};
+
+export const Dark: Story = {
+  args,
+  render: (args) => {
+    const id = useId();
+    const [{ data, totalItemsCount }, setData] = useState<{
+      data: Pokemon[];
+      totalItemsCount: number;
+    }>({
+      data: [],
+      totalItemsCount: 0,
+    });
+
+    useEffect(() => {
+      const init = async () => {
+        const result = await getPokemons({
+          page: 1,
+          pageSize: DEFAULT_PAGE_SIZE,
+        });
+
+        setData({
+          data: result.results,
+          totalItemsCount: result.totalItemsCount,
+        });
+      };
+
+      init();
+    }, []);
+
+    const getNewData = useCallback(
+      async ({
+        page = 1,
+        pageSize = DEFAULT_PAGE_SIZE,
+        termOfSearch = undefined,
+        type = undefined,
+      }: PokemonResponse) => {
+        const result = await getPokemons({
+          page,
+          pageSize,
+          termOfSearch,
+          type,
+        });
+
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        return {
+          data: result.results,
+          totalItemsCount: result.totalItemsCount,
+        };
+      },
+      [getPokemons],
+    );
+
+    if (data.length === 0) {
+      return <div>Loading...</div>;
+    }
+
+    return (
+      <div className="w-full bg-metal-900 p-4 rounded-lg" data-theme="dark">
         <QueryClientProvider client={queryClient}>
           <VirtualizedTableComponent<Pokemon>
             {...args}

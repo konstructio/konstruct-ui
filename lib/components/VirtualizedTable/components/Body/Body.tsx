@@ -31,7 +31,7 @@ export const Body = <TData extends RowData = RowData>({
           <tr
             key={id}
             className={cn(
-              'border-b border-b-gray-200 last:border-b-transparent bg-transparent',
+              'border-b border-b-gray-200 dark:border-b-metal-300 dark:text-metal-50 last:border-b-transparent bg-transparent',
               meta.className,
             )}
             data-row-id={id}
@@ -47,7 +47,7 @@ export const Body = <TData extends RowData = RowData>({
                 <td
                   key={id}
                   className={cn(
-                    'px-4 py-1 text-sm bg-white',
+                    'px-4 py-1 text-sm bg-white dark:bg-metal-900',
                     classNameFromMeta,
                     {
                       '[tr:last-child_&:first-of-type]:rounded-bl-lg':
