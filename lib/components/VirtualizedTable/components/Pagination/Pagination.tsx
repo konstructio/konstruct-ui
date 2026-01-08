@@ -33,7 +33,20 @@ export const Pagination: FC<Props> = ({
     <>
       <div
         className={cn(
-          'bg-slate-50 border border-y-transparent border-x-slate-100 text-slate-500 text-xs not-italic py-2 px-6 rounded-b-lg shadow',
+          'bg-slate-50',
+          'border',
+          'border-y-transparent',
+          'border-x-slate-100',
+          'text-slate-500',
+          'text-xs',
+          'not-italic',
+          'py-2',
+          'px-6',
+          'rounded-b-lg',
+          'shadow',
+          'dark:bg-metal-800',
+          'dark:border-x-metal-700',
+          'dark:border-b-metal-700',
           classNamePagination,
           {
             'animate-in fade-in-10': !isFirstLoad,
@@ -43,7 +56,9 @@ export const Pagination: FC<Props> = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
             {totalItems && showTotalItems ? (
-              <span className="text-slate-800">{totalItems} Results</span>
+              <span className="text-slate-800 dark:text-metal-300">
+                {totalItems} Results
+              </span>
             ) : null}
 
             {showDropdownPagination && (

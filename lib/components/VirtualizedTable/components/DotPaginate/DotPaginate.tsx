@@ -19,9 +19,13 @@ const PageButton = memo(
       <button
         type="button"
         onClick={() => handlePage(index)}
-        className={cn('px-2.5 py-1 rounded-lg text-blue-600 cursor-pointer', {
-          'bg-blue-600 text-white': index === currentPage,
-        })}
+        className={cn(
+          'px-2.5 py-1 rounded-lg text-blue-600 cursor-pointer dark:text-aurora-500',
+          {
+            'bg-blue-600 text-white dark:bg-aurora-500 dark:text-metal-800':
+              index === currentPage,
+          },
+        )}
       >
         {index + 1}
       </button>
@@ -33,7 +37,7 @@ PageButton.displayName = 'PageButton';
 
 const Ellipsis = memo(({ keyValue }: { keyValue: string }) => (
   <li key={keyValue} className="px-2">
-    <span className="text-blue-600 select-none">...</span>
+    <span className="text-blue-600 select-none dark:text-aurora-500">...</span>
   </li>
 ));
 
@@ -56,7 +60,7 @@ const NavigationButton = memo(
         <button onClick={onClick} disabled={disabled}>
           <Icon
             className={cn('h-6 w-6 cursor-pointer', {
-              'text-blue-600': !disabled,
+              'text-blue-600 dark:text-aurora-500': !disabled,
               'text-slate-400 cursor-not-allowed': disabled,
             })}
           />

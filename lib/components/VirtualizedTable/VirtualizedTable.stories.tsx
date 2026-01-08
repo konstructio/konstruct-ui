@@ -117,7 +117,6 @@ const columns: ColumnDef<Pokemon>[] = [
 const args = {
   showFilter: true,
   showResetButton: true,
-  filterSearchPlaceholder: 'Search by name...',
   showPagination: true,
   isLoading: false,
   ariaLabel: 'List of pokemons',
@@ -223,19 +222,17 @@ export const Light: Story = {
     }
 
     return (
-      <div className="w-full p-4">
-        <QueryClientProvider client={queryClient}>
-          <VirtualizedTableComponent<Pokemon>
-            {...args}
-            id={id}
-            data={data}
-            columns={columns}
-            showPagination={true}
-            fetchData={getNewData}
-            totalItems={totalItemsCount}
-          />
-        </QueryClientProvider>
-      </div>
+      <QueryClientProvider client={queryClient}>
+        <VirtualizedTableComponent<Pokemon>
+          {...args}
+          id={id}
+          data={data}
+          columns={columns}
+          showPagination={true}
+          fetchData={getNewData}
+          totalItems={totalItemsCount}
+        />
+      </QueryClientProvider>
     );
   },
 };
@@ -268,6 +265,16 @@ export const Dark: Story = {
       init();
     }, []);
 
+    useEffect(() => {
+      document.body.setAttribute('data-theme', 'dark');
+      document.body.classList.add('bg-metal-900');
+
+      return () => {
+        document.body.removeAttribute('data-theme');
+        document.body.classList.remove('bg-metal-900');
+      };
+    }, []);
+
     const getNewData = useCallback(
       async ({
         page = 1,
@@ -297,19 +304,17 @@ export const Dark: Story = {
     }
 
     return (
-      <div className="w-full bg-metal-900 p-4 rounded-lg" data-theme="dark">
-        <QueryClientProvider client={queryClient}>
-          <VirtualizedTableComponent<Pokemon>
-            {...args}
-            id={id}
-            data={data}
-            columns={columns}
-            showPagination={true}
-            fetchData={getNewData}
-            totalItems={totalItemsCount}
-          />
-        </QueryClientProvider>
-      </div>
+      <QueryClientProvider client={queryClient}>
+        <VirtualizedTableComponent<Pokemon>
+          {...args}
+          id={id}
+          data={data}
+          columns={columns}
+          showPagination={true}
+          fetchData={getNewData}
+          totalItems={totalItemsCount}
+        />
+      </QueryClientProvider>
     );
   },
 };

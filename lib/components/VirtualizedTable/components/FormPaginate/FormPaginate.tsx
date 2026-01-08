@@ -28,18 +28,19 @@ export const FormPaginate = () => {
       onSubmit={handleSubmit}
       className="flex items-center gap-2"
     >
-      <span className="min-w-fit">Jump to</span>
+      <span className="min-w-fit dark:text-metal-300">Jump to</span>
       <Input
         type="number"
-        className="w-18 text-xs no-spinner"
+        className="w-18 text-xs no-spinner dark:bg-metal-800 dark:border-metal-700 dark:text-metal-300"
         name="jump-to"
         min={1}
         max={totalPages}
         required
+        autoComplete="off"
       />
       <button
         type="submit"
-        className="text-xs text-blue-600 p-2 cursor-pointer"
+        className="text-xs text-blue-600 p-2 cursor-pointer dark:text-aurora-500"
       >
         Go
       </button>

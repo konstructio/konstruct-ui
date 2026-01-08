@@ -165,7 +165,18 @@ export const Wrapper: ForwardRefExoticComponent<
             )}
 
             {showSearchIcon && (
-              <Search className="w-4 h-4 text-zinc-500 select-none dark:text-slate-300 dark:group-focus-within:text-slate-50 transition-colors duration-300" />
+              <Search
+                className={cn(
+                  'w-4',
+                  'h-4',
+                  'text-zinc-500',
+                  'select-none',
+                  'transition-colors',
+                  'duration-300',
+                  'dark:text-metal-300',
+                  'dark:group-focus-within:text-slate-50',
+                )}
+              />
             )}
 
             {searchable ? (

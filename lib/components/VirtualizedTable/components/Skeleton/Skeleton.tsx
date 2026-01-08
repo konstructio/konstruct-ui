@@ -19,7 +19,12 @@ export const Skeleton = <T,>({ numberOfRows, table }: SkeletonProps<T>) => {
         return (
           <tr
             key={`skeleton-row-${rowIndex}`}
-            className="border-b border-b-gray-200 bg-transparent last:border-b-transparent"
+            className={cn(
+              'border-b',
+              'border-b-gray-200',
+              'bg-transparent',
+              'last:border-b-transparent',
+            )}
           >
             {columns.map((column, columnIndex) => {
               if (column.id !== 'actions') {
@@ -27,7 +32,15 @@ export const Skeleton = <T,>({ numberOfRows, table }: SkeletonProps<T>) => {
                   <td
                     key={`skeleton-${column.id}`}
                     className={cn(
-                      'px-4 py-1 bg-white',
+                      'px-4',
+                      'py-1',
+                      'bg-white',
+                      'dark:bg-metal-900',
+                      'dark:border-t',
+                      'dark:border-metal-700',
+                      'dark:first:border-l',
+                      'dark:last:border-r',
+                      'dark:[tr:last-child_&]:border-b',
                       column.columnDef.meta?.className,
                       {
                         '[tr:last-child_&:first-of-type]:rounded-bl-lg':
@@ -39,7 +52,16 @@ export const Skeleton = <T,>({ numberOfRows, table }: SkeletonProps<T>) => {
                     )}
                   >
                     <div className="animate-in fade-in-0">
-                      <div className="bg-gray-200 animate-pulse rounded h-5 w-full" />
+                      <div
+                        className={cn(
+                          'bg-gray-200',
+                          'dark:bg-metal-700',
+                          'animate-pulse',
+                          'rounded',
+                          'h-5',
+                          'w-full',
+                        )}
+                      />
                     </div>
                   </td>
                 );
@@ -49,7 +71,15 @@ export const Skeleton = <T,>({ numberOfRows, table }: SkeletonProps<T>) => {
                 <td
                   key={`skeleton-${column.id}`}
                   className={cn(
-                    'px-4 py-1 bg-white',
+                    'px-4',
+                    'py-1',
+                    'bg-white',
+                    'dark:bg-metal-900',
+                    'dark:border-t',
+                    'dark:border-metal-700',
+                    'dark:first:border-l',
+                    'dark:last:border-r',
+                    'dark:[tr:last-child_&]:border-b',
                     column.columnDef.meta?.className,
                     {
                       '[tr:last-child_&:first-of-type]:rounded-bl-lg':
@@ -68,10 +98,16 @@ export const Skeleton = <T,>({ numberOfRows, table }: SkeletonProps<T>) => {
                     aria-hidden="true"
                   >
                     <EllipsisVertical
-                      className={cn('w-5 h-5 text-slate-400', {
-                        'text-gray-300 animate-pulse':
-                          tableFetching || tableLoading,
-                      })}
+                      className={cn(
+                        'w-5',
+                        'h-5',
+                        'text-slate-400',
+                        'dark:text-metal-700',
+                        {
+                          'text-gray-300 animate-pulse':
+                            tableFetching || tableLoading,
+                        },
+                      )}
                     />
                   </Button>
                 </td>

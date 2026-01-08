@@ -21,7 +21,15 @@ export const Body = <TData extends RowData = RowData>({
   const rows = table.getRowModel().rows ?? [];
 
   return (
-    <tbody className="text-slate-800 text-sm font-normal relative">
+    <tbody
+      className={cn(
+        'text-slate-800',
+        'text-sm',
+        'font-normal',
+        'relative',
+        'dark:border-x',
+      )}
+    >
       {rows.map(({ id, original, getVisibleCells }, rowIndex) => {
         const { meta = {} } = original as RowDataWithMeta;
 
@@ -31,7 +39,12 @@ export const Body = <TData extends RowData = RowData>({
           <tr
             key={id}
             className={cn(
-              'border-b border-b-gray-200 dark:border-b-metal-300 dark:text-metal-50 last:border-b-transparent bg-transparent',
+              'border-b',
+              'border-b-gray-200',
+              'dark:text-metal-50',
+              'dark:border-b-metal-700',
+              'last:border-b-transparent',
+              'bg-transparent',
               meta.className,
             )}
             data-row-id={id}
@@ -47,16 +60,26 @@ export const Body = <TData extends RowData = RowData>({
                 <td
                   key={id}
                   className={cn(
-                    'px-4 py-1 text-sm bg-white dark:bg-metal-900',
+                    'px-4',
+                    'py-1',
+                    'text-sm',
+                    'bg-white',
+                    'dark:bg-metal-900',
+                    'dark:border-t',
+                    'dark:border-metal-700',
+                    'dark:first:border-l',
+                    'dark:last:border-r',
                     classNameFromMeta,
                     {
-                      '[tr:last-child_&:first-of-type]:rounded-bl-lg':
-                        (rowIndex === rows.length - 1 && columnIndex === 0) ||
+                      'first:rounded-bl-lg':
+                        rowIndex === rows.length - 1 &&
+                        columnIndex === 0 &&
                         !showPagination,
-                      '[tr:last-child_&:last-of-type]:rounded-br-lg':
-                        (rowIndex === rows.length - 1 &&
-                          columnIndex === columns.length - 1) ||
+                      'last:rounded-br-lg':
+                        rowIndex === rows.length - 1 &&
+                        columnIndex === columns.length - 1 &&
                         !showPagination,
+                      'dark:[tr:last-child_&]:border-b': !showPagination,
                     },
                   )}
                   {...(column.columnDef.meta?.attributes ?? {})}

@@ -23,8 +23,9 @@ export const dropdownVariants = cva(
     'aria-expanded:text-aurora-500',
     'kubefirst:aria-expanded:border-kubefirst-primary',
     'kubefirst:aria-expanded:text-kubefirst-secondary',
-    'dark:border-slate-600',
+    'dark:border-metal-700',
     'dark:focus-visible:bg-slate-800',
+    'dark:bg-metal-800',
   ],
   {
     variants: {

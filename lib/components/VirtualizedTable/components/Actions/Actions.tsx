@@ -27,7 +27,12 @@ export const Actions = <TData extends RowData>({
         shape="circle"
         size="large"
         className={cn(
-          'text-slate-400 group-hover:text-slate-800 group-hover:bg-aurora-50',
+          'text-slate-400',
+          'group-hover:text-slate-800',
+          'group-hover:bg-aurora-50',
+          'dark:text-metal-400',
+          'dark:group-hover:text-aurora-500',
+          'dark:group-hover:bg-aurora-900',
           triggerButtonClassName,
         )}
         role="presentation"
@@ -41,13 +46,27 @@ export const Actions = <TData extends RowData>({
 
       <div
         className={cn(
-          'absolute top-full right-0 w-[215px] hidden group-hover:block z-10',
+          'absolute',
+          'top-full',
+          'right-0',
+          'w-[215px]',
+          'hidden',
+          'group-hover:block',
+          'z-10',
           wrapperActionsClassName,
         )}
       >
         <div
           className={cn(
-            'bg-white mt-0.5 py-2 rounded-lg shadow-lg border border-zinc-100 animate-in fade-in-0',
+            'bg-white',
+            'mt-0.5',
+            'py-2',
+            'rounded-lg',
+            'shadow-lg',
+            'border',
+            'border-zinc-100',
+            'animate-in',
+            'fade-in-0',
             wrapperContentActionsClassName,
           )}
         >
@@ -55,7 +74,20 @@ export const Actions = <TData extends RowData>({
             <Button
               key={label as string}
               className={cn(
-                'w-full text-slate-800 cursor-pointer p-0 h-9 flex gap-2 text-sm font-normal justify-start hover:bg-gray-50 hover:text-slate-800 rounded-none px-6',
+                'w-full',
+                'text-slate-800',
+                'cursor-pointer',
+                'p-0',
+                'h-9',
+                'flex',
+                'gap-2',
+                'text-sm',
+                'font-normal',
+                'justify-start',
+                'hover:bg-gray-50',
+                'hover:text-slate-800',
+                'rounded-none',
+                'px-6',
                 className,
               )}
               variant="text"

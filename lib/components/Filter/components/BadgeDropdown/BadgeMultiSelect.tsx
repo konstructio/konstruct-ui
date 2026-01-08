@@ -39,7 +39,7 @@ export const BadgeMultiSelect: FC<BadgeMultiSelectProps> = ({
     <div ref={wrapperRef} className="relative">
       <button
         className={cn(filterButtonVariants(), {
-          'text-slate-700': isOpen,
+          'text-slate-700 dark:text-metal-50': isOpen,
         })}
         onClick={handleOpen}
       >
@@ -50,7 +50,7 @@ export const BadgeMultiSelect: FC<BadgeMultiSelectProps> = ({
         <ChevronDownIcon
           className={cn(filterButtonIconVariants(), {
             'rotate-180': isOpen,
-            'text-blue-600': isOpen,
+            'text-blue-600 dark:text-aurora-500': isOpen,
           })}
         />
       </button>
@@ -58,7 +58,19 @@ export const BadgeMultiSelect: FC<BadgeMultiSelectProps> = ({
       {isOpen && (
         <div
           className={cn(
-            'absolute top-full mt-1 bg-white rounded-md shadow-md animate-in fade-in-0 z-10 border border-gray-200',
+            'absolute',
+            'top-full',
+            'mt-1',
+            'bg-white',
+            'rounded-md',
+            'shadow-md',
+            'animate-in',
+            'fade-in-0',
+            'z-10',
+            'border',
+            'border-gray-200',
+            'dark:bg-metal-800',
+            'dark:border-metal-700',
             {
               'left-0': position === 'left',
               'right-0': position === 'right',
@@ -89,7 +101,18 @@ export const BadgeMultiSelect: FC<BadgeMultiSelectProps> = ({
             </div>
           </div>
 
-          <div className="flex justify-center items-center gap-4 py-4 border-t border-gray-200">
+          <div
+            className={cn(
+              'flex',
+              'justify-center',
+              'items-center',
+              'gap-4',
+              'py-4',
+              'border-t',
+              'border-gray-200',
+              'dark:border-metal-700',
+            )}
+          >
             <Button
               variant="secondary"
               appearance="compact"
