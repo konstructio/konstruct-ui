@@ -86,7 +86,11 @@ const VirtualizedTableInner = <TData extends RowData>({
           isLoading={isLoading}
         >
           <table
-            className={cn('w-full border-collapse table-fixed', classNameTable)}
+            className={cn(
+              'w-full border-collapse table-fixed',
+              'dark:border-separate dark:border-spacing-0',
+              classNameTable,
+            )}
             aria-label={ariaLabel}
           >
             <Header

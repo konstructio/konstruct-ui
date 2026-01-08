@@ -10,6 +10,7 @@ export const filterButtonVariants = cva([
   'cursor-pointer',
   'text-sm',
   'w-max',
+  'dark:text-metal-300',
 ]);
 
 export const filterButtonIconVariants = cva([

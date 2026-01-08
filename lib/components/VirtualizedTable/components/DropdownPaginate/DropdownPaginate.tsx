@@ -25,11 +25,11 @@ export const DropdownPaginate: FC<Props> = ({
   );
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 dark:text-metal-300">
       <span>Show</span>
       <Dropdown
         className="w-22 [&>div>p]:text-xs bg-white"
-        listItemClassName="[&>p]:text-xs"
+        listItemClassName="[&>p]:text-xs dark:bg-metal-800"
         options={options}
         value={pageSize.toString()}
         onChange={({ target }) => handleChange(target.value)}

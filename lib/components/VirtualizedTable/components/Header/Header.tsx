@@ -31,7 +31,15 @@ export const Header = <TData extends RowData>({
   return (
     <thead
       className={cn(
-        'font-semibold uppercase text-slate-500 text-xs not-italic bg-slate-100 overflow-hidden [clip-path:inset(-1px_-1px_0px_-1px_round_8px_8px_0px_0px)]',
+        'font-semibold',
+        'uppercase',
+        'text-slate-500',
+        'text-xs',
+        'not-italic',
+        'bg-slate-100',
+        'overflow-hidden',
+        'dark:text-slate-300',
+        'dark:bg-metal-800',
         className,
       )}
     >
@@ -42,7 +50,17 @@ export const Header = <TData extends RowData>({
               scope="col"
               key={id}
               className={cn(
-                'px-4 py-3 text-left text-xs',
+                'px-4',
+                'py-3',
+                'text-left',
+                'text-xs',
+                'first:rounded-tl-lg',
+                'last:rounded-tr-lg',
+                'border-transparent',
+                'dark:border-t',
+                'dark:border-metal-700',
+                'dark:first:border-l',
+                'dark:last:border-r',
                 column.columnDef.meta?.headerClassName,
               )}
             >

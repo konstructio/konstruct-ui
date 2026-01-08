@@ -103,10 +103,7 @@ export const Filter: FC<Props> = ({
 
         {showResetButton && (
           <FilterPrimitive.ResetButton
-            className={cn(
-              'text-slate-700 hover:text-slate-700 disabled:text-slate-700/45 select-none',
-              resetButtonClassName,
-            )}
+            className={cn('select-none', resetButtonClassName)}
             disabled={!hasData}
             onClick={handleResetFilters}
           />
