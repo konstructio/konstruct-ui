@@ -67,8 +67,9 @@ export const triggerVariants = cva(
           'font-semibold',
           'after:scale-y-100',
           'hover:after:scale-y-140',
+          'dark:text-metal-100',
         ],
-        inactive: 'text-slate-500 font-[600]',
+        inactive: ['text-slate-500', 'font-semibold', 'dark:text-metal-400'],
       },
     },
     defaultVariants: {

@@ -3,11 +3,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { EyeIcon } from 'lucide-react';
 import { useCallback, useEffect, useId, useState } from 'react';
 
-import { getPokemons, Pokemon } from '../../../mocks';
-
-import { DEFAULT_PAGE_SIZE } from './constants';
-import { VirtualizedTable as VirtualizedTableComponent } from './VirtualizedTable';
-import { ColumnDef, Props } from './VirtualizedTable.types';
+import { getPokemons, Pokemon } from '../../../../mocks';
+import { DEFAULT_PAGE_SIZE } from '../constants';
+import { VirtualizedTable as VirtualizedTableComponent } from '../VirtualizedTable';
+import { ColumnDef, Props } from '../VirtualizedTable.types';
 
 type Story = StoryObj<typeof VirtualizedTableComponent>;
 
@@ -164,78 +163,6 @@ const args = {
     },
   ],
 } satisfies Partial<Props<unknown>>;
-
-export const Light: Story = {
-  args,
-  render: (args) => {
-    const id = useId();
-    const [{ data, totalItemsCount }, setData] = useState<{
-      data: Pokemon[];
-      totalItemsCount: number;
-    }>({
-      data: [],
-      totalItemsCount: 0,
-    });
-
-    useEffect(() => {
-      const init = async () => {
-        const result = await getPokemons({
-          page: 1,
-          pageSize: DEFAULT_PAGE_SIZE,
-        });
-
-        setData({
-          data: result.results,
-          totalItemsCount: result.totalItemsCount,
-        });
-      };
-
-      init();
-    }, []);
-
-    const getNewData = useCallback(
-      async ({
-        page = 1,
-        pageSize = DEFAULT_PAGE_SIZE,
-        termOfSearch = undefined,
-        type = undefined,
-      }: PokemonResponse) => {
-        const result = await getPokemons({
-          page,
-          pageSize,
-          termOfSearch,
-          type,
-        });
-
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-
-        return {
-          data: result.results,
-          totalItemsCount: result.totalItemsCount,
-        };
-      },
-      [getPokemons],
-    );
-
-    if (data.length === 0) {
-      return <div>Loading...</div>;
-    }
-
-    return (
-      <QueryClientProvider client={queryClient}>
-        <VirtualizedTableComponent<Pokemon>
-          {...args}
-          id={id}
-          data={data}
-          columns={columns}
-          showPagination={true}
-          fetchData={getNewData}
-          totalItems={totalItemsCount}
-        />
-      </QueryClientProvider>
-    );
-  },
-};
 
 export const Dark: Story = {
   args,
