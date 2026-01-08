@@ -24,7 +24,7 @@ export const dropdownVariants = cva(
     'kubefirst:aria-expanded:border-kubefirst-primary',
     'kubefirst:aria-expanded:text-kubefirst-secondary',
     'dark:border-metal-700',
-    'dark:focus-visible:bg-slate-800',
+    'dark:focus-visible:bg-metal-800',
     'dark:bg-metal-800',
   ],
   {
@@ -39,7 +39,7 @@ export const dropdownVariants = cva(
         false: '',
       },
       disabled: {
-        true: ['cursor-default', 'bg-gray-100', 'dark:bg-slate-700/80'],
+        true: ['cursor-default', 'bg-gray-100', 'dark:bg-metal-700/80'],
         false: [],
       },
     },
@@ -61,8 +61,8 @@ export const inputVariants = cva([
   'placeholder:text-sm',
   'placeholder:normal-case',
   'placeholder:select-none',
-  'dark:placeholder:text-slate-400',
-  'dark:text-slate-50',
+  'dark:placeholder:text-metal-400',
+  'dark:text-metal-50',
 ]);
 
 export const labelVariants = cva([
@@ -71,5 +71,5 @@ export const labelVariants = cva([
   'text-sm',
   'leading-5',
   'tracking-[0.1px]',
-  'dark:text-slate-50',
+  'dark:text-metal-50',
 ]);

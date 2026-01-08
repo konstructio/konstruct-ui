@@ -199,7 +199,25 @@ export const List: ForwardRefExoticComponent<
 
         {additionalOptions?.map((option, index) => (
           <li key={index} role="option" data-action="true">
-            <Slot className="flex p-2 w-full h-full gap-1 items-center text-sm [&>svg]:w-3.5 [&>svg]:h-3.5 [&>svg]:shrink-0 cursor-pointer select-none hover:bg-gray-50 hover:dark:bg-slate-700 focus:outline-0">
+            <Slot
+              className={cn(
+                'flex',
+                'p-2',
+                'w-full',
+                'h-full',
+                'gap-1',
+                'items-center',
+                'text-sm',
+                '[&>svg]:w-3.5',
+                '[&>svg]:h-3.5',
+                '[&>svg]:shrink-0',
+                'cursor-pointer',
+                'select-none',
+                'hover:bg-gray-50',
+                'hover:dark:bg-metal-700',
+                'focus:outline-0',
+              )}
+            >
               {option}
             </Slot>
           </li>

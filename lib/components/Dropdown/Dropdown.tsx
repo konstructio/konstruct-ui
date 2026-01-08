@@ -51,7 +51,7 @@ export const Dropdown: FC<DropdownProps> = forwardRef<
         ) : null}
 
         {!error && helperText ? (
-          <span className={cn('text-xs text-slate-600', helperTextClassName)}>
+          <span className={cn('text-xs text-metal-600', helperTextClassName)}>
             {helperText}
           </span>
         ) : null}
