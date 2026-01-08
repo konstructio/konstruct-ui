@@ -159,7 +159,7 @@ export const Wrapper: ForwardRefExoticComponent<
         >
           <div className="flex gap-2.5 items-center flex-1">
             {internalValue?.leftIcon && !showSearchIcon && (
-              <span className="w-4 h-4 flex justify-center items-center dark:text-slate-50">
+              <span className="w-4 h-4 flex justify-center items-center dark:text-metal-50">
                 {internalValue.leftIcon}
               </span>
             )}
@@ -174,7 +174,7 @@ export const Wrapper: ForwardRefExoticComponent<
                   'transition-colors',
                   'duration-300',
                   'dark:text-metal-300',
-                  'dark:group-focus-within:text-slate-50',
+                  'dark:group-focus-within:text-metal-50',
                 )}
               />
             )}
@@ -210,12 +210,12 @@ export const Wrapper: ForwardRefExoticComponent<
               <Typography
                 variant="body2"
                 className={cn(
-                  'flex-1 text-zinc-400 text-sm dark:text-slate-400 flex gap-2 items-center',
+                  'flex-1 text-zinc-400 text-sm dark:text-metal-400 flex gap-2 items-center',
                   {
                     'text-red-700': !!error,
                     'select-none': !internalValue,
-                    'text-slate-800 dark:text-slate-50': internalValue,
-                    'text-slate-400/50 dark:text-slate-50/50': disabled,
+                    'text-metal-800 dark:text-metal-50': internalValue,
+                    'text-metal-400/50 dark:text-metal-50/50': disabled,
                   },
                   internalValue?.wrapperClassNameOnSelectedValue,
                 )}
@@ -229,17 +229,17 @@ export const Wrapper: ForwardRefExoticComponent<
           </div>
 
           {isLoading ? (
-            <Loader className="w-4 h-4 text-slate-400 animate-spin select-none" />
+            <Loader className="w-4 h-4 text-metal-400 animate-spin select-none" />
           ) : (
             !showSearchIcon && (
               <ChevronUp
                 data-state={isOpen ? 'open' : 'closed'}
                 className={cn(
-                  'w-4 h-4 text-zinc-500 transition-all duration-100 data-[state=open]:rotate-0 data-[state=closed]:rotate-180 select-none dark:group-focus-within:text-slate-50',
+                  'w-4 h-4 text-zinc-500 transition-all duration-100 data-[state=open]:rotate-0 data-[state=closed]:rotate-180 select-none dark:group-focus-within:text-metal-50',
                   iconClassName,
                   {
                     'text-red-700': !!error,
-                    'text-slate-400/50 dark:group-focus-within:text-zinc-500':
+                    'text-metal-400/50 dark:group-focus-within:text-zinc-500':
                       disabled,
                   },
                 )}

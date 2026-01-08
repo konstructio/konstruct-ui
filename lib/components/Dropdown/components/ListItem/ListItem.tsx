@@ -18,7 +18,7 @@ function highlightText(value: string, searchTerm: string) {
       return (
         <mark
           key={index}
-          className="bg-transparent font-semibold text-slate-800 dark:text-slate-50"
+          className="bg-transparent font-semibold text-metal-800 dark:text-metal-50"
         >
           {part}
         </mark>
@@ -65,7 +65,7 @@ export const ListItem: FC<ListItemProps> = ({
         return (
           <Typography
             variant="body2"
-            className="text-zinc-800 dark:text-slate-50 italic"
+            className="text-zinc-800 dark:text-metal-50 italic"
           >
             {label}
           </Typography>
@@ -84,7 +84,7 @@ export const ListItem: FC<ListItemProps> = ({
       return (
         <Typography
           variant="body2"
-          className="text-zinc-700 dark:text-slate-50 font-medium"
+          className="text-zinc-700 dark:text-metal-50 font-medium"
         >
           {rightComponent ? (
             <span
@@ -99,7 +99,7 @@ export const ListItem: FC<ListItemProps> = ({
           {subLabel ? (
             <span
               className={cn(
-                'block font-normal text-sm text-slate-800 dark:text-slate-50',
+                'block font-normal text-sm text-metal-800 dark:text-metal-50',
                 listItemSecondRowClassName,
               )}
             >
@@ -133,7 +133,7 @@ export const ListItem: FC<ListItemProps> = ({
             'w-4 h-4 flex justify-center',
             {
               'items-center': !option.subLabel,
-              'items-baseline -translate-y-2': !!option.subLabel,
+              'items-baseline -tranmetal-y-2': !!option.subLabel,
             },
             option.leftIconClassName,
           )}

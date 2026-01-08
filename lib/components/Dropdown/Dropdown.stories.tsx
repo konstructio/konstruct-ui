@@ -72,7 +72,7 @@ export const Dropdown = {
 
     return (
       <div className="flex flex-col gap-6">
-        <div className="max-w-[350px] flex flex-col gap-6 p-6">
+        <div className="max-w-87.5 flex flex-col gap-6 p-6">
           <DropdownComponent
             label="Searchable dropdown with Kubefirst theme"
             onChange={({ target: { value } }) => setValue1(value)}
@@ -172,7 +172,7 @@ export const Dropdown = {
         </div>
 
         <div
-          className="max-w-[350px] flex flex-col gap-6 p-6 bg-slate-800 rounded-sm"
+          className="max-w-87.5 flex flex-col gap-6 p-6 bg-metal-900 rounded-sm"
           data-theme="dark"
         >
           <DropdownComponent
@@ -238,7 +238,7 @@ export const DropdownInModal = {
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
           theme="kubefirst"
-          className="min-h-[100px]"
+          className="min-h-25"
         >
           <Modal.Body>
             <div className="p-6">

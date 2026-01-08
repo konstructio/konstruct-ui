@@ -15,6 +15,6 @@ export const listItemVariants = cva([
   'duration-250',
   'hover:bg-gray-50',
   'focus:bg-gray-50',
-  'dark:hover:bg-slate-700',
-  'dark:focus:bg-slate-700',
+  'dark:hover:bg-metal-700',
+  'dark:focus:bg-metal-700',
 ]);
