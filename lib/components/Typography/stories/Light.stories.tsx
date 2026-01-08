@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Typography as TypographyComponent } from './Typography';
-import { TypographyProps } from './Typography.types';
+import { Typography as TypographyComponent } from '../Typography';
+import { TypographyProps } from '../Typography.types';
 
 type Story = StoryObj<typeof TypographyComponent>;
 
@@ -30,13 +30,13 @@ const variants = [
   'tooltip',
 ] satisfies TypographyProps['variant'][];
 
-export const Typography: Story = {
+export const Light: Story = {
   args: {},
   render: () => (
     <>
       <div className="w-full space-y-4">
         {variants.map((variant) => (
-          <TypographyComponent variant={variant} theme="kubefirst">
+          <TypographyComponent variant={variant}>
             {`${variant} - Almost before we knew it, we had...`}
           </TypographyComponent>
         ))}
