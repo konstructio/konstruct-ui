@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 
-import { Tabs as TabsComponent } from './Tabs';
+import { Tabs as TabsComponent } from '../Tabs';
 
 type Story = StoryObj<typeof TabsComponent>;
 
@@ -13,7 +13,7 @@ const meta: Meta<typeof TabsComponent> = {
   },
 };
 
-export const Tabs: Story = {
+export const Light: Story = {
   render: function TabsStory(args) {
     const [selectedTab, setSelectedTab] = useState('tab1');
 
@@ -26,7 +26,6 @@ export const Tabs: Story = {
       <TabsComponent
         onValueChange={handleValueChange}
         value={selectedTab}
-        theme="light"
         orientation="horizontal"
         {...args}
       >
