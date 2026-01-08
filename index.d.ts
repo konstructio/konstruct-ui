@@ -107,12 +107,13 @@ declare type BadgeProps = VariantProps<typeof badgeVariants> & {
     label: string;
     leftIcon?: ReactNode;
     loading?: boolean;
+    isSelectable?: boolean;
     onClick?: VoidFunction;
     onDismiss?: VoidFunction;
 };
 
 declare const badgeVariants: (props?: ({
-    variant?: "info" | "warning" | "danger" | "default" | "success" | "violet" | null | undefined;
+    variant?: "info" | "warning" | "danger" | "default" | "success" | "violet" | "orange" | null | undefined;
     size?: "default" | null | undefined;
 } & ClassProp) | undefined) => string;
 
