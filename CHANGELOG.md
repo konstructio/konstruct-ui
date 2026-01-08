@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.1.2-alpha.42](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.42) (2026-01-08)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.41...0.1.2-alpha.42)
+
+**Merged pull requests:**
+
+- 🚚 chore: dark and light files were created [\#444](https://github.com/konstructio/konstruct-ui/pull/444) ([futjesus](https://github.com/futjesus))
+- 💄 style: dark mode for virtualized tabs component was added [\#443](https://github.com/konstructio/konstruct-ui/pull/443) ([futjesus](https://github.com/futjesus))
+- 💄 style: dark mode for virtualized table component was added [\#442](https://github.com/konstructio/konstruct-ui/pull/442) ([futjesus](https://github.com/futjesus))
+- 💄 style: dark mode for alert dialog component was added [\#441](https://github.com/konstructio/konstruct-ui/pull/441) ([futjesus](https://github.com/futjesus))
+- 💄 style: dark mode for datepicker component was added [\#440](https://github.com/konstructio/konstruct-ui/pull/440) ([futjesus](https://github.com/futjesus))
+- 💄 style: dark mode for timepicker component was added [\#439](https://github.com/konstructio/konstruct-ui/pull/439) ([futjesus](https://github.com/futjesus))
+- 💄 style: dark mode for card component was added [\#438](https://github.com/konstructio/konstruct-ui/pull/438) ([futjesus](https://github.com/futjesus))
+- 💄 style: dark mode for breadcrumb component was added [\#437](https://github.com/konstructio/konstruct-ui/pull/437) ([futjesus](https://github.com/futjesus))
+- 💄 style: dark mode for badge component was added [\#436](https://github.com/konstructio/konstruct-ui/pull/436) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: some dependencies have been updated [\#435](https://github.com/konstructio/konstruct-ui/pull/435) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.41](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.41) (2025-12-05)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.40...0.1.2-alpha.41)
