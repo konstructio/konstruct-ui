@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.44](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.44) (2026-01-08)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.43...0.1.2-alpha.44)
+
+**Merged pull requests:**
+
+- 💄 style: dark mode for dropdown component was added [\#445](https://github.com/konstructio/konstruct-ui/pull/445) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.43](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.43) (2026-01-08)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.42...0.1.2-alpha.43)
