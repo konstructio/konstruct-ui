@@ -1,6 +1,6 @@
 import { FC, useCallback, useMemo } from 'react';
 
-import { Dropdown } from '@/components/Dropdown/Dropdown';
+import { Select } from '@/components/Select/Select';
 
 import { DEFAULT_PAGE_SIZES } from '../../constants';
 import { useTableContext } from '../../contexts';
@@ -27,7 +27,7 @@ export const DropdownPaginate: FC<Props> = ({
   return (
     <div className="flex items-center gap-2 dark:text-metal-300">
       <span>Show</span>
-      <Dropdown
+      <Select
         className="w-22 [&>div>p]:text-xs bg-white"
         listItemClassName="[&>p]:text-xs dark:bg-metal-800"
         options={options}

@@ -1,7 +1,7 @@
 import { ComponentRef, RefObject, useEffect, useRef } from 'react';
 
-import { useDropdownContext } from '../contexts';
-import { Option } from '../Dropdown.types';
+import { useSelectContext } from '../contexts';
+import { Option } from '../Select.types';
 
 type UseNavigationListProps = {
   inputRef?: RefObject<ComponentRef<'input'> | null>;
@@ -18,7 +18,7 @@ export const useNavigationUlList = ({
   filteredOptions,
 }: UseNavigationListProps) => {
   const index = useRef(0);
-  const { isOpen } = useDropdownContext();
+  const { isOpen } = useSelectContext();
 
   useEffect(() => {
     const allItems = ulRef.current?.querySelectorAll('li') ?? [];

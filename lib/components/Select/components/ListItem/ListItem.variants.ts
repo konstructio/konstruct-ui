@@ -2,8 +2,8 @@ import { cva } from 'class-variance-authority';
 
 export const listItemVariants = cva([
   'cursor-pointer',
-  'py-2',
-  'px-2',
+  'py-1.5',
+  'px-6',
   'h-full',
   'focus-visible:outline-none',
   'm-0',
@@ -13,6 +13,7 @@ export const listItemVariants = cva([
   'gap-3',
   'transition-bg',
   'duration-250',
+  'min-h-10',
   'hover:bg-gray-50',
   'focus:bg-gray-50',
   'dark:hover:bg-metal-700',

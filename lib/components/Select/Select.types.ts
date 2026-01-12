@@ -3,7 +3,7 @@ import { InputHTMLAttributes, ReactNode } from 'react';
 
 import { Theme } from '@/domain/theme';
 
-import { dropdownVariants } from './Dropdown.variants';
+import { selectVariants } from './Select.variants';
 
 export type Option = {
   label: string;
@@ -19,13 +19,15 @@ export type Option = {
 
 type OnChangeFn = (params: { target: { value: string; name: string } }) => void;
 
-export type DropdownProps = VariantProps<typeof dropdownVariants> &
+export type SelectProps = VariantProps<typeof selectVariants> &
   Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> & {
     additionalOptions?: ReactNode[] | string[];
     className?: string;
     disabled?: boolean;
     error?: string;
+    errorClassName?: string;
     helperText?: string;
+    helperTextClassName?: string;
     highlightSearch?: boolean;
     iconClassName?: string;
     inputClassName?: string;
@@ -37,18 +39,16 @@ export type DropdownProps = VariantProps<typeof dropdownVariants> &
     listItemClassName?: string;
     listItemSecondRowClassName?: string;
     mainWrapperClassName?: string;
+    noOptionsText?: string;
     options: Option[];
     searchable?: boolean;
     showSearchIcon?: boolean;
     theme?: Theme;
     value?: string;
     wrapperClassName?: string;
-    errorClassName?: string;
-    helperTextClassName?: string;
     onBlur?: VoidFunction;
     onChange?: OnChangeFn;
     onSearchChange?: (searchTerm: string) => void;
-    noOptionsText?: string;
   } & (
     | {
         isInfiniteScrollEnabled: true;

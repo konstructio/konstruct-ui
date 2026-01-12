@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority';
 
-export const dropdownVariants = cva(
+export const selectVariants = cva(
   [
     'group',
     'border',

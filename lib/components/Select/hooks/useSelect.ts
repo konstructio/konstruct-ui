@@ -1,27 +1,26 @@
 import { ComponentRef, RefObject, useCallback, useEffect, useRef } from 'react';
 
-import { useDropdownContext } from '../contexts';
-import { DropdownProps, Option } from '../Dropdown.types';
+import { useSelectContext } from '../contexts';
+import { SelectProps, Option } from '../Select.types';
 
-type UseDropDownParams = {
+type UseSelectParams = {
   ulRef: RefObject<ComponentRef<'ul'> | null>;
   inputRef?: RefObject<ComponentRef<'input'> | null>;
   disabled: boolean;
   internalValue?: Option;
-  onBlur?: DropdownProps['onBlur'];
+  onBlur?: SelectProps['onBlur'];
 };
 
-export const useDropdown = ({
+export const useSelect = ({
   ulRef,
   inputRef,
   disabled,
   internalValue,
   onBlur,
-}: UseDropDownParams) => {
+}: UseSelectParams) => {
   const wrapperRef = useRef<ComponentRef<'div'>>(null);
   const wrapperInputRef = useRef<ComponentRef<'div'>>(null);
-  const { value, setSearchTerm, setCanFilter, toggleOpen } =
-    useDropdownContext();
+  const { value, setSearchTerm, setCanFilter, toggleOpen } = useSelectContext();
 
   useEffect(() => {
     const controller = new AbortController();

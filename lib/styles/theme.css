@@ -12,4 +12,31 @@
   .scrollbar-none::-webkit-scrollbar {
     display: none;
   }
+
+  .scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-metal-300) transparent;
+
+    @variant dark {
+      scrollbar-color: var(--color-metal-700) transparent;
+    }
+  }
+
+  .scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--color-metal-300);
+    border-radius: 4px;
+
+    @variant dark {
+      background-color: var(--color-metal-700);
+    }
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
 }

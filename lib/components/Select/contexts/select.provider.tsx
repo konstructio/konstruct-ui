@@ -11,21 +11,21 @@ import {
 
 import { useToggle } from '@/hooks';
 
-import { DropdownProps, Option } from '../Dropdown.types';
+import { SelectProps, Option } from '../Select.types';
 
-import { DropdownContext } from './dropdown.context';
+import { SelectContext } from './select.context';
 
 const DEFAULT_INIT_PAGE = 1;
 const DELAY_TYPING = 300;
 
-export const DropdownProvider: FC<
+export const SelectProvider: FC<
   PropsWithChildren & {
     highlightSearch?: boolean;
     name?: string;
     value?: string;
     options: Option[];
-    onChange?: DropdownProps['onChange'];
-    onBlur?: DropdownProps['onBlur'];
+    onChange?: SelectProps['onChange'];
+    onBlur?: SelectProps['onBlur'];
   }
 > = ({
   children,
@@ -91,7 +91,7 @@ export const DropdownProvider: FC<
   }, []);
 
   return (
-    <DropdownContext.Provider
+    <SelectContext.Provider
       value={{
         highlightSearchEnabled: highlightSearchEnabled.current,
         isOpen,
@@ -112,6 +112,6 @@ export const DropdownProvider: FC<
       }}
     >
       {children}
-    </DropdownContext.Provider>
+    </SelectContext.Provider>
   );
 };

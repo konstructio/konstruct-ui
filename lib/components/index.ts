@@ -8,7 +8,7 @@ export * from './Card/Card';
 export * from './Checkbox/Checkbox';
 export * from './Datepicker/DatePicker';
 export * from './Divider/Divider';
-export * from './Dropdown/Dropdown';
+export * from './Select/Select';
 export * from './DropdownButton/DropdownButton';
 export * from './Filter/Filter';
 export * from './Input/Input';

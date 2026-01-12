@@ -16,7 +16,7 @@ import { Loading } from '@/components/Loading/Loading';
 import { cn } from '@/utils';
 
 import { DEFAULT_LIST_SIZE } from '../../constants';
-import { useDropdownContext } from '../../contexts';
+import { useSelectContext } from '../../contexts';
 import { useNavigationUlList } from '../../hooks/useNavigationList';
 
 import { ListItem } from '../ListItem/ListItem';
@@ -58,7 +58,7 @@ export const List: ForwardRefExoticComponent<
       setOptions,
       setPage,
       setCanContinueFetching,
-    } = useDropdownContext();
+    } = useSelectContext();
 
     useImperativeHandle(ref, () => ulRef.current!, [ulRef]);
 
@@ -202,12 +202,15 @@ export const List: ForwardRefExoticComponent<
             <Slot
               className={cn(
                 'flex',
-                'p-2',
+                'min-h-10',
+                'py-2',
+                'px-6',
                 'w-full',
                 'h-full',
                 'gap-1',
                 'items-center',
                 'text-sm',
+                '[&>svg]:-ml-1',
                 '[&>svg]:w-3.5',
                 '[&>svg]:h-3.5',
                 '[&>svg]:shrink-0',
@@ -216,6 +219,8 @@ export const List: ForwardRefExoticComponent<
                 'hover:bg-gray-50',
                 'hover:dark:bg-metal-700',
                 'focus:outline-0',
+                'text-blue-600',
+                'dark:text-aurora-500',
               )}
             >
               {option}

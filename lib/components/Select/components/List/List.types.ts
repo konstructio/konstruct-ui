@@ -1,9 +1,9 @@
 import { ComponentRef, RefObject } from 'react';
 
-import { DropdownProps } from '../../Dropdown.types';
+import { SelectProps } from '../../Select.types';
 
 export type ListProps = Pick<
-  DropdownProps,
+  SelectProps,
   'name' | 'options' | 'theme' | 'additionalOptions'
 > & {
   className?: string;
@@ -13,7 +13,7 @@ export type ListProps = Pick<
   searchable?: boolean;
   listItemSecondRowClassName?: string;
   wrapperInputRef: RefObject<ComponentRef<'div'> | null>;
-  isInfiniteScrollEnabled: DropdownProps['isInfiniteScrollEnabled'];
-  onFetchMoreOptions?: DropdownProps['onFetchMoreOptions'];
-  noOptionsText?: DropdownProps['noOptionsText'];
+  isInfiniteScrollEnabled: SelectProps['isInfiniteScrollEnabled'];
+  onFetchMoreOptions?: SelectProps['onFetchMoreOptions'];
+  noOptionsText?: SelectProps['noOptionsText'];
 };
