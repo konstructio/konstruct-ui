@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Checkbox as CheckboxComponent } from './Checkbox';
+import { Checkbox as CheckboxComponent } from '../Checkbox';
 
 type Story = StoryObj<typeof CheckboxComponent>;
 
@@ -9,22 +9,26 @@ const meta: Meta<typeof CheckboxComponent> = {
   component: CheckboxComponent,
 };
 
-export const Checkbox: Story = {
+export const Light: Story = {
   args: {
     defaultChecked: true,
   },
   render: (args) => (
     <>
-      <div className="max-w-[350px] flex flex-col gap-2">
+      <div className="max-w-87.5 flex flex-col gap-2">
+        <CheckboxComponent {...args} label="This is a checkbox" />
+
         <CheckboxComponent
-          label="This is a checkbox with kubefirst colors"
-          theme="kubefirst"
           {...args}
+          label="This is a disabled checked"
+          disabled
         />
 
         <CheckboxComponent
-          label="This is a checkbox with civo colors"
           {...args}
+          label="This is a disabled unchecked"
+          disabled
+          defaultChecked={false}
         />
       </div>
     </>
