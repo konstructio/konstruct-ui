@@ -9,11 +9,12 @@ import { AlertDialogTriggerProps } from './AlertDialogTrigger.types';
 export const AlertDialogTrigger = forwardRef<
   ComponentRef<'button'>,
   AlertDialogTriggerProps
->(({ 'data-theme': dataTheme, className, text, onOpen }, ref) => (
+>(({ 'data-theme': dataTheme, className, text, variant, onOpen }, ref) => (
   <Trigger asChild={true}>
     <Button
       ref={ref}
       type="button"
+      variant={variant}
       data-theme={dataTheme}
       className={cn(className)}
       onClick={onOpen}

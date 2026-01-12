@@ -19,6 +19,7 @@ export interface AlertDialogProps
   buttonConfirm?: ButtonConfirmProps;
   buttonTriggerText?: string;
   buttonTriggerClassName?: string;
+  buttonTriggerVariant?: ButtonProps['variant'];
   className?: string;
   description?: string | ReactNode;
   showCancelButton?: boolean;

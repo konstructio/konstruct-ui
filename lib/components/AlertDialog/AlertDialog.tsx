@@ -30,6 +30,7 @@ const AlertDialog: FC<AlertDialogProps> = ({
     ...buttonConfirmDelegated
   } = {},
   buttonTriggerClassName,
+  buttonTriggerVariant,
   buttonTriggerText,
   description,
   showCancelButton = true,
@@ -62,6 +63,7 @@ const AlertDialog: FC<AlertDialogProps> = ({
       <AlertDialogTrigger
         ref={triggerRef}
         className={buttonTriggerClassName}
+        variant={buttonTriggerVariant}
         text={buttonTriggerText}
         data-theme={theme}
         onOpen={handleOpen}
@@ -82,7 +84,7 @@ const AlertDialog: FC<AlertDialogProps> = ({
             '-translate-x-2/4',
             'flex',
             'flex-col',
-            'gap-8',
+            'gap-6',
             'p-8',
             'animate-in',
             'fade-in-0',
@@ -103,7 +105,7 @@ const AlertDialog: FC<AlertDialogProps> = ({
             {description}
           </Description>
 
-          <div className="flex flex-row gap-5 justify-end">
+          <div className="flex flex-row gap-2 justify-end">
             {showCancelButton && (
               <Cancel asChild={true}>
                 <Button
