@@ -91,7 +91,7 @@ export const Skeleton = <T,>({ numberOfRows, table }: SkeletonProps<T>) => {
                   )}
                 >
                   <Button
-                    variant="text"
+                    variant="link"
                     shape="circle"
                     size="large"
                     disabled

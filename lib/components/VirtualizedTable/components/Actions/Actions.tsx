@@ -23,7 +23,7 @@ export const Actions = <TData extends RowData>({
   return (
     <div className={cn('relative group', wrapperClassName)}>
       <Button
-        variant="text"
+        variant="link"
         shape="circle"
         size="large"
         className={cn(
@@ -49,7 +49,7 @@ export const Actions = <TData extends RowData>({
           'absolute',
           'top-full',
           'right-0',
-          'w-[215px]',
+          'w-53.75',
           'hidden',
           'group-hover:block',
           'z-10',
@@ -90,7 +90,7 @@ export const Actions = <TData extends RowData>({
                 'px-6',
                 className,
               )}
-              variant="text"
+              variant="link"
               asChild
               role="presentation"
             >
