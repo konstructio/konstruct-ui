@@ -8,7 +8,6 @@ export * from './Card/Card';
 export * from './Checkbox/Checkbox';
 export * from './Datepicker/DatePicker';
 export * from './Divider/Divider';
-export * from './Select/Select';
 export * from './DropdownButton/DropdownButton';
 export * from './Filter/Filter';
 export * from './Input/Input';
@@ -24,6 +23,7 @@ export * from './RadioCard/RadioCard';
 export * from './RadioCardGroup/RadioCardGroup';
 export * from './RadioGroup/RadioGroup';
 export * from './Range/Range';
+export * from './Select/Select';
 export * from './Sidebar/Sidebar';
 export * from './Slider/Slider';
 export * from './Switch/Switch';
@@ -41,3 +41,4 @@ export type {
   ColumnDef,
   RowData,
 } from './VirtualizedTable/VirtualizedTable.types';
+export { Select as Dropdown } from './Select/Select';
