@@ -55,7 +55,7 @@ export const inputVariants = cva([
   'bg-transparent',
   'border-none',
   'outline-none',
-  'text-zinc-700',
+  'text-metal-700',
   'text-sm',
   'capitalize',
   'placeholder:text-sm',
