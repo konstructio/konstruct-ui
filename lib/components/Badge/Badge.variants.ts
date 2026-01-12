@@ -62,7 +62,7 @@ export const badgeVariants = cva(
         ],
       },
       size: {
-        default: 'text-sm leading-4',
+        default: 'text-xs leading-4',
       },
     },
     defaultVariants: {
