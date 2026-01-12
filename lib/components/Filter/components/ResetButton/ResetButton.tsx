@@ -21,7 +21,7 @@ export const ResetButton: FC<ResetButtonProps> = ({
   return (
     <Button
       type="button"
-      variant="text"
+      variant="link"
       appearance="compact"
       version="alternate"
       onClick={handleClick}
