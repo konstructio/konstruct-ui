@@ -44,6 +44,7 @@ export const checkboxVariants = cva(
 
 export const labelVariants = cva([
   'cursor-pointer',
+  'text-sm',
   'text-slate-800',
   'dark:text-slate-50',
 ]);

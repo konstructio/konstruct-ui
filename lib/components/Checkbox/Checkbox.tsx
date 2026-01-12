@@ -42,7 +42,7 @@ const Checkbox: FC<CheckboxProps> = forwardRef<
     );
 
     return (
-      <div className="flex items-center gap-2" data-theme={theme}>
+      <div className="flex items-center gap-4" data-theme={theme}>
         <Root
           id={id ?? defaultId}
           checked={checked}
