@@ -1,6 +1,7 @@
 import { cva } from 'class-variance-authority';
 
 export const listVariants = cva([
+  'scrollbar',
   'absolute',
   'bg-white',
   'border',
@@ -12,7 +13,7 @@ export const listVariants = cva([
   'top-full',
   'w-full',
   'z-10',
-  'max-h-46.25',
+  'max-h-44',
   'overflow-y-auto',
   'border-gray-200',
   'text-zinc-700',
@@ -23,4 +24,6 @@ export const listVariants = cva([
   'dark:bg-metal-800',
   'dark:border-metal-700',
   'dark:text-metal-50',
+  '[&>li:first-child]:mt-2',
+  '[&>li:last-child]:mb-2',
 ]);

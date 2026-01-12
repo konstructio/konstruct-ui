@@ -3,12 +3,12 @@ import { ComponentRef, FC, forwardRef } from 'react';
 import { cn } from '@/utils';
 
 import { Wrapper } from './components';
-import { DropdownProvider } from './contexts';
-import { DropdownProps } from './Dropdown.types';
+import { SelectProvider } from './contexts';
+import { SelectProps } from './Select.types';
 
-export const Dropdown: FC<DropdownProps> = forwardRef<
+export const Select: FC<SelectProps> = forwardRef<
   ComponentRef<'input'>,
-  DropdownProps
+  SelectProps
 >(
   (
     {
@@ -27,7 +27,7 @@ export const Dropdown: FC<DropdownProps> = forwardRef<
     },
     ref,
   ) => (
-    <DropdownProvider
+    <SelectProvider
       highlightSearch={highlightSearch}
       name={name}
       value={value}
@@ -56,6 +56,6 @@ export const Dropdown: FC<DropdownProps> = forwardRef<
           </span>
         ) : null}
       </div>
-    </DropdownProvider>
+    </SelectProvider>
   ),
 );

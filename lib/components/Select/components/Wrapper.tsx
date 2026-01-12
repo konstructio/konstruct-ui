@@ -16,22 +16,22 @@ import Loader from '@/assets/icons/loader.svg';
 import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
 
-import { useDropdownContext } from '../contexts';
-import { DropdownProps } from '../Dropdown.types';
+import { useSelectContext } from '../contexts';
+import { SelectProps } from '../Select.types';
 import {
-  dropdownVariants,
+  selectVariants,
   inputVariants,
   labelVariants,
-} from '../Dropdown.variants';
-import { useDropdown } from '../hooks/useDropdown';
+} from '../Select.variants';
+import { useSelect } from '../hooks/useSelect';
 
 import { List } from './List/List';
 
 export const Wrapper: ForwardRefExoticComponent<
-  Omit<DropdownProps, 'options'> & RefAttributes<ComponentRef<'input'>>
+  Omit<SelectProps, 'options'> & RefAttributes<ComponentRef<'input'>>
 > = forwardRef<
   ComponentRef<'input'>,
-  Omit<DropdownProps, 'helperText' | 'options'>
+  Omit<SelectProps, 'helperText' | 'options'>
 >(
   (
     {
@@ -42,6 +42,7 @@ export const Wrapper: ForwardRefExoticComponent<
       error,
       iconClassName,
       inputClassName,
+      isInfiniteScrollEnabled = false,
       isLoading,
       isRequired,
       label,
@@ -50,16 +51,15 @@ export const Wrapper: ForwardRefExoticComponent<
       listItemClassName,
       listItemSecondRowClassName,
       name,
+      noOptionsText,
       placeholder,
       searchable = false,
       showSearchIcon,
       theme,
       wrapperClassName,
-      isInfiniteScrollEnabled = false,
       onFetchMoreOptions,
       onBlur,
       onSearchChange,
-      noOptionsText,
       ...delegated
     },
     ref,
@@ -70,20 +70,20 @@ export const Wrapper: ForwardRefExoticComponent<
     const isWrapperInputFocusable = useRef<number>(0);
     const {
       isOpen,
+      options,
       searchTerm,
       value,
-      options,
-      setValue,
-      setSearchTerm,
       setCanFilter,
+      setSearchTerm,
+      setValue,
       toggleOpen,
-    } = useDropdownContext();
+    } = useSelectContext();
 
     const internalValue = useMemo(() => {
       return options.find(({ value: optionValue }) => optionValue === value);
     }, [options, value]);
 
-    const { wrapperRef, wrapperInputRef, handleOpen } = useDropdown({
+    const { wrapperRef, wrapperInputRef, handleOpen } = useSelect({
       ulRef,
       inputRef,
       disabled,
@@ -149,7 +149,7 @@ export const Wrapper: ForwardRefExoticComponent<
           ref={wrapperInputRef}
           id={htmlFor}
           className={cn(
-            dropdownVariants({ className, hasError: !!error, disabled }),
+            selectVariants({ className, hasError: !!error, disabled }),
           )}
           role="combobox"
           onClick={() => !disabled && toggleOpen(!isOpen)}

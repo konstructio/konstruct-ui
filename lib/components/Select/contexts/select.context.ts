@@ -6,9 +6,9 @@ import {
   SetStateAction,
 } from 'react';
 
-import { Option } from '../Dropdown.types';
+import { Option } from '../Select.types';
 
-export type DropdownContextType = {
+export type SelectContextType = {
   highlightSearchEnabled: boolean;
   isOpen: boolean;
   searchTerm: string;
@@ -30,7 +30,7 @@ export type DropdownContextType = {
   toggleOpen: (value?: boolean) => void;
 };
 
-export const DropdownContext = createContext<DropdownContextType>({
+export const SelectContext = createContext<SelectContextType>({
   highlightSearchEnabled: false,
   isOpen: false,
   searchTerm: '',

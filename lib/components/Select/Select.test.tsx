@@ -6,12 +6,12 @@ import { FC, FormEvent, PropsWithChildren, useState } from 'react';
 import { Button } from '@/components/Button/Button';
 import { Modal } from '@/components/Modal/Modal';
 
-import { Dropdown } from './Dropdown';
-import { DropdownProps } from './Dropdown.types';
+import { Select } from './Select';
+import { SelectProps } from './Select.types';
 
 const defaultProps = {
-  label: 'Dropdown',
-  name: 'dropdown-label',
+  label: 'Select',
+  name: 'select-label',
   options: [
     {
       label: 'Option 1',
@@ -26,14 +26,14 @@ const defaultProps = {
       value: 'option-3',
     },
   ],
-} satisfies DropdownProps;
+} satisfies SelectProps;
 
-describe('Dropdown', () => {
-  const setup = (props?: Partial<DropdownProps>, wrapper?: FC) => {
+describe('Select', () => {
+  const setup = (props?: Partial<SelectProps>, wrapper?: FC) => {
     const { onFetchMoreOptions: _, ...restProps } = props || {};
 
     const { container: component } = render(
-      <Dropdown
+      <Select
         {...defaultProps}
         {...restProps}
         isInfiniteScrollEnabled={false}
@@ -60,7 +60,7 @@ describe('Dropdown', () => {
     vi.clearAllMocks();
   });
 
-  describe('General test for dropdown', () => {
+  describe('General test for select', () => {
     beforeEach(() => {
       vi.clearAllMocks();
     });
@@ -179,7 +179,7 @@ describe('Dropdown', () => {
     });
   });
 
-  describe('Dropdown inside a form', () => {
+  describe('select inside a form', () => {
     const mockSubmit = vi.fn();
     const mockOnSubmit = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -201,7 +201,7 @@ describe('Dropdown', () => {
         </form>
       );
 
-      const { user, findComboBox } = setup({ name: 'dropdown' }, Wrapper);
+      const { user, findComboBox } = setup({ name: 'select' }, Wrapper);
 
       const comboBox = await findComboBox();
 
@@ -218,12 +218,12 @@ describe('Dropdown', () => {
       await user.click(button);
 
       expect(mockSubmit).toHaveBeenCalledWith({
-        dropdown: defaultProps.options.at(0)!.value,
+        select: defaultProps.options.at(0)!.value,
       });
     });
   });
 
-  describe('Dropdown in Modal', () => {
+  describe('select in Modal', () => {
     beforeEach(() => {
       vi.clearAllMocks();
     });
@@ -274,7 +274,7 @@ describe('Dropdown', () => {
       });
     });
 
-    it('should close dropdown list after selecting an option in modal', async () => {
+    it('should close select list after selecting an option in modal', async () => {
       const { user, findComboBox } = setup({}, ModalWrapper);
 
       const buttonOpenModal = await screen.findByRole('button', {

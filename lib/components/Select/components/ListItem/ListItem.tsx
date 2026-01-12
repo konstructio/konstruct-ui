@@ -3,8 +3,8 @@ import { ComponentRef, FC, KeyboardEvent, useCallback, useRef } from 'react';
 import { cn } from '@/utils';
 
 import { Typography } from '../../../Typography/Typography';
-import { useDropdownContext } from '../../contexts';
-import { Option } from '../../Dropdown.types';
+import { useSelectContext } from '../../contexts';
+import { Option } from '../../Select.types';
 
 import { ListItemProps } from './ListItem.types';
 import { listItemVariants } from './ListItem.variants';
@@ -38,7 +38,7 @@ export const ListItem: FC<ListItemProps> = ({
   ...option
 }) => {
   const { searchTerm, highlightSearchEnabled, setValue, toggleOpen } =
-    useDropdownContext();
+    useSelectContext();
   const liRef = useRef<ComponentRef<'li'>>(null);
 
   const handleClick = useCallback(

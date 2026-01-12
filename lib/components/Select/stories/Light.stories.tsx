@@ -5,20 +5,20 @@ import { useEffect, useState } from 'react';
 import { Button } from '@/components/Button/Button';
 import { Modal } from '@/components/Modal/Modal';
 
-import { getPokemons } from '../../../mocks';
+import { getPokemons } from '../../../../mocks';
 
-import { DEFAULT_LIST_SIZE } from './constants';
-import { Dropdown as DropdownComponent } from './Dropdown';
-import { Option } from './Dropdown.types';
+import { DEFAULT_LIST_SIZE } from '../constants';
+import { Select as SelectComponent } from '../Select';
+import { Option } from '../Select.types';
 
-type Story = StoryObj<typeof DropdownComponent>;
+type Story = StoryObj<typeof SelectComponent>;
 
 const meta = {
-  title: 'In Review/Dropdown',
-  component: DropdownComponent,
-} satisfies Meta<typeof DropdownComponent>;
+  title: 'In Review/Select',
+  component: SelectComponent,
+} satisfies Meta<typeof SelectComponent>;
 
-export const Dropdown = {
+export const Light = {
   args: {
     options: [
       {
@@ -34,15 +34,14 @@ export const Dropdown = {
         leftIcon: <img src="./k3s.svg" alt="K3S Logo" />,
       },
     ],
-    placeholder: 'Select an option...',
     required: false,
     labelClassName: '',
     isLoading: false,
-    name: 'dropdown',
+    name: 'select',
   },
-  render: function DropdownStory(args) {
+  render: function SelectStory(args) {
     const [value1, setValue1] = useState<string>('talos');
-    const [value2, setValue2] = useState<string>();
+    const [value2, setValue2] = useState<string>('talos');
     const [value3, setValue3] = useState<string>();
     const [value4, setValue4] = useState<string>();
     const [value5, setValue5] = useState<string>();
@@ -72,9 +71,9 @@ export const Dropdown = {
 
     return (
       <div className="flex flex-col gap-6">
-        <div className="max-w-87.5 flex flex-col gap-6 p-6">
-          <DropdownComponent
-            label="Searchable dropdown with Kubefirst theme"
+        <div className="max-w-87.5 flex flex-col gap-6">
+          <SelectComponent
+            label="Searchable select with Kubefirst theme"
             onChange={({ target: { value } }) => setValue1(value)}
             value={value1}
             searchable={true}
@@ -82,46 +81,40 @@ export const Dropdown = {
             {...args}
           />
 
-          <DropdownComponent
-            label="Searchable dropdown with Civo theme"
+          <SelectComponent
+            label="Searchable select with Civo theme"
             onChange={({ target: { value } }) => setValue2(value)}
             value={value2}
             searchable={true}
-            showSearchIcon={true}
             inputMode="text"
             highlightSearch={true}
-            additionalOptions={[
-              <button className="text-blue-600 dark:text-aurora-500">
-                <Plus /> New Team
-              </button>,
-            ]}
             {...args}
           />
 
-          <DropdownComponent
-            label="Dropdown with Civo theme"
+          <SelectComponent
+            label="select with Civo theme"
             onChange={({ target: { value } }) => setValue3(value)}
             value={value3}
             searchable={false}
             {...args}
           />
 
-          <DropdownComponent
-            label="Dropdown with no options text"
+          <SelectComponent
+            label="select with no options text"
             searchable={false}
             noOptionsText="No cloud account exists"
             {...args}
             options={[]}
             additionalOptions={[
-              <button className="text-blue-600 dark:text-aurora-500">
+              <button>
                 <Plus /> New Cloud Account
               </button>,
             ]}
           />
 
-          <DropdownComponent
+          <SelectComponent
             {...args}
-            label="Dropdown infinity scroll without search"
+            label="select infinity scroll without search"
             onChange={({ target: { value } }) => setValue4(value)}
             value={value4}
             searchable={false}
@@ -144,9 +137,9 @@ export const Dropdown = {
             options={pokemons}
           />
 
-          <DropdownComponent
+          <SelectComponent
             {...args}
-            label="Dropdown infinity scroll with search"
+            label="select infinity scroll with search"
             onChange={({ target: { value } }) => setValue5(value)}
             value={value5}
             searchable={true}
@@ -169,14 +162,9 @@ export const Dropdown = {
             }}
             options={pokemons}
           />
-        </div>
 
-        <div
-          className="max-w-87.5 flex flex-col gap-6 p-6 bg-metal-900 rounded-sm"
-          data-theme="dark"
-        >
-          <DropdownComponent
-            label="Searchable dropdown with Kubefirst theme"
+          <SelectComponent
+            label="Searchable select with Kubefirst theme"
             onChange={({ target: { value } }) => setValue6(value)}
             value={value6}
             searchable={true}
@@ -184,8 +172,8 @@ export const Dropdown = {
             {...args}
           />
 
-          <DropdownComponent
-            label="Searchable dropdown with Civo theme"
+          <SelectComponent
+            label="Searchable select with Civo theme"
             onChange={({ target: { value } }) => setValue7(value)}
             value={value7}
             searchable={true}
@@ -193,24 +181,16 @@ export const Dropdown = {
             inputMode="text"
             highlightSearch={true}
             additionalOptions={[
-              <button className="text-blue-600 dark:text-aurora-500">
+              <button>
                 <Plus /> New Team
               </button>,
             ]}
             {...args}
           />
 
-          <DropdownComponent
-            label="Dropdown with Civo theme"
-            onChange={({ target: { value } }) => setValue8(value)}
-            value={value8}
-            searchable={false}
+          <SelectComponent
             {...args}
-          />
-
-          <DropdownComponent
-            {...args}
-            label="Dropdown with no options text"
+            label="select with no options text"
             onChange={({ target: { value } }) => setValue8(value)}
             value={value8}
             searchable={false}
@@ -223,26 +203,23 @@ export const Dropdown = {
   },
 } satisfies Story;
 
-export const DropdownInModal = {
-  render: function DropdownInModalStory() {
+export const selectInModal = {
+  render: function selectInModalStory() {
     const [isOpen, setIsOpen] = useState(false);
     const [value, setValue] = useState<string>();
 
     return (
       <div>
-        <Button onClick={() => setIsOpen(true)} theme="kubefirst">
-          Open Modal with Dropdown
-        </Button>
+        <Button onClick={() => setIsOpen(true)}>Open Modal with select</Button>
 
         <Modal
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
-          theme="kubefirst"
           className="min-h-25"
         >
           <Modal.Body>
             <div className="p-6">
-              <DropdownComponent
+              <SelectComponent
                 label="Choose your distribution"
                 options={[
                   {
@@ -263,7 +240,7 @@ export const DropdownInModal = {
                 }}
                 value={value}
                 theme="kubefirst"
-                name="modal-dropdown"
+                name="modal-select"
               />
             </div>
           </Modal.Body>

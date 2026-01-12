@@ -1,5 +1,5 @@
 import { ComponentRef, RefObject } from 'react';
-import { Option } from '../../Dropdown.types';
+import { Option } from '../../Select.types';
 
 export type ListItemProps = Option & {
   isEmpty?: boolean;
