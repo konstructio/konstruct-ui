@@ -62,7 +62,7 @@ const Checkbox: FC<CheckboxProps> = forwardRef<
           {...delegated}
         >
           <Indicator>
-            <Check className="w-4 h-4 stroke-2 civo:text-slate-700" />
+            <Check className="w-4 h-4 stroke-2" />
           </Indicator>
         </Root>
 
@@ -73,7 +73,11 @@ const Checkbox: FC<CheckboxProps> = forwardRef<
               labelVariants({
                 className: labelClassName,
               }),
+              {
+                'cursor-not-allowed': disabled,
+              },
             )}
+            onClick={() => !disabled && handleChange(!checked)}
           >
             {label}
           </label>
