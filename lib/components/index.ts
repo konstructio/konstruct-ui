@@ -10,6 +10,7 @@ export * from './Datepicker/DatePicker';
 export * from './Divider/Divider';
 export * from './DropdownButton/DropdownButton';
 export * from './Filter/Filter';
+export * from './ImageUpload/ImageUpload';
 export * from './Input/Input';
 export * from './Loading/Loading';
 export * from './Modal/Modal';
