@@ -4,12 +4,11 @@ import { FC } from 'react';
 import { Badge } from '@/components/Badge/Badge';
 import { Button } from '@/components/Button/Button';
 import { DatePicker } from '@/components/Datepicker/DatePicker';
-import { cn } from '@/utils';
-
 import {
   filterButtonIconVariants,
   filterButtonVariants,
-} from '../../Filter.variants';
+} from '@/components/Filter/Filter.variants';
+import { cn } from '@/utils';
 
 import { useDateFilterDropdown } from './DateFilterDropdown.hook';
 import { DateFilterDropdownProps } from './DateFilterDropdown.types';
@@ -43,8 +42,7 @@ export const DateFilterDropdown: FC<DateFilterDropdownProps> = ({
         {appliedDay && <Badge label={appliedDay} />}
         <ChevronDownIcon
           className={cn(filterButtonIconVariants(), {
-            'rotate-180': isOpen,
-            'text-blue-600': isOpen,
+            'rotate-180 text-blue-600 dark:text-aurora-500': isOpen,
           })}
         />
       </button>
@@ -52,7 +50,24 @@ export const DateFilterDropdown: FC<DateFilterDropdownProps> = ({
       {isOpen && (
         <div
           className={cn(
-            'absolute top-full mt-1 bg-white rounded-md shadow-md animate-in fade-in-0 z-10 border border-gray-200 flex flex-col gap-4 py-4 px-6',
+            'absolute',
+            'top-full',
+            'mt-1',
+            'bg-white',
+            'rounded-md',
+            'shadow-md',
+            'animate-in',
+            'fade-in-0',
+            'z-10',
+            'border',
+            'border-gray-200',
+            'flex',
+            'flex-col',
+            'gap-4',
+            'py-4',
+            'px-6',
+            'dark:bg-metal-800',
+            'dark:border-metal-700',
             {
               'left-0': position === 'left',
               'right-0': position === 'right',
@@ -63,13 +78,26 @@ export const DateFilterDropdown: FC<DateFilterDropdownProps> = ({
             key={selectedDay?.toISOString() ?? id}
             className="p-0"
             arrowClassName="-top-1 right-0"
-            monthsClassName="shadow-none p-0 w-auto"
+            monthsClassName={cn(
+              'shadow-none',
+              'p-0',
+              'w-auto',
+              'dark:border-transparent',
+            )}
             defaultSelected={selectedDay}
             defaultMonth={selectedDay}
             onSelect={handleSelect}
           />
 
-          <div className="flex justify-end items-center gap-4 py-2">
+          <div
+            className={cn(
+              'flex',
+              'justify-end',
+              'items-center',
+              'gap-4',
+              'py-2',
+            )}
+          >
             <Button
               variant="secondary"
               appearance="compact"
@@ -77,6 +105,7 @@ export const DateFilterDropdown: FC<DateFilterDropdownProps> = ({
             >
               Reset
             </Button>
+
             <Button appearance="compact" onClick={handleApply}>
               Apply
             </Button>
