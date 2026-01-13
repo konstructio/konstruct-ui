@@ -4,7 +4,7 @@ export const typographyVariants = cva([], {
   variants: {
     variant: {
       h1: ['text-[57px]', 'leading-16'],
-      h2: ['text-[45px]', 'leading-[52px]'],
+      h2: ['text-[45px]', 'leading-13'],
       h3: ['text-4xl', 'leading-11'],
       h4: ['text-[32px]', 'leading-10'],
       h5: ['text-[28px]', 'leading-9'],
@@ -41,7 +41,7 @@ export const typographyVariants = cva([], {
       body1: ['text-base', 'leading-6', 'tracking-[0.5px]'],
       body2: ['text-sm', 'leading-5', 'tracking-[0.25px]'],
       body3: ['text-xs', 'leading-4', 'tracking-[0.4px]'],
-      tooltip: ['text-sm', 'leading-[22px]'],
+      tooltip: ['text-sm', 'leading-5.5'],
     },
   },
   defaultVariants: {

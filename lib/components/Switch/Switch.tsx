@@ -8,6 +8,7 @@ import {
   useRef,
 } from 'react';
 
+import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
 
 import { SwitchProps } from './Switch.types';
@@ -19,15 +20,18 @@ export const Switch: FC<SwitchProps> = forwardRef<
 >(
   (
     {
-      name,
       alignment = 'horizontal',
+      className,
+      defaultChecked,
+      disabled = false,
+      helperText,
+      helperTextClassName,
+      label,
+      labelClassName,
+      name,
       theme,
       thumbClassName,
-      className,
-      label,
-      defaultChecked,
       value,
-      helperText,
       onChange,
     },
     ref,
@@ -47,7 +51,9 @@ export const Switch: FC<SwitchProps> = forwardRef<
     return (
       <div
         className={cn(
-          'w-full flex gap-3',
+          'w-full',
+          'flex',
+          'gap-3',
           alignment === 'vertical' ? 'flex-col' : 'flex-row',
         )}
         data-theme={theme}
@@ -59,6 +65,7 @@ export const Switch: FC<SwitchProps> = forwardRef<
           onCheckedChange={(e) => onChange?.(e)}
           className={cn(switchVariants({ className }))}
           aria-label={label}
+          disabled={disabled}
         >
           <Thumb
             className={thumbVariants({
@@ -68,18 +75,35 @@ export const Switch: FC<SwitchProps> = forwardRef<
         </Root>
 
         {label ? (
-          <label
-            className="flex flex-col text-slate-800 dark:text-white text-sm"
+          <Typography
+            component="label"
+            className={cn(
+              'flex',
+              'flex-col',
+              'text-sm',
+              'dark:text-white',
+              'select-none',
+              labelClassName,
+            )}
             htmlFor={componentId}
             style={{ paddingRight: 15 }}
           >
             {label}
             {helperText ? (
-              <span className="text-slate-600 dark:text-slate-400 text-xs">
+              <Typography
+                component="span"
+                className={cn(
+                  'text-xs',
+                  'select-none',
+                  'text-slate-600',
+                  'dark:text-metal-400',
+                  helperTextClassName,
+                )}
+              >
                 {helperText}
-              </span>
+              </Typography>
             ) : null}
-          </label>
+          </Typography>
         ) : null}
 
         <input
