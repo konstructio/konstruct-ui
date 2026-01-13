@@ -249,7 +249,7 @@ const ImageUpload = ({
 
         {currentStatus === ImageUploadStatus.Uploading && (
           <Button
-            variant="text"
+            variant="secondary"
             shape="circle"
             size="medium"
             onClick={handleRemove}
@@ -263,7 +263,7 @@ const ImageUpload = ({
 
         {currentStatus === ImageUploadStatus.Complete && (
           <Button
-            variant="text"
+            variant="secondary"
             shape="circle"
             size="medium"
             onClick={handleRemove}
