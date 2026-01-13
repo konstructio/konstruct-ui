@@ -201,6 +201,33 @@ export declare type ColumnDef<TData extends RowData> = ColumnDef_2<TData, string
 
 export declare const Content: FC_3<TabsContentProps>;
 
+declare const Counter: FC<CounterProps>;
+export { Counter }
+export { Counter as NumberInput }
+
+declare interface CounterProps extends VariantProps<typeof counterVariants> {
+    canDecrement?: boolean;
+    canIncrement?: boolean;
+    className?: string;
+    decrementButtonClassName?: string;
+    incrementButtonClassName?: string;
+    init?: number;
+    isRequired?: boolean;
+    label?: string;
+    max?: number;
+    min?: number;
+    name?: string;
+    theme?: Theme;
+    value?: number;
+    onChange?: ({ target: { value } }: {
+        target: {
+            value: number;
+        };
+    }) => void;
+}
+
+declare const counterVariants: (props?: ClassProp | undefined) => string;
+
 declare type CSSColor = `var(--${string})` | `rgb(${number}, ${number}, ${number})` | `rgba(${number}, ${number}, ${number}, ${number})` | `hsl(${number}, ${number}%, ${number}%)` | `hsla(${number}, ${number}%, ${number}%, ${number})`;
 
 export declare const DateFilterDropdown: FC_2<DateFilterDropdownProps>;
@@ -464,26 +491,6 @@ declare interface NavigationTitleProps extends VariantProps<typeof navigationTit
 declare const navigationTitleVariants: (props?: ClassProp | undefined) => string;
 
 declare const navigationVariants: (props?: ClassProp | undefined) => string;
-
-export declare const NumberInput: FC<NumberInputProps>;
-
-declare interface NumberInputProps extends VariantProps<typeof numberInputVariants> {
-    className?: string;
-    init?: number;
-    label?: string | ReactNode;
-    max?: number;
-    min?: number;
-    name?: string;
-    value?: number;
-    theme?: Theme;
-    onChange?: ({ target: { value } }: {
-        target: {
-            value: number;
-        };
-    }) => void;
-}
-
-declare const numberInputVariants: (props?: ClassProp | undefined) => string;
 
 declare type OnBlurFn = (event: {
     target: HTMLInputElement | null;
@@ -1018,7 +1025,7 @@ declare type TimePickerProps = VariantProps<typeof timePickerVariants> & {
     time?: Date;
     name?: string;
     label?: string;
-    required?: boolean;
+    isRequired?: boolean;
     className?: string;
     listClassName?: string;
     listItemClassName?: string;
