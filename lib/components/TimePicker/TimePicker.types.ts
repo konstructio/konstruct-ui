@@ -8,7 +8,7 @@ export type TimePickerProps = VariantProps<typeof timePickerVariants> & {
   time?: Date;
   name?: string;
   label?: string;
-  required?: boolean;
+  isRequired?: boolean;
   className?: string;
   listClassName?: string;
   listItemClassName?: string;
