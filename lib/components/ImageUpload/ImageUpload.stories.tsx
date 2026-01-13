@@ -21,10 +21,6 @@ export const ImageUpload: Story = {
   render: (args) => (
     <>
       <div className="w-[500px] flex flex-col gap-8">
-        <Typography variant="h6" className="my-5" theme="kubefirst">
-          ImageUpload Component - Light Mode
-        </Typography>
-
         <div className="flex flex-col gap-6">
           <div>
             <Typography variant="body2" className="mb-2 text-slate-600">
@@ -74,11 +70,7 @@ export const ImageUpload: Story = {
         </div>
       </div>
 
-      <Typography variant="h6" className="my-5">
-        ImageUpload Component - Dark Mode
-      </Typography>
-
-      <div className="w-[500px] bg-slate-950 p-4 rounded-sm">
+      <div className="w-[500px] mt-10 bg-slate-950 p-4 rounded-sm">
         <div className="flex flex-col gap-6">
           <div>
             <Typography variant="body2" className="mb-2 text-slate-200">
