@@ -1,6 +1,6 @@
 export enum FilterEvent {
-  OPEN = '@konstrtuctio/Filter/event-OPEN',
-  RESET = '@konstrtuctio/Filter/event-RESET',
+  OPEN = '@konstrtuctio/KonstructFilter/event-OPEN',
+  RESET = '@konstrtuctio/KonstructFilter/event-RESET',
 }
 
 export const sendOpenFilterEvent = (id: string) =>

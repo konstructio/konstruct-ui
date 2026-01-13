@@ -19,7 +19,7 @@ const Filter: FilterComponentProps = ({
   </div>
 );
 
-Filter.displayName = 'Filter';
+Filter.displayName = 'KonstructFilter';
 Filter.BadgeMultiSelect = BadgeMultiSelect;
 Filter.DateFilterDropdown = DateFilterDropdown;
 Filter.ResetButton = ResetButton;

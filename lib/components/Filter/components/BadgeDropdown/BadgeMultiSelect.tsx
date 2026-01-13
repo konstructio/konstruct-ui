@@ -4,12 +4,11 @@ import { FC } from 'react';
 import { Badge } from '@/components/Badge/Badge';
 import { Button } from '@/components/Button/Button';
 import { Checkbox } from '@/components/Checkbox/Checkbox';
-import { cn } from '@/utils';
-
 import {
   filterButtonIconVariants,
   filterButtonVariants,
-} from '../../Filter.variants';
+} from '@/components/Filter/Filter.variants';
+import { cn } from '@/utils';
 
 import { useBadgeMultiSelect } from './BadgeMultiSelect.hook';
 import { BadgeMultiSelectProps } from './BadgeMultiSelect.types';
@@ -49,8 +48,7 @@ export const BadgeMultiSelect: FC<BadgeMultiSelectProps> = ({
         )}
         <ChevronDownIcon
           className={cn(filterButtonIconVariants(), {
-            'rotate-180': isOpen,
-            'text-blue-600 dark:text-aurora-500': isOpen,
+            'rotate-180 text-blue-600 dark:text-aurora-500': isOpen,
           })}
         />
       </button>
