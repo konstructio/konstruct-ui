@@ -14,7 +14,7 @@ import { Option } from '../Select.types';
 type Story = StoryObj<typeof SelectComponent>;
 
 const meta = {
-  title: 'In Review/Select',
+  title: 'In Review/Select/Light',
   component: SelectComponent,
 } satisfies Meta<typeof SelectComponent>;
 

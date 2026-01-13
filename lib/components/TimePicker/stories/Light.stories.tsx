@@ -5,7 +5,7 @@ import { TimePicker as TimePickerComponent } from '../TimePicker';
 type Story = StoryObj<typeof TimePickerComponent>;
 
 const meta: Meta<typeof TimePickerComponent> = {
-  title: 'In Review/TimePicker',
+  title: 'In Review/TimePicker/Light',
   component: TimePickerComponent,
 };
 

@@ -18,7 +18,7 @@ type PokemonResponse = {
 };
 
 const meta: Meta<typeof VirtualizedTableComponent> = {
-  title: 'In Review/VirtualizedTable',
+  title: 'In Review/VirtualizedTable/Light',
   component: VirtualizedTableComponent,
 };
 

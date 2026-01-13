@@ -6,7 +6,7 @@ import { Tabs as TabsComponent } from '../Tabs';
 type Story = StoryObj<typeof TabsComponent>;
 
 const meta: Meta<typeof TabsComponent> = {
-  title: 'In Review/Tabs',
+  title: 'In Review/Tabs/Dark',
   component: TabsComponent,
   args: {
     orientation: 'vertical',
