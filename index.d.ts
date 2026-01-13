@@ -1,6 +1,7 @@
 import { AlertDialogProps as AlertDialogProps_2 } from '@radix-ui/react-alert-dialog';
 import { ButtonHTMLAttributes } from '../../../node_modules/react';
 import { CellContext } from '@tanstack/react-table';
+import { ChangeEvent } from '../../../node_modules/react';
 import { CheckboxProps as CheckboxProps_2 } from '@radix-ui/react-checkbox';
 import { ClassProp } from 'class-variance-authority/types';
 import { ClassValue } from 'clsx';
@@ -50,6 +51,7 @@ declare interface AlertDialogProps extends PropsWithChildren, AlertDialogProps_2
     buttonConfirm?: ButtonConfirmProps;
     buttonTriggerText?: string;
     buttonTriggerClassName?: string;
+    buttonTriggerVariant?: ButtonProps['variant'];
     className?: string;
     description?: string | ReactNode;
     showCancelButton?: boolean;
@@ -80,7 +82,7 @@ declare interface AutocompleteProps extends VariantProps<typeof autocompleteVari
     label?: string;
     labelClassName?: string;
     name?: string;
-    options: Option_2[];
+    options: Option_3[];
     placeholder?: string;
     placeHolderEmptyValues?: string | ReactNode;
     placeHolderEmptyValuesClassName?: string;
@@ -151,7 +153,7 @@ declare interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 declare const buttonVariants: (props?: ({
-    variant?: "danger" | "text" | "primary" | "secondary" | null | undefined;
+    variant?: "danger" | "link" | "primary" | "secondary" | "tertiary" | null | undefined;
     shape?: "circle" | null | undefined;
     version?: "default" | "alternate" | null | undefined;
     disabled?: boolean | null | undefined;
@@ -223,58 +225,7 @@ declare const datePickerVariants: (props?: ClassProp | undefined) => string;
 
 export declare const Divider: FC<HTMLAttributes<HTMLDivElement>>;
 
-export declare const Dropdown: FC<DropdownProps>;
-
 export declare const DropdownButton: FC<Props>;
-
-declare type DropdownProps = VariantProps<typeof dropdownVariants> & Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> & {
-    additionalOptions?: ReactNode[] | string[];
-    className?: string;
-    disabled?: boolean;
-    error?: string;
-    helperText?: string;
-    highlightSearch?: boolean;
-    iconClassName?: string;
-    inputClassName?: string;
-    isLoading?: boolean;
-    isRequired?: boolean;
-    label?: string;
-    labelClassName?: string;
-    listClassName?: string;
-    listItemClassName?: string;
-    listItemSecondRowClassName?: string;
-    mainWrapperClassName?: string;
-    options: Option_3[];
-    searchable?: boolean;
-    showSearchIcon?: boolean;
-    theme?: Theme;
-    value?: string;
-    wrapperClassName?: string;
-    errorClassName?: string;
-    helperTextClassName?: string;
-    onBlur?: VoidFunction;
-    onChange?: OnChangeFn;
-    onSearchChange?: (searchTerm: string) => void;
-    noOptionsText?: string;
-} & ({
-    isInfiniteScrollEnabled: true;
-    onFetchMoreOptions: (params: {
-        page: number;
-        pageSize: number;
-        termOfSearch?: string;
-    }) => Promise<{
-        data: Option_3[];
-        hasMore: boolean;
-    }>;
-} | {
-    isInfiniteScrollEnabled?: false | undefined;
-    onFetchMoreOptions?: never;
-});
-
-declare const dropdownVariants: (props?: ({
-    hasError?: boolean | null | undefined;
-    disabled?: boolean | null | undefined;
-} & ClassProp) | undefined) => string;
 
 export declare const Filter: FilterComponentProps;
 
@@ -317,6 +268,44 @@ declare interface HeadProps extends React.HTMLAttributes<HTMLTableSectionElement
 declare const headVariants: (props?: ClassProp | undefined) => string;
 
 declare type HexColor = `#${string}`;
+
+export declare const ImageUpload: {
+    ({ className, error, fileName, fileSize, fileUrl, helperText, isRequired, label, labelClassName, name, onChange, onRemove, status, theme, uploadButtonText, accept, maxSize, }: ImageUploadProps): JSX.Element;
+    displayName: string;
+};
+
+declare interface ImageUploadProps extends Omit<VariantProps<typeof imageUploadVariants>, 'status'> {
+    className?: string;
+    error?: string;
+    fileName?: string;
+    fileSize?: string;
+    fileUrl?: string;
+    helperText?: string;
+    isRequired?: boolean;
+    label?: string | ReactNode;
+    labelClassName?: string;
+    name?: string;
+    onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+    onRemove?: () => void;
+    status?: ImageUploadStatusType;
+    theme?: Theme;
+    uploadButtonText?: string;
+    accept?: string;
+    maxSize?: number;
+}
+
+declare enum ImageUploadStatus {
+    Default = "default",
+    Uploading = "uploading",
+    Complete = "complete",
+    Error = "error"
+}
+
+declare type ImageUploadStatusType = ImageUploadStatus;
+
+declare const imageUploadVariants: (props?: ({
+    status?: "error" | "default" | "uploading" | "complete" | null | undefined;
+} & ClassProp) | undefined) => string;
 
 export declare const Input: ForwardRefExoticComponent<InputProps & RefAttributes<HTMLInputElement>>;
 
@@ -516,10 +505,6 @@ declare type OnChangeFn_2 = (params: {
 }) => void;
 
 declare type Option_2 = {
-    value: string;
-};
-
-declare type Option_3 = {
     label: string;
     subLabel?: string | ReactNode;
     leftIcon?: ReactNode | string;
@@ -528,6 +513,10 @@ declare type Option_3 = {
     rightComponent?: ReactNode | string;
     rightComponentClassName?: string;
     wrapperClassNameOnSelectedValue?: string;
+    value: string;
+};
+
+declare type Option_3 = {
     value: string;
 };
 
@@ -822,6 +811,59 @@ declare const rowVariants: (props?: ({
     isSelected?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
 
+declare const Select: FC<SelectProps>;
+export { Select as Dropdown }
+export { Select }
+
+declare type SelectProps = VariantProps<typeof selectVariants> & Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> & {
+    additionalOptions?: ReactNode[] | string[];
+    className?: string;
+    disabled?: boolean;
+    error?: string;
+    errorClassName?: string;
+    helperText?: string;
+    helperTextClassName?: string;
+    highlightSearch?: boolean;
+    iconClassName?: string;
+    inputClassName?: string;
+    isLoading?: boolean;
+    isRequired?: boolean;
+    label?: string;
+    labelClassName?: string;
+    listClassName?: string;
+    listItemClassName?: string;
+    listItemSecondRowClassName?: string;
+    mainWrapperClassName?: string;
+    noOptionsText?: string;
+    options: Option_2[];
+    searchable?: boolean;
+    showSearchIcon?: boolean;
+    theme?: Theme;
+    value?: string;
+    wrapperClassName?: string;
+    onBlur?: VoidFunction;
+    onChange?: OnChangeFn;
+    onSearchChange?: (searchTerm: string) => void;
+} & ({
+    isInfiniteScrollEnabled: true;
+    onFetchMoreOptions: (params: {
+        page: number;
+        pageSize: number;
+        termOfSearch?: string;
+    }) => Promise<{
+        data: Option_2[];
+        hasMore: boolean;
+    }>;
+} | {
+    isInfiniteScrollEnabled?: false | undefined;
+    onFetchMoreOptions?: never;
+});
+
+declare const selectVariants: (props?: ({
+    hasError?: boolean | null | undefined;
+    disabled?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
+
 export declare const Sidebar: FC<SidebarProps> & SidebarChildrenProps;
 
 declare type SidebarChildrenProps = {
@@ -872,8 +914,11 @@ declare interface SwitchProps extends VariantProps<typeof switchVariants> {
     alignment?: 'horizontal' | 'vertical';
     className?: string;
     defaultChecked?: boolean;
-    label?: string;
+    disabled?: boolean;
     helperText?: string;
+    helperTextClassName?: string;
+    label?: string;
+    labelClassName?: string;
     name?: string;
     theme?: Theme;
     thumbClassName?: string;
@@ -1031,13 +1076,14 @@ declare const triggerVariants: (props?: ({
 
 export declare const TruncateText: <TData>({ getValue, value }: Props_4<TData>) => JSX.Element;
 
-export declare const Typography: ForwardRefExoticComponent<Omit<TypographyProps, 'ref'> & RefAttributes<HTMLParagraphElement | HTMLHeadingElement>>;
+export declare const Typography: ForwardRefExoticComponent<Omit<TypographyProps, 'ref'> & RefAttributes<HTMLParagraphElement & HTMLHeadingElement & HTMLLabelElement>>;
 
 declare interface TypographyProps extends HTMLAttributes<ComponentRef<HeadingTag | 'p' | 'span'>>, VariantProps<typeof typographyVariants> {
     ref?: Ref<HTMLHeadingElement | HTMLParagraphElement | HTMLSpanElement>;
     children: ReactNode;
-    component?: HeadingTag | 'p' | 'span';
+    component?: HeadingTag | 'p' | 'span' | 'label';
     theme?: Theme;
+    htmlFor?: string;
 }
 
 declare const typographyVariants: (props?: ({
