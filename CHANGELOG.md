@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.46](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.46) (2026-01-13)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.45...0.1.2-alpha.46)
+
+**Merged pull requests:**
+
+- fix: button variant [\#463](https://github.com/konstructio/konstruct-ui/pull/463) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.1.2-alpha.45](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.45) (2026-01-13)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.44...0.1.2-alpha.45)
