@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.1.2-alpha.47](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.47) (2026-01-13)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.46...0.1.2-alpha.47)
+
+**Merged pull requests:**
+
+- fix: typography [\#468](https://github.com/konstructio/konstruct-ui/pull/468) ([CristhianF7](https://github.com/CristhianF7))
+- 💄 style: dark theme for time picker was added [\#466](https://github.com/konstructio/konstruct-ui/pull/466) ([futjesus](https://github.com/futjesus))
+- 🚚 chore: number input now is counter and dark theme was added [\#465](https://github.com/konstructio/konstruct-ui/pull/465) ([futjesus](https://github.com/futjesus))
+- 💄 style: dark mode for radio was added [\#464](https://github.com/konstructio/konstruct-ui/pull/464) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.46](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.46) (2026-01-13)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.45...0.1.2-alpha.46)
