@@ -291,7 +291,7 @@ const ImageUpload = ({
           </div>
           {(currentStatus === ImageUploadStatus.Default ||
             currentStatus === ImageUploadStatus.Error) && (
-            <div className="shrink-0 w-[calc(100px+1rem)]" />
+            <div className="shrink-0 w-29" />
           )}
           {currentStatus === ImageUploadStatus.Uploading && (
             <div className="shrink-0 w-10" />

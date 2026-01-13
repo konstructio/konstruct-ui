@@ -18,7 +18,7 @@ export const imageUploadVariants = cva(
 );
 
 export const inputContainerVariants = cva(
-  ['flex', 'gap-2', 'h-[60px]', 'items-center', 'w-full'],
+  ['flex', 'gap-2', 'h-15', 'items-center', 'w-full'],
   {
     variants: {
       status: {

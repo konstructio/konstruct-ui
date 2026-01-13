@@ -20,7 +20,7 @@ export const ImageUpload: Story = {
   },
   render: (args) => (
     <>
-      <div className="w-[500px] flex flex-col gap-8">
+      <div className="w-125 flex flex-col gap-8">
         <div className="flex flex-col gap-6">
           <div>
             <Typography variant="body2" className="mb-2 text-slate-600">
@@ -53,7 +53,7 @@ export const ImageUpload: Story = {
               status={ImageUploadStatus.Complete}
               fileName="metaphor_logo.svg"
               fileSize="27.33KB"
-              fileUrl="https://via.placeholder.com/32"
+              fileUrl="https://placehold.co/32"
             />
           </div>
 
@@ -70,7 +70,7 @@ export const ImageUpload: Story = {
         </div>
       </div>
 
-      <div className="w-[500px] mt-10 bg-slate-950 p-4 rounded-sm">
+      <div className="w-125 mt-10 bg-slate-950 p-4 rounded-sm">
         <div className="flex flex-col gap-6">
           <div>
             <Typography variant="body2" className="mb-2 text-slate-200">
@@ -105,7 +105,7 @@ export const ImageUpload: Story = {
               status={ImageUploadStatus.Complete}
               fileName="metaphor_logo.svg"
               fileSize="27.33KB"
-              fileUrl="https://via.placeholder.com/32"
+              fileUrl="https://placehold.co/32"
               theme="dark"
             />
           </div>
@@ -193,7 +193,7 @@ export const Interactive: Story = {
     };
 
     return (
-      <div className="w-[600px] flex flex-col gap-8">
+      <div className="w-150 flex flex-col gap-8">
         <div>
           <Typography variant="h6" className="mb-4" theme="kubefirst">
             Interactive ImageUpload - Light Mode
