@@ -1,6 +1,7 @@
 import { ChevronDownIcon } from 'lucide-react';
 import { FC, useCallback, useEffect, useId, useRef, useState } from 'react';
 
+import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
 
 import { useTimePickerContext } from '../../contexts';
@@ -12,7 +13,7 @@ import { WrapperProps } from './Wrapper.types';
 export const Wrapper: FC<WrapperProps> = ({
   name,
   label,
-  required,
+  isRequired,
   scrollBehavior,
   className,
   listClassName,
@@ -59,17 +60,32 @@ export const Wrapper: FC<WrapperProps> = ({
     <div
       ref={wrapperRef}
       className={cn(
-        'w-max text-slate-800 text-sm flex flex-col gap-2',
-        format === '12' ? 'w-52' : 'w-[140px]',
+        'w-max',
+        'text-slate-800',
+        'text-sm',
+        'flex',
+        'flex-col',
+        'gap-2',
+        format === '12' ? 'w-53 min-w-53' : 'w-36 min-w-36',
       )}
     >
       {label ? (
-        <label
+        <Typography
+          component="label"
+          variant="labelLarge"
           htmlFor={labelId}
-          className="text-slate-500 dark:text-metal-50 font-medium"
+          className="font-medium"
         >
-          {label} {required && <span className="text-red-600">*</span>}
-        </label>
+          {label}{' '}
+          {isRequired && (
+            <Typography
+              component="span"
+              className="text-red-500 dark:text-red-500 text-sm font-normal"
+            >
+              *
+            </Typography>
+          )}
+        </Typography>
       ) : null}
 
       <div className="relative">

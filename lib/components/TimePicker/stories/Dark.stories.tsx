@@ -24,7 +24,7 @@ export const Dark: Story = {
 
     return (
       <>
-        <TimePickerComponent name="time-12" label="Time 12 format" required />
+        <TimePickerComponent name="time-12" label="Time 12 format" isRequired />
 
         <div className="h-5" />
 
@@ -32,7 +32,7 @@ export const Dark: Story = {
           name="time-24"
           label="Time 24 format"
           format="24"
-          required
+          isRequired
         />
       </>
     );

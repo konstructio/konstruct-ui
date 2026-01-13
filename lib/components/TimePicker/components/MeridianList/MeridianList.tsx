@@ -40,7 +40,12 @@ const MeridianList: FC<MeridianListProps> = ({
         <button
           type="button"
           role="option"
-          className={cn(buttonVariants({ className: listItemButtonClassName }))}
+          className={cn(
+            buttonVariants({ className: listItemButtonClassName }),
+            {
+              'dark:text-slate-50': !isAM,
+            },
+          )}
           onClick={(event) => handleClick(event, onSelectAM)}
         >
           AM
@@ -55,7 +60,12 @@ const MeridianList: FC<MeridianListProps> = ({
         <button
           type="button"
           role="option"
-          className={cn(buttonVariants({ className: listItemButtonClassName }))}
+          className={cn(
+            buttonVariants({ className: listItemButtonClassName }),
+            {
+              'dark:text-slate-50': isAM,
+            },
+          )}
           onClick={(event) => handleClick(event, onSelectPM)}
         >
           PM
