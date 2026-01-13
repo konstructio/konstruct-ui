@@ -12,7 +12,8 @@ export const inputVariants = cva(
     'focus-visible:outline-none',
     'focus-visible:ring-1',
     'h-10',
-    'placeholder:text-slate-400',
+    'placeholder:text-zinc-400',
+    'dark:placeholder:text-metal-300',
     'px-2.5',
     'py-2',
     'rounded',
@@ -41,8 +42,14 @@ export const inputVariants = cva(
     variants: {
       variant: {
         default: '',
-        error:
-          'border-red-600 kubefirst-dark:border-red-500 dark:border-red-500 pr-8 focus-visible:border-red-600 focus-visible:ring-transparent',
+        error: [
+          'pr-8',
+          'border-red-600',
+          'focus-visible:border-red-600',
+          'focus-visible:ring-transparent',
+          'dark:border-red-500',
+          'kubefirst-dark:border-red-500',
+        ],
       },
     },
     defaultVariants: {

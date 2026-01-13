@@ -2,6 +2,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { ComponentRef, FC, useEffect, useMemo, useRef } from 'react';
 
 import { Typography } from '@/components/Typography/Typography';
+import { cn } from '@/utils';
 
 import { usePhoneNumberContext } from '../../contexts';
 import { TruncateText } from '../TruncateText/TruncateText';
@@ -43,7 +44,7 @@ export const FlagSelectorList: FC<Props> = ({
             <Typography
               variant="body2"
               component="span"
-              className="flex gap-2 items-center text-left text-slate-800 dark:text-slate-50"
+              className="flex gap-2 items-center text-left"
             >
               No options
             </Typography>
@@ -56,7 +57,7 @@ export const FlagSelectorList: FC<Props> = ({
   return (
     <div
       ref={parentRef}
-      className="overflow-y-auto max-h-60 snap-y snap-mandatory"
+      className="overflow-y-auto max-h-60 snap-y snap-mandatory scrollbar"
     >
       <ul
         className="relative"
@@ -69,20 +70,41 @@ export const FlagSelectorList: FC<Props> = ({
           return (
             <li
               key={virtual.key}
-              className="absolute w-full snap-start snap-always scroll-m-0 flex items-center h-10"
+              className={cn(
+                'absolute',
+                'w-full',
+                'snap-start',
+                'snap-always',
+                'scroll-m-0',
+                'flex',
+                'items-center',
+                'h-10',
+              )}
               style={{
                 top: virtual.start,
                 height: virtual.size,
               }}
             >
               <button
-                className="w-full h-full cursor-pointer px-6 hover:bg-gray-50 transition-colors duration-150 focus-visible:outline-0 hover:outline-gray-100 focus:bg-gray-50 dark:hover:bg-slate-700"
+                className={cn(
+                  'w-full',
+                  'h-full',
+                  'cursor-pointer',
+                  'px-6',
+                  'hover:bg-gray-50',
+                  'transition-colors',
+                  'duration-150',
+                  'focus-visible:outline-0',
+                  'hover:outline-gray-100',
+                  'focus:bg-gray-50',
+                  'dark:hover:bg-metal-700',
+                )}
                 onClick={() => handleSelectCountry(contry)}
               >
                 <Typography
                   variant="body2"
                   component="span"
-                  className="flex gap-2 items-center text-left text-slate-800 dark:text-slate-50"
+                  className="flex gap-2 items-center text-left"
                 >
                   {showFlagOnSearch && <Flag />}
 
