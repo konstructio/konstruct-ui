@@ -13,6 +13,7 @@ export interface TypographyProps
     VariantProps<typeof typographyVariants> {
   ref?: Ref<HTMLHeadingElement | HTMLParagraphElement | HTMLSpanElement>;
   children: ReactNode;
-  component?: HeadingTag | 'p' | 'span';
+  component?: HeadingTag | 'p' | 'span' | 'label';
   theme?: Theme;
+  htmlFor?: string;
 }

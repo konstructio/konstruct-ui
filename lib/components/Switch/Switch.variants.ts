@@ -9,13 +9,22 @@ export const switchVariants = cva([
   'shadow',
   'focus:shadow-md',
   'data-[state=unchecked]:bg-gray-300',
-  'dark:data-[state=unchecked]:bg-gray-600',
+  'dark:data-[state=unchecked]:bg-metal-600',
   'transition-all',
   'delay-10',
   'duration-250',
   'cursor-pointer',
   'bg-aurora-500',
   'kubefirst:bg-kubefirst-primary',
+  '[&+label,&+span]:cursor-pointer',
+  'disabled:[&+label,&+span,&]:cursor-not-allowed',
+  'disabled:bg-gray-200',
+  'disabled:data-[state=unchecked]:[&>span]:bg-white',
+  'disabled:data-[state=unchecked]:bg-gray-200',
+  'dark:disabled:bg-metal-700',
+  'dark:disabled:data-[state=unchecked]:[&>span]:bg-metal-600',
+  'dark:disabled:data-[state=unchecked]:bg-metal-700',
+  'dark:disabled:[&>span]:bg-metal-600',
 ]);
 
 export const thumbVariants = cva([

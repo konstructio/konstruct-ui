@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Typography as TypographyComponent } from '../Typography';
 import { TypographyProps } from '../Typography.types';
-import { useEffect } from 'react';
 
 type Story = StoryObj<typeof TypographyComponent>;
 
@@ -31,29 +30,19 @@ const variants = [
   'tooltip',
 ] satisfies TypographyProps['variant'][];
 
-export const Dark: Story = {
-  args: {},
-  render: () => {
-    useEffect(() => {
-      document.body.setAttribute('data-theme', 'dark');
-      document.body.classList.add('bg-metal-900');
-
-      return () => {
-        document.body.removeAttribute('data-theme');
-        document.body.classList.remove('bg-metal-900');
-      };
-    }, []);
-
-    return (
-      <div className="w-full space-y-4">
-        {variants.map((variant) => (
-          <TypographyComponent variant={variant}>
-            {`${variant} - Almost before we knew it, we had...`}
-          </TypographyComponent>
-        ))}
-      </div>
-    );
+export const Dark = {
+  parameters: {
+    theme: 'dark',
   },
-};
+  render: () => (
+    <div className="flex flex-col gap-4">
+      {variants.map((variant) => (
+        <TypographyComponent variant={variant}>
+          {`${variant} - Almost before we knew it, we had...`}
+        </TypographyComponent>
+      ))}
+    </div>
+  ),
+} satisfies Story;
 
 export default meta;

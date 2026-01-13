@@ -8,8 +8,11 @@ export interface SwitchProps extends VariantProps<typeof switchVariants> {
   alignment?: 'horizontal' | 'vertical';
   className?: string;
   defaultChecked?: boolean;
-  label?: string;
+  disabled?: boolean;
   helperText?: string;
+  helperTextClassName?: string;
+  label?: string;
+  labelClassName?: string;
   name?: string;
   theme?: Theme;
   thumbClassName?: string;
