@@ -1,23 +1,23 @@
 import { render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { NumberInputProps } from './NumberInput.types';
-import { NumberInput } from './NumberInput';
+import { CounterProps } from './Counter.types';
+import { Counter } from './Counter';
 import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
 
-describe('NumberInput', () => {
+describe('Counter', () => {
   const defaultProps = {
-    label: 'Number Input',
+    label: 'Counter Input',
     init: 0,
     value: 0,
-  } satisfies NumberInputProps;
+  } satisfies CounterProps;
 
-  const Wrapper = ({ ...delegated }: NumberInputProps) => {
+  const Wrapper = ({ ...delegated }: CounterProps) => {
     const [count, setCount] = useState(0);
 
     return (
-      <NumberInput
+      <Counter
         {...defaultProps}
         {...delegated}
         value={count}
@@ -26,7 +26,7 @@ describe('NumberInput', () => {
     );
   };
 
-  const setup = (props?: Partial<NumberInputProps>) => {
+  const setup = (props?: Partial<CounterProps>) => {
     const { container: component } = render(
       <Wrapper {...defaultProps} {...props} />,
     );

@@ -5,20 +5,26 @@ import { Minus, Plus } from 'react-feather';
 
 import { cn } from '@/utils';
 
-import { NumberInputProps } from './NumberInput.types';
+import { CounterProps } from './Counter.types';
 import {
   buttonVariants,
   labelVariants,
-  numberInputVariants,
-} from './NumberInput.variants';
+  counterVariants,
+} from './Counter.variants';
+import { Typography } from '../Typography/Typography';
 
-export const NumberInput: FC<NumberInputProps> = forwardRef<
+export const Counter: FC<CounterProps> = forwardRef<
   HTMLInputElement,
-  NumberInputProps
+  CounterProps
 >(
   (
     {
+      canDecrement = true,
+      canIncrement = true,
       className,
+      decrementButtonClassName,
+      incrementButtonClassName,
+      isRequired,
       label,
       max = -Infinity,
       min = Infinity,
@@ -60,16 +66,28 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
     return (
       <div className="flex flex-col gap-1" data-theme={theme}>
         {label ? (
-          <label htmlFor={name ?? id} className={cn(labelVariants())}>
-            {label}
-          </label>
+          <Typography
+            component="label"
+            htmlFor={name ?? id}
+            variant="labelLarge"
+            className={cn(labelVariants())}
+          >
+            Number of nodes{' '}
+            {isRequired && <span className="text-red-600">*</span>}
+          </Typography>
         ) : null}
 
         <div className="flex items-center" role="presentation">
           <button
             type="button"
             onClick={handleDecrement}
-            className={cn(buttonVariants({ button: 'rigth' }))}
+            className={cn(
+              buttonVariants({
+                button: 'rigth',
+                className: decrementButtonClassName,
+              }),
+            )}
+            disabled={!canDecrement}
           >
             <Minus className="w-4 h-4" />
             <VisuallyHidden>Decrement</VisuallyHidden>
@@ -80,7 +98,7 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
             type="number"
             value={count}
             name={name}
-            className={cn(numberInputVariants({ className }))}
+            className={cn(counterVariants({ className }))}
             readOnly
             aria-label={typeof label === 'string' ? label : 'number input'}
           />
@@ -88,7 +106,13 @@ export const NumberInput: FC<NumberInputProps> = forwardRef<
           <button
             type="button"
             onClick={handleIncrement}
-            className={cn(buttonVariants({ button: 'left' }))}
+            className={cn(
+              buttonVariants({
+                button: 'left',
+                className: incrementButtonClassName,
+              }),
+            )}
+            disabled={!canIncrement}
           >
             <Plus className="w-4 h-4" />
             <VisuallyHidden>Increment</VisuallyHidden>

@@ -6,6 +6,7 @@ export * from './Breadcrumb/Breadcrumb';
 export * from './Button/Button';
 export * from './Card/Card';
 export * from './Checkbox/Checkbox';
+export * from './Counter/Counter';
 export * from './Datepicker/DatePicker';
 export * from './Divider/Divider';
 export * from './DropdownButton/DropdownButton';
@@ -15,7 +16,6 @@ export * from './Input/Input';
 export * from './Loading/Loading';
 export * from './Modal/Modal';
 export * from './MultiSelectDropdown/MultiSelectDropdown';
-export * from './NumberInput/NumberInput';
 export * from './PhoneNumberInput/PhoneNumberInput';
 export * from './PieChart/PieChart';
 export * from './ProgressBar/ProgressBar';
@@ -42,4 +42,5 @@ export type {
   ColumnDef,
   RowData,
 } from './VirtualizedTable/VirtualizedTable.types';
+export { Counter as NumberInput } from './Counter/Counter';
 export { Select as Dropdown } from './Select/Select';
