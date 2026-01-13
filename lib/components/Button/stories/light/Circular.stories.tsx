@@ -7,14 +7,11 @@ import { Button } from '../../Button';
 type Story = StoryObj<typeof Button>;
 
 const meta: Meta<typeof Button> = {
-  title: 'In Review/Button/Dark',
+  title: 'In Review/Button/Light/Circular',
   component: Button,
 };
 
 export const Circular: Story = {
-  parameters: {
-    theme: 'dark',
-  },
   render: () => (
     <div className="flex flex-col gap-5 w-fit items-center">
       <Button shape="circle" size="medium">

@@ -6,7 +6,7 @@ import { Badge as BadgeComponent } from '../Badge';
 type Story = StoryObj<typeof BadgeComponent>;
 
 const meta: Meta<typeof BadgeComponent> = {
-  title: 'In Review/Badge',
+  title: 'In Review/Badge/Dark',
   component: BadgeComponent,
 };
 

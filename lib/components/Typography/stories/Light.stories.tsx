@@ -6,7 +6,7 @@ import { TypographyProps } from '../Typography.types';
 type Story = StoryObj<typeof TypographyComponent>;
 
 const meta: Meta<typeof TypographyComponent> = {
-  title: 'In Review/Typography',
+  title: 'In Review/Typography/Light',
   component: TypographyComponent,
 };
 

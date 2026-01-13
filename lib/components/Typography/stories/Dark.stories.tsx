@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 type Story = StoryObj<typeof TypographyComponent>;
 
 const meta: Meta<typeof TypographyComponent> = {
-  title: 'In Review/Typography',
+  title: 'In Review/Typography/Dark',
   component: TypographyComponent,
 };
 
