@@ -14,6 +14,7 @@ import {
   useRef,
 } from 'react';
 
+import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
 
 import { Props } from '../PhoneNumberInput.types';
@@ -158,7 +159,17 @@ export const Wrapper: ForwardRefExoticComponent<
               ref={inputRef}
               name={name}
               autoComplete="off"
-              className="outline-0 w-full caret-slate-800 text-slate-800 bg-transparent dark:caret-slate-50 dark:text-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+              className={cn(
+                'outline-0',
+                'w-full',
+                'caret-slate-800',
+                'text-slate-800',
+                'bg-transparent',
+                'dark:caret-metal-50',
+                'dark:text-metal-50',
+                'disabled:cursor-not-allowed',
+                'disabled:opacity-50',
+              )}
               type="tel"
               inputMode="tel"
               value={value}
@@ -180,20 +191,24 @@ export const Wrapper: ForwardRefExoticComponent<
         </div>
 
         {error ? (
-          <span className="text-xs text-red-700 dark:text-red-500">
+          <Typography
+            component="span"
+            className="text-xs text-red-700 dark:text-red-500"
+          >
             {error}
-          </span>
+          </Typography>
         ) : null}
 
         {!error && helperText ? (
-          <span
+          <Typography
+            component="span"
             className={cn(
-              'text-xs text-slate-600 dark:text-slate-200 kubefirst-dark:text-slate-200',
+              'text-xs kubefirst-dark:text-slate-200',
               helperTextClassName,
             )}
           >
             {helperText}
-          </span>
+          </Typography>
         ) : null}
       </div>
     );

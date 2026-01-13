@@ -1,6 +1,8 @@
 import { ChevronUp } from 'lucide-react';
 import { FC } from 'react';
 
+import { cn } from '@/utils';
+
 import { usePhoneNumberContext } from '../../contexts';
 
 export const FlagContent: FC = () => {
@@ -18,7 +20,15 @@ export const FlagContent: FC = () => {
       <Flag />
 
       <ChevronUp
-        className="transition-all duration-100 data-[state=open]:rotate-0 data-[state=closed]:rotate-180 w-5 h-5 text-slate-400"
+        className={cn(
+          'transition-all',
+          'duration-100',
+          'data-[state=open]:rotate-0',
+          'data-[state=closed]:rotate-180',
+          'w-5',
+          'h-5',
+          'text-slate-400',
+        )}
         data-state={isOpenSelector ? 'open' : 'closed'}
       />
     </button>
