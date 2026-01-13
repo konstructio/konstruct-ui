@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.1.2-alpha.45](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.45) (2026-01-13)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.44...0.1.2-alpha.45)
+
+**Merged pull requests:**
+
+- feat: image upload [\#462](https://github.com/konstructio/konstruct-ui/pull/462) ([CristhianF7](https://github.com/CristhianF7))
+- 💄 style: dark mode for switch component was added [\#461](https://github.com/konstructio/konstruct-ui/pull/461) ([futjesus](https://github.com/futjesus))
+- 💄 style: dark mode for phone number component was updated [\#460](https://github.com/konstructio/konstruct-ui/pull/460) ([futjesus](https://github.com/futjesus))
+- 💄 style: dark mode for filter component was added [\#459](https://github.com/konstructio/konstruct-ui/pull/459) ([futjesus](https://github.com/futjesus))
+- 🚚 chore: stories names were updated to order [\#458](https://github.com/konstructio/konstruct-ui/pull/458) ([futjesus](https://github.com/futjesus))
+- 🚚 chore: select was exportad as a dropdown alias [\#457](https://github.com/konstructio/konstruct-ui/pull/457) ([futjesus](https://github.com/futjesus))
+- 🚚 chore: Dropdown component was renamed by Select component [\#456](https://github.com/konstructio/konstruct-ui/pull/456) ([futjesus](https://github.com/futjesus))
+- 💄 style: dark mode was updated for button component [\#455](https://github.com/konstructio/konstruct-ui/pull/455) ([futjesus](https://github.com/futjesus))
+- 💄 style: checkbox icon color updated to metal-900 [\#454](https://github.com/konstructio/konstruct-ui/pull/454) ([futjesus](https://github.com/futjesus))
+- 💄 style: badge component was improved with dark colors [\#453](https://github.com/konstructio/konstruct-ui/pull/453) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: some dependencies have been updated [\#452](https://github.com/konstructio/konstruct-ui/pull/452) ([futjesus](https://github.com/futjesus))
+- 💄 style: alert dialog was improved with dark colors [\#451](https://github.com/konstructio/konstruct-ui/pull/451) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.44](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.44) (2026-01-08)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.43...0.1.2-alpha.44)
