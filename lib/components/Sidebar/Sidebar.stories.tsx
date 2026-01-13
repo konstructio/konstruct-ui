@@ -114,7 +114,10 @@ export const Sidebar = {
             <NavigationOption>
               <a className="flex items-center gap-2 md:mt-0">
                 <ScatterPlotIcon className="w-6 h-6" />{' '}
-                <Typography variant="body1" className="hidden md:block">
+                <Typography
+                  variant="body1"
+                  className="hidden md:block text-inherit"
+                >
                   Clusters
                 </Typography>
               </a>
@@ -126,7 +129,10 @@ export const Sidebar = {
               isActive={theme === 'kubefirst'}
             >
               <PhotoLibraryIcon className="w-6 h-6" />{' '}
-              <Typography variant="body1" className="hidden md:block">
+              <Typography
+                variant="body1"
+                className="hidden md:block text-inherit"
+              >
                 Environments
               </Typography>
             </NavigationOption>
@@ -142,7 +148,10 @@ export const Sidebar = {
               isActive={theme === 'light'}
             >
               <ReceiptLongIcon className="w-6 h-6" />{' '}
-              <Typography variant="body1" className="hidden md:block">
+              <Typography
+                variant="body1"
+                className="hidden md:block text-inherit"
+              >
                 Plans & Billing
               </Typography>
             </NavigationOption>
@@ -150,7 +159,10 @@ export const Sidebar = {
             <NavigationOption>
               <a className="flex items-center gap-2">
                 <CloudIcon className="w-6 h-6" />{' '}
-                <Typography variant="body1" className="hidden md:block">
+                <Typography
+                  variant="body1"
+                  className="hidden md:block text-inherit"
+                >
                   Cloud accounts
                 </Typography>
               </a>
@@ -161,7 +173,10 @@ export const Sidebar = {
         <Footer>
           <span className="text-[#81e2b4] flex items-center gap-2 justify-center font-semibold cursor-pointer">
             <Star className="w-5 h-5" />{' '}
-            <Typography variant="body1" className="hidden md:block">
+            <Typography
+              variant="body1"
+              className="hidden md:block text-inherit"
+            >
               Upgrade to Business
             </Typography>
           </span>

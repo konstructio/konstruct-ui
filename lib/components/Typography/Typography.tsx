@@ -20,8 +20,6 @@ const Typography: ForwardRefExoticComponent<
       ref={ref}
       data-theme={theme}
       className={cn(
-        'text-slate-800',
-        'dark:text-metal-50',
         typographyVariants({
           className,
           variant,
