@@ -1,5 +1,6 @@
 import { FC, forwardRef, useCallback, useId } from 'react';
 
+import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
 
 import { RadioProps } from './Radio.types';
@@ -72,21 +73,23 @@ const Radio: FC<RadioProps> = forwardRef<HTMLInputElement, RadioProps>(
           )}
         />
         <div className={cn(description && 'flex flex-col gap-1')}>
-          <span
+          <Typography
+            component="span"
             className={cn(
               labelRadioVariants({ className: labelTextClassName }),
             )}
           >
             {label}
-          </span>
+          </Typography>
           {description && (
-            <span
+            <Typography
+              component="span"
               className={cn(
                 labelRadioVariants({ className: descriptionClassName }),
               )}
             >
               {description}
-            </span>
+            </Typography>
           )}
         </div>
       </label>
