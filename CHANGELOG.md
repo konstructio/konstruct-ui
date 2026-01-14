@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.2-alpha.48](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.48) (2026-01-14)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.47...0.1.2-alpha.48)
+
+**Merged pull requests:**
+
+- 💄 style: dark and light mode were updated in virtualized table [\#472](https://github.com/konstructio/konstruct-ui/pull/472) ([futjesus](https://github.com/futjesus))
+- 💄 style: dark mode was added to the radio group component [\#471](https://github.com/konstructio/konstruct-ui/pull/471) ([futjesus](https://github.com/futjesus))
+-  💄 style: dark and light theme was improved in input component [\#470](https://github.com/konstructio/konstruct-ui/pull/470) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: some dependencies have been updated [\#469](https://github.com/konstructio/konstruct-ui/pull/469) ([futjesus](https://github.com/futjesus))
+- 💄 style: dark mode for multi select was added [\#467](https://github.com/konstructio/konstruct-ui/pull/467) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.47](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.47) (2026-01-13)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.46...0.1.2-alpha.47)
