@@ -5,20 +5,13 @@ export const wrapperVariants = cva([
   'flex-col',
   'w-full',
   'relative',
-  'text-slate-500',
-
-  'mb-1',
   'cursor-pointer',
-  'text-sm',
-  'leading-5',
-  'tracking-[0.1px]',
-  'dark:text-slate-50',
 ]);
 
-export const labelVariants = cva(['cursor-pointer', 'mb-1']);
+export const labelVariants = cva(['cursor-pointer', 'mb-1', 'select-none']);
 
 export const multiSelectDropdownVariants = cva([
-  'h-9',
+  'min-h-9',
   'border',
   'cursor-pointer',
   'duration-250',
@@ -32,4 +25,6 @@ export const multiSelectDropdownVariants = cva([
   'transition-all',
   'w-full',
   'border-gray-200',
+  'dark:border-metal-700',
+  'dark:bg-metal-800',
 ]);

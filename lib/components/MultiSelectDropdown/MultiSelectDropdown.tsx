@@ -1,4 +1,3 @@
-'use client';
 import { FC, forwardRef } from 'react';
 
 import { Wrapper } from './components';
@@ -11,14 +10,14 @@ export const MultiSelectDropdown: FC<MultiSelectDropdownProps> = forwardRef<
 >(
   (
     {
-      options,
+      isLoading,
       multiselect,
+      name,
+      noOptionsText,
+      options,
       value,
       onChange,
       onBlur,
-      name,
-      isLoading,
-      noOptionsText,
       ...delegated
     },
     ref,
@@ -33,9 +32,9 @@ export const MultiSelectDropdown: FC<MultiSelectDropdownProps> = forwardRef<
       isLoading={isLoading}
       noOptionsText={noOptionsText}
     >
-      <Wrapper ref={ref} {...delegated} name={name} />
+      <Wrapper ref={ref} name={name} {...delegated} />
     </MultiSelectDropdownProvider>
   ),
 );
 
-MultiSelectDropdown.displayName = 'MultiSelectDropdown';
+MultiSelectDropdown.displayName = 'KonstructMultiSelectDropdown';

@@ -1,4 +1,3 @@
-'use client';
 import { X } from 'lucide-react';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 
@@ -16,6 +15,7 @@ export const Badge: FC<BadgeProps> = ({
   label,
   leftIcon,
   loading = false,
+  rightIcon,
   size,
   variant,
   onClick,
@@ -71,7 +71,7 @@ export const Badge: FC<BadgeProps> = ({
 
       {label}
 
-      {dismissible && (
+      {dismissible ? (
         <button
           type="button"
           className={cn(buttonDismissVariants({ size, variant }))}
@@ -81,7 +81,9 @@ export const Badge: FC<BadgeProps> = ({
           <X className="h-full w-full" />
           <span className="sr-only">Dismiss</span>
         </button>
-      )}
+      ) : rightIcon ? (
+        <Slot className="h-3 w-3">{rightIcon}</Slot>
+      ) : null}
     </span>
   );
 };

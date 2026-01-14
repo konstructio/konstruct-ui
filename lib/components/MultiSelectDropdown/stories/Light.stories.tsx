@@ -1,44 +1,42 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { MultiSelectDropdown as MultiSelectDropdownComponent } from './MultiSelectDropdown';
+import { MultiSelectDropdown as MultiSelectDropdownComponent } from '../MultiSelectDropdown';
 
 type Story = StoryObj<typeof MultiSelectDropdownComponent>;
 
 const meta: Meta<typeof MultiSelectDropdownComponent> = {
-  title: 'In Review/MultiSelectDropdown',
+  title: 'In Review/MultiSelectDropdown/Light',
   component: MultiSelectDropdownComponent,
 };
 
-export const MultiSelectDropdown: Story = {
+export const Light = {
   args: {
     options: [
       {
         id: '1',
         label: 'dev: development',
-        tagLabel: 'dev',
-        tagColor: 'gray-800',
+        badge: 'dev',
         value: 'development',
       },
       {
         id: '2',
         label: 'qa: quality assurance',
-        tagLabel: 'qa',
-        tagColor: 'gray-800',
-        value: 'quality assurance',
+        badge: 'qa',
+        value: 'quality_assurance',
       },
       {
         id: '3',
         label: 'prod: production',
-        tagLabel: 'prod',
-        tagColor: 'gray-800',
+        badge: 'prod',
         value: 'production',
       },
     ],
+    isRequired: true,
   },
   render: (args) => (
-    <div className="max-w-[300px] flex flex-col gap-3">
+    <div className="max-w-75 flex flex-col gap-6">
       <MultiSelectDropdownComponent {...args} label="Multiselect" />
-      <div className="border-t my-3 border-gray-200" />
+
       <MultiSelectDropdownComponent
         {...args}
         label="Single select"
@@ -46,6 +44,6 @@ export const MultiSelectDropdown: Story = {
       />
     </div>
   ),
-};
+} satisfies Story;
 
 export default meta;

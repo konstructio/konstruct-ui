@@ -1,12 +1,13 @@
 import { FC } from 'react';
 
+import { Badge } from '@/components/Badge/Badge';
+import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
 
 import { useMultiSelectDropdown } from '../../contexts';
 
 import { ItemProps } from './Item.types';
-import { wrapperVariants } from './Item.variants';
-import { Tag, Typography } from '@/components';
+import { itemVariants } from './Item.variants';
 
 export const Item: FC<ItemProps> = ({
   option,
@@ -20,20 +21,12 @@ export const Item: FC<ItemProps> = ({
     <li
       role="option"
       data-theme={theme}
-      className={cn(wrapperVariants({ isSelected }), className)}
+      className={cn(itemVariants({ isSelected }), className)}
       onClick={() => onSelectOption(option)}
     >
-      <Typography variant="body2" className="text-slate-800">
-        {option.label}
-      </Typography>
-      {option.tagLabel && (
-        <Tag
-          id={option.id}
-          label={option.tagLabel}
-          color={option.tagColor}
-          isSelected={isSelected}
-        />
-      )}
+      <Typography variant="body2">{option.label}</Typography>
+
+      {option.badge && <Badge label={option.badge} />}
     </li>
   );
 };
