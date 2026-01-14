@@ -19,7 +19,12 @@ export const typographyVariants = cva(
           'leading-5',
           'tracking-[0.1px]',
         ],
-        labelLarge: ['text-sm', 'leading-5', 'tracking-[0.1px]'],
+        labelLarge: [
+          'text-sm',
+          'font-medium',
+          'text-slate-500',
+          'dark:text-metal-50',
+        ],
         labelMedium: [
           'text-[12px]',
           'font-medium',

@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority';
 
-export const wrapperVariants = cva(
+export const itemVariants = cva(
   [
     'cursor-pointer',
     'py-1.5',
@@ -8,13 +8,13 @@ export const wrapperVariants = cva(
     'last:pb-2',
     'first:pt-2',
     'h-full',
-    'hover:bg-gray-50',
-    'focus:bg-gray-50',
-    'dark:hover:bg-slate-700',
-    'dark:focus:bg-slate-700',
     'flex',
     'items-center',
-    'gap-4',
+    'gap-2',
+    'hover:bg-gray-50',
+    'focus:bg-gray-50',
+    'dark:hover:bg-metal-700',
+    'dark:focus:bg-metal-700',
   ],
   {
     variants: {
@@ -26,7 +26,7 @@ export const wrapperVariants = cva(
     compoundVariants: [
       {
         isSelected: true,
-        class: ['bg-slate-50'],
+        class: ['bg-slate-50', 'dark:bg-metal-700'],
       },
     ],
     defaultVariants: {

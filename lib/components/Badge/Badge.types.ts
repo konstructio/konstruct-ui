@@ -6,10 +6,11 @@ import { badgeVariants } from './Badge.variants';
 export type BadgeProps = VariantProps<typeof badgeVariants> & {
   className?: string;
   dismissible?: true;
+  isSelectable?: boolean;
   label: string;
   leftIcon?: ReactNode;
   loading?: boolean;
-  isSelectable?: boolean;
+  rightIcon?: ReactNode;
   onClick?: VoidFunction;
   onDismiss?: VoidFunction;
 };

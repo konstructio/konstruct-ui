@@ -18,25 +18,23 @@ export const Dark = {
       {
         id: '1',
         label: 'dev: development',
-        tagLabel: 'dev',
-        tagColor: 'gray-800',
+        badge: 'dev',
         value: 'development',
       },
       {
         id: '2',
         label: 'qa: quality assurance',
-        tagLabel: 'qa',
-        tagColor: 'gray-800',
-        value: 'quality assurance',
+        badge: 'qa',
+        value: 'quality_assurance',
       },
       {
         id: '3',
         label: 'prod: production',
-        tagLabel: 'prod',
-        tagColor: 'gray-800',
+        badge: 'prod',
         value: 'production',
       },
     ],
+    isRequired: true,
   },
   render: (args) => (
     <div className="max-w-75 flex flex-col gap-6">

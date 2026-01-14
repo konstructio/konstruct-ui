@@ -1,15 +1,12 @@
 import { VariantProps } from 'class-variance-authority';
 import { InputHTMLAttributes } from 'react';
 
-import { TagProps } from '@/components/Tag/Tag.types';
-
 import { multiSelectDropdownVariants } from './MultiSelectDropdown.variants';
 
 export type MultiSelectDropdownOption = {
   id: string | number;
   label: string;
-  tagLabel?: string;
-  tagColor?: TagProps['color'];
+  badge?: string;
   value?: string;
 };
 
@@ -29,16 +26,17 @@ export interface MultiSelectDropdownProps
       InputHTMLAttributes<HTMLInputElement>,
       'value' | 'onChange' | 'onBlur'
     > {
+  isLoading?: boolean;
+  isRequired?: boolean;
   label?: string;
-  options: MultiSelectDropdownOption[];
-  name?: string;
-  placeholder?: string;
   labelClassName?: string;
-  wrapperClassName?: string;
   multiselect?: boolean;
+  name?: string;
+  noOptionsText?: string;
+  options: MultiSelectDropdownOption[];
+  placeholder?: string;
   value?: MultiSelectDropdownOption[];
+  wrapperClassName?: string;
   onChange?: OnChangeFn;
   onBlur?: OnBlurFn;
-  isLoading?: boolean;
-  noOptionsText?: string;
 }

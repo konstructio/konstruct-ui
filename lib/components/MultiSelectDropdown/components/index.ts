@@ -1,3 +1,3 @@
-export * from './Item/Item';
-export * from './List/List';
-export * from './Wrapper/Wrapper';
+export { Item } from './Item/Item';
+export { List } from './List/List';
+export { Wrapper } from './Wrapper/Wrapper';

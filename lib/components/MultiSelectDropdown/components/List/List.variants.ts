@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority';
 
-export const wrapperVariants = cva([
+export const listVariants = cva([
   'absolute',
   'bg-white',
   'border',
@@ -18,4 +18,6 @@ export const wrapperVariants = cva([
   'fade-in-50',
   'overflow-hidden',
   'border-gray-200',
+  'dark:border-metal-700',
+  'dark:bg-metal-800',
 ]);

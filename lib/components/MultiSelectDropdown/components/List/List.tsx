@@ -7,14 +7,14 @@ import { Item } from '../Item/Item';
 import { useMultiSelectDropdown } from '../../contexts';
 
 import { ListProps } from './List.types';
-import { wrapperVariants } from './List.variants';
+import { listVariants } from './List.variants';
 
 export const List: FC<ListProps> = ({ theme }) => {
   const { options, selectedOptions, isLoading, noOptionsText } =
     useMultiSelectDropdown();
 
   return (
-    <ul role="listbox" data-theme={theme} className={cn(wrapperVariants())}>
+    <ul role="listbox" data-theme={theme} className={cn(listVariants())}>
       {isLoading ? (
         <Item
           key="loading"
@@ -34,10 +34,7 @@ export const List: FC<ListProps> = ({ theme }) => {
         ))
       ) : (
         <li className="select-none">
-          <Typography
-            variant="body2"
-            className="text-zinc-800 dark:text-slate-50 italic px-2 py-2"
-          >
+          <Typography variant="body2" className="italic px-2 py-2">
             {noOptionsText ?? 'No options'}
           </Typography>
         </li>

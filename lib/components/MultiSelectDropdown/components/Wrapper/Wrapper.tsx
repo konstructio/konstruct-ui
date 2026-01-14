@@ -1,8 +1,10 @@
+import { X } from 'lucide-react';
 import { FC, forwardRef, useId, useImperativeHandle } from 'react';
 import { ChevronUp } from 'react-feather';
 
-import { Tag } from '@/components';
-import Loader from '@/assets/icons/loader.svg';
+import { Loader } from '@/assets/icons';
+import { Badge } from '@/components/Badge/Badge';
+import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
 
 import { useMultiSelectDropdown as useMultiSelectDropdownContext } from '../../contexts';
@@ -13,7 +15,6 @@ import {
   wrapperVariants,
 } from '../../MultiSelectDropdown.variants';
 import { List } from '../List/List';
-import X from '@/assets/icons/x.svg';
 
 import { WrapperProps } from './Wrapper.types';
 
@@ -22,17 +23,26 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
   WrapperProps
 >(
   (
-    { label, labelClassName, name, placeholder = '', theme, wrapperClassName },
+    {
+      isRequired,
+      label,
+      labelClassName,
+      name,
+      placeholder = '',
+      theme,
+      wrapperClassName,
+    },
     ref,
   ) => {
     const id = useId();
+    const htmlFor = name ? `${id}-name` : 'id';
     const {
-      selectedOptions,
-      isOpen,
-      onOpen,
-      onRemoveOption,
       inputRef,
       isLoading,
+      isOpen,
+      selectedOptions,
+      onOpen,
+      onRemoveOption,
     } = useMultiSelectDropdownContext();
     const { wrapperRef, handleOpen } = useMultiSelectDropdown();
 
@@ -49,8 +59,10 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
         data-theme={theme}
       >
         {label ? (
-          <label
-            htmlFor={name ?? id}
+          <Typography
+            component="label"
+            variant="labelLarge"
+            htmlFor={htmlFor}
             className={cn(
               labelVariants({
                 className: labelClassName,
@@ -58,12 +70,20 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
             )}
             onClick={() => onOpen(true)}
           >
-            {label}
-          </label>
+            {label}{' '}
+            {isRequired && (
+              <Typography
+                component="span"
+                className="text-red-500 dark:text-red-500 text-sm font-normal"
+              >
+                *
+              </Typography>
+            )}
+          </Typography>
         ) : null}
 
         <div
-          id={name ?? id}
+          id={htmlFor}
           className={cn(multiSelectDropdownVariants())}
           role="combobox"
           onClick={handleOpen}
@@ -76,30 +96,23 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
           ) : (
             <div className="flex flex-wrap gap-2">
               {selectedOptions.map((option) => (
-                <Tag
+                <Badge
                   key={option.id}
-                  id={option.id}
-                  label={option.value || option.tagLabel || ''}
-                  color={option.tagColor || 'gray-800'}
-                  className="select-none gap-2"
-                  rightIcon={
-                    <X
-                      className="w-2 h-2"
-                      onClick={() => onRemoveOption(option)}
-                    />
-                  }
                   data-value={option.label}
+                  label={option.value ?? option.label ?? ''}
+                  className="select-none"
+                  rightIcon={<X onClick={() => onRemoveOption(option)} />}
                 />
               ))}
             </div>
           )}
 
           {isLoading ? (
-            <Loader className="w-4 h-4 text-slate-400 animate-spin shrink-0" />
+            <Loader className="w-4 h-4 animate-spin shrink-0 text-gray-400" />
           ) : (
             <ChevronUp
               className={cn(
-                'w-4 h-4 text-inherit transition-all duration-50 shrink-0',
+                'w-4 h-4 transition-all duration-50 shrink-0 text-gray-400',
                 isOpen ? 'rotate-0' : 'rotate-180',
               )}
             />
