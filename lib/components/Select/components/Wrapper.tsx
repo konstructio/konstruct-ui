@@ -141,7 +141,9 @@ export const Wrapper: ForwardRefExoticComponent<
             onClick={() => !disabled && handleOpen()}
           >
             {label}
-            {isRequired && <span className="text-red-600 ml-1">*</span>}
+            {isRequired && (
+              <span className="text-red-600 dark:text-red-500 ml-1">*</span>
+            )}
           </label>
         ) : null}
 

@@ -80,7 +80,7 @@ export const Wrapper: FC<WrapperProps> = ({
           {isRequired && (
             <Typography
               component="span"
-              className="text-red-500 dark:text-red-500 text-sm font-normal"
+              className="text-red-600 dark:text-red-500 text-sm font-normal"
             >
               *
             </Typography>

@@ -73,7 +73,9 @@ export const Counter: FC<CounterProps> = forwardRef<
             className={cn(labelVariants())}
           >
             Number of nodes{' '}
-            {isRequired && <span className="text-red-600">*</span>}
+            {isRequired && (
+              <span className="text-red-600 dark:text-red-500">*</span>
+            )}
           </Typography>
         ) : null}
 
