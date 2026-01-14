@@ -139,7 +139,14 @@ export const Wrapper: ForwardRefExoticComponent<
             onClick={() => !disabled && inputRef.current?.focus()}
           >
             {label}
-            {isRequired && <span className="text-red-600 ml-1">*</span>}
+            {isRequired && (
+              <Typography
+                component="span"
+                className="text-red-600 dark:text-red-500 ml-1"
+              >
+                *
+              </Typography>
+            )}
           </label>
         ) : null}
 

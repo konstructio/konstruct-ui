@@ -157,7 +157,11 @@ const ImageUpload = ({
           )}
         >
           {label}
-          {isRequired && <span className="text-red-600 text-xs mt-0.5">*</span>}
+          {isRequired && (
+            <span className="text-red-600 dark:text-red-500 text-xs mt-0.5">
+              *
+            </span>
+          )}
         </label>
       )}
 

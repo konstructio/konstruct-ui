@@ -1,4 +1,3 @@
-'use client';
 import { forwardRef, useId, useRef, useState } from 'react';
 import { Eye, EyeOff } from 'react-feather';
 
@@ -7,12 +6,15 @@ import { cn } from '@/utils';
 
 import { InputProps } from './Input.types';
 import { inputVariants } from './Input.variants';
+import { Typography } from '../Typography/Typography';
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
       className,
       error,
+      helperText,
+      helperTextClassName,
       isRequired = false,
       isSearch = false,
       label,
@@ -20,8 +22,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       name,
       theme,
       type = 'text',
-      helperText,
-      helperTextClassName,
       ...delegated
     },
     ref,
@@ -43,25 +43,46 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="flex flex-col gap-2 w-full relative" data-theme={theme}>
         {label ? (
-          <label
+          <Typography
+            component="label"
+            variant="labelLarge"
             htmlFor={id}
             className={cn(
-              'cursor-pointer text-slate-500 flex gap-1 text-sm font-medium dark:text-slate-50 kubefirst-dark:text-slate-50',
+              'cursor-pointer',
+              'flex',
+              'gap-1',
+              'text-sm',
+              'font-medium',
               labelClassName,
             )}
           >
             {label}{' '}
             {isRequired && (
-              <span className="text-red-600 text-xs mt-0.5">*</span>
+              <Typography
+                component="span"
+                className={cn(
+                  'text-red-600',
+                  'dark:text-red-500',
+                  'text-xs',
+                  'mt-0.5',
+                )}
+              >
+                *
+              </Typography>
             )}
-          </label>
+          </Typography>
         ) : null}
 
         <div className="relative">
           {isSearch ? (
             <i
               className={cn(
-                'absolute left-2.5 top-1/2 -translate-y-[50%] text-slate-400',
+                'absolute',
+                'left-2.5',
+                'top-1/2',
+                '-translate-y-[50%]',
+                'text-slate-400',
+                'dark:text-metal-400',
                 {
                   'text-red-700': hasError,
                 },
@@ -97,13 +118,30 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           />
 
           {hasError ? (
-            <i className="absolute right-3 text-red-700 dark:text-red-500 top-1/2 -translate-y-[50%]">
+            <i
+              className={cn(
+                '-translate-y-[50%]',
+                'absolute',
+                'right-3',
+                'text-red-700',
+                'top-1/2',
+                'dark:text-red-500',
+              )}
+            >
               <WarningIcon className="w-5 h-5" />
             </i>
           ) : null}
 
           {type === 'password' && !error ? (
-            <i className="absolute right-3 text-slate-400 top-1/2 -translate-y-[50%]">
+            <i
+              className={cn(
+                '-translate-y-[50%]',
+                'absolute',
+                'right-3',
+                'text-slate-400',
+                'top-1/2',
+              )}
+            >
               <EyeIcon
                 className="w-5 h-5 cursor-pointer"
                 onClick={() => setShowPassword(!showPassword)}
@@ -113,20 +151,34 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         </div>
 
         {error ? (
-          <span className="text-xs text-red-700 dark:text-red-500">
+          <Typography
+            component="span"
+            className={cn(
+              'text-xs',
+              'tracking-normal',
+              'text-red-700',
+              'dark:text-red-400',
+            )}
+          >
             {error}
-          </span>
+          </Typography>
         ) : null}
 
         {!error && helperText ? (
-          <span
+          <Typography
+            component="span"
+            variant="body1"
             className={cn(
-              'text-xs text-slate-600 dark:text-slate-200 kubefirst-dark:text-slate-200',
+              'text-xs',
+              'text-slate-600',
+              'dark:text-slate-200',
+              'select-none',
+              'tracking-normal',
               helperTextClassName,
             )}
           >
             {helperText}
-          </span>
+          </Typography>
         ) : null}
       </div>
     );
