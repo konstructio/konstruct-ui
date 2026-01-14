@@ -106,10 +106,11 @@ declare type BadgeMultiSelectProps = {
 declare type BadgeProps = VariantProps<typeof badgeVariants> & {
     className?: string;
     dismissible?: true;
+    isSelectable?: boolean;
     label: string;
     leftIcon?: ReactNode;
     loading?: boolean;
-    isSelectable?: boolean;
+    rightIcon?: ReactNode;
     onClick?: VoidFunction;
     onDismiss?: VoidFunction;
 };
@@ -402,24 +403,24 @@ export declare const MultiSelectDropdown: FC<MultiSelectDropdownProps>;
 declare type MultiSelectDropdownOption = {
     id: string | number;
     label: string;
-    tagLabel?: string;
-    tagColor?: TagProps['color'];
+    badge?: string;
     value?: string;
 };
 
 declare interface MultiSelectDropdownProps extends VariantProps<typeof multiSelectDropdownVariants>, Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'onBlur'> {
+    isLoading?: boolean;
+    isRequired?: boolean;
     label?: string;
-    options: MultiSelectDropdownOption[];
-    name?: string;
-    placeholder?: string;
     labelClassName?: string;
-    wrapperClassName?: string;
     multiselect?: boolean;
+    name?: string;
+    noOptionsText?: string;
+    options: MultiSelectDropdownOption[];
+    placeholder?: string;
     value?: MultiSelectDropdownOption[];
+    wrapperClassName?: string;
     onChange?: OnChangeFn_2;
     onBlur?: OnBlurFn;
-    isLoading?: boolean;
-    noOptionsText?: string;
 }
 
 declare const multiSelectDropdownVariants: (props?: ClassProp | undefined) => string;
