@@ -38,7 +38,7 @@ export const Pagination: FC<Props> = ({
           'border-y-transparent',
           'border-x-slate-100',
           'text-slate-500',
-          'text-xs',
+          'text-sm',
           'not-italic',
           'py-2',
           'px-6',
@@ -74,7 +74,7 @@ export const Pagination: FC<Props> = ({
           </div>
         </div>
       </div>
-      <div className="w-full min-h-[150px]"></div>
+      <div className="w-full min-h-37.5"></div>
     </>
   );
 };

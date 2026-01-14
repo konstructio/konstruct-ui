@@ -1,6 +1,8 @@
 import { FormEvent, useCallback, useRef } from 'react';
 
 import { Input } from '@/components/Input/Input';
+import { Typography } from '@/components/Typography/Typography';
+import { Button } from '@/components/Button/Button';
 
 import { useTableContext } from '../../contexts';
 
@@ -27,23 +29,30 @@ export const FormPaginate = () => {
       ref={formRef}
       onSubmit={handleSubmit}
       className="flex items-center gap-2"
+      noValidate={true}
     >
-      <span className="min-w-fit dark:text-metal-300">Jump to</span>
+      <Typography
+        component="span"
+        className="text-sm min-w-fit tracking-normal"
+      >
+        Jump to
+      </Typography>
       <Input
         type="number"
-        className="w-18 text-xs no-spinner dark:bg-metal-800 dark:border-metal-700 dark:text-metal-300"
+        className="w-18 text-sm no-spinner"
         name="jump-to"
         min={1}
         max={totalPages}
         required
         autoComplete="off"
       />
-      <button
+      <Button
+        variant="link"
         type="submit"
-        className="text-xs text-blue-600 p-2 cursor-pointer dark:text-aurora-500"
+        className="text-xs p-2 cursor-pointer"
       >
         Go
-      </button>
+      </Button>
     </form>
   );
 };

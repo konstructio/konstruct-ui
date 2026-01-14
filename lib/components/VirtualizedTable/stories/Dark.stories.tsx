@@ -29,7 +29,7 @@ const columns: ColumnDef<Pokemon>[] = [
     header: 'Id',
     accessorKey: 'id',
     meta: {
-      headerClassName: 'w-12',
+      headerClassName: 'whitespace-nowrap w-0',
     },
   },
   {
@@ -86,7 +86,7 @@ const columns: ColumnDef<Pokemon>[] = [
         actions={[
           {
             label: (
-              <span className="text-blue-800 flex items-center gap-2">
+              <span className="flex items-center gap-2">
                 <EyeIcon className="w-4 h-4" />
                 First Action
               </span>
