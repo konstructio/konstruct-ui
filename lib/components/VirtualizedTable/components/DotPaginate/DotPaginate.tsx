@@ -22,7 +22,7 @@ const PageButton = memo(
         className={cn(
           'px-2.5 py-1 rounded-lg text-blue-600 cursor-pointer dark:text-aurora-500',
           {
-            'bg-blue-600 text-white dark:bg-aurora-500 dark:text-metal-800':
+            'bg-blue-600 text-white font-semibold dark:bg-aurora-500 dark:text-metal-800':
               index === currentPage,
           },
         )}
@@ -33,7 +33,7 @@ const PageButton = memo(
   ),
 );
 
-PageButton.displayName = 'PageButton';
+PageButton.displayName = 'KonstructPageButton';
 
 const Ellipsis = memo(({ keyValue }: { keyValue: string }) => (
   <li key={keyValue} className="px-2">
@@ -41,17 +41,17 @@ const Ellipsis = memo(({ keyValue }: { keyValue: string }) => (
   </li>
 ));
 
-Ellipsis.displayName = 'Ellipsis';
+Ellipsis.displayName = 'KonstructEllipsis';
 
 const NavigationButton = memo(
   ({
     direction,
-    onClick,
     disabled,
+    onClick,
   }: {
     direction: 'left' | 'right';
-    onClick: () => void;
     disabled: boolean;
+    onClick: VoidFunction;
   }) => {
     const Icon = direction === 'left' ? ChevronLeft : ChevronRight;
 
@@ -70,7 +70,7 @@ const NavigationButton = memo(
   },
 );
 
-NavigationButton.displayName = 'NavigationButton';
+NavigationButton.displayName = 'KonstructNavigationButton';
 
 export const DotPaginate = () => {
   const { totalPages, page, handlePage } = useTableContext();

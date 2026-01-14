@@ -78,7 +78,8 @@ export const Header = <TData extends RowData>({
                       className={cn(
                         'w-2 h-2 cursor-pointer',
                         {
-                          'text-blue-600': column.getIsSorted() === 'asc',
+                          'text-blue-600 dark:text-aurora-500':
+                            column.getIsSorted() === 'asc',
                         },
                         classNameActiveArrows,
                       )}
@@ -89,7 +90,8 @@ export const Header = <TData extends RowData>({
                       className={cn(
                         'w-2 h-2 cursor-pointer',
                         {
-                          'text-blue-600': column.getIsSorted() === 'desc',
+                          'text-blue-600 dark:text-aurora-500':
+                            column.getIsSorted() === 'desc',
                         },
                         classNameActiveArrows,
                       )}

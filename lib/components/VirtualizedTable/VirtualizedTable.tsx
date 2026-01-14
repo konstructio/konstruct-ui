@@ -87,7 +87,7 @@ const VirtualizedTableInner = <TData extends RowData>({
         >
           <table
             className={cn(
-              'w-full border-collapse table-fixed',
+              'w-full border-collapse table-auto',
               'dark:border-separate dark:border-spacing-0',
               classNameTable,
             )}

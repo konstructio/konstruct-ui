@@ -67,6 +67,8 @@ export const Actions = <TData extends RowData>({
             'border-zinc-100',
             'animate-in',
             'fade-in-0',
+            'dark:bg-metal-800',
+            'dark:border-metal-700',
             wrapperContentActionsClassName,
           )}
         >
@@ -84,10 +86,12 @@ export const Actions = <TData extends RowData>({
                 'text-sm',
                 'font-normal',
                 'justify-start',
-                'hover:bg-gray-50',
-                'hover:text-slate-800',
                 'rounded-none',
                 'px-6',
+                'hover:bg-gray-50',
+                'hover:text-slate-800',
+                'hover:no-underline',
+                'dark:hover:bg-metal-700',
                 className,
               )}
               variant="link"

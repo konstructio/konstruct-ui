@@ -29,7 +29,7 @@ const columns: ColumnDef<Pokemon>[] = [
     header: 'Id',
     accessorKey: 'id',
     meta: {
-      headerClassName: 'w-12',
+      headerClassName: 'whitespace-nowrap w-0',
     },
   },
   {
