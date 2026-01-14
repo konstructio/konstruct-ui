@@ -12,11 +12,11 @@ export const RadioGroup: FC<RadioGroupProps> = ({
   asChild,
   className,
   defaultChecked,
+  direction,
   name,
   options,
   theme,
   wrapperClassName,
-  direction,
   onValueChange,
 }) => {
   const Component = asChild ? Slot : 'div';
