@@ -1,0 +1,193 @@
+# @konstructio/ui - React Component Library
+
+> A set of reusable and customizable React components built for konstruct.io infrastructure products.
+
+## Quick Start
+
+```bash
+npm install @konstructio/ui
+```
+
+```tsx
+import { Button, Input, Modal } from '@konstructio/ui';
+import { ThemeProvider } from '@konstructio/ui';
+
+function App() {
+  return (
+    <ThemeProvider theme="kubefirst">
+      <Button variant="primary">Click me</Button>
+    </ThemeProvider>
+  );
+}
+```
+
+## Tailwind CSS Setup Required
+
+```ts
+// tailwind.config.ts
+import { konstructPlugin } from '@konstructio/ui';
+
+export default {
+  content: [
+    './node_modules/@konstructio/ui/dist/**/*.{js,ts,jsx,tsx}',
+  ],
+  plugins: [konstructPlugin],
+};
+```
+
+## Components
+
+### Buttons
+- `Button` - variant: primary | secondary | tertiary | danger | link
+
+### Form Inputs
+- `Input` - Text input with label, error, helperText props
+- `TextArea` - Multiline text
+- `Select` / `Dropdown` - Dropdown select
+- `Checkbox` - Checkbox with label
+- `Switch` - Toggle switch
+- `Radio`, `RadioGroup` - Radio buttons
+- `RadioCard`, `RadioCardGroup` - Card-style radios
+- `Counter` / `NumberInput` - Numeric +/- input
+- `Datepicker` - Date selection
+- `TimePicker` - Time selection
+- `PhoneNumberInput` - International phone
+- `Slider`, `Range` - Slider inputs
+- `Autocomplete` - Search suggestions
+- `MultiSelectDropdown` - Multi-select
+- `TagSelect` - Tag selection
+- `ImageUpload` - Image upload
+
+### Feedback
+- `Alert` - Alert messages
+- `AlertDialog` - Confirmation dialogs
+- `Modal` - Modal dialogs
+- `Toast` - Toast notifications
+- `Tooltip` - Hover tooltips
+- `Loading` - Loading states
+- `ProgressBar` - Progress indicator
+
+### Navigation
+- `Tabs` - Tab navigation
+- `Breadcrumb` - Breadcrumbs
+- `Sidebar` - Navigation sidebar
+- `DropdownButton` - Button with dropdown
+
+### Data Display
+- `Table` - Data table
+- `VirtualizedTable` - Large dataset table
+- `PieChart` - Pie charts
+- `Badge` - Status badges
+- `Tag` - Tags/chips
+- `Card` - Container card
+- `Typography` - Text styles
+
+### Other
+- `Divider` - Visual separator
+- `Command` - Command palette
+
+## Theme System
+
+```tsx
+import { ThemeProvider, useTheme } from '@konstructio/ui';
+
+// Available themes: 'kubefirst' | 'light' | 'kubefirst-dark' | 'dark'
+<ThemeProvider theme="kubefirst">
+  <App />
+</ThemeProvider>
+
+// Access theme in components
+const { theme, setTheme } = useTheme();
+```
+
+## Common Props
+
+Most components accept:
+- `theme` - Override theme for component
+- `className` - Additional CSS classes
+- `disabled` - Disable component
+
+Form components also accept:
+- `label` - Input label
+- `error` - Error message
+- `helperText` - Helper text
+- `isRequired` - Show required indicator
+
+## Button Variants
+
+```tsx
+<Button variant="primary">Primary</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="tertiary">Tertiary</Button>
+<Button variant="danger">Danger</Button>
+<Button variant="link">Link</Button>
+<Button shape="circle" size="large"><Icon /></Button>
+<Button appearance="compact">Compact</Button>
+```
+
+## Input Example
+
+```tsx
+<Input
+  label="Email"
+  placeholder="Enter email"
+  error="Invalid email"
+  helperText="We'll never share your email"
+  isRequired
+/>
+```
+
+## Modal Example
+
+```tsx
+import { Modal, Button } from '@konstructio/ui';
+
+<Modal>
+  <Modal.Trigger asChild>
+    <Button>Open Modal</Button>
+  </Modal.Trigger>
+  <Modal.Content>
+    <Modal.Header>
+      <Modal.Title>Title</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>Content here</Modal.Body>
+    <Modal.Footer>
+      <Modal.Close asChild>
+        <Button variant="secondary">Cancel</Button>
+      </Modal.Close>
+    </Modal.Footer>
+  </Modal.Content>
+</Modal>
+```
+
+## Table Example
+
+```tsx
+import { Table } from '@konstructio/ui';
+
+const columns = [
+  { accessorKey: 'name', header: 'Name' },
+  { accessorKey: 'email', header: 'Email' },
+];
+
+<Table columns={columns} data={users} />
+```
+
+## Utilities
+
+```tsx
+import { cn } from '@konstructio/ui';
+
+// Merge Tailwind classes safely
+<div className={cn('base-class', condition && 'conditional-class')} />
+```
+
+## Documentation
+
+Full documentation and interactive examples: https://konstructio.github.io/konstruct-ui
+
+## Links
+
+- npm: https://www.npmjs.com/package/@konstructio/ui
+- GitHub: https://github.com/konstructio/konstruct-ui
+- Storybook: https://konstructio.github.io/konstruct-ui
