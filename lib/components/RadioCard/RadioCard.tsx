@@ -8,6 +8,24 @@ import { Radio } from '../Radio/Radio';
 import { RadioCardProps } from './RadioCard.types';
 import { radioCardVariants } from './RadioCard.variants';
 
+/**
+ * A card-style radio button for visually prominent selection options.
+ * Use RadioCardGroup to manage a group of radio cards.
+ *
+ * @example
+ * ```tsx
+ * <RadioCard
+ *   name="tier"
+ *   value="enterprise"
+ *   label="Enterprise"
+ *   description="Custom pricing"
+ *   checked={tier === 'enterprise'}
+ *   onChange={(value) => setTier(value)}
+ * />
+ * ```
+ *
+ * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-radiocard--docs Storybook}
+ */
 const RadioCard: FC<RadioCardProps> = ({
   wrapperClassName,
   theme,

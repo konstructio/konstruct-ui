@@ -15,6 +15,31 @@ import {
 import { Props as ActionProps } from './components/Actions/Actions.types';
 import { TableProvider } from './contexts';
 
+/**
+ * A feature-rich data table component with filtering, pagination, and sorting.
+ * Built on TanStack Table with support for server-side data fetching.
+ *
+ * @example
+ * ```tsx
+ * <VirtualizedTable
+ *   id="orders-table"
+ *   columns={[
+ *     { accessorKey: 'id', header: 'Order ID' },
+ *     { accessorKey: 'status', header: 'Status' },
+ *     { accessorKey: 'total', header: 'Total' },
+ *   ]}
+ *   data={orders}
+ *   totalItems={totalOrders}
+ *   showPagination
+ *   showDropdownPagination
+ *   showFilter
+ *   showFilterInput
+ *   filterSearchPlaceholder="Search orders..."
+ * />
+ * ```
+ *
+ * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-virtualizedtable--docs Storybook}
+ */
 const VirtualizedTableInner = <TData extends RowData>({
   id,
   ariaLabel,

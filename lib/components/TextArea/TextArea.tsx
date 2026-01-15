@@ -5,6 +5,27 @@ import { cn } from '@/utils';
 import { TextAreaProps } from './TextArea.types';
 import { textAreaVariants } from './TextArea.variants';
 
+/**
+ * A multiline text input component with optional label.
+ *
+ * @example
+ * ```tsx
+ * // Basic textarea
+ * <TextArea label="Description" placeholder="Enter description..." />
+ *
+ * // Textarea with more rows
+ * <TextArea label="Notes" rows={5} />
+ *
+ * // Controlled textarea
+ * <TextArea
+ *   label="Comments"
+ *   value={comments}
+ *   onChange={(e) => setComments(e.target.value)}
+ * />
+ * ```
+ *
+ * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-textarea--docs Storybook}
+ */
 export const TextArea: FC<TextAreaProps> = forwardRef<
   HTMLTextAreaElement,
   TextAreaProps

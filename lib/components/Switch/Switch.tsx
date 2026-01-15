@@ -14,6 +14,32 @@ import { cn } from '@/utils';
 import { SwitchProps } from './Switch.types';
 import { switchVariants, thumbVariants } from './Switch.variants';
 
+/**
+ * A toggle switch component built on Radix UI primitives.
+ * Supports horizontal and vertical layouts with label and helper text.
+ *
+ * @example
+ * ```tsx
+ * // Basic switch
+ * <Switch label="Enable feature" />
+ *
+ * // Controlled switch
+ * <Switch
+ *   label="Dark mode"
+ *   value={isDarkMode}
+ *   onChange={(enabled) => setIsDarkMode(enabled)}
+ * />
+ *
+ * // Vertical layout with helper text
+ * <Switch
+ *   label="Notifications"
+ *   helperText="Receive email notifications"
+ *   alignment="vertical"
+ * />
+ * ```
+ *
+ * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-switch--docs Storybook}
+ */
 export const Switch: FC<SwitchProps> = forwardRef<
   HTMLInputElement,
   SwitchProps
