@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.49](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.49) (2026-01-15)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.48...0.1.2-alpha.49)
+
+**Merged pull requests:**
+
+- docs: add AI documentation and JSDoc to main components [\#473](https://github.com/konstructio/konstruct-ui/pull/473) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.1.2-alpha.48](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.48) (2026-01-14)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.47...0.1.2-alpha.48)
