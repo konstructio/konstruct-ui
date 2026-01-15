@@ -25,6 +25,24 @@ import {
   trackVariants,
 } from './Range.variants';
 
+/**
+ * A dual-thumb slider component for selecting a value range.
+ * Built on Radix UI Slider for accessibility.
+ *
+ * @example
+ * ```tsx
+ * <Range
+ *   label="Budget"
+ *   min={0}
+ *   max={10000}
+ *   defaultValue={[2000, 8000]}
+ *   showValue
+ *   name="budget"
+ * />
+ * ```
+ *
+ * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-range--docs Storybook}
+ */
 export const Range: FC<RangeProps> = forwardRef<
   ComponentRef<'input'>,
   RangeProps

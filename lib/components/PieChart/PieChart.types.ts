@@ -7,7 +7,19 @@ type CSSColor =
   | `hsla(${number}, ${number}%, ${number}%, ${number})`;
 
 /**
- * Props for the PieChart component
+ * Props for the PieChart component.
+ * A doughnut/pie chart built on Chart.js for data visualization.
+ *
+ * @example
+ * ```tsx
+ * <PieChart
+ *   values={[30, 70]}
+ *   colors={['#ef4444', '#22c55e']}
+ *   title="70%"
+ *   subtitle="Complete"
+ *   cutoutPercentage={75}
+ * />
+ * ```
  */
 export type Props = {
   /**

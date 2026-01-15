@@ -8,6 +8,7 @@ import { virtualizeTableVariants } from './VirtualizedTable.variants';
 import { FilterAction, Option } from './components/Filter/Filter.types';
 import { UseQueryOptions } from '@tanstack/react-query';
 
+/** Base row data type from TanStack Table */
 export type RowData = RowDataPrimitive;
 
 export type ColumnDef<TData extends RowData> = ColumnDefPrimitive<
@@ -34,13 +35,42 @@ export type RowDataWithMeta = Record<string, unknown> & {
   meta?: RowMetadata;
 };
 
+/**
+ * Configuration for a multi-select filter in the table.
+ */
 export type MultiSelectFilter = {
+  /** Unique key for the filter */
   key: string;
+  /** Display label for the filter */
   label: string;
+  /** Position of the filter dropdown */
   position?: 'right' | 'left';
+  /** Available filter options */
   options: Option[];
 };
 
+/**
+ * Props for the VirtualizedTable component.
+ * A feature-rich data table with filtering, pagination, and sorting.
+ *
+ * @example
+ * ```tsx
+ * <VirtualizedTable
+ *   id="users-table"
+ *   ariaLabel="Users list"
+ *   columns={[
+ *     { accessorKey: 'name', header: 'Name' },
+ *     { accessorKey: 'email', header: 'Email' },
+ *   ]}
+ *   data={users}
+ *   totalItems={totalUsers}
+ *   showPagination
+ *   showFilter
+ *   showFilterInput
+ *   filterSearchPlaceholder="Search users..."
+ * />
+ * ```
+ */
 export type Props<TData extends RowDataPrimitive> = VariantProps<
   typeof virtualizeTableVariants
 > & {
