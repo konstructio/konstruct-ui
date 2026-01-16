@@ -1,0 +1,79 @@
+# @konstructio/ui - Component Index
+
+For full documentation with examples, see: ../llms.txt
+
+## Quick Reference
+
+### Form Components
+- Input - Text input with label, error, helperText
+- TextArea - Multiline text input
+- Select (Dropdown) - Dropdown with search, infinite scroll
+- Checkbox - Checkbox with label
+- Switch - Toggle switch
+- Radio - Single radio button
+- RadioGroup - Radio button group
+- RadioCard - Card-style radio
+- RadioCardGroup - Card-style radio group
+- Counter (NumberInput) - Numeric +/- input
+- Datepicker - Date selection
+- TimePicker - Time selection (12/24h)
+- PhoneNumberInput - International phone input
+- Slider - Single value slider
+- Range - Range slider with two handles
+- Autocomplete - Search with suggestions
+- MultiSelectDropdown - Multi-select dropdown
+- ImageUpload - Image upload with progress states
+- Filter - Filter with badge multi-select and date
+
+### UI Components
+- Button - primary, secondary, tertiary, danger, link variants
+- Badge - Status badges (warning, danger, success, info, violet, orange)
+- Tag - Tags/chips
+- Card - Container card
+- Alert - Alert messages
+- AlertDialog - Confirmation dialogs
+- Modal - Modal dialogs with Header, Body, Footer
+- Toast - Toast notifications (success, error, warning)
+- Tooltip - Hover tooltips
+
+### Navigation
+- Tabs - Tab navigation with List, Trigger, Content
+- Breadcrumb - Navigation breadcrumbs
+- Sidebar - Navigation sidebar with Logo, Navigation, NavigationGroup, NavigationOption, Footer
+- DropdownButton - Button with dropdown menu
+
+### Data Display
+- Table - Data table with Filter, Head, Body, Row
+- VirtualizedTable - Large dataset table with pagination, TruncateText, Actions
+- PieChart - Pie chart visualization
+- ProgressBar - Progress indicator
+- Loading - Loading states
+- Typography - Text styles (h1-h6, subtitle1-3, body1-3, label*, etc.)
+
+### Other
+- Divider - Visual separator
+- Command - Command palette (cmdk) with CommandInput, CommandGroup, CommandItem
+
+## Utilities
+
+- cn() - Merge Tailwind classes (clsx + tailwind-merge)
+- filterByValue() - Filter array by value
+- isClient - Check if running in browser
+
+## Theme
+
+Themes: 'kubefirst' | 'light' | 'kubefirst-dark' | 'dark'
+
+```tsx
+import { ThemeProvider, useTheme } from '@konstructio/ui';
+
+<ThemeProvider theme="kubefirst">
+  <App />
+</ThemeProvider>
+```
+
+## Links
+
+- npm: https://www.npmjs.com/package/@konstructio/ui
+- GitHub: https://github.com/konstructio/konstruct-ui
+- Storybook: https://konstructio.github.io/konstruct-ui
