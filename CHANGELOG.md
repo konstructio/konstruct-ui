@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.50](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.50) (2026-01-16)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.49...0.1.2-alpha.50)
+
+**Merged pull requests:**
+
+- docs: update LLM documentation with comprehensive component examples [\#474](https://github.com/konstructio/konstruct-ui/pull/474) ([CristhianF7](https://github.com/CristhianF7))
+
 ## [0.1.2-alpha.49](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.49) (2026-01-15)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.48...0.1.2-alpha.49)
