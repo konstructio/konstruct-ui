@@ -1,6 +1,6 @@
 # @konstructio/ui - React Component Library
 
-> A set of reusable and customizable React components built for konstruct.io infrastructure products.
+> A comprehensive set of reusable and customizable React components built for konstruct.io infrastructure products (Kubefirst, Colony).
 
 ## Quick Start
 
@@ -9,8 +9,7 @@ npm install @konstructio/ui
 ```
 
 ```tsx
-import { Button, Input, Modal } from '@konstructio/ui';
-import { ThemeProvider } from '@konstructio/ui';
+import { Button, Input, Modal, ThemeProvider } from '@konstructio/ui';
 
 function App() {
   return (
@@ -35,57 +34,6 @@ export default {
 };
 ```
 
-## Components
-
-### Buttons
-- `Button` - variant: primary | secondary | tertiary | danger | link
-
-### Form Inputs
-- `Input` - Text input with label, error, helperText props
-- `TextArea` - Multiline text
-- `Select` / `Dropdown` - Dropdown select
-- `Checkbox` - Checkbox with label
-- `Switch` - Toggle switch
-- `Radio`, `RadioGroup` - Radio buttons
-- `RadioCard`, `RadioCardGroup` - Card-style radios
-- `Counter` / `NumberInput` - Numeric +/- input
-- `Datepicker` - Date selection
-- `TimePicker` - Time selection
-- `PhoneNumberInput` - International phone
-- `Slider`, `Range` - Slider inputs
-- `Autocomplete` - Search suggestions
-- `MultiSelectDropdown` - Multi-select
-- `TagSelect` - Tag selection
-- `ImageUpload` - Image upload
-
-### Feedback
-- `Alert` - Alert messages
-- `AlertDialog` - Confirmation dialogs
-- `Modal` - Modal dialogs
-- `Toast` - Toast notifications
-- `Tooltip` - Hover tooltips
-- `Loading` - Loading states
-- `ProgressBar` - Progress indicator
-
-### Navigation
-- `Tabs` - Tab navigation
-- `Breadcrumb` - Breadcrumbs
-- `Sidebar` - Navigation sidebar
-- `DropdownButton` - Button with dropdown
-
-### Data Display
-- `Table` - Data table
-- `VirtualizedTable` - Large dataset table
-- `PieChart` - Pie charts
-- `Badge` - Status badges
-- `Tag` - Tags/chips
-- `Card` - Container card
-- `Typography` - Text styles
-
-### Other
-- `Divider` - Visual separator
-- `Command` - Command palette
-
 ## Theme System
 
 ```tsx
@@ -103,91 +51,1678 @@ const { theme, setTheme } = useTheme();
 ## Common Props
 
 Most components accept:
-- `theme` - Override theme for component
+- `theme` - Override theme: 'kubefirst' | 'light' | 'kubefirst-dark' | 'dark'
 - `className` - Additional CSS classes
 - `disabled` - Disable component
 
 Form components also accept:
-- `label` - Input label
+- `label` - Input label (string or ReactNode)
 - `error` - Error message
 - `helperText` - Helper text
 - `isRequired` - Show required indicator
 
-## Button Variants
+---
+
+# COMPONENTS
+
+## Button
+
+A customizable button with multiple variants and styles.
 
 ```tsx
+import { Button } from '@konstructio/ui';
+
+// Variants
 <Button variant="primary">Primary</Button>
 <Button variant="secondary">Secondary</Button>
 <Button variant="tertiary">Tertiary</Button>
 <Button variant="danger">Danger</Button>
 <Button variant="link">Link</Button>
+
+// Shapes and sizes
 <Button shape="circle" size="large"><Icon /></Button>
 <Button appearance="compact">Compact</Button>
+
+// As child (renders child element with button styles)
+<Button asChild><a href="/page">Link</a></Button>
 ```
 
-## Input Example
+**Props:**
+- `variant`: 'primary' | 'secondary' | 'tertiary' | 'danger' | 'link'
+- `size`: 'small' | 'medium' | 'large'
+- `shape`: 'default' | 'circle'
+- `appearance`: 'default' | 'compact'
+- `asChild`: boolean - Render child element with button styles
+- `disabled`: boolean
+
+---
+
+## Input
+
+Text input with label, error, and helper text support.
 
 ```tsx
+import { Input } from '@konstructio/ui';
+
+// Basic usage
+<Input label="Email" placeholder="Enter email" />
+
+// With validation
 <Input
-  label="Email"
-  placeholder="Enter email"
-  error="Invalid email"
-  helperText="We'll never share your email"
+  label="This is a label"
   isRequired
+  helperText="This is a helper text."
+/>
+
+// Password input
+<Input type="password" />
+
+// With error
+<Input
+  helperText="This is a helper text."
+  error="This is an error."
+/>
+
+// Search input
+<Input
+  placeholder="Search..."
+  isSearch
+  helperText="This is a helper text."
+/>
+
+// Disabled
+<Input placeholder="This is disabled field." disabled />
+```
+
+**Props:**
+- `label`: string | ReactNode
+- `placeholder`: string
+- `type`: 'text' | 'password' | 'email' | etc.
+- `isSearch`: boolean - Show search icon
+- `error`: string
+- `helperText`: string
+- `isRequired`: boolean
+- `disabled`: boolean
+- `autoComplete`: string
+
+---
+
+## TextArea
+
+Multiline text input.
+
+```tsx
+import { TextArea } from '@konstructio/ui';
+
+<TextArea
+  label="This is a textarea"
+  placeholder="Type your message here."
 />
 ```
 
-## Modal Example
+**Props:**
+- `label`: string | ReactNode
+- `placeholder`: string
+- `error`: string
+- `helperText`: string
+- `isRequired`: boolean
+- `disabled`: boolean
+- `rows`: number
+
+---
+
+## Select (Dropdown)
+
+Dropdown select with search, icons, and infinite scroll support.
+
+```tsx
+import { Select } from '@konstructio/ui';
+import { useState } from 'react';
+
+function SelectExample() {
+  const [value, setValue] = useState<string>();
+
+  const options = [
+    {
+      label: 'Talos',
+      subLabel: 'A modern OS for Kubernetes',
+      value: 'talos',
+      leftIcon: <img src="./talos.svg" alt="Talos Logo" />,
+    },
+    {
+      label: 'K3S',
+      subLabel: 'Lightweight Kubernetes',
+      value: 'k3s',
+      leftIcon: <img src="./k3s.svg" alt="K3S Logo" />,
+    },
+  ];
+
+  return (
+    <Select
+      label="Choose your distribution"
+      options={options}
+      value={value}
+      onChange={({ target: { value } }) => setValue(value)}
+      searchable={true}
+      highlightSearch={true}
+      theme="kubefirst"
+      name="select"
+    />
+  );
+}
+
+// With no options text
+<Select
+  label="Select"
+  options={[]}
+  noOptionsText="No cloud account exists"
+  additionalOptions={[
+    <button><Plus /> New Cloud Account</button>
+  ]}
+/>
+
+// Infinite scroll
+<Select
+  label="Select with infinite scroll"
+  options={options}
+  isInfiniteScrollEnabled={true}
+  onFetchMoreOptions={async ({ page, pageSize, termOfSearch }) => {
+    const result = await fetchData({ page, pageSize, termOfSearch });
+    return {
+      data: result.items,
+      hasMore: page < result.totalPages,
+    };
+  }}
+/>
+```
+
+**Props:**
+- `label`: string
+- `options`: Option[] - Array of { label, value, subLabel?, leftIcon? }
+- `value`: string
+- `onChange`: (event) => void
+- `searchable`: boolean
+- `highlightSearch`: boolean
+- `showSearchIcon`: boolean
+- `noOptionsText`: string
+- `additionalOptions`: ReactNode[]
+- `isInfiniteScrollEnabled`: boolean
+- `onFetchMoreOptions`: async function
+- `isLoading`: boolean
+- `required`: boolean
+- `name`: string
+
+---
+
+## Checkbox
+
+Checkbox with label support.
+
+```tsx
+import { Checkbox } from '@konstructio/ui';
+
+<Checkbox label="This is a checkbox" defaultChecked />
+
+<Checkbox label="Disabled checked" disabled defaultChecked />
+
+<Checkbox label="Disabled unchecked" disabled defaultChecked={false} />
+```
+
+**Props:**
+- `label`: string | ReactNode
+- `defaultChecked`: boolean
+- `checked`: boolean
+- `disabled`: boolean
+- `onChange`: (checked: boolean) => void
+
+---
+
+## Switch
+
+Toggle switch component.
+
+```tsx
+import { Switch } from '@konstructio/ui';
+import { useState } from 'react';
+
+function SwitchExample() {
+  const [value, setValue] = useState(true);
+
+  return (
+    <Switch
+      label="Enable feature"
+      value={value}
+      onChange={(newValue) => setValue(newValue)}
+      helperText="Some helper text here"
+    />
+  );
+}
+
+// Disabled states
+<Switch label="Disabled on" value={true} disabled />
+<Switch label="Disabled off" value={false} disabled />
+
+// With theme
+<Switch label="Kubefirst theme" value={value} theme="kubefirst" />
+```
+
+**Props:**
+- `label`: string
+- `value`: boolean
+- `onChange`: (value: boolean) => void
+- `helperText`: string
+- `disabled`: boolean
+- `theme`: Theme
+
+---
+
+## Radio
+
+Single radio button.
+
+```tsx
+import { Radio } from '@konstructio/ui';
+
+<Radio label="Radio Button selected" value="option1" checked />
+
+<Radio label="Radio Button unselected" value="option2" checked={false} />
+
+<Radio label="Disabled selected" value="option3" disabled checked />
+
+<Radio label="Disabled unselected" value="option4" disabled checked={false} />
+```
+
+**Props:**
+- `label`: string | ReactNode
+- `value`: string
+- `checked`: boolean
+- `disabled`: boolean
+- `name`: string
+- `onChange`: (event) => void
+
+---
+
+## RadioGroup
+
+Group of radio buttons.
+
+```tsx
+import { RadioGroup } from '@konstructio/ui';
+
+const options = [
+  { label: 'Option 1', value: 'option1' },
+  { label: 'Option 2', value: 'option2' },
+  { label: 'Option 3', value: 'option3' },
+];
+
+// Row direction
+<RadioGroup
+  options={options}
+  direction="row"
+  name="radio-group-row"
+  defaultChecked="option1"
+/>
+
+// Column direction (default)
+<RadioGroup
+  options={options}
+  name="radio-group-col"
+  defaultChecked="option1"
+/>
+```
+
+**Props:**
+- `options`: Array<{ label: string | ReactNode, value: string }>
+- `direction`: 'row' | 'column'
+- `name`: string
+- `defaultChecked`: string
+- `onChange`: (value: string) => void
+
+---
+
+## RadioCard
+
+Card-style radio option.
+
+```tsx
+import { RadioCard } from '@konstructio/ui';
+
+<RadioCard
+  label={<Logo />}
+  name="input-name"
+  wrapperClassName="w-[200px]"
+/>
+
+<RadioCard
+  label={<Logo />}
+  name="input-name"
+  checked={true}
+  wrapperClassName="w-[200px]"
+/>
+```
+
+**Props:**
+- `label`: ReactNode
+- `name`: string
+- `checked`: boolean
+- `wrapperClassName`: string
+- `onChange`: (event) => void
+
+---
+
+## RadioCardGroup
+
+Group of card-style radio options.
+
+```tsx
+import { RadioCardGroup } from '@konstructio/ui';
+
+const options = [
+  {
+    label: <Logo />,
+    value: 'option-1',
+    wrapperClassName: 'w-[200px]',
+  },
+  {
+    label: <Logo />,
+    value: 'option-2',
+    wrapperClassName: 'w-[200px]',
+  },
+];
+
+// Row direction
+<RadioCardGroup
+  options={options}
+  name="radio-card-group"
+  direction="row"
+  defaultChecked="option-1"
+/>
+
+// With description
+const optionsWithDescription = [
+  {
+    label: <Typography variant="subtitle3">Kubefirst template</Typography>,
+    value: 'option-1',
+    description: <Typography variant="body2">Provision from a template</Typography>,
+    wrapperClassName: 'rounded-lg w-full',
+  },
+  {
+    label: <Typography variant="subtitle3">Custom template</Typography>,
+    value: 'option-2',
+    description: <Typography variant="body2">Provision from custom template</Typography>,
+    wrapperClassName: 'rounded-lg w-full',
+  },
+];
+
+<RadioCardGroup
+  options={optionsWithDescription}
+  defaultChecked="option-1"
+  wrapperClassName="w-full"
+  name="radio-card-group"
+/>
+```
+
+**Props:**
+- `options`: Array<{ label, value, description?, wrapperClassName? }>
+- `direction`: 'row' | 'column'
+- `name`: string
+- `defaultChecked`: string
+- `wrapperClassName`: string
+
+---
+
+## Counter (NumberInput)
+
+Numeric input with increment/decrement buttons.
+
+```tsx
+import { Counter } from '@konstructio/ui';
+import { useState } from 'react';
+
+function CounterExample() {
+  const [count, setCount] = useState(10);
+
+  return (
+    <Counter
+      label="Number of nodes"
+      isRequired
+      value={count}
+      onChange={({ target: { value } }) => setCount(value)}
+    />
+  );
+}
+
+// Disable increment/decrement
+<Counter
+  label="Number of nodes"
+  value={count}
+  onChange={handleChange}
+  canDecrement={false}  // Disable minus button
+/>
+
+<Counter
+  label="Number of nodes"
+  value={count}
+  onChange={handleChange}
+  canIncrement={false}  // Disable plus button
+/>
+```
+
+**Props:**
+- `label`: string
+- `value`: number
+- `onChange`: (event: { target: { value: number } }) => void
+- `isRequired`: boolean
+- `canIncrement`: boolean
+- `canDecrement`: boolean
+- `min`: number
+- `max`: number
+
+---
+
+## Slider
+
+Single value slider.
+
+```tsx
+import { Slider } from '@konstructio/ui';
+
+<Slider
+  label="Slider with Kubefirst theme"
+  defaultValue={[50]}
+  showValue={true}
+  theme="kubefirst"
+/>
+```
+
+**Props:**
+- `label`: string
+- `defaultValue`: number[]
+- `value`: number[]
+- `showValue`: boolean
+- `min`: number
+- `max`: number
+- `step`: number
+- `onChange`: (value: number[]) => void
+- `theme`: Theme
+
+---
+
+## Range
+
+Range slider with two handles.
+
+```tsx
+import { Range } from '@konstructio/ui';
+
+<Range
+  label="Range with Kubefirst theme"
+  defaultValue={[10, 77]}
+  min={0}
+  max={100}
+  showValue={true}
+  theme="kubefirst"
+/>
+```
+
+**Props:**
+- `label`: string
+- `defaultValue`: [number, number]
+- `value`: [number, number]
+- `min`: number
+- `max`: number
+- `showValue`: boolean
+- `onChange`: (value: [number, number]) => void
+- `theme`: Theme
+
+---
+
+## Datepicker
+
+Date selection component.
+
+```tsx
+import { DatePicker } from '@konstructio/ui';
+
+<DatePicker />
+
+// Dark theme
+<div data-theme="dark">
+  <DatePicker />
+</div>
+```
+
+**Props:**
+- `value`: Date
+- `onChange`: (date: Date) => void
+- `disabled`: boolean
+
+---
+
+## TimePicker
+
+Time selection component.
+
+```tsx
+import { TimePicker } from '@konstructio/ui';
+
+// 12-hour format (default)
+<TimePicker name="time-12" label="Time 12 format" isRequired />
+
+// 24-hour format
+<TimePicker name="time-24" label="Time 24 format" format="24" isRequired />
+```
+
+**Props:**
+- `name`: string
+- `label`: string
+- `format`: '12' | '24'
+- `isRequired`: boolean
+- `value`: string
+- `onChange`: (value: string) => void
+
+---
+
+## PhoneNumberInput
+
+International phone number input with country code selection.
+
+```tsx
+import { PhoneNumberInput } from '@konstructio/ui';
+
+<PhoneNumberInput
+  label="Phone number"
+  isRequired
+  helperText="Please enter your phone number"
+  defaultCountryCode="CL"
+/>
+```
+
+**Props:**
+- `label`: string
+- `isRequired`: boolean
+- `helperText`: string
+- `defaultCountryCode`: string (ISO country code)
+- `value`: string
+- `onChange`: (value: string) => void
+- `error`: string
+
+---
+
+## Autocomplete
+
+Search input with suggestions.
+
+```tsx
+import { Autocomplete } from '@konstructio/ui';
+
+<Autocomplete
+  label="Search options"
+  placeholder="Search..."
+  theme="kubefirst"
+  options={[
+    { value: 'Option 1' },
+    { value: 'Option 2' },
+    { value: 'Option 3' },
+  ]}
+/>
+```
+
+**Props:**
+- `label`: string
+- `placeholder`: string
+- `options`: Array<{ value: string }>
+- `theme`: Theme
+- `onChange`: (value: string) => void
+
+---
+
+## MultiSelectDropdown
+
+Multi-select dropdown with badges.
+
+```tsx
+import { MultiSelectDropdown } from '@konstructio/ui';
+
+const options = [
+  { id: '1', label: 'dev: development', badge: 'dev', value: 'development' },
+  { id: '2', label: 'qa: quality assurance', badge: 'qa', value: 'quality_assurance' },
+  { id: '3', label: 'prod: production', badge: 'prod', value: 'production' },
+];
+
+// Multi-select mode (default)
+<MultiSelectDropdown
+  label="Multiselect"
+  options={options}
+  isRequired
+/>
+
+// Single select mode
+<MultiSelectDropdown
+  label="Single select"
+  options={options}
+  multiselect={false}
+/>
+```
+
+**Props:**
+- `label`: string
+- `options`: Array<{ id, label, badge?, value }>
+- `isRequired`: boolean
+- `multiselect`: boolean
+
+---
+
+## ImageUpload
+
+Image upload component with progress states.
+
+```tsx
+import { ImageUpload, ImageUploadStatus } from '@konstructio/ui';
+import { useState } from 'react';
+
+function ImageUploadExample() {
+  const [status, setStatus] = useState(ImageUploadStatus.Default);
+  const [fileUrl, setFileUrl] = useState<string>();
+  const [fileName, setFileName] = useState<string>();
+  const [fileSize, setFileSize] = useState<string>();
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setStatus(ImageUploadStatus.Uploading);
+    setFileName(file.name);
+    setFileSize(`${(file.size / 1024).toFixed(2)}KB`);
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setFileUrl(reader.result as string);
+      setStatus(ImageUploadStatus.Complete);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  return (
+    <ImageUpload
+      label="Item logo"
+      isRequired
+      uploadButtonText="Upload logo"
+      status={status}
+      fileUrl={fileUrl}
+      fileName={fileName}
+      fileSize={fileSize}
+      onChange={handleFileChange}
+      onRemove={() => setStatus(ImageUploadStatus.Default)}
+    />
+  );
+}
+
+// Different states
+<ImageUpload status={ImageUploadStatus.Default} />
+<ImageUpload status={ImageUploadStatus.Uploading} fileName="logo.svg" fileSize="27KB" />
+<ImageUpload status={ImageUploadStatus.Complete} fileName="logo.svg" fileUrl="..." />
+<ImageUpload status={ImageUploadStatus.Error} error="Invalid file format." />
+```
+
+**Props:**
+- `label`: string
+- `isRequired`: boolean
+- `uploadButtonText`: string
+- `status`: ImageUploadStatus
+- `fileUrl`: string
+- `fileName`: string
+- `fileSize`: string
+- `error`: string
+- `onChange`: (event) => void
+- `onRemove`: () => void
+- `helperText`: string
+- `theme`: Theme
+
+---
+
+## Badge
+
+Status badges with variants.
+
+```tsx
+import { Badge } from '@konstructio/ui';
+import { Check } from 'lucide-react';
+
+// Basic variants
+<Badge label="Badge" />
+<Badge label="Warning" variant="warning" />
+<Badge label="Danger" variant="danger" />
+<Badge label="Success" variant="success" />
+<Badge label="Info" variant="info" />
+<Badge label="Violet" variant="violet" />
+<Badge label="Orange" variant="orange" />
+
+// With loading state
+<Badge label="Loading" loading />
+
+// With dismiss button
+<Badge label="Dismissible" dismissible />
+
+// With left icon
+<Badge label="With Icon" leftIcon={<Check />} />
+```
+
+**Props:**
+- `label`: string
+- `variant`: 'default' | 'warning' | 'danger' | 'success' | 'info' | 'violet' | 'orange'
+- `loading`: boolean
+- `dismissible`: boolean
+- `leftIcon`: ReactNode
+- `isSelectable`: boolean
+- `onDismiss`: () => void
+
+---
+
+## Tag
+
+Tags/chips component.
+
+```tsx
+import { Tag } from '@konstructio/ui';
+
+<Tag>Default Tag</Tag>
+<Tag variant="primary">Primary</Tag>
+<Tag dismissible onDismiss={() => {}}>Dismissible</Tag>
+```
+
+**Props:**
+- `children`: ReactNode
+- `variant`: string
+- `dismissible`: boolean
+- `onDismiss`: () => void
+
+---
+
+## Card
+
+Container card component.
+
+```tsx
+import { Card } from '@konstructio/ui';
+
+// Basic card
+<Card className="flex flex-col gap-3 p-5">
+  <header>
+    <h3>Title</h3>
+  </header>
+  <p>Card content here</p>
+</Card>
+
+// With hover effect
+<Card canHover={true} className="p-5">
+  Hover me
+</Card>
+
+// Active state
+<Card isActive={true} className="p-5">
+  Active card
+</Card>
+```
+
+**Props:**
+- `children`: ReactNode
+- `className`: string
+- `isActive`: boolean
+- `canHover`: boolean
+- `theme`: Theme
+
+---
+
+## Alert
+
+Alert message component.
+
+```tsx
+import { Alert } from '@konstructio/ui';
+import { Info } from 'react-feather';
+
+<Alert
+  type="info"
+  content={
+    <p>
+      <Info className="w-4 h-4" /> Ensure you have an AWS cloud account with billing enabled.
+    </p>
+  }
+/>
+
+// With close button
+<Alert
+  type="info"
+  content={<p>Alert message</p>}
+  showCloseButton={true}
+/>
+```
+
+**Props:**
+- `type`: 'info' | 'warning' | 'error' | 'success'
+- `content`: ReactNode
+- `showCloseButton`: boolean
+- `onClose`: () => void
+
+---
+
+## AlertDialog
+
+Confirmation dialog component.
+
+```tsx
+import { AlertDialog } from '@konstructio/ui';
+
+// Information dialog
+<AlertDialog
+  buttonTriggerText="Information"
+  showCancelButton={false}
+  buttonTriggerClassName="w-fit"
+  title={
+    <span className="flex items-center gap-3 font-medium">
+      <InfoIcon /> Upload will take a few minutes...
+    </span>
+  }
+  description={
+    <div className="text-sm pl-9">
+      <p>Uploading may take up to a few minutes.</p>
+    </div>
+  }
+  wrapperClassName="max-w-[500px]"
+  buttonConfirm={{
+    text: 'Got it!',
+  }}
+/>
+
+// Danger/Delete dialog
+<AlertDialog
+  buttonTriggerText="Delete"
+  buttonTriggerVariant="danger"
+  buttonTriggerClassName="w-fit"
+  title={
+    <span className="flex items-center gap-3 font-semibold">
+      <WarningIcon className="text-red-500" /> Delete image?
+    </span>
+  }
+  description={
+    <div className="text-sm pl-9">
+      <p>Are you sure you want to delete? This cannot be undone.</p>
+    </div>
+  }
+  wrapperClassName="max-w-[500px]"
+  buttonConfirm={{
+    text: 'Yes, delete',
+    variant: 'danger',
+  }}
+/>
+```
+
+**Props:**
+- `buttonTriggerText`: string
+- `buttonTriggerVariant`: 'primary' | 'secondary' | 'danger' | etc.
+- `buttonTriggerClassName`: string
+- `title`: ReactNode
+- `description`: ReactNode
+- `showCancelButton`: boolean
+- `wrapperClassName`: string
+- `buttonConfirm`: { text: string, variant?: string, className?: string }
+- `onConfirm`: () => void
+- `onCancel`: () => void
+
+---
+
+## Modal
+
+Modal dialog component.
 
 ```tsx
 import { Modal, Button } from '@konstructio/ui';
+import { useState } from 'react';
 
-<Modal>
-  <Modal.Trigger asChild>
-    <Button>Open Modal</Button>
-  </Modal.Trigger>
-  <Modal.Content>
-    <Modal.Header>
-      <Modal.Title>Title</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>Content here</Modal.Body>
-    <Modal.Footer>
-      <Modal.Close asChild>
-        <Button variant="secondary">Cancel</Button>
-      </Modal.Close>
-    </Modal.Footer>
-  </Modal.Content>
-</Modal>
+function ModalExample() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Modal</Button>
+
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} theme="kubefirst">
+        <Modal.Header className="text-center text-xl bg-gray-50 p-4 border-b">
+          This is the Header
+        </Modal.Header>
+
+        <Modal.Body>
+          <div className="flex justify-center items-center h-full">
+            This is the Body
+          </div>
+        </Modal.Body>
+
+        <Modal.Footer className="text-center text-sm bg-gray-50 p-4 border-t">
+          This is the Footer
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}
 ```
 
-## Table Example
+**Props:**
+- `isOpen`: boolean
+- `onClose`: () => void
+- `theme`: Theme
+- `className`: string
+
+**Sub-components:**
+- `Modal.Header`
+- `Modal.Body`
+- `Modal.Footer`
+
+---
+
+## Toast
+
+Toast notification component.
 
 ```tsx
-import { Table } from '@konstructio/ui';
+import { Toast, Button } from '@konstructio/ui';
+import { CheckCircle, AlertCircle, AlertTriangle } from 'lucide-react';
+import { useState } from 'react';
 
-const columns = [
-  { accessorKey: 'name', header: 'Name' },
-  { accessorKey: 'email', header: 'Email' },
-];
+function ToastExample() {
+  const [open, setOpen] = useState(false);
 
-<Table columns={columns} data={users} />
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Show Toast</Button>
+
+      <Toast
+        open={open}
+        setOpen={setOpen}
+        duration={5000}
+        variant="success"
+        title={
+          <h6 className="text-white flex items-center gap-2 font-medium">
+            <CheckCircle className="w-6 h-6" />
+            Success message!
+          </h6>
+        }
+        description="Operation completed successfully"
+      />
+    </>
+  );
+}
+
+// Error toast
+<Toast variant="error" title={<h6><AlertCircle /> Error!</h6>} />
+
+// Warning toast
+<Toast variant="warning" title={<h6><AlertTriangle /> Warning!</h6>} />
 ```
 
+**Props:**
+- `open`: boolean
+- `setOpen`: (open: boolean) => void
+- `duration`: number (ms)
+- `variant`: 'success' | 'error' | 'warning'
+- `title`: ReactNode
+- `description`: string
+
+---
+
+## Tooltip
+
+Hover tooltip component.
+
+```tsx
+import { Tooltip, Button } from '@konstructio/ui';
+
+<Tooltip content="Hello" position="top" wrapperClassName="flex justify-center">
+  <Button>Hover on the top!</Button>
+</Tooltip>
+
+<Tooltip
+  content={<span className="text-white">Custom content</span>}
+  position="left"
+  wrapperClassName="flex justify-center"
+>
+  <Button>Hover on the left!</Button>
+</Tooltip>
+```
+
+**Props:**
+- `children`: ReactNode
+- `content`: ReactNode
+- `position`: 'top' | 'bottom' | 'left' | 'right'
+- `wrapperClassName`: string
+
+---
+
+## Tabs
+
+Tab navigation component.
+
+```tsx
+import { Tabs } from '@konstructio/ui';
+import { useState } from 'react';
+
+function TabsExample() {
+  const [selectedTab, setSelectedTab] = useState('tab1');
+
+  return (
+    <Tabs onValueChange={setSelectedTab} value={selectedTab} orientation="horizontal">
+      <Tabs.List className="flex gap-6" aria-label="Manage your account">
+        <Tabs.Trigger tab="tab1" label="Account" isActive={selectedTab === 'tab1'} />
+        <Tabs.Trigger tab="tab2" label="Billing" isActive={selectedTab === 'tab2'} />
+      </Tabs.List>
+
+      <Tabs.Content value="tab1">
+        <div className="space-y-4 mt-6">
+          <h3>Account Settings</h3>
+          <p>Account content here...</p>
+        </div>
+      </Tabs.Content>
+
+      <Tabs.Content value="tab2">
+        <div className="space-y-4 mt-6">
+          <h3>Billing Overview</h3>
+          <p>Billing content here...</p>
+        </div>
+      </Tabs.Content>
+    </Tabs>
+  );
+}
+```
+
+**Props:**
+- `value`: string
+- `onValueChange`: (value: string) => void
+- `orientation`: 'horizontal' | 'vertical'
+
+**Sub-components:**
+- `Tabs.List` - Container for triggers
+- `Tabs.Trigger` - Tab button with `tab`, `label`, `isActive` props
+- `Tabs.Content` - Tab content with `value` prop
+
+---
+
+## Breadcrumb
+
+Navigation breadcrumb component.
+
+```tsx
+import { Breadcrumb } from '@konstructio/ui';
+
+<Breadcrumb
+  steps={[
+    { label: 'Step 1', isActive: false },
+    { label: 'Step 2', to: '#' },
+    { label: 'Step 3' },
+  ]}
+/>
+```
+
+**Props:**
+- `steps`: Array<{ label: string, to?: string, isActive?: boolean }>
+
+---
+
+## Sidebar
+
+Navigation sidebar component.
+
+```tsx
+import {
+  Sidebar,
+  Logo,
+  Navigation,
+  NavigationGroup,
+  NavigationOption,
+  Footer,
+} from '@konstructio/ui';
+
+<Sidebar theme="kubefirst">
+  <Logo>
+    <a className="flex items-center gap-2">
+      <img src="./logo.svg" alt="Company logo" />
+    </a>
+  </Logo>
+
+  <Navigation className="mt-4">
+    <NavigationGroup>
+      <NavigationOption>
+        <a className="flex items-center gap-2">
+          <Icon /> Clusters
+        </a>
+      </NavigationOption>
+
+      <NavigationOption isActive={true}>
+        <Icon /> Environments
+      </NavigationOption>
+    </NavigationGroup>
+
+    <NavigationGroup title="Admin settings">
+      <NavigationOption>
+        <Icon /> Plans & Billing
+      </NavigationOption>
+    </NavigationGroup>
+  </Navigation>
+
+  <Footer>
+    <span className="flex items-center gap-2">
+      <Star /> Upgrade to Business
+    </span>
+  </Footer>
+</Sidebar>
+```
+
+**Components:**
+- `Sidebar` - Main container with `theme` prop
+- `Logo` - Logo container
+- `Navigation` - Navigation container
+- `NavigationGroup` - Group with optional `title`
+- `NavigationOption` - Nav item with `isActive` prop
+- `Footer` - Footer container
+
+---
+
+## DropdownButton
+
+Button with dropdown menu.
+
+```tsx
+import { DropdownButton } from '@konstructio/ui';
+
+<DropdownButton
+  options={[
+    { label: 'PDF' },
+    { label: 'CSV' },
+  ]}
+/>
+```
+
+**Props:**
+- `options`: Array<{ label: string, onClick?: () => void }>
+
+---
+
+## Filter
+
+Filter component with badge multi-select and date filters.
+
+```tsx
+import { Filter } from '@konstructio/ui';
+import { useState } from 'react';
+
+function FilterExample() {
+  const [selectedStatus, setSelectedStatus] = useState([]);
+  const [date, setDate] = useState<Date>();
+
+  const options = [
+    { id: 'creating', label: 'Creating', variant: 'warning' },
+    { id: 'deleting', label: 'Deleting', variant: 'danger' },
+    { id: 'ready', label: 'Ready', variant: 'success' },
+    { id: 'pending', label: 'Pending', variant: 'info' },
+  ];
+
+  return (
+    <Filter>
+      <Filter.BadgeMultiSelect
+        label="Status"
+        options={options}
+        onApply={setSelectedStatus}
+      />
+
+      <Filter.DateFilterDropdown
+        label="Created"
+        onApply={setDate}
+      />
+
+      <Filter.ResetButton
+        disabled={!date && selectedStatus.length === 0}
+      />
+    </Filter>
+  );
+}
+```
+
+**Sub-components:**
+- `Filter.BadgeMultiSelect` - Multi-select with badge options
+- `Filter.DateFilterDropdown` - Date filter dropdown
+- `Filter.ResetButton` - Reset filters button
+
+---
+
+## Table
+
+Data table component.
+
+```tsx
+import { Table, Typography, Button } from '@konstructio/ui';
+import { useState } from 'react';
+
+function TableExample() {
+  const [filter, setFilter] = useState('');
+
+  const data = [
+    { name: 'John Doe', age: 30, email: 'john@example.com' },
+    { name: 'Jane Doe', age: 25, email: 'jane@example.com' },
+  ];
+
+  const filteredData = data.filter((item) =>
+    item.name.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  return (
+    <div className="w-full">
+      <Table.Filter
+        placeholder="Search"
+        value={filter}
+        onChange={(e) => setFilter(e.target.value)}
+      >
+        <Button variant="primary">Add cloud account</Button>
+      </Table.Filter>
+
+      <Table>
+        <Table.Head>
+          <Table.Row>
+            <th><Typography variant="labelMedium">Name</Typography></th>
+            <th><Typography variant="labelMedium">Age</Typography></th>
+            <th><Typography variant="labelMedium">Email</Typography></th>
+          </Table.Row>
+        </Table.Head>
+        <Table.Body>
+          {filteredData.map((item) => (
+            <Table.Row key={item.name}>
+              <td><Typography variant="body2">{item.name}</Typography></td>
+              <td><Typography variant="body2">{item.age}</Typography></td>
+              <td><Typography variant="body2">{item.email}</Typography></td>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+    </div>
+  );
+}
+```
+
+**Sub-components:**
+- `Table.Filter` - Filter input with children
+- `Table.Head` - Table header
+- `Table.Body` - Table body
+- `Table.Row` - Table row
+
+---
+
+## VirtualizedTable
+
+Virtualized table for large datasets with pagination, filtering, and actions.
+
+```tsx
+import { VirtualizedTable, ColumnDef } from '@konstructio/ui';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+type DataItem = {
+  id: number;
+  name: string;
+  type: string;
+  status: string;
+};
+
+const columns: ColumnDef<DataItem>[] = [
+  { header: 'Id', accessorKey: 'id' },
+  {
+    header: 'Name',
+    accessorKey: 'name',
+    cell: (props) => (
+      <VirtualizedTable.TruncateText
+        {...props}
+        value={props.getValue()}
+      />
+    ),
+  },
+  { header: 'Type', accessorKey: 'type' },
+  {
+    id: 'actions',
+    enableSorting: false,
+    enableResizing: false,
+    cell: (props) => (
+      <VirtualizedTable.Actions
+        {...props}
+        actions={[
+          {
+            label: 'View',
+            onClick: (row) => console.log('View', row),
+          },
+          {
+            label: 'Delete',
+            onClick: (row) => console.log('Delete', row),
+            className: 'text-red-600',
+          },
+        ]}
+      />
+    ),
+    header: () => <span className="sr-only">Actions</span>,
+  },
+];
+
+const queryClient = new QueryClient();
+
+function VirtualizedTableExample() {
+  const fetchData = async ({ page, pageSize, termOfSearch }) => {
+    const result = await fetchFromAPI({ page, pageSize, termOfSearch });
+    return { data: result.items, totalItemsCount: result.total };
+  };
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <VirtualizedTable
+        id="my-table"
+        data={initialData}
+        columns={columns}
+        totalItems={100}
+        fetchData={fetchData}
+        showFilter={true}
+        showResetButton={true}
+        showPagination={true}
+        pageSizes={[5, 10, 20, 50]}
+        ariaLabel="Data table"
+        filterActions={[
+          {
+            label: 'Export',
+            variant: 'secondary',
+            onClick: () => console.log('Export'),
+          },
+        ]}
+        multiSelectFilter={[
+          {
+            key: 'type',
+            label: 'Type',
+            options: [
+              { id: 'active', label: 'Active', variant: 'success' },
+              { id: 'pending', label: 'Pending', variant: 'warning' },
+            ],
+          },
+        ]}
+      />
+    </QueryClientProvider>
+  );
+}
+```
+
+**Props:**
+- `id`: string
+- `data`: T[]
+- `columns`: ColumnDef<T>[]
+- `totalItems`: number
+- `fetchData`: async function
+- `showFilter`: boolean
+- `showResetButton`: boolean
+- `showPagination`: boolean
+- `pageSizes`: number[]
+- `ariaLabel`: string
+- `filterActions`: Array<{ label, variant, onClick }>
+- `multiSelectFilter`: Array<{ key, label, options }>
+- `isLoading`: boolean
+
+**Helper components:**
+- `VirtualizedTable.TruncateText` - Truncate long text
+- `VirtualizedTable.Actions` - Action buttons column
+
+---
+
+## PieChart
+
+Pie chart visualization.
+
+```tsx
+import { PieChart } from '@konstructio/ui';
+
+<PieChart
+  values={[20, 80]}
+  title="10/256"
+  titleColor="#1D283D"
+  titleFontSize={14}
+  titleFontWeight="normal"
+  subtitle="Total IPs"
+  subtitleColor="#62748E"
+  subtitleFontSize={14}
+/>
+```
+
+**Props:**
+- `values`: number[]
+- `title`: string
+- `titleColor`: string
+- `titleFontSize`: number
+- `titleFontWeight`: string
+- `subtitle`: string
+- `subtitleColor`: string
+- `subtitleFontSize`: number
+
+---
+
+## ProgressBar
+
+Progress indicator component.
+
+```tsx
+import { ProgressBar } from '@konstructio/ui';
+
+// In progress
+<ProgressBar
+  label="Provisioning cluster:"
+  percent={80}
+  status="progress"
+/>
+
+// Completed
+<ProgressBar
+  label="Completed!"
+  status="success"
+  percent={100}
+/>
+```
+
+**Props:**
+- `label`: string
+- `percent`: number (0-100)
+- `status`: 'progress' | 'success'
+
+---
+
+## Loading
+
+Loading state component.
+
+```tsx
+import { Loading } from '@konstructio/ui';
+
+<Loading theme="kubefirst" />
+<Loading />
+```
+
+**Props:**
+- `theme`: Theme
+
+---
+
+## Typography
+
+Text styles component.
+
+```tsx
+import { Typography } from '@konstructio/ui';
+
+// Available variants
+<Typography variant="h1">Heading 1</Typography>
+<Typography variant="h2">Heading 2</Typography>
+<Typography variant="h3">Heading 3</Typography>
+<Typography variant="h4">Heading 4</Typography>
+<Typography variant="h5">Heading 5</Typography>
+<Typography variant="h6">Heading 6</Typography>
+<Typography variant="subtitle1">Subtitle 1</Typography>
+<Typography variant="subtitle2">Subtitle 2</Typography>
+<Typography variant="subtitle3">Subtitle 3</Typography>
+<Typography variant="labelLarge">Label Large</Typography>
+<Typography variant="labelMedium">Label Medium</Typography>
+<Typography variant="labelSmall">Label Small</Typography>
+<Typography variant="buttonSmall">Button Small</Typography>
+<Typography variant="body1">Body 1</Typography>
+<Typography variant="body2">Body 2</Typography>
+<Typography variant="body3">Body 3</Typography>
+<Typography variant="tooltip">Tooltip</Typography>
+
+// Custom element
+<Typography variant="h1" component="span">Span with h1 style</Typography>
+```
+
+**Props:**
+- `variant`: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'subtitle1' | 'subtitle2' | 'subtitle3' | 'labelLarge' | 'labelMedium' | 'labelSmall' | 'buttonSmall' | 'body1' | 'body2' | 'body3' | 'tooltip'
+- `component`: ElementType
+- `className`: string
+
+---
+
+## Divider
+
+Visual separator component.
+
+```tsx
+import { Divider } from '@konstructio/ui';
+
+<Divider />
+<Divider className="bg-zinc-300" />
+<Divider className="bg-zinc-400" />
+```
+
+**Props:**
+- `className`: string
+
+---
+
+## Command
+
+Command palette component (powered by cmdk).
+
+```tsx
+import {
+  Command,
+  CommandInput,
+  CommandGroup,
+  CommandItem,
+  CommandSeparator,
+  CommandProvider,
+} from '@konstructio/ui';
+import { ThemeProvider, useTheme } from '@konstructio/ui';
+import { useContext, useEffect } from 'react';
+
+function CommandPalette() {
+  const { theme, setTheme } = useTheme();
+  const { isOpen, setOpen, toggleOpen } = useContext(CommandContext);
+
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') {
+        e.preventDefault();
+        toggleOpen();
+      }
+    };
+    document.addEventListener('keydown', down);
+    return () => document.removeEventListener('keydown', down);
+  }, [toggleOpen]);
+
+  return (
+    <Command open={isOpen} onOpenChange={setOpen}>
+      <CommandInput placeholder="Type a command or search..." />
+      <CommandGroup heading="Theme">
+        <CommandItem onSelect={() => setTheme('kubefirst')}>
+          <Sun /> Kubefirst
+        </CommandItem>
+        <CommandItem onSelect={() => setTheme('dark')}>
+          <Moon /> Dark
+        </CommandItem>
+      </CommandGroup>
+      <CommandSeparator />
+      <CommandGroup heading="Actions">
+        <CommandItem>Action 1</CommandItem>
+      </CommandGroup>
+    </Command>
+  );
+}
+
+// Usage
+<ThemeProvider theme="kubefirst">
+  <CommandProvider>
+    <CommandPalette />
+  </CommandProvider>
+</ThemeProvider>
+```
+
+**Components:**
+- `Command` - Main container with `open`, `onOpenChange` props
+- `CommandInput` - Search input
+- `CommandGroup` - Group with `heading` prop
+- `CommandItem` - Item with `onSelect` prop
+- `CommandSeparator` - Visual separator
+- `CommandProvider` - Context provider
+
+---
+
 ## Utilities
+
+### cn (classnames)
+
+Merge Tailwind classes safely using clsx + tailwind-merge.
 
 ```tsx
 import { cn } from '@konstructio/ui';
 
-// Merge Tailwind classes safely
 <div className={cn('base-class', condition && 'conditional-class')} />
+<div className={cn('px-4 py-2', isActive && 'bg-blue-500', className)} />
 ```
 
-## Documentation
+### filterByValue
 
-Full documentation and interactive examples: https://konstructio.github.io/konstruct-ui
+Filter array by value.
 
-## Links
+```tsx
+import { filterByValue } from '@konstructio/ui';
 
-- npm: https://www.npmjs.com/package/@konstructio/ui
-- GitHub: https://github.com/konstructio/konstruct-ui
-- Storybook: https://konstructio.github.io/konstruct-ui
+const filtered = filterByValue(items, searchTerm);
+```
+
+### isClient
+
+Check if running in browser.
+
+```tsx
+import { isClient } from '@konstructio/ui';
+
+if (isClient) {
+  // Browser-only code
+}
+```
+
+---
+
+## Type Exports
+
+```tsx
+import type {
+  ColumnDef,
+  RowData,
+  Theme,
+  ButtonProps,
+  InputProps,
+  // ... other types
+} from '@konstructio/ui';
+```
+
+---
+
+## Documentation & Links
+
+- **npm**: https://www.npmjs.com/package/@konstructio/ui
+- **GitHub**: https://github.com/konstructio/konstruct-ui
+- **Storybook**: https://konstructio.github.io/konstruct-ui
