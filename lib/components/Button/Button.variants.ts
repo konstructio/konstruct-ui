@@ -186,13 +186,13 @@ export const buttonVariants = cva(
       {
         variant: 'danger',
         disabled: true,
-        class: [
-          'text-red-700',
-          'border-red-700',
-          'bg-white',
-          'hover:bg-red-50',
-          'opacity-45',
-        ],
+        class: ['text-white', 'border-red-700', 'bg-red-700', 'opacity-45'],
+      },
+      {
+        variant: 'danger',
+        version: 'alternate',
+        disabled: true,
+        class: ['text-red-700', 'border-red-700', 'bg-white', 'opacity-45'],
       },
       {
         variant: 'link',
