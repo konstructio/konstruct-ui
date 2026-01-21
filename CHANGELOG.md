@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.51](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.51) (2026-01-21)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.50...0.1.2-alpha.51)
+
+**Merged pull requests:**
+
+- 🐛 fix: correct danger button disabled styles [\#480](https://github.com/konstructio/konstruct-ui/pull/480) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.50](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.50) (2026-01-16)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.49...0.1.2-alpha.50)
