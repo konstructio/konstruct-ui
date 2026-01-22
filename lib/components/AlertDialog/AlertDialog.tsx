@@ -58,13 +58,16 @@ const AlertDialog: FC<AlertDialogProps> = ({
     ...buttonConfirmDelegated
   } = {},
   buttonTriggerClassName,
-  buttonTriggerVariant,
   buttonTriggerText,
+  buttonTriggerVariant,
   description,
+  isDescriptionChild,
+  isTitleChild,
   showCancelButton = true,
   theme,
   title,
   wrapperClassName,
+  onClick,
   onConfirm,
   ...delegated
 }) => {
@@ -95,6 +98,8 @@ const AlertDialog: FC<AlertDialogProps> = ({
         text={buttonTriggerText}
         data-theme={theme}
         onOpen={handleOpen}
+        onClick={onClick}
+        {...delegated}
       />
 
       <Portal container={container}>
@@ -125,11 +130,17 @@ const AlertDialog: FC<AlertDialogProps> = ({
             wrapperClassName,
           )}
         >
-          <Title className="text-base text-slate-700 font-semibold">
+          <Title
+            asChild={isTitleChild}
+            className="text-base text-slate-700 font-semibold"
+          >
             {title}
           </Title>
 
-          <Description className="text-sm text-slate-800">
+          <Description
+            asChild={isDescriptionChild}
+            className="text-sm text-slate-800"
+          >
             {description}
           </Description>
 

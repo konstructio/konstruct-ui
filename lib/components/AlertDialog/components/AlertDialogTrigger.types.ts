@@ -6,5 +6,6 @@ export interface AlertDialogTriggerProps {
   variant?: ButtonProps['variant'];
   className?: string;
   text?: string;
-  onOpen(): void;
+  onOpen: VoidFunction;
+  onClick?: VoidFunction;
 }

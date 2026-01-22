@@ -43,16 +43,20 @@ export interface AlertDialogProps
   className?: string;
   /** Description text shown in the dialog */
   description?: string | ReactNode;
+  isDescriptionChild?: boolean;
   /** Whether to show the cancel button (default: true) */
   showCancelButton?: boolean;
   /** Theme override for this component */
   theme?: Theme;
   /** Title text shown in the dialog */
   title?: string | ReactNode;
+  isTitleChild?: boolean;
   /** CSS classes for the dialog wrapper */
   wrapperClassName?: string;
   /** Callback when confirm button is clicked */
-  onConfirm?: () => void;
+  onConfirm?: VoidFunction;
+  /** Callback when the button is clicked */
+  onClick?: VoidFunction;
 }
 
 export type UseAlertiDialogProps = {
