@@ -37,10 +37,18 @@ import { UseQueryOptions } from '@tanstack/react-query';
 import { VariantProps } from 'class-variance-authority';
 
 declare type Action<TData> = {
-    label: string | React.ReactNode;
-    onClick: (rowData: TData) => void;
     className?: string;
-};
+    id?: string;
+    onClick: (rowData: TData) => void;
+} & ({
+    component: FC_2;
+    label?: string | ReactNode_2;
+    componentProps?: Record<string, unknown>;
+} | {
+    component?: undefined;
+    label: string | ReactNode_2;
+    componentProps?: never;
+});
 
 /**
  * An alert component for displaying feedback messages.
@@ -132,16 +140,20 @@ declare interface AlertDialogProps extends PropsWithChildren, AlertDialogProps_2
     className?: string;
     /** Description text shown in the dialog */
     description?: string | ReactNode;
+    isDescriptionChild?: boolean;
     /** Whether to show the cancel button (default: true) */
     showCancelButton?: boolean;
     /** Theme override for this component */
     theme?: Theme;
     /** Title text shown in the dialog */
     title?: string | ReactNode;
+    isTitleChild?: boolean;
     /** CSS classes for the dialog wrapper */
     wrapperClassName?: string;
     /** Callback when confirm button is clicked */
-    onConfirm?: () => void;
+    onConfirm?: VoidFunction;
+    /** Callback when the button is clicked */
+    onClick?: VoidFunction;
 }
 
 /**
