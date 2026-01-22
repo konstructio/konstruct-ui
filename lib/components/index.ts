@@ -8,6 +8,14 @@ export * from './Card/Card';
 export * from './Checkbox/Checkbox';
 export * from './Counter/Counter';
 export * from './Datepicker/DatePicker';
+export * from './DateRangePicker/DateRangePicker';
+export type {
+  DateRangePickerProps,
+  DateRange,
+  DateRangePreset,
+  DateRangeWithTime,
+  TimeRange,
+} from './DateRangePicker/DateRangePicker.types';
 export * from './Divider/Divider';
 export * from './DropdownButton/DropdownButton';
 export * from './Filter/Filter';
