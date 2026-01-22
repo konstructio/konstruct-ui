@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.52](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.52) (2026-01-22)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.51...0.1.2-alpha.52)
+
+**Merged pull requests:**
+
+- ✨ feat: add custom component support to VirtualizedTable actions and AlertDialog flexibility props [\#481](https://github.com/konstructio/konstruct-ui/pull/481) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.51](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.51) (2026-01-21)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.50...0.1.2-alpha.51)
