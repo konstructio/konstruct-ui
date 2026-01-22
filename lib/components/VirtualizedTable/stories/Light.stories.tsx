@@ -1,9 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { EyeIcon } from 'lucide-react';
+import { Check, EyeIcon } from 'lucide-react';
 import { useCallback, useEffect, useId, useState } from 'react';
 
+import { AlertDialog } from '@/components/AlertDialog/AlertDialog';
+import { Checkbox } from '@/components/Checkbox/Checkbox';
+import { Typography } from '@/components/Typography/Typography';
+
 import { getPokemons, Pokemon } from '../../../../mocks';
+
 import { DEFAULT_PAGE_SIZE } from '../constants';
 import { VirtualizedTable as VirtualizedTableComponent } from '../VirtualizedTable';
 import { ColumnDef, Props } from '../VirtualizedTable.types';
@@ -85,16 +90,52 @@ const columns: ColumnDef<Pokemon>[] = [
         {...props}
         actions={[
           {
-            label: (
-              <span className="text-blue-800 flex items-center gap-2">
-                <EyeIcon className="w-4 h-4" />
-                First Action
-              </span>
-            ),
+            component: AlertDialog,
+            componentProps: {
+              className:
+                'w-full hover:no-underline hover:bg-gray-50 hover:text-slate-800 font-normal',
+              buttonTriggerText: (
+                <span className="text-blue-800 flex gap-2 w-full">
+                  <EyeIcon className="w-4 h-4" />
+                  First Action
+                </span>
+              ),
+              showCancelButton: false,
+              title: (
+                <div className="flex flex-col gap-4 items-center justify-center">
+                  <span className="p-3 rounded-full bg-green-600/15 w-12 h-12 flex items-center justify-center">
+                    <Check className="text-green-600" />
+                  </span>
+
+                  <Typography className="font-normal text-slate-700">
+                    Cluster successfully deleted
+                  </Typography>
+                </div>
+              ),
+              isDescriptionChild: true,
+              description: (
+                <div className="text-sm text-slate-800 flex flex-col gap-6">
+                  <p className="text-center">
+                    When you close the Cluster details drawer you can view the
+                    logs in{' '}
+                    <span className="text-blue-600">Cluster archives</span>.
+                  </p>
+
+                  <Checkbox
+                    defaultChecked
+                    label="Don't show this message again"
+                  />
+                </div>
+              ),
+              wrapperClassName: 'max-w-[384px] gap-4',
+              buttonConfirm: {
+                text: 'Got it!',
+                className: 'w-full mt-4',
+              },
+            },
             onClick: (row) => {
               console.log(`Viewing details for ${JSON.stringify(row)}`);
             },
-            className: 'text-slate-800',
           },
           {
             label: 'Second Action',

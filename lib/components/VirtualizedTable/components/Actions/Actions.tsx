@@ -1,11 +1,11 @@
 import { EllipsisVertical } from 'lucide-react';
 
 import { Button } from '@/components/Button/Button';
+import { cn } from '@/utils';
 
 import { RowData } from '../../VirtualizedTable.types';
 
 import { Props } from './Actions.types';
-import { cn } from '@/utils';
 
 export const Actions = <TData extends RowData>({
   actions,
@@ -72,37 +72,50 @@ export const Actions = <TData extends RowData>({
             wrapperContentActionsClassName,
           )}
         >
-          {actions.map(({ label, className, onClick }) => (
-            <Button
-              key={label as string}
-              className={cn(
-                'w-full',
-                'text-slate-800',
-                'cursor-pointer',
-                'p-0',
-                'h-9',
-                'flex',
-                'gap-2',
-                'text-sm',
-                'font-normal',
-                'justify-start',
-                'rounded-none',
-                'px-6',
-                'hover:bg-gray-50',
-                'hover:text-slate-800',
-                'hover:no-underline',
-                'dark:hover:bg-metal-700',
+          {actions.map(
+            (
+              {
+                id,
+                label,
                 className,
-              )}
-              variant="link"
-              asChild
-              role="presentation"
-            >
-              <Button onClick={() => onClick(delegated.row.original)}>
+                component: Component = Button,
+                componentProps,
+                onClick,
+              },
+              index,
+            ) => (
+              <Component
+                key={
+                  id ?? (typeof label === 'string' ? label : `action-${index}`)
+                }
+                className={cn(
+                  'w-full',
+                  'text-slate-800',
+                  'cursor-pointer',
+                  'p-0',
+                  'h-9',
+                  'flex',
+                  'gap-2',
+                  'text-sm',
+                  'font-normal',
+                  'justify-start',
+                  'rounded-none',
+                  'px-6',
+                  'hover:bg-gray-50',
+                  'hover:text-slate-800',
+                  'hover:no-underline',
+                  'dark:hover:bg-metal-700',
+                  className,
+                )}
+                variant="link"
+                role="presentation"
+                onClick={() => onClick(delegated.row.original)}
+                {...componentProps}
+              >
                 {label}
-              </Button>
-            </Button>
-          ))}
+              </Component>
+            ),
+          )}
         </div>
       </div>
     </div>
