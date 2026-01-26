@@ -15,9 +15,12 @@ interface DateRangePickerProviderProps {
   defaultTime?: TimeRange;
   defaultPreset?: DateRangePreset;
   timeFormat?: '12' | '24';
+  showTime?: boolean;
+  name?: string;
   disabled?: boolean;
   animationDuration?: number;
   onRangeChange?: (range: DateRange & TimeRange) => void;
+  onDateChange?: (range: DateRange) => void;
 }
 
 export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
@@ -26,9 +29,12 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
   defaultTime,
   defaultPreset = 'custom',
   timeFormat = '24',
+  showTime = true,
+  name,
   disabled = false,
   animationDuration = 500,
   onRangeChange,
+  onDateChange,
 }) => {
   const [range, setRangeState] = useState<DateRange>(() => {
     if (defaultRange) return defaultRange;
@@ -54,8 +60,9 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
       setRangeState(newRange);
       setPresetState('custom');
       onRangeChange?.({ ...newRange, ...time });
+      onDateChange?.(newRange);
     },
-    [time, onRangeChange],
+    [time, onRangeChange, onDateChange],
   );
 
   const setTime = useCallback(
@@ -73,9 +80,10 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
         const presetRange = calculatePresetRange(newPreset);
         setRangeState(presetRange);
         onRangeChange?.({ ...presetRange, ...time });
+        onDateChange?.(presetRange);
       }
     },
-    [time, onRangeChange],
+    [time, onRangeChange, onDateChange],
   );
 
   const navigatePrevMonth = useCallback(() => {
@@ -101,6 +109,8 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
       preset,
       displayedMonths,
       timeFormat,
+      showTime,
+      name,
       disabled,
       animationDuration,
       setRange,
@@ -116,6 +126,8 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
       preset,
       displayedMonths,
       timeFormat,
+      showTime,
+      name,
       disabled,
       animationDuration,
       setRange,

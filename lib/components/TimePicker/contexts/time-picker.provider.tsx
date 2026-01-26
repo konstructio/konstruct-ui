@@ -21,6 +21,7 @@ export const TimePickerProvider: FC<
 > = ({ children, time: defaultTime, format: defaultFormat, onChange }) => {
   const [format, setFormat] = useState(defaultFormat);
   const [time, setTime] = useState(() => defaultTime ?? new Date());
+  const [isTyping, setIsTyping] = useState(false);
   const isAM = useMemo(() => time.getHours() < 12, [time]);
 
   const updateTime = useCallback(
@@ -107,11 +108,13 @@ export const TimePickerProvider: FC<
         format,
         formattedTime: getFormattedTime(time, format),
         isAM,
+        isTyping,
         onSelectHour: handleSelectHour,
         onSelectMinute: handleSelectMinute,
         onSelectAM: handleSelectAM,
         onSelectPM: handleSelectPM,
         setTimeDirectly: handleSetTimeDirectly,
+        setIsTyping,
       }}
     >
       {children}

@@ -16,6 +16,7 @@ export const WrapperList: FC<WrapperListProps> = ({
   listClassName,
   listItemClassName,
   listItemButtonClassName,
+  listPosition = 'bottom',
   onClose,
 }) => {
   const { time, format } = useTimePickerContext();
@@ -38,7 +39,6 @@ export const WrapperList: FC<WrapperListProps> = ({
         'w-max',
         'max-h-54',
         'absolute',
-        'mt-1',
         'bg-white',
         'z-20',
         'animate-in',
@@ -47,6 +47,7 @@ export const WrapperList: FC<WrapperListProps> = ({
         'dark:bg-metal-800',
         'dark:border',
         'dark:border-metal-700',
+        listPosition === 'top' ? 'bottom-full mb-1' : 'mt-1',
       )}
     >
       <HoursList

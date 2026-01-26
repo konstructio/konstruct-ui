@@ -50,4 +50,6 @@ export type TimePickerProps = VariantProps<typeof timePickerVariants> & {
   error?: string;
   /** Placeholder text for input mode */
   placeholder?: string;
+  /** Direction to open the dropdown list (default: 'bottom') */
+  listPosition?: 'top' | 'bottom';
 };

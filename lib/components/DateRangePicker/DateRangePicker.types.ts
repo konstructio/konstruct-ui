@@ -43,14 +43,20 @@ export type DateRangePickerProps = VariantProps<
   defaultTime?: TimeRange;
   /** Initially selected preset (default: 'custom') */
   defaultPreset?: DateRangePreset;
-  /** Callback when the range changes */
+  /** Callback when the range changes (includes time) */
   onRangeChange?: (range: DateRangeWithTime) => void;
+  /** Callback when the date changes (start or end date, without time) */
+  onDateChange?: (range: DateRange) => void;
   /** Time format: '12' for 12-hour or '24' for 24-hour */
   timeFormat?: '12' | '24';
+  /** Whether to show time inputs (default: true) */
+  showTime?: boolean;
   /** Theme override */
   theme?: Theme;
   /** Disabled state */
   disabled?: boolean;
+  /** Form field name (used for hidden inputs: {name}-start and {name}-end) */
+  name?: string;
   /** Label for the component */
   label?: string;
   /** Whether the field is required */
@@ -72,6 +78,10 @@ export type DateRangePickerContextValue = {
   displayedMonths: [Date, Date];
   /** Time format */
   timeFormat: '12' | '24';
+  /** Whether to show time inputs */
+  showTime: boolean;
+  /** Form field name */
+  name?: string;
   /** Disabled state */
   disabled: boolean;
   /** Animation duration in milliseconds */

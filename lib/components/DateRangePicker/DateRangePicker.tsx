@@ -47,18 +47,24 @@ const DateRangePicker: FC<DateRangePickerProps> = ({
   disabled = false,
   isRequired,
   label,
+  name,
+  showTime = true,
   theme,
   timeFormat = '24',
   onRangeChange,
+  onDateChange,
 }) => (
   <DateRangePickerProvider
     defaultRange={defaultRange}
     defaultTime={defaultTime}
     defaultPreset={defaultPreset}
     timeFormat={timeFormat}
+    showTime={showTime}
+    name={name}
     disabled={disabled}
     animationDuration={animationDuration}
     onRangeChange={onRangeChange}
+    onDateChange={onDateChange}
   >
     <div className="flex flex-col gap-2" data-theme={theme}>
       {label ? (

@@ -141,6 +141,7 @@ describe('DateRangePicker', () => {
 
     await user.clear(startTimeInput);
     await user.type(startTimeInput, '99:99');
+    await user.click(document.body); // Click outside to blur and trigger validation
 
     const errorMessage = await screen.findByText(/invalid time/i);
 

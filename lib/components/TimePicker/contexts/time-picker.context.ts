@@ -7,11 +7,13 @@ export type TimePickerContextType = {
   format: NonNullable<TimePickerProps['format']>;
   formattedTime: string;
   isAM: boolean;
+  isTyping: boolean;
   onSelectHour: (hour: number) => void;
   onSelectMinute: (minute: number) => void;
   onSelectAM: () => void;
   onSelectPM: () => void;
   setTimeDirectly: (time: Date) => void;
+  setIsTyping: (value: boolean) => void;
 };
 
 export const TimePickerContext = createContext<TimePickerContextType>({
@@ -19,6 +21,7 @@ export const TimePickerContext = createContext<TimePickerContextType>({
   format: '12',
   formattedTime: '',
   isAM: false,
+  isTyping: false,
   onSelectHour() {
     throw new Error('onSelectHour is not implemented');
   },
@@ -33,5 +36,8 @@ export const TimePickerContext = createContext<TimePickerContextType>({
   },
   setTimeDirectly() {
     throw new Error('setTimeDirectly is not implemented');
+  },
+  setIsTyping() {
+    throw new Error('setIsTyping is not implemented');
   },
 });
