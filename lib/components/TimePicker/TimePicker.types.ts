@@ -20,6 +20,10 @@ import { timePickerVariants } from './TimePicker.variants';
 export type TimePickerProps = VariantProps<typeof timePickerVariants> & {
   /** Time format: '12' for AM/PM or '24' for military time */
   format?: '12' | '24';
+  /** Input mode: 'select' for dropdown only, 'input' for typing */
+  mode?: 'select' | 'input';
+  /** Whether to show the dropdown list (default: true) */
+  showList?: boolean;
   /** Scroll behavior when navigating times */
   scrollBehavior?: 'smooth' | 'auto';
   /** Currently selected time */
@@ -38,4 +42,12 @@ export type TimePickerProps = VariantProps<typeof timePickerVariants> & {
   listItemClassName?: string;
   /** Additional CSS classes for list item buttons */
   listItemButtonClassName?: string;
+  /** Callback when time changes */
+  onChange?: (time: Date) => void;
+  /** Whether the picker is disabled */
+  disabled?: boolean;
+  /** Error message to display (overrides internal validation error) */
+  error?: string;
+  /** Placeholder text for input mode */
+  placeholder?: string;
 };

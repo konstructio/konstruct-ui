@@ -1,4 +1,11 @@
-import { FC, MouseEvent, useCallback, useEffect, useRef } from 'react';
+import {
+  FC,
+  MouseEvent,
+  KeyboardEvent,
+  useCallback,
+  useEffect,
+  useRef,
+} from 'react';
 
 import { cn } from '@/utils';
 
@@ -13,9 +20,10 @@ import { HourListProps } from './HoursList.types';
 
 const HoursList: FC<HourListProps> = ({ hours, scrollBehavior }) => {
   const wrapperRef = useRef<HTMLUListElement>(null);
-  const isFirstRender = useRef(true);
+  const initialHoursRef = useRef<number>(hours);
   const { format, onSelectHour } = useTimePickerContext();
   const newHours = format === '12' ? (hours >= 12 ? hours - 12 : hours) : hours;
+  const maxHours = format === '12' ? 12 : 24;
 
   const handleSelectHour = useCallback(
     (event: MouseEvent<HTMLButtonElement>, hour: number) => {
@@ -25,25 +33,89 @@ const HoursList: FC<HourListProps> = ({ hours, scrollBehavior }) => {
     [onSelectHour],
   );
 
-  useEffect(() => {
-    if (isFirstRender.current) {
-      const wrapper = wrapperRef.current;
-      const time = newHours === 0 && format === '12' ? 12 : newHours;
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLButtonElement>, currentIndex: number) => {
+      const buttons = wrapperRef.current?.querySelectorAll('button');
+      if (!buttons) return;
 
-      if (wrapper) {
-        const item = wrapper.querySelector(
-          `[data-value="${`0${time}`.slice(-2)}"]`,
-        ) as HTMLUListElement;
+      let nextIndex = currentIndex;
 
-        item?.scrollIntoView({
-          behavior: scrollBehavior,
-          block: 'center',
-        });
+      if (
+        event.key === 'ArrowDown' ||
+        (event.key === 'Tab' && !event.shiftKey)
+      ) {
+        event.preventDefault();
+        nextIndex = (currentIndex + 1) % maxHours;
+      } else if (
+        event.key === 'ArrowUp' ||
+        (event.key === 'Tab' && event.shiftKey)
+      ) {
+        event.preventDefault();
+        nextIndex = (currentIndex - 1 + maxHours) % maxHours;
+      } else if (event.key === 'Enter') {
+        event.preventDefault();
+        // Select the hour
+        const hour = format === '12' ? currentIndex + 1 : currentIndex;
+        onSelectHour(hour);
+        // Move focus to minutes list
+        const minutesList = document.querySelector('[aria-label="minutes"]');
+        const activeMinuteButton = minutesList?.querySelector(
+          'li[data-active="true"] button',
+        ) as HTMLButtonElement;
+        activeMinuteButton?.focus();
+        return;
       }
 
-      isFirstRender.current = false;
+      if (nextIndex !== currentIndex) {
+        const nextButton = buttons[nextIndex] as HTMLButtonElement;
+        nextButton?.focus();
+      }
+    },
+    [format, maxHours, onSelectHour],
+  );
+
+  // Scroll on initial mount
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    const initialHours = initialHoursRef.current;
+    const adjustedHours =
+      format === '12'
+        ? initialHours >= 12
+          ? initialHours - 12
+          : initialHours
+        : initialHours;
+    const time = adjustedHours === 0 && format === '12' ? 12 : adjustedHours;
+
+    if (wrapper) {
+      const item = wrapper.querySelector(
+        `[data-value="${`0${time}`.slice(-2)}"]`,
+      ) as HTMLUListElement;
+
+      item?.scrollIntoView({
+        behavior: scrollBehavior,
+        block: 'center',
+      });
     }
-  }, [format, newHours, scrollBehavior]);
+  }, [format, scrollBehavior]);
+
+  // Scroll when hours value changes (e.g., while typing)
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    const adjustedHours =
+      format === '12' ? (hours >= 12 ? hours - 12 : hours) : hours;
+    const time = adjustedHours === 0 && format === '12' ? 12 : adjustedHours;
+
+    if (wrapper) {
+      const item = wrapper.querySelector(
+        `[data-value="${`0${time}`.slice(-2)}"]`,
+      ) as HTMLUListElement;
+
+      item?.scrollIntoView({
+        behavior: 'instant',
+        block: 'center',
+      });
+    }
+  }, [hours, format]);
 
   if (format === '12') {
     const dataActive = newHours === 0 ? 12 : newHours;
@@ -55,24 +127,30 @@ const HoursList: FC<HourListProps> = ({ hours, scrollBehavior }) => {
         aria-label="hours"
         role="listbox"
       >
-        {Array.from({ length: 12 }, (_, index) => (
-          <li
-            key={index}
-            className={cn(liVariants())}
-            data-value={`0${index + 1}`.slice(-2)}
-            data-active={dataActive - 1 === index}
-            role="presentation"
-          >
-            <button
-              type="button"
-              role="option"
-              className={cn(buttonVariants())}
-              onClick={(event) => handleSelectHour(event, index + 1)}
+        {Array.from({ length: 12 }, (_, index) => {
+          const isActive = dataActive - 1 === index;
+
+          return (
+            <li
+              key={index}
+              className={cn(liVariants())}
+              data-value={`0${index + 1}`.slice(-2)}
+              data-active={isActive}
+              role="presentation"
             >
-              {index + 1}
-            </button>
-          </li>
-        ))}
+              <button
+                type="button"
+                role="option"
+                tabIndex={isActive ? 0 : -1}
+                className={cn(buttonVariants())}
+                onClick={(event) => handleSelectHour(event, index + 1)}
+                onKeyDown={(event) => handleKeyDown(event, index)}
+              >
+                {index + 1}
+              </button>
+            </li>
+          );
+        })}
       </ul>
     );
   }
@@ -84,24 +162,30 @@ const HoursList: FC<HourListProps> = ({ hours, scrollBehavior }) => {
       aria-label="hours"
       role="listbox"
     >
-      {Array.from({ length: 24 }, (_, index) => (
-        <li
-          key={index}
-          className={cn(liVariants())}
-          data-value={`0${index}`.slice(-2)}
-          data-active={hours === index}
-          role="presentation"
-        >
-          <button
-            type="button"
-            role="option"
-            className={cn(buttonVariants())}
-            onClick={(event) => handleSelectHour(event, index)}
+      {Array.from({ length: 24 }, (_, index) => {
+        const isActive = hours === index;
+
+        return (
+          <li
+            key={index}
+            className={cn(liVariants())}
+            data-value={`0${index}`.slice(-2)}
+            data-active={isActive}
+            role="presentation"
           >
-            {index}
-          </button>
-        </li>
-      ))}
+            <button
+              type="button"
+              role="option"
+              tabIndex={isActive ? 0 : -1}
+              className={cn(buttonVariants())}
+              onClick={(event) => handleSelectHour(event, index)}
+              onKeyDown={(event) => handleKeyDown(event, index)}
+            >
+              {index}
+            </button>
+          </li>
+        );
+      })}
     </ul>
   );
 };

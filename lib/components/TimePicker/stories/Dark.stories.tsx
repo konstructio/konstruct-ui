@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { TimePicker as TimePickerComponent } from '../TimePicker';
-import { useEffect } from 'react';
 
 type Story = StoryObj<typeof TimePickerComponent>;
 
@@ -11,32 +10,71 @@ const meta: Meta<typeof TimePickerComponent> = {
 };
 
 export const Dark: Story = {
-  render: () => {
-    useEffect(() => {
-      document.body.setAttribute('data-theme', 'dark');
-      document.body.classList.add('bg-metal-900');
-
-      return () => {
-        document.body.removeAttribute('data-theme');
-        document.body.classList.remove('bg-metal-900');
-      };
-    }, []);
-
-    return (
-      <>
-        <TimePickerComponent name="time-12" label="Time 12 format" isRequired />
-
-        <div className="h-5" />
-
-        <TimePickerComponent
-          name="time-24"
-          label="Time 24 format"
-          format="24"
-          isRequired
-        />
-      </>
-    );
+  parameters: {
+    theme: 'dark',
   },
+  render: () => (
+    <div className="w-65 flex flex-col gap-5">
+      <TimePickerComponent name="time-12" label="Time 12 format" isRequired />
+
+      <TimePickerComponent
+        name="time-24"
+        label="Time 24 format"
+        format="24"
+        isRequired
+      />
+    </div>
+  ),
+};
+
+export const InputMode: Story = {
+  parameters: {
+    theme: 'dark',
+  },
+  render: () => (
+    <div className="w-65 flex flex-col gap-5">
+      <TimePickerComponent
+        name="time-input-12"
+        label="Time 12 format (Input mode with list)"
+        mode="input"
+        isRequired
+      />
+
+      <TimePickerComponent
+        name="time-input-24"
+        label="Time 24 format (Input mode with list)"
+        format="24"
+        mode="input"
+        isRequired
+      />
+    </div>
+  ),
+};
+
+export const InputModeWithoutList: Story = {
+  parameters: {
+    theme: 'dark',
+  },
+  render: () => (
+    <div className="w-65 flex flex-col gap-5">
+      <TimePickerComponent
+        name="time-input-no-list-12"
+        label="Time 12 format (Input only)"
+        mode="input"
+        showList={false}
+        isRequired
+      />
+
+      <TimePickerComponent
+        name="time-input-no-list-24"
+        label="Time 24 format (Input only)"
+        format="24"
+        mode="input"
+        showList={false}
+        isRequired
+      />
+    </div>
+  ),
 };
 
 export default meta;

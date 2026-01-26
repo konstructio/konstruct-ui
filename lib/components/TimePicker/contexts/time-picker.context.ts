@@ -11,6 +11,7 @@ export type TimePickerContextType = {
   onSelectMinute: (minute: number) => void;
   onSelectAM: () => void;
   onSelectPM: () => void;
+  setTimeDirectly: (time: Date) => void;
 };
 
 export const TimePickerContext = createContext<TimePickerContextType>({
@@ -29,5 +30,8 @@ export const TimePickerContext = createContext<TimePickerContextType>({
   },
   onSelectPM() {
     throw new Error('onSelectPM is not implemented');
+  },
+  setTimeDirectly() {
+    throw new Error('setTimeDirectly is not implemented');
   },
 });

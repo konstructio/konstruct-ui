@@ -1,4 +1,11 @@
-import { useEffect, useRef, FC, MouseEvent, useCallback } from 'react';
+import {
+  useEffect,
+  useRef,
+  FC,
+  MouseEvent,
+  KeyboardEvent,
+  useCallback,
+} from 'react';
 
 import { cn } from '@/utils';
 
@@ -11,18 +18,23 @@ import { useTimePickerContext } from '../../contexts';
 
 import { MinutesLitProps } from './MinutesList.types';
 
-const MinutesList: FC<MinutesLitProps> = ({ minutes, scrollBehavior }) => {
+const MinutesList: FC<MinutesLitProps> = ({
+  minutes,
+  scrollBehavior,
+  onClose,
+}) => {
   const wrapperRef = useRef<HTMLUListElement>(null);
-  const minutesRef = useRef<number>(minutes);
+  const initialMinutesRef = useRef<number>(minutes);
   const { onSelectMinute } = useTimePickerContext();
 
+  // Scroll on initial mount
   useEffect(() => {
     const wrapper = wrapperRef.current;
 
     if (wrapper) {
-      const minutes = `0${minutesRef.current}`.slice(-2);
+      const formattedMinutes = `0${initialMinutesRef.current}`.slice(-2);
       const item = wrapper.querySelector(
-        `[data-value="${minutes}"]`,
+        `[data-value="${formattedMinutes}"]`,
       ) as HTMLUListElement;
 
       item?.scrollIntoView({
@@ -32,12 +44,74 @@ const MinutesList: FC<MinutesLitProps> = ({ minutes, scrollBehavior }) => {
     }
   }, [scrollBehavior]);
 
+  // Scroll when minutes value changes (e.g., while typing)
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+
+    if (wrapper) {
+      const formattedMinutes = `0${minutes}`.slice(-2);
+      const item = wrapper.querySelector(
+        `[data-value="${formattedMinutes}"]`,
+      ) as HTMLUListElement;
+
+      item?.scrollIntoView({
+        behavior: 'instant',
+        block: 'center',
+      });
+    }
+  }, [minutes]);
+
   const handleSelectMinute = useCallback(
     (index: number, event: MouseEvent<HTMLButtonElement>) => {
       onSelectMinute(index);
       event.currentTarget?.blur();
     },
     [onSelectMinute],
+  );
+
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLButtonElement>, currentIndex: number) => {
+      const buttons = wrapperRef.current?.querySelectorAll('button');
+      if (!buttons) return;
+
+      let nextIndex = currentIndex;
+
+      if (
+        event.key === 'ArrowDown' ||
+        (event.key === 'Tab' && !event.shiftKey)
+      ) {
+        event.preventDefault();
+        nextIndex = (currentIndex + 1) % 60;
+      } else if (
+        event.key === 'ArrowUp' ||
+        (event.key === 'Tab' && event.shiftKey)
+      ) {
+        event.preventDefault();
+        nextIndex = (currentIndex - 1 + 60) % 60;
+      } else if (event.key === 'Enter') {
+        event.preventDefault();
+        // Select the minute
+        onSelectMinute(currentIndex);
+        // If onClose is provided (24h format), close the list
+        if (onClose) {
+          onClose();
+          return;
+        }
+        // Otherwise move focus to meridian list (AM/PM)
+        const meridianList = document.querySelector('[aria-label="meridian"]');
+        const activeMeridianButton = meridianList?.querySelector(
+          'li[data-active="true"] button',
+        ) as HTMLButtonElement;
+        activeMeridianButton?.focus();
+        return;
+      }
+
+      if (nextIndex !== currentIndex) {
+        const nextButton = buttons[nextIndex] as HTMLButtonElement;
+        nextButton?.focus();
+      }
+    },
+    [onSelectMinute, onClose],
   );
 
   return (
@@ -47,24 +121,30 @@ const MinutesList: FC<MinutesLitProps> = ({ minutes, scrollBehavior }) => {
       aria-label="minutes"
       role="listbox"
     >
-      {Array.from({ length: 60 }, (_, index) => (
-        <li
-          key={index}
-          className={cn(liVariants())}
-          data-value={`0${index}`.slice(-2)}
-          data-active={minutes === index}
-          role="presentation"
-        >
-          <button
-            type="button"
-            role="option"
-            className={cn(buttonVariants())}
-            onClick={(event) => handleSelectMinute(index, event)}
+      {Array.from({ length: 60 }, (_, index) => {
+        const isActive = minutes === index;
+
+        return (
+          <li
+            key={index}
+            className={cn(liVariants())}
+            data-value={`0${index}`.slice(-2)}
+            data-active={isActive}
+            role="presentation"
           >
-            {`0${index}`.slice(-2)}
-          </button>
-        </li>
-      ))}
+            <button
+              type="button"
+              role="option"
+              tabIndex={isActive ? 0 : -1}
+              className={cn(buttonVariants())}
+              onClick={(event) => handleSelectMinute(index, event)}
+              onKeyDown={(event) => handleKeyDown(event, index)}
+            >
+              {`0${index}`.slice(-2)}
+            </button>
+          </li>
+        );
+      })}
     </ul>
   );
 };
