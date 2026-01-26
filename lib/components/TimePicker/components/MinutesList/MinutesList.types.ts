@@ -6,4 +6,5 @@ export type MinutesLitProps = {
   listClassName?: TimePickerProps['listClassName'];
   listItemClassName?: TimePickerProps['listItemClassName'];
   listItemButtonClassName?: TimePickerProps['listItemButtonClassName'];
+  onClose?: () => void;
 };

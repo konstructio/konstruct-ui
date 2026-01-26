@@ -6,4 +6,5 @@ export type WrapperListProps = {
   listClassName?: TimePickerProps['listClassName'];
   listItemClassName?: TimePickerProps['listItemClassName'];
   listItemButtonClassName?: TimePickerProps['listItemButtonClassName'];
+  onClose?: () => void;
 };

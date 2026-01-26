@@ -16,8 +16,9 @@ export const WrapperList: FC<WrapperListProps> = ({
   listClassName,
   listItemClassName,
   listItemButtonClassName,
+  onClose,
 }) => {
-  const { time } = useTimePickerContext();
+  const { time, format } = useTimePickerContext();
   const selectedHours = useMemo(() => getHours(time), [time]);
   const selectedMinutes = useMemo(() => getMinutes(time), [time]);
 
@@ -29,7 +30,23 @@ export const WrapperList: FC<WrapperListProps> = ({
     <div
       role="group"
       className={cn(
-        'flex gap-1.5 p-2 rounded-md shadow w-full max-h-[216px] absolute mt-1 bg-white z-10 animate-in fade-in-0 zoom-in-95 dark:bg-metal-800 dark:border dark:border-metal-700',
+        'flex',
+        'gap-1.5',
+        'p-2',
+        'rounded-md',
+        'shadow',
+        'w-max',
+        'max-h-54',
+        'absolute',
+        'mt-1',
+        'bg-white',
+        'z-20',
+        'animate-in',
+        'fade-in-0',
+        'zoom-in-95',
+        'dark:bg-metal-800',
+        'dark:border',
+        'dark:border-metal-700',
       )}
     >
       <HoursList
@@ -46,12 +63,14 @@ export const WrapperList: FC<WrapperListProps> = ({
         listClassName={listClassName}
         listItemClassName={listItemClassName}
         listItemButtonClassName={listItemButtonClassName}
+        onClose={format === '24' ? onClose : undefined}
       />
 
       <MeridianList
         listClassName={listClassName}
         listItemClassName={listItemClassName}
         listItemButtonClassName={listItemButtonClassName}
+        onClose={onClose}
       />
     </div>
   );

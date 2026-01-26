@@ -21,9 +21,16 @@ import { Wrapper } from './components/Wrapper/Wrapper';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-timepicker--docs Storybook}
  */
-const TimePicker: FC<TimePickerProps> = ({ format = '12', ...delegated }) => (
-  <TimePickerProvider format={format}>
-    <Wrapper {...delegated} />
+const TimePicker: FC<TimePickerProps> = ({
+  format = '12',
+  mode = 'select',
+  showList = true,
+  time,
+  onChange,
+  ...delegated
+}) => (
+  <TimePickerProvider format={format} time={time} onChange={onChange}>
+    <Wrapper mode={mode} showList={showList} {...delegated} />
   </TimePickerProvider>
 );
 

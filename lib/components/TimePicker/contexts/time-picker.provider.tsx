@@ -16,11 +16,20 @@ export const TimePickerProvider: FC<
   PropsWithChildren & {
     time?: Date;
     format: NonNullable<TimePickerProps['format']>;
+    onChange?: (time: Date) => void;
   }
-> = ({ children, time: defaultTime, format: defaultFormat }) => {
+> = ({ children, time: defaultTime, format: defaultFormat, onChange }) => {
   const [format, setFormat] = useState(defaultFormat);
   const [time, setTime] = useState(() => defaultTime ?? new Date());
   const isAM = useMemo(() => time.getHours() < 12, [time]);
+
+  const updateTime = useCallback(
+    (newTime: Date) => {
+      setTime(newTime);
+      onChange?.(newTime);
+    },
+    [onChange],
+  );
 
   const handleSelectHour = useCallback(
     (hour: number) => {
@@ -36,9 +45,9 @@ export const TimePickerProvider: FC<
         newTime.setHours(hour);
       }
 
-      setTime(newTime);
+      updateTime(newTime);
     },
-    [format, isAM, time],
+    [format, isAM, time, updateTime],
   );
 
   const handleSelectMinute = useCallback(
@@ -46,9 +55,9 @@ export const TimePickerProvider: FC<
       const newTime = new Date(time);
 
       newTime.setMinutes(minute);
-      setTime(newTime);
+      updateTime(newTime);
     },
-    [time],
+    [time, updateTime],
   );
 
   const handleSelectAM = useCallback(() => {
@@ -59,8 +68,8 @@ export const TimePickerProvider: FC<
       newTime.setHours(currentHour - 12);
     }
 
-    setTime(newTime);
-  }, [isAM, time]);
+    updateTime(newTime);
+  }, [isAM, time, updateTime]);
 
   const handleSelectPM = useCallback(() => {
     const newTime = new Date(time);
@@ -70,12 +79,26 @@ export const TimePickerProvider: FC<
       newTime.setHours(currentHour + 12);
     }
 
-    setTime(newTime);
-  }, [isAM, time]);
+    updateTime(newTime);
+  }, [isAM, time, updateTime]);
+
+  const handleSetTimeDirectly = useCallback(
+    (newTime: Date) => {
+      updateTime(newTime);
+    },
+    [updateTime],
+  );
+
+  // Sync with external time prop changes
+  useEffect(() => {
+    if (defaultTime) {
+      setTime(defaultTime);
+    }
+  }, [defaultTime]);
 
   useEffect(() => {
-    setFormat(format);
-  }, [format]);
+    setFormat(defaultFormat);
+  }, [defaultFormat]);
 
   return (
     <TimePickerContext.Provider
@@ -88,6 +111,7 @@ export const TimePickerProvider: FC<
         onSelectMinute: handleSelectMinute,
         onSelectAM: handleSelectAM,
         onSelectPM: handleSelectPM,
+        setTimeDirectly: handleSetTimeDirectly,
       }}
     >
       {children}
