@@ -1,12 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
-import {
-  FC,
-  useCallback,
-  useState,
-  useEffect,
-  useRef,
-  useLayoutEffect,
-} from 'react';
+import { FC, useCallback, useState, useEffect, useRef } from 'react';
 import { DayPicker, DateRange as DayPickerDateRange } from 'react-day-picker';
 
 import { cn } from '@/utils';
@@ -19,18 +12,21 @@ import {
   calendarMonthTitleVariants,
   calendarDividerVariants,
   calendarGridContainerVariants,
-} from '../../DateRangePicker.variants';
+} from './CalendarPanel.variants';
 import { getMonthName } from '../../utils';
 
 import 'react-day-picker/style.css';
-import '../../DateRangePicker.css';
+import './CalendarPanel.css';
 
 type SlideDirection = 'left' | 'right' | null;
 
+const SINGLE_MONTH_WIDTH = 259;
+const GAP_WIDTH = 32;
+
 const dayPickerClassNames = {
   root: 'w-fit',
-  months: 'flex gap-8',
-  month: 'flex flex-col w-[259px]',
+  months: 'flex',
+  month: `flex flex-col w-[${SINGLE_MONTH_WIDTH}px]`,
   month_caption: 'hidden',
   nav: 'hidden',
   day_button: cn(
@@ -49,7 +45,6 @@ const dayPickerClassNames = {
     'dark:text-white',
   ),
   day: cn('p-0', 'w-[37px]', 'h-[38px]', 'text-center', 'align-middle'),
-  outside: cn('[&>button]:text-[#90a1b9]', 'dark:[&>button]:text-metal-500'),
   selected: cn(
     '[&>button]:bg-blue-600',
     '[&>button]:text-white',
@@ -59,6 +54,7 @@ const dayPickerClassNames = {
     'dark:[&>button]:text-metal-900',
   ),
   range_start: cn(
+    'drp-range-start',
     '[&>button]:!bg-blue-600',
     '[&>button]:!text-white',
     '[&>button]:!rounded-full',
@@ -69,13 +65,16 @@ const dayPickerClassNames = {
     'dark:[&>button]:!text-metal-900',
     '!relative',
     'before:absolute',
-    'before:inset-y-0',
+    'before:top-[4px]',
+    'before:bottom-[4px]',
     'before:left-1/2',
     'before:right-0',
     'before:!bg-[#EFF6FF]',
     'dark:before:!bg-aurora-900/20',
+    'last:before:!hidden',
   ),
   range_end: cn(
+    'drp-range-end',
     '[&>button]:!bg-blue-600',
     '[&>button]:!text-white',
     '[&>button]:!rounded-full',
@@ -86,22 +85,35 @@ const dayPickerClassNames = {
     'dark:[&>button]:!text-metal-900',
     '!relative',
     'before:absolute',
-    'before:inset-y-0',
+    'before:top-[4px]',
+    'before:bottom-[4px]',
     'before:left-0',
     'before:right-1/2',
     'before:!bg-[#EFF6FF]',
     'dark:before:!bg-aurora-900/20',
+    'first:before:!hidden',
   ),
   range_middle: cn(
-    '!bg-[#EFF6FF]',
+    'drp-range-middle',
+    '!relative',
+    'before:absolute',
+    'before:top-[4px]',
+    'before:bottom-[4px]',
+    'before:left-0',
+    'before:right-0',
+    'before:!bg-[#EFF6FF]',
+    'dark:before:!bg-aurora-900/20',
+    'first:before:rounded-l-full',
+    'last:before:rounded-r-full',
     '[&>button]:!text-[#314158]',
     '[&>button]:!bg-transparent',
     '[&>button]:!rounded-none',
+    '[&>button]:relative',
+    '[&>button]:z-10',
     '[&>button]:hover:!bg-blue-100',
-    'dark:!bg-aurora-900/20',
     'dark:[&>button]:!text-white',
   ),
-  table: 'w-full border-collapse',
+  table: 'w-full border-collapse table-fixed',
   weekdays: cn('text-[#62748e]', 'dark:text-metal-400'),
   weeks: cn('[&>tr>td]:p-0', '[&>tr]:h-[38px]'),
   weekday: cn(
@@ -118,13 +130,20 @@ const dayPickerClassNames = {
   disabled: 'opacity-50 cursor-not-allowed',
 };
 
-// Helper to get month labels for a pair of months
-const getMonthLabels = (months: [Date, Date]) => ({
-  left: `${getMonthName(months[0].getMonth())} ${months[0].getFullYear()}`,
-  right: `${getMonthName(months[1].getMonth())} ${months[1].getFullYear()}`,
-});
+const getMonthLabel = (date: Date) =>
+  `${getMonthName(date.getMonth())} ${date.getFullYear()}`;
 
-export const CalendarPanel: FC<CalendarPanelProps> = ({ className }) => {
+// Helper to get adjacent months
+const getPrevMonth = (date: Date) =>
+  new Date(date.getFullYear(), date.getMonth() - 1, 1);
+
+const getNextMonth = (date: Date) =>
+  new Date(date.getFullYear(), date.getMonth() + 1, 1);
+
+export const CalendarPanel: FC<CalendarPanelProps> = ({
+  className,
+  calendarWidth = 550,
+}) => {
   const {
     range,
     displayedMonths,
@@ -137,39 +156,67 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({ className }) => {
 
   const [slideDirection, setSlideDirection] = useState<SlideDirection>(null);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [prevDisplayedMonths, setPrevDisplayedMonths] = useState<
-    [Date, Date] | null
-  >(null);
   const [animateTransform, setAnimateTransform] = useState(false);
-  const prevMonthRef = useRef<Date>(displayedMonths[0]);
+  const [enableTransition, setEnableTransition] = useState(true);
+
+  // Internal months state - controlled by this component for smooth animations
+  const [internalMonths, setInternalMonths] =
+    useState<[Date, Date]>(displayedMonths);
+
   const carouselRef = useRef<HTMLDivElement>(null);
+  const isFirstRender = useRef(true);
 
-  // Detect month change and trigger animation
-  useLayoutEffect(() => {
-    const prevMonth = prevMonthRef.current;
-    const currentMonth = displayedMonths[0];
+  const slideWidth = SINGLE_MONTH_WIDTH + GAP_WIDTH;
 
-    if (prevMonth.getTime() !== currentMonth.getTime()) {
-      const direction =
-        currentMonth.getTime() > prevMonth.getTime() ? 'left' : 'right';
+  // Calculate 6 months to always render (2 buffer on each side):
+  // [prev2] [prev1] [leftMonth] [rightMonth] [next1] [next2]
+  const prev2Month = getPrevMonth(getPrevMonth(internalMonths[0]));
+  const prev1Month = getPrevMonth(internalMonths[0]);
+  const leftMonth = internalMonths[0];
+  const rightMonth = internalMonths[1];
+  const next1Month = getNextMonth(internalMonths[1]);
+  const next2Month = getNextMonth(getNextMonth(internalMonths[1]));
 
-      // Store previous months for animation
-      setPrevDisplayedMonths([
-        prevMonth,
-        new Date(prevMonth.getFullYear(), prevMonth.getMonth() + 1, 1),
-      ]);
-      setSlideDirection(direction);
-      setIsAnimating(true);
-      setAnimateTransform(false);
+  // Total width for 6 months
+  const carouselTotalWidth = 6 * SINGLE_MONTH_WIDTH + 5 * GAP_WIDTH;
 
-      prevMonthRef.current = currentMonth;
-    }
-  }, [displayedMonths]);
+  // Base offset to show months at index 2 and 3 (leftMonth and rightMonth)
+  const baseOffset = -2 * (SINGLE_MONTH_WIDTH + GAP_WIDTH);
 
-  // Trigger animation after initial render
+  // Sync with external displayedMonths changes (e.g., from presets)
   useEffect(() => {
-    if (isAnimating && !animateTransform) {
-      // Force a reflow before enabling animation
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    // Only sync if not currently animating and months are different
+    if (!isAnimating) {
+      const currentTime = internalMonths[0].getTime();
+      const newTime = displayedMonths[0].getTime();
+
+      if (currentTime !== newTime) {
+        // Determine direction based on time difference
+        const diff = newTime - currentTime;
+        const monthsDiff = Math.round(diff / (30 * 24 * 60 * 60 * 1000));
+
+        // If it's just one month difference, animate
+        if (Math.abs(monthsDiff) === 1) {
+          const direction = monthsDiff > 0 ? 'left' : 'right';
+          setSlideDirection(direction);
+          setIsAnimating(true);
+          setAnimateTransform(false);
+        } else {
+          // For larger jumps (presets), just update immediately
+          setInternalMonths(displayedMonths);
+        }
+      }
+    }
+  }, [displayedMonths, internalMonths, isAnimating]);
+
+  // Trigger animation after direction is set
+  useEffect(() => {
+    if (isAnimating && !animateTransform && slideDirection) {
       if (carouselRef.current) {
         void carouselRef.current.offsetHeight;
       }
@@ -177,21 +224,47 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({ className }) => {
         setAnimateTransform(true);
       });
     }
-  }, [isAnimating, animateTransform]);
+  }, [isAnimating, animateTransform, slideDirection]);
 
-  // Clean up animation state (add small buffer to ensure transition completes)
+  // After animation completes, update internal months
   useEffect(() => {
     if (isAnimating && animateTransform) {
       const timer = setTimeout(() => {
-        setIsAnimating(false);
-        setSlideDirection(null);
-        setPrevDisplayedMonths(null);
-        setAnimateTransform(false);
-      }, animationDuration + 50); // Add 50ms buffer to avoid jump
+        // Disable transition first
+        setEnableTransition(false);
+
+        // Wait for the transition disable to apply, then update months
+        requestAnimationFrame(() => {
+          // Force a reflow to ensure transition is disabled
+          if (carouselRef.current) {
+            void carouselRef.current.offsetHeight;
+          }
+
+          // Now update internal months - transform will snap to baseOffset
+          setInternalMonths((prev) => {
+            if (slideDirection === 'left') {
+              return [prev[1], getNextMonth(prev[1])];
+            } else {
+              return [getPrevMonth(prev[0]), prev[0]];
+            }
+          });
+
+          setIsAnimating(false);
+          setSlideDirection(null);
+          setAnimateTransform(false);
+
+          // Re-enable transition after DOM has settled
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              setEnableTransition(true);
+            });
+          });
+        });
+      }, animationDuration);
 
       return () => clearTimeout(timer);
     }
-  }, [isAnimating, animateTransform, animationDuration]);
+  }, [isAnimating, animateTransform, animationDuration, slideDirection]);
 
   const handleRangeSelect = useCallback(
     (selectedRange: DayPickerDateRange | undefined) => {
@@ -205,156 +278,142 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({ className }) => {
     [setRange],
   );
 
-  // Calculate the width of both calendars (259px each + 32px gap)
-  const calendarWidth = 259 * 2 + 32; // 550px
+  // Handle navigation - just set direction and start animation
+  const handlePrevMonth = useCallback(() => {
+    if (isAnimating || disabled) return;
+    setSlideDirection('right');
+    setIsAnimating(true);
+    setAnimateTransform(false);
+    // Also update the context
+    navigatePrevMonth();
+  }, [isAnimating, disabled, navigatePrevMonth]);
 
-  // Get labels for current and previous months
-  const currentLabels = getMonthLabels(displayedMonths);
-  const prevLabels = prevDisplayedMonths
-    ? getMonthLabels(prevDisplayedMonths)
-    : null;
+  const handleNextMonth = useCallback(() => {
+    if (isAnimating || disabled) return;
+    setSlideDirection('left');
+    setIsAnimating(true);
+    setAnimateTransform(false);
+    // Also update the context
+    navigateNextMonth();
+  }, [isAnimating, disabled, navigateNextMonth]);
 
-  // Calculate transform based on direction and animation phase
+  // Calculate transform
   const getTransform = () => {
-    if (!isAnimating) return 'translateX(0)';
+    let offset = baseOffset;
 
-    if (slideDirection === 'left') {
-      // Forward: start at 0, animate to -width
-      return animateTransform
-        ? `translateX(-${calendarWidth}px)`
-        : 'translateX(0)';
-    } else {
-      // Backward: start at -width, animate to 0
-      return animateTransform
-        ? 'translateX(0)'
-        : `translateX(-${calendarWidth}px)`;
+    if (isAnimating && animateTransform) {
+      if (slideDirection === 'left') {
+        // Slide left: move one more month to the left
+        offset = baseOffset - slideWidth;
+      } else if (slideDirection === 'right') {
+        // Slide right: move one month to the right (towards 0)
+        offset = baseOffset + slideWidth;
+      }
     }
+
+    return `translateX(${offset}px)`;
   };
 
-  // Render a single slide with month headers and calendar
-  const renderSlide = (
-    months: [Date, Date],
-    labels: { left: string; right: string },
-    key: string,
-    isMain = false,
-  ) => (
-    <div key={key} className="flex-shrink-0" style={{ width: calendarWidth }}>
-      {/* Month Headers */}
-      <div className="flex gap-8 mb-4">
-        <div className="w-[259px] flex items-center">
-          <span
-            className={cn(calendarMonthTitleVariants(), 'flex-1 text-center')}
-          >
-            {labels.left}
-          </span>
-        </div>
-        <div className="w-[259px] flex items-center">
-          <span
-            className={cn(calendarMonthTitleVariants(), 'flex-1 text-center')}
-          >
-            {labels.right}
-          </span>
-        </div>
+  // Render a single month calendar with header
+  const renderSingleMonth = (month: Date) => (
+    <div
+      key={`${month.getFullYear()}-${month.getMonth()}`}
+      className="shrink-0"
+      style={{ width: SINGLE_MONTH_WIDTH }}
+    >
+      {/* Month Header */}
+      <div className="flex items-center mb-4 h-6">
+        <span
+          className={cn(calendarMonthTitleVariants(), 'flex-1 text-center')}
+        >
+          {getMonthLabel(month)}
+        </span>
       </div>
+
       {/* Calendar */}
       <DayPicker
         mode="range"
         selected={{ from: range.from, to: range.to }}
         onSelect={handleRangeSelect}
-        month={months[0]}
-        numberOfMonths={2}
+        month={month}
+        numberOfMonths={1}
         disabled={disabled}
-        showOutsideDays
         hideNavigation
         animate={false}
         classNames={dayPickerClassNames}
-        {...(isMain && {
-          role: 'application',
-          'aria-label': 'Date range picker calendar',
-        })}
       />
     </div>
   );
 
-  // Custom easing: starts normal, slows down significantly at the end
   const customEasing = 'cubic-bezier(0.25, 0.1, 0.25, 1)';
+
+  // Always render 6 months (2 buffer on each side)
+  const monthsToRender = [
+    prev2Month,
+    prev1Month,
+    leftMonth,
+    rightMonth,
+    next1Month,
+    next2Month,
+  ];
 
   return (
     <div className={cn(calendarPanelVariants({ className }))}>
       {/* Divider */}
       <div className={cn(calendarDividerVariants())} />
 
-      {/* Calendar Carousel with month names and fixed arrows */}
+      {/* Calendar Carousel */}
       <div
         className={cn(
           calendarGridContainerVariants(),
-          'overflow-hidden relative',
+          'overflow-hidden relative justify-start!',
         )}
         style={{ width: calendarWidth }}
       >
-        {/* Fixed Navigation Arrows - positioned absolutely */}
+        {/* Navigation Arrows */}
         <button
           type="button"
-          onClick={navigatePrevMonth}
+          onClick={handlePrevMonth}
           disabled={disabled || isAnimating}
           className={cn(
             calendarNavButtonVariants(),
-            'absolute left-0 top-0 z-10',
+            'absolute left-0 top-3 z-10',
           )}
           aria-label="Previous month"
         >
-          <ChevronLeftIcon className="w-6 h-6" />
+          <ChevronLeftIcon className="w-5 h-5" />
         </button>
+
         <button
           type="button"
-          onClick={navigateNextMonth}
+          onClick={handleNextMonth}
           disabled={disabled || isAnimating}
           className={cn(
             calendarNavButtonVariants(),
-            'absolute right-0 top-0 z-10',
+            'absolute right-0 top-3 z-10',
           )}
           aria-label="Next month"
         >
-          <ChevronRightIcon className="w-6 h-6" />
+          <ChevronRightIcon className="w-5 h-5" />
         </button>
+
         <div
           ref={carouselRef}
           className="flex"
+          role="application"
+          aria-label="Date range picker calendar"
           style={{
-            width: isAnimating ? calendarWidth * 2 : calendarWidth,
+            width: carouselTotalWidth,
+            gap: GAP_WIDTH,
             transform: getTransform(),
-            transition: animateTransform
-              ? `transform ${animationDuration}ms ${customEasing}`
-              : 'none',
+            willChange: 'transform',
+            transition:
+              enableTransition && animateTransform
+                ? `transform ${animationDuration}ms ${customEasing}`
+                : 'none',
           }}
         >
-          {/* For left animation (forward): [prev][current] */}
-          {slideDirection === 'left' &&
-            isAnimating &&
-            prevDisplayedMonths &&
-            prevLabels &&
-            renderSlide(prevDisplayedMonths, prevLabels, 'prev')}
-
-          {/* For right animation (backward): [current][prev] - current comes first */}
-          {slideDirection === 'right' &&
-            isAnimating &&
-            renderSlide(displayedMonths, currentLabels, 'current-anim', true)}
-
-          {/* Main current view (always rendered) */}
-          {!(slideDirection === 'right' && isAnimating) &&
-            renderSlide(displayedMonths, currentLabels, 'current', true)}
-
-          {/* For left animation: current comes after prev */}
-          {slideDirection === 'left' &&
-            isAnimating &&
-            renderSlide(displayedMonths, currentLabels, 'current-anim', true)}
-
-          {/* For right animation (backward): [current][prev] - prev comes after */}
-          {slideDirection === 'right' &&
-            isAnimating &&
-            prevDisplayedMonths &&
-            prevLabels &&
-            renderSlide(prevDisplayedMonths, prevLabels, 'prev')}
+          {monthsToRender.map((month) => renderSingleMonth(month))}
         </div>
       </div>
     </div>

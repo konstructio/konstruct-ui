@@ -1,25 +1,26 @@
-import { FC, useCallback, useState, useEffect } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 
 import { cn } from '@/utils';
 
 import { Input } from '../../../Input/Input';
 import { Typography } from '../../../Typography/Typography';
 import { useDateRangePicker } from '../../contexts';
-import { DateTimeInputsProps } from './DateTimeInputs.types';
-import {
-  dateTimeInputsVariants,
-  dateTimeGroupVariants,
-  dateInputWrapperVariants,
-  timeInputWrapperVariants,
-  inputLabelVariants,
-} from '../../DateRangePicker.variants';
 import {
   formatDateToDisplayString,
   formatTimeToString,
+  isValidTimeString,
   parseDisplayDateString,
   parseTimeString,
-  isValidTimeString,
 } from '../../utils';
+
+import { DateTimeInputsProps } from './DateTimeInputs.types';
+import {
+  dateInputWrapperVariants,
+  dateTimeGroupVariants,
+  dateTimeInputsVariants,
+  inputLabelVariants,
+  timeInputWrapperVariants,
+} from './DateTimeInputs.variants';
 
 export const DateTimeInputs: FC<DateTimeInputsProps> = ({ className }) => {
   const { range, time, timeFormat, disabled, setRange, setTime } =

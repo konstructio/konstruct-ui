@@ -39,73 +39,72 @@ import {
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-daterangepicker--docs Storybook}
  */
 const DateRangePicker: FC<DateRangePickerProps> = ({
+  animationDuration = 500,
   className,
+  defaultPreset = 'custom',
   defaultRange,
   defaultTime,
-  defaultPreset = 'custom',
-  onRangeChange,
-  timeFormat = '24',
-  theme,
   disabled = false,
-  label,
   isRequired,
-  animationDuration = 500,
-}) => {
-  return (
-    <DateRangePickerProvider
-      defaultRange={defaultRange}
-      defaultTime={defaultTime}
-      defaultPreset={defaultPreset}
-      timeFormat={timeFormat}
-      disabled={disabled}
-      animationDuration={animationDuration}
-      onRangeChange={onRangeChange}
-    >
-      <div className="flex flex-col gap-2" data-theme={theme}>
-        {label ? (
-          <Typography
-            component="label"
-            variant="labelLarge"
-            className={cn(
-              'cursor-pointer',
-              'flex',
-              'gap-1',
-              'text-sm',
-              'font-medium',
-            )}
-          >
-            {label}
-            {isRequired && (
-              <Typography
-                component="span"
-                className={cn(
-                  'text-red-600',
-                  'dark:text-red-500',
-                  'text-xs',
-                  'mt-0.5',
-                )}
-              >
-                *
-              </Typography>
-            )}
-          </Typography>
-        ) : null}
-
-        <div
-          className={cn(dateRangePickerVariants({ className }), 'gap-4')}
-          role="group"
-          aria-label={label || 'Date range picker'}
+  label,
+  theme,
+  timeFormat = '24',
+  onRangeChange,
+}) => (
+  <DateRangePickerProvider
+    defaultRange={defaultRange}
+    defaultTime={defaultTime}
+    defaultPreset={defaultPreset}
+    timeFormat={timeFormat}
+    disabled={disabled}
+    animationDuration={animationDuration}
+    onRangeChange={onRangeChange}
+  >
+    <div className="flex flex-col gap-2" data-theme={theme}>
+      {label ? (
+        <Typography
+          component="label"
+          variant="labelLarge"
+          className={cn(
+            'cursor-pointer',
+            'flex',
+            'gap-1',
+            'text-sm',
+            'font-medium',
+          )}
         >
-          <PresetPanel />
-          <div className={cn(rightPanelVariants())}>
-            <DateTimeInputs />
-            <CalendarPanel />
-          </div>
+          {label}
+          {isRequired && (
+            <Typography
+              component="span"
+              className={cn(
+                'text-red-600',
+                'dark:text-red-500',
+                'text-xs',
+                'mt-0.5',
+              )}
+            >
+              *
+            </Typography>
+          )}
+        </Typography>
+      ) : null}
+
+      <div
+        className={cn(dateRangePickerVariants({ className }), 'gap-4')}
+        role="group"
+        aria-label={label || 'Date range picker'}
+      >
+        <PresetPanel />
+
+        <div className={cn(rightPanelVariants())}>
+          <DateTimeInputs />
+          <CalendarPanel />
         </div>
       </div>
-    </DateRangePickerProvider>
-  );
-};
+    </div>
+  </DateRangePickerProvider>
+);
 
 DateRangePicker.displayName = 'KonstructDateRangePicker';
 

@@ -1,5 +1,6 @@
-export { calculatePresetRange, PRESET_OPTIONS } from './presets';
-export type { PresetOption } from './presets';
+export { calculatePresetRange } from './presets';
+export { PRESET_OPTIONS } from '../constants';
+export type { PresetOption } from '../constants';
 export {
   isValidTimeString,
   parseTimeString,

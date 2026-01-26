@@ -6,12 +6,13 @@ import { RadioGroup } from '../../../RadioGroup/RadioGroup';
 import { Typography } from '../../../Typography/Typography';
 import { useDateRangePicker } from '../../contexts';
 import { DateRangePreset } from '../../DateRangePicker.types';
+import { PRESET_OPTIONS } from '../../utils';
+
 import { PresetPanelProps } from './PresetPanel.types';
 import {
   presetPanelVariants,
   presetTitleVariants,
-} from '../../DateRangePicker.variants';
-import { PRESET_OPTIONS } from '../../utils';
+} from './PresetPanel.variants';
 
 export const PresetPanel: FC<PresetPanelProps> = ({ className }) => {
   const { preset, setPreset, disabled } = useDateRangePicker();
@@ -38,6 +39,7 @@ export const PresetPanel: FC<PresetPanelProps> = ({ className }) => {
       >
         Time period
       </Typography>
+
       <RadioGroup
         name="date-range-preset"
         options={radioOptions}

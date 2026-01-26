@@ -1,0 +1,49 @@
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* === Range boundary styles for month edges === */
+
+/* Last visible day in row: add rounded right corner to range_middle */
+/* When followed by an outside day (day from next month) */
+td.drp-range-middle:has(+ td[data-outside='true'])::before {
+  border-top-right-radius: 9999px !important;
+  border-bottom-right-radius: 9999px !important;
+}
+
+/* First visible day in row: add rounded left corner to range_middle */
+/* When preceded by an outside day (day from previous month) */
+td[data-outside='true'] + td.drp-range-middle::before {
+  border-top-left-radius: 9999px !important;
+  border-bottom-left-radius: 9999px !important;
+}
+
+/* Last visible day with range_start: hide the right shading */
+/* When followed by an outside day */
+td.drp-range-start:has(+ td[data-outside='true'])::before {
+  display: none !important;
+}
+
+/* First visible day with range_end: hide the left shading */
+/* When preceded by an outside day */
+td[data-outside='true'] + td.drp-range-end::before {
+  display: none !important;
+}
