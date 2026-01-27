@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { FC, PropsWithChildren } from 'react';
@@ -498,13 +498,14 @@ describe('DateRangePicker', () => {
 
       await navigateToPrevMonth();
 
-      // Wait for animation
-      await new Promise((resolve) => setTimeout(resolve, 600));
-
-      const updatedTitles = await getMonthTitles();
-      const updatedFirstMonth = updatedTitles[0].textContent;
-
-      expect(updatedFirstMonth).not.toBe(initialFirstMonth);
+      // Wait for month title to change
+      await waitFor(
+        async () => {
+          const updatedTitles = await getMonthTitles();
+          expect(updatedTitles[0].textContent).not.toBe(initialFirstMonth);
+        },
+        { timeout: 1000 },
+      );
     });
 
     it('should navigate to next month when next button is clicked', async () => {
@@ -517,13 +518,14 @@ describe('DateRangePicker', () => {
 
       await navigateToNextMonth();
 
-      // Wait for animation
-      await new Promise((resolve) => setTimeout(resolve, 600));
-
-      const updatedTitles = await getMonthTitles();
-      const updatedFirstMonth = updatedTitles[0].textContent;
-
-      expect(updatedFirstMonth).not.toBe(initialFirstMonth);
+      // Wait for month title to change
+      await waitFor(
+        async () => {
+          const updatedTitles = await getMonthTitles();
+          expect(updatedTitles[0].textContent).not.toBe(initialFirstMonth);
+        },
+        { timeout: 1000 },
+      );
     });
   });
 
