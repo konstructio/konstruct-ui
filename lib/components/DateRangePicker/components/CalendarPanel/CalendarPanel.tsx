@@ -7,7 +7,7 @@ import { cn } from '@/utils';
 
 import { useDateRangePicker } from '../../contexts';
 import { getMonthName, createDisabledMatcher } from '../../utils';
-import { CalendarPanelProps } from './CalendarPanel.types';
+import { CalendarPanelProps, DayPickerClassNames } from './CalendarPanel.types';
 import {
   calendarPanelVariants,
   calendarNavButtonVariants,
@@ -24,10 +24,10 @@ import {
 import 'react-day-picker/style.css';
 import './CalendarPanel.css';
 
-const dayPickerClassNames = {
-  root: 'w-fit',
-  months: 'flex',
-  month: `flex flex-col w-[${SINGLE_MONTH_WIDTH}px]`,
+const createDayPickerClassNames = (custom?: DayPickerClassNames) => ({
+  root: cn('w-fit', custom?.root),
+  months: cn('flex', custom?.months),
+  month: cn(`flex flex-col w-[${SINGLE_MONTH_WIDTH}px]`, custom?.month),
   month_caption: 'hidden',
   nav: 'hidden',
   day_button: cn(
@@ -46,15 +46,24 @@ const dayPickerClassNames = {
     'dark:text-white',
     'focus:outline-none',
     'focus-visible:outline-none',
+    custom?.dayButton,
   ),
-  day: cn('p-0', 'w-[37px]', 'h-[38px]', 'text-center', 'align-middle'),
+  day: cn(
+    'p-0',
+    'w-[37px]',
+    'h-[38px]',
+    'text-center',
+    'align-middle',
+    custom?.day,
+  ),
   selected: cn(
     '[&>button]:bg-blue-600',
     '[&>button]:text-white',
     '[&>button]:hover:bg-blue-700',
     'dark:[&>button]:bg-aurora-500',
-    'dark:[&>button]:hover:bg-aurora-400',
+    'dark:[&>button]:hover:bg-aurora-500',
     'dark:[&>button]:text-metal-900',
+    custom?.selected,
   ),
   range_start: cn(
     'drp-range-start',
@@ -65,6 +74,7 @@ const dayPickerClassNames = {
     '[&>button]:relative',
     '[&>button]:z-10',
     'dark:[&>button]:!bg-aurora-500',
+    'dark:[&>button]:hover:!bg-aurora-500',
     'dark:[&>button]:!text-metal-900',
     '!relative',
     'before:absolute',
@@ -73,8 +83,9 @@ const dayPickerClassNames = {
     'before:left-1/2',
     'before:right-0',
     'before:!bg-[#EFF6FF]',
-    'dark:before:!bg-aurora-900/20',
+    'dark:before:!bg-aurora-500/10',
     'last:before:!hidden',
+    custom?.rangeStart,
   ),
   range_end: cn(
     'drp-range-end',
@@ -85,6 +96,7 @@ const dayPickerClassNames = {
     '[&>button]:relative',
     '[&>button]:z-10',
     'dark:[&>button]:!bg-aurora-500',
+    'dark:[&>button]:hover:!bg-aurora-500',
     'dark:[&>button]:!text-metal-900',
     '!relative',
     'before:absolute',
@@ -93,8 +105,9 @@ const dayPickerClassNames = {
     'before:left-0',
     'before:right-1/2',
     'before:!bg-[#EFF6FF]',
-    'dark:before:!bg-aurora-900/20',
+    'dark:before:!bg-aurora-500/10',
     'first:before:!hidden',
+    custom?.rangeEnd,
   ),
   range_middle: cn(
     'drp-range-middle',
@@ -105,7 +118,7 @@ const dayPickerClassNames = {
     'before:left-0',
     'before:right-0',
     'before:!bg-[#EFF6FF]',
-    'dark:before:!bg-aurora-900/20',
+    'dark:before:!bg-aurora-500/10',
     'first:before:rounded-l-full',
     'last:before:rounded-r-full',
     '[&>button]:!text-[#314158]',
@@ -115,11 +128,12 @@ const dayPickerClassNames = {
     '[&>button]:z-10',
     '[&>button]:hover:!bg-blue-100',
     'dark:[&>button]:!text-white',
-    'dark:[&>button]:hover:!bg-metal-700',
+    'dark:[&>button]:hover:!bg-aurora-500/20',
+    custom?.rangeMiddle,
   ),
-  table: 'w-full border-collapse table-fixed',
-  weekdays: cn('text-[#62748e]', 'dark:text-metal-400'),
-  weeks: cn('[&>tr>td]:p-0', '[&>tr]:h-[38px]'),
+  table: cn('w-full border-collapse table-fixed', custom?.table),
+  weekdays: cn('text-[#62748e]', 'dark:text-metal-400', custom?.weekdays),
+  weeks: cn('[&>tr>td]:p-0', '[&>tr]:h-[38px]', custom?.weeks),
   weekday: cn(
     'font-semibold',
     'text-xs',
@@ -128,11 +142,25 @@ const dayPickerClassNames = {
     'dark:text-metal-400',
     'pb-4',
     'w-[37px]',
+    custom?.weekday,
   ),
-  today: cn('[&>button]:text-[#155dfc]', 'dark:[&>button]:text-aurora-500'),
+  today: cn(
+    '[&>button]:text-[#155dfc]',
+    'dark:[&>button]:text-aurora-500',
+    custom?.today,
+  ),
   month_grid: 'w-full',
-  disabled: 'opacity-50 cursor-not-allowed',
-};
+  disabled: cn(
+    '[&>button]:opacity-50',
+    '[&>button]:cursor-not-allowed',
+    custom?.disabled,
+  ),
+  outside: cn(
+    '[&>button]:!text-slate-400',
+    'dark:[&>button]:!text-metal-500',
+    custom?.outside,
+  ),
+});
 
 const getMonthLabel = (date: Date) =>
   `${getMonthName(date.getMonth())} ${date.getFullYear()}`;
@@ -140,32 +168,40 @@ const getMonthLabel = (date: Date) =>
 export const CalendarPanel: FC<CalendarPanelProps> = ({
   className,
   calendarWidth = 550,
+  ariaLabelCalendar = 'Date range picker calendar',
+  ariaLabelPrevMonth = 'Previous month',
+  ariaLabelNextMonth = 'Next month',
+  ariaLabelPrevMonthStart = 'Previous month for start date',
+  ariaLabelNextMonthStart = 'Next month for start date',
+  ariaLabelPrevMonthEnd = 'Previous month for end date',
+  ariaLabelNextMonthEnd = 'Next month for end date',
+  classNames,
 }) => {
   const {
-    range,
-    displayedMonths,
-    disabled,
     animationDuration,
     blockedDays,
     blockedMonths,
-    minDate,
-    maxDate,
-    canNavigatePrev,
-    canNavigateNext,
-    hideDisabledNavigation,
-    showOutsideDays,
-    navigationMode,
-    canLeftNavigatePrev,
     canLeftNavigateNext,
-    canRightNavigatePrev,
+    canLeftNavigatePrev,
+    canNavigateNext,
+    canNavigatePrev,
     canRightNavigateNext,
-    setRange,
-    navigatePrevMonth,
-    navigateNextMonth,
-    navigateLeftPrev,
+    canRightNavigatePrev,
+    disabled,
+    displayedMonths,
+    hideDisabledNavigation,
+    maxDate,
+    minDate,
+    navigationMode,
+    range,
+    showOutsideDays,
     navigateLeftNext,
-    navigateRightPrev,
+    navigateLeftPrev,
+    navigateNextMonth,
+    navigatePrevMonth,
     navigateRightNext,
+    navigateRightPrev,
+    setRange,
   } = useDateRangePicker();
 
   const disabledMatcher = useMemo(
@@ -177,6 +213,11 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
         maxDate,
       }),
     [blockedDays, blockedMonths, minDate, maxDate],
+  );
+
+  const dayPickerClassNames = useMemo(
+    () => createDayPickerClassNames(classNames?.dayPicker),
+    [classNames?.dayPicker],
   );
 
   // Together mode carousel
@@ -225,7 +266,7 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
         style={{ width: SINGLE_MONTH_WIDTH }}
       >
         {/* Month Header with optional independent navigation */}
-        <div className="flex items-center mb-4 h-6">
+        <div className="flex items-center mb-8 h-6">
           {showIndependentNav && isLeftVisible && (
             <button
               type="button"
@@ -238,11 +279,12 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
                   calendarNavButtonDisabledVariants(),
                 hideDisabledNavigation && !canLeftNavigatePrev && 'invisible',
               )}
-              aria-label="Previous month for start date"
+              aria-label={ariaLabelPrevMonthStart}
             >
               <ChevronLeftIcon className="w-4 h-4" />
             </button>
           )}
+
           {showIndependentNav && isRightVisible && (
             <button
               type="button"
@@ -255,14 +297,18 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
                   calendarNavButtonDisabledVariants(),
                 hideDisabledNavigation && !canRightNavigatePrev && 'invisible',
               )}
-              aria-label="Previous month for end date"
+              aria-label={ariaLabelPrevMonthEnd}
             >
               <ChevronLeftIcon className="w-4 h-4" />
             </button>
           )}
 
           <span
-            className={cn(calendarMonthTitleVariants(), 'flex-1 text-center')}
+            className={cn(
+              calendarMonthTitleVariants(),
+              'flex-1 text-center',
+              classNames?.monthTitle,
+            )}
           >
             {getMonthLabel(month)}
           </span>
@@ -279,11 +325,12 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
                   calendarNavButtonDisabledVariants(),
                 hideDisabledNavigation && !canLeftNavigateNext && 'invisible',
               )}
-              aria-label="Next month for start date"
+              aria-label={ariaLabelNextMonthStart}
             >
               <ChevronRightIcon className="w-4 h-4" />
             </button>
           )}
+
           {showIndependentNav && isRightVisible && (
             <button
               type="button"
@@ -296,7 +343,7 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
                   calendarNavButtonDisabledVariants(),
                 hideDisabledNavigation && !canRightNavigateNext && 'invisible',
               )}
-              aria-label="Next month for end date"
+              aria-label={ariaLabelNextMonthEnd}
             >
               <ChevronRightIcon className="w-4 h-4" />
             </button>
@@ -323,35 +370,57 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
   // Independent mode render
   if (navigationMode === 'independent') {
     const {
-      leftInternalMonth,
-      leftPrevMonth,
-      leftNextMonth,
-      leftCarouselRef,
-      isLeftAnimating,
-      enableLeftTransition,
-      leftAnimateTransform,
-      getLeftTransform,
-      rightInternalMonth,
-      rightPrevMonth,
-      rightNextMonth,
-      rightCarouselRef,
-      isRightAnimating,
-      enableRightTransition,
-      rightAnimateTransform,
-      getRightTransform,
       calendarHeight,
+      enableLeftTransition,
+      enableRightTransition,
+      isLeftAnimating,
+      isRightAnimating,
+      leftAnimateTransform,
+      leftCarouselRef,
+      leftInternalMonth,
+      leftNextMonth,
+      leftPrevMonth,
+      rightAnimateTransform,
+      rightCarouselRef,
+      rightInternalMonth,
+      rightNextMonth,
+      rightPrevMonth,
+      getLeftTransform,
+      getRightTransform,
     } = independentCarousel;
 
     return (
-      <div className={cn(calendarPanelVariants({ className }))}>
+      <div
+        className={cn(calendarPanelVariants({ className }), classNames?.root)}
+      >
         <div
-          className={cn(calendarGridContainerVariants(), 'relative')}
+          className={cn(
+            calendarGridContainerVariants(),
+            'relative',
+            classNames?.gridContainer,
+          )}
           style={{ width: calendarWidth }}
         >
+          {/* Full-width divider line */}
+          <div
+            className={cn(
+              'absolute',
+              'left-0',
+              'right-0',
+              'top-14',
+              'h-px',
+              'bg-slate-200',
+              'dark:bg-metal-700',
+              classNames?.divider,
+            )}
+            aria-hidden="true"
+          />
+
           <motion.div
             className="flex gap-8"
             role="application"
-            aria-label="Date range picker calendar"
+            aria-label={ariaLabelCalendar}
+            initial={false}
             animate={{ height: calendarHeight }}
             transition={{
               duration: animationDuration / 1000,
@@ -373,10 +442,14 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
                     calendarNavButtonVariants(),
                     'absolute left-0 top-0 z-10 p-1',
                     'bg-white dark:bg-metal-800',
+                    classNames?.navButton,
                     (disabled || !canLeftNavigatePrev) &&
-                      calendarNavButtonDisabledVariants(),
+                      cn(
+                        calendarNavButtonDisabledVariants(),
+                        classNames?.navButtonDisabled,
+                      ),
                   )}
-                  aria-label="Previous month for start date"
+                  aria-label={ariaLabelPrevMonthStart}
                 >
                   <ChevronLeftIcon className="w-4 h-4" />
                 </button>
@@ -390,10 +463,14 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
                     calendarNavButtonVariants(),
                     'absolute right-0 top-0 z-10 p-1',
                     'bg-white dark:bg-metal-800',
+                    classNames?.navButton,
                     (disabled || !canLeftNavigateNext) &&
-                      calendarNavButtonDisabledVariants(),
+                      cn(
+                        calendarNavButtonDisabledVariants(),
+                        classNames?.navButtonDisabled,
+                      ),
                   )}
-                  aria-label="Next month for start date"
+                  aria-label={ariaLabelNextMonthStart}
                 >
                   <ChevronRightIcon className="w-4 h-4" />
                 </button>
@@ -436,12 +513,21 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
                   }
                   className={cn(
                     calendarNavButtonVariants(),
-                    'absolute left-0 top-0 z-10 p-1',
-                    'bg-white dark:bg-metal-800',
+                    'absolute',
+                    'left-0',
+                    'top-0',
+                    'z-10',
+                    'p-1',
+                    'bg-white',
+                    'dark:bg-metal-800',
+                    classNames?.navButton,
                     (disabled || !canRightNavigatePrev) &&
-                      calendarNavButtonDisabledVariants(),
+                      cn(
+                        calendarNavButtonDisabledVariants(),
+                        classNames?.navButtonDisabled,
+                      ),
                   )}
-                  aria-label="Previous month for end date"
+                  aria-label={ariaLabelPrevMonthEnd}
                 >
                   <ChevronLeftIcon className="w-4 h-4" />
                 </button>
@@ -455,12 +541,21 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
                   }
                   className={cn(
                     calendarNavButtonVariants(),
-                    'absolute right-0 top-0 z-10 p-1',
-                    'bg-white dark:bg-metal-800',
+                    'absolute',
+                    'right-0',
+                    'top-0',
+                    'z-10',
+                    'p-1',
+                    'bg-white',
+                    'dark:bg-metal-800',
+                    classNames?.navButton,
                     (disabled || !canRightNavigateNext) &&
-                      calendarNavButtonDisabledVariants(),
+                      cn(
+                        calendarNavButtonDisabledVariants(),
+                        classNames?.navButtonDisabled,
+                      ),
                   )}
-                  aria-label="Next month for end date"
+                  aria-label={ariaLabelNextMonthEnd}
                 >
                   <ChevronRightIcon className="w-4 h-4" />
                 </button>
@@ -508,11 +603,12 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
   } = togetherCarousel;
 
   return (
-    <div className={cn(calendarPanelVariants({ className }))}>
+    <div className={cn(calendarPanelVariants({ className }), classNames?.root)}>
       <div
         className={cn(
           calendarGridContainerVariants(),
           'overflow-hidden relative justify-start!',
+          classNames?.gridContainer,
         )}
         style={{ width: calendarWidth }}
       >
@@ -525,10 +621,14 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
             className={cn(
               calendarNavButtonVariants(),
               'absolute left-0 top-3 z-10',
+              classNames?.navButton,
               (disabled || !canNavigatePrev) &&
-                calendarNavButtonDisabledVariants(),
+                cn(
+                  calendarNavButtonDisabledVariants(),
+                  classNames?.navButtonDisabled,
+                ),
             )}
-            aria-label="Previous month"
+            aria-label={ariaLabelPrevMonth}
           >
             <ChevronLeftIcon className="w-5 h-5" />
           </button>
@@ -542,14 +642,33 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
             className={cn(
               calendarNavButtonVariants(),
               'absolute right-0 top-3 z-10',
+              classNames?.navButton,
               (disabled || !canNavigateNext) &&
-                calendarNavButtonDisabledVariants(),
+                cn(
+                  calendarNavButtonDisabledVariants(),
+                  classNames?.navButtonDisabled,
+                ),
             )}
-            aria-label="Next month"
+            aria-label={ariaLabelNextMonth}
           >
             <ChevronRightIcon className="w-5 h-5" />
           </button>
         )}
+
+        {/* Full-width divider line */}
+        <div
+          className={cn(
+            'absolute',
+            'left-0',
+            'right-0',
+            'top-14',
+            'h-px',
+            'bg-slate-200',
+            'dark:bg-metal-600',
+            classNames?.divider,
+          )}
+          aria-hidden="true"
+        />
 
         <motion.div
           ref={carouselRef}
@@ -560,7 +679,8 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
               'konstruct-drp-carousel-transition',
           )}
           role="application"
-          aria-label="Date range picker calendar"
+          aria-label={ariaLabelCalendar}
+          initial={false}
           animate={{ height: calendarHeight }}
           transition={{
             duration: animationDuration / 1000,

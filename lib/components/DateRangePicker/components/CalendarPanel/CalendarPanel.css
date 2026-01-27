@@ -20,31 +20,76 @@
   }
 }
 
+/* === Outside days in range should show background continuation === */
+td[data-outside='true'].drp-range-middle::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  right: 0;
+  background-color: #eff6ff;
+}
+
+:is(.dark) td[data-outside='true'].drp-range-middle::before {
+  background-color: rgba(0, 255, 170, 0.1);
+}
+
 /* === Range boundary styles for month edges === */
 
 /* Last visible day in row: add rounded right corner to range_middle */
-/* When followed by an outside day (day from next month) */
-td.drp-range-middle:has(+ td[data-outside='true'])::before {
+/* When followed by an outside day (day from next month) that is NOT in range */
+td.drp-range-middle:has(
+    + td[data-outside='true']:not(.drp-range-middle):not(.drp-range-end)
+  )::before {
   border-top-right-radius: 9999px !important;
   border-bottom-right-radius: 9999px !important;
 }
 
 /* First visible day in row: add rounded left corner to range_middle */
-/* When preceded by an outside day (day from previous month) */
-td[data-outside='true'] + td.drp-range-middle::before {
+/* When preceded by an outside day (day from previous month) that is NOT in range */
+td[data-outside='true']:not(.drp-range-middle):not(.drp-range-start)
+  + td.drp-range-middle::before {
   border-top-left-radius: 9999px !important;
   border-bottom-left-radius: 9999px !important;
 }
 
-/* Last visible day with range_start: hide the right shading */
+/* Last visible day with range_start: hide the right shading only if outside day is NOT in range */
 /* When followed by an outside day */
-td.drp-range-start:has(+ td[data-outside='true'])::before {
+td.drp-range-start:has(
+    + td[data-outside='true']:not(.drp-range-middle):not(.drp-range-end)
+  )::before {
   display: none !important;
 }
 
-/* First visible day with range_end: hide the left shading */
+/* First visible day with range_end: hide the left shading only if outside day is NOT in range */
 /* When preceded by an outside day */
-td[data-outside='true'] + td.drp-range-end::before {
+td[data-outside='true']:not(.drp-range-middle):not(.drp-range-start)
+  + td.drp-range-end::before {
+  display: none !important;
+}
+
+/* === Range boundary styles when outside days are hidden === */
+
+/* When followed by an empty cell (no outside days shown) */
+td.drp-range-middle:has(+ td:empty)::before {
+  border-top-right-radius: 9999px !important;
+  border-bottom-right-radius: 9999px !important;
+}
+
+/* When preceded by an empty cell (no outside days shown) */
+td:empty + td.drp-range-middle::before {
+  border-top-left-radius: 9999px !important;
+  border-bottom-left-radius: 9999px !important;
+}
+
+/* Hide range_start shading when followed by an empty cell */
+td.drp-range-start:has(+ td:empty)::before {
+  display: none !important;
+}
+
+/* Hide range_end shading when preceded by an empty cell */
+td:empty + td.drp-range-end::before {
   display: none !important;
 }
 

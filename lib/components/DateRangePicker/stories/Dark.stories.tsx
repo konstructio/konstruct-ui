@@ -15,15 +15,29 @@ export const WithTime: Story = {
   },
   render: () => (
     <DateRangePicker
-      onRangeChange={(range) => console.log('Range changed:', range)}
       defaultRange={{
-        from: new Date(
+        from: new Date(new Date().getFullYear(), new Date().getMonth(), 10),
+        to: new Date(new Date().getFullYear(), new Date().getMonth(), 20),
+      }}
+      defaultTime={{
+        startTime: new Date(
           new Date().getFullYear(),
           new Date().getMonth(),
-          new Date().getDate() - 5,
+          new Date().getDate(),
+          9,
+          10,
         ),
-        to: new Date(),
+        endTime: new Date(
+          new Date().getFullYear(),
+          new Date().getMonth(),
+          new Date().getDate(),
+          17,
+          30,
+        ),
       }}
+      minDate={new Date(new Date().getFullYear(), new Date().getMonth(), 1)}
+      showOutsideDays
+      onRangeChange={(range) => console.log('Range changed:', range)}
     />
   ),
 };
@@ -35,6 +49,18 @@ export const WithoutTime: Story = {
   render: () => (
     <DateRangePicker
       showTime={false}
+      onRangeChange={(range) => console.log('Range changed:', range)}
+    />
+  ),
+};
+
+export const Corousel: Story = {
+  parameters: {
+    theme: 'dark',
+  },
+  render: () => (
+    <DateRangePicker
+      navigationMode="together"
       onRangeChange={(range) => console.log('Range changed:', range)}
     />
   ),

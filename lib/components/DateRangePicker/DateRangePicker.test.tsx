@@ -33,9 +33,9 @@ describe('DateRangePicker', () => {
       screen.findByRole('radio', { name });
     const getAllPresetRadios = () => screen.findAllByRole('radio');
 
-    // Date input queries
-    const getStartDateInput = () => screen.findByLabelText(/start date/i);
-    const getEndDateInput = () => screen.findByLabelText(/end date/i);
+    // Date input queries - use exact match to avoid matching navigation buttons
+    const getStartDateInput = () => screen.findByLabelText(/^start date$/i);
+    const getEndDateInput = () => screen.findByLabelText(/^end date$/i);
 
     // Time input queries
     const getStartTimeInput = () => screen.findByLabelText(/start time/i);
@@ -452,6 +452,7 @@ describe('DateRangePicker', () => {
     it('should disable navigation buttons when disabled is true', async () => {
       const { getPrevMonthButton, getNextMonthButton } = setup({
         disabled: true,
+        navigationMode: 'together',
       });
 
       expect(await getPrevMonthButton()).toBeDisabled();
@@ -488,7 +489,9 @@ describe('DateRangePicker', () => {
 
   describe('Calendar Navigation - Together Mode', () => {
     it('should navigate to previous month when prev button is clicked', async () => {
-      const { navigateToPrevMonth, getMonthTitles } = setup();
+      const { navigateToPrevMonth, getMonthTitles } = setup({
+        navigationMode: 'together',
+      });
 
       const initialTitles = await getMonthTitles();
       const initialFirstMonth = initialTitles[0].textContent;
@@ -505,7 +508,9 @@ describe('DateRangePicker', () => {
     });
 
     it('should navigate to next month when next button is clicked', async () => {
-      const { navigateToNextMonth, getMonthTitles } = setup();
+      const { navigateToNextMonth, getMonthTitles } = setup({
+        navigationMode: 'together',
+      });
 
       const initialTitles = await getMonthTitles();
       const initialFirstMonth = initialTitles[0].textContent;
@@ -552,6 +557,7 @@ describe('DateRangePicker', () => {
       const today = new Date();
       const { getPrevMonthButton } = setup({
         minDate: new Date(today.getFullYear(), today.getMonth(), 1),
+        navigationMode: 'together',
       });
 
       const prevButton = await getPrevMonthButton();
@@ -581,6 +587,7 @@ describe('DateRangePicker', () => {
       const today = new Date();
       const { getNextMonthButton } = setup({
         maxDate: new Date(today.getFullYear(), today.getMonth() + 1, 0), // End of next month
+        navigationMode: 'together',
       });
 
       const nextButton = await getNextMonthButton();
@@ -623,6 +630,7 @@ describe('DateRangePicker', () => {
       const { queryPrevMonthButton } = setup({
         minDate: new Date(today.getFullYear(), today.getMonth(), 1),
         hideDisabledNavigation: true,
+        navigationMode: 'together',
       });
 
       expect(queryPrevMonthButton()).not.toBeInTheDocument();
@@ -633,6 +641,7 @@ describe('DateRangePicker', () => {
       const { getPrevMonthButton } = setup({
         minDate: new Date(today.getFullYear(), today.getMonth(), 1),
         hideDisabledNavigation: false,
+        navigationMode: 'together',
       });
 
       const prevButton = await getPrevMonthButton();

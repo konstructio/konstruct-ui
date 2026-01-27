@@ -77,7 +77,17 @@ const autoFormatDateInput = (
   return value;
 };
 
-export const DateTimeInputs: FC<DateTimeInputsProps> = ({ className }) => {
+export const DateTimeInputs: FC<DateTimeInputsProps> = ({
+  className,
+  labelStartDate = 'Start date',
+  labelEndDate = 'End date',
+  labelTime = 'Time',
+  ariaLabelStartDate = 'Start date',
+  ariaLabelEndDate = 'End date',
+  errorInvalidDate = 'Invalid date',
+  errorDateNotAvailable = 'Date is not available',
+  classNames,
+}) => {
   const {
     range,
     time,
@@ -167,12 +177,12 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({ className }) => {
 
       const parsed = parseDateString(value);
       if (!parsed) {
-        setStartDateError('Invalid date');
+        setStartDateError(errorInvalidDate);
         return;
       }
 
       if (!isDateSelectable(parsed, restrictions)) {
-        setStartDateError('Date is not available');
+        setStartDateError(errorDateNotAvailable);
         // Keep the typed value but show error
         return;
       }
@@ -227,12 +237,12 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({ className }) => {
 
       const parsed = parseDateString(value);
       if (!parsed) {
-        setEndDateError('Invalid date');
+        setEndDateError(errorInvalidDate);
         return;
       }
 
       if (!isDateSelectable(parsed, restrictions)) {
-        setEndDateError('Date is not available');
+        setEndDateError(errorDateNotAvailable);
         // Keep the typed value but show error
         return;
       }
@@ -270,19 +280,29 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({ className }) => {
   );
 
   return (
-    <div className={cn(dateTimeInputsVariants({ className }))}>
+    <div
+      className={cn(dateTimeInputsVariants({ className }), classNames?.root)}
+    >
       {/* Start date/time group */}
       <div
-        className={cn(dateTimeGroupVariants(), !showTime && 'w-auto flex-1')}
+        className={cn(
+          dateTimeGroupVariants(),
+          !showTime && 'w-auto flex-1',
+          classNames?.group,
+        )}
       >
         <div
           className={cn(
             dateInputWrapperVariants(),
             !showTime && 'w-full flex-1',
+            classNames?.dateWrapper,
           )}
         >
-          <Typography component="label" className={cn(inputLabelVariants())}>
-            Start date
+          <Typography
+            component="label"
+            className={cn(inputLabelVariants(), classNames?.label)}
+          >
+            {labelStartDate}
           </Typography>
 
           <Input
@@ -298,16 +318,23 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({ className }) => {
               'text-slate-800',
               'dark:text-white',
               'border-gray-300',
-              'dark:border-metal-600',
+              'dark:border-metal-700',
+              'dark:bg-transparent',
+              classNames?.input,
             )}
-            aria-label="Start date"
+            aria-label={ariaLabelStartDate}
           />
         </div>
 
         {showTime && (
-          <div className={cn(timeInputWrapperVariants())}>
-            <Typography component="label" className={cn(inputLabelVariants())}>
-              Time
+          <div
+            className={cn(timeInputWrapperVariants(), classNames?.timeWrapper)}
+          >
+            <Typography
+              component="label"
+              className={cn(inputLabelVariants(), classNames?.label)}
+            >
+              {labelTime}
             </Typography>
 
             <TimePicker
@@ -325,16 +352,24 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({ className }) => {
 
       {/* End date/time group */}
       <div
-        className={cn(dateTimeGroupVariants(), !showTime && 'w-auto flex-1')}
+        className={cn(
+          dateTimeGroupVariants(),
+          !showTime && 'w-auto flex-1',
+          classNames?.group,
+        )}
       >
         <div
           className={cn(
             dateInputWrapperVariants(),
             !showTime && 'w-full flex-1',
+            classNames?.dateWrapper,
           )}
         >
-          <Typography component="label" className={cn(inputLabelVariants())}>
-            End date
+          <Typography
+            component="label"
+            className={cn(inputLabelVariants(), classNames?.label)}
+          >
+            {labelEndDate}
           </Typography>
 
           <Input
@@ -350,16 +385,23 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({ className }) => {
               'text-slate-800',
               'dark:text-white',
               'border-gray-300',
-              'dark:border-metal-600',
+              'dark:border-metal-700',
+              'dark:bg-transparent',
+              classNames?.input,
             )}
-            aria-label="End date"
+            aria-label={ariaLabelEndDate}
           />
         </div>
 
         {showTime && (
-          <div className={cn(timeInputWrapperVariants())}>
-            <Typography component="label" className={cn(inputLabelVariants())}>
-              Time
+          <div
+            className={cn(timeInputWrapperVariants(), classNames?.timeWrapper)}
+          >
+            <Typography
+              component="label"
+              className={cn(inputLabelVariants(), classNames?.label)}
+            >
+              {labelTime}
             </Typography>
 
             <TimePicker

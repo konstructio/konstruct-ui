@@ -51,11 +51,11 @@ export const WithoutTime: Story = {
   ),
 };
 
-export const IndependentNavigation: Story = {
+export const Corousel: Story = {
   render: () => (
     <div className="p-4">
       <DateRangePicker
-        navigationMode="independent"
+        navigationMode="together"
         onRangeChange={(range) => console.log('Range changed:', range)}
       />
     </div>

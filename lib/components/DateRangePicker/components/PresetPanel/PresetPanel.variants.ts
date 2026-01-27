@@ -8,7 +8,7 @@ export const presetPanelVariants = cva([
   'pr-8',
   'bg-slate-100',
   'rounded-lg',
-  'dark:bg-metal-900',
+  'dark:bg-metal-600/25',
   'min-w-40',
 ]);
 

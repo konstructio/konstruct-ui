@@ -57,7 +57,31 @@ const DateRangePicker: FC<DateRangePickerProps> = ({
   maxDate,
   hideDisabledNavigation,
   showOutsideDays,
-  navigationMode = 'together',
+  navigationMode = 'independent',
+  // CalendarPanel props
+  ariaLabelCalendar,
+  ariaLabelPrevMonth,
+  ariaLabelNextMonth,
+  ariaLabelPrevMonthStart,
+  ariaLabelNextMonthStart,
+  ariaLabelPrevMonthEnd,
+  ariaLabelNextMonthEnd,
+  // DateTimeInputs props
+  labelStartDate,
+  labelEndDate,
+  labelTime,
+  ariaLabelStartDate,
+  ariaLabelEndDate,
+  errorInvalidDate,
+  errorDateNotAvailable,
+  // PresetPanel props
+  showPresets = true,
+  labelTimePeriod,
+  ariaLabelTimePeriod,
+  presetLabels,
+  // Customizable class names
+  classNames,
+  // Callbacks
   onRangeChange,
   onDateChange,
 }) => (
@@ -111,15 +135,44 @@ const DateRangePicker: FC<DateRangePickerProps> = ({
       ) : null}
 
       <div
-        className={cn(dateRangePickerVariants({ className }), 'gap-4')}
+        className={cn(
+          dateRangePickerVariants({ className }),
+          'gap-4',
+          classNames?.container,
+        )}
         role="group"
         aria-label={label || 'Date range picker'}
       >
-        <PresetPanel />
+        {showPresets && (
+          <PresetPanel
+            labelTimePeriod={labelTimePeriod}
+            ariaLabelTimePeriod={ariaLabelTimePeriod}
+            presetLabels={presetLabels}
+            classNames={classNames?.presetPanel}
+          />
+        )}
 
-        <div className={cn(rightPanelVariants())}>
-          <DateTimeInputs />
-          <CalendarPanel />
+        <div className={cn(rightPanelVariants(), classNames?.rightPanel)}>
+          <DateTimeInputs
+            labelStartDate={labelStartDate}
+            labelEndDate={labelEndDate}
+            labelTime={labelTime}
+            ariaLabelStartDate={ariaLabelStartDate}
+            ariaLabelEndDate={ariaLabelEndDate}
+            errorInvalidDate={errorInvalidDate}
+            errorDateNotAvailable={errorDateNotAvailable}
+            classNames={classNames?.dateTimeInputs}
+          />
+          <CalendarPanel
+            ariaLabelCalendar={ariaLabelCalendar}
+            ariaLabelPrevMonth={ariaLabelPrevMonth}
+            ariaLabelNextMonth={ariaLabelNextMonth}
+            ariaLabelPrevMonthStart={ariaLabelPrevMonthStart}
+            ariaLabelNextMonthStart={ariaLabelNextMonthStart}
+            ariaLabelPrevMonthEnd={ariaLabelPrevMonthEnd}
+            ariaLabelNextMonthEnd={ariaLabelNextMonthEnd}
+            classNames={classNames?.calendarPanel}
+          />
         </div>
       </div>
     </div>

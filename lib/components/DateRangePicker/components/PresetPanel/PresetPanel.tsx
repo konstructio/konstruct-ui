@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 
 import { cn } from '@/utils';
 
@@ -14,7 +14,24 @@ import {
   presetTitleVariants,
 } from './PresetPanel.variants';
 
-export const PresetPanel: FC<PresetPanelProps> = ({ className }) => {
+const PRESET_LABEL_MAP: Record<
+  string,
+  keyof NonNullable<PresetPanelProps['presetLabels']>
+> = {
+  today: 'today',
+  'current-month': 'currentMonth',
+  custom: 'custom',
+  'last-7-days': 'last7Days',
+  'last-2-weeks': 'last2Weeks',
+};
+
+export const PresetPanel: FC<PresetPanelProps> = ({
+  className,
+  labelTimePeriod = 'Time period',
+  ariaLabelTimePeriod = 'Time period options',
+  presetLabels,
+  classNames,
+}) => {
   const { preset, setPreset, disabled } = useDateRangePicker();
 
   const handlePresetChange = useCallback(
@@ -24,20 +41,29 @@ export const PresetPanel: FC<PresetPanelProps> = ({ className }) => {
     [setPreset],
   );
 
-  const radioOptions = PRESET_OPTIONS.map((option) => ({
-    value: option.value,
-    label: option.label,
-    disabled,
-  }));
+  const radioOptions = useMemo(
+    () =>
+      PRESET_OPTIONS.map((option) => {
+        const labelKey = PRESET_LABEL_MAP[option.value];
+        const customLabel = labelKey && presetLabels?.[labelKey];
+
+        return {
+          value: option.value,
+          label: customLabel || option.label,
+          disabled,
+        };
+      }),
+    [disabled, presetLabels],
+  );
 
   return (
-    <div className={cn(presetPanelVariants({ className }))}>
+    <div className={cn(presetPanelVariants({ className }), classNames?.root)}>
       <Typography
         component="span"
-        className={cn(presetTitleVariants())}
-        aria-label="Time period options"
+        className={cn(presetTitleVariants(), classNames?.title)}
+        aria-label={ariaLabelTimePeriod}
       >
-        Time period
+        {labelTimePeriod}
       </Typography>
 
       <RadioGroup
@@ -46,7 +72,7 @@ export const PresetPanel: FC<PresetPanelProps> = ({ className }) => {
         defaultChecked={preset}
         onValueChange={handlePresetChange}
         direction="col"
-        wrapperClassName="gap-4 pl-2"
+        wrapperClassName={cn('gap-4 pl-2', classNames?.radioGroup)}
         className={cn(
           'text-sm',
           'text-zinc-700',

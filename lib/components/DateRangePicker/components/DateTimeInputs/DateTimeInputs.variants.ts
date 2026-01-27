@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority';
 
-export const dateTimeInputsVariants = cva(['flex', 'gap-8', 'w-full', 'px-3']);
+export const dateTimeInputsVariants = cva(['flex', 'gap-8', 'w-full', 'px-1']);
 
 export const dateTimeGroupVariants = cva([
   'flex',
