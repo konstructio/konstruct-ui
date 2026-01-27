@@ -30,6 +30,7 @@ interface DateRangePickerProviderProps {
   maxDate?: Date;
   hideDisabledNavigation?: boolean;
   showOutsideDays?: boolean;
+  navigationMode?: 'together' | 'independent';
   onRangeChange?: (range: DateRange & TimeRange) => void;
   onDateChange?: (range: DateRange) => void;
 }
@@ -50,6 +51,7 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
   maxDate,
   hideDisabledNavigation = false,
   showOutsideDays = false,
+  navigationMode = 'together',
   onRangeChange,
   onDateChange,
 }) => {
@@ -148,6 +150,75 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
     });
   }, [canNavigateNext]);
 
+  // Independent navigation: check if left month can navigate
+  const canLeftNavigatePrev = useMemo(
+    () => canNavigateToPrevMonth(displayedMonths[0], minDate),
+    [displayedMonths, minDate],
+  );
+
+  const canLeftNavigateNext = useMemo(() => {
+    // Left month can go next only if it won't be on or past right month
+    const leftMonth = displayedMonths[0];
+    const rightMonth = displayedMonths[1];
+    const newLeft = new Date(
+      leftMonth.getFullYear(),
+      leftMonth.getMonth() + 1,
+      1,
+    );
+    return newLeft.getTime() < rightMonth.getTime();
+  }, [displayedMonths]);
+
+  // Independent navigation: check if right month can navigate
+  const canRightNavigatePrev = useMemo(() => {
+    // Right month can go prev only if it won't be on or past left month
+    const leftMonth = displayedMonths[0];
+    const rightMonth = displayedMonths[1];
+    const newRight = new Date(
+      rightMonth.getFullYear(),
+      rightMonth.getMonth() - 1,
+      1,
+    );
+    return newRight.getTime() > leftMonth.getTime();
+  }, [displayedMonths]);
+
+  const canRightNavigateNext = useMemo(
+    () => canNavigateToNextMonth(displayedMonths[1], maxDate),
+    [displayedMonths, maxDate],
+  );
+
+  // Independent navigation functions
+  const navigateLeftPrev = useCallback(() => {
+    if (!canLeftNavigatePrev) return;
+    setDisplayedMonths(([left, right]) => {
+      const newLeft = new Date(left.getFullYear(), left.getMonth() - 1, 1);
+      return [newLeft, right];
+    });
+  }, [canLeftNavigatePrev]);
+
+  const navigateLeftNext = useCallback(() => {
+    if (!canLeftNavigateNext) return;
+    setDisplayedMonths(([left, right]) => {
+      const newLeft = new Date(left.getFullYear(), left.getMonth() + 1, 1);
+      return [newLeft, right];
+    });
+  }, [canLeftNavigateNext]);
+
+  const navigateRightPrev = useCallback(() => {
+    if (!canRightNavigatePrev) return;
+    setDisplayedMonths(([left, right]) => {
+      const newRight = new Date(right.getFullYear(), right.getMonth() - 1, 1);
+      return [left, newRight];
+    });
+  }, [canRightNavigatePrev]);
+
+  const navigateRightNext = useCallback(() => {
+    if (!canRightNavigateNext) return;
+    setDisplayedMonths(([left, right]) => {
+      const newRight = new Date(right.getFullYear(), right.getMonth() + 1, 1);
+      return [left, newRight];
+    });
+  }, [canRightNavigateNext]);
+
   const value: DateRangePickerContextValue = useMemo(
     () => ({
       range,
@@ -167,11 +238,20 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
       canNavigateNext,
       hideDisabledNavigation,
       showOutsideDays,
+      navigationMode,
+      canLeftNavigatePrev,
+      canLeftNavigateNext,
+      canRightNavigatePrev,
+      canRightNavigateNext,
       setRange,
       setTime,
       setPreset,
       navigatePrevMonth,
       navigateNextMonth,
+      navigateLeftPrev,
+      navigateLeftNext,
+      navigateRightPrev,
+      navigateRightNext,
       setDisplayedMonths,
     }),
     [
@@ -192,11 +272,20 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
       canNavigateNext,
       hideDisabledNavigation,
       showOutsideDays,
+      navigationMode,
+      canLeftNavigatePrev,
+      canLeftNavigateNext,
+      canRightNavigatePrev,
+      canRightNavigateNext,
       setRange,
       setTime,
       setPreset,
       navigatePrevMonth,
       navigateNextMonth,
+      navigateLeftPrev,
+      navigateLeftNext,
+      navigateRightPrev,
+      navigateRightNext,
     ],
   );
 

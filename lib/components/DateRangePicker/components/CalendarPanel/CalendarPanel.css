@@ -47,3 +47,9 @@ td.drp-range-start:has(+ td[data-outside='true'])::before {
 td[data-outside='true'] + td.drp-range-end::before {
   display: none !important;
 }
+
+/* === Carousel transition === */
+.konstruct-drp-carousel-transition {
+  transition: transform var(--konstruct-drp-animation-duration)
+    cubic-bezier(0.25, 0.1, 0.25, 1);
+}

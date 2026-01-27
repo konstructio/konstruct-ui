@@ -66,4 +66,11 @@ export type DateRangePickerProps = VariantProps<
   hideDisabledNavigation?: boolean;
   /** Show days from previous/next month in the calendar grid (default: false) */
   showOutsideDays?: boolean;
+  /**
+   * Navigation mode for the calendar months (default: 'together')
+   * - 'together': Both months navigate together (prev/next moves both by one month)
+   * - 'independent': Each month has its own navigation arrows and can move independently
+   *   (first month cannot go on or past second month and vice versa)
+   */
+  navigationMode?: 'together' | 'independent';
 };

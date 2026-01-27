@@ -57,6 +57,7 @@ const DateRangePicker: FC<DateRangePickerProps> = ({
   maxDate,
   hideDisabledNavigation,
   showOutsideDays,
+  navigationMode = 'together',
   onRangeChange,
   onDateChange,
 }) => (
@@ -75,6 +76,7 @@ const DateRangePicker: FC<DateRangePickerProps> = ({
     maxDate={maxDate}
     hideDisabledNavigation={hideDisabledNavigation}
     showOutsideDays={showOutsideDays}
+    navigationMode={navigationMode}
     onRangeChange={onRangeChange}
     onDateChange={onDateChange}
   >

@@ -59,16 +59,34 @@ export type DateRangePickerContextValue = {
   hideDisabledNavigation: boolean;
   /** Show days from previous/next month */
   showOutsideDays: boolean;
+  /** Navigation mode: 'together' or 'independent' */
+  navigationMode: 'together' | 'independent';
+  /** Whether left month can navigate to previous (independent mode) */
+  canLeftNavigatePrev: boolean;
+  /** Whether left month can navigate to next (independent mode) */
+  canLeftNavigateNext: boolean;
+  /** Whether right month can navigate to previous (independent mode) */
+  canRightNavigatePrev: boolean;
+  /** Whether right month can navigate to next (independent mode) */
+  canRightNavigateNext: boolean;
   /** Set the date range */
   setRange: (range: DateRange) => void;
   /** Set the time range */
   setTime: (time: TimeRange) => void;
   /** Set the preset */
   setPreset: (preset: DateRangePreset) => void;
-  /** Navigate to previous month */
+  /** Navigate to previous month (together mode) */
   navigatePrevMonth: () => void;
-  /** Navigate to next month */
+  /** Navigate to next month (together mode) */
   navigateNextMonth: () => void;
+  /** Navigate left month to previous (independent mode) */
+  navigateLeftPrev: () => void;
+  /** Navigate left month to next (independent mode) */
+  navigateLeftNext: () => void;
+  /** Navigate right month to previous (independent mode) */
+  navigateRightPrev: () => void;
+  /** Navigate right month to next (independent mode) */
+  navigateRightNext: () => void;
   /** Set displayed months directly */
   setDisplayedMonths: (months: [Date, Date]) => void;
 };

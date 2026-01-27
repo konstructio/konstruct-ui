@@ -51,4 +51,15 @@ export const WithoutTime: Story = {
   ),
 };
 
+export const IndependentNavigation: Story = {
+  render: () => (
+    <div className="p-4">
+      <DateRangePicker
+        navigationMode="independent"
+        onRangeChange={(range) => console.log('Range changed:', range)}
+      />
+    </div>
+  ),
+};
+
 export default meta;
