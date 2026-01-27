@@ -20,9 +20,9 @@ export const TimePickerProvider: FC<
   }
 > = ({ children, time: defaultTime, format: defaultFormat, onChange }) => {
   const [format, setFormat] = useState(defaultFormat);
-  const [time, setTime] = useState(() => defaultTime ?? new Date());
+  const [time, setTime] = useState<Date | undefined>(() => defaultTime);
   const [isTyping, setIsTyping] = useState(false);
-  const isAM = useMemo(() => time.getHours() < 12, [time]);
+  const isAM = useMemo(() => (time ? time.getHours() < 12 : true), [time]);
 
   const updateTime = useCallback(
     (newTime: Date) => {
@@ -34,7 +34,7 @@ export const TimePickerProvider: FC<
 
   const handleSelectHour = useCallback(
     (hour: number) => {
-      const newTime = new Date(time);
+      const newTime = time ? new Date(time) : new Date();
 
       if (format === '12') {
         if (hour === 12) {
@@ -46,6 +46,11 @@ export const TimePickerProvider: FC<
         newTime.setHours(hour);
       }
 
+      // Reset minutes to 0 if this is the first selection
+      if (!time) {
+        newTime.setMinutes(0, 0, 0);
+      }
+
       updateTime(newTime);
     },
     [format, isAM, time, updateTime],
@@ -53,7 +58,12 @@ export const TimePickerProvider: FC<
 
   const handleSelectMinute = useCallback(
     (minute: number) => {
-      const newTime = new Date(time);
+      const newTime = time ? new Date(time) : new Date();
+
+      // Reset hours to 0 if this is the first selection
+      if (!time) {
+        newTime.setHours(0, 0, 0, 0);
+      }
 
       newTime.setMinutes(minute);
       updateTime(newTime);
@@ -62,10 +72,12 @@ export const TimePickerProvider: FC<
   );
 
   const handleSelectAM = useCallback(() => {
-    const newTime = new Date(time);
+    const newTime = time ? new Date(time) : new Date();
     const currentHour = newTime.getHours();
 
-    if (!isAM) {
+    if (!time) {
+      newTime.setHours(0, 0, 0, 0);
+    } else if (!isAM) {
       newTime.setHours(currentHour - 12);
     }
 
@@ -73,10 +85,12 @@ export const TimePickerProvider: FC<
   }, [isAM, time, updateTime]);
 
   const handleSelectPM = useCallback(() => {
-    const newTime = new Date(time);
+    const newTime = time ? new Date(time) : new Date();
     const currentHour = newTime.getHours();
 
-    if (isAM) {
+    if (!time) {
+      newTime.setHours(12, 0, 0, 0);
+    } else if (isAM) {
       newTime.setHours(currentHour + 12);
     }
 
@@ -92,9 +106,7 @@ export const TimePickerProvider: FC<
 
   // Sync with external time prop changes
   useEffect(() => {
-    if (defaultTime) {
-      setTime(defaultTime);
-    }
+    setTime(defaultTime);
   }, [defaultTime]);
 
   useEffect(() => {
@@ -106,7 +118,7 @@ export const TimePickerProvider: FC<
       value={{
         time,
         format,
-        formattedTime: getFormattedTime(time, format),
+        formattedTime: time ? getFormattedTime(time, format) : '',
         isAM,
         isTyping,
         onSelectHour: handleSelectHour,

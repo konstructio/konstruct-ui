@@ -1,5 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
-import { FC, useCallback, useState, useEffect, useRef } from 'react';
+import { FC, useCallback, useState, useEffect, useRef, useMemo } from 'react';
 import { DayPicker, DateRange as DayPickerDateRange } from 'react-day-picker';
 
 import { cn } from '@/utils';
@@ -9,11 +9,11 @@ import { CalendarPanelProps } from './CalendarPanel.types';
 import {
   calendarPanelVariants,
   calendarNavButtonVariants,
+  calendarNavButtonDisabledVariants,
   calendarMonthTitleVariants,
-  calendarDividerVariants,
   calendarGridContainerVariants,
 } from './CalendarPanel.variants';
-import { getMonthName } from '../../utils';
+import { getMonthName, createDisabledMatcher } from '../../utils';
 
 import 'react-day-picker/style.css';
 import './CalendarPanel.css';
@@ -152,10 +152,29 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
     displayedMonths,
     disabled,
     animationDuration,
+    blockedDays,
+    blockedMonths,
+    minDate,
+    maxDate,
+    canNavigatePrev,
+    canNavigateNext,
+    hideDisabledNavigation,
+    showOutsideDays,
     setRange,
     navigatePrevMonth,
     navigateNextMonth,
   } = useDateRangePicker();
+
+  const disabledMatcher = useMemo(
+    () =>
+      createDisabledMatcher({
+        blockedDays,
+        blockedMonths,
+        minDate,
+        maxDate,
+      }),
+    [blockedDays, blockedMonths, minDate, maxDate],
+  );
 
   const [slideDirection, setSlideDirection] = useState<SlideDirection>(null);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -283,22 +302,22 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
 
   // Handle navigation - just set direction and start animation
   const handlePrevMonth = useCallback(() => {
-    if (isAnimating || disabled) return;
+    if (isAnimating || disabled || !canNavigatePrev) return;
     setSlideDirection('right');
     setIsAnimating(true);
     setAnimateTransform(false);
     // Also update the context
     navigatePrevMonth();
-  }, [isAnimating, disabled, navigatePrevMonth]);
+  }, [isAnimating, disabled, canNavigatePrev, navigatePrevMonth]);
 
   const handleNextMonth = useCallback(() => {
-    if (isAnimating || disabled) return;
+    if (isAnimating || disabled || !canNavigateNext) return;
     setSlideDirection('left');
     setIsAnimating(true);
     setAnimateTransform(false);
     // Also update the context
     navigateNextMonth();
-  }, [isAnimating, disabled, navigateNextMonth]);
+  }, [isAnimating, disabled, canNavigateNext, navigateNextMonth]);
 
   // Calculate transform
   const getTransform = () => {
@@ -321,7 +340,6 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
   const renderSingleMonth = (month: Date) => (
     <div
       key={`${month.getFullYear()}-${month.getMonth()}`}
-      className="shrink-0"
       style={{ width: SINGLE_MONTH_WIDTH }}
     >
       {/* Month Header */}
@@ -340,9 +358,10 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
         onSelect={handleRangeSelect}
         month={month}
         numberOfMonths={1}
-        disabled={disabled}
+        disabled={disabledMatcher || disabled}
         hideNavigation
         animate={false}
+        showOutsideDays={showOutsideDays}
         classNames={dayPickerClassNames}
       />
     </div>
@@ -362,9 +381,6 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
 
   return (
     <div className={cn(calendarPanelVariants({ className }))}>
-      {/* Divider */}
-      <div className={cn(calendarDividerVariants())} />
-
       {/* Calendar Carousel */}
       <div
         className={cn(
@@ -374,31 +390,39 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
         style={{ width: calendarWidth }}
       >
         {/* Navigation Arrows */}
-        <button
-          type="button"
-          onClick={handlePrevMonth}
-          disabled={disabled || isAnimating}
-          className={cn(
-            calendarNavButtonVariants(),
-            'absolute left-0 top-3 z-10',
-          )}
-          aria-label="Previous month"
-        >
-          <ChevronLeftIcon className="w-5 h-5" />
-        </button>
+        {!(hideDisabledNavigation && !canNavigatePrev) && (
+          <button
+            type="button"
+            onClick={handlePrevMonth}
+            disabled={disabled || isAnimating || !canNavigatePrev}
+            className={cn(
+              calendarNavButtonVariants(),
+              'absolute left-0 top-3 z-10',
+              (disabled || !canNavigatePrev) &&
+                calendarNavButtonDisabledVariants(),
+            )}
+            aria-label="Previous month"
+          >
+            <ChevronLeftIcon className="w-5 h-5" />
+          </button>
+        )}
 
-        <button
-          type="button"
-          onClick={handleNextMonth}
-          disabled={disabled || isAnimating}
-          className={cn(
-            calendarNavButtonVariants(),
-            'absolute right-0 top-3 z-10',
-          )}
-          aria-label="Next month"
-        >
-          <ChevronRightIcon className="w-5 h-5" />
-        </button>
+        {!(hideDisabledNavigation && !canNavigateNext) && (
+          <button
+            type="button"
+            onClick={handleNextMonth}
+            disabled={disabled || isAnimating || !canNavigateNext}
+            className={cn(
+              calendarNavButtonVariants(),
+              'absolute right-0 top-3 z-10',
+              (disabled || !canNavigateNext) &&
+                calendarNavButtonDisabledVariants(),
+            )}
+            aria-label="Next month"
+          >
+            <ChevronRightIcon className="w-5 h-5" />
+          </button>
+        )}
 
         <div
           ref={carouselRef}

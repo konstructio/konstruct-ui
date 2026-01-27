@@ -51,6 +51,12 @@ const DateRangePicker: FC<DateRangePickerProps> = ({
   showTime = true,
   theme,
   timeFormat = '24',
+  blockedDays,
+  blockedMonths,
+  minDate,
+  maxDate,
+  hideDisabledNavigation,
+  showOutsideDays,
   onRangeChange,
   onDateChange,
 }) => (
@@ -63,6 +69,12 @@ const DateRangePicker: FC<DateRangePickerProps> = ({
     name={name}
     disabled={disabled}
     animationDuration={animationDuration}
+    blockedDays={blockedDays}
+    blockedMonths={blockedMonths}
+    minDate={minDate}
+    maxDate={maxDate}
+    hideDisabledNavigation={hideDisabledNavigation}
+    showOutsideDays={showOutsideDays}
     onRangeChange={onRangeChange}
     onDateChange={onDateChange}
   >

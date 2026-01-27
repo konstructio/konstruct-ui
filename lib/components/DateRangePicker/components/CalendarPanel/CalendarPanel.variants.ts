@@ -3,7 +3,6 @@ import { cva } from 'class-variance-authority';
 export const calendarPanelVariants = cva([
   'flex',
   'flex-col',
-  'gap-4',
   'items-center',
   'w-full',
 ]);
@@ -49,13 +48,6 @@ export const calendarMonthTitleVariants = cva([
   'text-slate-700',
   'dark:text-white',
   'leading-6',
-]);
-
-export const calendarDividerVariants = cva([
-  'w-138',
-  'h-px',
-  'bg-gray-200',
-  'dark:bg-metal-700',
 ]);
 
 export const calendarGridContainerVariants = cva([

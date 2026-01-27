@@ -15,9 +15,15 @@ export const WithTime: Story = {
   },
   render: () => (
     <DateRangePicker
-      theme="dark"
-      label="With Time"
       onRangeChange={(range) => console.log('Range changed:', range)}
+      defaultRange={{
+        from: new Date(
+          new Date().getFullYear(),
+          new Date().getMonth(),
+          new Date().getDate() - 5,
+        ),
+        to: new Date(),
+      }}
     />
   ),
 };
@@ -28,8 +34,6 @@ export const WithoutTime: Story = {
   },
   render: () => (
     <DateRangePicker
-      theme="dark"
-      label="Without Time"
       showTime={false}
       onRangeChange={(range) => console.log('Range changed:', range)}
     />

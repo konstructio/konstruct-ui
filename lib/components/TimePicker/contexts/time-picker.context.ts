@@ -3,7 +3,7 @@ import { createContext } from 'react';
 import { TimePickerProps } from '../TimePicker.types';
 
 export type TimePickerContextType = {
-  time: Date;
+  time: Date | undefined;
   format: NonNullable<TimePickerProps['format']>;
   formattedTime: string;
   isAM: boolean;
@@ -17,7 +17,7 @@ export type TimePickerContextType = {
 };
 
 export const TimePickerContext = createContext<TimePickerContextType>({
-  time: new Date(),
+  time: undefined,
   format: '12',
   formattedTime: '',
   isAM: false,

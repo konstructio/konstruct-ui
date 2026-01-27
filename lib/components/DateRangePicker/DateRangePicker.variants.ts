@@ -7,7 +7,6 @@ export const dateRangePickerVariants = cva([
   'bg-white',
   'dark:bg-metal-800',
   'dark:border-metal-700',
-  'overflow-hidden',
   'shadow',
 ]);
 

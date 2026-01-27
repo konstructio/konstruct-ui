@@ -13,7 +13,27 @@ export const WithTime: Story = {
   render: () => (
     <div className="p-4">
       <DateRangePicker
-        label="With Time"
+        defaultRange={{
+          from: new Date(new Date().getFullYear(), new Date().getMonth(), 10),
+          to: new Date(new Date().getFullYear(), new Date().getMonth(), 20),
+        }}
+        defaultTime={{
+          startTime: new Date(
+            new Date().getFullYear(),
+            new Date().getMonth(),
+            new Date().getDate(),
+            9,
+            10,
+          ),
+          endTime: new Date(
+            new Date().getFullYear(),
+            new Date().getMonth(),
+            new Date().getDate(),
+            17,
+            30,
+          ),
+        }}
+        minDate={new Date(new Date().getFullYear(), new Date().getMonth(), 1)}
         onRangeChange={(range) => console.log('Range changed:', range)}
       />
     </div>
@@ -24,7 +44,6 @@ export const WithoutTime: Story = {
   render: () => (
     <div className="p-4">
       <DateRangePicker
-        label="Without Time"
         showTime={false}
         onRangeChange={(range) => console.log('Range changed:', range)}
       />

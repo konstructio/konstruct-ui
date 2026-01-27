@@ -1,4 +1,13 @@
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  ChangeEvent,
+  FC,
+  FocusEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { cn } from '@/utils';
 
@@ -6,7 +15,12 @@ import { Input } from '../../../Input/Input';
 import { TimePicker } from '../../../TimePicker/TimePicker';
 import { Typography } from '../../../Typography/Typography';
 import { useDateRangePicker } from '../../contexts';
-import { formatDateToDisplayString, parseDisplayDateString } from '../../utils';
+import {
+  formatDateToDisplayString,
+  formatDateToString,
+  parseDateString,
+  isDateSelectable,
+} from '../../utils';
 
 import { DateTimeInputsProps } from './DateTimeInputs.types';
 import {
@@ -29,6 +43,40 @@ const combineDateAndTime = (date?: Date, time?: Date): string => {
   return result.toISOString();
 };
 
+/**
+ * Auto-formats a date input value as MM/DD/YYYY while typing.
+ * Inserts slashes after month (2 digits) and day (2 more digits).
+ */
+const autoFormatDateInput = (
+  rawValue: string,
+  previousValue: string,
+): string => {
+  // Detect if user is deleting
+  const isDeleting = rawValue.length < previousValue.length;
+
+  // Only allow digits and slashes, normalize multiple slashes to single
+  let value = rawValue.replace(/[^0-9/]/g, '').replace(/\/+/g, '/');
+
+  // Limit to max 10 chars (MM/DD/YYYY)
+  value = value.slice(0, 10);
+
+  // Don't auto-insert slashes when deleting
+  if (isDeleting) {
+    return value;
+  }
+
+  // Auto-insert slash after MM (2 digits, no slash yet)
+  if (/^\d{2}$/.test(value)) {
+    value = value + '/';
+  }
+  // Auto-insert slash after MM/DD (5 chars with first slash)
+  else if (/^\d{2}\/\d{2}$/.test(value)) {
+    value = value + '/';
+  }
+
+  return value;
+};
+
 export const DateTimeInputs: FC<DateTimeInputsProps> = ({ className }) => {
   const {
     range,
@@ -37,9 +85,22 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({ className }) => {
     showTime,
     name,
     disabled,
+    blockedDays,
+    blockedMonths,
+    minDate,
+    maxDate,
     setRange,
     setTime,
   } = useDateRangePicker();
+
+  const restrictions = useMemo(
+    () => ({ blockedDays, blockedMonths, minDate, maxDate }),
+    [blockedDays, blockedMonths, minDate, maxDate],
+  );
+
+  // Track if inputs are focused (typing mode)
+  const isStartTypingRef = useRef(false);
+  const isEndTypingRef = useRef(false);
 
   const [startDateValue, setStartDateValue] = useState(() =>
     formatDateToDisplayString(range.from),
@@ -51,54 +112,137 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({ className }) => {
   const [startDateError, setStartDateError] = useState<string | undefined>();
   const [endDateError, setEndDateError] = useState<string | undefined>();
 
-  // Sync external range changes to input values
+  // Sync external range changes to input values (only when not typing)
   useEffect(() => {
-    setStartDateValue(formatDateToDisplayString(range.from));
-    setEndDateValue(formatDateToDisplayString(range.to));
-  }, [range.from, range.to]);
+    if (!isStartTypingRef.current) {
+      setStartDateValue(formatDateToDisplayString(range.from));
+    }
+  }, [range.from]);
+
+  useEffect(() => {
+    if (!isEndTypingRef.current) {
+      setEndDateValue(formatDateToDisplayString(range.to));
+    }
+  }, [range.to]);
+
+  // Start date handlers
+  const handleStartDateFocus = useCallback(() => {
+    isStartTypingRef.current = true;
+    setStartDateError(undefined);
+    // Convert to editable format (MM/DD/YYYY)
+    if (range.from) {
+      setStartDateValue(formatDateToString(range.from));
+    }
+  }, [range.from]);
 
   const handleStartDateChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value;
-      setStartDateValue(value);
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const rawValue = e.target.value;
+      const formattedValue = autoFormatDateInput(rawValue, startDateValue);
+      setStartDateValue(formattedValue);
+      setStartDateError(undefined);
+
+      // Try to parse and update range as user types
+      const parsed = parseDateString(formattedValue);
+      if (parsed) {
+        if (isDateSelectable(parsed, restrictions)) {
+          setRange({ ...range, from: parsed });
+        }
+      }
+    },
+    [startDateValue, range, setRange, restrictions],
+  );
+
+  const handleStartDateBlur = useCallback(
+    (e: FocusEvent<HTMLInputElement>) => {
+      isStartTypingRef.current = false;
+      const value = e.currentTarget.value.trim();
 
       if (value === '') {
         setStartDateError(undefined);
+        setStartDateValue('');
         setRange({ ...range, from: undefined });
         return;
       }
 
-      const parsed = parseDisplayDateString(value);
-      if (parsed) {
-        setStartDateError(undefined);
-        setRange({ ...range, from: parsed });
-      } else {
+      const parsed = parseDateString(value);
+      if (!parsed) {
         setStartDateError('Invalid date');
+        return;
       }
+
+      if (!isDateSelectable(parsed, restrictions)) {
+        setStartDateError('Date is not available');
+        // Keep the typed value but show error
+        return;
+      }
+
+      setStartDateError(undefined);
+      setRange({ ...range, from: parsed });
+      // Convert to display format
+      setStartDateValue(formatDateToDisplayString(parsed));
     },
-    [range, setRange],
+    [range, setRange, restrictions],
   );
 
+  // End date handlers
+  const handleEndDateFocus = useCallback(() => {
+    isEndTypingRef.current = true;
+    setEndDateError(undefined);
+    // Convert to editable format (MM/DD/YYYY)
+    if (range.to) {
+      setEndDateValue(formatDateToString(range.to));
+    }
+  }, [range.to]);
+
   const handleEndDateChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value;
-      setEndDateValue(value);
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const rawValue = e.target.value;
+      const formattedValue = autoFormatDateInput(rawValue, endDateValue);
+      setEndDateValue(formattedValue);
+      setEndDateError(undefined);
+
+      // Try to parse and update range as user types
+      const parsed = parseDateString(formattedValue);
+      if (parsed) {
+        if (isDateSelectable(parsed, restrictions)) {
+          setRange({ ...range, to: parsed });
+        }
+      }
+    },
+    [endDateValue, range, setRange, restrictions],
+  );
+
+  const handleEndDateBlur = useCallback(
+    (e: FocusEvent<HTMLInputElement>) => {
+      isEndTypingRef.current = false;
+      const value = e.currentTarget.value.trim();
 
       if (value === '') {
         setEndDateError(undefined);
+        setEndDateValue('');
         setRange({ ...range, to: undefined });
         return;
       }
 
-      const parsed = parseDisplayDateString(value);
-      if (parsed) {
-        setEndDateError(undefined);
-        setRange({ ...range, to: parsed });
-      } else {
+      const parsed = parseDateString(value);
+      if (!parsed) {
         setEndDateError('Invalid date');
+        return;
       }
+
+      if (!isDateSelectable(parsed, restrictions)) {
+        setEndDateError('Date is not available');
+        // Keep the typed value but show error
+        return;
+      }
+
+      setEndDateError(undefined);
+      setRange({ ...range, to: parsed });
+      // Convert to display format
+      setEndDateValue(formatDateToDisplayString(parsed));
     },
-    [range, setRange],
+    [range, setRange, restrictions],
   );
 
   const handleStartTimeChange = useCallback(
@@ -140,9 +284,12 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({ className }) => {
           <Typography component="label" className={cn(inputLabelVariants())}>
             Start date
           </Typography>
+
           <Input
             value={startDateValue}
             onChange={handleStartDateChange}
+            onFocus={handleStartDateFocus}
+            onBlur={handleStartDateBlur}
             error={startDateError}
             disabled={disabled}
             className={cn(
@@ -156,11 +303,13 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({ className }) => {
             aria-label="Start date"
           />
         </div>
+
         {showTime && (
           <div className={cn(timeInputWrapperVariants())}>
             <Typography component="label" className={cn(inputLabelVariants())}>
               Time
             </Typography>
+
             <TimePicker
               mode="input"
               showList
@@ -187,9 +336,12 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({ className }) => {
           <Typography component="label" className={cn(inputLabelVariants())}>
             End date
           </Typography>
+
           <Input
             value={endDateValue}
             onChange={handleEndDateChange}
+            onFocus={handleEndDateFocus}
+            onBlur={handleEndDateBlur}
             error={endDateError}
             disabled={disabled}
             className={cn(
@@ -203,11 +355,13 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({ className }) => {
             aria-label="End date"
           />
         </div>
+
         {showTime && (
           <div className={cn(timeInputWrapperVariants())}>
             <Typography component="label" className={cn(inputLabelVariants())}>
               Time
             </Typography>
+
             <TimePicker
               mode="input"
               showList

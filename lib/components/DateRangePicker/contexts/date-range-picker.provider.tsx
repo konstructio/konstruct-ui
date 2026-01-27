@@ -1,12 +1,17 @@
 import { FC, ReactNode, useCallback, useMemo, useState } from 'react';
 
 import {
+  BlockedMonth,
   DateRange,
   DateRangePickerContextValue,
   DateRangePreset,
   TimeRange,
-} from '../DateRangePicker.types';
+} from './date-range-picker.context';
 import { calculatePresetRange } from '../utils/presets';
+import {
+  canNavigateToPrevMonth,
+  canNavigateToNextMonth,
+} from '../utils/disabled-dates';
 import { DateRangePickerContext } from './date-range-picker.context';
 
 interface DateRangePickerProviderProps {
@@ -19,6 +24,12 @@ interface DateRangePickerProviderProps {
   name?: string;
   disabled?: boolean;
   animationDuration?: number;
+  blockedDays?: Date[];
+  blockedMonths?: BlockedMonth[];
+  minDate?: Date;
+  maxDate?: Date;
+  hideDisabledNavigation?: boolean;
+  showOutsideDays?: boolean;
   onRangeChange?: (range: DateRange & TimeRange) => void;
   onDateChange?: (range: DateRange) => void;
 }
@@ -33,6 +44,12 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
   name,
   disabled = false,
   animationDuration = 500,
+  blockedDays = [],
+  blockedMonths = [],
+  minDate,
+  maxDate,
+  hideDisabledNavigation = false,
+  showOutsideDays = false,
   onRangeChange,
   onDateChange,
 }) => {
@@ -49,10 +66,27 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
   const [preset, setPresetState] = useState<DateRangePreset>(defaultPreset);
 
   const [displayedMonths, setDisplayedMonths] = useState<[Date, Date]>(() => {
-    const now = new Date();
-    const currentMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-    const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
-    return [currentMonth, nextMonth];
+    // Compute the initial range to determine which month to show
+    let initialRange: DateRange = {};
+    if (defaultRange) {
+      initialRange = defaultRange;
+    } else if (defaultPreset !== 'custom') {
+      initialRange = calculatePresetRange(defaultPreset);
+    }
+
+    // Navigate to the month of the initial range, or current month if none
+    const referenceDate = initialRange?.from ?? initialRange?.to ?? new Date();
+    const leftMonth = new Date(
+      referenceDate.getFullYear(),
+      referenceDate.getMonth(),
+      1,
+    );
+    const rightMonth = new Date(
+      referenceDate.getFullYear(),
+      referenceDate.getMonth() + 1,
+      1,
+    );
+    return [leftMonth, rightMonth];
   });
 
   const setRange = useCallback(
@@ -86,21 +120,33 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
     [time, onRangeChange, onDateChange],
   );
 
+  const canNavigatePrev = useMemo(
+    () => canNavigateToPrevMonth(displayedMonths[0], minDate),
+    [displayedMonths, minDate],
+  );
+
+  const canNavigateNext = useMemo(
+    () => canNavigateToNextMonth(displayedMonths[1], maxDate),
+    [displayedMonths, maxDate],
+  );
+
   const navigatePrevMonth = useCallback(() => {
+    if (!canNavigatePrev) return;
     setDisplayedMonths(([left, right]) => {
       const newLeft = new Date(left.getFullYear(), left.getMonth() - 1, 1);
       const newRight = new Date(right.getFullYear(), right.getMonth() - 1, 1);
       return [newLeft, newRight];
     });
-  }, []);
+  }, [canNavigatePrev]);
 
   const navigateNextMonth = useCallback(() => {
+    if (!canNavigateNext) return;
     setDisplayedMonths(([left, right]) => {
       const newLeft = new Date(left.getFullYear(), left.getMonth() + 1, 1);
       const newRight = new Date(right.getFullYear(), right.getMonth() + 1, 1);
       return [newLeft, newRight];
     });
-  }, []);
+  }, [canNavigateNext]);
 
   const value: DateRangePickerContextValue = useMemo(
     () => ({
@@ -113,6 +159,14 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
       name,
       disabled,
       animationDuration,
+      blockedDays,
+      blockedMonths,
+      minDate,
+      maxDate,
+      canNavigatePrev,
+      canNavigateNext,
+      hideDisabledNavigation,
+      showOutsideDays,
       setRange,
       setTime,
       setPreset,
@@ -130,6 +184,14 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
       name,
       disabled,
       animationDuration,
+      blockedDays,
+      blockedMonths,
+      minDate,
+      maxDate,
+      canNavigatePrev,
+      canNavigateNext,
+      hideDisabledNavigation,
+      showOutsideDays,
       setRange,
       setTime,
       setPreset,

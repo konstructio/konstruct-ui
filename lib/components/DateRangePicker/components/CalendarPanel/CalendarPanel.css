@@ -1,4 +1,4 @@
-@keyframes slideInFromRight {
+@keyframes konstruct-drp-slideInFromRight {
   from {
     opacity: 0;
     transform: translateX(20px);
@@ -9,7 +9,7 @@
   }
 }
 
-@keyframes slideInFromLeft {
+@keyframes konstruct-drp-slideInFromLeft {
   from {
     opacity: 0;
     transform: translateX(-20px);

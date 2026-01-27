@@ -116,7 +116,9 @@ describe('DateRangePicker', () => {
     const startDateInput = await getStartDateInput();
 
     await user.clear(startDateInput);
-    await user.type(startDateInput, '15 January 2024');
+    // Type in MM/DD/YYYY format and tab to trigger blur/validation
+    await user.type(startDateInput, '01/15/2024');
+    await user.tab(); // Tab to blur and trigger validation
 
     expect(mockOnRangeChange).toHaveBeenCalled();
   });
@@ -127,7 +129,9 @@ describe('DateRangePicker', () => {
     const startDateInput = await getStartDateInput();
 
     await user.clear(startDateInput);
-    await user.type(startDateInput, 'invalid');
+    // Type an incomplete date (only digits/slashes allowed, but incomplete)
+    await user.type(startDateInput, '99/99');
+    await user.click(document.body); // Blur to trigger validation
 
     const errorMessage = await screen.findByText(/invalid date/i);
 
