@@ -4,7 +4,7 @@ export const stepperVariants = cva(['flex'], {
   variants: {
     orientation: {
       vertical: ['flex-col'],
-      horizontal: ['flex-row', 'items-start', 'w-full'],
+      horizontal: ['flex-row', 'items-start'],
     },
   },
   defaultVariants: {
@@ -16,7 +16,7 @@ export const stepListVariants = cva(['flex', 'list-none', 'p-0', 'm-0'], {
   variants: {
     orientation: {
       vertical: ['flex-col'],
-      horizontal: ['flex-row', 'w-full'],
+      horizontal: ['flex-row'],
     },
   },
   defaultVariants: {
@@ -28,7 +28,7 @@ export const stepItemVariants = cva(['list-none'], {
   variants: {
     orientation: {
       vertical: [],
-      horizontal: ['flex-1'],
+      horizontal: [],
     },
   },
   defaultVariants: {
@@ -39,8 +39,13 @@ export const stepItemVariants = cva(['list-none'], {
 export const stepVariants = cva(['flex', 'group', 'relative'], {
   variants: {
     orientation: {
-      vertical: ['flex-row', 'items-start', 'gap-3'],
-      horizontal: ['flex-col', 'items-center', 'flex-1', 'min-w-0'],
+      vertical: [],
+      horizontal: ['min-w-0'],
+    },
+    variant: {
+      inline: ['flex-row', 'items-center', 'gap-4'],
+      stacked: ['flex-col', 'items-center', 'gap-2'],
+      horizontal: ['flex-row', 'items-center', 'gap-4'],
     },
     clickable: {
       true: ['cursor-pointer'],
@@ -49,6 +54,7 @@ export const stepVariants = cva(['flex', 'group', 'relative'], {
   },
   defaultVariants: {
     orientation: 'vertical',
+    variant: 'inline',
     clickable: false,
   },
 });
@@ -77,82 +83,90 @@ export const stepIndicatorVariants = cva(
         ],
         active: [
           'bg-aurora-500',
-          'text-white',
+          'text-slate-700',
           'border-0',
           'dark:bg-aurora-500',
-          'dark:text-slate-900',
+          'dark:text-metal-900',
         ],
         pending: [
           'border-2',
           'border-slate-300',
-          'text-slate-400',
+          'text-slate-600',
           'bg-transparent',
-          'dark:border-slate-600',
-          'dark:text-slate-500',
+          'dark:border-metal-200',
+          'dark:text-metal-200',
         ],
         error: [
-          'bg-red-500',
+          'bg-red-600',
           'text-white',
           'border-0',
-          'dark:bg-red-500',
+          'dark:bg-red-600',
           'dark:text-white',
         ],
       },
       size: {
-        default: ['w-7', 'h-7', 'text-sm'],
-        small: ['w-6', 'h-6', 'text-xs'],
-        large: ['w-9', 'h-9', 'text-base'],
+        sm: ['w-5', 'h-5', 'text-xs', 'uppercase', 'tracking-wide'],
+        md: ['w-[37px]', 'h-[37px]', 'text-sm', 'font-semibold'],
+        lg: ['w-[54px]', 'h-[54px]', 'text-lg', 'font-semibold'],
       },
     },
     defaultVariants: {
       status: 'pending',
-      size: 'default',
+      size: 'sm',
     },
   },
 );
 
 export const stepContentVariants = cva(['flex', 'flex-col', 'gap-0.5'], {
   variants: {
-    orientation: {
-      vertical: ['pt-0.5'],
-      horizontal: ['mt-2', 'items-center'],
+    variant: {
+      inline: ['items-start'],
+      stacked: ['items-center'],
+      horizontal: ['items-start'],
     },
   },
   defaultVariants: {
-    orientation: 'vertical',
+    variant: 'inline',
   },
 });
 
 export const stepLabelVariants = cva(
-  ['font-medium', 'transition-colors', 'duration-200', 'leading-tight'],
+  [
+    'font-medium',
+    'transition-colors',
+    'duration-200',
+    'leading-tight',
+    'select-none',
+  ],
   {
     variants: {
       status: {
-        completed: ['text-slate-700', 'dark:text-slate-200'],
-        active: ['text-slate-800', 'dark:text-white'],
-        pending: ['text-slate-400', 'dark:text-slate-500'],
-        error: ['text-red-600', 'dark:text-red-400'],
+        completed: ['text-slate-700', 'dark:text-metal-200'],
+        active: ['text-slate-700', 'dark:text-metal-50'],
+        pending: ['text-slate-600', 'dark:text-metal-50'],
+        error: ['text-red-700', 'dark:text-red-500'],
       },
       size: {
-        default: ['text-sm'],
-        small: ['text-xs'],
-        large: ['text-base'],
+        sm: ['text-sm'],
+        md: ['text-sm'],
+        lg: ['text-base'],
       },
-      orientation: {
-        vertical: [],
-        horizontal: ['text-center'],
+      variant: {
+        inline: ['text-left'],
+        stacked: ['text-center'],
+        horizontal: ['text-left'],
       },
     },
     defaultVariants: {
       status: 'pending',
-      size: 'default',
-      orientation: 'vertical',
+      size: 'sm',
+      variant: 'inline',
     },
   },
 );
 
 export const stepDescriptionVariants = cva(
-  ['transition-colors', 'duration-200', 'leading-tight'],
+  ['transition-colors', 'duration-200', 'leading-tight', 'select-none'],
   {
     variants: {
       status: {
@@ -162,19 +176,20 @@ export const stepDescriptionVariants = cva(
         error: ['text-red-500', 'dark:text-red-400'],
       },
       size: {
-        default: ['text-xs'],
-        small: ['text-[10px]'],
-        large: ['text-sm'],
+        sm: ['text-xs'],
+        md: ['text-xs'],
+        lg: ['text-sm'],
       },
-      orientation: {
-        vertical: [],
-        horizontal: ['text-center'],
+      variant: {
+        inline: ['text-left'],
+        stacked: ['text-center'],
+        horizontal: ['text-left'],
       },
     },
     defaultVariants: {
       status: 'pending',
-      size: 'default',
-      orientation: 'vertical',
+      size: 'sm',
+      variant: 'inline',
     },
   },
 );
@@ -184,37 +199,71 @@ export const stepConnectorVariants = cva(
   {
     variants: {
       orientation: {
-        vertical: ['w-0.5', 'min-h-5', 'ml-[13px]', 'my-1.5'],
+        vertical: ['w-0.5'],
         horizontal: ['h-0.5', 'flex-1', 'min-w-4'],
       },
       status: {
         completed: ['bg-aurora-500', 'dark:bg-aurora-500'],
         active: ['bg-aurora-500', 'dark:bg-aurora-500'],
-        pending: ['bg-slate-200', 'dark:bg-slate-700'],
-        error: ['bg-red-500', 'dark:bg-red-500'],
+        pending: ['bg-slate-300', 'dark:bg-metal-400'],
+        error: ['bg-red-700', 'dark:bg-red-600'],
       },
       size: {
-        default: [],
-        small: [],
-        large: [],
+        sm: [],
+        md: [],
+        lg: [],
+      },
+      variant: {
+        inline: [],
+        stacked: [],
+        horizontal: [],
       },
     },
     compoundVariants: [
+      // Vertical inline connectors by size
       {
         orientation: 'vertical',
-        size: 'small',
-        class: ['ml-[11px]', 'min-h-4'],
+        variant: 'inline',
+        size: 'sm',
+        class: ['h-6', 'ml-[9px]', 'my-1'],
       },
       {
         orientation: 'vertical',
-        size: 'large',
-        class: ['ml-[17px]', 'min-h-6'],
+        variant: 'inline',
+        size: 'md',
+        class: ['h-6', 'ml-[17px]', 'my-1'],
+      },
+      {
+        orientation: 'vertical',
+        variant: 'inline',
+        size: 'lg',
+        class: ['h-6', 'ml-[26px]', 'my-1'],
+      },
+      // Vertical stacked connectors by size
+      {
+        orientation: 'vertical',
+        variant: 'stacked',
+        size: 'sm',
+        class: ['h-6', 'mx-auto', 'my-1'],
+      },
+      {
+        orientation: 'vertical',
+        variant: 'stacked',
+        size: 'md',
+        class: ['h-7', 'mx-auto', 'my-2'],
+      },
+      {
+        orientation: 'vertical',
+        variant: 'stacked',
+        size: 'lg',
+        class: ['h-8', 'mx-auto', 'my-2'],
       },
     ],
     defaultVariants: {
       orientation: 'vertical',
       status: 'pending',
-      size: 'default',
+      size: 'sm',
+      variant: 'inline',
     },
   },
 );
@@ -223,14 +272,14 @@ export const horizontalConnectorWrapperVariants = cva(
   ['flex', 'items-center', 'flex-1'],
   {
     variants: {
-      size: {
-        default: ['mt-3.5'],
-        small: ['mt-3'],
-        large: ['mt-4.5'],
+      variant: {
+        inline: ['mt-2.5'],
+        stacked: ['mt-[26px]'],
+        horizontal: ['mt-0'],
       },
     },
     defaultVariants: {
-      size: 'default',
+      variant: 'inline',
     },
   },
 );

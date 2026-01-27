@@ -45,10 +45,24 @@ export type {
 } from './VirtualizedTable/VirtualizedTable.types';
 export type {
   Step,
-  StepStatus,
-  StepSize,
-  StepperProps,
   StepperClassNames,
+  StepperIcons,
+  StepperProps,
+  StepSize,
+  StepStatus,
+  StepVariant,
 } from './Stepper/Stepper.types';
+export {
+  horizontalConnectorWrapperVariants,
+  stepConnectorVariants,
+  stepContentVariants,
+  stepDescriptionVariants,
+  stepIndicatorVariants,
+  stepItemVariants,
+  stepLabelVariants,
+  stepListVariants,
+  stepperVariants,
+  stepVariants,
+} from './Stepper/Stepper.variants';
 export { Counter as NumberInput } from './Counter/Counter';
 export { Select as Dropdown } from './Select/Select';

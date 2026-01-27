@@ -120,6 +120,7 @@
   "devDependencies": {
     "@faker-js/faker": "^10.2.0",
     "@rollup/plugin-alias": "^6.0.0",
+    "@storybook/addon-actions": "^9.0.8",
     "@storybook/addon-docs": "^10.2.0",
     "@storybook/addon-links": "^10.2.0",
     "@storybook/react-vite": "^10.2.0",

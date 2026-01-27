@@ -183,12 +183,26 @@ describe('Stepper', () => {
         onStepClick: handleClick,
       });
 
-      await user.click(getStepByLabel(/step 2/i));
+      // Click on completed step (not active)
+      await user.click(getStepByLabel(/step 1/i));
 
       expect(handleClick).toHaveBeenCalledWith(
-        expect.objectContaining({ label: 'Set up cluster' }),
-        1,
+        expect.objectContaining({ label: 'Select platform' }),
+        0,
       );
+    });
+
+    it('should not trigger callback when clicking active step', async () => {
+      const handleClick = vi.fn();
+      const { user, getStepText } = setup({
+        clickable: true,
+        onStepClick: handleClick,
+      });
+
+      // Active step should not be clickable
+      await user.click(getStepText('Set up cluster'));
+
+      expect(handleClick).not.toHaveBeenCalled();
     });
 
     it('should not trigger callback when clicking non-clickable stepper', async () => {
@@ -198,15 +212,16 @@ describe('Stepper', () => {
         onStepClick: handleClick,
       });
 
-      await user.click(getStepText('Set up cluster'));
+      await user.click(getStepText('Select platform'));
 
       expect(handleClick).not.toHaveBeenCalled();
     });
 
-    it('should have button role when clickable', () => {
+    it('should have button role only for non-active steps when clickable', () => {
       const { getAllButtons } = setup({ clickable: true });
 
-      expect(getAllButtons()).toHaveLength(3);
+      // Only completed and pending steps are clickable, not active
+      expect(getAllButtons()).toHaveLength(2);
     });
 
     it('should not have button role when not clickable', () => {
@@ -215,7 +230,7 @@ describe('Stepper', () => {
       expect(queryAllButtons()).toHaveLength(0);
     });
 
-    it('should call onStepClick for each step when clicking through all steps', async () => {
+    it('should call onStepClick for each clickable step', async () => {
       const handleClick = vi.fn();
       const { user, getAllButtons } = setup({
         clickable: true,
@@ -226,7 +241,44 @@ describe('Stepper', () => {
         await user.click(step);
       }
 
-      expect(handleClick).toHaveBeenCalledTimes(3);
+      // Only 2 steps are clickable (completed and pending, not active)
+      expect(handleClick).toHaveBeenCalledTimes(2);
+    });
+
+    it('should not trigger callback when clicking disabled step', async () => {
+      const handleClick = vi.fn();
+      const stepsWithDisabled: Step[] = [
+        { id: 1, label: 'Step 1', status: 'completed', disabled: true },
+        { id: 2, label: 'Step 2', status: 'pending' },
+      ];
+      const { user, getStepText } = setup({
+        steps: stepsWithDisabled,
+        clickable: true,
+        onStepClick: handleClick,
+      });
+
+      await user.click(getStepText('Step 1'));
+
+      expect(handleClick).not.toHaveBeenCalled();
+    });
+
+    it('should call step onClick callback when provided', async () => {
+      const stepCallback = vi.fn();
+      const globalCallback = vi.fn();
+      const stepsWithCallback: Step[] = [
+        { id: 1, label: 'Step 1', status: 'completed', onClick: stepCallback },
+        { id: 2, label: 'Step 2', status: 'pending' },
+      ];
+      const { user, getStepByLabel } = setup({
+        steps: stepsWithCallback,
+        clickable: true,
+        onStepClick: globalCallback,
+      });
+
+      await user.click(getStepByLabel(/step 1/i));
+
+      expect(stepCallback).toHaveBeenCalled();
+      expect(globalCallback).not.toHaveBeenCalled();
     });
   });
 
@@ -328,22 +380,22 @@ describe('Stepper', () => {
   });
 
   describe('Size Variants', () => {
-    it('should render with small size without errors', () => {
-      const { getNavigation, getStepText } = setup({ size: 'small' });
+    it('should render with sm size without errors', () => {
+      const { getNavigation, getStepText } = setup({ size: 'sm' });
 
       expect(getNavigation()).toBeInTheDocument();
       expect(getStepText('Select platform')).toBeInTheDocument();
     });
 
-    it('should render with default size without errors', () => {
-      const { getNavigation, getStepText } = setup({ size: 'default' });
+    it('should render with md size without errors', () => {
+      const { getNavigation, getStepText } = setup({ size: 'md' });
 
       expect(getNavigation()).toBeInTheDocument();
       expect(getStepText('Select platform')).toBeInTheDocument();
     });
 
-    it('should render with large size without errors', () => {
-      const { getNavigation, getStepText } = setup({ size: 'large' });
+    it('should render with lg size without errors', () => {
+      const { getNavigation, getStepText } = setup({ size: 'lg' });
 
       expect(getNavigation()).toBeInTheDocument();
       expect(getStepText('Select platform')).toBeInTheDocument();

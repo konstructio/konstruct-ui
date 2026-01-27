@@ -1,23 +1,28 @@
+import type { ReactNode } from 'react';
+
 import type { VariantProps } from 'class-variance-authority';
 
 import type { Theme } from '@/domain/theme';
 
-import type {
-  stepIndicatorVariants,
-  stepperVariants,
-} from './Stepper.variants';
+import type { stepperVariants } from './Stepper.variants';
 
 export type StepStatus = 'completed' | 'active' | 'pending' | 'error';
 
-export type StepSize = 'small' | 'default' | 'large';
+export type StepSize = 'sm' | 'md' | 'lg';
+
+export type StepVariant = 'inline' | 'stacked' | 'horizontal';
 
 export type Step = {
   /** Optional description for the step */
   description?: string;
+  /** Whether this step is disabled (not clickable) */
+  disabled?: boolean;
   /** Unique identifier for the step */
   id: string | number;
-  /** Label displayed for the step */
-  label: string;
+  /** Label displayed for the step (can be a string or ReactNode) */
+  label?: ReactNode;
+  /** Callback when this specific step is clicked */
+  onClick?: () => void;
   /** Status of the step */
   status?: StepStatus;
 };
@@ -31,6 +36,8 @@ export type StepperClassNames = {
   description?: string;
   /** Class for the step indicator circle */
   indicator?: string;
+  /** Class for the content inside the indicator (number, icon) */
+  indicatorContent?: string;
   /** Class for each li item element */
   item?: string;
   /** Class for the step label */
@@ -43,6 +50,13 @@ export type StepperClassNames = {
   stepWrapper?: string;
 };
 
+export type StepperIcons = {
+  /** Custom icon for completed status */
+  completed?: ReactNode;
+  /** Custom icon for error status */
+  error?: ReactNode;
+};
+
 export type StepperProps = VariantProps<typeof stepperVariants> & {
   /** Additional CSS classes for the wrapper */
   className?: string;
@@ -52,6 +66,8 @@ export type StepperProps = VariantProps<typeof stepperVariants> & {
   clickable?: boolean;
   /** Index of the current active step (0-based). When provided, step statuses are auto-calculated. */
   currentStep?: number;
+  /** Custom icons for step statuses */
+  icons?: StepperIcons;
   /** Show connector lines between steps */
   showConnector?: boolean;
   /** Size of the step indicators */
@@ -60,49 +76,8 @@ export type StepperProps = VariantProps<typeof stepperVariants> & {
   steps: Step[];
   /** Theme override for this component */
   theme?: Theme;
+  /** Layout variant: 'inline' (text beside indicator) or 'stacked' (text below indicator) */
+  variant?: StepVariant;
   /** Callback when a step is clicked */
   onStepClick?: (step: Step, index: number) => void;
-};
-
-export type StepItemProps = VariantProps<typeof stepIndicatorVariants> & {
-  /** Custom class names */
-  classNames?: StepperClassNames;
-  /** Whether the step is clickable */
-  clickable: boolean;
-  /** Step index (0-based) */
-  index: number;
-  /** Whether this is the last step */
-  isLast: boolean;
-  /** Status of the next step (for connector coloring) */
-  nextStepStatus?: StepStatus;
-  /** Orientation of the stepper */
-  orientation: 'vertical' | 'horizontal';
-  /** Show connector lines */
-  showConnector: boolean;
-  /** Size of the step indicator */
-  size: StepSize;
-  /** Step data */
-  step: Step;
-  /** Theme override */
-  theme?: Theme;
-  /** Callback when step is clicked */
-  onClick?: () => void;
-};
-
-export type StepIndicatorContentProps = {
-  /** Step index (0-based) */
-  index: number;
-  /** Status of the step */
-  status: StepStatus;
-};
-
-export type StepConnectorProps = {
-  /** Additional CSS class */
-  className?: string;
-  /** Orientation of the connector */
-  orientation: 'vertical' | 'horizontal';
-  /** Size of the connector */
-  size: StepSize;
-  /** Status of the step */
-  status: StepStatus;
 };
