@@ -1,4 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+import { motion } from 'motion/react';
 import { FC, useCallback, useState, useEffect, useRef, useMemo } from 'react';
 import { DayPicker, DateRange as DayPickerDateRange } from 'react-day-picker';
 
@@ -22,6 +23,43 @@ type SlideDirection = 'left' | 'right' | null;
 
 const SINGLE_MONTH_WIDTH = 259;
 const GAP_WIDTH = 32;
+
+// Height calculation constants
+const MONTH_HEADER_HEIGHT = 40; // h-6 (24px) + mb-4 (16px)
+const WEEKDAY_HEADER_HEIGHT = 28; // text + pb-4
+const WEEK_ROW_HEIGHT = 38; // h-[38px] per row
+
+/**
+ * Calculate the number of weeks displayed in a calendar month view.
+ * This determines how many rows the calendar will render.
+ */
+const getWeeksInMonth = (date: Date): number => {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+
+  // First day of the month
+  const firstDay = new Date(year, month, 1);
+  // Last day of the month
+  const lastDay = new Date(year, month + 1, 0);
+
+  // Day of week for first day (0 = Sunday)
+  const firstDayOfWeek = firstDay.getDay();
+  // Total days in the month
+  const daysInMonth = lastDay.getDate();
+
+  // Calculate total cells needed (days before first + days in month)
+  const totalCells = firstDayOfWeek + daysInMonth;
+
+  // Number of weeks (rows) needed
+  return Math.ceil(totalCells / 7);
+};
+
+/**
+ * Calculate the calendar content height based on the number of weeks.
+ */
+const calculateCalendarHeight = (weeks: number): number => {
+  return MONTH_HEADER_HEIGHT + WEEKDAY_HEADER_HEIGHT + weeks * WEEK_ROW_HEIGHT;
+};
 
 const dayPickerClassNames = {
   root: 'w-fit',
@@ -198,6 +236,33 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
   const rightMonth = internalMonths[1];
   const next1Month = getNextMonth(internalMonths[1]);
   const next2Month = getNextMonth(getNextMonth(internalMonths[1]));
+
+  // Calculate dynamic height based on TARGET months (what will be visible after animation)
+  // This ensures height animates simultaneously with the slide in both directions
+  const calendarHeight = useMemo(() => {
+    let monthsToConsider: Date[];
+
+    if (isAnimating && slideDirection === 'left') {
+      // Moving to next: target months are rightMonth and next1Month
+      monthsToConsider = [rightMonth, next1Month];
+    } else if (isAnimating && slideDirection === 'right') {
+      // Moving to prev: target months are prev1Month and leftMonth
+      monthsToConsider = [prev1Month, leftMonth];
+    } else {
+      // Not animating: current visible months
+      monthsToConsider = [leftMonth, rightMonth];
+    }
+
+    const maxWeeks = Math.max(...monthsToConsider.map(getWeeksInMonth));
+    return calculateCalendarHeight(maxWeeks);
+  }, [
+    isAnimating,
+    slideDirection,
+    leftMonth,
+    rightMonth,
+    next1Month,
+    prev1Month,
+  ]);
 
   // Total width for 6 months
   const carouselTotalWidth = 6 * SINGLE_MONTH_WIDTH + 5 * GAP_WIDTH;
@@ -424,11 +489,16 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
           </button>
         )}
 
-        <div
+        <motion.div
           ref={carouselRef}
           className="flex"
           role="application"
           aria-label="Date range picker calendar"
+          animate={{ height: calendarHeight }}
+          transition={{
+            duration: animationDuration / 1000,
+            ease: [0.25, 0.1, 0.25, 1],
+          }}
           style={{
             width: carouselTotalWidth,
             gap: GAP_WIDTH,
@@ -441,7 +511,7 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
           }}
         >
           {monthsToRender.map((month) => renderSingleMonth(month))}
-        </div>
+        </motion.div>
       </div>
     </div>
   );

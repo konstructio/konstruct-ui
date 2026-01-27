@@ -78,6 +78,7 @@
     "i18n-iso-countries": "^7.14.0",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.563.0",
+    "motion": "^12.29.2",
     "react-chartjs-2": "^5.3.1",
     "react-day-picker": "^9.13.0",
     "react-feather": "^2.0.10",
