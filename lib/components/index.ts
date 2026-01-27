@@ -27,6 +27,7 @@ export * from './Range/Range';
 export * from './Select/Select';
 export * from './Sidebar/Sidebar';
 export * from './Slider/Slider';
+export * from './Stepper/Stepper';
 export * from './Switch/Switch';
 export * from './Table/Table';
 export * from './Tabs/Tabs';
@@ -42,5 +43,12 @@ export type {
   ColumnDef,
   RowData,
 } from './VirtualizedTable/VirtualizedTable.types';
+export type {
+  Step,
+  StepStatus,
+  StepSize,
+  StepperProps,
+  StepperClassNames,
+} from './Stepper/Stepper.types';
 export { Counter as NumberInput } from './Counter/Counter';
 export { Select as Dropdown } from './Select/Select';
