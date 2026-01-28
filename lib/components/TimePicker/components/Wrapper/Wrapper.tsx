@@ -40,7 +40,8 @@ export const Wrapper: FC<WrapperProps> = ({
   const isTypingRef = useRef(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { format, formattedTime, setTimeDirectly } = useTimePickerContext();
+  const { format, formattedTime, setTimeDirectly, setIsTyping } =
+    useTimePickerContext();
   const labelId = name ?? `time-${id}`;
 
   const [inputValue, setInputValue] = useState(formattedTime);
@@ -77,9 +78,10 @@ export const Wrapper: FC<WrapperProps> = ({
       // If clicking inside wrapper but not on the input, it's a list click
       if (e.target !== inputRef.current) {
         isTypingRef.current = false;
+        setIsTyping(false);
       }
     },
-    [],
+    [setIsTyping],
   );
 
   const handleInputBlur = useCallback(
@@ -89,6 +91,7 @@ export const Wrapper: FC<WrapperProps> = ({
         return;
       }
       isTypingRef.current = false;
+      setIsTyping(false);
       setIsOpen(false);
 
       // Validate and update time on blur - read directly from event target
@@ -119,7 +122,7 @@ export const Wrapper: FC<WrapperProps> = ({
         setInternalError('Invalid time');
       }
     },
-    [format, setTimeDirectly],
+    [format, setTimeDirectly, setIsTyping],
   );
 
   const handleInputChange = useCallback(
@@ -127,8 +130,9 @@ export const Wrapper: FC<WrapperProps> = ({
       const rawValue = e.target.value;
       let value = '';
 
-      // Mark as typing to prevent sync from overwriting
+      // Mark as typing to prevent sync from overwriting and enable list scroll
       isTypingRef.current = true;
+      setIsTyping(true);
 
       // Detect if user is deleting (new value is shorter)
       const isDeleting = rawValue.length < inputValue.length;
@@ -177,7 +181,7 @@ export const Wrapper: FC<WrapperProps> = ({
         setTimeDirectly(parsed);
       }
     },
-    [format, inputValue, setTimeDirectly],
+    [format, inputValue, setTimeDirectly, setIsTyping],
   );
 
   useEffect(() => {

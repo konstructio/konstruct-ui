@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useMemo, useState } from 'react';
 
+import { DateRangeWithTime } from '@/components/DateRangePicker/DateRangePicker.types';
+
 import { Filter as FilterComponent } from '../Filter';
 import { Option } from '../Filter.types';
 
@@ -18,6 +20,9 @@ export const Dark: Story = {
   render: function FilterStory(args) {
     const [selectedStatus, setSelectedStatus] = useState<Option[]>([]);
     const [date, setDate] = useState<Date | undefined>();
+    const [dateRange, setDateRange] = useState<DateRangeWithTime | undefined>();
+
+    const onApplyDateRange = (range?: DateRangeWithTime) => setDateRange(range);
 
     const onApplyDate = (date?: Date) => setDate(date);
 
@@ -75,8 +80,13 @@ export const Dark: Story = {
             onApply={onApplyDate}
           />
 
+          <FilterComponent.DateRangeFilterDropdown
+            label="Date Range"
+            onApply={onApplyDateRange}
+          />
+
           <FilterComponent.ResetButton
-            disabled={!date && selectedStatus.length === 0}
+            disabled={!date && !dateRange && selectedStatus.length === 0}
           />
         </FilterComponent>
       </div>

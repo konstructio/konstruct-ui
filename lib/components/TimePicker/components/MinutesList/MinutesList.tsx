@@ -25,7 +25,7 @@ const MinutesList: FC<MinutesLitProps> = ({
 }) => {
   const wrapperRef = useRef<HTMLUListElement>(null);
   const initialMinutesRef = useRef<number>(minutes);
-  const { onSelectMinute } = useTimePickerContext();
+  const { isTyping, onSelectMinute } = useTimePickerContext();
 
   // Scroll on initial mount
   useEffect(() => {
@@ -44,8 +44,10 @@ const MinutesList: FC<MinutesLitProps> = ({
     }
   }, [scrollBehavior]);
 
-  // Scroll when minutes value changes (e.g., while typing)
+  // Scroll when minutes value changes (only while typing in input)
   useEffect(() => {
+    if (!isTyping) return;
+
     const wrapper = wrapperRef.current;
 
     if (wrapper) {
@@ -59,7 +61,7 @@ const MinutesList: FC<MinutesLitProps> = ({
         block: 'center',
       });
     }
-  }, [minutes]);
+  }, [minutes, isTyping]);
 
   const handleSelectMinute = useCallback(
     (index: number, event: MouseEvent<HTMLButtonElement>) => {

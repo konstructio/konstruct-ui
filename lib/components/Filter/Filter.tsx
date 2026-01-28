@@ -6,6 +6,7 @@ import { filterVariants } from './Filter.variants';
 import {
   BadgeMultiSelect,
   DateFilterDropdown,
+  DateRangeFilterDropdown,
   ResetButton,
 } from './components';
 
@@ -44,6 +45,12 @@ const Filter: FilterComponentProps = ({
 Filter.displayName = 'KonstructFilter';
 Filter.BadgeMultiSelect = BadgeMultiSelect;
 Filter.DateFilterDropdown = DateFilterDropdown;
+Filter.DateRangeFilterDropdown = DateRangeFilterDropdown;
 Filter.ResetButton = ResetButton;
 
-export { Filter, BadgeMultiSelect, DateFilterDropdown };
+export {
+  Filter,
+  BadgeMultiSelect,
+  DateFilterDropdown,
+  DateRangeFilterDropdown,
+};

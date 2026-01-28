@@ -8,6 +8,14 @@ export * from './Card/Card';
 export * from './Checkbox/Checkbox';
 export * from './Counter/Counter';
 export * from './Datepicker/DatePicker';
+export * from './DateRangePicker/DateRangePicker';
+export type {
+  DateRangePickerProps,
+  DateRange,
+  DateRangePreset,
+  DateRangeWithTime,
+  TimeRange,
+} from './DateRangePicker/DateRangePicker.types';
 export * from './Divider/Divider';
 export * from './DropdownButton/DropdownButton';
 export * from './Filter/Filter';
@@ -27,6 +35,7 @@ export * from './Range/Range';
 export * from './Select/Select';
 export * from './Sidebar/Sidebar';
 export * from './Slider/Slider';
+export * from './Stepper/Stepper';
 export * from './Switch/Switch';
 export * from './Table/Table';
 export * from './Tabs/Tabs';
@@ -42,5 +51,26 @@ export type {
   ColumnDef,
   RowData,
 } from './VirtualizedTable/VirtualizedTable.types';
+export type {
+  Step,
+  StepperClassNames,
+  StepperIcons,
+  StepperProps,
+  StepSize,
+  StepStatus,
+  StepVariant,
+} from './Stepper/Stepper.types';
+export {
+  horizontalConnectorWrapperVariants,
+  stepConnectorVariants,
+  stepContentVariants,
+  stepDescriptionVariants,
+  stepIndicatorVariants,
+  stepItemVariants,
+  stepLabelVariants,
+  stepListVariants,
+  stepperVariants,
+  stepVariants,
+} from './Stepper/Stepper.variants';
 export { Counter as NumberInput } from './Counter/Counter';
 export { Select as Dropdown } from './Select/Select';
