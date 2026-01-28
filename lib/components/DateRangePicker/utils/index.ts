@@ -2,14 +2,16 @@ export { calculatePresetRange } from './presets';
 export { PRESET_OPTIONS } from '../constants';
 export type { PresetOption } from '../constants';
 export {
-  isValidTimeString,
-  parseTimeString,
-  formatTimeToString,
-  formatDateToString,
+  autoFormatDateInput,
+  combineDateAndTime,
   formatDateToDisplayString,
+  formatDateToString,
+  formatTimeToString,
+  getMonthName,
+  isValidTimeString,
   parseDateString,
   parseDisplayDateString,
-  getMonthName,
+  parseTimeString,
 } from './validation';
 export {
   createDisabledMatcher,

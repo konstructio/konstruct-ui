@@ -3,7 +3,6 @@ import { FC, ReactNode, useCallback, useMemo, useState } from 'react';
 import {
   BlockedMonth,
   DateRange,
-  DateRangePickerContextValue,
   DateRangePreset,
   TimeRange,
 } from './date-range-picker.context';
@@ -219,26 +218,14 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
     });
   }, [canRightNavigateNext]);
 
-  const value: DateRangePickerContextValue = useMemo(
+  const dynamicValue = useMemo(
     () => ({
       range,
       time,
       preset,
       displayedMonths,
-      timeFormat,
-      showTime,
-      name,
-      disabled,
-      animationDuration,
-      blockedDays,
-      blockedMonths,
-      minDate,
-      maxDate,
       canNavigatePrev,
       canNavigateNext,
-      hideDisabledNavigation,
-      showOutsideDays,
-      navigationMode,
       canLeftNavigatePrev,
       canLeftNavigateNext,
       canRightNavigatePrev,
@@ -259,20 +246,8 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
       time,
       preset,
       displayedMonths,
-      timeFormat,
-      showTime,
-      name,
-      disabled,
-      animationDuration,
-      blockedDays,
-      blockedMonths,
-      minDate,
-      maxDate,
       canNavigatePrev,
       canNavigateNext,
-      hideDisabledNavigation,
-      showOutsideDays,
-      navigationMode,
       canLeftNavigatePrev,
       canLeftNavigateNext,
       canRightNavigatePrev,
@@ -290,7 +265,23 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
   );
 
   return (
-    <DateRangePickerContext.Provider value={value}>
+    <DateRangePickerContext.Provider
+      value={{
+        ...dynamicValue,
+        timeFormat,
+        showTime,
+        name,
+        disabled,
+        animationDuration,
+        blockedDays,
+        blockedMonths,
+        minDate,
+        maxDate,
+        hideDisabledNavigation,
+        showOutsideDays,
+        navigationMode,
+      }}
+    >
       {children}
     </DateRangePickerContext.Provider>
   );

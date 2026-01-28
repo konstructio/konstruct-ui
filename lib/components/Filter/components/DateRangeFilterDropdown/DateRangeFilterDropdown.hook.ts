@@ -13,13 +13,18 @@ import {
 } from '@/components/DateRangePicker/DateRangePicker.types';
 
 import { FilterEvent, sendOpenFilterEvent } from '../../events';
+import { getLocale } from '../../utils';
 
 import { DateRangeFilterDropdownProps } from './DateRangeFilterDropdown.types';
 
 export const useDateRangeFilterDropdown = ({
   defaultRange,
   onApply,
-}: Pick<DateRangeFilterDropdownProps, 'defaultRange' | 'onApply'>) => {
+  countryCode = 'US',
+}: Pick<
+  DateRangeFilterDropdownProps,
+  'defaultRange' | 'onApply' | 'countryCode'
+>) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const id = useId();
   const [isOpen, setIsOpen] = useState(false);
@@ -34,7 +39,7 @@ export const useDateRangeFilterDropdown = ({
     if (!appliedRange?.from) return undefined;
 
     const formatDate = (date: Date) =>
-      date.toLocaleDateString('en-GB', {
+      date.toLocaleDateString(getLocale(countryCode), {
         day: 'numeric',
         month: 'short',
       });

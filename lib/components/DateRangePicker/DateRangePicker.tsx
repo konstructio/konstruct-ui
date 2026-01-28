@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { cn } from '@/utils';
 
-import { Typography } from '../Typography/Typography';
+import { Typography } from '@/components/Typography/Typography';
 import { CalendarPanel, DateTimeInputs, PresetPanel } from './components';
 import { DateRangePickerProvider } from './contexts';
 import { DateRangePickerProps } from './DateRangePicker.types';

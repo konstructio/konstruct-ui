@@ -24,4 +24,6 @@ export type DateRangeFilterDropdownProps = {
   minDate?: Date;
   /** Maximum selectable date */
   maxDate?: Date;
+  /** Country code for locale formatting (default: 'US') */
+  countryCode?: string;
 };

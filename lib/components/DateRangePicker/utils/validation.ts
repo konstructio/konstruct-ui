@@ -1,3 +1,52 @@
+/**
+ * Combines a date and time into an ISO string.
+ */
+export const combineDateAndTime = (date?: Date, time?: Date): string => {
+  if (!date) return '';
+
+  const result = new Date(date);
+
+  if (time) {
+    result.setHours(time.getHours(), time.getMinutes(), time.getSeconds());
+  }
+
+  return result.toISOString();
+};
+
+/**
+ * Auto-formats a date input value as MM/DD/YYYY while typing.
+ * Inserts slashes after month (2 digits) and day (2 more digits).
+ */
+export const autoFormatDateInput = (
+  rawValue: string,
+  previousValue: string,
+): string => {
+  // Detect if user is deleting
+  const isDeleting = rawValue.length < previousValue.length;
+
+  // Only allow digits and slashes, normalize multiple slashes to single
+  let value = rawValue.replace(/[^0-9/]/g, '').replace(/\/+/g, '/');
+
+  // Limit to max 10 chars (MM/DD/YYYY)
+  value = value.slice(0, 10);
+
+  // Don't auto-insert slashes when deleting
+  if (isDeleting) {
+    return value;
+  }
+
+  // Auto-insert slash after MM (2 digits, no slash yet)
+  if (/^\d{2}$/.test(value)) {
+    value = value + '/';
+  }
+  // Auto-insert slash after MM/DD (5 chars with first slash)
+  else if (/^\d{2}\/\d{2}$/.test(value)) {
+    value = value + '/';
+  }
+
+  return value;
+};
+
 const MONTH_NAMES = [
   'January',
   'February',

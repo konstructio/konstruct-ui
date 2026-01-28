@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 
 import { SlideDirection } from '../CalendarPanel.types';
-import { SINGLE_MONTH_WIDTH } from '../constants';
+import { SINGLE_MONTH_WIDTH, MS_PER_MONTH } from '../constants';
 import {
   getWeeksInMonth,
   calculateCalendarHeight,
@@ -9,11 +9,11 @@ import {
   getNextMonth,
 } from '../utils';
 
-interface UseIndependentCarouselProps {
+export type UseIndependentCarouselProps = {
   displayedMonths: [Date, Date];
   animationDuration: number;
   navigationMode: 'together' | 'independent';
-}
+};
 
 export const useIndependentCarousel = ({
   displayedMonths,
@@ -46,7 +46,9 @@ export const useIndependentCarousel = ({
 
   // Sync left month with animation
   useEffect(() => {
-    if (navigationMode !== 'independent') return;
+    if (navigationMode !== 'independent') {
+      return;
+    }
 
     if (isFirstRenderLeft.current) {
       isFirstRenderLeft.current = false;
@@ -59,7 +61,7 @@ export const useIndependentCarousel = ({
 
       if (currentTime !== newTime) {
         const diff = newTime - currentTime;
-        const monthsDiff = Math.round(diff / (30 * 24 * 60 * 60 * 1000));
+        const monthsDiff = Math.round(diff / MS_PER_MONTH);
 
         if (Math.abs(monthsDiff) === 1) {
           const direction = monthsDiff > 0 ? 'left' : 'right';
@@ -75,7 +77,9 @@ export const useIndependentCarousel = ({
 
   // Sync right month with animation
   useEffect(() => {
-    if (navigationMode !== 'independent') return;
+    if (navigationMode !== 'independent') {
+      return;
+    }
 
     if (isFirstRenderRight.current) {
       isFirstRenderRight.current = false;
@@ -88,7 +92,7 @@ export const useIndependentCarousel = ({
 
       if (currentTime !== newTime) {
         const diff = newTime - currentTime;
-        const monthsDiff = Math.round(diff / (30 * 24 * 60 * 60 * 1000));
+        const monthsDiff = Math.round(diff / MS_PER_MONTH);
 
         if (Math.abs(monthsDiff) === 1) {
           const direction = monthsDiff > 0 ? 'left' : 'right';
@@ -135,6 +139,7 @@ export const useIndependentCarousel = ({
           if (leftCarouselRef.current) {
             void leftCarouselRef.current.offsetHeight;
           }
+
           setLeftInternalMonth((prev) => {
             if (leftSlideDirection === 'left') {
               return getNextMonth(prev);
@@ -142,6 +147,7 @@ export const useIndependentCarousel = ({
               return getPrevMonth(prev);
             }
           });
+
           setIsLeftAnimating(false);
           setLeftSlideDirection(null);
           setLeftAnimateTransform(false);
@@ -170,6 +176,7 @@ export const useIndependentCarousel = ({
           if (rightCarouselRef.current) {
             void rightCarouselRef.current.offsetHeight;
           }
+
           setRightInternalMonth((prev) => {
             if (rightSlideDirection === 'left') {
               return getNextMonth(prev);
@@ -177,6 +184,7 @@ export const useIndependentCarousel = ({
               return getPrevMonth(prev);
             }
           });
+
           setIsRightAnimating(false);
           setRightSlideDirection(null);
           setRightAnimateTransform(false);

@@ -8,12 +8,14 @@ import {
 } from 'react';
 
 import { FilterEvent, sendOpenFilterEvent } from '../../events';
+import { getLocale } from '../../utils';
 
 import { DateFilterDropdownProps } from './DateFilterDropdown.types';
 
 export const useDateFilterDropdown = ({
   onApply,
-}: Pick<DateFilterDropdownProps, 'onApply'>) => {
+  countryCode = 'US',
+}: Pick<DateFilterDropdownProps, 'onApply' | 'countryCode'>) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const id = useId();
   const [isOpen, setIsOpen] = useState(false);
@@ -22,12 +24,12 @@ export const useDateFilterDropdown = ({
 
   const appliedDayFormatted = useMemo(
     () =>
-      appliedDay?.toLocaleDateString('en-GB', {
+      appliedDay?.toLocaleDateString(getLocale(countryCode), {
         day: 'numeric',
         month: 'short',
         year: 'numeric',
       }),
-    [appliedDay],
+    [appliedDay, countryCode],
   );
 
   const handleOpen = useCallback(

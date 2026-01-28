@@ -29,7 +29,6 @@ export const Wrapper: FC<WrapperProps> = ({
   listClassName,
   listItemClassName,
   listItemButtonClassName,
-  listPosition,
   disabled,
   mode = 'select',
   showList = true,
@@ -329,7 +328,6 @@ export const Wrapper: FC<WrapperProps> = ({
             listClassName={listClassName}
             listItemClassName={listItemClassName}
             listItemButtonClassName={listItemButtonClassName}
-            listPosition={listPosition}
             onClose={() => setIsOpen(false)}
           />
         )}

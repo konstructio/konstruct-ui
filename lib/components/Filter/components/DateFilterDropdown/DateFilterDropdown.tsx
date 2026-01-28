@@ -16,6 +16,7 @@ import { DateFilterDropdownProps } from './DateFilterDropdown.types';
 export const DateFilterDropdown: FC<DateFilterDropdownProps> = ({
   label,
   position = 'left',
+  countryCode = 'US',
   onApply,
 }) => {
   const {
@@ -28,7 +29,7 @@ export const DateFilterDropdown: FC<DateFilterDropdownProps> = ({
     handleOpen,
     handleSelect,
     handleReset,
-  } = useDateFilterDropdown({ onApply });
+  } = useDateFilterDropdown({ onApply, countryCode });
 
   return (
     <div ref={wrapperRef} className="relative">

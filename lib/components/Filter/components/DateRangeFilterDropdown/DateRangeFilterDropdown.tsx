@@ -22,6 +22,7 @@ export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
   defaultRange,
   minDate,
   maxDate,
+  countryCode = 'US',
   onApply,
 }) => {
   const {
@@ -33,7 +34,7 @@ export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
     handleOpen,
     handleRangeChange,
     handleReset,
-  } = useDateRangeFilterDropdown({ defaultRange, onApply });
+  } = useDateRangeFilterDropdown({ defaultRange, onApply, countryCode });
 
   return (
     <div ref={wrapperRef} className="relative">

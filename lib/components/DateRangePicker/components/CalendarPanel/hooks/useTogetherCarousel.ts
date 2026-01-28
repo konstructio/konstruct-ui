@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 
 import { SlideDirection } from '../CalendarPanel.types';
-import { SINGLE_MONTH_WIDTH, GAP_WIDTH } from '../constants';
+import { SINGLE_MONTH_WIDTH, GAP_WIDTH, MS_PER_MONTH } from '../constants';
 import {
   getWeeksInMonth,
   calculateCalendarHeight,
@@ -9,7 +9,7 @@ import {
   getNextMonth,
 } from '../utils';
 
-interface UseTogetherCarouselProps {
+export type UseTogetherCarouselProps = {
   displayedMonths: [Date, Date];
   animationDuration: number;
   disabled: boolean;
@@ -18,7 +18,7 @@ interface UseTogetherCarouselProps {
   navigationMode: 'together' | 'independent';
   navigatePrevMonth: () => void;
   navigateNextMonth: () => void;
-}
+};
 
 export const useTogetherCarousel = ({
   displayedMonths,
@@ -82,7 +82,9 @@ export const useTogetherCarousel = ({
 
   // Sync with external displayedMonths changes
   useEffect(() => {
-    if (navigationMode === 'independent') return;
+    if (navigationMode === 'independent') {
+      return;
+    }
 
     if (isFirstRender.current) {
       isFirstRender.current = false;
@@ -95,7 +97,7 @@ export const useTogetherCarousel = ({
 
       if (currentTime !== newTime) {
         const diff = newTime - currentTime;
-        const monthsDiff = Math.round(diff / (30 * 24 * 60 * 60 * 1000));
+        const monthsDiff = Math.round(diff / MS_PER_MONTH);
 
         if (Math.abs(monthsDiff) === 1) {
           const direction = monthsDiff > 0 ? 'left' : 'right';
@@ -115,6 +117,7 @@ export const useTogetherCarousel = ({
       if (carouselRef.current) {
         void carouselRef.current.offsetHeight;
       }
+
       requestAnimationFrame(() => {
         setAnimateTransform(true);
       });
@@ -158,7 +161,10 @@ export const useTogetherCarousel = ({
 
   // Handle navigation
   const handlePrevMonth = useCallback(() => {
-    if (isAnimating || disabled || !canNavigatePrev) return;
+    if (isAnimating || disabled || !canNavigatePrev) {
+      return;
+    }
+
     setSlideDirection('right');
     setIsAnimating(true);
     setAnimateTransform(false);
@@ -166,7 +172,10 @@ export const useTogetherCarousel = ({
   }, [isAnimating, disabled, canNavigatePrev, navigatePrevMonth]);
 
   const handleNextMonth = useCallback(() => {
-    if (isAnimating || disabled || !canNavigateNext) return;
+    if (isAnimating || disabled || !canNavigateNext) {
+      return;
+    }
+
     setSlideDirection('left');
     setIsAnimating(true);
     setAnimateTransform(false);

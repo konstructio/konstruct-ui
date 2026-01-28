@@ -2,8 +2,8 @@ import { FC, useCallback, useMemo } from 'react';
 
 import { cn } from '@/utils';
 
-import { RadioGroup } from '../../../RadioGroup/RadioGroup';
-import { Typography } from '../../../Typography/Typography';
+import { RadioGroup } from '@/components/RadioGroup/RadioGroup';
+import { Typography } from '@/components/Typography/Typography';
 import { useDateRangePicker } from '../../contexts';
 import { DateRangePreset } from '../../DateRangePicker.types';
 import { PRESET_OPTIONS } from '../../utils';
