@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.2-alpha.53](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.53) (2026-01-28)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.52...0.1.2-alpha.53)
+
+**Merged pull requests:**
+
+- 📝 docs: update llms.txt with new component documentation [\#492](https://github.com/konstructio/konstruct-ui/pull/492) ([CristhianF7](https://github.com/CristhianF7))
+- ✨ feat: add custom icons export via @konstructio/ui/icons [\#491](https://github.com/konstructio/konstruct-ui/pull/491) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: some dependencies have been updated [\#490](https://github.com/konstructio/konstruct-ui/pull/490) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add Stepper component for multi-step processes [\#489](https://github.com/konstructio/konstruct-ui/pull/489) ([futjesus](https://github.com/futjesus))
+- feat: add input mode to TimePicker component [\#488](https://github.com/konstructio/konstruct-ui/pull/488) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add DateRangePicker component [\#482](https://github.com/konstructio/konstruct-ui/pull/482) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.52](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.52) (2026-01-22)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.51...0.1.2-alpha.52)
