@@ -21,7 +21,7 @@ import { HourListProps } from './HoursList.types';
 const HoursList: FC<HourListProps> = ({ hours, scrollBehavior }) => {
   const wrapperRef = useRef<HTMLUListElement>(null);
   const initialHoursRef = useRef<number>(hours);
-  const { format, onSelectHour } = useTimePickerContext();
+  const { format, isTyping, onSelectHour } = useTimePickerContext();
   const newHours = format === '12' ? (hours >= 12 ? hours - 12 : hours) : hours;
   const maxHours = format === '12' ? 12 : 24;
 
@@ -98,8 +98,10 @@ const HoursList: FC<HourListProps> = ({ hours, scrollBehavior }) => {
     }
   }, [format, scrollBehavior]);
 
-  // Scroll when hours value changes (e.g., while typing)
+  // Scroll when hours value changes (only while typing in input)
   useEffect(() => {
+    if (!isTyping) return;
+
     const wrapper = wrapperRef.current;
     const adjustedHours =
       format === '12' ? (hours >= 12 ? hours - 12 : hours) : hours;
@@ -115,7 +117,7 @@ const HoursList: FC<HourListProps> = ({ hours, scrollBehavior }) => {
         block: 'center',
       });
     }
-  }, [hours, format]);
+  }, [hours, format, isTyping]);
 
   if (format === '12') {
     const dataActive = newHours === 0 ? 12 : newHours;

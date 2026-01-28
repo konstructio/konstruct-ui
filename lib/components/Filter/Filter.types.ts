@@ -9,6 +9,7 @@ import { filterVariants } from './Filter.variants';
 import {
   BadgeMultiSelectProps,
   DateFilterDropdownProps,
+  DateRangeFilterDropdownProps,
   ResetButtonProps,
 } from './components';
 
@@ -59,5 +60,6 @@ export type FilterProps = VariantProps<typeof filterVariants> &
 export type FilterComponentProps = FC<FilterProps> & {
   BadgeMultiSelect: FC<BadgeMultiSelectProps>;
   DateFilterDropdown: FC<DateFilterDropdownProps>;
+  DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps>;
   ResetButton: FC<ResetButtonProps>;
 };

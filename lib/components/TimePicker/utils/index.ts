@@ -6,12 +6,12 @@ export const getFormattedTime = (time: Date, format: '12' | '24') => {
   return `${time.getHours().toString().padStart(2, '0')}:${time.getMinutes().toString().padStart(2, '0')}`;
 };
 
-export const getHours = (time: Date) => {
-  return time.getHours();
+export const getHours = (time: Date | undefined) => {
+  return time?.getHours() ?? -1;
 };
 
-export const getMinutes = (time: Date) => {
-  return time.getMinutes();
+export const getMinutes = (time: Date | undefined) => {
+  return time?.getMinutes() ?? -1;
 };
 
 /**
