@@ -1,0 +1,22 @@
+import { ColumnSort, SortingState, Table } from '@tanstack/react-table';
+import { Dispatch, SetStateAction } from '../../../../node_modules/react';
+import { RowData } from '../VirtualizedTable.types';
+export type ContextType<TData extends RowData = RowData> = {
+    sortedData: ColumnSort[];
+    table: Table<TData>;
+    pageSize: number;
+    tableFetching?: boolean;
+    tableLoading?: boolean;
+    totalItems?: number;
+    termOfSearch?: string;
+    page: number;
+    multiselectSelected?: Record<string, string[]>;
+    totalPages: number;
+    isFirstLoad: boolean;
+    handlePage: (newPage: number) => void;
+    onPageSize: (newPageSize: number) => void;
+    onSorting: Dispatch<SetStateAction<SortingState>>;
+    onChangeTermOfSearch: (term: string) => void;
+    onSelectMultiselect: (key: string, selectedValues: string[]) => void;
+};
+export declare const TableContext: import('../../../../node_modules/react').Context<ContextType<unknown>>;

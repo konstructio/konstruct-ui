@@ -1,0 +1,22 @@
+import { DayPickerClassNames } from '../CalendarPanel.types';
+export declare const createDayPickerClassNames: (custom?: DayPickerClassNames) => {
+    root: string;
+    months: string;
+    month: string;
+    month_caption: string;
+    nav: string;
+    day_button: string;
+    day: string;
+    selected: string;
+    range_start: string;
+    range_end: string;
+    range_middle: string;
+    table: string;
+    weekdays: string;
+    weeks: string;
+    weekday: string;
+    today: string;
+    month_grid: string;
+    disabled: string;
+    outside: string;
+};

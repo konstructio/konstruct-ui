@@ -1,0 +1,21 @@
+import { ComponentRef, Dispatch, RefObject, SetStateAction } from '../../../../node_modules/react';
+import { Option } from '../Select.types';
+export type SelectContextType = {
+    highlightSearchEnabled: boolean;
+    isOpen: boolean;
+    searchTerm: string;
+    value?: string;
+    canFilter: boolean;
+    canContinueFetching: boolean;
+    page: number;
+    options: Option[];
+    isTyping?: boolean;
+    setOptions: Dispatch<SetStateAction<Option[]>>;
+    setPage: Dispatch<SetStateAction<number>>;
+    setCanContinueFetching: Dispatch<SetStateAction<boolean>>;
+    setCanFilter: Dispatch<SetStateAction<boolean>>;
+    setSearchTerm: Dispatch<SetStateAction<string>>;
+    setValue: (value: string, inputRef?: RefObject<ComponentRef<'input'> | null>) => void;
+    toggleOpen: (value?: boolean) => void;
+};
+export declare const SelectContext: import('../../../../node_modules/react').Context<SelectContextType>;
