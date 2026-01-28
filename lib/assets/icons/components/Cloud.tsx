@@ -18,6 +18,6 @@ export const CloudIcon = forwardRef<SVGSVGElement, IconProps>(
   ),
 );
 
-CloudIcon.displayName = 'CloudIcon';
+CloudIcon.displayName = 'KonstructCloudIcon';
 
 export default CloudIcon;

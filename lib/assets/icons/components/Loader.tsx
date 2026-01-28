@@ -21,6 +21,6 @@ export const LoaderIcon = forwardRef<SVGSVGElement, IconProps>(
   ),
 );
 
-LoaderIcon.displayName = 'LoaderIcon';
+LoaderIcon.displayName = 'KonstructLoaderIcon';
 
 export default LoaderIcon;

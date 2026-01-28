@@ -18,6 +18,6 @@ export const ReceiptLongIcon = forwardRef<SVGSVGElement, IconProps>(
   ),
 );
 
-ReceiptLongIcon.displayName = 'ReceiptLongIcon';
+ReceiptLongIcon.displayName = 'KonstructReceiptLongIcon';
 
 export default ReceiptLongIcon;

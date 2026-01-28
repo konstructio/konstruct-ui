@@ -25,6 +25,6 @@ export const PagesStackIcon = forwardRef<SVGSVGElement, IconProps>(
   ),
 );
 
-PagesStackIcon.displayName = 'PagesStackIcon';
+PagesStackIcon.displayName = 'KonstructPagesStackIcon';
 
 export default PagesStackIcon;

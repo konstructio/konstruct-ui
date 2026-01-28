@@ -18,6 +18,6 @@ export const GridViewIcon = forwardRef<SVGSVGElement, IconProps>(
   ),
 );
 
-GridViewIcon.displayName = 'GridViewIcon';
+GridViewIcon.displayName = 'KonstructGridViewIcon';
 
 export default GridViewIcon;

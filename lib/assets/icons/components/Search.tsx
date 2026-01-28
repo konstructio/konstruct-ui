@@ -29,6 +29,6 @@ export const SearchIcon = forwardRef<SVGSVGElement, IconProps>(
   ),
 );
 
-SearchIcon.displayName = 'SearchIcon';
+SearchIcon.displayName = 'KonstructSearchIcon';
 
 export default SearchIcon;

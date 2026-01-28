@@ -18,6 +18,6 @@ export const ScatterPlotIcon = forwardRef<SVGSVGElement, IconProps>(
   ),
 );
 
-ScatterPlotIcon.displayName = 'ScatterPlotIcon';
+ScatterPlotIcon.displayName = 'KonstructScatterPlotIcon';
 
 export default ScatterPlotIcon;

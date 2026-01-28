@@ -25,6 +25,6 @@ export const HelpIcon = forwardRef<SVGSVGElement, IconProps>(
   ),
 );
 
-HelpIcon.displayName = 'HelpIcon';
+HelpIcon.displayName = 'KonstructHelpIcon';
 
 export default HelpIcon;

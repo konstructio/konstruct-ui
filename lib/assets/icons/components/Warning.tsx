@@ -23,6 +23,6 @@ export const WarningIcon = forwardRef<SVGSVGElement, IconProps>(
   ),
 );
 
-WarningIcon.displayName = 'WarningIcon';
+WarningIcon.displayName = 'KonstructWarningIcon';
 
 export default WarningIcon;

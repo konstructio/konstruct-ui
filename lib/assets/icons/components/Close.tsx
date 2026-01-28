@@ -21,6 +21,6 @@ export const CloseIcon = forwardRef<SVGSVGElement, IconProps>(
   ),
 );
 
-CloseIcon.displayName = 'CloseIcon';
+CloseIcon.displayName = 'KonstructCloseIcon';
 
 export default CloseIcon;
