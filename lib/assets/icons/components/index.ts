@@ -8,4 +8,6 @@ export { PhotoLibraryIcon } from './PhotoLibrary';
 export { ReceiptLongIcon } from './ReceiptLong';
 export { ScatterPlotIcon } from './ScatterPlot';
 export { SearchIcon } from './Search';
-export { Warning as WarningIcon } from './Warning';
+export { WarningIcon } from './Warning';
+
+export type { IconProps, IconComponent } from './types';

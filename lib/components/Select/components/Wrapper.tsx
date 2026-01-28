@@ -12,7 +12,7 @@ import {
   useRef,
 } from 'react';
 
-import Loader from '@/assets/icons/loader.svg';
+import { LoaderIcon } from '@/assets/icons/components';
 import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
 
@@ -231,7 +231,10 @@ export const Wrapper: ForwardRefExoticComponent<
           </div>
 
           {isLoading ? (
-            <Loader className="w-4 h-4 text-metal-400 animate-spin select-none" />
+            <LoaderIcon
+              size={16}
+              className="text-metal-400 animate-spin select-none"
+            />
           ) : (
             !showSearchIcon && (
               <ChevronUp

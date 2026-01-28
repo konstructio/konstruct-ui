@@ -3,10 +3,12 @@ import debounce from 'lodash/debounce';
 import { useEffect, useState } from 'react';
 import { Star } from 'react-feather';
 
-import CloudIcon from '@/assets/icons/cloud.svg';
-import PhotoLibraryIcon from '@/assets/icons/photo-library.svg';
-import ReceiptLongIcon from '@/assets/icons/receipt-long.svg';
-import ScatterPlotIcon from '@/assets/icons/scatter-plot.svg';
+import {
+  CloudIcon,
+  PhotoLibraryIcon,
+  ReceiptLongIcon,
+  ScatterPlotIcon,
+} from '@/assets/icons/components';
 import { Theme } from '@/domain/theme';
 
 import { Typography } from '../Typography/Typography';

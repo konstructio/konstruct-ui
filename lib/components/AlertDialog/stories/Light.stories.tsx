@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Check } from 'lucide-react';
 
-import WarningIcon from '@/assets/icons/warning.svg';
+import { WarningIcon } from '@/assets/icons/components';
 import { Checkbox } from '@/components/Checkbox/Checkbox';
 import { Typography } from '@/components/Typography/Typography';
 

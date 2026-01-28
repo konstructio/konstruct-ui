@@ -2,7 +2,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { Image as ImageIcon, X } from 'lucide-react';
 
-import Loader from '@/assets/icons/loader.svg';
+import { LoaderIcon } from '@/assets/icons/components';
 import { Button } from '@/components/Button/Button';
 import { WarningIcon } from '@/assets/icons/components';
 import { cn } from '@/utils';
@@ -204,7 +204,10 @@ const ImageUpload = ({
         >
           {currentStatus === ImageUploadStatus.Uploading && (
             <>
-              <Loader className="w-5 h-5 shrink-0 animate-spin text-metal-400" />
+              <LoaderIcon
+                size={20}
+                className="shrink-0 animate-spin text-metal-400"
+              />
               {currentFileName && (
                 <div className="flex flex-col items-start min-w-0 flex-1">
                   <p className="text-sm leading-5 truncate w-full text-slate-800 dark:text-metal-50">

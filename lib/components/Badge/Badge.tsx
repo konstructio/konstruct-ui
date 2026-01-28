@@ -1,7 +1,7 @@
 import { X } from 'lucide-react';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 
-import Loader from '@/assets/icons/loader.svg';
+import { LoaderIcon } from '@/assets/icons/components';
 import { cn } from '@/utils';
 
 import { BadgeProps } from './Badge.types';
@@ -95,7 +95,10 @@ export const Badge: FC<BadgeProps> = ({
       data-state={isVisible}
     >
       {loading && (
-        <Loader className="h-3 w-3 animate-spin animate-duration-time-2" />
+        <LoaderIcon
+          size={12}
+          className="animate-spin animate-duration-time-2"
+        />
       )}
 
       {leftIcon ? <Slot className="h-3 w-3">{leftIcon}</Slot> : null}
