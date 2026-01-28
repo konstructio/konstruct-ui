@@ -1,0 +1,26 @@
+import { forwardRef } from 'react';
+
+import { IconProps } from './types';
+
+export const CloseIcon = forwardRef<SVGSVGElement, IconProps>(
+  ({ size = 24, color = 'currentColor', ...props }, ref) => (
+    <svg
+      ref={ref}
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 9 9"
+      fill="none"
+      {...props}
+    >
+      <path
+        d="M8.16667 0.8225L7.34417 0L4.08333 3.26083L0.8225 0L0 0.8225L3.26083 4.08333L0 7.34417L0.8225 8.16667L4.08333 4.90583L7.34417 8.16667L8.16667 7.34417L4.90583 4.08333L8.16667 0.8225Z"
+        fill={color}
+      />
+    </svg>
+  ),
+);
+
+CloseIcon.displayName = 'KonstructCloseIcon';
+
+export default CloseIcon;

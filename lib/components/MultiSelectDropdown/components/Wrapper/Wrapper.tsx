@@ -2,7 +2,7 @@ import { X } from 'lucide-react';
 import { FC, forwardRef, useId, useImperativeHandle } from 'react';
 import { ChevronUp } from 'react-feather';
 
-import { Loader } from '@/assets/icons';
+import { LoaderIcon } from '@/assets/icons/components';
 import { Badge } from '@/components/Badge/Badge';
 import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
@@ -108,7 +108,10 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
           )}
 
           {isLoading ? (
-            <Loader className="w-4 h-4 animate-spin shrink-0 text-gray-400" />
+            <LoaderIcon
+              size={16}
+              className="animate-spin shrink-0 text-gray-400"
+            />
           ) : (
             <ChevronUp
               className={cn(

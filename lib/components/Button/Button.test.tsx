@@ -1,4 +1,4 @@
-import HelpIcon from '@/assets/icons/help.svg';
+import { HelpIcon } from '@/assets/icons/components';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 

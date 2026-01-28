@@ -25,7 +25,6 @@ export default defineConfig({
       include: ['lib'],
       exclude: ['**/*.stories.(ts|js|tsx|jsx)', '**/*.test.(ts|js|tsx|jsx)'],
       insertTypesEntry: true,
-      rollupTypes: true,
     }),
   ],
   build: {

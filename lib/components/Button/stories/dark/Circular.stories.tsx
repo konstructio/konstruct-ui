@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import PagesStackIcon from '@/assets/icons/pages-stack.svg';
+import { PagesStackIcon } from '@/assets/icons/components';
 
 import { Button } from '../../Button';
 
