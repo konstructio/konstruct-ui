@@ -599,27 +599,159 @@ import { DatePicker } from '@konstructio/ui';
 
 ---
 
+## DateRangePicker
+
+Date range selection component with optional time inputs and preset options.
+
+```tsx
+import { DateRangePicker } from '@konstructio/ui';
+
+// Basic usage
+<DateRangePicker
+  label="Select date range"
+  onRangeChange={(range) => console.log(range)}
+/>
+
+// With default values
+<DateRangePicker
+  defaultRange={{ from: new Date('2024-01-01'), to: new Date('2024-01-31') }}
+  defaultPreset="last-7-days"
+  onRangeChange={handleRangeChange}
+/>
+
+// With 12-hour time format
+<DateRangePicker
+  timeFormat="12"
+  onRangeChange={handleRangeChange}
+/>
+
+// Without time inputs
+<DateRangePicker
+  showTime={false}
+  onRangeChange={handleRangeChange}
+/>
+
+// Without preset panel
+<DateRangePicker
+  showPresets={false}
+  onRangeChange={handleRangeChange}
+/>
+
+// With date restrictions
+<DateRangePicker
+  minDate={new Date('2024-01-01')}
+  maxDate={new Date('2024-12-31')}
+  blockedDays={[new Date('2024-06-15')]}
+  onRangeChange={handleRangeChange}
+/>
+
+// Navigation modes
+<DateRangePicker
+  navigationMode="together"  // Both months navigate together
+  onRangeChange={handleRangeChange}
+/>
+```
+
+**Props:**
+- `label`: string
+- `isRequired`: boolean
+- `name`: string - Form field name (creates hidden inputs: {name}-start, {name}-end)
+- `defaultRange`: { from?: Date, to?: Date }
+- `defaultTime`: { start?: string, end?: string }
+- `defaultPreset`: 'custom' | 'last-7-days' | 'last-30-days' | 'last-3-months' | 'last-12-months'
+- `onRangeChange`: (range: DateRangeWithTime) => void
+- `onDateChange`: (range: DateRange) => void
+- `timeFormat`: '12' | '24' (default: '24')
+- `showTime`: boolean (default: true)
+- `showPresets`: boolean (default: true)
+- `disabled`: boolean
+- `theme`: Theme
+- `minDate`: Date
+- `maxDate`: Date
+- `blockedDays`: Date[]
+- `blockedMonths`: { year: number, month: number }[]
+- `navigationMode`: 'independent' | 'together' (default: 'independent')
+- `animationDuration`: number (ms, default: 500)
+- `showOutsideDays`: boolean
+- `hideDisabledNavigation`: boolean
+- `classNames`: DateRangePickerClassNames - Custom class names for styling
+
+**Label Props:**
+- `labelStartDate`: string (default: 'Start date')
+- `labelEndDate`: string (default: 'End date')
+- `labelTime`: string (default: 'Time')
+- `labelTimePeriod`: string (default: 'Time period')
+- `presetLabels`: PresetLabels - Custom labels for preset options
+
+**Error Messages:**
+- `errorInvalidDate`: string (default: 'Invalid date')
+- `errorDateNotAvailable`: string (default: 'Date is not available')
+
+---
+
 ## TimePicker
 
-Time selection component.
+Time selection component with scrollable dropdown or input mode.
 
 ```tsx
 import { TimePicker } from '@konstructio/ui';
 
-// 12-hour format (default)
-<TimePicker name="time-12" label="Time 12 format" isRequired />
+// 12-hour format
+<TimePicker name="time-12" label="Time 12 format" format="12" isRequired />
 
-// 24-hour format
+// 24-hour format (default)
 <TimePicker name="time-24" label="Time 24 format" format="24" isRequired />
+
+// Input mode (type time directly)
+<TimePicker
+  name="time-input"
+  label="Type your time"
+  mode="input"
+  placeholder="HH:MM"
+/>
+
+// Select mode with hidden list (input only)
+<TimePicker
+  name="time-select"
+  label="Select time"
+  mode="select"
+  showList={false}
+/>
+
+// With initial time
+<TimePicker
+  name="time"
+  label="Meeting time"
+  time={new Date()}
+  onChange={(time) => console.log(time)}
+/>
+
+// Dropdown opens upward
+<TimePicker
+  name="time"
+  label="Time"
+  listPosition="top"
+/>
 ```
 
 **Props:**
 - `name`: string
 - `label`: string
-- `format`: '12' | '24'
+- `format`: '12' | '24' (default: '24')
+- `mode`: 'select' | 'input' (default: 'select')
+- `showList`: boolean (default: true)
+- `time`: Date
+- `onChange`: (time: Date) => void
 - `isRequired`: boolean
-- `value`: string
-- `onChange`: (value: string) => void
+- `disabled`: boolean
+- `error`: string
+- `placeholder`: string
+- `listPosition`: 'top' | 'bottom' (default: 'bottom')
+- `scrollBehavior`: 'smooth' | 'auto'
+- `className`: string
+- `listClassName`: string
+- `listItemClassName`: string
+- `listItemButtonClassName`: string
 
 ---
 
@@ -1528,6 +1660,132 @@ import { ProgressBar } from '@konstructio/ui';
 - `label`: string
 - `percent`: number (0-100)
 - `status`: 'progress' | 'success'
+
+---
+
+## Stepper
+
+Multi-step process indicator with various layouts and states.
+
+```tsx
+import { Stepper } from '@konstructio/ui';
+
+// Basic vertical stepper (inline variant)
+<Stepper
+  steps={[
+    { id: 1, label: 'Select platform', status: 'completed' },
+    { id: 2, label: 'Set up cluster', status: 'active' },
+    { id: 3, label: 'Preparing', status: 'pending' },
+  ]}
+/>
+
+// Auto-calculated statuses with currentStep
+<Stepper
+  steps={[
+    { id: 1, label: 'Step 1' },
+    { id: 2, label: 'Step 2' },
+    { id: 3, label: 'Step 3' },
+  ]}
+  currentStep={1}
+/>
+
+// Stacked variant (text below indicator)
+<Stepper
+  variant="stacked"
+  steps={[
+    { id: 1, label: 'Step 1', status: 'completed' },
+    { id: 2, label: 'Step 2', status: 'active' },
+    { id: 3, label: 'Step 3', status: 'pending' },
+  ]}
+/>
+
+// Horizontal stepper
+<Stepper
+  variant="horizontal"
+  steps={[
+    { id: 1, label: 'Step 1', status: 'completed' },
+    { id: 2, label: 'Step 2', status: 'active' },
+    { id: 3, label: 'Step 3', status: 'pending' },
+  ]}
+/>
+
+// With descriptions
+<Stepper
+  steps={[
+    { id: 1, label: 'Account', description: 'Create your account', status: 'completed' },
+    { id: 2, label: 'Profile', description: 'Set up your profile', status: 'active' },
+    { id: 3, label: 'Verify', description: 'Verify your email', status: 'pending' },
+  ]}
+/>
+
+// Clickable stepper
+<Stepper
+  clickable
+  steps={[
+    { id: 1, label: 'Step 1', status: 'completed' },
+    { id: 2, label: 'Step 2', status: 'active' },
+    { id: 3, label: 'Step 3', status: 'pending' },
+  ]}
+  onStepClick={(step, index) => console.log('Clicked:', step, index)}
+/>
+
+// With error state
+<Stepper
+  steps={[
+    { id: 1, label: 'Step 1', status: 'completed' },
+    { id: 2, label: 'Step 2', status: 'error' },
+    { id: 3, label: 'Step 3', status: 'pending' },
+  ]}
+/>
+
+// Different sizes
+<Stepper size="sm" steps={steps} />
+<Stepper size="md" steps={steps} />
+<Stepper size="lg" steps={steps} />
+
+// Custom icons
+<Stepper
+  steps={steps}
+  icons={{
+    completed: <CheckIcon />,
+    error: <XIcon />,
+  }}
+/>
+```
+
+**Props:**
+- `steps`: Step[] - Array of step objects (required)
+- `currentStep`: number - 0-based index for auto-calculated statuses
+- `variant`: 'inline' | 'stacked' | 'horizontal' (default: 'inline')
+- `orientation`: 'vertical' | 'horizontal' (default: 'vertical')
+- `size`: 'sm' | 'md' | 'lg' (default: 'sm')
+- `clickable`: boolean (default: false)
+- `showConnector`: boolean (default: true)
+- `theme`: Theme
+- `onStepClick`: (step: Step, index: number) => void
+- `icons`: { completed?: ReactNode, error?: ReactNode }
+- `className`: string
+- `classNames`: StepperClassNames - Custom class names for styling
+
+**Step Object:**
+- `id`: string | number (required)
+- `label`: string | ReactNode
+- `description`: string
+- `status`: 'completed' | 'active' | 'pending' | 'error'
+- `disabled`: boolean
+- `onClick`: () => void
+
+**StepperClassNames:**
+- `root`: string - Nav element
+- `list`: string - Ol element
+- `item`: string - Li elements
+- `indicator`: string - Step circle
+- `indicatorContent`: string - Content inside indicator
+- `content`: string - Label + description wrapper
+- `label`: string - Step label
+- `description`: string - Step description
+- `connector`: string - Connector line
+- `stepWrapper`: string - Indicator + content wrapper
 
 ---
 

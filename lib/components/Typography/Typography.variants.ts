@@ -12,7 +12,12 @@ export const typographyVariants = cva(
         h5: ['text-[28px]', 'leading-9'],
         h6: ['text-2xl', 'font-medium', 'leading-8', 'tracking-[0.15px]'],
         subtitle1: ['text-[22px]', 'leading-7'],
-        subtitle2: ['text-sm', 'font-medium', 'leading-6', 'tracking-[0.15px]'],
+        subtitle2: [
+          'text-[16px]',
+          'font-medium',
+          'leading-6',
+          'tracking-[0.15px]',
+        ],
         subtitle3: [
           'text-[14px]',
           'font-medium',
