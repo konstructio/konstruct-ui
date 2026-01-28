@@ -1,8 +1,7 @@
-'use client';
 import { useEffect, useId, useRef, useState } from 'react';
-import { Image as ImageIcon, X } from 'lucide-react';
+import { X } from 'lucide-react';
 
-import { LoaderIcon } from '@/assets/icons/components';
+import { LoaderIcon, PhotoLibraryIcon } from '@/assets/icons/components';
 import { Button } from '@/components/Button/Button';
 import { WarningIcon } from '@/assets/icons/components';
 import { cn } from '@/utils';
@@ -250,7 +249,7 @@ const ImageUpload = ({
           {(currentStatus === ImageUploadStatus.Default ||
             (currentStatus === ImageUploadStatus.Error && !currentFileUrl)) && (
             <div className="w-8 h-8 shrink-0 flex items-center justify-center">
-              <ImageIcon className="w-8 h-8 text-slate-400 dark:text-slate-500 kubefirst-dark:text-slate-500" />
+              <PhotoLibraryIcon className="w-8 h-8 text-slate-400 dark:text-slate-500 kubefirst-dark:text-slate-500" />
             </div>
           )}
 
