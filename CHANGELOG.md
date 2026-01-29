@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.54](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.54) (2026-01-29)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.53...0.1.2-alpha.54)
+
+**Merged pull requests:**
+
+- 🐛 fix: add typesVersions and export all custom icons [\#493](https://github.com/konstructio/konstruct-ui/pull/493) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.53](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.53) (2026-01-28)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.52...0.1.2-alpha.53)
