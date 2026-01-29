@@ -2,14 +2,16 @@
   "name": "@konstructio/ui",
   "description": "A set of reusable and customizable React components built for konstruct.io",
   "private": false,
-  "version": "0.1.2-alpha.53",
+  "version": "0.1.2-alpha.54",
   "type": "module",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "typesVersions": {
     "*": {
-      "icons": ["dist/icons.d.ts"]
+      "icons": [
+        "dist/icons.d.ts"
+      ]
     }
   },
   "exports": {
