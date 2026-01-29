@@ -22,7 +22,8 @@ const months = [
 ];
 
 describe('DatePicker', () => {
-  const currentMonth = new Date();
+  // Use a fixed date to avoid month overflow issues (e.g., Jan 31 -> Feb 31 rolls to March)
+  const currentMonth = new Date(2026, 0, 15); // January 15, 2026
 
   const defaultProps = {
     onSelect: vi.fn(),
