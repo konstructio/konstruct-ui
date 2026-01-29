@@ -1,0 +1,22 @@
+import{j as o}from"./iframe-RzY5nVzv.js";import{D as r}from"./DateRangePicker-MoOhAg1p.js";import"./preload-helper-PPVm8Dsz.js";import"./index-B-7A89sm.js";import"./Typography-D8nXtpye.js";import"./RadioGroup-nKK3Yeii.js";import"./index-CmRggxv1.js";import"./index-D4GvNxec.js";import"./Radio-DY2WhrAT.js";import"./Input-CIqsZfaw.js";import"./Warning-DIjv9pwl.js";import"./index-BYWd0px6.js";import"./TimePicker-D4eI7h2F.js";import"./createLucideIcon-DCEbnp4V.js";import"./style-CUnW5gH3.js";import"./chevron-right-BGsVfReT.js";const f={title:"In Review/DateRangePicker/Dark",component:r},a={parameters:{theme:"dark"},render:()=>o.jsx(r,{defaultRange:{from:new Date(new Date().getFullYear(),new Date().getMonth(),10),to:new Date(new Date().getFullYear(),new Date().getMonth(),20)},defaultTime:{startTime:new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate(),9,10),endTime:new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate(),17,30)},minDate:new Date(new Date().getFullYear(),new Date().getMonth(),1),showOutsideDays:!0,onRangeChange:e=>console.log("Range changed:",e)})},t={parameters:{theme:"dark"},render:()=>o.jsx(r,{showTime:!1,onRangeChange:e=>console.log("Range changed:",e)})},n={parameters:{theme:"dark"},render:()=>o.jsx(r,{navigationMode:"together",onRangeChange:e=>console.log("Range changed:",e)})};a.parameters={...a.parameters,docs:{...a.parameters?.docs,source:{originalSource:`{
+  parameters: {
+    theme: 'dark'
+  },
+  render: () => <DateRangePicker defaultRange={{
+    from: new Date(new Date().getFullYear(), new Date().getMonth(), 10),
+    to: new Date(new Date().getFullYear(), new Date().getMonth(), 20)
+  }} defaultTime={{
+    startTime: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 9, 10),
+    endTime: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 17, 30)
+  }} minDate={new Date(new Date().getFullYear(), new Date().getMonth(), 1)} showOutsideDays onRangeChange={range => console.log('Range changed:', range)} />
+}`,...a.parameters?.docs?.source}}};t.parameters={...t.parameters,docs:{...t.parameters?.docs,source:{originalSource:`{
+  parameters: {
+    theme: 'dark'
+  },
+  render: () => <DateRangePicker showTime={false} onRangeChange={range => console.log('Range changed:', range)} />
+}`,...t.parameters?.docs?.source}}};n.parameters={...n.parameters,docs:{...n.parameters?.docs,source:{originalSource:`{
+  parameters: {
+    theme: 'dark'
+  },
+  render: () => <DateRangePicker navigationMode="together" onRangeChange={range => console.log('Range changed:', range)} />
+}`,...n.parameters?.docs?.source}}};const F=["WithTime","WithoutTime","Corousel"];export{n as Corousel,a as WithTime,t as WithoutTime,F as __namedExportsOrder,f as default};
