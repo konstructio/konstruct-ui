@@ -46,6 +46,12 @@ export const buttonVariants = cva(
           'text-white',
           'hover:bg-red-800',
           'hover:border-red-800',
+          'dark:bg-transparent',
+          'dark:border-rose-400',
+          'dark:text-rose-400',
+          'dark:hover:bg-rose-950',
+          'dark:hover:border-rose-400',
+          'dark:focus-visible:bg-rose-950',
         ],
         link: [
           'bg-transparent',
@@ -250,6 +256,8 @@ export const buttonVariants = cva(
           'dark:focus-visible:text-red-500',
           'dark:hover:bg-red-950/55',
           'dark:focus-visible:bg-red-950/55',
+          'dark:hover:border-red-950/55',
+          'dark:border-transparent',
         ],
       },
       {
