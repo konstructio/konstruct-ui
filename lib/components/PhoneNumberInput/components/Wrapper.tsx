@@ -53,7 +53,8 @@ export const Wrapper: ForwardRefExoticComponent<
     },
     ref,
   ) => {
-    const id = name ?? useId();
+    const generatedId = useId();
+    const id = name ?? generatedId;
     const wrapperRef = useRef<ComponentRef<'div'>>(null);
     const {
       isOpenSelector,
