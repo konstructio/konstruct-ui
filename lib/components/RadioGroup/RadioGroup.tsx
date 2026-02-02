@@ -47,20 +47,25 @@ export const RadioGroup: FC<RadioGroupProps> = ({
   name,
   options,
   theme,
+  value,
   wrapperClassName,
   onValueChange,
 }) => {
   const Component = asChild ? Slot : 'div';
-  const [selected, setSelected] = useState<string | undefined>(
+  const isControlled = value !== undefined;
+  const [internalSelected, setInternalSelected] = useState<string | undefined>(
     () => defaultChecked,
   );
+  const selected = isControlled ? value : internalSelected;
 
   const handleSelected = useCallback(
-    (value: string) => {
-      setSelected(value);
-      onValueChange?.(value);
+    (newValue: string) => {
+      if (!isControlled) {
+        setInternalSelected(newValue);
+      }
+      onValueChange?.(newValue);
     },
-    [onValueChange],
+    [isControlled, onValueChange],
   );
 
   return (

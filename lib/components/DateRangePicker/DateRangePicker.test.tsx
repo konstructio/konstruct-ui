@@ -731,10 +731,7 @@ describe('DateRangePicker', () => {
       expect(mockOnRangeChange).toHaveBeenCalled();
     });
 
-    // Note: This test is skipped because the RadioGroup in PresetPanel uses
-    // `defaultChecked` instead of controlled `value`, so it doesn't update
-    // when the preset state changes from context. This is a known limitation.
-    it.skip('should switch to Custom preset when selecting dates on calendar', async () => {
+    it('should switch to Custom preset when selecting dates on calendar', async () => {
       const { selectPreset, clickDay, getPresetRadio } = setup();
 
       // First select Today preset
