@@ -69,7 +69,7 @@ export const PresetPanel: FC<PresetPanelProps> = ({
       <RadioGroup
         name="date-range-preset"
         options={radioOptions}
-        defaultChecked={preset}
+        value={preset}
         onValueChange={handlePresetChange}
         direction="col"
         wrapperClassName={cn('gap-4 pl-2', classNames?.radioGroup)}
