@@ -23,7 +23,7 @@ export interface RadioGroupProps {
     asChild?: boolean;
     /** CSS classes for each radio option */
     className?: RadioProps['className'];
-    /** Initially selected value */
+    /** Initially selected value (uncontrolled mode) */
     defaultChecked?: string;
     /** Layout direction (row or col) */
     direction?: 'row' | 'col';
@@ -35,6 +35,8 @@ export interface RadioGroupProps {
     options: Omit<RadioProps, 'name' | 'checked' | 'defaultChecked'>[];
     /** Theme override for this component */
     theme?: Theme;
+    /** Currently selected value (controlled mode) */
+    value?: string;
     /** CSS classes for the wrapper */
     wrapperClassName?: string;
     /** Callback when selection changes */
