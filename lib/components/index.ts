@@ -18,6 +18,7 @@ export type {
   TimeRange,
 } from './DateRangePicker/DateRangePicker.types';
 export * from './Divider/Divider';
+export * from './Drawer/Drawer';
 export * from './DropdownButton/DropdownButton';
 export * from './Filter/Filter';
 export * from './ImageUpload/ImageUpload';
