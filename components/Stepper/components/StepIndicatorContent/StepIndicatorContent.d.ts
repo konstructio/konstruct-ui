@@ -1,3 +1,2 @@
-import { FC } from '../../../../../node_modules/react';
 import { Props } from './StepIndicatorContent.types';
-export declare const StepIndicatorContent: FC<Props>;
+export declare const StepIndicatorContent: import('../../../../../node_modules/react').NamedExoticComponent<Props>;

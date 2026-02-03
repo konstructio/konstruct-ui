@@ -1,3 +1,2 @@
-import { FC } from '../../../../../node_modules/react';
 import { Props } from './StepConnector.types';
-export declare const StepConnector: FC<Props>;
+export declare const StepConnector: import('../../../../../node_modules/react').NamedExoticComponent<Props>;

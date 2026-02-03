@@ -1,3 +1,2 @@
-import { FC } from '../../../../../node_modules/react';
 import { Props } from './VerticalStepItem.types';
-export declare const VerticalStepItem: FC<Props>;
+export declare const VerticalStepItem: import('../../../../../node_modules/react').NamedExoticComponent<Props>;
