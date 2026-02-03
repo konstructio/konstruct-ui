@@ -1,11 +1,11 @@
-import type { FC } from 'react';
+import { memo, type FC } from 'react';
 
 import { HorizontalStepItem } from '../HorizontalStepItem/HorizontalStepItem';
 import { VerticalStepItem } from '../VerticalStepItem/VerticalStepItem';
 
 import type { Props } from './StepItem.types';
 
-export const StepItem: FC<Props> = (props) => {
+const StepItemBase: FC<Props> = (props) => {
   // Horizontal variant always uses horizontal layout
   if (props.orientation === 'horizontal' || props.variant === 'horizontal') {
     return <HorizontalStepItem {...props} />;
@@ -13,3 +13,5 @@ export const StepItem: FC<Props> = (props) => {
 
   return <VerticalStepItem {...props} />;
 };
+
+export const StepItem = memo(StepItemBase);

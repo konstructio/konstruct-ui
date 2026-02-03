@@ -1,12 +1,14 @@
 import { Check } from 'lucide-react';
-import type { FC } from 'react';
+import { memo, type FC } from 'react';
 
 import { ExclamationIcon } from '@/assets/icons/components';
 import { cn } from '@/utils';
 
+import { CHECK_ICON_SIZE_MAP, ICON_SIZE_MAP } from '../../constants';
+
 import type { Props } from './StepIndicatorContent.types';
 
-export const StepIndicatorContent: FC<Props> = ({
+const StepIndicatorContentBase: FC<Props> = ({
   className,
   icons,
   index,
@@ -17,14 +19,9 @@ export const StepIndicatorContent: FC<Props> = ({
     if (icons?.completed) {
       return <span className={className}>{icons.completed}</span>;
     }
-    const checkSizeMap = {
-      sm: 'h-3 w-3',
-      md: 'h-4 w-4',
-      lg: 'h-6 w-6',
-    };
     return (
       <Check
-        className={cn(checkSizeMap[size], className)}
+        className={cn(CHECK_ICON_SIZE_MAP[size], className)}
         strokeWidth={2.5}
         aria-hidden="true"
       />
@@ -35,12 +32,7 @@ export const StepIndicatorContent: FC<Props> = ({
     if (icons?.error) {
       return <span className={className}>{icons.error}</span>;
     }
-    const iconSizeMap = {
-      sm: 'sm' as const,
-      md: 'md' as const,
-      lg: 'lg' as const,
-    };
-    return <ExclamationIcon size={iconSizeMap[size]} className={className} />;
+    return <ExclamationIcon size={ICON_SIZE_MAP[size]} className={className} />;
   }
 
   return (
@@ -49,3 +41,5 @@ export const StepIndicatorContent: FC<Props> = ({
     </span>
   );
 };
+
+export const StepIndicatorContent = memo(StepIndicatorContentBase);
