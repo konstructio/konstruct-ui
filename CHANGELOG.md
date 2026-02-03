@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.1.2-alpha.55](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.55) (2026-02-03)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.54...0.1.2-alpha.55)
+
+**Merged pull requests:**
+
+- ⚡ perf: optimize Stepper component performance [\#506](https://github.com/konstructio/konstruct-ui/pull/506) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add Drawer component [\#505](https://github.com/konstructio/konstruct-ui/pull/505) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add ButtonGroup component with performance optimizations [\#504](https://github.com/konstructio/konstruct-ui/pull/504) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add dark mode stories for Button danger alternate variants [\#503](https://github.com/konstructio/konstruct-ui/pull/503) ([futjesus](https://github.com/futjesus))
+- 🐛 fix: add controlled mode support to RadioGroup [\#502](https://github.com/konstructio/konstruct-ui/pull/502) ([futjesus](https://github.com/futjesus))
+- ⬆️  chore: upgrade node version [\#501](https://github.com/konstructio/konstruct-ui/pull/501) ([futjesus](https://github.com/futjesus))
+- 🎨 fix: add dark mode styles for Button danger variants [\#500](https://github.com/konstructio/konstruct-ui/pull/500) ([futjesus](https://github.com/futjesus))
+- ⬆️ chore: update major dependencies [\#499](https://github.com/konstructio/konstruct-ui/pull/499) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.54](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.54) (2026-01-29)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.53...0.1.2-alpha.54)
