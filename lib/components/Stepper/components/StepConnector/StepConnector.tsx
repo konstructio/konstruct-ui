@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { memo, type FC } from 'react';
 
 import { cn } from '@/utils';
 
@@ -6,7 +6,7 @@ import { stepConnectorVariants } from '../../Stepper.variants';
 
 import type { Props } from './StepConnector.types';
 
-export const StepConnector: FC<Props> = ({
+const StepConnectorBase: FC<Props> = ({
   className,
   orientation,
   size,
@@ -27,3 +27,5 @@ export const StepConnector: FC<Props> = ({
     aria-hidden="true"
   />
 );
+
+export const StepConnector = memo(StepConnectorBase);

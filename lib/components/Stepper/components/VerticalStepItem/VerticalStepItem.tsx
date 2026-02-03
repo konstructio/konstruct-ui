@@ -1,8 +1,8 @@
-import { Slot } from '@radix-ui/react-slot';
-import type { FC, KeyboardEvent } from 'react';
+import { memo, type FC } from 'react';
 
 import { cn } from '@/utils';
 
+import { useStepItemLogic } from '../../hooks';
 import {
   stepContentVariants,
   stepDescriptionVariants,
@@ -10,12 +10,13 @@ import {
   stepLabelVariants,
   stepVariants,
 } from '../../Stepper.variants';
+import { getStepAriaLabel } from '../../utils';
 import { StepConnector } from '../StepConnector/StepConnector';
 import { StepIndicatorContent } from '../StepIndicatorContent/StepIndicatorContent';
 
 import type { Props } from './VerticalStepItem.types';
 
-export const VerticalStepItem: FC<Props> = ({
+const VerticalStepItemBase: FC<Props> = ({
   classNames,
   clickable,
   icons,
@@ -27,28 +28,14 @@ export const VerticalStepItem: FC<Props> = ({
   variant,
   onClick,
 }) => {
-  const status = step.status ?? 'pending';
-  const isDisabled = step.disabled || status === 'active';
-  const hasCallback = Boolean(step.onClick || onClick);
-  const isClickable = clickable && !isDisabled && hasCallback;
-  const LabelComponent = typeof step.label === 'string' ? 'span' : Slot;
-
-  const handleClick = () => {
-    if (!isClickable) return;
-    if (step.onClick) {
-      step.onClick();
-    } else if (onClick) {
-      onClick();
-    }
-  };
-
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (!isClickable) return;
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      handleClick();
-    }
-  };
+  const {
+    isClickable,
+    isDisabled,
+    LabelComponent,
+    status,
+    handleClick,
+    handleKeyDown,
+  } = useStepItemLogic({ clickable, step, onClick });
 
   const wrapperClass =
     variant === 'stacked' ? 'flex flex-col items-center' : 'flex flex-col';
@@ -69,8 +56,8 @@ export const VerticalStepItem: FC<Props> = ({
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         aria-current={status === 'active' ? 'step' : undefined}
-        aria-disabled={isDisabled || undefined}
-        aria-label={`Step ${index + 1}${typeof step.label === 'string' ? `: ${step.label}` : ''}${status === 'completed' ? ', completed' : status === 'active' ? ', current' : status === 'error' ? ', error' : ''}`}
+        {...(isDisabled && { 'aria-disabled': true })}
+        aria-label={getStepAriaLabel(index, step.label, status)}
       >
         <div
           className={cn(
@@ -124,3 +111,5 @@ export const VerticalStepItem: FC<Props> = ({
     </div>
   );
 };
+
+export const VerticalStepItem = memo(VerticalStepItemBase);

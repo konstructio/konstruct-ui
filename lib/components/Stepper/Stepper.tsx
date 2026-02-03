@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { useMemo, type FC } from 'react';
 
 import { cn } from '@/utils';
 
@@ -80,23 +80,27 @@ export const Stepper: FC<StepperProps> = ({
       : (orientation ?? 'vertical');
   const resolvedSize = size ?? 'sm';
 
-  const stepsWithStatus = steps.map((step, index) => {
-    if (step.status) {
-      return step;
-    }
+  const stepsWithStatus = useMemo(
+    () =>
+      steps.map((step, index) => {
+        if (step.status) {
+          return step;
+        }
 
-    if (currentStep !== undefined) {
-      if (index < currentStep) {
-        return { ...step, status: 'completed' as const };
-      }
-      if (index === currentStep) {
-        return { ...step, status: 'active' as const };
-      }
-      return { ...step, status: 'pending' as const };
-    }
+        if (currentStep !== undefined) {
+          if (index < currentStep) {
+            return { ...step, status: 'completed' as const };
+          }
+          if (index === currentStep) {
+            return { ...step, status: 'active' as const };
+          }
+          return { ...step, status: 'pending' as const };
+        }
 
-    return { ...step, status: 'pending' as const };
-  });
+        return { ...step, status: 'pending' as const };
+      }),
+    [steps, currentStep],
+  );
 
   return (
     <nav
