@@ -1,6 +1,6 @@
 'use client';
 import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import { FC, useMemo } from 'react';
+import { FC, useId, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { X as Close } from 'react-feather';
 import { RemoveScroll } from 'react-remove-scroll';
@@ -71,18 +71,29 @@ const Drawer: FC<Props> & {
   theme,
   onClose,
 }) => {
-  const { getTranslateClass, handleMouseDown, isAnimating, isVisible, width } =
-    useDrawer({
-      canResize,
-      defaultWidth: DEFAULT_WIDTH,
-      isOpen,
-      maxWidth,
-      minWidth,
-      position,
-      onClose,
-    });
+  const headerId = useId();
 
-  const contextValue = useMemo(() => ({ classNames }), [classNames]);
+  const {
+    handleKeyDown,
+    handleMouseDown,
+    isAnimating,
+    isVisible,
+    translateClass,
+    width,
+  } = useDrawer({
+    canResize,
+    defaultWidth: DEFAULT_WIDTH,
+    isOpen,
+    maxWidth,
+    minWidth,
+    position,
+    onClose,
+  });
+
+  const contextValue = useMemo(
+    () => ({ classNames, headerId }),
+    [classNames, headerId],
+  );
 
   if (!isVisible) {
     return null;
@@ -114,13 +125,14 @@ const Drawer: FC<Props> & {
           <div
             className={cn(
               drawerVariants({ position }),
-              getTranslateClass(),
+              translateClass,
               classNames?.panel,
               className,
             )}
             style={{ width: canResize ? width : DEFAULT_WIDTH }}
             role="dialog"
             aria-modal="true"
+            aria-labelledby={headerId}
           >
             {/* Resize handle */}
             {canResize && (
@@ -132,6 +144,7 @@ const Drawer: FC<Props> & {
                   classNames?.resizeHandle,
                 )}
                 onMouseDown={handleMouseDown}
+                onKeyDown={handleKeyDown}
               />
             )}
 

@@ -22,8 +22,10 @@ export type UseDrawerReturn = {
   isVisible: boolean;
   /** Current width of the drawer */
   width: number;
-  /** Get the translate class based on animation state */
-  getTranslateClass: () => string;
+  /** The translate class based on animation state */
+  translateClass: string;
   /** Handler for resize mouse down event */
   handleMouseDown: () => void;
+  /** Handler for resize keyboard events */
+  handleKeyDown: (event: React.KeyboardEvent) => void;
 };

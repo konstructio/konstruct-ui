@@ -1,9 +1,12 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import {
+  ANIMATION_DELAY_MS,
+  ANIMATION_DURATION_MS,
   DEFAULT_MAX_WIDTH,
   DEFAULT_MIN_WIDTH,
   DEFAULT_WIDTH,
+  KEYBOARD_RESIZE_STEP,
 } from '../constants';
 
 import { UseDrawerProps, UseDrawerReturn } from './useDrawer.types';
@@ -23,16 +26,20 @@ export const useDrawer = ({
 
   const isDraggingRef = useRef(false);
 
+  // Store handlers in refs to avoid event listener recreation
+  const handleMouseMoveRef = useRef<(e: MouseEvent) => void>(() => {});
+  const handleMouseUpRef = useRef<() => void>(() => {});
+
   // Handle open/close animation
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
 
     if (isOpen) {
       setIsVisible(true);
-      timer = setTimeout(() => setIsAnimating(true), 10);
+      timer = setTimeout(() => setIsAnimating(true), ANIMATION_DELAY_MS);
     } else {
       setIsAnimating(false);
-      timer = setTimeout(() => setIsVisible(false), 300);
+      timer = setTimeout(() => setIsVisible(false), ANIMATION_DURATION_MS);
     }
 
     return () => {
@@ -61,9 +68,17 @@ export const useDrawer = ({
     };
   }, [isOpen, onClose]);
 
-  // Handle resize mouse move
-  const handleMouseMove = useCallback(
-    (e: MouseEvent) => {
+  // Cleanup function for resize listeners
+  const cleanupResizeListeners = useCallback(() => {
+    document.removeEventListener('mousemove', handleMouseMoveRef.current);
+    document.removeEventListener('mouseup', handleMouseUpRef.current);
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+  }, []);
+
+  // Update handler refs when dependencies change
+  useEffect(() => {
+    handleMouseMoveRef.current = (e: MouseEvent) => {
       if (!isDraggingRef.current || !canResize) return;
 
       let newWidth: number;
@@ -75,38 +90,53 @@ export const useDrawer = ({
 
       newWidth = Math.max(minWidth, Math.min(maxWidth, newWidth));
       setWidth(newWidth);
-    },
-    [position, minWidth, maxWidth, canResize],
-  );
+    };
 
-  // Handle resize mouse up
-  const handleMouseUp = useCallback(() => {
-    isDraggingRef.current = false;
-    document.removeEventListener('mousemove', handleMouseMove);
-    document.removeEventListener('mouseup', handleMouseUp);
-    document.body.style.cursor = '';
-    document.body.style.userSelect = '';
-  }, [handleMouseMove]);
+    handleMouseUpRef.current = () => {
+      isDraggingRef.current = false;
+      cleanupResizeListeners();
+    };
+  }, [position, minWidth, maxWidth, canResize, cleanupResizeListeners]);
 
   // Handle resize mouse down
   const handleMouseDown = useCallback(() => {
     isDraggingRef.current = true;
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('mousemove', handleMouseMoveRef.current);
+    document.addEventListener('mouseup', handleMouseUpRef.current);
     document.body.style.cursor = 'col-resize';
     document.body.style.userSelect = 'none';
-  }, [handleMouseMove, handleMouseUp]);
+  }, []);
 
-  // Cleanup resize listeners
+  // Handle keyboard resize for accessibility
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent) => {
+      if (!canResize) return;
+
+      const isIncreaseKey =
+        (position === 'right' && event.key === 'ArrowLeft') ||
+        (position === 'left' && event.key === 'ArrowRight');
+      const isDecreaseKey =
+        (position === 'right' && event.key === 'ArrowRight') ||
+        (position === 'left' && event.key === 'ArrowLeft');
+
+      if (isIncreaseKey) {
+        event.preventDefault();
+        setWidth((prev) => Math.min(maxWidth, prev + KEYBOARD_RESIZE_STEP));
+      } else if (isDecreaseKey) {
+        event.preventDefault();
+        setWidth((prev) => Math.max(minWidth, prev - KEYBOARD_RESIZE_STEP));
+      }
+    },
+    [canResize, position, maxWidth, minWidth],
+  );
+
+  // Cleanup resize listeners on unmount
   useEffect(() => {
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, [handleMouseMove, handleMouseUp]);
+    return cleanupResizeListeners;
+  }, [cleanupResizeListeners]);
 
-  // Get translate class based on animation state
-  const getTranslateClass = useCallback(() => {
+  // Compute translate class based on animation state
+  const translateClass = useMemo(() => {
     if (isAnimating) {
       return 'translate-x-0';
     }
@@ -117,7 +147,8 @@ export const useDrawer = ({
     isAnimating,
     isVisible,
     width,
-    getTranslateClass,
+    translateClass,
     handleMouseDown,
+    handleKeyDown,
   };
 };

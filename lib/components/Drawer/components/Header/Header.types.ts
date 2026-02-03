@@ -5,4 +5,6 @@ export type Props = {
   children: ReactNode;
   /** Additional CSS classes */
   className?: string;
+  /** ID for accessibility (aria-labelledby) */
+  id?: string;
 };

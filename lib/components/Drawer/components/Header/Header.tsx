@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 
 import { cn } from '@/utils';
 
@@ -6,11 +6,12 @@ import { useDrawerContext } from '../../contexts';
 
 import { Props } from './Header.types';
 
-export const Header: FC<Props> = ({ children, className }) => {
-  const { classNames } = useDrawerContext();
+export const Header: FC<Props> = memo(({ children, className, id }) => {
+  const { classNames, headerId } = useDrawerContext();
 
   return (
     <div
+      id={id ?? headerId}
       className={cn(
         'flex-shrink-0',
         'border-b',
@@ -24,4 +25,6 @@ export const Header: FC<Props> = ({ children, className }) => {
       {children}
     </div>
   );
-};
+});
+
+Header.displayName = 'Drawer.Header';

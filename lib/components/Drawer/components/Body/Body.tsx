@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 
 import { cn } from '@/utils';
 
@@ -6,7 +6,7 @@ import { useDrawerContext } from '../../contexts';
 
 import { Props } from './Body.types';
 
-export const Body: FC<Props> = ({ children, className }) => {
+export const Body: FC<Props> = memo(({ children, className }) => {
   const { classNames } = useDrawerContext();
 
   return (
@@ -22,4 +22,6 @@ export const Body: FC<Props> = ({ children, className }) => {
       {children}
     </div>
   );
-};
+});
+
+Body.displayName = 'Drawer.Body';

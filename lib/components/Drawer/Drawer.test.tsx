@@ -41,30 +41,36 @@ describe('Drawer', () => {
     const { container: component } = render(<Wrapper />);
 
     const user = userEvent.setup();
-    const getButton = () =>
+    const findButton = () =>
       screen.findByRole('button', { name: /open drawer/i });
-    const getDrawer = () => screen.findByRole('dialog');
-    const getCloseButton = () =>
+    const findDrawer = () => screen.findByRole('dialog');
+    const findCloseButton = () =>
       screen.findByRole('button', { name: /dismiss drawer/i });
-    const getOverlay = () =>
+    const findOverlay = () =>
       screen.findByRole('presentation', { hidden: true });
+    const findResizeHandle = () =>
+      screen.findByRole('button', { name: /resize drawer/i });
     const queryDrawer = () => screen.queryByRole('dialog');
+    const queryCloseButton = () =>
+      screen.queryByRole('button', { name: /dismiss drawer/i });
 
     return {
       component,
       user,
-      getButton,
-      getDrawer,
-      getCloseButton,
-      getOverlay,
+      findButton,
+      findDrawer,
+      findCloseButton,
+      findOverlay,
+      findResizeHandle,
       queryDrawer,
+      queryCloseButton,
     };
   };
 
   it('should render correctly', async () => {
-    const { getButton } = setup();
+    const { findButton } = setup();
 
-    const button = await getButton();
+    const button = await findButton();
 
     expect(button).toBeInTheDocument();
   });
@@ -78,13 +84,13 @@ describe('Drawer', () => {
   });
 
   it('should show the drawer after clicking the button', async () => {
-    const { user, getButton, getDrawer } = setup();
+    const { user, findButton, findDrawer } = setup();
 
-    const button = await getButton();
+    const button = await findButton();
 
     await user.click(button);
 
-    const drawer = await getDrawer();
+    const drawer = await findDrawer();
 
     expect(drawer).toBeInTheDocument();
     expect(drawer).toHaveTextContent('Header Content');
@@ -93,14 +99,15 @@ describe('Drawer', () => {
   });
 
   it('should close the drawer after the close button has been clicked', async () => {
-    const { user, getButton, getDrawer, getCloseButton, queryDrawer } = setup();
+    const { user, findButton, findDrawer, findCloseButton, queryDrawer } =
+      setup();
 
-    const button = await getButton();
+    const button = await findButton();
 
     await user.click(button);
 
-    const drawer = await getDrawer();
-    const closeButton = await getCloseButton();
+    const drawer = await findDrawer();
+    const closeButton = await findCloseButton();
 
     expect(drawer).toBeInTheDocument();
 
@@ -112,13 +119,13 @@ describe('Drawer', () => {
   });
 
   it('should close the drawer after the escape key has been pressed', async () => {
-    const { user, getButton, getDrawer, queryDrawer } = setup();
+    const { user, findButton, findDrawer, queryDrawer } = setup();
 
-    const button = await getButton();
+    const button = await findButton();
 
     await user.click(button);
 
-    const drawer = await getDrawer();
+    const drawer = await findDrawer();
 
     expect(drawer).toBeInTheDocument();
 
@@ -130,14 +137,14 @@ describe('Drawer', () => {
   });
 
   it('should close the drawer when clicking the overlay', async () => {
-    const { user, getButton, getDrawer, getOverlay, queryDrawer } = setup();
+    const { user, findButton, findDrawer, findOverlay, queryDrawer } = setup();
 
-    const button = await getButton();
+    const button = await findButton();
 
     await user.click(button);
 
-    const drawer = await getDrawer();
-    const overlay = await getOverlay();
+    const drawer = await findDrawer();
+    const overlay = await findOverlay();
 
     expect(drawer).toBeInTheDocument();
 
@@ -149,54 +156,52 @@ describe('Drawer', () => {
   });
 
   it('should render on the left side when position is left', async () => {
-    const { user, getButton, getDrawer } = setup({ position: 'left' });
+    const { user, findButton, findDrawer } = setup({ position: 'left' });
 
-    const button = await getButton();
+    const button = await findButton();
 
     await user.click(button);
 
-    const drawer = await getDrawer();
+    const drawer = await findDrawer();
 
     expect(drawer).toHaveClass('left-0');
   });
 
   it('should render on the right side when position is right', async () => {
-    const { user, getButton, getDrawer } = setup({ position: 'right' });
+    const { user, findButton, findDrawer } = setup({ position: 'right' });
 
-    const button = await getButton();
+    const button = await findButton();
 
     await user.click(button);
 
-    const drawer = await getDrawer();
+    const drawer = await findDrawer();
 
     expect(drawer).toHaveClass('right-0');
   });
 
   it('should not show close button when showCloseButton is false', async () => {
-    const { user, getButton, getDrawer } = setup({ showCloseButton: false });
+    const { user, findButton, findDrawer, queryCloseButton } = setup({
+      showCloseButton: false,
+    });
 
-    const button = await getButton();
+    const button = await findButton();
 
     await user.click(button);
 
-    const drawer = await getDrawer();
+    const drawer = await findDrawer();
 
     expect(drawer).toBeInTheDocument();
-    expect(
-      screen.queryByRole('button', { name: /dismiss drawer/i }),
-    ).not.toBeInTheDocument();
+    expect(queryCloseButton()).not.toBeInTheDocument();
   });
 
   it('should show resize handle when canResize is true', async () => {
-    const { user, getButton } = setup({ canResize: true });
+    const { user, findButton, findResizeHandle } = setup({ canResize: true });
 
-    const button = await getButton();
+    const button = await findButton();
 
     await user.click(button);
 
-    const resizeHandle = await screen.findByRole('button', {
-      name: /resize drawer/i,
-    });
+    const resizeHandle = await findResizeHandle();
 
     expect(resizeHandle).toBeInTheDocument();
   });

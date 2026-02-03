@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 
 import { cn } from '@/utils';
 
@@ -6,7 +6,7 @@ import { useDrawerContext } from '../../contexts';
 
 import { Props } from './Footer.types';
 
-export const Footer: FC<Props> = ({ children, className }) => {
+export const Footer: FC<Props> = memo(({ children, className }) => {
   const { classNames } = useDrawerContext();
 
   return (
@@ -24,4 +24,6 @@ export const Footer: FC<Props> = ({ children, className }) => {
       {children}
     </div>
   );
-};
+});
+
+Footer.displayName = 'Drawer.Footer';
