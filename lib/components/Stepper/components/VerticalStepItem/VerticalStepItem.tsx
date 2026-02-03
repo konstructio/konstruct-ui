@@ -29,13 +29,13 @@ const VerticalStepItemBase: FC<Props> = ({
   onClick,
 }) => {
   const {
-    handleClick,
-    handleKeyDown,
     isClickable,
     isDisabled,
     LabelComponent,
     status,
-  } = useStepItemLogic({ step, clickable, onClick });
+    handleClick,
+    handleKeyDown,
+  } = useStepItemLogic({ clickable, step, onClick });
 
   const wrapperClass =
     variant === 'stacked' ? 'flex flex-col items-center' : 'flex flex-col';

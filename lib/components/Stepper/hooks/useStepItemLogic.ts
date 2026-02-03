@@ -1,22 +1,10 @@
 import { Slot } from '@radix-ui/react-slot';
 import { useCallback, type KeyboardEvent } from 'react';
 
-import type { Step, StepStatus } from '../Stepper.types';
-
-type UseStepItemLogicProps = {
-  clickable: boolean;
-  onClick?: () => void;
-  step: Step;
-};
-
-type UseStepItemLogicReturn = {
-  handleClick: () => void;
-  handleKeyDown: (e: KeyboardEvent) => void;
-  isClickable: boolean;
-  isDisabled: boolean;
-  LabelComponent: typeof Slot | 'span';
-  status: StepStatus;
-};
+import type {
+  UseStepItemLogicProps,
+  UseStepItemLogicReturn,
+} from './useStepItemLogic.types';
 
 export function useStepItemLogic({
   clickable,
@@ -39,7 +27,7 @@ export function useStepItemLogic({
   }, [isClickable, step.onClick, onClick]);
 
   const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
+    (e: KeyboardEvent<HTMLDivElement>) => {
       if (!isClickable) return;
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -50,11 +38,11 @@ export function useStepItemLogic({
   );
 
   return {
-    handleClick,
-    handleKeyDown,
     isClickable,
     isDisabled,
     LabelComponent,
     status,
+    handleClick,
+    handleKeyDown,
   };
 }
