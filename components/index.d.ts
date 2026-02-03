@@ -12,6 +12,7 @@ export * from './Datepicker/DatePicker';
 export * from './DateRangePicker/DateRangePicker';
 export type { DateRangePickerProps, DateRange, DateRangePreset, DateRangeWithTime, TimeRange, } from './DateRangePicker/DateRangePicker.types';
 export * from './Divider/Divider';
+export * from './Drawer/Drawer';
 export * from './DropdownButton/DropdownButton';
 export * from './Filter/Filter';
 export * from './ImageUpload/ImageUpload';
