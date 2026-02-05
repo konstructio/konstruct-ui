@@ -3,9 +3,9 @@ import { FC, useState, useCallback } from 'react';
 import { CheckCircleIcon, CopyIcon } from '../../../../lib/assets/icons/components';
 import { cn } from '../../../../lib/utils';
 
-import type { IconCardProps } from './IconCard.types';
+import type { Props } from './IconCard.types';
 
-export const IconCard: FC<IconCardProps> = ({ name, IconComponent }) => {
+export const IconCard: FC<Props> = ({ name, IconComponent }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = useCallback(async () => {
@@ -28,10 +28,10 @@ export const IconCard: FC<IconCardProps> = ({ name, IconComponent }) => {
       )}
     >
       {copied ? (
-        <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-green-100">
+        <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-aurora-50">
           <div className="flex items-center gap-2">
-            <CheckCircleIcon size={20} className="text-green-600" />
-            <span className="text-sm font-medium text-green-600">Copied!</span>
+            <CheckCircleIcon size={20} className="text-aurora-400" />
+            <span className="text-sm font-medium text-aurora-400">Copied!</span>
           </div>
         </div>
       ) : null}
@@ -41,13 +41,13 @@ export const IconCard: FC<IconCardProps> = ({ name, IconComponent }) => {
         className="transition-colors text-metal-600 group-hover:text-aurora-500"
       />
 
-      <span className="text-xs text-center break-all leading-tight text-metal-500">
+      <span className="text-xs text-center break-all leading-tight text-metal-500 group-hover:text-aurora-900 transition-colors">
         {name.replace('Icon', '')}
       </span>
 
       <CopyIcon
         size={14}
-        className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity text-metal-400"
+        className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity text-aurora-500"
       />
     </button>
   );
