@@ -16,7 +16,7 @@ const preview = {
       storySort: {
         order: [
           'Documentation',
-          ['Introduction', 'Changelog', '*'],
+          ['Introduction', 'Changelog', 'Icons Gallery', '*'],
           'In Review',
           [
             '*',

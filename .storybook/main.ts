@@ -4,7 +4,11 @@ import svgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 const config = {
-  stories: ['../docs/**/*.mdx', '../lib/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
+  stories: [
+    '../docs/**/*.mdx',
+    '../docs/**/*.stories.@(js|jsx|ts|tsx)',
+    '../lib/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+  ],
   addons: ['@storybook/addon-docs', '@storybook/addon-links'],
   framework: {
     name: '@storybook/react-vite',
