@@ -46,6 +46,7 @@ export const Wrapper: ForwardRefExoticComponent<
       isLoading,
       isRequired,
       label,
+      labelAction,
       labelClassName,
       labelWrapperClassName,
       listClassName,
@@ -135,7 +136,12 @@ export const Wrapper: ForwardRefExoticComponent<
         data-theme={theme}
       >
         {label ? (
-          <div className={cn(labelWrapperClassName)}>
+          <div
+            className={cn(
+              'flex items-center justify-between',
+              labelWrapperClassName,
+            )}
+          >
             <label
               id={htmlFor}
               className={cn(labelVariants({ className: labelClassName }))}
@@ -147,6 +153,7 @@ export const Wrapper: ForwardRefExoticComponent<
                 <span className="text-red-600 dark:text-red-500 ml-1">*</span>
               )}
             </label>
+            {labelAction}
           </div>
         ) : null}
 

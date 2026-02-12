@@ -177,6 +177,14 @@ describe('Select', () => {
 
       expect(option).toBeInTheDocument();
     });
+
+    it('should render the labelAction next to the label', () => {
+      setup({
+        labelAction: <button type="button">Action</button>,
+      });
+
+      expect(screen.getByText('Action')).toBeInTheDocument();
+    });
   });
 
   describe('select inside a form', () => {
