@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.59](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.59) (2026-02-12)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.58...0.1.2-alpha.59)
+
+**Merged pull requests:**
+
+- ✨ feat: add labelAction prop to Select component [\#519](https://github.com/konstructio/konstruct-ui/pull/519) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.58](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.58) (2026-02-12)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.57...0.1.2-alpha.58)
