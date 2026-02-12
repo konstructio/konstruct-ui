@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.58](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.58) (2026-02-12)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.57...0.1.2-alpha.58)
+
+**Merged pull requests:**
+
+- 🎨 fix: unify label-field spacing across form components [\#518](https://github.com/konstructio/konstruct-ui/pull/518) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.57](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.57) (2026-02-12)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.56...0.1.2-alpha.57)
