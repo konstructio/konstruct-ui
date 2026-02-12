@@ -14,6 +14,8 @@ export type ButtonGroupOption = {
     icon?: ReactNode;
     /** The label text displayed for this option */
     label: string;
+    /** Optional secondary label displayed right-aligned on the same line as the label */
+    secondaryLabel?: string;
     /** The value associated with this option */
     value: string;
 };

@@ -27,6 +27,8 @@ export interface CheckboxProps extends Omit<CheckboxPropsPrimitive, 'onChange'>,
     label?: string;
     /** CSS classes for the label */
     labelClassName?: string;
+    /** Additional CSS classes for the label wrapper */
+    labelWrapperClassName?: string;
     /** Form field name */
     name?: string;
     /** Theme override for this component */

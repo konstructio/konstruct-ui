@@ -32,6 +32,8 @@ export type Props = InputHTMLAttributes<HTMLInputElement> & {
     label?: string;
     /** Additional CSS classes for the label */
     labelClassName?: string;
+    /** Additional CSS classes for the label wrapper */
+    labelWrapperClassName?: string;
     /** Form field name */
     name?: string;
     /** Placeholder text for the input */

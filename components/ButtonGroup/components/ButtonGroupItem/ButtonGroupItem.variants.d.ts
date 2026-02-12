@@ -5,10 +5,6 @@ export declare const buttonGroupItemVariants: (props?: ({
     disabled?: boolean | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
 /**
- * Animated pill background (selected state indicator)
- */
-export declare const buttonGroupPillVariants: (props?: import('class-variance-authority/types').ClassProp | undefined) => string;
-/**
  * Inner content container (the content layer above the pill)
  */
 export declare const buttonGroupItemContentVariants: (props?: ({

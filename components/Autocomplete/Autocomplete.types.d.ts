@@ -31,6 +31,8 @@ export interface AutocompleteProps extends VariantProps<typeof autocompleteVaria
     label?: string;
     /** CSS classes for the label */
     labelClassName?: string;
+    /** Additional CSS classes for the label wrapper */
+    labelWrapperClassName?: string;
     /** Form field name */
     name?: string;
     /** Array of options to suggest */

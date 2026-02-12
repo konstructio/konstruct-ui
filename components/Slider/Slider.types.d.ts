@@ -25,6 +25,8 @@ export interface SliderProps extends VariantProps<typeof sliderVariants> {
     defaultValue?: SliderPropsBase['defaultValue'];
     /** Label displayed above the slider */
     label?: string;
+    /** Additional CSS classes for the label wrapper */
+    labelWrapperClassName?: string;
     /** Maximum value for the slider */
     max?: SliderPropsBase['max'];
     /** Minimum value for the slider */

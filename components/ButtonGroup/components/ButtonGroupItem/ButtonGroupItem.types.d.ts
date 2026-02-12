@@ -12,9 +12,7 @@ export type Props = {
     isDisabled: boolean;
     isSelected: boolean;
     labelClassName?: string;
-    layoutId: string;
     option: ButtonGroupOption;
-    pillClassName?: string;
     value: string;
     onKeyDown: (event: KeyboardEvent<HTMLButtonElement>, index: number) => void;
     onSelect: (value: string) => void;

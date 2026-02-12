@@ -52,6 +52,8 @@ export interface MultiSelectDropdownProps extends VariantProps<typeof multiSelec
     label?: string;
     /** Additional CSS classes for the label */
     labelClassName?: string;
+    /** Additional CSS classes for the label wrapper */
+    labelWrapperClassName?: string;
     /** Whether multiple options can be selected */
     multiselect?: boolean;
     /** Form field name */

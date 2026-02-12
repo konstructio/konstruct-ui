@@ -25,8 +25,12 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement>, Varia
     isSearch?: boolean;
     /** Label text or element displayed above the input */
     label?: string | ReactNode;
+    /** Custom element rendered on the right side of the label (e.g. icon, button) */
+    labelAction?: ReactNode;
     /** Additional CSS classes for the label */
     labelClassName?: string;
+    /** Additional CSS classes for the label wrapper container */
+    labelWrapperClassName?: string;
     /** Theme override for this component */
     theme?: Theme;
 }
