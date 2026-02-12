@@ -88,6 +88,7 @@ export type SelectProps = VariantProps<typeof selectVariants> &
     isLoading?: boolean;
     isRequired?: boolean;
     label?: string;
+    labelAction?: ReactNode;
     labelClassName?: string;
     labelWrapperClassName?: string;
     listClassName?: string;
