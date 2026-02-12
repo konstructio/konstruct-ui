@@ -1,9 +1,11 @@
-import { FC } from 'react';
+import { motion } from 'motion/react';
+import { FC, useMemo } from 'react';
 
 import { cn } from '@/utils';
 
 import { Props } from './ButtonGroup.types';
 import {
+  buttonGroupPillVariants,
   buttonGroupVariants,
   buttonGroupWrapperVariants,
 } from './ButtonGroup.variants';
@@ -54,7 +56,6 @@ export const ButtonGroup: FC<Props> = ({
   duration,
   error,
   errorClassName,
-  fullWidth,
   helperText,
   helperTextClassName,
   isRequired,
@@ -86,12 +87,15 @@ export const ButtonGroup: FC<Props> = ({
     onValueChange,
   });
 
+  const numOptions = options.length;
+  const selectedIndex = useMemo(
+    () => options.findIndex((o) => o.value === selected),
+    [options, selected],
+  );
+
   return (
     <div
-      className={cn(
-        buttonGroupWrapperVariants({ fullWidth }),
-        wrapperClassName,
-      )}
+      className={cn(buttonGroupWrapperVariants(), wrapperClassName)}
       data-theme={theme}
     >
       {label && (
@@ -108,8 +112,25 @@ export const ButtonGroup: FC<Props> = ({
         ref={groupRef}
         role="radiogroup"
         aria-labelledby={label ? id : undefined}
-        className={cn(buttonGroupVariants({ fullWidth, disabled }), className)}
+        className={cn(buttonGroupVariants({ disabled }), className)}
       >
+        {selectedIndex >= 0 && (
+          <motion.div
+            aria-hidden="true"
+            className={cn(buttonGroupPillVariants(), pillClassName)}
+            initial={false}
+            animate={{
+              left: `calc(${selectedIndex} * (100% / ${numOptions}) + 8px)`,
+              width: `calc(100% / ${numOptions} - 16px)`,
+            }}
+            transition={{
+              type: 'tween',
+              ease: 'linear',
+              duration: duration ?? 0.3,
+            }}
+          />
+        )}
+
         {options.map((option, index) => {
           const isSelected = selected === option.value;
           const isDisabled = disabled || option.disabled;
@@ -128,9 +149,7 @@ export const ButtonGroup: FC<Props> = ({
               isDisabled={!!isDisabled}
               isSelected={isSelected}
               labelClassName={itemLabelClassName}
-              layoutId={`${id}-pill`}
               option={option}
-              pillClassName={pillClassName}
               value={option.value}
               onKeyDown={handleKeyDown}
               onSelect={handleSelect}

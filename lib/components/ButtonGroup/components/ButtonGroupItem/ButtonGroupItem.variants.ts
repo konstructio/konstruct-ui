@@ -15,7 +15,7 @@ export const buttonGroupItemVariants = cva(
     'border-metal-700',
     'border-t',
     'border-b',
-    'bg-metal-900',
+    'bg-transparent',
     'first:border-l',
     'first:rounded-l-lg',
     'last:border-r',
@@ -37,16 +37,6 @@ export const buttonGroupItemVariants = cva(
     },
   },
 );
-
-/**
- * Animated pill background (selected state indicator)
- */
-export const buttonGroupPillVariants = cva([
-  'absolute',
-  'inset-2',
-  'bg-metal-800',
-  'rounded-lg',
-]);
 
 /**
  * Inner content container (the content layer above the pill)
@@ -78,6 +68,8 @@ export const buttonGroupLabelVariants = cva(
     'flex',
     'items-center',
     'gap-2',
+    'w-full',
+    'justify-between',
     'transition-colors',
     'ease-in-out',
   ],
