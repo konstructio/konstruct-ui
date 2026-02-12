@@ -42,6 +42,7 @@ export const Wrapper: ForwardRefExoticComponent<
       isRequired,
       label,
       labelClassName,
+      labelWrapperClassName,
       name,
       placeholder,
       showFlagOnSearch = true,
@@ -134,21 +135,23 @@ export const Wrapper: ForwardRefExoticComponent<
     return (
       <div className="w-full flex flex-col gap-2">
         {label ? (
-          <label
-            id={id}
-            className={labelVariants({ className: labelClassName })}
-            onClick={() => !disabled && inputRef.current?.focus()}
-          >
-            {label}
-            {isRequired && (
-              <Typography
-                component="span"
-                className="text-red-600 dark:text-red-500 ml-1"
-              >
-                *
-              </Typography>
-            )}
-          </label>
+          <div className={cn(labelWrapperClassName)}>
+            <label
+              id={id}
+              className={labelVariants({ className: labelClassName })}
+              onClick={() => !disabled && inputRef.current?.focus()}
+            >
+              {label}
+              {isRequired && (
+                <Typography
+                  component="span"
+                  className="text-red-600 dark:text-red-500 ml-1"
+                >
+                  *
+                </Typography>
+              )}
+            </label>
+          </div>
         ) : null}
 
         <div

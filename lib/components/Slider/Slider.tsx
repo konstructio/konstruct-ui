@@ -42,7 +42,16 @@ export const Slider: FC<SliderProps> = forwardRef<
   SliderProps
 >(
   (
-    { label, defaultValue = [0], name, theme, size, showValue, ...delegated },
+    {
+      label,
+      labelWrapperClassName,
+      defaultValue = [0],
+      name,
+      theme,
+      size,
+      showValue,
+      ...delegated
+    },
     ref,
   ) => {
     const inputRef = useRef<ComponentRef<'input'>>(null);
@@ -67,6 +76,7 @@ export const Slider: FC<SliderProps> = forwardRef<
           className={cn(
             'flex items-center',
             label ? 'justify-between' : 'justify-end',
+            labelWrapperClassName,
           )}
         >
           {label ? <label>{label}</label> : null}

@@ -49,6 +49,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       className,
       label,
       labelClassName,
+      labelWrapperClassName,
       name,
       options,
       placeholder,
@@ -79,16 +80,18 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
         data-theme={theme}
       >
         {label ? (
-          <label
-            htmlFor={name ?? id}
-            className={cn(
-              labelVariants({
-                className: labelClassName,
-              }),
-            )}
-          >
-            {label}
-          </label>
+          <div className={cn(labelWrapperClassName)}>
+            <label
+              htmlFor={name ?? id}
+              className={cn(
+                labelVariants({
+                  className: labelClassName,
+                }),
+              )}
+            >
+              {label}
+            </label>
+          </div>
         ) : null}
 
         <input

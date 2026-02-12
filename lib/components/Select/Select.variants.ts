@@ -35,6 +35,7 @@ export const selectVariants = cva(
           'aria-expanded:text-red-600',
           'kubefirst:border-red-600',
           'kubefirst:text-red-600',
+          'dark:border-red-500',
         ],
         false: '',
       },

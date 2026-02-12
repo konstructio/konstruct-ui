@@ -27,6 +27,7 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
       isRequired,
       label,
       labelClassName,
+      labelWrapperClassName,
       name,
       placeholder = '',
       theme,
@@ -59,27 +60,29 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
         data-theme={theme}
       >
         {label ? (
-          <Typography
-            component="label"
-            variant="labelLarge"
-            htmlFor={htmlFor}
-            className={cn(
-              labelVariants({
-                className: labelClassName,
-              }),
-            )}
-            onClick={() => onOpen(true)}
-          >
-            {label}{' '}
-            {isRequired && (
-              <Typography
-                component="span"
-                className="text-red-500 dark:text-red-500 text-sm font-normal"
-              >
-                *
-              </Typography>
-            )}
-          </Typography>
+          <div className={cn(labelWrapperClassName)}>
+            <Typography
+              component="label"
+              variant="labelLarge"
+              htmlFor={htmlFor}
+              className={cn(
+                labelVariants({
+                  className: labelClassName,
+                }),
+              )}
+              onClick={() => onOpen(true)}
+            >
+              {label}{' '}
+              {isRequired && (
+                <Typography
+                  component="span"
+                  className="text-red-500 dark:text-red-500 text-sm font-normal"
+                >
+                  *
+                </Typography>
+              )}
+            </Typography>
+          </div>
         ) : null}
 
         <div

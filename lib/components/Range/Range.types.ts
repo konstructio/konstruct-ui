@@ -28,6 +28,8 @@ export interface RangeProps extends VariantProps<typeof rangeVariants> {
   defaultValue?: SliderPropsBase['defaultValue'];
   /** Label displayed above the range slider */
   label?: string;
+  /** Additional CSS classes for the label wrapper */
+  labelWrapperClassName?: string;
   /** Maximum value for the range */
   max?: SliderPropsBase['max'];
   /** Minimum value for the range */

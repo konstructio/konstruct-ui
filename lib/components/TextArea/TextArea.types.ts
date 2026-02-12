@@ -23,6 +23,8 @@ export interface TextAreaProps
   rows?: number;
   /** Label displayed above the textarea */
   label?: string | ReactNode;
+  /** Additional CSS classes for the label wrapper */
+  labelWrapperClassName?: string;
   /** Form field name */
   name?: string;
   /** Initial/default value */

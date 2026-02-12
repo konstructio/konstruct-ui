@@ -21,6 +21,16 @@ export const Light = {
         isRequired
         helperText="This is a helper text."
       />
+      <InputComponent
+        {...args}
+        label="This is a label"
+        labelAction={
+          <button type="button" className="text-xs text-blue-500">
+            Action
+          </button>
+        }
+        helperText="This is a helper text."
+      />
       <InputComponent {...args} />
       <InputComponent {...args} type="password" />
       <InputComponent

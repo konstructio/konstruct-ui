@@ -92,7 +92,7 @@ export const Light = {
           />
 
           <SelectComponent
-            label="select with Civo theme"
+            label="Select with Civo theme"
             onChange={({ target: { value } }) => setValue3(value)}
             value={value3}
             searchable={false}
@@ -100,7 +100,7 @@ export const Light = {
           />
 
           <SelectComponent
-            label="select with no options text"
+            label="Select with no options text"
             searchable={false}
             noOptionsText="No cloud account exists"
             {...args}
@@ -114,7 +114,7 @@ export const Light = {
 
           <SelectComponent
             {...args}
-            label="select infinity scroll without search"
+            label="Select infinity scroll without search"
             onChange={({ target: { value } }) => setValue4(value)}
             value={value4}
             searchable={false}
@@ -139,7 +139,7 @@ export const Light = {
 
           <SelectComponent
             {...args}
-            label="select infinity scroll with search"
+            label="Select infinity scroll with search"
             onChange={({ target: { value } }) => setValue5(value)}
             value={value5}
             searchable={true}
@@ -190,7 +190,7 @@ export const Light = {
 
           <SelectComponent
             {...args}
-            label="select with no options text"
+            label="Select with no options text"
             onChange={({ target: { value } }) => setValue8(value)}
             value={value8}
             searchable={false}

@@ -35,6 +35,8 @@ export interface CounterProps extends VariantProps<typeof counterVariants> {
   isRequired?: boolean;
   /** Label displayed above the counter */
   label?: string;
+  /** Additional CSS classes for the label wrapper */
+  labelWrapperClassName?: string;
   /** Maximum allowed value */
   max?: number;
   /** Minimum allowed value */
