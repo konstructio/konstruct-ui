@@ -147,6 +147,8 @@ export const ButtonGroup: FC<Props> = ({
               hasDescription={hasDescription}
               index={index}
               isDisabled={!!isDisabled}
+              isFirst={index === 0}
+              isLast={index === options.length - 1}
               isSelected={isSelected}
               labelClassName={itemLabelClassName}
               option={option}

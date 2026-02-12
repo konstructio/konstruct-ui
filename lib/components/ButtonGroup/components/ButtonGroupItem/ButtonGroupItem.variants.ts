@@ -16,10 +16,6 @@ export const buttonGroupItemVariants = cva(
     'border-t',
     'border-b',
     'bg-transparent',
-    'first:border-l',
-    'first:rounded-l-lg',
-    'last:border-r',
-    'last:rounded-r-lg',
     'focus:outline-none',
     'focus-visible:ring-2',
     'focus-visible:ring-aurora-500',
@@ -31,9 +27,19 @@ export const buttonGroupItemVariants = cva(
         true: 'pointer-events-none opacity-50',
         false: '',
       },
+      isFirst: {
+        true: 'border-l rounded-l-lg',
+        false: '',
+      },
+      isLast: {
+        true: 'border-r rounded-r-lg',
+        false: '',
+      },
     },
     defaultVariants: {
       disabled: false,
+      isFirst: false,
+      isLast: false,
     },
   },
 );
