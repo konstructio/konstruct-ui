@@ -34,6 +34,7 @@ export const TextArea: FC<TextAreaProps> = forwardRef<
     {
       initialValue,
       label,
+      labelWrapperClassName,
       name,
       placeholder,
       rows = 3,
@@ -49,9 +50,11 @@ export const TextArea: FC<TextAreaProps> = forwardRef<
     return (
       <div className="flex flex-col gap-2" data-theme={theme}>
         {label ? (
-          <label htmlFor={htmlId} className="cursor-pointer">
-            {label}
-          </label>
+          <div className={cn(labelWrapperClassName)}>
+            <label htmlFor={htmlId} className="cursor-pointer">
+              {label}
+            </label>
+          </div>
         ) : null}
 
         <textarea

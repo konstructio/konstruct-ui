@@ -89,6 +89,7 @@ export type SelectProps = VariantProps<typeof selectVariants> &
     isRequired?: boolean;
     label?: string;
     labelClassName?: string;
+    labelWrapperClassName?: string;
     listClassName?: string;
     listItemClassName?: string;
     listItemSecondRowClassName?: string;

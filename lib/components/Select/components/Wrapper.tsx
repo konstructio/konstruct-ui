@@ -47,6 +47,7 @@ export const Wrapper: ForwardRefExoticComponent<
       isRequired,
       label,
       labelClassName,
+      labelWrapperClassName,
       listClassName,
       listItemClassName,
       listItemSecondRowClassName,
@@ -134,17 +135,19 @@ export const Wrapper: ForwardRefExoticComponent<
         data-theme={theme}
       >
         {label ? (
-          <label
-            id={htmlFor}
-            className={cn(labelVariants({ className: labelClassName }))}
-            htmlFor={htmlFor}
-            onClick={() => !disabled && handleOpen()}
-          >
-            {label}
-            {isRequired && (
-              <span className="text-red-600 dark:text-red-500 ml-1">*</span>
-            )}
-          </label>
+          <div className={cn(labelWrapperClassName)}>
+            <label
+              id={htmlFor}
+              className={cn(labelVariants({ className: labelClassName }))}
+              htmlFor={htmlFor}
+              onClick={() => !disabled && handleOpen()}
+            >
+              {label}
+              {isRequired && (
+                <span className="text-red-600 dark:text-red-500 ml-1">*</span>
+              )}
+            </label>
+          </div>
         ) : null}
 
         <div

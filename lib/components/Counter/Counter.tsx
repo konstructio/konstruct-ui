@@ -59,6 +59,7 @@ export const Counter: FC<CounterProps> = forwardRef<
       incrementButtonClassName,
       isRequired,
       label,
+      labelWrapperClassName,
       max = -Infinity,
       min = Infinity,
       name,
@@ -99,17 +100,19 @@ export const Counter: FC<CounterProps> = forwardRef<
     return (
       <div className="flex flex-col gap-1" data-theme={theme}>
         {label ? (
-          <Typography
-            component="label"
-            htmlFor={name ?? id}
-            variant="labelLarge"
-            className={cn(labelVariants())}
-          >
-            Number of nodes{' '}
-            {isRequired && (
-              <span className="text-red-600 dark:text-red-500">*</span>
-            )}
-          </Typography>
+          <div className={cn(labelWrapperClassName)}>
+            <Typography
+              component="label"
+              htmlFor={name ?? id}
+              variant="labelLarge"
+              className={cn(labelVariants())}
+            >
+              Number of nodes{' '}
+              {isRequired && (
+                <span className="text-red-600 dark:text-red-500">*</span>
+              )}
+            </Typography>
+          </div>
         ) : null}
 
         <div className="flex items-center" role="presentation">

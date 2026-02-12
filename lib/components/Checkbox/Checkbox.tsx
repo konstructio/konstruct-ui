@@ -43,6 +43,7 @@ const Checkbox: FC<CheckboxProps> = forwardRef<
       id,
       label,
       labelClassName,
+      labelWrapperClassName,
       name,
       theme,
       title,
@@ -64,7 +65,10 @@ const Checkbox: FC<CheckboxProps> = forwardRef<
     );
 
     return (
-      <div className="flex items-center gap-4" data-theme={theme}>
+      <div
+        className={cn('flex items-center gap-4', labelWrapperClassName)}
+        data-theme={theme}
+      >
         <Root
           id={id ?? defaultId}
           checked={checked}

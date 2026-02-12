@@ -33,6 +33,8 @@ export interface TagSelectProps extends VariantProps<typeof tagSelectVariants> {
   placeholder?: string;
   /** Additional CSS classes for the label */
   labelClassName?: string;
+  /** Additional CSS classes for the label wrapper */
+  labelWrapperClassName?: string;
   /** Additional CSS classes for the wrapper */
   wrapperClassName?: string;
   /** Whether multiple tags can be selected */

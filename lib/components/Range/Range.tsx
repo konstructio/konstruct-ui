@@ -50,6 +50,7 @@ export const Range: FC<RangeProps> = forwardRef<
   (
     {
       label,
+      labelWrapperClassName,
       defaultValue = [0, 100],
       name,
       theme,
@@ -81,6 +82,7 @@ export const Range: FC<RangeProps> = forwardRef<
           className={cn(
             'flex items-center',
             label ? 'justify-between' : 'justify-end',
+            labelWrapperClassName,
           )}
         >
           {label ? <label>{label}</label> : null}

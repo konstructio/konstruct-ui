@@ -44,6 +44,7 @@ const ImageUpload = ({
   isRequired = false,
   label = 'Item logo',
   labelClassName,
+  labelWrapperClassName,
   name,
   onChange,
   onRemove,
@@ -165,22 +166,24 @@ const ImageUpload = ({
       data-theme={theme}
     >
       {label && (
-        <label
-          htmlFor={id}
-          className={cn(
-            labelVariants({
-              className: labelClassName,
-            }),
-            'cursor-pointer',
-          )}
-        >
-          {label}
-          {isRequired && (
-            <span className="text-red-600 dark:text-red-500 text-xs mt-0.5">
-              *
-            </span>
-          )}
-        </label>
+        <div className={cn(labelWrapperClassName)}>
+          <label
+            htmlFor={id}
+            className={cn(
+              labelVariants({
+                className: labelClassName,
+              }),
+              'cursor-pointer',
+            )}
+          >
+            {label}
+            {isRequired && (
+              <span className="text-red-600 dark:text-red-500 text-xs mt-0.5">
+                *
+              </span>
+            )}
+          </label>
+        </div>
       )}
 
       <div

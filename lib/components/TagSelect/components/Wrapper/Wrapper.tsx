@@ -23,6 +23,7 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
     {
       label,
       labelClassName,
+      labelWrapperClassName,
       name,
       placeholder = 'Select a value...',
       theme,
@@ -48,17 +49,19 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
         data-theme={theme}
       >
         {label ? (
-          <label
-            htmlFor={name ?? id}
-            className={cn(
-              labelVariants({
-                className: labelClassName,
-              }),
-            )}
-            onClick={() => onOpen(true)}
-          >
-            {label}
-          </label>
+          <div className={cn(labelWrapperClassName)}>
+            <label
+              htmlFor={name ?? id}
+              className={cn(
+                labelVariants({
+                  className: labelClassName,
+                }),
+              )}
+              onClick={() => onOpen(true)}
+            >
+              {label}
+            </label>
+          </div>
         ) : null}
 
         <div

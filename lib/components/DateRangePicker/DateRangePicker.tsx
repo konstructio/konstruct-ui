@@ -47,6 +47,7 @@ const DateRangePicker: FC<DateRangePickerProps> = ({
   disabled = false,
   isRequired,
   label,
+  labelWrapperClassName,
   name,
   showTime = true,
   theme,
@@ -106,32 +107,34 @@ const DateRangePicker: FC<DateRangePickerProps> = ({
   >
     <div className="flex flex-col gap-2" data-theme={theme}>
       {label ? (
-        <Typography
-          component="label"
-          variant="labelLarge"
-          className={cn(
-            'cursor-pointer',
-            'flex',
-            'gap-1',
-            'text-sm',
-            'font-medium',
-          )}
-        >
-          {label}
-          {isRequired && (
-            <Typography
-              component="span"
-              className={cn(
-                'text-red-600',
-                'dark:text-red-500',
-                'text-xs',
-                'mt-0.5',
-              )}
-            >
-              *
-            </Typography>
-          )}
-        </Typography>
+        <div className={cn(labelWrapperClassName)}>
+          <Typography
+            component="label"
+            variant="labelLarge"
+            className={cn(
+              'cursor-pointer',
+              'flex',
+              'gap-1',
+              'text-sm',
+              'font-medium',
+            )}
+          >
+            {label}
+            {isRequired && (
+              <Typography
+                component="span"
+                className={cn(
+                  'text-red-600',
+                  'dark:text-red-500',
+                  'text-xs',
+                  'mt-0.5',
+                )}
+              >
+                *
+              </Typography>
+            )}
+          </Typography>
+        </div>
       ) : null}
 
       <div

@@ -54,6 +54,7 @@ export const Switch: FC<SwitchProps> = forwardRef<
       helperTextClassName,
       label,
       labelClassName,
+      labelWrapperClassName,
       name,
       theme,
       thumbClassName,
@@ -81,6 +82,7 @@ export const Switch: FC<SwitchProps> = forwardRef<
           'flex',
           'gap-3',
           alignment === 'vertical' ? 'flex-col' : 'flex-row',
+          labelWrapperClassName,
         )}
         data-theme={theme}
       >

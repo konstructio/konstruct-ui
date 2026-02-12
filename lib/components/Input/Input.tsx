@@ -50,7 +50,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       isRequired = false,
       isSearch = false,
       label,
+      labelAction,
       labelClassName,
+      labelWrapperClassName,
       name,
       theme,
       type = 'text',
@@ -75,34 +77,42 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="flex flex-col gap-2 w-full relative" data-theme={theme}>
         {label ? (
-          <Typography
-            component="label"
-            variant="labelLarge"
-            htmlFor={id}
+          <div
             className={cn(
-              'cursor-pointer',
-              'flex',
-              'gap-1',
-              'text-sm',
-              'font-medium',
-              labelClassName,
+              'flex items-center justify-between',
+              labelWrapperClassName,
             )}
           >
-            {label}{' '}
-            {isRequired && (
-              <Typography
-                component="span"
-                className={cn(
-                  'text-red-600',
-                  'dark:text-red-500',
-                  'text-xs',
-                  'mt-0.5',
-                )}
-              >
-                *
-              </Typography>
-            )}
-          </Typography>
+            <Typography
+              component="label"
+              variant="labelLarge"
+              htmlFor={id}
+              className={cn(
+                'cursor-pointer',
+                'flex',
+                'gap-1',
+                'text-sm',
+                'font-medium',
+                labelClassName,
+              )}
+            >
+              {label}{' '}
+              {isRequired && (
+                <Typography
+                  component="span"
+                  className={cn(
+                    'text-red-600',
+                    'dark:text-red-500',
+                    'text-xs',
+                    'mt-0.5',
+                  )}
+                >
+                  *
+                </Typography>
+              )}
+            </Typography>
+            {labelAction}
+          </div>
         ) : null}
 
         <div className="relative">

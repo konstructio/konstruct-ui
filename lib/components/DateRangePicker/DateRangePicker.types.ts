@@ -64,6 +64,8 @@ export type DateRangePickerProps = VariantProps<
   name?: string;
   /** Label for the component */
   label?: string;
+  /** Additional CSS classes for the label wrapper */
+  labelWrapperClassName?: string;
   /** Whether the field is required */
   isRequired?: boolean;
   /** Animation duration in milliseconds for month transitions (default: 400) */
