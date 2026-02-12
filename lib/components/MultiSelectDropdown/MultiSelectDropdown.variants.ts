@@ -3,12 +3,13 @@ import { cva } from 'class-variance-authority';
 export const wrapperVariants = cva([
   'flex',
   'flex-col',
+  'gap-2',
   'w-full',
   'relative',
   'cursor-pointer',
 ]);
 
-export const labelVariants = cva(['cursor-pointer', 'mb-1', 'select-none']);
+export const labelVariants = cva(['cursor-pointer', 'select-none']);
 
 export const multiSelectDropdownVariants = cva([
   'min-h-9',

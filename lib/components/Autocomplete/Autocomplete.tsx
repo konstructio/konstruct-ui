@@ -76,7 +76,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     return (
       <div
         ref={wrapperRef}
-        className="relative flex flex-col"
+        className="relative flex flex-col gap-2"
         data-theme={theme}
       >
         {label ? (
