@@ -38,6 +38,8 @@ export const ButtonGroupItem: FC<Props> = memo(
     hasDescription,
     index,
     isDisabled,
+    isFirst,
+    isLast,
     isSelected,
     labelClassName,
     option,
@@ -56,7 +58,7 @@ export const ButtonGroupItem: FC<Props> = memo(
       onClick={() => !isDisabled && onSelect(value)}
       onKeyDown={(e) => onKeyDown(e, index)}
       className={cn(
-        buttonGroupItemVariants({ disabled: isDisabled }),
+        buttonGroupItemVariants({ disabled: isDisabled, isFirst, isLast }),
         'relative',
         className,
       )}

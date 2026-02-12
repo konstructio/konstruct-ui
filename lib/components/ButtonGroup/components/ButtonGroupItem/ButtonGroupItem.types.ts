@@ -12,6 +12,8 @@ export type Props = {
   hasDescription: boolean;
   index: number;
   isDisabled: boolean;
+  isFirst: boolean;
+  isLast: boolean;
   isSelected: boolean;
   labelClassName?: string;
   option: ButtonGroupOption;
