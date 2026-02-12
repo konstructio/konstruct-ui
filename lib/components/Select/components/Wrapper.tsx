@@ -131,7 +131,7 @@ export const Wrapper: ForwardRefExoticComponent<
     return (
       <div
         ref={wrapperRef}
-        className={cn('flex flex-col w-full relative', wrapperClassName)}
+        className={cn('flex flex-col gap-2 w-full relative', wrapperClassName)}
         data-theme={theme}
       >
         {label ? (

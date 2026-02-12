@@ -22,9 +22,4 @@ export const autocompleteVariants = cva([
   'kubefirst:focus:ring-kubefirst-primary',
 ]);
 
-export const labelVariants = cva([
-  'pl-1',
-  'mb-2',
-  'text-base',
-  'cursor-pointer',
-]);
+export const labelVariants = cva(['pl-1', 'text-base', 'cursor-pointer']);

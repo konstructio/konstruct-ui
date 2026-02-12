@@ -98,7 +98,7 @@ export const Counter: FC<CounterProps> = forwardRef<
     }, [count, max, onChange]);
 
     return (
-      <div className="flex flex-col gap-1" data-theme={theme}>
+      <div className="flex flex-col gap-2" data-theme={theme}>
         {label ? (
           <div className={cn(labelWrapperClassName)}>
             <Typography

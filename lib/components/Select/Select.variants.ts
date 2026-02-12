@@ -67,7 +67,6 @@ export const inputVariants = cva([
 ]);
 
 export const labelVariants = cva([
-  'mb-1',
   'cursor-pointer',
   'text-sm',
   'leading-5',

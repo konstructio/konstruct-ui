@@ -3,12 +3,13 @@ import { cva } from 'class-variance-authority';
 export const wrapperVariants = cva([
   'flex',
   'flex-col',
+  'gap-2',
   'w-full',
   'relative',
   'text-zinc-500',
 ]);
 
-export const labelVariants = cva(['my-2', 'cursor-pointer']);
+export const labelVariants = cva(['cursor-pointer']);
 
 export const tagSelectVariants = cva([
   'border',
