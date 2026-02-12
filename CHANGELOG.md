@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.2-alpha.56](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.56) (2026-02-12)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.55...0.1.2-alpha.56)
+
+**Merged pull requests:**
+
+- ✨ feat: add LightBulb, DollarSign, and BookOpen icons [\#516](https://github.com/konstructio/konstruct-ui/pull/516) ([futjesus](https://github.com/futjesus))
+- ⬆️ chore: update outdated dependencies [\#515](https://github.com/konstructio/konstruct-ui/pull/515) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add secondaryLabel to ButtonGroup and refactor pill animation [\#514](https://github.com/konstructio/konstruct-ui/pull/514) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add labelWrapperClassName and labelAction props to form components [\#513](https://github.com/konstructio/konstruct-ui/pull/513) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add Icons Gallery page to Storybook [\#507](https://github.com/konstructio/konstruct-ui/pull/507) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.55](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.55) (2026-02-03)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.54...0.1.2-alpha.55)
