@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'motion/react';
+import { motion } from 'motion/react';
 import { FC, memo } from 'react';
 
 import { cn } from '@/utils';
@@ -9,7 +9,6 @@ import {
   buttonGroupItemContentVariants,
   buttonGroupItemVariants,
   buttonGroupLabelVariants,
-  buttonGroupPillVariants,
 } from './ButtonGroupItem.variants';
 
 const getClipPath = (
@@ -41,9 +40,7 @@ export const ButtonGroupItem: FC<Props> = memo(
     isDisabled,
     isSelected,
     labelClassName,
-    layoutId,
     option,
-    pillClassName,
     value,
     onKeyDown,
     onSelect,
@@ -64,36 +61,25 @@ export const ButtonGroupItem: FC<Props> = memo(
         className,
       )}
     >
-      <AnimatePresence mode="popLayout" initial={false}>
-        {isSelected && (
-          <motion.div
-            layoutId={layoutId}
-            className={cn(buttonGroupPillVariants(), pillClassName)}
-            transition={{
-              type: 'tween',
-              ease: 'easeInOut',
-              duration,
-            }}
-          />
-        )}
-      </AnimatePresence>
-
       <div
         className={cn(
           buttonGroupItemContentVariants({ hasDescription }),
-          'relative z-10',
+          'relative',
           contentClassName,
         )}
       >
-        <span className="relative">
+        <span className="relative w-full">
           <span
             className={cn(
               buttonGroupLabelVariants({ selected: false }),
               labelClassName,
             )}
           >
-            {option.icon}
-            {option.label}
+            <span className="flex items-center gap-2">
+              {option.icon}
+              {option.label}
+            </span>
+            {option.secondaryLabel && <span>{option.secondaryLabel}</span>}
           </span>
 
           <motion.span
@@ -109,12 +95,15 @@ export const ButtonGroupItem: FC<Props> = memo(
             }}
             transition={{
               type: 'tween',
-              ease: 'easeInOut',
+              ease: 'linear',
               duration,
             }}
           >
-            {option.icon}
-            {option.label}
+            <span className="flex items-center gap-2">
+              {option.icon}
+              {option.label}
+            </span>
+            {option.secondaryLabel && <span>{option.secondaryLabel}</span>}
           </motion.span>
         </span>
 

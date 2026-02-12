@@ -47,17 +47,18 @@ export const Default: Story = {
         <ButtonGroupComponent
           name="instance-type"
           label="Instance Type"
-          fullWidth
           isRequired
           options={[
             {
               value: 'standard',
               label: 'Standard',
+              secondaryLabel: '$0.10/hr',
               description: 'Guaranteed availability for your workloads.',
             },
             {
               value: 'spot',
               label: 'Spot',
+              secondaryLabel: '$0.03/hr',
               description: 'Lower cost, may be interrupted with 48h notice.',
             },
           ]}
