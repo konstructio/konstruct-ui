@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.57](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.57) (2026-02-12)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.56...0.1.2-alpha.57)
+
+**Merged pull requests:**
+
+- 🐛 fix: resolve ButtonGroup first item missing left border [\#517](https://github.com/konstructio/konstruct-ui/pull/517) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.56](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.56) (2026-02-12)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.55...0.1.2-alpha.56)
