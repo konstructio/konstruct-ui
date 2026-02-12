@@ -3,6 +3,8 @@
  */
 export declare const buttonGroupItemVariants: (props?: ({
     disabled?: boolean | null | undefined;
+    isFirst?: boolean | null | undefined;
+    isLast?: boolean | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
 /**
  * Inner content container (the content layer above the pill)
