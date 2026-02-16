@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- 🐛 fix: add dynamic --tag for prerelease npm publish [\#527](https://github.com/konstructio/konstruct-ui/pull/527) ([futjesus](https://github.com/futjesus))
 - ⬆️ chore: update Node.js to v24.13.1 LTS [\#526](https://github.com/konstructio/konstruct-ui/pull/526) ([futjesus](https://github.com/futjesus))
 - ⬆️ chore: update dependencies [\#525](https://github.com/konstructio/konstruct-ui/pull/525) ([futjesus](https://github.com/futjesus))
 - 💄 feat: add dark mode support to Modal component [\#524](https://github.com/konstructio/konstruct-ui/pull/524) ([futjesus](https://github.com/futjesus))
