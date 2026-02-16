@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.61](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.61) (2026-02-16)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.60...0.1.2-alpha.61)
+
+**Merged pull requests:**
+
+- 🐛 fix: also tag prerelease versions as `latest` on npm publish [\#528](https://github.com/konstructio/konstruct-ui/pull/528) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.60](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.60) (2026-02-16)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.59...0.1.2-alpha.60)
