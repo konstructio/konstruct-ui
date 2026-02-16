@@ -1,5 +1,5 @@
 import { PropsWithChildren } from '../../../../../node_modules/react';
-export type BodyProps = PropsWithChildren & {
+export type Props = PropsWithChildren & {
     asChild?: boolean;
     className?: string;
 };

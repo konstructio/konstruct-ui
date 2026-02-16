@@ -16,7 +16,7 @@ import { Theme } from '../../domain/theme';
  * </Modal>
  * ```
  */
-export interface ModalProps extends PropsWithChildren, VariantProps<typeof modalVariants> {
+export type Props = PropsWithChildren & VariantProps<typeof modalVariants> & {
     /** CSS classes for the close button */
     buttonCloseClassName?: string;
     /** Additional CSS classes for the modal */
@@ -31,11 +31,11 @@ export interface ModalProps extends PropsWithChildren, VariantProps<typeof modal
     theme?: Theme;
     /** Callback when modal is closed (Escape key or close button) */
     onClose?: () => void;
-}
+};
 /**
  * Props for Modal sub-components (Header, Body, Footer).
  */
-export type ModalChildProps = {
+export type ChildProps = {
     /** Content of the modal section */
     children: ReactNode;
     /** Additional CSS classes */

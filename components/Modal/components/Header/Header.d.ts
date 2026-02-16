@@ -1,3 +1,3 @@
 import { FC } from '../../../../../node_modules/react';
-import { HeaderProps } from './Header.types';
-export declare const Header: FC<HeaderProps>;
+import { Props } from './Header.types';
+export declare const Header: FC<Props>;

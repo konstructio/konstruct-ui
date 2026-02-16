@@ -1,3 +1,3 @@
 import { FC } from '../../../../../node_modules/react';
-import { WrapperProps } from './Wrapper.types';
-export declare const Wrapper: FC<WrapperProps>;
+import { Props } from './Wrapper.types';
+export declare const Wrapper: FC<Props>;

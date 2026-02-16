@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { ModalChildProps, ModalProps } from './Modal.types';
+import { ChildProps, Props } from './Modal.types';
 /**
  * A modal dialog component with Header, Body, and Footer sub-components.
  * Supports keyboard navigation (Escape to close) and portals to document.body.
@@ -26,9 +26,9 @@ import { ModalChildProps, ModalProps } from './Modal.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-modal--docs Storybook}
  */
-declare const Modal: FC<ModalProps> & {
-    Header: FC<ModalChildProps>;
-    Body: FC<ModalChildProps>;
-    Footer: FC<ModalChildProps>;
+declare const Modal: FC<Props> & {
+    Header: FC<ChildProps>;
+    Body: FC<ChildProps>;
+    Footer: FC<ChildProps>;
 };
 export { Modal };
