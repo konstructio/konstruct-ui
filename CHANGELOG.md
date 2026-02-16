@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.2-alpha.62](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.62) (2026-02-16)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.61...0.1.2-alpha.62)
+
+**Merged pull requests:**
+
+- 🔧 fix: remove unsupported auto-install-peers from .npmrc [\#530](https://github.com/konstructio/konstruct-ui/pull/530) ([futjesus](https://github.com/futjesus))
+- 🐛 fix: close Select dropdown when clicking additional options [\#529](https://github.com/konstructio/konstruct-ui/pull/529) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.61](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.61) (2026-02-16)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.60...0.1.2-alpha.61)
