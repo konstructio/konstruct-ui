@@ -49,11 +49,22 @@ jobs:
       - name: Authenticate with npmjs
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
 
+      - name: Determine npm dist-tag
+        id: dist-tag
+        run: |
+          VERSION="${{ github.event.client_payload.version }}"
+          if [[ "$VERSION" == *"-"* ]]; then
+            TAG=$(echo "$VERSION" | sed 's/.*-\([a-zA-Z]*\).*/\1/')
+          else
+            TAG="latest"
+          fi
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
       - name: Publish to GitHub Packages
-        run: npm publish --registry https://npm.pkg.github.com/
+        run: npm publish --registry https://npm.pkg.github.com/ --tag ${{ steps.dist-tag.outputs.tag }}
 
       - name: Publish to npm
-        run: npm publish --registry https://registry.npmjs.org/
+        run: npm publish --registry https://registry.npmjs.org/ --tag ${{ steps.dist-tag.outputs.tag }}
 
       - name: Send new version of the package to Konstruct Slack
         run: |
