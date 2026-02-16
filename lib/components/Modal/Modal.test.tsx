@@ -3,16 +3,16 @@ import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { useState } from 'react';
 
-import { ModalProps } from './Modal.types';
+import { Props } from './Modal.types';
 import { Modal } from './Modal';
 import { Button } from '../Button/Button';
 
 describe('Modal', () => {
   const defaultProps = {
     className: 'className-test',
-  } satisfies ModalProps;
+  } satisfies Props;
 
-  const setup = (props?: Partial<ModalProps>) => {
+  const setup = (props?: Partial<Props>) => {
     const Wrapper = () => {
       const [isOpen, setIsOpen] = useState(false);
 
@@ -125,5 +125,26 @@ describe('Modal', () => {
     await user.click(overlay);
 
     expect(modal).not.toBeInTheDocument();
+  });
+
+  it('should portal into the nearest [data-theme] container', async () => {
+    const ThemeWrapper = () => {
+      const [isOpen, setIsOpen] = useState(true);
+
+      return (
+        <div data-theme="dark" data-testid="theme-container">
+          <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+            Modal Content
+          </Modal>
+        </div>
+      );
+    };
+
+    render(<ThemeWrapper />);
+
+    const themeContainer = screen.getByTestId('theme-container');
+    const modal = await screen.findByRole('dialog');
+
+    expect(themeContainer).toContainElement(modal);
   });
 });

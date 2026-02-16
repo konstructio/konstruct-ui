@@ -3,13 +3,15 @@ import { FC } from 'react';
 
 import { cn } from '../../../../utils';
 
-import { HeaderProps } from './Header.types';
+import { Props } from './Header.types';
 
-export const Header: FC<HeaderProps> = ({ children, asChild, className }) => {
+export const Header: FC<Props> = ({ children, asChild, className }) => {
   const Component = asChild ? Slot : 'div';
 
   return (
-    <Component className={cn('border-zinc-200', className)}>
+    <Component
+      className={cn('border-zinc-200 dark:border-metal-700', className)}
+    >
       {children}
     </Component>
   );

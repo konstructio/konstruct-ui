@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 
-export type BodyProps = PropsWithChildren & {
+export type Props = PropsWithChildren & {
   asChild?: boolean;
   className?: string;
 };

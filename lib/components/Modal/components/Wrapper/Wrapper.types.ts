@@ -5,11 +5,11 @@ import { Theme } from '@/domain/theme';
 
 import { modalVariants } from './Wrapper.variants';
 
-export interface WrapperProps
-  extends PropsWithChildren, VariantProps<typeof modalVariants> {
-  buttonCloseClassName?: string;
-  className?: string;
-  showCloseButton?: boolean;
-  theme?: Theme;
-  onClose?: () => void;
-}
+export type Props = PropsWithChildren &
+  VariantProps<typeof modalVariants> & {
+    buttonCloseClassName?: string;
+    className?: string;
+    showCloseButton?: boolean;
+    theme?: Theme;
+    onClose?: () => void;
+  };

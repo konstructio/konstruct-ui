@@ -1,9 +1,11 @@
 import { cva } from 'class-variance-authority';
 
 export const modalVariants = cva([
-  'bg-metal-1000',
   'bg-white',
-  'border-none',
+  'border',
+  'border-transparent',
+  'dark:bg-metal-800',
+  'dark:border-slate-700',
   'flex',
   'flex-col',
   'justify-between',
@@ -16,14 +18,15 @@ export const modalVariants = cva([
   'fade-in-0',
   'zoom-in-95',
   'duration-150',
-  'shadow-kubefirst-primary',
 ]);
 
 export const buttonCloseVariants = cva([
   'absolute',
   'right-1.5',
   'top-1.5',
-  'text-inherit',
   'cursor-pointer',
-  'text-kubefirst-primary',
+  'text-slate-500',
+  'dark:text-slate-300',
+  'hover:text-slate-700',
+  'dark:hover:text-slate-100',
 ]);

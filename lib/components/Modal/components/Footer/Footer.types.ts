@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 
-export type FooterProps = PropsWithChildren & {
+export type Props = PropsWithChildren & {
   asChild?: boolean;
   className?: string;
 };

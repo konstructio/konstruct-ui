@@ -1,9 +1,9 @@
 'use client';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { Body, Footer, Header, Wrapper } from './components';
-import { ModalChildProps, ModalProps } from './Modal.types';
+import { ChildProps, Props } from './Modal.types';
 
 /**
  * A modal dialog component with Header, Body, and Footer sub-components.
@@ -31,11 +31,28 @@ import { ModalChildProps, ModalProps } from './Modal.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-modal--docs Storybook}
  */
-const Modal: FC<ModalProps> & {
-  Header: FC<ModalChildProps>;
-  Body: FC<ModalChildProps>;
-  Footer: FC<ModalChildProps>;
-} = ({ isOpen, onClose, container, ...delegated }) => {
+const Modal: FC<Props> & {
+  Header: FC<ChildProps>;
+  Body: FC<ChildProps>;
+  Footer: FC<ChildProps>;
+} = ({ isOpen, onClose, container, theme, ...delegated }) => {
+  const anchorRef = useRef<HTMLSpanElement | null>(null);
+  const [themeContainer, setThemeContainer] = useState<HTMLElement | null>(
+    null,
+  );
+
+  useEffect(() => {
+    if (!anchorRef.current || theme || container) {
+      return;
+    }
+
+    const parent = anchorRef.current.closest('[data-theme]');
+
+    if (parent) {
+      setThemeContainer(parent as HTMLElement);
+    }
+  }, [theme, container]);
+
   useEffect(() => {
     const controller = new AbortController();
 
@@ -54,13 +71,16 @@ const Modal: FC<ModalProps> & {
     };
   }, [onClose]);
 
-  if (!isOpen) {
-    return null;
-  }
+  return (
+    <>
+      <span ref={anchorRef} data-testid="modal-anchor" hidden />
 
-  return createPortal(
-    <Wrapper {...delegated} onClose={onClose} />,
-    container || document.body,
+      {isOpen &&
+        createPortal(
+          <Wrapper {...delegated} theme={theme} onClose={onClose} />,
+          container || themeContainer || document.body,
+        )}
+    </>
   );
 };
 
