@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.2-alpha.60](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.60) (2026-02-16)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.59...0.1.2-alpha.60)
+
+**Merged pull requests:**
+
+- ⬆️ chore: update Node.js to v24.13.1 LTS [\#526](https://github.com/konstructio/konstruct-ui/pull/526) ([futjesus](https://github.com/futjesus))
+- ⬆️ chore: update dependencies [\#525](https://github.com/konstructio/konstruct-ui/pull/525) ([futjesus](https://github.com/futjesus))
+- 💄 feat: add dark mode support to Modal component [\#524](https://github.com/konstructio/konstruct-ui/pull/524) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.59](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.59) (2026-02-12)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.58...0.1.2-alpha.59)
