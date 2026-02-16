@@ -61,10 +61,18 @@ jobs:
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
       - name: Publish to GitHub Packages
-        run: npm publish --registry https://npm.pkg.github.com/ --tag ${{ steps.dist-tag.outputs.tag }}
+        run: |
+          npm publish --registry https://npm.pkg.github.com/ --tag ${{ steps.dist-tag.outputs.tag }}
+          if [ "${{ steps.dist-tag.outputs.tag }}" != "latest" ]; then
+            npm dist-tag add @konstructio/ui@${{ github.event.client_payload.version }} latest --registry https://npm.pkg.github.com/
+          fi
 
       - name: Publish to npm
-        run: npm publish --registry https://registry.npmjs.org/ --tag ${{ steps.dist-tag.outputs.tag }}
+        run: |
+          npm publish --registry https://registry.npmjs.org/ --tag ${{ steps.dist-tag.outputs.tag }}
+          if [ "${{ steps.dist-tag.outputs.tag }}" != "latest" ]; then
+            npm dist-tag add @konstructio/ui@${{ github.event.client_payload.version }} latest --registry https://registry.npmjs.org/
+          fi
 
       - name: Send new version of the package to Konstruct Slack
         run: |
