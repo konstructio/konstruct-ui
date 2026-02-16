@@ -4,13 +4,13 @@ import { X as Close } from 'react-feather';
 import { RemoveScroll } from 'react-remove-scroll';
 
 import { Modal } from '@/components/Modal/Modal';
-import { ModalChildProps } from '@/components/Modal/Modal.types';
+import { ChildProps } from '@/components/Modal/Modal.types';
 import { cn } from '@/utils';
 
-import { WrapperProps } from './Wrapper.types';
+import { Props } from './Wrapper.types';
 import { buttonCloseVariants, modalVariants } from './Wrapper.variants';
 
-export const Wrapper: FC<WrapperProps> = ({
+export const Wrapper: FC<Props> = ({
   buttonCloseClassName,
   children,
   className,
@@ -34,7 +34,7 @@ export const Wrapper: FC<WrapperProps> = ({
     (child) =>
       !isValidElement(child) ||
       ![Modal.Header, Modal.Body, Modal.Footer].includes(
-        child.type as FC<ModalChildProps>,
+        child.type as FC<ChildProps>,
       ),
   );
 
@@ -45,7 +45,7 @@ export const Wrapper: FC<WrapperProps> = ({
         data-theme={theme}
       >
         <div
-          className="absolute inset-0 bg-black opacity-75 animate-in fade-in-0"
+          className="absolute inset-0 bg-black opacity-70 dark:opacity-85 animate-in fade-in-0"
           onClick={onClose}
           role="presentation"
         />
