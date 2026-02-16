@@ -48,16 +48,17 @@ export const List: ForwardRefExoticComponent<
     const loadingRef = useRef<HTMLLIElement>(null);
     const [isFetching, setIsFetching] = useState(false);
     const {
-      isOpen,
-      searchTerm,
-      canFilter,
       canContinueFetching,
-      page,
-      options,
+      canFilter,
+      isOpen,
       isTyping,
+      options,
+      page,
+      searchTerm,
+      setCanContinueFetching,
       setOptions,
       setPage,
-      setCanContinueFetching,
+      toggleOpen,
     } = useSelectContext();
 
     useImperativeHandle(ref, () => ulRef.current!, [ulRef]);
@@ -198,7 +199,12 @@ export const List: ForwardRefExoticComponent<
         )}
 
         {additionalOptions?.map((option, index) => (
-          <li key={index} role="option" data-action="true">
+          <li
+            key={index}
+            role="option"
+            data-action="true"
+            onClick={() => toggleOpen(false)}
+          >
             <Slot
               className={cn(
                 'flex',

@@ -106,7 +106,7 @@ export const Dark = {
             {...args}
             options={[]}
             additionalOptions={[
-              <button>
+              <button key="add-new-account">
                 <Plus /> New Cloud Account
               </button>,
             ]}
