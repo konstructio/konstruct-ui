@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.63](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.63) (2026-02-17)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.62...0.1.2-alpha.63)
+
+**Merged pull requests:**
+
+- ✨ feat: add expandable rows to VirtualizedTable [\#531](https://github.com/konstructio/konstruct-ui/pull/531) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.62](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.62) (2026-02-16)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.61...0.1.2-alpha.62)
