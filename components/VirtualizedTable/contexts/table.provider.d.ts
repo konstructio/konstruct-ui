@@ -1,17 +1,3 @@
-import { ColumnDef } from '@tanstack/react-table';
-import { PropsWithChildren } from '../../../../node_modules/react';
-import { RowData, Props as TableProps } from '../VirtualizedTable.types';
-type Props<TData extends RowData = RowData> = PropsWithChildren & {
-    id: string | string[] | number | number[];
-    data: TData[];
-    columns: ColumnDef<TData, string>[];
-    totalItems: number;
-    queryOptions?: TableProps<TData>['queryOptions'];
-    isPaginationEnabled?: boolean;
-    fetchData?: (params: Record<string, string | number | string[] | number[] | undefined>) => Promise<{
-        data: TData[];
-        totalItemsCount?: number;
-    }>;
-};
-export declare const TableProvider: <TData extends RowData = RowData>({ children, id, data: defaultData, columns, totalItems, isPaginationEnabled, queryOptions, fetchData, }: Props<TData>) => import("react/jsx-runtime").JSX.Element;
-export {};
+import { RowData } from '../VirtualizedTable.types';
+import { Props } from './table.types';
+export declare const TableProvider: <TData extends RowData = RowData>({ children, classNameExpandedCell, classNameExpandedContent, classNameExpandedRow, classNameExpandedHeader, columns, data: defaultData, defaultExpanded, enableExpandedRow, expandedState, id, isPaginationEnabled, queryOptions, totalItems, fetchData, onExpandedChange, }: Props<TData>) => import("react/jsx-runtime").JSX.Element;
