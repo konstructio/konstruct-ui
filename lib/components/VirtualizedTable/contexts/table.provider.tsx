@@ -1,40 +1,43 @@
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { useQuery } from '@tanstack/react-query';
 import {
   ColumnDef,
+  ExpandedState,
   getCoreRowModel,
   getSortedRowModel,
+  OnChangeFn,
   SortingState,
   Table,
   useReactTable,
 } from '@tanstack/react-table';
-import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
+import { ChevronRight } from 'lucide-react';
+import { useCallback, useMemo, useState } from 'react';
 
-import { RowData, Props as TableProps } from '../VirtualizedTable.types';
+import { cn } from '@/utils';
+
+import { RowData, RowDataWithMeta } from '../VirtualizedTable.types';
 import { DEFAULT_PAGE_SIZE } from '../constants';
 
 import { TableContext } from './table.context';
-
-type Props<TData extends RowData = RowData> = PropsWithChildren & {
-  id: string | string[] | number | number[];
-  data: TData[];
-  columns: ColumnDef<TData, string>[];
-  totalItems: number;
-  queryOptions?: TableProps<TData>['queryOptions'];
-  isPaginationEnabled?: boolean;
-  fetchData?: (
-    params: Record<string, string | number | string[] | number[] | undefined>,
-  ) => Promise<{ data: TData[]; totalItemsCount?: number }>;
-};
+import { Props } from './table.types';
 
 export const TableProvider = <TData extends RowData = RowData>({
   children,
-  id,
-  data: defaultData = [],
+  classNameExpandedCell,
+  classNameExpandedContent,
+  classNameExpandedRow,
+  classNameExpandedHeader,
   columns = [],
-  totalItems,
+  data: defaultData = [],
+  defaultExpanded,
+  enableExpandedRow,
+  expandedState,
+  id,
   isPaginationEnabled,
   queryOptions = {},
+  totalItems,
   fetchData,
+  onExpandedChange,
 }: Props<TData>) => {
   const [sortedData, setSortedData] = useState<SortingState>([]);
   const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
@@ -120,13 +123,83 @@ export const TableProvider = <TData extends RowData = RowData>({
     [],
   );
 
+  // Expanded row state management
+  const [internalExpanded, setInternalExpanded] = useState<ExpandedState>(
+    defaultExpanded ?? {},
+  );
+  const isExpandedControlled = expandedState !== undefined;
+  const currentExpanded = isExpandedControlled
+    ? expandedState
+    : internalExpanded;
+
+  const handleExpandedChange: OnChangeFn<ExpandedState> = useCallback(
+    (updater) => {
+      const newValue =
+        typeof updater === 'function' ? updater(currentExpanded) : updater;
+      if (!isExpandedControlled) setInternalExpanded(newValue);
+      onExpandedChange?.(updater);
+    },
+    [currentExpanded, isExpandedControlled, onExpandedChange],
+  );
+
+  const expandColumn: ColumnDef<TData, string> | null = useMemo(() => {
+    if (!enableExpandedRow) return null;
+
+    return {
+      id: '__expand',
+      header: () => <VisuallyHidden>Expand Column</VisuallyHidden>,
+      cell: ({ row }) => {
+        const { meta } = row.original as RowDataWithMeta;
+
+        if (!meta?.expandedRow) {
+          return null;
+        }
+
+        return (
+          <button
+            className="hover:cursor-pointer"
+            onClick={() => row.toggleExpanded()}
+            aria-label={row.getIsExpanded() ? 'Collapse row' : 'Expand row'}
+          >
+            <ChevronRight
+              className={cn(
+                'size-4 transition-transform text-slate-400 dark:text-metal-400',
+                {
+                  'rotate-[-90deg]': row.getIsExpanded(),
+                },
+              )}
+            />
+          </button>
+        );
+      },
+      enableSorting: false,
+      meta: {
+        headerClassName: 'w-10',
+        className: cn('w-10 px-1 text-center', classNameExpandedHeader),
+      },
+    };
+  }, [enableExpandedRow]);
+
+  const mergedColumns = useMemo(() => {
+    if (!expandColumn) return columns;
+
+    return [expandColumn, ...columns];
+  }, [columns, expandColumn]);
+
   const table = useReactTable<TData>({
     data,
-    columns,
+    columns: mergedColumns,
     state: {
       sorting: sortedData,
+      ...(enableExpandedRow ? { expanded: currentExpanded } : {}),
     },
     onSortingChange: setSortedData,
+    ...(enableExpandedRow
+      ? {
+          onExpandedChange: handleExpandedChange,
+          manualExpanding: true,
+        }
+      : {}),
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
@@ -145,6 +218,10 @@ export const TableProvider = <TData extends RowData = RowData>({
         pageSize,
         totalPages,
         isFirstLoad,
+        enableExpandedRow,
+        classNameExpandedRow,
+        classNameExpandedCell,
+        classNameExpandedContent,
         handlePage,
         onPageSize,
         onChangeTermOfSearch,

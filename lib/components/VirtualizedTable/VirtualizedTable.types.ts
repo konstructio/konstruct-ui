@@ -1,8 +1,11 @@
 import type {
   ColumnDef as ColumnDefPrimitive,
+  ExpandedState,
+  OnChangeFn,
   RowData as RowDataPrimitive,
 } from '@tanstack/react-table';
 import { VariantProps } from 'class-variance-authority';
+import { ReactNode } from 'react';
 
 import { virtualizeTableVariants } from './VirtualizedTable.variants';
 import { FilterAction, Option } from './components/Filter/Filter.types';
@@ -28,6 +31,7 @@ declare module '@tanstack/react-table' {
 export interface RowMetadata {
   className?: string;
   attributes?: Record<string, string | number | boolean>;
+  expandedRow?: ReactNode;
   [key: string]: unknown;
 }
 
@@ -131,5 +135,27 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         filterActions?: FilterAction[];
         showResetButton?: never;
         resetButtonClassName?: never;
+      }
+  ) &
+  (
+    | {
+        enableExpandedRow: true;
+        expandedState?: ExpandedState;
+        defaultExpanded?: ExpandedState;
+        classNameExpandedRow?: string;
+        classNameExpandedCell?: string;
+        classNameExpandedContent?: string;
+        classNameExpandedHeader?: string;
+        onExpandedChange?: OnChangeFn<ExpandedState>;
+      }
+    | {
+        enableExpandedRow?: false | undefined;
+        expandedState?: never;
+        defaultExpanded?: never;
+        classNameExpandedRow?: never;
+        classNameExpandedCell?: never;
+        classNameExpandedContent?: never;
+        classNameExpandedHeader?: never;
+        onExpandedChange?: never;
       }
   );

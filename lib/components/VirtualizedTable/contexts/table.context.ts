@@ -16,6 +16,10 @@ export type ContextType<TData extends RowData = RowData> = {
   multiselectSelected?: Record<string, string[]>;
   totalPages: number;
   isFirstLoad: boolean;
+  enableExpandedRow?: boolean;
+  classNameExpandedRow?: string;
+  classNameExpandedCell?: string;
+  classNameExpandedContent?: string;
   handlePage: (newPage: number) => void;
   onPageSize: (newPageSize: number) => void;
   onSorting: Dispatch<SetStateAction<SortingState>>;
