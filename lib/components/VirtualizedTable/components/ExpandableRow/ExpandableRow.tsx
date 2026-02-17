@@ -12,17 +12,25 @@ export const ExpandableRow: FC<Props> = ({
   colSpan,
   id,
   isExpanded,
+  isLastRow,
 }) => (
-  <tr className={cn(classNameExpandedRow)} data-expanded-row-id={id}>
+  <tr
+    className={cn('h-0 leading-0', classNameExpandedRow)}
+    data-expanded-row-id={id}
+  >
     <td
       colSpan={colSpan}
       className={cn(
-        'bg-white p-0 dark:bg-metal-900 dark:border-x dark:border-t dark:border-b',
+        'p-0 bg-white dark:bg-metal-900 dark:border-x dark:border-metal-700',
+        { 'rounded-b-lg': isLastRow },
         {
-          'border-t border-b border-gray-200': isExpanded,
-          'dark:border-metal-700': isExpanded,
-          'dark:border-transparent dark:transition-[border-color] dark:duration-300 dark:ease-in-out':
-            !isExpanded,
+          'border-t border-b border-gray-200 dark:border-t-metal-700':
+            isExpanded && isLastRow,
+          'border-t border-b border-gray-200 dark:border-t-metal-700 dark:border-b-0':
+            isExpanded && !isLastRow,
+          'border-y-0': !isExpanded && !isLastRow,
+          'border-t-0 border-b border-b-gray-200 dark:border-b-metal-700':
+            !isExpanded && isLastRow,
         },
       )}
     >

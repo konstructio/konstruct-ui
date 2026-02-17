@@ -282,51 +282,39 @@ type PokemonWithMeta = Pokemon & {
 };
 
 const addExpandedContent = (results: Pokemon[]): PokemonWithMeta[] =>
-  results.map((pokemon, index) => ({
+  results.map((pokemon) => ({
     ...pokemon,
-    meta:
-      index % 2 === 0
-        ? {
-            expandedRow: (
-              <div className="flex flex-col gap-2 py-2">
-                <Typography variant="body3" className="text-gray-500">
-                  Details for {pokemon.name}
-                </Typography>
-                <div className="flex gap-4">
-                  <div className="flex flex-col gap-1">
-                    <Typography
-                      variant="body3"
-                      className="font-medium text-gray-700"
-                    >
-                      Type
-                    </Typography>
-                    <Typography variant="body2">{pokemon.type}</Typography>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <Typography
-                      variant="body3"
-                      className="font-medium text-gray-700"
-                    >
-                      Ability
-                    </Typography>
-                    <Typography variant="body2">{pokemon.ability}</Typography>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <Typography
-                      variant="body3"
-                      className="font-medium text-gray-700"
-                    >
-                      Height / Weight
-                    </Typography>
-                    <Typography variant="body2">
-                      {pokemon.height} / {pokemon.weight}
-                    </Typography>
-                  </div>
-                </div>
-              </div>
-            ),
-          }
-        : undefined,
+    meta: {
+      expandedRow: (
+        <div className="flex flex-col gap-2 py-2">
+          <Typography variant="body3" className="text-gray-500">
+            Details for {pokemon.name}
+          </Typography>
+          <div className="flex gap-4">
+            <div className="flex flex-col gap-1">
+              <Typography variant="body3" className="font-medium text-gray-700">
+                Type
+              </Typography>
+              <Typography variant="body2">{pokemon.type}</Typography>
+            </div>
+            <div className="flex flex-col gap-1">
+              <Typography variant="body3" className="font-medium text-gray-700">
+                Ability
+              </Typography>
+              <Typography variant="body2">{pokemon.ability}</Typography>
+            </div>
+            <div className="flex flex-col gap-1">
+              <Typography variant="body3" className="font-medium text-gray-700">
+                Height / Weight
+              </Typography>
+              <Typography variant="body2">
+                {pokemon.height} / {pokemon.weight}
+              </Typography>
+            </div>
+          </div>
+        </div>
+      ),
+    },
   }));
 
 export const ExpandableRows: Story = {

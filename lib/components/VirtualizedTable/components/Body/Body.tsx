@@ -86,11 +86,13 @@ export const Body = <TData extends RowData = RowData>({
                         'first:rounded-bl-lg':
                           rowIndex === rows.length - 1 &&
                           columnIndex === 0 &&
-                          !showPagination,
+                          !showPagination &&
+                          !isExpanded,
                         'last:rounded-br-lg':
                           rowIndex === rows.length - 1 &&
                           columnIndex === columns.length - 1 &&
-                          !showPagination,
+                          !showPagination &&
+                          !isExpanded,
                         'dark:[tr:last-child_&]:border-b': !showPagination,
                       },
                     )}
@@ -110,6 +112,7 @@ export const Body = <TData extends RowData = RowData>({
                 colSpan={columns.length}
                 id={id}
                 isExpanded={!!isExpanded}
+                isLastRow={rowIndex === rows.length - 1 && !showPagination}
               >
                 {meta.expandedRow}
               </ExpandableRow>
