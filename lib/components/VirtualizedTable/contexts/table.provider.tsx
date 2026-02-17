@@ -165,7 +165,7 @@ export const TableProvider = <TData extends RowData = RowData>({
               className={cn(
                 'size-4 transition-transform text-slate-400 dark:text-metal-400',
                 {
-                  'rotate-[-90deg]': row.getIsExpanded(),
+                  '-rotate-90': row.getIsExpanded(),
                 },
               )}
             />

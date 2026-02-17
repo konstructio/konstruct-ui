@@ -7,4 +7,5 @@ export type Props = PropsWithChildren<{
   colSpan: number;
   id: string;
   isExpanded: boolean;
+  isLastRow?: boolean;
 }>;
