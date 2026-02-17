@@ -6,6 +6,7 @@ import { cn } from '@/utils';
 
 import { useTableContext } from '../../contexts';
 import { RowData, RowDataWithMeta } from '../../VirtualizedTable.types';
+import { ExpandableRow } from '../ExpandableRow/ExpandableRow';
 
 import { BodyProps } from './Body.types';
 
@@ -20,6 +21,7 @@ export const Body = <TData extends RowData = RowData>({
     enableExpandedRow,
     classNameExpandedRow,
     classNameExpandedCell,
+    classNameExpandedContent,
   } = useTableContext<TData>();
 
   if (isLoading || tableFetching) {
@@ -54,9 +56,6 @@ export const Body = <TData extends RowData = RowData>({
                 'border-b-gray-200',
                 'dark:text-metal-50',
                 'dark:border-b-metal-700',
-                {
-                  'last:border-b-transparent': !isExpanded,
-                },
                 'bg-transparent',
                 meta.className,
               )}
@@ -103,27 +102,17 @@ export const Body = <TData extends RowData = RowData>({
               })}
             </tr>
 
-            {isExpanded && hasExpandedContent && (
-              <tr
-                className={cn(
-                  'border-b',
-                  'border-b-gray-200',
-                  'dark:border-b-metal-700',
-                  classNameExpandedRow,
-                )}
-                data-expanded-row-id={id}
+            {hasExpandedContent && (
+              <ExpandableRow
+                classNameExpandedCell={classNameExpandedCell}
+                classNameExpandedContent={classNameExpandedContent}
+                classNameExpandedRow={classNameExpandedRow}
+                colSpan={columns.length}
+                id={id}
+                isExpanded={!!isExpanded}
               >
-                <td
-                  colSpan={columns.length}
-                  className={cn(
-                    'px-4 py-3',
-                    'bg-white dark:bg-metal-900',
-                    classNameExpandedCell,
-                  )}
-                >
-                  {meta.expandedRow}
-                </td>
-              </tr>
+                {meta.expandedRow}
+              </ExpandableRow>
             )}
           </Fragment>
         );

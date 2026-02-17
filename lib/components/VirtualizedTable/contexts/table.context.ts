@@ -19,6 +19,7 @@ export type ContextType<TData extends RowData = RowData> = {
   enableExpandedRow?: boolean;
   classNameExpandedRow?: string;
   classNameExpandedCell?: string;
+  classNameExpandedContent?: string;
   handlePage: (newPage: number) => void;
   onPageSize: (newPageSize: number) => void;
   onSorting: Dispatch<SetStateAction<SortingState>>;

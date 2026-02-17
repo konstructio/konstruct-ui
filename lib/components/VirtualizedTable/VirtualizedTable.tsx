@@ -76,6 +76,8 @@ const VirtualizedTableInner = <TData extends RowData>({
   defaultExpanded,
   classNameExpandedRow,
   classNameExpandedCell,
+  classNameExpandedContent,
+  classNameExpandedHeader,
   onExpandedChange,
 }: Props<TData>): JSX.Element => {
   const showPagination = useMemo(
@@ -105,6 +107,8 @@ const VirtualizedTableInner = <TData extends RowData>({
       defaultExpanded={defaultExpanded}
       classNameExpandedRow={classNameExpandedRow}
       classNameExpandedCell={classNameExpandedCell}
+      classNameExpandedContent={classNameExpandedContent}
+      classNameExpandedHeader={classNameExpandedHeader}
     >
       <section className={cn('w-full min-w-fit', className)}>
         {showFilter && (

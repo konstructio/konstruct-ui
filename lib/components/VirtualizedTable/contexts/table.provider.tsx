@@ -1,3 +1,4 @@
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { useQuery } from '@tanstack/react-query';
 import {
   ColumnDef,
@@ -10,41 +11,22 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { ChevronRight } from 'lucide-react';
-import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { cn } from '@/utils';
 
-import {
-  RowData,
-  RowDataWithMeta,
-  Props as TableProps,
-} from '../VirtualizedTable.types';
+import { RowData, RowDataWithMeta } from '../VirtualizedTable.types';
 import { DEFAULT_PAGE_SIZE } from '../constants';
 
 import { TableContext } from './table.context';
-
-type Props<TData extends RowData = RowData> = PropsWithChildren & {
-  id: string | string[] | number | number[];
-  data: TData[];
-  columns: ColumnDef<TData, string>[];
-  totalItems: number;
-  queryOptions?: TableProps<TData>['queryOptions'];
-  isPaginationEnabled?: boolean;
-  enableExpandedRow?: boolean;
-  expandedState?: ExpandedState;
-  defaultExpanded?: ExpandedState;
-  classNameExpandedRow?: string;
-  classNameExpandedCell?: string;
-  onExpandedChange?: OnChangeFn<ExpandedState>;
-  fetchData?: (
-    params: Record<string, string | number | string[] | number[] | undefined>,
-  ) => Promise<{ data: TData[]; totalItemsCount?: number }>;
-};
+import { Props } from './table.types';
 
 export const TableProvider = <TData extends RowData = RowData>({
   children,
   classNameExpandedCell,
+  classNameExpandedContent,
   classNameExpandedRow,
+  classNameExpandedHeader,
   columns = [],
   data: defaultData = [],
   defaultExpanded,
@@ -160,13 +142,12 @@ export const TableProvider = <TData extends RowData = RowData>({
     [currentExpanded, isExpandedControlled, onExpandedChange],
   );
 
-  // Auto-inject chevron column when expandable rows are enabled
   const expandColumn: ColumnDef<TData, string> | null = useMemo(() => {
     if (!enableExpandedRow) return null;
 
     return {
       id: '__expand',
-      header: () => null,
+      header: () => <VisuallyHidden>Expand Column</VisuallyHidden>,
       cell: ({ row }) => {
         const { meta } = row.original as RowDataWithMeta;
 
@@ -174,22 +155,19 @@ export const TableProvider = <TData extends RowData = RowData>({
           return null;
         }
 
-        console.log(row);
-
         return (
           <button
             className="hover:cursor-pointer"
-            onClick={() => {
-              console.log(row);
-              row.toggleExpanded(true);
-              console.log(row.getToggleSelectedHandler());
-            }}
+            onClick={() => row.toggleExpanded()}
             aria-label={row.getIsExpanded() ? 'Collapse row' : 'Expand row'}
           >
             <ChevronRight
-              className={cn('size-4 transition-transform', {
-                'rotate-90': row.getIsExpanded(),
-              })}
+              className={cn(
+                'size-4 transition-transform text-slate-400 dark:text-metal-400',
+                {
+                  'rotate-[-90deg]': row.getIsExpanded(),
+                },
+              )}
             />
           </button>
         );
@@ -197,7 +175,7 @@ export const TableProvider = <TData extends RowData = RowData>({
       enableSorting: false,
       meta: {
         headerClassName: 'w-10',
-        className: 'w-10 px-2 flex items-center justify-center',
+        className: cn('w-10 px-1 text-center', classNameExpandedHeader),
       },
     };
   }, [enableExpandedRow]);
@@ -243,6 +221,7 @@ export const TableProvider = <TData extends RowData = RowData>({
         enableExpandedRow,
         classNameExpandedRow,
         classNameExpandedCell,
+        classNameExpandedContent,
         handlePage,
         onPageSize,
         onChangeTermOfSearch,

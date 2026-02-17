@@ -144,6 +144,8 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         defaultExpanded?: ExpandedState;
         classNameExpandedRow?: string;
         classNameExpandedCell?: string;
+        classNameExpandedContent?: string;
+        classNameExpandedHeader?: string;
         onExpandedChange?: OnChangeFn<ExpandedState>;
       }
     | {
@@ -152,6 +154,8 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         defaultExpanded?: never;
         classNameExpandedRow?: never;
         classNameExpandedCell?: never;
+        classNameExpandedContent?: never;
+        classNameExpandedHeader?: never;
         onExpandedChange?: never;
       }
   );
