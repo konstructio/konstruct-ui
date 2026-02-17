@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.64](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.64) (2026-02-17)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.63...0.1.2-alpha.64)
+
+**Merged pull requests:**
+
+- 🐛 fix: expandable row spacing and border issues [\#532](https://github.com/konstructio/konstruct-ui/pull/532) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.63](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.63) (2026-02-17)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.62...0.1.2-alpha.63)
