@@ -75,7 +75,7 @@ export const BadgeMultiSelect: FC<BadgeMultiSelectProps> = ({
             },
           )}
         >
-          <div className="py-4">
+          <div className="px-6 py-4">
             <div className="flex flex-col gap-2">
               {options.map((option) => {
                 const isSelected = !!selectedOptions.find(
@@ -83,7 +83,7 @@ export const BadgeMultiSelect: FC<BadgeMultiSelectProps> = ({
                 );
 
                 return (
-                  <div key={option.id} className="flex gap-4 px-6">
+                  <div key={option.id} className="flex gap-4">
                     <Checkbox
                       key={`${option.id}-${isSelected}`}
                       defaultChecked={isSelected}
@@ -105,6 +105,7 @@ export const BadgeMultiSelect: FC<BadgeMultiSelectProps> = ({
               'justify-center',
               'items-center',
               'gap-4',
+              'px-6',
               'py-4',
               'border-t',
               'border-gray-200',
