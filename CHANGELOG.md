@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.2-alpha.65](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.65) (2026-02-18)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.64...0.1.2-alpha.65)
+
+**Merged pull requests:**
+
+- ✨ feat: add hover row and active expanded row styling to VirtualizedTable [\#534](https://github.com/konstructio/konstruct-ui/pull/534) ([futjesus](https://github.com/futjesus))
+- 🐛 fix: add horizontal padding to BadgeMultiSelect dropdown [\#533](https://github.com/konstructio/konstruct-ui/pull/533) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.64](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.64) (2026-02-17)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.63...0.1.2-alpha.64)
