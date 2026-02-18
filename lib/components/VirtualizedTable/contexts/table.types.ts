@@ -17,6 +17,9 @@ export type Props<TData extends RowData = RowData> = PropsWithChildren & {
   classNameExpandedCell?: string;
   classNameExpandedContent?: string;
   classNameExpandedHeader?: string;
+  classNameActiveExpandedRow?: string;
+  enableHoverRow?: boolean;
+  classNameHoverRow?: string;
   onExpandedChange?: OnChangeFn<ExpandedState>;
   fetchData?: (
     params: Record<string, string | number | string[] | number[] | undefined>,

@@ -22,6 +22,9 @@ export const Body = <TData extends RowData = RowData>({
     classNameExpandedRow,
     classNameExpandedCell,
     classNameExpandedContent,
+    enableHoverRow,
+    classNameHoverRow,
+    classNameActiveExpandedRow,
   } = useTableContext<TData>();
 
   if (isLoading || tableFetching) {
@@ -52,6 +55,7 @@ export const Body = <TData extends RowData = RowData>({
           <Fragment key={id}>
             <tr
               className={cn(
+                { 'group/row': enableHoverRow },
                 'border-b',
                 'border-b-gray-200',
                 'dark:text-metal-50',
@@ -81,6 +85,15 @@ export const Body = <TData extends RowData = RowData>({
                       'dark:border-metal-700',
                       'dark:first:border-l',
                       'dark:last:border-r',
+                      {
+                        'group-hover/row:bg-zinc-100 dark:group-hover/row:bg-metal-800':
+                          enableHoverRow,
+                        [cn(
+                          'bg-zinc-100 dark:bg-metal-800',
+                          classNameActiveExpandedRow,
+                        )]: !!isExpanded,
+                      },
+                      classNameHoverRow,
                       classNameFromMeta,
                       {
                         'first:rounded-bl-lg':
@@ -96,6 +109,7 @@ export const Body = <TData extends RowData = RowData>({
                         'dark:[tr:last-child_&]:border-b': !showPagination,
                       },
                     )}
+                    data-expanded={isExpanded ? true : undefined}
                     {...(column.columnDef.meta?.attributes ?? {})}
                   >
                     {flexRender(column.columnDef.cell, getContext())}
