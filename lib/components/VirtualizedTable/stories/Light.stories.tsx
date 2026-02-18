@@ -378,6 +378,7 @@ export const ExpandableRows: Story = {
       <QueryClientProvider client={queryClient}>
         <VirtualizedTableComponent<PokemonWithMeta>
           {...storyArgs}
+          enableHoverRow
           id={id}
           data={data}
           columns={columns as ColumnDef<PokemonWithMeta>[]}

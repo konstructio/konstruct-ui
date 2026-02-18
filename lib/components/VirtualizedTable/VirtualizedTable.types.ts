@@ -88,6 +88,8 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
   classNameHeaderTable?: string;
   classNameTable?: string;
   classNameWrapperTable?: string;
+  enableHoverRow?: boolean;
+  classNameHoverRow?: string;
   queryOptions?: Omit<
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     UseQueryOptions<any, any, any, any>,
@@ -146,6 +148,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         classNameExpandedCell?: string;
         classNameExpandedContent?: string;
         classNameExpandedHeader?: string;
+        classNameActiveExpandedRow?: string;
         onExpandedChange?: OnChangeFn<ExpandedState>;
       }
     | {
@@ -156,6 +159,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         classNameExpandedCell?: never;
         classNameExpandedContent?: never;
         classNameExpandedHeader?: never;
+        classNameActiveExpandedRow?: never;
         onExpandedChange?: never;
       }
   );
