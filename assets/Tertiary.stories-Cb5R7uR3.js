@@ -1,0 +1,22 @@
+import{j as t}from"./iframe-B0ykOvC4.js";import{B as a}from"./Button-DKwRI_Ni.js";import{C as e,a as s}from"./chevron-right-d40jRypO.js";import"./preload-helper-PPVm8Dsz.js";import"./index-Dt_7K3_P.js";import"./index-Qi49gsqp.js";import"./index-BIgQ6y5l.js";import"./createLucideIcon-DTaVOwjc.js";const p={title:"In Review/Button/Dark/Tertiary",component:a},r={parameters:{theme:"dark"},render:()=>t.jsxs("div",{className:"flex flex-col gap-3",children:[t.jsx(a,{className:"w-fit",variant:"tertiary",children:"Tertiary"}),t.jsxs(a,{className:"w-fit",variant:"tertiary",children:[t.jsx(e,{className:"w-4 h-4"})," Icon left"]}),t.jsxs(a,{className:"w-fit",variant:"tertiary",children:["Icon right ",t.jsx(s,{className:"w-4 h-4"})]}),t.jsx(a,{className:"w-fit",variant:"tertiary",disabled:!0,children:"Tertiary disabled"})]})};r.parameters={...r.parameters,docs:{...r.parameters?.docs,source:{originalSource:`{
+  parameters: {
+    theme: 'dark'
+  },
+  render: () => <div className="flex flex-col gap-3">
+      <Button className="w-fit" variant="tertiary">
+        Tertiary
+      </Button>
+
+      <Button className="w-fit" variant="tertiary">
+        <ChevronLeft className="w-4 h-4" /> Icon left
+      </Button>
+
+      <Button className="w-fit" variant="tertiary">
+        Icon right <ChevronRight className="w-4 h-4" />
+      </Button>
+
+      <Button className="w-fit" variant="tertiary" disabled>
+        Tertiary disabled
+      </Button>
+    </div>
+}`,...r.parameters?.docs?.source}}};const h=["Tertiary"];export{r as Tertiary,h as __namedExportsOrder,p as default};

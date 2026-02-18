@@ -69,6 +69,8 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<typeof virtuali
     classNameHeaderTable?: string;
     classNameTable?: string;
     classNameWrapperTable?: string;
+    enableHoverRow?: boolean;
+    classNameHoverRow?: string;
     queryOptions?: Omit<UseQueryOptions<any, any, any, any>, 'queryKey' | 'queryFn'>;
     isLoading?: boolean;
     fetchData?: (params: Record<string, string | number | string[] | number[] | undefined>) => Promise<{
@@ -115,6 +117,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<typeof virtuali
     classNameExpandedCell?: string;
     classNameExpandedContent?: string;
     classNameExpandedHeader?: string;
+    classNameActiveExpandedRow?: string;
     onExpandedChange?: OnChangeFn<ExpandedState>;
 } | {
     enableExpandedRow?: false | undefined;
@@ -124,5 +127,6 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<typeof virtuali
     classNameExpandedCell?: never;
     classNameExpandedContent?: never;
     classNameExpandedHeader?: never;
+    classNameActiveExpandedRow?: never;
     onExpandedChange?: never;
 });
