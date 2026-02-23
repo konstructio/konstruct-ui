@@ -99,7 +99,7 @@
     "google-libphonenumber": "^3.2.44",
     "i18n-iso-countries": "^7.14.0",
     "js-cookie": "^3.0.5",
-    "lucide-react": "^0.564.0",
+    "lucide-react": "^0.575.0",
     "motion": "^12.34.0",
     "react-chartjs-2": "^5.3.1",
     "react-day-picker": "^9.13.2",
