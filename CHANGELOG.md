@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.1.2-alpha.66](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.66) (2026-02-25)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.65...0.1.2-alpha.66)
+
+**Merged pull requests:**
+
+- ✨ feat: add event system and dynamic expandable rows to VirtualizedTable [\#547](https://github.com/konstructio/konstruct-ui/pull/547) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add AlertOutlineIcon to icon library [\#546](https://github.com/konstructio/konstruct-ui/pull/546) ([futjesus](https://github.com/futjesus))
+- ✨ feat: redesign ProgressBar component to match Figma design [\#545](https://github.com/konstructio/konstruct-ui/pull/545) ([futjesus](https://github.com/futjesus))
+- 🐛 fix: make React Query conditional on fetchData in VirtualizedTable [\#544](https://github.com/konstructio/konstruct-ui/pull/544) ([futjesus](https://github.com/futjesus))
+- ⬆️ chore: update lucide-react to 0.575.0 [\#543](https://github.com/konstructio/konstruct-ui/pull/543) ([futjesus](https://github.com/futjesus))
+- ⬆️ chore: update outdated dependencies [\#542](https://github.com/konstructio/konstruct-ui/pull/542) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add separate dark and light mode stories for Breadcrumb [\#541](https://github.com/konstructio/konstruct-ui/pull/541) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add Spinner component for page-level loading states [\#540](https://github.com/konstructio/konstruct-ui/pull/540) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.65](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.65) (2026-02-18)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.64...0.1.2-alpha.65)
