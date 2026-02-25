@@ -37,6 +37,7 @@ export * from './Range/Range';
 export * from './Select/Select';
 export * from './Sidebar/Sidebar';
 export * from './Slider/Slider';
+export * from './Spinner/Spinner';
 export * from './Stepper/Stepper';
 export * from './Switch/Switch';
 export * from './Table/Table';
