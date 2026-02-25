@@ -1,5 +1,6 @@
 export { AccountsIcon } from './Accounts';
 export { AddChartIcon } from './AddChart';
+export { AlertOutlineIcon } from './AlertOutline';
 export { AppRepoIcon } from './AppRepo';
 export { AppsIcon } from './Apps';
 export { ArchivesIcon } from './Archives';

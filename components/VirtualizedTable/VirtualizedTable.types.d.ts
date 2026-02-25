@@ -73,6 +73,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<typeof virtuali
     classNameHoverRow?: string;
     queryOptions?: Omit<UseQueryOptions<any, any, any, any>, 'queryKey' | 'queryFn'>;
     isLoading?: boolean;
+    getRowId?: (originalRow: TData, index: number) => string;
     fetchData?: (params: Record<string, string | number | string[] | number[] | undefined>) => Promise<{
         data: TData[];
         totalItemsCount?: number;
@@ -119,6 +120,8 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<typeof virtuali
     classNameExpandedHeader?: string;
     classNameActiveExpandedRow?: string;
     onExpandedChange?: OnChangeFn<ExpandedState>;
+    renderExpandedRow?: (data: TData) => ReactNode;
+    keepExpandColumnVisible?: boolean | Record<string, boolean>;
 } | {
     enableExpandedRow?: false | undefined;
     expandedState?: never;
@@ -129,4 +132,6 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<typeof virtuali
     classNameExpandedHeader?: never;
     classNameActiveExpandedRow?: never;
     onExpandedChange?: never;
+    renderExpandedRow?: never;
+    keepExpandColumnVisible?: never;
 });
