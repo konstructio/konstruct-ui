@@ -4,69 +4,50 @@ import { cn } from '@/utils';
 
 import type { ProgressBarProps } from './ProgressBar.types';
 import {
-  progressBarProgress,
-  progressBarVariants,
+  progressBarFillVariants,
+  progressBarTrackVariants,
 } from './ProgressBar.variants';
 
-/**
- * A progress bar component showing completion percentage.
- *
- * @example
- * ```tsx
- * // Basic progress bar
- * <ProgressBar percent={50} />
- *
- * // With label
- * <ProgressBar percent={75} label="Upload Progress" />
- *
- * // Completed state
- * <ProgressBar percent={100} status="success" label="Complete" />
- * ```
- *
- * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-progressbar--docs Storybook}
- */
 export const ProgressBar: FC<ProgressBarProps> = ({
-  backgroundBarClassName,
-  label,
-  labelClassName,
-  labelWrapperClassName,
+  className,
+  fillClassName,
+  leftContent,
   percent,
-  percentClassName,
-  progressBarClassName,
+  rightContent,
   status,
   theme,
-  wrapperClassName,
-}) => (
-  <div
-    className={cn('w-full text-inherit', wrapperClassName)}
-    data-theme={theme}
-  >
-    <div
-      className={cn(
-        'flex font-semibold',
-        {
-          'justify-between': label,
-          'justify-end': !label,
-        },
-        labelWrapperClassName,
-      )}
-    >
-      {label ? <label className={cn(labelClassName)}>{label}</label> : null}
-      <span className={cn(percentClassName)}>{percent}%</span>
-    </div>
+  trackClassName,
+}) => {
+  const clampedPercent = Math.min(Math.max(percent, 0), 100);
+  const hasHeader = leftContent || rightContent;
 
+  return (
     <div
-      className={cn(progressBarVariants({ className: backgroundBarClassName }))}
+      className={cn('flex flex-col gap-1 w-full', className)}
+      data-theme={theme}
     >
-      <div
-        className={cn(
-          progressBarProgress({ status, className: progressBarClassName }),
-          percent > 0 && percent < 99
-            ? 'transition-width duration-500'
-            : 'transition-colors duration-0',
-        )}
-        style={{ width: `${percent}%` }}
-      />
+      {hasHeader && (
+        <div className="flex items-center justify-between">
+          {leftContent && (
+            <div className="overflow-hidden text-ellipsis whitespace-nowrap">
+              {leftContent}
+            </div>
+          )}
+          {rightContent && (
+            <div className="text-right shrink-0">{rightContent}</div>
+          )}
+        </div>
+      )}
+
+      <div className={progressBarTrackVariants({ className: trackClassName })}>
+        <div
+          className={progressBarFillVariants({
+            status: fillClassName ? null : status,
+            className: fillClassName,
+          })}
+          style={{ width: `${clampedPercent}%` }}
+        />
+      </div>
     </div>
-  </div>
-);
+  );
+};
