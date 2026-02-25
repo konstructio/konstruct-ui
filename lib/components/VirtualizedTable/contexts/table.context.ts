@@ -1,5 +1,5 @@
 import { ColumnSort, SortingState, Table } from '@tanstack/react-table';
-import { createContext, Dispatch, SetStateAction } from 'react';
+import { createContext, Dispatch, ReactNode, SetStateAction } from 'react';
 
 import { RowData } from '../VirtualizedTable.types';
 import { DEFAULT_PAGE_SIZE } from '../constants';
@@ -23,6 +23,7 @@ export type ContextType<TData extends RowData = RowData> = {
   classNameActiveExpandedRow?: string;
   enableHoverRow?: boolean;
   classNameHoverRow?: string;
+  renderExpandedRow?: (data: RowData) => ReactNode;
   handlePage: (newPage: number) => void;
   onPageSize: (newPageSize: number) => void;
   onSorting: Dispatch<SetStateAction<SortingState>>;

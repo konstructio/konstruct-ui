@@ -3,10 +3,12 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { EyeIcon } from 'lucide-react';
 import { ReactNode, useCallback, useEffect, useId, useState } from 'react';
 
+import { Button } from '@/components/Button/Button';
 import { Typography } from '@/components/Typography/Typography';
 
 import { getPokemons, Pokemon } from '../../../../mocks';
 import { DEFAULT_PAGE_SIZE } from '../constants';
+import { sendExpandRowEvent, sendCollapseRowEvent } from '../events';
 import { VirtualizedTable as VirtualizedTableComponent } from '../VirtualizedTable';
 import { ColumnDef, Props } from '../VirtualizedTable.types';
 
@@ -376,6 +378,177 @@ export const ExpandableRows: Story = {
           fetchData={getNewData}
           totalItems={totalItemsCount}
           enableExpandedRow
+        />
+      </QueryClientProvider>
+    );
+  },
+};
+
+const EXTERNAL_TRIGGER_TABLE_ID = 'external-trigger-table';
+
+export const ExpandableRowsWithExternalTrigger: Story = {
+  args: {
+    ...args,
+    enableExpandedRow: true,
+    ariaLabel: 'List of pokemons with external expand trigger',
+  },
+  render: (storyArgs) => {
+    const [{ data, totalItemsCount }, setData] = useState<{
+      data: Pokemon[];
+      totalItemsCount: number;
+    }>({ data: [], totalItemsCount: 0 });
+    const [selectedRows, setSelectedRows] = useState<Record<string, boolean>>(
+      {},
+    );
+
+    const handleToggleSelect = (rowId: string) => {
+      setSelectedRows((prev) => {
+        const isSelected = !prev[rowId];
+
+        if (isSelected) {
+          sendExpandRowEvent(EXTERNAL_TRIGGER_TABLE_ID, rowId);
+        } else {
+          sendCollapseRowEvent(EXTERNAL_TRIGGER_TABLE_ID, rowId);
+        }
+
+        return { ...prev, [rowId]: isSelected };
+      });
+    };
+
+    useEffect(() => {
+      const init = async () => {
+        const result = await getPokemons({
+          page: 1,
+          pageSize: DEFAULT_PAGE_SIZE,
+        });
+
+        setData({
+          data: result.results,
+          totalItemsCount: result.totalItemsCount,
+        });
+      };
+
+      init();
+    }, []);
+
+    useEffect(() => {
+      document.body.setAttribute('data-theme', 'dark');
+      document.body.classList.add('bg-metal-900');
+
+      return () => {
+        document.body.removeAttribute('data-theme');
+        document.body.classList.remove('bg-metal-900');
+      };
+    }, []);
+
+    const getNewData = useCallback(
+      async ({
+        page = 1,
+        pageSize = DEFAULT_PAGE_SIZE,
+        termOfSearch = undefined,
+        type = undefined,
+      }: PokemonResponse) => {
+        const result = await getPokemons({
+          page,
+          pageSize,
+          termOfSearch,
+          type,
+        });
+
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        return {
+          data: result.results,
+          totalItemsCount: result.totalItemsCount,
+        };
+      },
+      [],
+    );
+
+    const columnsWithSelectButton: ColumnDef<Pokemon>[] = [
+      ...columns.filter((col) => col.id !== 'actions'),
+      {
+        id: 'select-action',
+        enableSorting: false,
+        enableResizing: false,
+        cell: ({ row }) => (
+          <Button
+            variant={selectedRows[row.id] ? 'primary' : 'secondary'}
+            appearance="compact"
+            onClick={() => handleToggleSelect(row.id)}
+          >
+            {selectedRows[row.id] ? 'Remove' : 'Add'}
+          </Button>
+        ),
+        header: () => <span className="sr-only">Select</span>,
+        meta: {
+          headerClassName: 'w-[150px]',
+          className: 'flex justify-center h-12 items-center',
+        },
+      },
+    ];
+
+    if (data.length === 0) {
+      return <div>Loading...</div>;
+    }
+
+    return (
+      <QueryClientProvider client={queryClient}>
+        <VirtualizedTableComponent<Pokemon>
+          {...storyArgs}
+          enableHoverRow
+          id={EXTERNAL_TRIGGER_TABLE_ID}
+          data={data}
+          getRowId={(row) => String(row.id)}
+          columns={columnsWithSelectButton}
+          showPagination={true}
+          fetchData={getNewData}
+          totalItems={totalItemsCount}
+          enableExpandedRow
+          keepExpandColumnVisible={selectedRows}
+          renderExpandedRow={(rowData) => (
+            <div className="flex flex-col gap-2 py-2">
+              <Typography variant="body3" className="text-metal-400">
+                Configuration for {(rowData as Pokemon).name}
+              </Typography>
+              <div className="flex gap-4">
+                <div className="flex flex-col gap-1">
+                  <Typography
+                    variant="body3"
+                    className="font-medium text-metal-300"
+                  >
+                    Type
+                  </Typography>
+                  <Typography variant="body2">
+                    {(rowData as Pokemon).type}
+                  </Typography>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <Typography
+                    variant="body3"
+                    className="font-medium text-metal-300"
+                  >
+                    Ability
+                  </Typography>
+                  <Typography variant="body2">
+                    {(rowData as Pokemon).ability}
+                  </Typography>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <Typography
+                    variant="body3"
+                    className="font-medium text-metal-300"
+                  >
+                    Height / Weight
+                  </Typography>
+                  <Typography variant="body2">
+                    {(rowData as Pokemon).height} /{' '}
+                    {(rowData as Pokemon).weight}
+                  </Typography>
+                </div>
+              </div>
+            </div>
+          )}
         />
       </QueryClientProvider>
     );

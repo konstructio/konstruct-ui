@@ -53,6 +53,7 @@ const VirtualizedTableInner = <TData extends RowData>({
   classNameTable,
   classNameWrapperTable,
   isLoading,
+  getRowId,
   fetchData,
   queryOptions,
   // Pagination
@@ -83,6 +84,8 @@ const VirtualizedTableInner = <TData extends RowData>({
   classNameExpandedHeader,
   classNameActiveExpandedRow,
   onExpandedChange,
+  renderExpandedRow,
+  keepExpandColumnVisible,
 }: Props<TData>): JSX.Element => {
   const showPagination = useMemo(
     () =>
@@ -101,6 +104,7 @@ const VirtualizedTableInner = <TData extends RowData>({
       id={id}
       columns={columns}
       data={data}
+      getRowId={getRowId}
       fetchData={fetchData}
       totalItems={totalItems}
       queryOptions={queryOptions}
@@ -116,6 +120,8 @@ const VirtualizedTableInner = <TData extends RowData>({
       classNameActiveExpandedRow={classNameActiveExpandedRow}
       enableHoverRow={enableHoverRow}
       classNameHoverRow={classNameHoverRow}
+      renderExpandedRow={renderExpandedRow}
+      keepExpandColumnVisible={keepExpandColumnVisible}
     >
       <section className={cn('w-full min-w-fit', className)}>
         {showFilter && (

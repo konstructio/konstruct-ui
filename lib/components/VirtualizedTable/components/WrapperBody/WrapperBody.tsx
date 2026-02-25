@@ -15,10 +15,9 @@ export const WrapperBody: FC<Props> = ({
   return (
     <div
       className={cn(
-        'shadow rounded-t-lg',
+        'shadow rounded-t-lg overflow-hidden',
         {
-          'overflow-hidden rounded-lg':
-            !showPagination || tableFetching || isLoading,
+          'rounded-lg': !showPagination || tableFetching || isLoading,
         },
         classNameWrapperTable,
       )}
