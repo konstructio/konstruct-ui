@@ -25,6 +25,7 @@ export const Body = <TData extends RowData = RowData>({
     enableHoverRow,
     classNameHoverRow,
     classNameActiveExpandedRow,
+    renderExpandedRow,
   } = useTableContext<TData>();
 
   if (isLoading || tableFetching) {
@@ -49,7 +50,7 @@ export const Body = <TData extends RowData = RowData>({
 
         const columns = getVisibleCells();
         const isExpanded = enableExpandedRow && row.getIsExpanded();
-        const hasExpandedContent = !!meta.expandedRow;
+        const hasExpandedContent = !!meta.expandedRow || !!renderExpandedRow;
 
         return (
           <Fragment key={id}>
@@ -128,7 +129,7 @@ export const Body = <TData extends RowData = RowData>({
                 isExpanded={!!isExpanded}
                 isLastRow={rowIndex === rows.length - 1 && !showPagination}
               >
-                {meta.expandedRow}
+                {meta.expandedRow ?? renderExpandedRow?.(original)}
               </ExpandableRow>
             )}
           </Fragment>

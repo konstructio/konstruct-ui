@@ -50,6 +50,13 @@ export * from './Toast/Toast';
 export * from './Tooltip/Tooltip';
 export * from './Typography/Typography';
 export * from './VirtualizedTable/VirtualizedTable';
+export {
+  sendExpandRowEvent,
+  sendCollapseRowEvent,
+  sendToggleRowEvent,
+  VirtualizedTableEvent,
+} from './VirtualizedTable/events';
+export type { VirtualizedTableEventDetail } from './VirtualizedTable/events';
 export type {
   ColumnDef,
   RowData,

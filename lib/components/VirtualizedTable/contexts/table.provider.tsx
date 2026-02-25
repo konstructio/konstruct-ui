@@ -11,12 +11,14 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { ChevronRight } from 'lucide-react';
-import { useCallback, useMemo, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { cn } from '@/utils';
 
 import { RowData, RowDataWithMeta } from '../VirtualizedTable.types';
 import { DEFAULT_PAGE_SIZE } from '../constants';
+
+import { VirtualizedTableEvent, VirtualizedTableEventDetail } from '../events';
 
 import { TableContext } from './table.context';
 import { Props } from './table.types';
@@ -39,8 +41,11 @@ export const TableProvider = <TData extends RowData = RowData>({
   isPaginationEnabled,
   queryOptions = {},
   totalItems,
+  getRowId,
   fetchData,
   onExpandedChange,
+  renderExpandedRow,
+  keepExpandColumnVisible,
 }: Props<TData>) => {
   const [sortedData, setSortedData] = useState<SortingState>([]);
   const [isFirstLoad, setIsFirstLoad] = useState<boolean>(!!fetchData);
@@ -147,16 +152,155 @@ export const TableProvider = <TData extends RowData = RowData>({
     [currentExpanded, isExpandedControlled, onExpandedChange],
   );
 
+  useEffect(() => {
+    if (!enableExpandedRow) return;
+
+    const tableId = Array.isArray(id) ? id.join(',') : String(id);
+    const controller = new AbortController();
+
+    const handleExpand = (e: Event) => {
+      const { detail } = e as CustomEvent<VirtualizedTableEventDetail>;
+
+      if (detail.tableId !== tableId) return;
+
+      handleExpandedChange((prev) => {
+        if (typeof prev === 'boolean') return { [detail.rowId]: true };
+
+        return { ...prev, [detail.rowId]: true };
+      });
+    };
+
+    const handleCollapse = (e: Event) => {
+      const { detail } = e as CustomEvent<VirtualizedTableEventDetail>;
+
+      if (detail.tableId !== tableId) return;
+
+      handleExpandedChange((prev) => {
+        if (typeof prev === 'boolean') return {};
+
+        const next = { ...prev };
+        delete next[detail.rowId];
+
+        return next;
+      });
+    };
+
+    const handleToggle = (e: Event) => {
+      const { detail } = e as CustomEvent<VirtualizedTableEventDetail>;
+
+      if (detail.tableId !== tableId) return;
+
+      handleExpandedChange((prev) => {
+        if (typeof prev === 'boolean') return { [detail.rowId]: !prev };
+
+        const isExpanded = !!prev[detail.rowId];
+        const next = { ...prev };
+
+        if (isExpanded) {
+          delete next[detail.rowId];
+        } else {
+          next[detail.rowId] = true;
+        }
+
+        return next;
+      });
+    };
+
+    document.addEventListener(VirtualizedTableEvent.EXPAND_ROW, handleExpand, {
+      signal: controller.signal,
+    });
+    document.addEventListener(
+      VirtualizedTableEvent.COLLAPSE_ROW,
+      handleCollapse,
+      { signal: controller.signal },
+    );
+    document.addEventListener(VirtualizedTableEvent.TOGGLE_ROW, handleToggle, {
+      signal: controller.signal,
+    });
+
+    return () => controller.abort();
+  }, [enableExpandedRow, id, handleExpandedChange]);
+
+  const hasStaticExpandedContent = useMemo(
+    () => data.some((row) => !!(row as RowDataWithMeta).meta?.expandedRow),
+    [data],
+  );
+
+  const currentRowIds = useMemo(
+    () =>
+      isFetching
+        ? []
+        : data.map((row, index) =>
+            getRowId ? getRowId(row, index) : String(index),
+          ),
+    [data, getRowId, isFetching],
+  );
+
+  const hasAnyExpanded = useMemo(() => {
+    if (typeof currentExpanded === 'boolean') return currentExpanded;
+
+    return currentRowIds.some((id) => !!currentExpanded[id]);
+  }, [currentExpanded, currentRowIds]);
+
+  const hasKeepVisible = useMemo(() => {
+    if (typeof keepExpandColumnVisible === 'boolean')
+      return keepExpandColumnVisible;
+    if (typeof keepExpandColumnVisible === 'object')
+      return currentRowIds.some((id) => !!keepExpandColumnVisible[id]);
+
+    return false;
+  }, [keepExpandColumnVisible, currentRowIds]);
+
+  const shouldExpandColumn =
+    hasStaticExpandedContent ||
+    (renderExpandedRow && (hasAnyExpanded || hasKeepVisible));
+
+  // Delay expand by one frame so the browser registers the w-0 state
+  // before transitioning to w-10, ensuring the CSS animation fires.
+  // Collapse is immediate (CSS transition handles the animation).
+  const [isExpandColumnVisible, setIsExpandColumnVisible] =
+    useState(!!shouldExpandColumn);
+
+  useEffect(() => {
+    if (shouldExpandColumn) {
+      const frame = requestAnimationFrame(() => setIsExpandColumnVisible(true));
+
+      return () => cancelAnimationFrame(frame);
+    } else {
+      setIsExpandColumnVisible(false);
+    }
+  }, [shouldExpandColumn]);
+
+  // On collapse: defer border swap so the expand cell keeps its border
+  // while the width animates to 0. On expand: swap immediately.
+  const [isBorderOnAdjacentCell, setIsBorderOnAdjacentCell] = useState(
+    !isExpandColumnVisible,
+  );
+
+  useEffect(() => {
+    if (isExpandColumnVisible) {
+      setIsBorderOnAdjacentCell(false);
+    } else {
+      const timer = setTimeout(() => setIsBorderOnAdjacentCell(true), 300);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isExpandColumnVisible]);
+
   const expandColumn: ColumnDef<TData, string> | null = useMemo(() => {
     if (!enableExpandedRow) return null;
+    if (!hasStaticExpandedContent && !renderExpandedRow) return null;
 
     return {
       id: '__expand',
       header: () => <VisuallyHidden>Expand Column</VisuallyHidden>,
       cell: ({ row }) => {
         const { meta } = row.original as RowDataWithMeta;
+        const isRowKeptVisible =
+          typeof keepExpandColumnVisible === 'object' &&
+          !!keepExpandColumnVisible[row.id];
 
-        if (!meta?.expandedRow) {
+        if (!meta?.expandedRow && !row.getIsExpanded() && !isRowKeptVisible) {
           return null;
         }
 
@@ -179,11 +323,31 @@ export const TableProvider = <TData extends RowData = RowData>({
       },
       enableSorting: false,
       meta: {
-        headerClassName: 'w-10',
-        className: cn('w-10 px-1 text-center', classNameExpandedHeader),
+        headerClassName: cn(
+          'transition-[width,max-width,padding] duration-300 ease-in-out overflow-hidden',
+          // Width: immediate change, CSS transition handles animation
+          isExpandColumnVisible ? 'w-10 max-w-10 px-2' : 'w-0 max-w-0 !p-0',
+          // Border/radius: deferred on collapse so border stays during exit
+          isBorderOnAdjacentCell &&
+            '!border-0 !rounded-none [&+th]:rounded-tl-lg dark:[&+th]:border-l',
+        ),
+        className: cn(
+          'transition-[width,max-width,padding] duration-300 ease-in-out overflow-hidden',
+          isExpandColumnVisible
+            ? cn('w-10 max-w-10 px-1 text-center', classNameExpandedHeader)
+            : 'w-0 max-w-0 !p-0',
+          isBorderOnAdjacentCell && '!border-0 dark:[&+td]:border-l',
+        ),
       },
     };
-  }, [enableExpandedRow]);
+  }, [
+    enableExpandedRow,
+    hasStaticExpandedContent,
+    renderExpandedRow,
+    isExpandColumnVisible,
+    isBorderOnAdjacentCell,
+    keepExpandColumnVisible,
+  ]);
 
   const mergedColumns = useMemo(() => {
     if (!expandColumn) return columns;
@@ -194,6 +358,7 @@ export const TableProvider = <TData extends RowData = RowData>({
   const table = useReactTable<TData>({
     data,
     columns: mergedColumns,
+    ...(getRowId ? { getRowId } : {}),
     state: {
       sorting: sortedData,
       ...(enableExpandedRow ? { expanded: currentExpanded } : {}),
@@ -228,6 +393,9 @@ export const TableProvider = <TData extends RowData = RowData>({
         classNameExpandedCell,
         classNameExpandedContent,
         classNameActiveExpandedRow,
+        renderExpandedRow: renderExpandedRow as
+          | ((data: RowData) => ReactNode)
+          | undefined,
         enableHoverRow,
         classNameHoverRow,
         handlePage,
