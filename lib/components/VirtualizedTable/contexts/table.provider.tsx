@@ -43,11 +43,13 @@ export const TableProvider = <TData extends RowData = RowData>({
   onExpandedChange,
 }: Props<TData>) => {
   const [sortedData, setSortedData] = useState<SortingState>([]);
-  const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
+  const [isFirstLoad, setIsFirstLoad] = useState<boolean>(!!fetchData);
   const [page, setPage] = useState(0);
   const [termOfSearch, setTermOfSearch] = useState<string>();
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
-  const [totalItemsCount, setTotalItemsCount] = useState(totalItems);
+  const [internalTotalItemsCount, setInternalTotalItemsCount] =
+    useState(totalItems);
+  const totalItemsCount = fetchData ? internalTotalItemsCount : totalItems;
   const totalPages = useMemo(
     () => Math.ceil(totalItemsCount / pageSize),
     [totalItemsCount, pageSize],
@@ -75,36 +77,36 @@ export const TableProvider = <TData extends RowData = RowData>({
     return queryKey;
   };
 
-  const { data, isLoading, isFetching } = useQuery<TData[]>({
+  const queryResult = useQuery<TData[]>({
     queryKey: getQueryKey(),
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     initialData: defaultData,
-    queryFn: async () => {
-      if (fetchData) {
-        return fetchData({
-          page: Math.max(page + 1, 1),
-          pageSize,
-          termOfSearch,
-          ...(Object.keys(multiselectSelected).length > 0
-            ? multiselectSelected
-            : {}),
-        }).then(({ data, totalItemsCount }) => {
-          setIsFirstLoad(false);
+    enabled: !!fetchData,
+    queryFn: async () =>
+      fetchData!({
+        page: Math.max(page + 1, 1),
+        pageSize,
+        termOfSearch,
+        ...(Object.keys(multiselectSelected).length > 0
+          ? multiselectSelected
+          : {}),
+      }).then(({ data, totalItemsCount }) => {
+        setIsFirstLoad(false);
 
-          if (totalItemsCount) {
-            setTotalItemsCount(totalItemsCount);
-          }
+        if (totalItemsCount) {
+          setInternalTotalItemsCount(totalItemsCount);
+        }
 
-          return data;
-        });
-      }
-
-      return defaultData ?? [];
-    },
+        return data;
+      }),
 
     ...queryOptions,
   });
+
+  const data = fetchData ? queryResult.data : defaultData;
+  const isLoading = fetchData ? queryResult.isLoading : false;
+  const isFetching = fetchData ? queryResult.isFetching : false;
 
   const onChangeTermOfSearch = useCallback((term: string) => {
     setTermOfSearch(term);
