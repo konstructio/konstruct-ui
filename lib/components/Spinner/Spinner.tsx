@@ -14,6 +14,7 @@ const Spinner: FC<SpinnerProps> = ({
   textClassName,
   textVariant = 'subtitle2',
   text,
+  srLabel = 'Loading',
   theme,
   size,
   ...delegated
@@ -49,10 +50,10 @@ const Spinner: FC<SpinnerProps> = ({
       </Typography>
     )}
 
-    <VisuallyHidden>Loading</VisuallyHidden>
+    <VisuallyHidden>{srLabel}</VisuallyHidden>
   </div>
 );
 
-Spinner.displayName = 'Spinner';
+Spinner.displayName = 'KonstructSpinner';
 
 export { Spinner };

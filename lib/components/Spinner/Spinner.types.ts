@@ -12,5 +12,6 @@ export type SpinnerProps = HTMLAttributes<HTMLDivElement> &
     textClassName?: string;
     textVariant?: TypographyProps['variant'];
     text?: string | ReactNode;
+    srLabel?: string;
     theme?: Theme;
   };
