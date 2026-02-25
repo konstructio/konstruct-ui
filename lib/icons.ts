@@ -2,6 +2,7 @@
 export {
   AccountsIcon,
   AddChartIcon,
+  AlertOutlineIcon,
   AppRepoIcon,
   AppsIcon,
   ArchivesIcon,
