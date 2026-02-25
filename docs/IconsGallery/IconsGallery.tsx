@@ -3,6 +3,7 @@ import { FC, useState, useMemo, ChangeEvent, useCallback } from 'react';
 import {
   AccountsIcon,
   AddChartIcon,
+  AlertOutlineIcon,
   AppRepoIcon,
   AppsIcon,
   ArchivesIcon,
@@ -74,6 +75,7 @@ import type { IconEntry } from './IconsGallery.types';
 const iconEntries: IconEntry[] = [
   { name: 'AccountsIcon', component: AccountsIcon },
   { name: 'AddChartIcon', component: AddChartIcon },
+  { name: 'AlertOutlineIcon', component: AlertOutlineIcon },
   { name: 'AppRepoIcon', component: AppRepoIcon },
   { name: 'AppsIcon', component: AppsIcon },
   { name: 'ArchivesIcon', component: ArchivesIcon },
