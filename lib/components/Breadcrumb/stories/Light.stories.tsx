@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Breadcrumb as BreadcrumbComponent } from './Breadcrumb';
+import { Breadcrumb as BreadcrumbComponent } from '../Breadcrumb';
 
 type Story = StoryObj<typeof BreadcrumbComponent>;
 
 const meta: Meta<typeof BreadcrumbComponent> = {
-  title: 'In Review/Breadcrumb',
+  title: 'In Review/Breadcrumb/Light',
   component: BreadcrumbComponent,
 };
 
-export const Breadcrumb = {
+export const Light: Story = {
   args: {
     steps: [
       {
@@ -26,19 +26,10 @@ export const Breadcrumb = {
     ],
   },
   render: (args) => (
-    <div>
-      <div className="max-w-[250px] p-4 flex justify-center">
-        <BreadcrumbComponent {...args} />
-      </div>
-
-      <div
-        className="max-w-[250px] mt-2 bg-metal-900 p-4 rounded-lg flex justify-center"
-        data-theme="dark"
-      >
-        <BreadcrumbComponent {...args} />
-      </div>
+    <div className="max-w-62.5 p-4 flex justify-center">
+      <BreadcrumbComponent {...args} />
     </div>
   ),
-} satisfies Story;
+};
 
 export default meta;
