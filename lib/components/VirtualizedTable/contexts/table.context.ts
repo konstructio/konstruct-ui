@@ -23,6 +23,8 @@ export type ContextType<TData extends RowData = RowData> = {
   classNameActiveExpandedRow?: string;
   enableHoverRow?: boolean;
   classNameHoverRow?: string;
+  isBorderOnAdjacentCell?: boolean;
+  isExpandColumnVisible?: boolean;
   renderExpandedRow?: (data: RowData) => ReactNode;
   handlePage: (newPage: number) => void;
   onPageSize: (newPageSize: number) => void;
