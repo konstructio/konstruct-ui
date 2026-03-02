@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.2-alpha.67](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.67) (2026-03-02)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.66...0.1.2-alpha.67)
+
+**Merged pull requests:**
+
+- ⬆️ chore: update dependencies \(patch and minor\) [\#554](https://github.com/konstructio/konstruct-ui/pull/554) ([futjesus](https://github.com/futjesus))
+- ✨ feat: expose VirtualizedTable events via compound API and fix rounded corners [\#553](https://github.com/konstructio/konstruct-ui/pull/553) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.66](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.66) (2026-02-25)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.65...0.1.2-alpha.66)
