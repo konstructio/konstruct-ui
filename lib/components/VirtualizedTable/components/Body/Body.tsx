@@ -26,6 +26,8 @@ export const Body = <TData extends RowData = RowData>({
     classNameHoverRow,
     classNameActiveExpandedRow,
     renderExpandedRow,
+    isBorderOnAdjacentCell,
+    isExpandColumnVisible,
   } = useTableContext<TData>();
 
   if (isLoading || tableFetching) {
@@ -51,6 +53,18 @@ export const Body = <TData extends RowData = RowData>({
         const columns = getVisibleCells();
         const isExpanded = enableExpandedRow && row.getIsExpanded();
         const hasExpandedContent = !!meta.expandedRow || !!renderExpandedRow;
+        // null means the expand column is mid-animation: don't apply rounded-bl-lg
+        const firstDataColumnIndex: number | null = (() => {
+          if (columns[0]?.column.id !== '__expand' || isExpandColumnVisible) {
+            return 0;
+          }
+
+          if (isBorderOnAdjacentCell) {
+            return 1;
+          }
+
+          return null;
+        })();
 
         return (
           <Fragment key={id}>
@@ -97,12 +111,13 @@ export const Body = <TData extends RowData = RowData>({
                       classNameHoverRow,
                       classNameFromMeta,
                       {
-                        'first:rounded-bl-lg':
+                        'rounded-bl-lg':
                           rowIndex === rows.length - 1 &&
-                          columnIndex === 0 &&
+                          firstDataColumnIndex !== null &&
+                          columnIndex === firstDataColumnIndex &&
                           !showPagination &&
                           !isExpanded,
-                        'last:rounded-br-lg':
+                        'rounded-br-lg':
                           rowIndex === rows.length - 1 &&
                           columnIndex === columns.length - 1 &&
                           !showPagination &&

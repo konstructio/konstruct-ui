@@ -8,7 +8,6 @@ import { Typography } from '@/components/Typography/Typography';
 
 import { getPokemons, Pokemon } from '../../../../mocks';
 import { DEFAULT_PAGE_SIZE } from '../constants';
-import { sendExpandRowEvent, sendCollapseRowEvent } from '../events';
 import { VirtualizedTable as VirtualizedTableComponent } from '../VirtualizedTable';
 import { ColumnDef, Props } from '../VirtualizedTable.types';
 
@@ -406,9 +405,15 @@ export const ExpandableRowsWithExternalTrigger: Story = {
         const isSelected = !prev[rowId];
 
         if (isSelected) {
-          sendExpandRowEvent(EXTERNAL_TRIGGER_TABLE_ID, rowId);
+          VirtualizedTableComponent.Events.sendExpandRowEvent(
+            EXTERNAL_TRIGGER_TABLE_ID,
+            rowId,
+          );
         } else {
-          sendCollapseRowEvent(EXTERNAL_TRIGGER_TABLE_ID, rowId);
+          VirtualizedTableComponent.Events.sendCollapseRowEvent(
+            EXTERNAL_TRIGGER_TABLE_ID,
+            rowId,
+          );
         }
 
         return { ...prev, [rowId]: isSelected };

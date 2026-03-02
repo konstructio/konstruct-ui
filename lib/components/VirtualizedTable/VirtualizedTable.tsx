@@ -14,6 +14,11 @@ import {
 } from './components';
 import { Props as ActionProps } from './components/Actions/Actions.types';
 import { TableProvider } from './contexts';
+import {
+  sendCollapseRowEvent,
+  sendExpandRowEvent,
+  sendToggleRowEvent,
+} from './events';
 
 /**
  * A feature-rich data table component with filtering, pagination, and sorting.
@@ -179,6 +184,11 @@ type VirtualizedTableCompound = (<TData extends RowData>(
   Actions: <TData extends RowData>(
     props: ActionProps<TData>,
   ) => JSX.Element | null;
+  Events: {
+    sendExpandRowEvent: (tableId: string, rowId: string) => void;
+    sendCollapseRowEvent: (tableId: string, rowId: string) => void;
+    sendToggleRowEvent: (tableId: string, rowId: string) => void;
+  };
   displayName?: string;
 };
 
@@ -188,5 +198,10 @@ VirtualizedTable.displayName = 'KonstructVirtualizedTable';
 
 VirtualizedTable.TruncateText = TruncateText;
 VirtualizedTable.Actions = Actions;
+VirtualizedTable.Events = {
+  sendExpandRowEvent,
+  sendCollapseRowEvent,
+  sendToggleRowEvent,
+};
 
 export { TruncateText, VirtualizedTable };
