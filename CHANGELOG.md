@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.1.2-alpha.68](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.68) (2026-03-03)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.67...0.1.2-alpha.68)
+
+**Merged pull requests:**
+
+- ✨ feat: add grouped options support to Select component [\#558](https://github.com/konstructio/konstruct-ui/pull/558) ([futjesus](https://github.com/futjesus))
+- 🐛 fix: match Select error message color with Input in dark mode [\#557](https://github.com/konstructio/konstruct-ui/pull/557) ([futjesus](https://github.com/futjesus))
+- ✨ feat: animate Modal size transitions with motion layout [\#556](https://github.com/konstructio/konstruct-ui/pull/556) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add labelAlign and descriptionAlign props to ButtonGroup [\#555](https://github.com/konstructio/konstruct-ui/pull/555) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.67](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.67) (2026-03-02)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.66...0.1.2-alpha.67)
