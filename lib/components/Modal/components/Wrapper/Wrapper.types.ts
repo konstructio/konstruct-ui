@@ -1,4 +1,5 @@
 import { VariantProps } from 'class-variance-authority';
+import { Transition } from 'motion/react';
 import { PropsWithChildren } from 'react';
 
 import { Theme } from '@/domain/theme';
@@ -9,7 +10,9 @@ export type Props = PropsWithChildren &
   VariantProps<typeof modalVariants> & {
     buttonCloseClassName?: string;
     className?: string;
+    containerClassName?: string;
     showCloseButton?: boolean;
     theme?: Theme;
+    transition?: Transition;
     onClose?: () => void;
   };
