@@ -12,7 +12,7 @@ export const selectVariants = cva(
     'px-3',
     'py-1',
     'relative',
-    'rounded-md',
+    'rounded',
     'transition-all',
     'w-full',
     'outline-none',
