@@ -51,6 +51,7 @@ export const ButtonGroup: FC<Props> = ({
   className,
   contentClassName,
   defaultValue,
+  descriptionAlign,
   descriptionClassName,
   disabled,
   duration,
@@ -62,6 +63,7 @@ export const ButtonGroup: FC<Props> = ({
   itemClassName,
   itemLabelClassName,
   label,
+  labelAlign,
   labelClassName,
   name,
   options,
@@ -142,6 +144,7 @@ export const ButtonGroup: FC<Props> = ({
               animationDirection={animationDirection}
               className={itemClassName}
               contentClassName={contentClassName}
+              descriptionAlign={descriptionAlign}
               descriptionClassName={descriptionClassName}
               duration={duration}
               hasDescription={hasDescription}
@@ -150,6 +153,7 @@ export const ButtonGroup: FC<Props> = ({
               isFirst={index === 0}
               isLast={index === options.length - 1}
               isSelected={isSelected}
+              labelAlign={labelAlign}
               labelClassName={itemLabelClassName}
               option={option}
               value={option.value}

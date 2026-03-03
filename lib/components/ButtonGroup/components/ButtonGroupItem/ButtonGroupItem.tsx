@@ -33,6 +33,7 @@ export const ButtonGroupItem: FC<Props> = memo(
     animationDirection,
     className,
     contentClassName,
+    descriptionAlign,
     descriptionClassName,
     duration = 0.3,
     hasDescription,
@@ -41,6 +42,7 @@ export const ButtonGroupItem: FC<Props> = memo(
     isFirst,
     isLast,
     isSelected,
+    labelAlign,
     labelClassName,
     option,
     value,
@@ -73,7 +75,7 @@ export const ButtonGroupItem: FC<Props> = memo(
         <span className="relative w-full">
           <span
             className={cn(
-              buttonGroupLabelVariants({ selected: false }),
+              buttonGroupLabelVariants({ selected: false, labelAlign }),
               labelClassName,
             )}
           >
@@ -86,7 +88,7 @@ export const ButtonGroupItem: FC<Props> = memo(
 
           <motion.span
             className={cn(
-              buttonGroupLabelVariants({ selected: true }),
+              buttonGroupLabelVariants({ selected: true, labelAlign }),
               'absolute inset-0',
               labelClassName,
             )}
@@ -112,7 +114,7 @@ export const ButtonGroupItem: FC<Props> = memo(
         {option.description && (
           <span
             className={cn(
-              buttonGroupDescriptionVariants(),
+              buttonGroupDescriptionVariants({ descriptionAlign }),
               descriptionClassName,
             )}
           >

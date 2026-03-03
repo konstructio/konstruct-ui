@@ -52,8 +52,8 @@ export const buttonGroupItemContentVariants = cva(
   {
     variants: {
       hasDescription: {
-        true: 'items-start text-left justify-start',
-        false: 'items-center text-center justify-center',
+        true: 'justify-start',
+        false: 'justify-center',
       },
     },
     defaultVariants: {
@@ -85,9 +85,15 @@ export const buttonGroupLabelVariants = cva(
         true: 'text-aurora-500',
         false: 'text-metal-50',
       },
+      labelAlign: {
+        left: 'justify-between',
+        center: 'justify-center',
+        right: 'justify-end',
+      },
     },
     defaultVariants: {
       selected: false,
+      labelAlign: 'left',
     },
   },
 );
@@ -95,10 +101,24 @@ export const buttonGroupLabelVariants = cva(
 /**
  * Description text variants inside button item
  */
-export const buttonGroupDescriptionVariants = cva([
-  'text-sm',
-  'font-normal',
-  'leading-5',
-  'tracking-[0.15px]',
-  'text-metal-300',
-]);
+export const buttonGroupDescriptionVariants = cva(
+  [
+    'text-sm',
+    'font-normal',
+    'leading-5',
+    'tracking-[0.15px]',
+    'text-metal-300',
+  ],
+  {
+    variants: {
+      descriptionAlign: {
+        left: 'text-left',
+        center: 'text-center',
+        right: 'text-right',
+      },
+    },
+    defaultVariants: {
+      descriptionAlign: 'left',
+    },
+  },
+);
