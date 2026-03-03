@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.70](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.70) (2026-03-03)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.69...0.1.2-alpha.70)
+
+**Merged pull requests:**
+
+- 🐛 fix: add explicit type="button" to VirtualizedTable expand row button [\#564](https://github.com/konstructio/konstruct-ui/pull/564) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.69](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.69) (2026-03-03)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.68...0.1.2-alpha.69)
