@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.2-alpha.69](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.69) (2026-03-03)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.68...0.1.2-alpha.69)
+
+**Merged pull requests:**
+
+- 🐛 fix: increase DateRangePicker accessibility test timeout [\#563](https://github.com/konstructio/konstruct-ui/pull/563) ([futjesus](https://github.com/futjesus))
+- 🎨 style: match Select border-radius with Input component [\#562](https://github.com/konstructio/konstruct-ui/pull/562) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add containerClassName and transition props to Modal component [\#561](https://github.com/konstructio/konstruct-ui/pull/561) ([futjesus](https://github.com/futjesus))
+- ⬆️ chore: update dependencies \(patch and minor\) [\#560](https://github.com/konstructio/konstruct-ui/pull/560) ([futjesus](https://github.com/futjesus))
+- 🎨 style: match Select helper text dark mode styling with Input component [\#559](https://github.com/konstructio/konstruct-ui/pull/559) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.68](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.68) (2026-03-03)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.67...0.1.2-alpha.68)
