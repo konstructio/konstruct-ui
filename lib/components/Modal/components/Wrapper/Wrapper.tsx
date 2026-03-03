@@ -1,4 +1,5 @@
 import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { motion } from 'motion/react';
 import { Children, FC, isValidElement } from 'react';
 import { X as Close } from 'react-feather';
 import { RemoveScroll } from 'react-remove-scroll';
@@ -50,7 +51,7 @@ export const Wrapper: FC<Props> = ({
           role="presentation"
         />
 
-        <div
+        <motion.div
           className={cn(
             modalVariants({
               className,
@@ -58,6 +59,8 @@ export const Wrapper: FC<Props> = ({
           )}
           role="dialog"
           aria-modal="true"
+          layout="size"
+          transition={{ duration: 0.25, ease: 'easeInOut' }}
         >
           {header}
 
@@ -78,7 +81,7 @@ export const Wrapper: FC<Props> = ({
           {body ?? others}
 
           {footer}
-        </div>
+        </motion.div>
       </div>
     </RemoveScroll>
   );
