@@ -27,6 +27,7 @@ export const Default: Story = {
             { value: 'gpu', label: 'GPU' },
           ]}
           defaultValue="cpu"
+          labelAlign="center"
         />
       </section>
 
