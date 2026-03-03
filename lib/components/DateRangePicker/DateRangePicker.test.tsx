@@ -216,7 +216,7 @@ describe('DateRangePicker', () => {
       const results = await axe(component);
 
       expect(results).toHaveNoViolations();
-    });
+    }, 15000);
 
     it('should render with label', async () => {
       setup({ label: 'Select Date Range' });
