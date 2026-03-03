@@ -24,7 +24,7 @@ export const listVariants = cva([
   'flex-col',
   'mt-1',
   'overflow-hidden',
-  'rounded-md',
+  'rounded',
   'shadow-2xs',
   'top-full',
   'w-full',
