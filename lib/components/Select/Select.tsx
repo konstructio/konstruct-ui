@@ -108,7 +108,12 @@ export const Select: FC<SelectProps> = forwardRef<
           ) : null}
 
           {!error && helperText ? (
-            <span className={cn('text-xs text-metal-600', helperTextClassName)}>
+            <span
+              className={cn(
+                'text-xs text-slate-600 dark:text-slate-200',
+                helperTextClassName,
+              )}
+            >
               {helperText}
             </span>
           ) : null}
