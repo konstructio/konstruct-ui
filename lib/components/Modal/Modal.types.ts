@@ -1,8 +1,10 @@
-import { PropsWithChildren, ReactNode } from 'react';
 import { VariantProps } from 'class-variance-authority';
+import { Transition } from 'motion/react';
+import { PropsWithChildren, ReactNode } from 'react';
+
+import { Theme } from '@/domain/theme';
 
 import { modalVariants } from './components/Wrapper/Wrapper.variants';
-import { Theme } from '@/domain/theme';
 
 /**
  * Props for the Modal component.
@@ -24,6 +26,8 @@ export type Props = PropsWithChildren &
     buttonCloseClassName?: string;
     /** Additional CSS classes for the modal */
     className?: string;
+    /** CSS classes for the outer container (the overlay grid wrapper) */
+    containerClassName?: string;
     /** DOM element to portal the modal into (defaults to document.body) */
     container?: Element | DocumentFragment;
     /** Whether the modal is open */
@@ -32,6 +36,8 @@ export type Props = PropsWithChildren &
     showCloseButton?: boolean;
     /** Theme override for this component */
     theme?: Theme;
+    /** Motion transition config for the modal animation */
+    transition?: Transition;
     /** Callback when modal is closed (Escape key or close button) */
     onClose?: () => void;
   };

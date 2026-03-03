@@ -15,8 +15,10 @@ export const Wrapper: FC<Props> = ({
   buttonCloseClassName,
   children,
   className,
+  containerClassName,
   showCloseButton = true,
   theme,
+  transition,
   onClose,
 }) => {
   const header = Children.toArray(children).find(
@@ -42,7 +44,10 @@ export const Wrapper: FC<Props> = ({
   return (
     <RemoveScroll>
       <div
-        className="fixed inset-0 grid place-content-center"
+        className={cn(
+          'fixed inset-0 grid place-content-center',
+          containerClassName,
+        )}
         data-theme={theme}
       >
         <div
@@ -60,7 +65,7 @@ export const Wrapper: FC<Props> = ({
           role="dialog"
           aria-modal="true"
           layout="size"
-          transition={{ duration: 0.25, ease: 'easeInOut' }}
+          transition={transition ?? { duration: 0.25, ease: 'easeInOut' }}
         >
           {header}
 
