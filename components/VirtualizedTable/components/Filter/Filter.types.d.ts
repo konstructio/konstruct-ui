@@ -1,5 +1,5 @@
 import { ButtonProps } from '../../../Button/Button.types';
-import { MultiSelectFilter } from '../../VirtualizedTable.types';
+import { FilterConfig, MultiSelectFilter } from '../../VirtualizedTable.types';
 export type { Option } from '../../../Filter/Filter.types';
 export type FilterAction = {
     label: string;
@@ -8,6 +8,8 @@ export type FilterAction = {
 };
 export type Props = {
     actions?: FilterAction[];
+    filters?: FilterConfig[];
+    /** @deprecated Use `filters` instead */
     multiSelectFilter?: MultiSelectFilter[];
     placeholder: string;
     showFilterInput?: boolean;

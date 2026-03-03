@@ -11,6 +11,11 @@ export type ContextType<TData extends RowData = RowData> = {
     termOfSearch?: string;
     page: number;
     multiselectSelected?: Record<string, string[]>;
+    dateFilters?: Record<string, string | undefined>;
+    dateRangeFilters?: Record<string, {
+        from?: string;
+        to?: string;
+    } | undefined>;
     totalPages: number;
     isFirstLoad: boolean;
     enableExpandedRow?: boolean;
@@ -28,5 +33,10 @@ export type ContextType<TData extends RowData = RowData> = {
     onSorting: Dispatch<SetStateAction<SortingState>>;
     onChangeTermOfSearch: (term: string) => void;
     onSelectMultiselect: (key: string, selectedValues: string[]) => void;
+    onSelectDateFilter: (key: string, date?: Date) => void;
+    onSelectDateRangeFilter: (key: string, range?: {
+        from?: Date;
+        to?: Date;
+    }) => void;
 };
 export declare const TableContext: import('../../../../node_modules/react').Context<ContextType<unknown>>;

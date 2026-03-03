@@ -46,7 +46,7 @@ export * from './Typography/Typography';
 export * from './VirtualizedTable/VirtualizedTable';
 export { sendExpandRowEvent, sendCollapseRowEvent, sendToggleRowEvent, VirtualizedTableEvent, } from './VirtualizedTable/events';
 export type { VirtualizedTableEventDetail } from './VirtualizedTable/events';
-export type { ColumnDef, RowData, } from './VirtualizedTable/VirtualizedTable.types';
+export type { ColumnDef, RowData, FilterConfig, BadgeMultiSelectFilterConfig, TextMultiSelectFilterConfig, DateFilterConfig, DateRangeFilterConfig, } from './VirtualizedTable/VirtualizedTable.types';
 export type { Step, StepperClassNames, StepperIcons, StepperProps, StepSize, StepStatus, StepVariant, } from './Stepper/Stepper.types';
 export { horizontalConnectorWrapperVariants, stepConnectorVariants, stepContentVariants, stepDescriptionVariants, stepIndicatorVariants, stepItemVariants, stepLabelVariants, stepListVariants, stepperVariants, stepVariants, } from './Stepper/Stepper.variants';
 export { Counter as NumberInput } from './Counter/Counter';

@@ -1,6 +1,7 @@
 import { ColumnDef as ColumnDefPrimitive, ExpandedState, OnChangeFn, RowData as RowDataPrimitive } from '@tanstack/react-table';
 import { VariantProps } from 'class-variance-authority';
 import { ReactNode } from '../../../node_modules/react';
+import { DateRange, DateRangeWithTime } from '../DateRangePicker/DateRangePicker.types';
 import { virtualizeTableVariants } from './VirtualizedTable.variants';
 import { FilterAction, Option } from './components/Filter/Filter.types';
 import { UseQueryOptions } from '@tanstack/react-query';
@@ -24,18 +25,73 @@ export type RowDataWithMeta = Record<string, unknown> & {
     meta?: RowMetadata;
 };
 /**
- * Configuration for a multi-select filter in the table.
+ * Base shape shared by all filter configurations.
  */
-export type MultiSelectFilter = {
-    /** Unique key for the filter */
+type FilterConfigBase = {
+    /** Unique key for the filter, used as query parameter key */
     key: string;
-    /** Display label for the filter */
+    /** Display label for the filter trigger button */
     label: string;
-    /** Position of the filter dropdown */
+    /** Position of the dropdown relative to the button */
     position?: 'right' | 'left';
+};
+/**
+ * Configuration for a badge multi-select filter.
+ * Options are displayed with Badge components.
+ */
+export type BadgeMultiSelectFilterConfig = FilterConfigBase & {
+    /** Filter type — defaults to 'badgeMultiSelect' when omitted */
+    type?: 'badgeMultiSelect';
     /** Available filter options */
     options: Option[];
 };
+/**
+ * Configuration for a text multi-select filter.
+ * Options are displayed as plain text labels.
+ */
+export type TextMultiSelectFilterConfig = FilterConfigBase & {
+    type: 'textMultiSelect';
+    /** Available filter options */
+    options: Option[];
+};
+/**
+ * Configuration for a single date filter.
+ */
+export type DateFilterConfig = FilterConfigBase & {
+    type: 'date';
+    /** Country code for locale formatting (default: 'US') */
+    countryCode?: string;
+};
+/**
+ * Configuration for a date range filter.
+ */
+export type DateRangeFilterConfig = FilterConfigBase & {
+    type: 'dateRange';
+    /** Whether to show time inputs (default: false) */
+    showTime?: boolean;
+    /** Time format: '12' for 12-hour or '24' for 24-hour */
+    timeFormat?: '12' | '24';
+    /** Whether to show preset options (default: true) */
+    showPresets?: boolean;
+    /** Initial date range */
+    defaultRange?: DateRange;
+    /** Minimum selectable date */
+    minDate?: Date;
+    /** Maximum selectable date */
+    maxDate?: Date;
+    /** Country code for locale formatting (default: 'US') */
+    countryCode?: string;
+    /** Callback when the date range changes */
+    onRangeChange?: (range: DateRangeWithTime) => void;
+};
+/**
+ * Union of all supported filter configurations.
+ */
+export type FilterConfig = BadgeMultiSelectFilterConfig | TextMultiSelectFilterConfig | DateFilterConfig | DateRangeFilterConfig;
+/**
+ * @deprecated Use FilterConfig instead
+ */
+export type MultiSelectFilter = BadgeMultiSelectFilterConfig;
 /**
  * Props for the VirtualizedTable component.
  * A feature-rich data table with filtering, pagination, and sorting.
@@ -96,7 +152,9 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<typeof virtuali
     totalItems?: never;
 }) & ({
     filterSearchPlaceholder?: string;
+    /** @deprecated Use `filters` instead */
     multiSelectFilter?: MultiSelectFilter[];
+    filters?: FilterConfig[];
     showFilter: true;
     showFilterInput?: boolean;
     filterActions?: FilterAction[];
@@ -104,7 +162,9 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<typeof virtuali
     resetButtonClassName?: string;
 } | {
     filterSearchPlaceholder?: never;
+    /** @deprecated Use `filters` instead */
     multiSelectFilter?: never;
+    filters?: never;
     showFilter?: false | undefined;
     showFilterInput?: never;
     filterActions?: FilterAction[];
@@ -135,3 +195,4 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<typeof virtuali
     renderExpandedRow?: never;
     keepExpandColumnVisible?: never;
 });
+export {};

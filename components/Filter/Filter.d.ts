@@ -1,5 +1,5 @@
 import { FilterComponentProps } from './Filter.types';
-import { BadgeMultiSelect, DateFilterDropdown, DateRangeFilterDropdown } from './components';
+import { BadgeMultiSelect, DateFilterDropdown, DateRangeFilterDropdown, TextMultiSelect } from './components';
 /**
  * A compound component for building filter interfaces.
  * Includes sub-components for badge multi-select, date filtering, and reset actions.
@@ -23,4 +23,4 @@ import { BadgeMultiSelect, DateFilterDropdown, DateRangeFilterDropdown } from '.
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-filter--docs Storybook}
  */
 declare const Filter: FilterComponentProps;
-export { Filter, BadgeMultiSelect, DateFilterDropdown, DateRangeFilterDropdown, };
+export { Filter, BadgeMultiSelect, TextMultiSelect, DateFilterDropdown, DateRangeFilterDropdown, };
