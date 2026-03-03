@@ -62,6 +62,12 @@ export const TableProvider = <TData extends RowData = RowData>({
   const [multiselectSelected, setMultiselectSelected] = useState<
     Record<string, string[]>
   >({});
+  const [dateFilters, setDateFilters] = useState<
+    Record<string, string | undefined>
+  >({});
+  const [dateRangeFilters, setDateRangeFilters] = useState<
+    Record<string, { from?: string; to?: string } | undefined>
+  >({});
 
   const getQueryKey = () => {
     const queryKey =
@@ -77,6 +83,14 @@ export const TableProvider = <TData extends RowData = RowData>({
 
     Object.entries(multiselectSelected).forEach(([key, value]) => {
       queryKey.push(`${key}:${value.join(',')}`);
+    });
+
+    Object.entries(dateFilters).forEach(([key, value]) => {
+      if (value) queryKey.push(`${key}:${value}`);
+    });
+
+    Object.entries(dateRangeFilters).forEach(([key, value]) => {
+      if (value) queryKey.push(`${key}:${value.from ?? ''}-${value.to ?? ''}`);
     });
 
     return queryKey;
@@ -96,6 +110,8 @@ export const TableProvider = <TData extends RowData = RowData>({
         ...(Object.keys(multiselectSelected).length > 0
           ? multiselectSelected
           : {}),
+        ...(Object.keys(dateFilters).length > 0 ? dateFilters : {}),
+        ...(Object.keys(dateRangeFilters).length > 0 ? dateRangeFilters : {}),
       }).then(({ data, totalItemsCount }) => {
         setIsFirstLoad(false);
 
@@ -126,6 +142,31 @@ export const TableProvider = <TData extends RowData = RowData>({
       [newKey]: selected,
     }));
   }, []);
+
+  const onSelectDateFilter = useCallback((key: string, date?: Date) => {
+    const newKey = key.toLowerCase().replace(/\s+/g, '_');
+
+    setDateFilters((prev) => ({
+      ...prev,
+      [newKey]: date?.toISOString(),
+    }));
+    setPage(0);
+  }, []);
+
+  const onSelectDateRangeFilter = useCallback(
+    (key: string, range?: { from?: Date; to?: Date }) => {
+      const newKey = key.toLowerCase().replace(/\s+/g, '_');
+
+      setDateRangeFilters((prev) => ({
+        ...prev,
+        [newKey]: range
+          ? { from: range.from?.toISOString(), to: range.to?.toISOString() }
+          : undefined,
+      }));
+      setPage(0);
+    },
+    [],
+  );
 
   const handlePage = useCallback((newPage: number) => setPage(newPage), []);
   const onPageSize = useCallback(
@@ -389,6 +430,8 @@ export const TableProvider = <TData extends RowData = RowData>({
         isExpandColumnVisible,
         isFirstLoad,
         multiselectSelected,
+        dateFilters,
+        dateRangeFilters,
         page,
         pageSize,
         sortedData,
@@ -402,6 +445,8 @@ export const TableProvider = <TData extends RowData = RowData>({
         onChangeTermOfSearch,
         onPageSize,
         onSelectMultiselect,
+        onSelectDateFilter,
+        onSelectDateRangeFilter,
         onSorting: setSortedData,
         renderExpandedRow: renderExpandedRow as
           | ((data: RowData) => ReactNode)

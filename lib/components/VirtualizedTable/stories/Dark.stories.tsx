@@ -132,7 +132,7 @@ const args = {
       },
     },
   ],
-  multiSelectFilter: [
+  filters: [
     {
       key: 'type',
       label: 'Type',
@@ -163,6 +163,11 @@ const args = {
           variant: undefined,
         },
       ],
+    },
+    {
+      key: 'created',
+      type: 'date',
+      label: 'Created',
     },
   ],
 } satisfies Partial<Props<unknown>>;

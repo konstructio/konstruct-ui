@@ -72,6 +72,7 @@ const VirtualizedTableInner = <TData extends RowData>({
   showFilter = false,
   showFilterInput,
   filterSearchPlaceholder = '',
+  filters,
   multiSelectFilter,
   filterActions,
   showResetButton = true,
@@ -132,6 +133,7 @@ const VirtualizedTableInner = <TData extends RowData>({
         {showFilter && (
           <Filter
             actions={filterActions}
+            filters={filters}
             multiSelectFilter={multiSelectFilter}
             placeholder={filterSearchPlaceholder}
             showFilterInput={showFilterInput}

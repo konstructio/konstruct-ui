@@ -16,6 +16,7 @@ const meta: Meta<typeof FilterComponent> = {
 export const Light: Story = {
   render: function FilterStory(args) {
     const [selectedStatus, setSelectedStatus] = useState<Option[]>([]);
+    const [selectedCategory, setSelectedCategory] = useState<Option[]>([]);
     const [date, setDate] = useState<Date | undefined>();
     const [dateRange, setDateRange] = useState<DateRangeWithTime | undefined>();
 
@@ -26,6 +27,20 @@ export const Light: Story = {
     const onApplyBadge = (selectedOptions: Option[]) => {
       setSelectedStatus(selectedOptions);
     };
+
+    const onApplyText = (selectedOptions: Option[]) => {
+      setSelectedCategory(selectedOptions);
+    };
+
+    const categoryOptions = useMemo<Option[]>(
+      () => [
+        { id: 'infrastructure', label: 'Infrastructure' },
+        { id: 'networking', label: 'Networking' },
+        { id: 'security', label: 'Security' },
+        { id: 'monitoring', label: 'Monitoring' },
+      ],
+      [],
+    );
 
     const options = useMemo<Option[]>(
       () => [
@@ -72,6 +87,12 @@ export const Light: Story = {
             onApply={onApplyBadge}
           />
 
+          <FilterComponent.TextMultiSelect
+            label="Category"
+            options={categoryOptions}
+            onApply={onApplyText}
+          />
+
           <FilterComponent.DateFilterDropdown
             label="Created"
             onApply={onApplyDate}
@@ -83,7 +104,12 @@ export const Light: Story = {
           />
 
           <FilterComponent.ResetButton
-            disabled={!dateRange && !date && selectedStatus.length === 0}
+            disabled={
+              !dateRange &&
+              !date &&
+              selectedStatus.length === 0 &&
+              selectedCategory.length === 0
+            }
           />
         </FilterComponent>
       </div>

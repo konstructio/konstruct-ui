@@ -6,3 +6,5 @@ export * from './DateRangeFilterDropdown/DateRangeFilterDropdown';
 export * from './DateRangeFilterDropdown/DateRangeFilterDropdown.types';
 export * from './ResetButton/ResetButton';
 export * from './ResetButton/ResetButton.types';
+export * from './TextMultiSelect/TextMultiSelect';
+export * from './TextMultiSelect/TextMultiSelect.types';
