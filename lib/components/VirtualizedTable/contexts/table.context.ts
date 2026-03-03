@@ -14,6 +14,8 @@ export type ContextType<TData extends RowData = RowData> = {
   termOfSearch?: string;
   page: number;
   multiselectSelected?: Record<string, string[]>;
+  dateFilters?: Record<string, string | undefined>;
+  dateRangeFilters?: Record<string, { from?: string; to?: string } | undefined>;
   totalPages: number;
   isFirstLoad: boolean;
   enableExpandedRow?: boolean;
@@ -31,6 +33,11 @@ export type ContextType<TData extends RowData = RowData> = {
   onSorting: Dispatch<SetStateAction<SortingState>>;
   onChangeTermOfSearch: (term: string) => void;
   onSelectMultiselect: (key: string, selectedValues: string[]) => void;
+  onSelectDateFilter: (key: string, date?: Date) => void;
+  onSelectDateRangeFilter: (
+    key: string,
+    range?: { from?: Date; to?: Date },
+  ) => void;
 };
 
 export const TableContext = createContext<ContextType<RowData>>({
@@ -52,6 +59,12 @@ export const TableContext = createContext<ContextType<RowData>>({
   },
   onSelectMultiselect() {
     throw new Error('onSelectMultiselect function is not implemented');
+  },
+  onSelectDateFilter() {
+    throw new Error('onSelectDateFilter function is not implemented');
+  },
+  onSelectDateRangeFilter() {
+    throw new Error('onSelectDateRangeFilter function is not implemented');
   },
   handlePage() {
     throw new Error('handlePage function is not implemented');

@@ -60,6 +60,11 @@ export type { VirtualizedTableEventDetail } from './VirtualizedTable/events';
 export type {
   ColumnDef,
   RowData,
+  FilterConfig,
+  BadgeMultiSelectFilterConfig,
+  TextMultiSelectFilterConfig,
+  DateFilterConfig,
+  DateRangeFilterConfig,
 } from './VirtualizedTable/VirtualizedTable.types';
 export type {
   Step,
