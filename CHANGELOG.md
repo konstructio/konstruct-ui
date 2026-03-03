@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.71](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.71) (2026-03-03)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.70...0.1.2-alpha.71)
+
+**Merged pull requests:**
+
+- ✨ feat: add polymorphic filter types to VirtualizedTable [\#566](https://github.com/konstructio/konstruct-ui/pull/566) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.70](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.70) (2026-03-03)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.69...0.1.2-alpha.70)
