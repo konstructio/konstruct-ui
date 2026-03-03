@@ -18,7 +18,7 @@ export const Item: FC<ItemProps> = ({
   target,
   theme,
   to,
-  component = 'a',
+  component,
 }) => {
   const { isInsideRouter } = useBreadcrumb();
 
@@ -28,7 +28,52 @@ export const Item: FC<ItemProps> = ({
     }
   };
 
-  const Component = component;
+  if (!to) {
+    return (
+      <li
+        aria-current={isLast ? 'page' : undefined}
+        className="group font-medium text-inherit"
+        data-theme={theme}
+      >
+        <span className={cn(breadcrumbLabelVariants({ isActive }))}>
+          {label}
+        </span>
+      </li>
+    );
+  }
+
+  const linkProps = {
+    target,
+    className: cn(breadcrumbLinkVariants({ isActive })),
+    'aria-disabled': isActive ? ('true' as const) : ('false' as const),
+    onClick: handleClick,
+  };
+
+  const renderLink = () => {
+    if (isInsideRouter) {
+      return (
+        <Link to={to} {...linkProps}>
+          {label}
+        </Link>
+      );
+    }
+
+    if (component) {
+      const Component = component;
+
+      return (
+        <Component to={to} {...linkProps}>
+          {label}
+        </Component>
+      );
+    }
+
+    return (
+      <a href={to} {...linkProps}>
+        {label}
+      </a>
+    );
+  };
 
   return (
     <li
@@ -36,36 +81,7 @@ export const Item: FC<ItemProps> = ({
       className="group font-medium text-inherit"
       data-theme={theme}
     >
-      {to ? (
-        <>
-          {isInsideRouter ? (
-            <Link
-              to={to}
-              target={target}
-              className={cn(breadcrumbLinkVariants({ isActive }))}
-              aria-disabled={isActive ? 'true' : 'false'}
-              onClick={handleClick}
-            >
-              {label}
-            </Link>
-          ) : (
-            <Component
-              href={Component === 'a' ? to : undefined}
-              to={Component !== 'a' ? to : undefined}
-              target={target}
-              className={cn(breadcrumbLinkVariants({ isActive }))}
-              aria-disabled={isActive ? 'true' : 'false'}
-              onClick={handleClick}
-            >
-              {label}
-            </Component>
-          )}
-        </>
-      ) : (
-        <span className={cn(breadcrumbLabelVariants({ isActive }))}>
-          {label}
-        </span>
-      )}
+      {renderLink()}
     </li>
   );
 };
