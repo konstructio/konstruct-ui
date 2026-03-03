@@ -1,5 +1,21 @@
 import { cva } from 'class-variance-authority';
 
+export const listGroupLabelVariants = cva([
+  'flex',
+  'items-center',
+  'h-8',
+  'px-6',
+  'py-1.5',
+  'text-[11px]',
+  'font-medium',
+  'uppercase',
+  'tracking-[0.25px]',
+  'text-metal-50',
+  'pointer-events-none',
+  'select-none',
+  'cursor-default',
+]);
+
 export const listVariants = cva([
   'scrollbar',
   'absolute',

@@ -1,10 +1,17 @@
-import { ComponentRef, FC, forwardRef } from 'react';
+import { ComponentRef, FC, forwardRef, useMemo } from 'react';
 
 import { cn } from '@/utils';
 
 import { Wrapper } from './components';
 import { SelectProvider } from './contexts';
-import { SelectProps } from './Select.types';
+import {
+  isOptionGroup,
+  Option,
+  OptionGroup,
+  SelectProps,
+} from './Select.types';
+
+export type { OptionGroup, AdditionalOptionGroup } from './Select.types';
 
 /**
  * A dropdown select component with search, icons, and infinite scroll support.
@@ -59,41 +66,54 @@ export const Select: FC<SelectProps> = forwardRef<
       ...delegated
     },
     ref,
-  ) => (
-    <SelectProvider
-      highlightSearch={highlightSearch}
-      name={name}
-      value={value}
-      options={options}
-      onBlur={onBlur}
-      onChange={onChange}
-    >
-      <div className={cn('relative w-full', mainWrapperClassName)}>
-        <Wrapper
-          error={error}
-          name={name}
-          ref={ref}
-          onBlur={onBlur}
-          {...delegated}
-        />
+  ) => {
+    const flatOptions = useMemo((): Option[] => {
+      if (!options.length) {
+        return [];
+      }
 
-        {error ? (
-          <span
-            className={cn(
-              'text-xs text-red-700 dark:text-red-400',
-              errorClassName,
-            )}
-          >
-            {error}
-          </span>
-        ) : null}
+      return isOptionGroup(options.at(0)!)
+        ? (options as OptionGroup[]).flatMap((g) => g.options)
+        : (options as Option[]);
+    }, [options]);
 
-        {!error && helperText ? (
-          <span className={cn('text-xs text-metal-600', helperTextClassName)}>
-            {helperText}
-          </span>
-        ) : null}
-      </div>
-    </SelectProvider>
-  ),
+    return (
+      <SelectProvider
+        highlightSearch={highlightSearch}
+        name={name}
+        value={value}
+        options={flatOptions}
+        onBlur={onBlur}
+        onChange={onChange}
+      >
+        <div className={cn('relative w-full', mainWrapperClassName)}>
+          <Wrapper
+            error={error}
+            name={name}
+            ref={ref}
+            onBlur={onBlur}
+            groupedOptions={options}
+            {...delegated}
+          />
+
+          {error ? (
+            <span
+              className={cn(
+                'text-xs text-red-700 dark:text-red-400',
+                errorClassName,
+              )}
+            >
+              {error}
+            </span>
+          ) : null}
+
+          {!error && helperText ? (
+            <span className={cn('text-xs text-metal-600', helperTextClassName)}>
+              {helperText}
+            </span>
+          ) : null}
+        </div>
+      </SelectProvider>
+    );
+  },
 );

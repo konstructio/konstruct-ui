@@ -17,6 +17,7 @@ export { ClockAlertIcon } from './ClockAlert';
 export { ClockOutlineIcon } from './ClockOutline';
 export { CloseIcon } from './Close';
 export { CloudIcon } from './Cloud';
+export { CloudLockOutlineIcon } from './CloudLockOutline';
 export { ClustersIcon } from './Clusters';
 export { CogOutlineIcon } from './CogOutline';
 export { CopyIcon } from './Copy';

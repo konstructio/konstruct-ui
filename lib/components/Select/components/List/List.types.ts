@@ -7,6 +7,7 @@ export type ListProps = Pick<
   'name' | 'options' | 'theme' | 'additionalOptions'
 > & {
   className?: string;
+  groupedOptions: SelectProps['options'];
   inputRef?: RefObject<ComponentRef<'input'> | null>;
   isLoading: boolean;
   itemClassName?: string;

@@ -37,6 +37,34 @@ export type Option = {
   value: string;
 };
 
+/**
+ * A group of options with a non-interactive header label.
+ */
+export type OptionGroup = {
+  groupLabel: string;
+  options: Option[];
+};
+
+/**
+ * A group of additional options with a non-interactive header label.
+ */
+export type AdditionalOptionGroup = {
+  groupLabel: string;
+  options: ReactNode[];
+};
+
+export const isOptionGroup = (
+  item: Option | OptionGroup,
+): item is OptionGroup => 'groupLabel' in item;
+
+export const isAdditionalOptionGroup = (
+  item: unknown,
+): item is AdditionalOptionGroup =>
+  typeof item === 'object' &&
+  item !== null &&
+  'groupLabel' in item &&
+  'options' in item;
+
 type OnChangeFn = (params: { target: { value: string; name: string } }) => void;
 
 /**
@@ -75,7 +103,7 @@ type OnChangeFn = (params: { target: { value: string; name: string } }) => void;
  */
 export type SelectProps = VariantProps<typeof selectVariants> &
   Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> & {
-    additionalOptions?: ReactNode[] | string[];
+    additionalOptions?: ReactNode[] | string[] | AdditionalOptionGroup[];
     className?: string;
     disabled?: boolean;
     error?: string;
@@ -96,7 +124,7 @@ export type SelectProps = VariantProps<typeof selectVariants> &
     listItemSecondRowClassName?: string;
     mainWrapperClassName?: string;
     noOptionsText?: string;
-    options: Option[];
+    options: Option[] | OptionGroup[];
     searchable?: boolean;
     showSearchIcon?: boolean;
     theme?: Theme;
