@@ -19,6 +19,7 @@ export {
   ClockOutlineIcon,
   CloseIcon,
   CloudIcon,
+  CloudLockOutlineIcon,
   ClustersIcon,
   CogOutlineIcon,
   CopyIcon,

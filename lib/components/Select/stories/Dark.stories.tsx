@@ -6,7 +6,7 @@ import { getPokemons } from '../../../../mocks';
 
 import { DEFAULT_LIST_SIZE } from '../constants';
 import { Select as SelectComponent } from '../Select';
-import { Option } from '../Select.types';
+import { Option, OptionGroup } from '../Select.types';
 
 type Story = StoryObj<typeof SelectComponent>;
 
@@ -48,6 +48,28 @@ export const Dark = {
     const [value6, setValue6] = useState<string>();
     const [value7, setValue7] = useState<string>();
     const [value8, setValue8] = useState<string>();
+    const [value9, setValue9] = useState<string>();
+
+    const groupedRegions: OptionGroup[] = [
+      {
+        groupLabel: 'Asia Pacific',
+        options: [{ value: 'mum1', label: 'Mumbai (mum1)', leftIcon: '🇮🇳' }],
+      },
+      {
+        groupLabel: 'Europe',
+        options: [
+          { value: 'fra1', label: 'Frankfurt (fra1)', leftIcon: '🇩🇪' },
+          { value: 'lon1', label: 'London (lon1)', leftIcon: '🇬🇧' },
+        ],
+      },
+      {
+        groupLabel: 'North America',
+        options: [
+          { value: 'nyc1', label: 'New York City (nyc1)', leftIcon: '🇺🇸' },
+          { value: 'phx1', label: 'Phoenix (phx1)', leftIcon: '🇺🇸' },
+        ],
+      },
+    ];
 
     const [pokemons, setPokemons] = useState<Option[]>([]);
 
@@ -196,6 +218,14 @@ export const Dark = {
             searchable={false}
             noOptionsText="No options"
             options={[]}
+          />
+
+          <SelectComponent
+            label="Select with grouped options"
+            onChange={({ target: { value } }) => setValue9(value)}
+            value={value9}
+            searchable
+            options={groupedRegions}
           />
         </div>
       </div>

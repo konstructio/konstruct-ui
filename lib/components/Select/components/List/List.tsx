@@ -1,9 +1,9 @@
-import { Slot } from '@radix-ui/react-slot';
 import debounce from 'lodash/debounce';
 import {
   ComponentRef,
   forwardRef,
   ForwardRefExoticComponent,
+  Fragment,
   RefAttributes,
   useEffect,
   useImperativeHandle,
@@ -18,11 +18,13 @@ import { cn } from '@/utils';
 import { DEFAULT_LIST_SIZE } from '../../constants';
 import { useSelectContext } from '../../contexts';
 import { useNavigationUlList } from '../../hooks/useNavigationList';
+import { isOptionGroup, Option, OptionGroup } from '../../Select.types';
 
+import { AdditionalOptions } from '../AdditionalOptions/AdditionalOptions';
 import { ListItem } from '../ListItem/ListItem';
 
 import { ListProps } from './List.types';
-import { listVariants } from './List.variants';
+import { listGroupLabelVariants, listVariants } from './List.variants';
 
 export const List: ForwardRefExoticComponent<
   ListProps & RefAttributes<ComponentRef<'ul'>>
@@ -31,6 +33,7 @@ export const List: ForwardRefExoticComponent<
     {
       additionalOptions,
       className,
+      groupedOptions,
       inputRef,
       isLoading,
       itemClassName,
@@ -39,8 +42,8 @@ export const List: ForwardRefExoticComponent<
       listItemSecondRowClassName,
       wrapperInputRef,
       isInfiniteScrollEnabled,
-      onFetchMoreOptions,
       noOptionsText,
+      onFetchMoreOptions,
     },
     ref,
   ) => {
@@ -58,10 +61,13 @@ export const List: ForwardRefExoticComponent<
       setCanContinueFetching,
       setOptions,
       setPage,
-      toggleOpen,
     } = useSelectContext();
 
     useImperativeHandle(ref, () => ulRef.current!, [ulRef]);
+
+    const isGrouped =
+      groupedOptions.length > 0 &&
+      isOptionGroup(groupedOptions[0] as Option | OptionGroup);
 
     const filteredOptions =
       searchable && canFilter
@@ -75,11 +81,38 @@ export const List: ForwardRefExoticComponent<
           })
         : options;
 
+    const filteredGroups = useMemo((): OptionGroup[] => {
+      if (!isGrouped) {
+        return [];
+      }
+
+      const groups = groupedOptions as OptionGroup[];
+
+      if (!searchable || !canFilter || !searchTerm) {
+        return groups;
+      }
+
+      const lower = searchTerm.toLowerCase();
+
+      return groups
+        .map((g) => ({
+          ...g,
+          options: g.options.filter((o) =>
+            o.label.toLowerCase().includes(lower),
+          ),
+        }))
+        .filter((g) => g.options.length > 0);
+    }, [isGrouped, groupedOptions, searchable, canFilter, searchTerm]);
+
+    const navigableOptions = isGrouped
+      ? filteredGroups.flatMap((g) => g.options)
+      : filteredOptions;
+
     useNavigationUlList({
       ulRef,
       wrapperInputRef,
       searchable,
-      filteredOptions,
+      filteredOptions: navigableOptions,
     });
 
     const uniqueFilteredOptions = filteredOptions.filter(
@@ -87,7 +120,9 @@ export const List: ForwardRefExoticComponent<
         index === self.findIndex((o) => o.value === option.value),
     );
 
-    const isEmpty = filteredOptions.length === 0;
+    const isEmpty = isGrouped
+      ? filteredGroups.length === 0
+      : filteredOptions.length === 0;
 
     const debouncedFetching = useMemo(
       () =>
@@ -173,6 +208,30 @@ export const List: ForwardRefExoticComponent<
             label={noOptionsText ?? 'No options'}
             listItemSecondRowClassName={listItemSecondRowClassName}
           />
+        ) : isGrouped ? (
+          filteredGroups.map((group) => (
+            <Fragment key={group.groupLabel}>
+              <li
+                role="presentation"
+                aria-hidden="true"
+                data-action="true"
+                className={cn(listGroupLabelVariants())}
+              >
+                {group.groupLabel}
+              </li>
+
+              {group.options.map((option) => (
+                <ListItem
+                  key={option.value}
+                  className={cn('select-none', itemClassName)}
+                  isClickable
+                  inputRef={inputRef}
+                  listItemSecondRowClassName={listItemSecondRowClassName}
+                  {...option}
+                />
+              ))}
+            </Fragment>
+          ))
         ) : (
           uniqueFilteredOptions.map((option) => (
             <ListItem
@@ -198,41 +257,7 @@ export const List: ForwardRefExoticComponent<
           </li>
         )}
 
-        {additionalOptions?.map((option, index) => (
-          <li
-            key={index}
-            role="option"
-            data-action="true"
-            onClick={() => toggleOpen(false)}
-          >
-            <Slot
-              className={cn(
-                'flex',
-                'min-h-10',
-                'py-2',
-                'px-6',
-                'w-full',
-                'h-full',
-                'gap-1',
-                'items-center',
-                'text-sm',
-                '[&>svg]:-ml-1',
-                '[&>svg]:w-3.5',
-                '[&>svg]:h-3.5',
-                '[&>svg]:shrink-0',
-                'cursor-pointer',
-                'select-none',
-                'hover:bg-gray-50',
-                'hover:dark:bg-metal-700',
-                'focus:outline-0',
-                'text-blue-600',
-                'dark:text-aurora-500',
-              )}
-            >
-              {option}
-            </Slot>
-          </li>
-        ))}
+        <AdditionalOptions additionalOptions={additionalOptions} />
       </ul>
     );
   },

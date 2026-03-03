@@ -28,10 +28,14 @@ import { useSelect } from '../hooks/useSelect';
 import { List } from './List/List';
 
 export const Wrapper: ForwardRefExoticComponent<
-  Omit<SelectProps, 'options'> & RefAttributes<ComponentRef<'input'>>
+  Omit<SelectProps, 'options'> & {
+    groupedOptions: SelectProps['options'];
+  } & RefAttributes<ComponentRef<'input'>>
 > = forwardRef<
   ComponentRef<'input'>,
-  Omit<SelectProps, 'helperText' | 'options'>
+  Omit<SelectProps, 'helperText' | 'options'> & {
+    groupedOptions: SelectProps['options'];
+  }
 >(
   (
     {
@@ -40,6 +44,7 @@ export const Wrapper: ForwardRefExoticComponent<
       defaultValue,
       disabled = false,
       error,
+      groupedOptions,
       iconClassName,
       inputClassName,
       isInfiniteScrollEnabled = false,
@@ -280,6 +285,7 @@ export const Wrapper: ForwardRefExoticComponent<
             ref={ulRef}
             additionalOptions={additionalOptions}
             className={listClassName}
+            groupedOptions={groupedOptions}
             itemClassName={listItemClassName}
             name={name}
             wrapperInputRef={wrapperInputRef}
