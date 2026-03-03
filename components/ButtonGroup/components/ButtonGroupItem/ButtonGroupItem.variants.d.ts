@@ -17,8 +17,11 @@ export declare const buttonGroupItemContentVariants: (props?: ({
  */
 export declare const buttonGroupLabelVariants: (props?: ({
     selected?: boolean | null | undefined;
+    labelAlign?: "center" | "left" | "right" | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
 /**
  * Description text variants inside button item
  */
-export declare const buttonGroupDescriptionVariants: (props?: import('class-variance-authority/types').ClassProp | undefined) => string;
+export declare const buttonGroupDescriptionVariants: (props?: ({
+    descriptionAlign?: "center" | "left" | "right" | null | undefined;
+} & import('class-variance-authority/types').ClassProp) | undefined) => string;

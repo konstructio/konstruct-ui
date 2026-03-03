@@ -2,6 +2,8 @@ import { ReactNode } from '../../../node_modules/react';
 import { VariantProps } from 'class-variance-authority';
 import { Theme } from '../../domain/theme';
 import { buttonGroupVariants } from './ButtonGroup.variants';
+/** Horizontal text alignment for label and description */
+export type TextAlign = 'left' | 'center' | 'right';
 /**
  * Configuration for a single button option in the ButtonGroup.
  */
@@ -53,6 +55,8 @@ export type Props = VariantProps<typeof buttonGroupVariants> & {
     contentClassName?: string;
     /** Initially selected value (uncontrolled mode) */
     defaultValue?: string;
+    /** Horizontal alignment of the description text (default: 'left') */
+    descriptionAlign?: TextAlign;
     /** CSS classes for description text */
     descriptionClassName?: string;
     /** Animation duration in seconds (default: 0.3) */
@@ -71,6 +75,8 @@ export type Props = VariantProps<typeof buttonGroupVariants> & {
     itemClassName?: string;
     /** CSS classes for the label text inside items */
     itemLabelClassName?: string;
+    /** Horizontal alignment of the label text (default: 'left') */
+    labelAlign?: TextAlign;
     /** Label displayed above the button group */
     label?: string | ReactNode;
     /** CSS classes for the label */

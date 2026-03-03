@@ -33,6 +33,22 @@ export type Option = {
     /** Unique value for the option */
     value: string;
 };
+/**
+ * A group of options with a non-interactive header label.
+ */
+export type OptionGroup = {
+    groupLabel: string;
+    options: Option[];
+};
+/**
+ * A group of additional options with a non-interactive header label.
+ */
+export type AdditionalOptionGroup = {
+    groupLabel: string;
+    options: ReactNode[];
+};
+export declare const isOptionGroup: (item: Option | OptionGroup) => item is OptionGroup;
+export declare const isAdditionalOptionGroup: (item: unknown) => item is AdditionalOptionGroup;
 type OnChangeFn = (params: {
     target: {
         value: string;
@@ -74,7 +90,7 @@ type OnChangeFn = (params: {
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-select--docs Storybook}
  */
 export type SelectProps = VariantProps<typeof selectVariants> & Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> & {
-    additionalOptions?: ReactNode[] | string[];
+    additionalOptions?: ReactNode[] | string[] | AdditionalOptionGroup[];
     className?: string;
     disabled?: boolean;
     error?: string;
@@ -95,7 +111,7 @@ export type SelectProps = VariantProps<typeof selectVariants> & Omit<InputHTMLAt
     listItemSecondRowClassName?: string;
     mainWrapperClassName?: string;
     noOptionsText?: string;
-    options: Option[];
+    options: Option[] | OptionGroup[];
     searchable?: boolean;
     showSearchIcon?: boolean;
     theme?: Theme;

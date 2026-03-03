@@ -1,5 +1,6 @@
 import { FC } from '../../../node_modules/react';
 import { SelectProps } from './Select.types';
+export type { OptionGroup, AdditionalOptionGroup } from './Select.types';
 /**
  * A dropdown select component with search, icons, and infinite scroll support.
  * Also exported as `Dropdown` for convenience.
