@@ -306,6 +306,7 @@ export const TableProvider = <TData extends RowData = RowData>({
 
         return (
           <button
+            type="button"
             className="hover:cursor-pointer"
             onClick={() => row.toggleExpanded()}
             aria-label={row.getIsExpanded() ? 'Collapse row' : 'Expand row'}
