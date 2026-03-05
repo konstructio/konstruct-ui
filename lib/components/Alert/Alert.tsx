@@ -104,7 +104,7 @@ export const Alert: FC<AlertProps> = ({
       {Icon && <Icon className={cn(iconVariants({ type }))} />}
 
       <div className="flex flex-col gap-1 flex-1">
-        <p className={cn(titleVariants({ type }))}>{title}</p>
+        {title && <p className={cn(titleVariants({ type }))}>{title}</p>}
         {description && (
           <div className={cn(descriptionVariants({ type }))}>{description}</div>
         )}
