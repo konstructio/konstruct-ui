@@ -1,80 +1,59 @@
-'use client';
-import { Slot } from '@radix-ui/react-slot';
-import {
-  FC,
-  forwardRef,
-  isValidElement,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-} from 'react';
+import * as RadixTooltip from '@radix-ui/react-tooltip';
+import { FC } from 'react';
 
 import { cn } from '@/utils';
 
 import { TooltipProps } from './Tooltip.types';
-import { arrowVariants, tooltipVariants } from './Tooltip.variants';
-import { useTooltip } from './hooks/useTooltip';
-import { Typography } from '..';
 
 /**
  * A tooltip component that shows on hover.
- * Wraps any element and displays content on mouse enter.
+ * Built on Radix UI for accessible, well-positioned tooltips.
  *
  * @example
  * ```tsx
- * // Basic tooltip
  * <Tooltip content="Click to save">
  *   <Button>Save</Button>
  * </Tooltip>
  *
- * // Tooltip with position
- * <Tooltip content="More information" position="bottom">
+ * <Tooltip content="More information" side="bottom">
  *   <InfoIcon />
  * </Tooltip>
  *
- * // Tooltip on text
- * <Tooltip content="This is a helpful tip">
- *   <span>Hover me</span>
+ * <Tooltip content="Danger!" bgClassName="bg-red-500">
+ *   <Button variant="danger">Delete</Button>
  * </Tooltip>
  * ```
- *
- * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-tooltip--docs Storybook}
  */
-export const Tooltip: FC<TooltipProps> = forwardRef<HTMLElement, TooltipProps>(
-  (
-    { children, content, className, theme, position, wrapperClassName },
-    ref,
-  ) => {
-    const tooltipRef = useRef(null);
-    const { isVisible, componentRef } = useTooltip();
-
-    useImperativeHandle(ref, () => componentRef.current!, [componentRef]);
-
-    const newChildren = useMemo(
-      () =>
-        isValidElement(children) ? children : <p className="p-2">{children}</p>,
-      [children],
-    );
-
-    return (
-      <div className={cn('w-full', wrapperClassName)} data-theme={theme}>
-        <div className="relative w-max">
-          <Slot ref={componentRef} className={cn('cursor-pointer ', className)}>
-            {newChildren}
-          </Slot>
-
-          <div
-            ref={tooltipRef}
-            className={cn(tooltipVariants({ position }))}
-            data-visible={isVisible}
-          >
-            <span className={cn(arrowVariants({ position }))} />
-            <Typography variant="tooltip" className="text-white">
-              {content}
-            </Typography>
-          </div>
-        </div>
-      </div>
-    );
-  },
+export const Tooltip: FC<TooltipProps> = ({
+  content,
+  children,
+  side = 'top',
+  sideOffset = 4,
+  bgClassName = 'bg-slate-700',
+  arrowClassName = 'fill-slate-700',
+  textClassName = 'text-white',
+  className,
+  delayDuration = 0,
+}) => (
+  <RadixTooltip.Provider delayDuration={delayDuration}>
+    <RadixTooltip.Root>
+      <RadixTooltip.Trigger asChild>
+        <span>{children}</span>
+      </RadixTooltip.Trigger>
+      <RadixTooltip.Content
+        side={side}
+        sideOffset={sideOffset}
+        className={cn(
+          'rounded px-2 py-1 text-xs shadow-md',
+          'animate-in fade-in-0',
+          bgClassName,
+          textClassName,
+          className,
+        )}
+      >
+        {content}
+        <RadixTooltip.Arrow className={arrowClassName} />
+      </RadixTooltip.Content>
+    </RadixTooltip.Root>
+  </RadixTooltip.Provider>
 );
