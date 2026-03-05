@@ -7,13 +7,15 @@ import type {
 import { VariantProps } from 'class-variance-authority';
 import { ReactNode } from 'react';
 
+import { ButtonProps } from '@/components/Button/Button.types';
 import {
   DateRange,
   DateRangeWithTime,
 } from '@/components/DateRangePicker/DateRangePicker.types';
+import { TimePreset } from '@/components/Filter/components/TimeFilterDropdown/TimeFilterDropdown.types';
 
 import { virtualizeTableVariants } from './VirtualizedTable.variants';
-import { FilterAction, Option } from './components/Filter/Filter.types';
+import { Option } from './components/Filter/Filter.types';
 import { UseQueryOptions } from '@tanstack/react-query';
 
 /** Base row data type from TanStack Table */
@@ -110,13 +112,37 @@ export type DateRangeFilterConfig = FilterConfigBase & {
 };
 
 /**
+ * Configuration for an action button rendered inline with filters.
+ */
+export type ActionFilterConfig = {
+  type: 'action';
+  /** Text displayed inside the button. Also used as the React key. */
+  label: string;
+} & Omit<ButtonProps, 'children' | 'type'>;
+
+/**
+ * Configuration for a time filter with optional presets and a TimePicker.
+ */
+export type TimeFilterConfig = FilterConfigBase & {
+  type: 'time';
+  /** Time format: '12' for AM/PM or '24' for military time (default: '12') */
+  format?: '12' | '24';
+  /** Preset time options for quick selection */
+  presets?: TimePreset[];
+  /** Whether to show the TimePicker for custom time selection (default: true) */
+  showTimePicker?: boolean;
+};
+
+/**
  * Union of all supported filter configurations.
  */
 export type FilterConfig =
   | BadgeMultiSelectFilterConfig
   | TextMultiSelectFilterConfig
   | DateFilterConfig
-  | DateRangeFilterConfig;
+  | DateRangeFilterConfig
+  | ActionFilterConfig
+  | TimeFilterConfig;
 
 /**
  * @deprecated Use FilterConfig instead
@@ -198,7 +224,8 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         filters?: FilterConfig[];
         showFilter: true;
         showFilterInput?: boolean;
-        filterActions?: FilterAction[];
+        /** @deprecated Use `ActionFilterConfig` items in `filters` instead */
+        filterActions?: ActionFilterConfig[];
         showResetButton?: boolean;
         resetButtonClassName?: string;
       }
@@ -209,7 +236,8 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         filters?: never;
         showFilter?: false | undefined;
         showFilterInput?: never;
-        filterActions?: FilterAction[];
+        /** @deprecated Use `ActionFilterConfig` items in `filters` instead */
+        filterActions?: ActionFilterConfig[];
         showResetButton?: never;
         resetButtonClassName?: never;
       }
