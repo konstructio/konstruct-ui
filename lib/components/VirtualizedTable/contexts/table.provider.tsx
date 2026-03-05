@@ -68,9 +68,6 @@ export const TableProvider = <TData extends RowData = RowData>({
   const [dateRangeFilters, setDateRangeFilters] = useState<
     Record<string, { from?: string; to?: string } | undefined>
   >({});
-  const [timeFilters, setTimeFilters] = useState<
-    Record<string, string | undefined>
-  >({});
 
   const getQueryKey = () => {
     const queryKey =
@@ -96,10 +93,6 @@ export const TableProvider = <TData extends RowData = RowData>({
       if (value) queryKey.push(`${key}:${value.from ?? ''}-${value.to ?? ''}`);
     });
 
-    Object.entries(timeFilters).forEach(([key, value]) => {
-      if (value) queryKey.push(`${key}:${value}`);
-    });
-
     return queryKey;
   };
 
@@ -119,7 +112,6 @@ export const TableProvider = <TData extends RowData = RowData>({
           : {}),
         ...(Object.keys(dateFilters).length > 0 ? dateFilters : {}),
         ...(Object.keys(dateRangeFilters).length > 0 ? dateRangeFilters : {}),
-        ...(Object.keys(timeFilters).length > 0 ? timeFilters : {}),
       }).then(({ data, totalItemsCount }) => {
         setIsFirstLoad(false);
 
@@ -175,16 +167,6 @@ export const TableProvider = <TData extends RowData = RowData>({
     },
     [],
   );
-
-  const onSelectTimeFilter = useCallback((key: string, time?: Date) => {
-    const newKey = key.toLowerCase().replace(/\s+/g, '_');
-
-    setTimeFilters((prev) => ({
-      ...prev,
-      [newKey]: time?.toISOString(),
-    }));
-    setPage(0);
-  }, []);
 
   const handlePage = useCallback((newPage: number) => setPage(newPage), []);
   const onPageSize = useCallback(
@@ -450,7 +432,6 @@ export const TableProvider = <TData extends RowData = RowData>({
         multiselectSelected,
         dateFilters,
         dateRangeFilters,
-        timeFilters,
         page,
         pageSize,
         sortedData,
@@ -466,7 +447,6 @@ export const TableProvider = <TData extends RowData = RowData>({
         onSelectMultiselect,
         onSelectDateFilter,
         onSelectDateRangeFilter,
-        onSelectTimeFilter,
         onSorting: setSortedData,
         renderExpandedRow: renderExpandedRow as
           | ((data: RowData) => ReactNode)

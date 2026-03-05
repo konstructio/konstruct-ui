@@ -9,7 +9,6 @@ import {
   DateRangeFilterDropdown,
   ResetButton,
   TextMultiSelect,
-  TimeFilterDropdown,
 } from './components';
 
 /**
@@ -49,7 +48,6 @@ Filter.BadgeMultiSelect = BadgeMultiSelect;
 Filter.TextMultiSelect = TextMultiSelect;
 Filter.DateFilterDropdown = DateFilterDropdown;
 Filter.DateRangeFilterDropdown = DateRangeFilterDropdown;
-Filter.TimeFilterDropdown = TimeFilterDropdown;
 Filter.ResetButton = ResetButton;
 
 export {
@@ -58,5 +56,4 @@ export {
   TextMultiSelect,
   DateFilterDropdown,
   DateRangeFilterDropdown,
-  TimeFilterDropdown,
 };

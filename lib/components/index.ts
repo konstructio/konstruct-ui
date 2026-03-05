@@ -61,12 +61,10 @@ export type {
   ColumnDef,
   RowData,
   FilterConfig,
-  ActionFilterConfig,
   BadgeMultiSelectFilterConfig,
   TextMultiSelectFilterConfig,
   DateFilterConfig,
   DateRangeFilterConfig,
-  TimeFilterConfig,
 } from './VirtualizedTable/VirtualizedTable.types';
 export type {
   Step,

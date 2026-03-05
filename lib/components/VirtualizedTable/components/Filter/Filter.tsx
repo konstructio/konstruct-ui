@@ -26,27 +26,22 @@ export const Filter: FC<Props> = ({
     multiselectSelected,
     dateFilters,
     dateRangeFilters,
-    timeFilters,
     onChangeTermOfSearch,
     onSelectMultiselect,
     onSelectDateFilter,
     onSelectDateRangeFilter,
-    onSelectTimeFilter,
   } = useTableContext();
 
-  const resolvedFilters: FilterConfig[] = useMemo(() => {
-    const base: FilterConfig[] =
+  const resolvedFilters: FilterConfig[] = useMemo(
+    () =>
       filters ??
       multiSelectFilter?.map((f) => ({
         ...f,
         type: 'badgeMultiSelect' as const,
       })) ??
-      [];
-
-    const legacyActions: FilterConfig[] = actions ?? [];
-
-    return [...base, ...legacyActions];
-  }, [filters, multiSelectFilter, actions]);
+      [],
+    [filters, multiSelectFilter],
+  );
 
   const handleChangeMultiselectFilter = useCallback(
     (key: string, selected: Option[]) =>
@@ -78,39 +73,11 @@ export const Filter: FC<Props> = ({
       !!termOfSearch ||
       Object.values(multiselectSelected ?? {}).flat().length > 0 ||
       Object.values(dateFilters ?? {}).some(Boolean) ||
-      Object.values(dateRangeFilters ?? {}).some(Boolean) ||
-      Object.values(timeFilters ?? {}).some(Boolean),
-    [
-      termOfSearch,
-      multiselectSelected,
-      dateFilters,
-      dateRangeFilters,
-      timeFilters,
-    ],
+      Object.values(dateRangeFilters ?? {}).some(Boolean),
+    [termOfSearch, multiselectSelected, dateFilters, dateRangeFilters],
   );
 
   const renderFilter = (filterConfig: FilterConfig) => {
-    if (filterConfig.type === 'action') {
-      const {
-        label,
-        appearance = 'compact',
-        variant = 'secondary',
-        type: _,
-        ...buttonProps
-      } = filterConfig;
-
-      return (
-        <Button
-          key={label}
-          appearance={appearance}
-          variant={variant}
-          {...buttonProps}
-        >
-          {label}
-        </Button>
-      );
-    }
-
     const { key, label, position = 'right' } = filterConfig;
 
     if (filterConfig.type === 'textMultiSelect') {
@@ -162,22 +129,6 @@ export const Filter: FC<Props> = ({
       );
     }
 
-    if (filterConfig.type === 'time') {
-      return (
-        <FilterPrimitive.TimeFilterDropdown
-          key={key}
-          label={label}
-          position={position}
-          format={filterConfig.format}
-          presets={filterConfig.presets}
-          showTimePicker={filterConfig.showTimePicker}
-          onApply={(time) => {
-            onSelectTimeFilter(key, time);
-          }}
-        />
-      );
-    }
-
     // Default: badgeMultiSelect (type is undefined or 'badgeMultiSelect')
     return (
       <FilterPrimitive.BadgeMultiSelect
@@ -208,6 +159,17 @@ export const Filter: FC<Props> = ({
 
       <FilterPrimitive>
         {resolvedFilters.map(renderFilter)}
+
+        {actions?.map(({ label, onClick, variant = 'secondary' }) => (
+          <Button
+            key={label}
+            variant={variant}
+            appearance="compact"
+            onClick={onClick}
+          >
+            {label}
+          </Button>
+        ))}
 
         {showResetButton && (
           <FilterPrimitive.ResetButton

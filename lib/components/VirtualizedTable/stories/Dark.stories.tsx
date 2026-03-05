@@ -123,6 +123,15 @@ const args = {
   isLoading: false,
   ariaLabel: 'List of pokemons',
   pageSizes: [5, 10, 20, 30, 50],
+  filterActions: [
+    {
+      label: 'Export',
+      variant: 'secondary',
+      onClick: () => {
+        console.log('Export');
+      },
+    },
+  ],
   filters: [
     {
       key: 'type',
@@ -156,32 +165,9 @@ const args = {
       ],
     },
     {
-      type: 'action',
-      label: 'Export',
-      variant: 'secondary',
-      onClick: () => {
-        console.log('Export');
-      },
-    },
-    {
       key: 'created',
       type: 'date',
       label: 'Created',
-    },
-    {
-      key: 'time',
-      type: 'time',
-      label: 'Time',
-      showTimePicker: false,
-      presets: [
-        { label: 'Last 15 mins', value: new Date(Date.now() - 15 * 60 * 1000) },
-        { label: 'Last 30 mins', value: new Date(Date.now() - 30 * 60 * 1000) },
-        { label: 'Last 1 hour', value: new Date(Date.now() - 60 * 60 * 1000) },
-        {
-          label: 'Last 6 hours',
-          value: new Date(Date.now() - 6 * 60 * 60 * 1000),
-        },
-      ],
     },
   ],
 } satisfies Partial<Props<unknown>>;

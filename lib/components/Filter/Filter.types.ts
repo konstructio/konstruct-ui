@@ -12,7 +12,6 @@ import {
   DateRangeFilterDropdownProps,
   ResetButtonProps,
   TextMultiSelectProps,
-  TimeFilterDropdownProps,
 } from './components';
 
 /**
@@ -64,6 +63,5 @@ export type FilterComponentProps = FC<FilterProps> & {
   TextMultiSelect: FC<TextMultiSelectProps>;
   DateFilterDropdown: FC<DateFilterDropdownProps>;
   DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps>;
-  TimeFilterDropdown: FC<TimeFilterDropdownProps>;
   ResetButton: FC<ResetButtonProps>;
 };
