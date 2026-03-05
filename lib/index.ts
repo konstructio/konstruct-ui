@@ -5,4 +5,4 @@ export * from './contexts';
 // Hooks
 export * from './hooks';
 // Utils
-export { cn } from './utils';
+export { cn, resolveColor } from './utils';

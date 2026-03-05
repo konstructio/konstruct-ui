@@ -1,0 +1,28 @@
+/* Custom scrollbar styles for Storybook */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(120, 120, 120, 0.4) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(120, 120, 120, 0.4);
+  border-radius: 9999px;
+  transition: background-color 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(120, 120, 120, 0.6);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}

@@ -23,6 +23,7 @@ export * from './DropdownButton/DropdownButton';
 export * from './Filter/Filter';
 export * from './ImageUpload/ImageUpload';
 export * from './Input/Input';
+export * from './LineChart/LineChart';
 export * from './Loading/Loading';
 export * from './Modal/Modal';
 export * from './MultiSelectDropdown/MultiSelectDropdown';
