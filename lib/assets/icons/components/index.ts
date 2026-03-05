@@ -13,7 +13,6 @@ export { BookOpenIcon } from './BookOpen';
 export { CalendarMonthIcon } from './CalendarMonth';
 export { CheckboxMarkedCircleOutlineIcon } from './CheckboxMarkedCircleOutline';
 export { CheckCircleFilledIcon } from './CheckCircleFilled';
-export { CheckCircleIcon } from './CheckCircle';
 export { CheckCircleOutlineIcon } from './CheckCircleOutline';
 export { CheckIcon } from './Check';
 export { ClockAlertIcon } from './ClockAlert';

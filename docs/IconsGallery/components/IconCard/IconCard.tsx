@@ -1,6 +1,6 @@
 import { FC, useState, useCallback } from 'react';
 
-import { CheckCircleIcon, CopyIcon } from '../../../../lib/assets/icons/components';
+import { CheckCircleOutlineIcon, CopyIcon } from '../../../../lib/assets/icons/components';
 import { cn } from '../../../../lib/utils';
 
 import type { Props } from './IconCard.types';
@@ -30,7 +30,7 @@ export const IconCard: FC<Props> = ({ name, IconComponent }) => {
       {copied ? (
         <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-aurora-50">
           <div className="flex items-center gap-2">
-            <CheckCircleIcon size={20} className="text-aurora-400" />
+            <CheckCircleOutlineIcon size={20} className="text-aurora-400" />
             <span className="text-sm font-medium text-aurora-400">Copied!</span>
           </div>
         </div>
