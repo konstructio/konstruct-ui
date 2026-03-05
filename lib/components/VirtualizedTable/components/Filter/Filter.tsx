@@ -95,6 +95,8 @@ export const Filter: FC<Props> = ({
         label,
         appearance = 'compact',
         variant = 'secondary',
+        leftIcon,
+        rightIcon,
         type: _,
         ...buttonProps
       } = filterConfig;
@@ -106,7 +108,9 @@ export const Filter: FC<Props> = ({
           variant={variant}
           {...buttonProps}
         >
+          {leftIcon}
           {label}
+          {rightIcon}
         </Button>
       );
     }

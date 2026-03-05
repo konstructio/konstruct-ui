@@ -118,6 +118,10 @@ export type ActionFilterConfig = {
   type: 'action';
   /** Text displayed inside the button. Also used as the React key. */
   label: string;
+  /** Icon rendered before the label */
+  leftIcon?: ReactNode;
+  /** Icon rendered after the label */
+  rightIcon?: ReactNode;
 } & Omit<ButtonProps, 'children' | 'type'>;
 
 /**
