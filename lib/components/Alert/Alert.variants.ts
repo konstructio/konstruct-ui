@@ -4,6 +4,8 @@ export const alertVariants = cva(
   [
     'relative',
     'border',
+    'shadow-xs',
+    'dark:shadow-sm',
     'p-4',
     'rounded-lg',
     'flex',
@@ -11,7 +13,6 @@ export const alertVariants = cva(
     'items-start',
     'justify-start',
     'text-sm',
-    'shadow-sm',
     'overflow-clip',
     'duration-300',
     'data-[state=hidden]:animate-out',
@@ -86,7 +87,7 @@ export const iconVariants = cva(['size-5', 'shrink-0'], {
   variants: {
     type: {
       success: ['text-green-600', 'dark:text-green-400'],
-      info: ['text-blue-600', 'dark:text-blue-400'],
+      info: ['text-blue-600', 'dark:text-blue-400', 'rotate-180'],
       warning: ['text-yellow-600', 'dark:text-yellow-400'],
       danger: ['text-red-600', 'dark:text-rose-400'],
     },
