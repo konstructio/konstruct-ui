@@ -2,28 +2,17 @@ import { FC } from '../../../node_modules/react';
 import { AlertProps } from './Alert.types';
 /**
  * An alert component for displaying feedback messages.
- * Supports success, error, warning, and info variants with optional dismiss button.
+ * Supports success, info, warning, and danger variants with icon, title, and optional description.
  *
  * @example
  * ```tsx
- * // Success alert
- * <Alert type="success" content="Changes saved successfully!" />
+ * <Alert type="success" title="Changes saved successfully!" />
  *
- * // Error alert with close button
  * <Alert
- *   type="error"
- *   content="Failed to save changes. Please try again."
+ *   type="danger"
+ *   title="Error"
+ *   description="Failed to save changes. Please try again."
  *   showCloseButton
- * />
- *
- * // Warning alert with custom content
- * <Alert
- *   type="warning"
- *   content={
- *     <div>
- *       <strong>Warning:</strong> This action cannot be undone.
- *     </div>
- *   }
  * />
  * ```
  *

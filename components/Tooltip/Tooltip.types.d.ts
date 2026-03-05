@@ -1,7 +1,4 @@
-import { VariantProps } from 'class-variance-authority';
-import { PropsWithChildren, ReactNode } from '../../../node_modules/react';
-import { Theme } from '../../domain/theme';
-import { tooltipVariants } from './Tooltip.variants';
+import { ReactNode } from '../../../node_modules/react';
 /**
  * Props for the Tooltip component.
  *
@@ -11,18 +8,32 @@ import { tooltipVariants } from './Tooltip.variants';
  *   <Button>Edit</Button>
  * </Tooltip>
  *
- * <Tooltip content="More info here" position="bottom">
+ * <Tooltip content="More info here" side="bottom">
  *   <InfoIcon />
+ * </Tooltip>
+ *
+ * <Tooltip content="Danger!" bgClassName="bg-red-500">
+ *   <Button variant="danger">Delete</Button>
  * </Tooltip>
  * ```
  */
-export interface TooltipProps extends PropsWithChildren, VariantProps<typeof tooltipVariants> {
+export interface TooltipProps {
     /** Tooltip text or content */
     content: ReactNode | string;
-    /** CSS classes for the trigger element */
+    /** The trigger element */
+    children: ReactNode;
+    /** Tooltip position relative to trigger */
+    side?: 'top' | 'bottom' | 'left' | 'right';
+    /** Distance from trigger in px */
+    sideOffset?: number;
+    /** Background color class for tooltip (e.g. 'bg-slate-700', 'bg-red-500') */
+    bgClassName?: string;
+    /** Arrow fill color class (e.g. 'fill-slate-700', 'fill-red-500'). Should match bgClassName */
+    arrowClassName?: string;
+    /** Text color class (e.g. 'text-white') */
+    textClassName?: string;
+    /** Additional className for tooltip content */
     className?: string;
-    /** CSS classes for the tooltip wrapper */
-    wrapperClassName?: string;
-    /** Theme override for this component */
-    theme?: Theme;
+    /** Delay before showing tooltip in ms */
+    delayDuration?: number;
 }

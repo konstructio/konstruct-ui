@@ -16,6 +16,7 @@ export type ContextType<TData extends RowData = RowData> = {
         from?: string;
         to?: string;
     } | undefined>;
+    timeFilters?: Record<string, string | undefined>;
     totalPages: number;
     isFirstLoad: boolean;
     enableExpandedRow?: boolean;
@@ -38,5 +39,6 @@ export type ContextType<TData extends RowData = RowData> = {
         from?: Date;
         to?: Date;
     }) => void;
+    onSelectTimeFilter: (key: string, time?: Date) => void;
 };
 export declare const TableContext: import('../../../../node_modules/react').Context<ContextType<unknown>>;

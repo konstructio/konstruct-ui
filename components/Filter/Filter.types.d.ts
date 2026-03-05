@@ -3,7 +3,7 @@ import { FC, PropsWithChildren } from '../../../node_modules/react';
 import { Theme } from '../../domain/theme';
 import { BadgeProps } from '../Badge/Badge.types';
 import { filterVariants } from './Filter.variants';
-import { BadgeMultiSelectProps, DateFilterDropdownProps, DateRangeFilterDropdownProps, ResetButtonProps, TextMultiSelectProps } from './components';
+import { BadgeMultiSelectProps, DateFilterDropdownProps, DateRangeFilterDropdownProps, ResetButtonProps, TextMultiSelectProps, TimeFilterDropdownProps } from './components';
 /**
  * Configuration for a filter option.
  */
@@ -50,5 +50,6 @@ export type FilterComponentProps = FC<FilterProps> & {
     TextMultiSelect: FC<TextMultiSelectProps>;
     DateFilterDropdown: FC<DateFilterDropdownProps>;
     DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps>;
+    TimeFilterDropdown: FC<TimeFilterDropdownProps>;
     ResetButton: FC<ResetButtonProps>;
 };
