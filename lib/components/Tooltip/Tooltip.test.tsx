@@ -7,25 +7,23 @@ import { TooltipProps } from './Tooltip.types';
 
 describe('Tooltip', () => {
   const defaultProps = {
-    content: <span>Sample tooltip content</span>,
+    content: 'Sample tooltip content',
     children: 'Sample tooltip body',
   } satisfies TooltipProps;
 
   const setup = (props?: Partial<TooltipProps>) => {
     const { container: component } = render(
-      <Tooltip {...defaultProps} {...props}></Tooltip>,
+      <Tooltip {...defaultProps} {...props} />,
     );
 
     const user = userEvent.setup();
     const getTooltipBodyText = (value: string = defaultProps.children) =>
       screen.findByText(value);
-    const getTooltipText = () => screen.findByText(/sample tooltip content/i);
 
     return {
       component,
       user,
       getTooltipBodyText,
-      getTooltipText,
     };
   };
 
@@ -45,15 +43,15 @@ describe('Tooltip', () => {
     expect(results).toHaveNoViolations();
   });
 
-  it('should render correctly the tooltip content', async () => {
-    const { user, getTooltipBodyText, getTooltipText } = setup();
+  it('should render correctly the tooltip content on hover', async () => {
+    const { user, getTooltipBodyText } = setup();
 
     const tooltipBody = await getTooltipBodyText();
 
     await user.hover(tooltipBody);
 
-    const tooltip = await getTooltipText();
+    const tooltip = await screen.findByRole('tooltip');
 
-    expect(tooltip).toBeInTheDocument();
+    expect(tooltip).toHaveTextContent('Sample tooltip content');
   });
 });

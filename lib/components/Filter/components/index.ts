@@ -8,3 +8,5 @@ export * from './ResetButton/ResetButton';
 export * from './ResetButton/ResetButton.types';
 export * from './TextMultiSelect/TextMultiSelect';
 export * from './TextMultiSelect/TextMultiSelect.types';
+export * from './TimeFilterDropdown/TimeFilterDropdown';
+export * from './TimeFilterDropdown/TimeFilterDropdown.types';

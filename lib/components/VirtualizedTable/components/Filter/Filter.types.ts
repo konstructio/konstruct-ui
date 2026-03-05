@@ -1,18 +1,19 @@
-import { ButtonProps } from '@/components/Button/Button.types';
-import { FilterConfig, MultiSelectFilter } from '../../VirtualizedTable.types';
+import {
+  ActionFilterConfig,
+  FilterConfig,
+  MultiSelectFilter,
+} from '../../VirtualizedTable.types';
 export type { Option } from '@/components/Filter/Filter.types';
 
-export type FilterAction = {
-  label: string;
-  onClick: () => void;
-  variant?: ButtonProps['variant'];
-};
+/** @deprecated Use `ActionFilterConfig` with `type: 'action'` in the `filters` array instead */
+export type FilterAction = ActionFilterConfig;
 
 export type Props = {
-  actions?: FilterAction[];
   filters?: FilterConfig[];
   /** @deprecated Use `filters` instead */
   multiSelectFilter?: MultiSelectFilter[];
+  /** @deprecated Use `ActionFilterConfig` items in `filters` instead */
+  actions?: FilterAction[];
   placeholder: string;
   showFilterInput?: boolean;
   showResetButton?: boolean;
