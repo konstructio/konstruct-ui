@@ -199,3 +199,26 @@ Test files: `ComponentName.test.tsx`
 - Custom theme tokens defined in `lib/styles/`
 - Theme-specific classes use prefixes: `kubefirst:`, `dark:`
 - Always use `cn()` utility for class merging
+
+## Git Workflow
+
+- **Never push directly to `main`** — always create a feature branch and submit changes through a merge request.
+- **Always rebase with `main`** before every push, regardless of the commit (`git fetch origin main && git rebase origin/main`). This is mandatory — never push without rebasing first.
+- **Commit/PR message format**: `<emoji> <type>: <description>` — use gitmoji emojis (https://gitmoji.dev/). Examples: `✨ feat: add cluster detail page`, `🐛 fix: resolve onBlur validation`, `♻️ refactor: extract Tabs component`, `📝 docs: update CLAUDE.md rules`.
+
+## Coding Conventions
+
+- **Indentation**: tabs
+- **Quotes**: single quotes
+- **Line width**: 120 characters
+- **TypeScript**: strict mode (`strict`, `noUnusedLocals`, `noUnusedParameters`)
+- **Imports**: auto-organized by Biome assist
+- **CSS Modules**: enabled in Biome parser alongside Tailwind directives
+- **File naming**: components in UpperCamelCase (e.g. `ClusterList.tsx`); services, lib, domain, constants, assets, modules, styles, and utils in kebab-case (e.g. `contact-center.ts`, `http-client.ts`, `node-pool.ts`)
+- **Component types**: define types in a separate file named `{Component}.types.ts` (e.g. `ClusterList.types.ts` alongside `ClusterList.tsx`)
+- **Component props**: type the props interface as `Props`, use `FC<Props>` (e.g. `const MyComponent: FC<Props> = ({ title }) => { ... }`)
+- **Early returns**: always wrap in braces, never inline (e.g. `if (!x) { return null; }`, not `if (!x) return null;`)
+- **Class names**: use the `cn()` utility (from `@konstructio/ui`) when composing class names with variables or conditionals (e.g. `className={cn('flex', isActive && 'bg-blue-500')}`). Plain static strings don't need `cn()` (e.g. `className="flex items-center"` is fine).
+- **Colors**: always use colors from the civo-theme (defined in `@konstructio/ui` via `civo-theme.css`). Never use hardcoded hex values (e.g. `bg-[#016630]`); use the theme class instead (e.g. `bg-green-800`). If a color from the design has no theme equivalent, ask the user which color to use.
+- **Components**: always prefer components from `@konstructio/ui` over plain HTML elements (e.g. use `<Button>` instead of `<button>`, `<Typography>` instead of `<p>`). If no library component covers the needed functionality, ask the user how to proceed.
+- **Icons**: priority order: 1) icons from `@konstructio/ui/icons`, 2) project icons in `src/assets/icons/`, 3) third-party libraries like `lucide-react` as last resort.
