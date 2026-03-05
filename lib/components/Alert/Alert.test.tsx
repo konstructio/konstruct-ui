@@ -8,25 +8,23 @@ import { AlertProps } from './Alert.types';
 describe('Alert', () => {
   const setup = (props?: Partial<AlertProps>) => {
     const defaultProps = {
-      content: <p>default text</p>,
+      title: 'Alert title',
+      type: 'info',
     } satisfies AlertProps;
 
     const { container } = render(<Alert {...defaultProps} {...props} />);
 
     const user = userEvent.setup();
 
-    const getText = async (text: string | RegExp) =>
-      screen.findByText(new RegExp(text, 'i'));
-    const getCloseButton = async () =>
+    const getAlert = () => screen.getByRole('alert');
+    const getCloseButton = () =>
       screen.findByRole('button', { name: /dismiss alert/i });
-    const getAlert = async () => screen.getByRole('alert');
 
     return {
       component: container,
       user,
-      getText,
-      getCloseButton,
       getAlert,
+      getCloseButton,
     };
   };
 
@@ -36,15 +34,29 @@ describe('Alert', () => {
     expect(component).toBeInTheDocument();
   });
 
-  it('should render the default test', async () => {
-    const { getText } = setup();
+  it('should render the title', () => {
+    setup({ title: 'Test title' });
 
-    const text = await getText(/default text/i);
-
-    expect(text).toBeInTheDocument();
+    expect(screen.getByText('Test title')).toBeInTheDocument();
   });
 
-  it('should render the component without close button', async () => {
+  it('should render the title and description', () => {
+    setup({ title: 'Test title', description: 'Test description' });
+
+    expect(screen.getByText('Test title')).toBeInTheDocument();
+    expect(screen.getByText('Test description')).toBeInTheDocument();
+  });
+
+  it('should render description as ReactNode', () => {
+    setup({
+      title: 'Test title',
+      description: <span data-testid="custom">Custom content</span>,
+    });
+
+    expect(screen.getByTestId('custom')).toBeInTheDocument();
+  });
+
+  it('should render the component without close button', () => {
     setup();
 
     expect(
@@ -60,7 +72,7 @@ describe('Alert', () => {
     expect(results).toHaveNoViolations();
   });
 
-  it('should remove after click on close button', async () => {
+  it('should set hidden state after click on close button', async () => {
     const { user, getAlert, getCloseButton } = setup({
       showCloseButton: true,
     });
@@ -69,8 +81,20 @@ describe('Alert', () => {
 
     await user.click(closeButton);
 
-    const alert = await getAlert();
+    const alert = getAlert();
 
     expect(alert.getAttribute('data-state')).toBe('hidden');
   });
+
+  it.each(['success', 'info', 'warning', 'danger'] as const)(
+    'should render the %s variant with an icon',
+    (type) => {
+      setup({ type, title: `${type} alert` });
+
+      const alert = screen.getByRole('alert');
+
+      expect(alert).toBeInTheDocument();
+      expect(alert.querySelector('svg')).toBeInTheDocument();
+    },
+  );
 });
