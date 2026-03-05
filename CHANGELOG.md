@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.74](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.74) (2026-03-05)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.73...0.1.2-alpha.74)
+
+**Merged pull requests:**
+
+- ♻️ refactor: make Alert title and description independently optional [\#576](https://github.com/konstructio/konstruct-ui/pull/576) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.73](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.73) (2026-03-05)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.72...0.1.2-alpha.73)
