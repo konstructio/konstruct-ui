@@ -14,3 +14,11 @@ export const isClient = !!(
   window.document &&
   window.document.createElement
 );
+
+export const resolveColor = (cssVar: string): string => {
+  return (
+    getComputedStyle(document.documentElement)
+      .getPropertyValue(cssVar)
+      .trim() || cssVar
+  );
+};

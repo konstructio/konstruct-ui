@@ -3,6 +3,7 @@ import { FC, useEffect } from 'react';
 import { useStoryContext } from 'storybook/internal/preview-api';
 
 import '../lib/index.css';
+import './scrollbar.css';
 
 const preview = {
   parameters: {
