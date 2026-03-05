@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.2-alpha.72](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.72) (2026-03-05)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.71...0.1.2-alpha.72)
+
+**Merged pull requests:**
+
+- ⬆️ chore: update dependencies [\#573](https://github.com/konstructio/konstruct-ui/pull/573) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add LineChart component [\#572](https://github.com/konstructio/konstruct-ui/pull/572) ([futjesus](https://github.com/futjesus))
+- ♻️ refactor: update Alert component with Figma design variants [\#571](https://github.com/konstructio/konstruct-ui/pull/571) ([futjesus](https://github.com/futjesus))
+- ♻️ refactor: replace Tooltip with Radix-based implementation [\#570](https://github.com/konstructio/konstruct-ui/pull/570) ([futjesus](https://github.com/futjesus))
+- 📝 docs: add git workflow and coding conventions to CLAUDE.md [\#569](https://github.com/konstructio/konstruct-ui/pull/569) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add missing icons and rename CheckCircle variants [\#568](https://github.com/konstructio/konstruct-ui/pull/568) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add polymorphic filter types, ActionFilterConfig and TimeFilterDropdown [\#567](https://github.com/konstructio/konstruct-ui/pull/567) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.71](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.71) (2026-03-03)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.70...0.1.2-alpha.71)
