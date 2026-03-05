@@ -12,15 +12,30 @@ import { alertVariants } from './Alert.variants';
  * <Alert type="warning" title="Warning" description={<span>Action <strong>required</strong></span>} />
  * ```
  */
-export interface AlertProps extends VariantProps<typeof alertVariants> {
-    /** Alert title (bold text) */
-    title: string;
-    /** Alert description */
-    description?: string | ReactNode;
+type AlertBaseProps = VariantProps<typeof alertVariants> & {
     /** Whether the alert is visible */
     isVisible?: boolean;
     /** Show close button to dismiss alert */
     showCloseButton?: boolean;
     /** Theme override for this component */
     theme?: Theme;
-}
+};
+/**
+ * Props for the Alert component.
+ * At least one of `title` or `description` must be provided.
+ *
+ * @example
+ * ```tsx
+ * <Alert type="success" title="Operation completed!" />
+ * <Alert type="danger" description="Something went wrong" />
+ * <Alert type="warning" title="Warning" description={<span>Action <strong>required</strong></span>} />
+ * ```
+ */
+export type AlertProps = AlertBaseProps & ({
+    title: string | ReactNode;
+    description?: string | ReactNode;
+} | {
+    title?: string | ReactNode;
+    description: string | ReactNode;
+});
+export {};

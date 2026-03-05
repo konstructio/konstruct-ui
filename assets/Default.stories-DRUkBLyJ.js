@@ -1,5 +1,0 @@
-import{j as r}from"./iframe-BcKbv-lX.js";import{S as t}from"./Spinner-DifFvz1g.js";import"./preload-helper-PPVm8Dsz.js";import"./index-C532_06g.js";import"./index-BhKwNEBV.js";import"./index-AsspV1sp.js";import"./index-CUevI2Uh.js";import"./index-_mlK3XjR.js";import"./Typography-iicAGQNS.js";import"./index-CwGTy2we.js";const x={title:"In Review/Spinner/Light/Default",component:t},e={render:()=>r.jsx("div",{className:"flex flex-col gap-3 h-[400px]",children:r.jsx(t,{text:"Getting everything ready..."})})};e.parameters={...e.parameters,docs:{...e.parameters?.docs,source:{originalSource:`{
-  render: () => <div className="flex flex-col gap-3 h-[400px]">
-      <Spinner text="Getting everything ready..." />
-    </div>
-}`,...e.parameters?.docs?.source}}};const f=["Default"];export{e as Default,f as __namedExportsOrder,x as default};
