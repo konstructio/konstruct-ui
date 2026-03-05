@@ -30,6 +30,7 @@ export const Tooltip: FC<TooltipProps> = ({
   side = 'top',
   sideOffset = 4,
   bgClassName = 'bg-slate-700',
+  arrowClassName = 'fill-slate-700',
   textClassName = 'text-white',
   className,
   delayDuration = 0,
@@ -51,7 +52,7 @@ export const Tooltip: FC<TooltipProps> = ({
         )}
       >
         {content}
-        <RadixTooltip.Arrow className={bgClassName.replace('bg-', 'fill-')} />
+        <RadixTooltip.Arrow className={arrowClassName} />
       </RadixTooltip.Content>
     </RadixTooltip.Root>
   </RadixTooltip.Provider>

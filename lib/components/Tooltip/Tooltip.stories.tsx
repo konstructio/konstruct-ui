@@ -49,6 +49,7 @@ export const CustomColors: Story = {
       <TooltipComponent
         content="Danger tooltip"
         bgClassName="bg-red-500"
+        arrowClassName="fill-red-500"
         textClassName="text-white"
       >
         <Button variant="danger">Red</Button>
@@ -57,6 +58,7 @@ export const CustomColors: Story = {
       <TooltipComponent
         content="Success tooltip"
         bgClassName="bg-green-600"
+        arrowClassName="fill-green-600"
         textClassName="text-white"
       >
         <Button>Green</Button>
@@ -65,6 +67,7 @@ export const CustomColors: Story = {
       <TooltipComponent
         content="Info tooltip"
         bgClassName="bg-blue-500"
+        arrowClassName="fill-blue-500"
         textClassName="text-white"
       >
         <Button variant="secondary">Blue</Button>

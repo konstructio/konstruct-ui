@@ -27,8 +27,10 @@ export interface TooltipProps {
   side?: 'top' | 'bottom' | 'left' | 'right';
   /** Distance from trigger in px */
   sideOffset?: number;
-  /** Background color class for tooltip and arrow (e.g. 'bg-slate-700', 'bg-red-500') */
+  /** Background color class for tooltip (e.g. 'bg-slate-700', 'bg-red-500') */
   bgClassName?: string;
+  /** Arrow fill color class (e.g. 'fill-slate-700', 'fill-red-500'). Should match bgClassName */
+  arrowClassName?: string;
   /** Text color class (e.g. 'text-white') */
   textClassName?: string;
   /** Additional className for tooltip content */
