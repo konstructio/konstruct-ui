@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 
 import { IconProps } from './types';
 
-export const CheckCircleIcon = forwardRef<SVGSVGElement, IconProps>(
+export const CheckCircleOutlineIcon = forwardRef<SVGSVGElement, IconProps>(
   ({ size = 24, color = 'currentColor', ...props }, ref) => (
     <svg
       ref={ref}
@@ -21,6 +21,6 @@ export const CheckCircleIcon = forwardRef<SVGSVGElement, IconProps>(
   ),
 );
 
-CheckCircleIcon.displayName = 'KonstructCheckCircleIcon';
+CheckCircleOutlineIcon.displayName = 'KonstructCheckCircleOutlineIcon';
 
-export default CheckCircleIcon;
+export default CheckCircleOutlineIcon;

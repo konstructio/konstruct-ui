@@ -13,8 +13,10 @@ export {
   BarChartIcon,
   BookOpenIcon,
   CalendarMonthIcon,
+  CheckboxMarkedCircleOutlineIcon,
+  CheckCircleFilledIcon,
+  CheckCircleOutlineIcon,
   CheckIcon,
-  CheckCircleIcon,
   ClockAlertIcon,
   ClockOutlineIcon,
   CloseIcon,
@@ -42,6 +44,7 @@ export {
   HideOutlineIcon,
   HomeIcon,
   IdIcon,
+  InfoCircleIcon,
   InformationOutlineIcon,
   InvoiceListIcon,
   KeyIcon,
@@ -65,6 +68,7 @@ export {
   TabNewIcon,
   TeamsIcon,
   WarningIcon,
+  WarningTriangleIcon,
   XIcon,
 } from './assets/icons/components';
 
