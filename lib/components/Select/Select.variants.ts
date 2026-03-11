@@ -16,7 +16,7 @@ export const selectVariants = cva(
     'transition-all',
     'w-full',
     'outline-none',
-    'h-9',
+    'h-10',
     'border-gray-200',
     'focus-visible:bg-zinc-50',
     'aria-expanded:border-aurora-500',
