@@ -124,6 +124,7 @@ export type SelectProps = VariantProps<typeof selectVariants> &
     listItemSecondRowClassName?: string;
     mainWrapperClassName?: string;
     noOptionsText?: string;
+    visibleItems?: number;
     options: Option[] | OptionGroup[];
     searchable?: boolean;
     showSearchIcon?: boolean;

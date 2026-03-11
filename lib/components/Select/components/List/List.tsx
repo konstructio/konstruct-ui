@@ -15,7 +15,7 @@ import {
 import { Loading } from '@/components/Loading/Loading';
 import { cn } from '@/utils';
 
-import { DEFAULT_LIST_SIZE } from '../../constants';
+import { DEFAULT_LIST_SIZE, ITEM_HEIGHT_PX } from '../../constants';
 import { useSelectContext } from '../../contexts';
 import { useNavigationUlList } from '../../hooks/useNavigationList';
 import { isOptionGroup, Option, OptionGroup } from '../../Select.types';
@@ -44,6 +44,7 @@ export const List: ForwardRefExoticComponent<
       isInfiniteScrollEnabled,
       noOptionsText,
       onFetchMoreOptions,
+      visibleItems,
     },
     ref,
   ) => {
@@ -62,6 +63,11 @@ export const List: ForwardRefExoticComponent<
       setOptions,
       setPage,
     } = useSelectContext();
+
+    const listStyle =
+      visibleItems !== undefined
+        ? { maxHeight: visibleItems * ITEM_HEIGHT_PX }
+        : undefined;
 
     useImperativeHandle(ref, () => ulRef.current!, [ulRef]);
 
@@ -187,6 +193,7 @@ export const List: ForwardRefExoticComponent<
         title={name}
         role="listbox"
         className={cn(listVariants({ className }))}
+        style={listStyle}
         data-state={isOpen ? 'open' : 'closed'}
       >
         {isLoading ? (
