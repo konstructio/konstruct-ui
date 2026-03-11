@@ -491,6 +491,7 @@ describe('DateRangePicker', () => {
     it('should navigate to previous month when prev button is clicked', async () => {
       const { navigateToPrevMonth, getMonthTitles } = setup({
         navigationMode: 'together',
+        animationDuration: 0,
       });
 
       const initialTitles = await getMonthTitles();
@@ -511,6 +512,7 @@ describe('DateRangePicker', () => {
     it('should navigate to next month when next button is clicked', async () => {
       const { navigateToNextMonth, getMonthTitles } = setup({
         navigationMode: 'together',
+        animationDuration: 0,
       });
 
       const initialTitles = await getMonthTitles();
