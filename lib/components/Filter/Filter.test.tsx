@@ -220,6 +220,9 @@ describe('FilterComponent', () => {
       { id: 'creating', label: 'Creating', variant: 'warning' },
     ]);
 
+    // Reopen the dropdown (it closes automatically on Apply by default)
+    await user.click(badgeButton);
+
     const resetButton = await getResetButton();
 
     await user.click(resetButton);
@@ -281,6 +284,9 @@ describe('FilterComponent', () => {
     await user.click(applyButton);
 
     expect(mockOnApply).toHaveBeenCalledWith(expect.any(Date));
+
+    // Reopen the dropdown (it closes automatically on Apply by default)
+    await user.click(dateButton);
 
     const resetButton = await getResetButton();
 

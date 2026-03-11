@@ -18,17 +18,21 @@ export const BadgeMultiSelect: FC<BadgeMultiSelectProps> = ({
   label,
   position = 'left',
   onApply,
+  showSelectAll = true,
+  selectAllLabel = 'All',
 }) => {
   const {
     wrapperRef,
     isOpen,
+    isAllSelected,
     selectedOptions,
     selectedCount,
     handleOpen,
     handleResetOptions,
     handleApplyOptions,
+    handleSelectAll,
     handleSelectOption,
-  } = useBadgeMultiSelect({ onApply });
+  } = useBadgeMultiSelect({ onApply, options });
 
   if (options.length === 0) {
     return null;
@@ -77,6 +81,16 @@ export const BadgeMultiSelect: FC<BadgeMultiSelectProps> = ({
         >
           <div className="px-6 py-4">
             <div className="flex flex-col gap-2">
+              {showSelectAll && (
+                <div className="flex gap-4">
+                  <Checkbox
+                    key={`select-all-${isAllSelected}`}
+                    defaultChecked={isAllSelected}
+                    onChange={(checked) => handleSelectAll(options, checked)}
+                  />
+                  <Badge label={selectAllLabel} />
+                </div>
+              )}
               {options.map((option) => {
                 const isSelected = !!selectedOptions.find(
                   (status) => status.id === option.id,
@@ -92,7 +106,13 @@ export const BadgeMultiSelect: FC<BadgeMultiSelectProps> = ({
                         handleSelectOption(option, checked)
                       }
                     />
-                    <Badge label={option.label} variant={option.variant} />
+                    <Badge
+                      label={option.label}
+                      variant={option.variant}
+                      leftIcon={option.leftIcon}
+                      rightIcon={option.rightIcon}
+                      loading={option.loading}
+                    />
                   </div>
                 );
               })}

@@ -2,6 +2,8 @@ import { useCallback, useEffect, useId, useRef, useState } from 'react';
 
 import { getFormattedTime } from '@/components/TimePicker/utils';
 
+import { useFilterContext } from '@/components/Filter/contexts';
+
 import { FilterEvent, sendOpenFilterEvent } from '../../events';
 
 import {
@@ -13,6 +15,7 @@ export const useTimeFilterDropdown = ({
   onApply,
   format = '24',
 }: Pick<TimeFilterDropdownProps, 'onApply' | 'format'>) => {
+  const { closeOnApply } = useFilterContext();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const id = useId();
   const [isOpen, setIsOpen] = useState(false);
@@ -51,7 +54,11 @@ export const useTimeFilterDropdown = ({
     setAppliedTime(selectedTime);
     setAppliedPresetLabel(selectedPresetLabel);
     onApply?.(selectedTime);
-  }, [onApply, selectedTime, selectedPresetLabel]);
+
+    if (closeOnApply) {
+      setIsOpen(false);
+    }
+  }, [closeOnApply, onApply, selectedTime, selectedPresetLabel]);
 
   const handleClose = useCallback(() => setIsOpen(false), []);
 
@@ -61,7 +68,11 @@ export const useTimeFilterDropdown = ({
     setSelectedPresetLabel(undefined);
     setAppliedPresetLabel(undefined);
     onApply?.();
-  }, [onApply]);
+
+    if (closeOnApply) {
+      setIsOpen(false);
+    }
+  }, [closeOnApply, onApply]);
 
   useEffect(() => {
     const controller = new AbortController();

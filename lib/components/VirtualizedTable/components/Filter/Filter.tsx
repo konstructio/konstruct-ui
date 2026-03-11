@@ -19,6 +19,7 @@ export const Filter: FC<Props> = ({
   showFilterInput = true,
   showResetButton = true,
   resetButtonClassName,
+  closeOnApply = true,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const {
@@ -210,7 +211,7 @@ export const Filter: FC<Props> = ({
         />
       )}
 
-      <FilterPrimitive>
+      <FilterPrimitive closeOnApply={closeOnApply}>
         {resolvedFilters.map(renderFilter)}
 
         {showResetButton && (

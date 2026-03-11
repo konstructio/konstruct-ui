@@ -19,17 +19,21 @@ export const TextMultiSelect: FC<TextMultiSelectProps> = ({
   label,
   position = 'left',
   onApply,
+  showSelectAll = true,
+  selectAllLabel = 'All',
 }) => {
   const {
     wrapperRef,
     isOpen,
+    isAllSelected,
     selectedOptions,
     selectedCount,
     handleOpen,
     handleResetOptions,
     handleApplyOptions,
+    handleSelectAll,
     handleSelectOption,
-  } = useBadgeMultiSelect({ onApply });
+  } = useBadgeMultiSelect({ onApply, options });
 
   if (options.length === 0) {
     return null;
@@ -78,6 +82,18 @@ export const TextMultiSelect: FC<TextMultiSelectProps> = ({
         >
           <div className="px-6 py-4">
             <div className="flex flex-col gap-2">
+              {showSelectAll && (
+                <div className="flex gap-4">
+                  <Checkbox
+                    key={`select-all-${isAllSelected}`}
+                    defaultChecked={isAllSelected}
+                    onChange={(checked) => handleSelectAll(options, checked)}
+                  />
+                  <span className="text-sm text-slate-700 dark:text-metal-200 whitespace-nowrap">
+                    {selectAllLabel}
+                  </span>
+                </div>
+              )}
               {options.map((option) => {
                 const isSelected = !!selectedOptions.find(
                   (status) => status.id === option.id,

@@ -10,4 +10,6 @@ export type BadgeMultiSelectProps = {
   options: Option[];
   position?: 'left' | 'right';
   onApply?: (selectedOptions: Option[]) => void;
+  showSelectAll?: boolean;
+  selectAllLabel?: string;
 };

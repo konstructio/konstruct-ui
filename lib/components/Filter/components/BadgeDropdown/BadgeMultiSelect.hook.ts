@@ -7,6 +7,7 @@ import {
   useState,
 } from 'react';
 
+import { useFilterContext } from '@/components/Filter/contexts';
 import { FilterEvent, sendOpenFilterEvent } from '@/components/Filter/events';
 import { Option } from '@/components/Filter/Filter.types';
 
@@ -17,7 +18,9 @@ import {
 
 export const useBadgeMultiSelect = ({
   onApply,
-}: Pick<BadgeMultiSelectProps, 'onApply'>) => {
+  options = [],
+}: Pick<BadgeMultiSelectProps, 'onApply' | 'options'>) => {
+  const { closeOnApply } = useFilterContext();
   const id = useId();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -98,7 +101,11 @@ export const useBadgeMultiSelect = ({
   const handleResetOptions = useCallback(() => {
     setSelectedOptions([]);
     onApply?.([]);
-  }, [onApply]);
+
+    if (closeOnApply) {
+      setIsOpen(false);
+    }
+  }, [closeOnApply, onApply]);
 
   const handleApplyOptions = useCallback(() => {
     const newOptions = selectedOptions
@@ -111,11 +118,35 @@ export const useBadgeMultiSelect = ({
         ({ isApplied: _isApplied, isRemoved: _isRemoved, ...option }) => option,
       ),
     );
-  }, [onApply, selectedOptions, setSelectedOptions]);
+
+    if (closeOnApply) {
+      setIsOpen(false);
+    }
+  }, [closeOnApply, onApply, selectedOptions, setSelectedOptions]);
 
   const selectedCount = useMemo(
     () => selectedOptions.filter((option) => option.isApplied),
     [selectedOptions],
+  );
+
+  const isAllSelected = useMemo(
+    () =>
+      options.length > 0 &&
+      options.every((opt) =>
+        selectedOptions.some((sel) => sel.id === opt.id && !sel.isRemoved),
+      ),
+    [options, selectedOptions],
+  );
+
+  const handleSelectAll = useCallback(
+    (allOptions: Option[], checked: boolean) => {
+      if (checked) {
+        setSelectedOptions(
+          allOptions.map((opt) => ({ ...opt, isApplied: false })),
+        );
+      }
+    },
+    [],
   );
 
   useEffect(() => {
@@ -150,12 +181,14 @@ export const useBadgeMultiSelect = ({
 
   return {
     isOpen,
+    isAllSelected,
     selectedCount,
     selectedOptions,
     wrapperRef,
     handleApplyOptions,
     handleOpen,
     handleResetOptions,
+    handleSelectAll,
     handleSelectOption,
   };
 };
