@@ -63,6 +63,7 @@ export const Wrapper: ForwardRefExoticComponent<
       searchable = false,
       showSearchIcon,
       theme,
+      visibleItems,
       wrapperClassName,
       onFetchMoreOptions,
       onBlur,
@@ -297,6 +298,7 @@ export const Wrapper: ForwardRefExoticComponent<
             isInfiniteScrollEnabled={isInfiniteScrollEnabled}
             onFetchMoreOptions={onFetchMoreOptions}
             noOptionsText={noOptionsText}
+            visibleItems={visibleItems}
           />
         )}
       </div>

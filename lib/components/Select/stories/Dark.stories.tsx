@@ -226,6 +226,7 @@ export const Dark = {
             value={value9}
             searchable
             options={groupedRegions}
+            visibleItems={8}
           />
         </div>
       </div>
