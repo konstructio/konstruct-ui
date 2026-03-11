@@ -12,4 +12,5 @@ export type ListProps = Pick<SelectProps, 'name' | 'options' | 'theme' | 'additi
     isInfiniteScrollEnabled: SelectProps['isInfiniteScrollEnabled'];
     onFetchMoreOptions?: SelectProps['onFetchMoreOptions'];
     noOptionsText?: SelectProps['noOptionsText'];
+    visibleItems?: number;
 };

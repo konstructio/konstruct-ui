@@ -14,6 +14,12 @@ export type Option = {
     label: string;
     /** Visual variant for the badge */
     variant?: BadgeProps['variant'];
+    /** Icon displayed on the left of the badge */
+    leftIcon?: BadgeProps['leftIcon'];
+    /** Icon displayed on the right of the badge */
+    rightIcon?: BadgeProps['rightIcon'];
+    /** Show loading spinner in the badge */
+    loading?: BadgeProps['loading'];
 };
 /**
  * Props for the Filter component.
@@ -41,6 +47,8 @@ export type FilterProps = VariantProps<typeof filterVariants> & PropsWithChildre
     className?: string;
     /** Theme override for this component */
     theme?: Theme;
+    /** Whether to close the filter dropdown automatically when Apply is clicked. Defaults to true. */
+    closeOnApply?: boolean;
 };
 /**
  * Filter compound component type with sub-components.

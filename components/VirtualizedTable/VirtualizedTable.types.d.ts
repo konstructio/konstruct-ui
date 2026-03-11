@@ -187,6 +187,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<typeof virtuali
     filterActions?: ActionFilterConfig[];
     showResetButton?: boolean;
     resetButtonClassName?: string;
+    closeOnApply?: boolean;
 } | {
     filterSearchPlaceholder?: never;
     /** @deprecated Use `filters` instead */
@@ -198,6 +199,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<typeof virtuali
     filterActions?: ActionFilterConfig[];
     showResetButton?: never;
     resetButtonClassName?: never;
+    closeOnApply?: never;
 }) & ({
     enableExpandedRow: true;
     expandedState?: ExpandedState;

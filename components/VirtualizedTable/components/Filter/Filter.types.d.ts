@@ -12,4 +12,5 @@ export type Props = {
     showFilterInput?: boolean;
     showResetButton?: boolean;
     resetButtonClassName?: string;
+    closeOnApply?: boolean;
 };

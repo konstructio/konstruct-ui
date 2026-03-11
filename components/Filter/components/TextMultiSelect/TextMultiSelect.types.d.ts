@@ -4,4 +4,6 @@ export type TextMultiSelectProps = {
     options: Option[];
     position?: 'left' | 'right';
     onApply?: (selectedOptions: Option[]) => void;
+    showSelectAll?: boolean;
+    selectAllLabel?: string;
 };
