@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.1.2-alpha.75](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.75) (2026-03-11)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.74...0.1.2-alpha.75)
+
+**Merged pull requests:**
+
+- ✨ feat: add tooltipTextColor prop to LineChart and default to metal-100 [\#590](https://github.com/konstructio/konstruct-ui/pull/590) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add UploadIcon and Home2Icon to icon library [\#589](https://github.com/konstructio/konstruct-ui/pull/589) ([futjesus](https://github.com/futjesus))
+- ✨ feat: improve Toast layout with variant icons and flex close button [\#588](https://github.com/konstructio/konstruct-ui/pull/588) ([futjesus](https://github.com/futjesus))
+- 🔧 chore: upgrade GitHub Actions to Node.js 24 and fix flaky navigation test [\#587](https://github.com/konstructio/konstruct-ui/pull/587) ([futjesus](https://github.com/futjesus))
+- 🐛 fix: update tertiary button dark mode border to metal-100 [\#586](https://github.com/konstructio/konstruct-ui/pull/586) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add closeOnApply, Select All, and badge icon support to Filter [\#584](https://github.com/konstructio/konstruct-ui/pull/584) ([futjesus](https://github.com/futjesus))
+- 🐛 fix: increase Select input height from 36px to 40px to match Input [\#583](https://github.com/konstructio/konstruct-ui/pull/583) ([futjesus](https://github.com/futjesus))
+- ⬆️ chore: update dependencies [\#582](https://github.com/konstructio/konstruct-ui/pull/582) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.74](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.74) (2026-03-05)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.73...0.1.2-alpha.74)
