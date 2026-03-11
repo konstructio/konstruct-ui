@@ -7,6 +7,8 @@ import {
   useState,
 } from 'react';
 
+import { useFilterContext } from '@/components/Filter/contexts';
+
 import { FilterEvent, sendOpenFilterEvent } from '../../events';
 import { getLocale } from '../../utils';
 
@@ -16,6 +18,7 @@ export const useDateFilterDropdown = ({
   onApply,
   countryCode = 'US',
 }: Pick<DateFilterDropdownProps, 'onApply' | 'countryCode'>) => {
+  const { closeOnApply } = useFilterContext();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const id = useId();
   const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +50,11 @@ export const useDateFilterDropdown = ({
   const handleApply = useCallback(() => {
     setAppliedDay(selectedDay);
     onApply?.(selectedDay);
-  }, [onApply, selectedDay]);
+
+    if (closeOnApply) {
+      setIsOpen(false);
+    }
+  }, [closeOnApply, onApply, selectedDay]);
 
   const handleSelect = useCallback((date: Date) => setSelectedDay(date), []);
   const handleClose = useCallback(() => setIsOpen(false), []);
@@ -55,7 +62,11 @@ export const useDateFilterDropdown = ({
     setSelectedDay(undefined);
     setAppliedDay(undefined);
     onApply?.();
-  }, [onApply]);
+
+    if (closeOnApply) {
+      setIsOpen(false);
+    }
+  }, [closeOnApply, onApply]);
 
   useEffect(() => {
     const controller = new AbortController();

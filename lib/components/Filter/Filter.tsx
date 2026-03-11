@@ -1,6 +1,7 @@
 'use client';
 import { cn } from '@/utils';
 
+import { FilterProvider } from './contexts';
 import { FilterComponentProps } from './Filter.types';
 import { filterVariants } from './Filter.variants';
 import {
@@ -38,10 +39,13 @@ const Filter: FilterComponentProps = ({
   className,
   theme = 'civo',
   children,
+  closeOnApply = true,
 }) => (
-  <div className={cn(filterVariants({ className }))} data-theme={theme}>
-    {children}
-  </div>
+  <FilterProvider closeOnApply={closeOnApply}>
+    <div className={cn(filterVariants({ className }))} data-theme={theme}>
+      {children}
+    </div>
+  </FilterProvider>
 );
 
 Filter.displayName = 'KonstructFilter';

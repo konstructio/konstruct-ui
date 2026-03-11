@@ -77,6 +77,7 @@ const VirtualizedTableInner = <TData extends RowData>({
   filterActions,
   showResetButton = true,
   resetButtonClassName,
+  closeOnApply = true,
   // Hover row
   enableHoverRow,
   classNameHoverRow,
@@ -139,6 +140,7 @@ const VirtualizedTableInner = <TData extends RowData>({
             showFilterInput={showFilterInput}
             showResetButton={showResetButton}
             resetButtonClassName={resetButtonClassName}
+            closeOnApply={closeOnApply}
           />
         )}
 

@@ -12,6 +12,8 @@ import {
   DateRangeWithTime,
 } from '@/components/DateRangePicker/DateRangePicker.types';
 
+import { useFilterContext } from '@/components/Filter/contexts';
+
 import { FilterEvent, sendOpenFilterEvent } from '../../events';
 import { getLocale } from '../../utils';
 
@@ -25,6 +27,7 @@ export const useDateRangeFilterDropdown = ({
   DateRangeFilterDropdownProps,
   'defaultRange' | 'onApply' | 'countryCode'
 >) => {
+  const { closeOnApply } = useFilterContext();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const id = useId();
   const [isOpen, setIsOpen] = useState(false);
@@ -70,8 +73,11 @@ export const useDateRangeFilterDropdown = ({
     };
     setAppliedRange(rangeWithTime);
     onApply?.(rangeWithTime);
-    setIsOpen(false);
-  }, [onApply, selectedRange]);
+
+    if (closeOnApply) {
+      setIsOpen(false);
+    }
+  }, [closeOnApply, onApply, selectedRange]);
 
   const handleRangeChange = useCallback((range: DateRangeWithTime) => {
     setSelectedRange({ from: range.from, to: range.to });
@@ -83,7 +89,11 @@ export const useDateRangeFilterDropdown = ({
     setSelectedRange(undefined);
     setAppliedRange(undefined);
     onApply?.();
-  }, [onApply]);
+
+    if (closeOnApply) {
+      setIsOpen(false);
+    }
+  }, [closeOnApply, onApply]);
 
   useEffect(() => {
     const controller = new AbortController();

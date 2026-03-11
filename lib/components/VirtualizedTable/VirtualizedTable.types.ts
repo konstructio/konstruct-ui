@@ -232,6 +232,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         filterActions?: ActionFilterConfig[];
         showResetButton?: boolean;
         resetButtonClassName?: string;
+        closeOnApply?: boolean;
       }
     | {
         filterSearchPlaceholder?: never;
@@ -244,6 +245,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         filterActions?: ActionFilterConfig[];
         showResetButton?: never;
         resetButtonClassName?: never;
+        closeOnApply?: never;
       }
   ) &
   (
