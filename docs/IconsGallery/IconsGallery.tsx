@@ -43,6 +43,7 @@ import {
   GridViewIcon,
   HelpIcon,
   HideOutlineIcon,
+  Home2Icon,
   HomeIcon,
   IdIcon,
   InfoCircleIcon,
@@ -68,6 +69,7 @@ import {
   StartIcon,
   TabNewIcon,
   TeamsIcon,
+  UploadIcon,
   WarningIcon,
   WarningTriangleIcon,
   XIcon,
@@ -120,6 +122,7 @@ const iconEntries: IconEntry[] = [
   { name: 'GridViewIcon', component: GridViewIcon },
   { name: 'HelpIcon', component: HelpIcon },
   { name: 'HideOutlineIcon', component: HideOutlineIcon },
+  { name: 'Home2Icon', component: Home2Icon },
   { name: 'HomeIcon', component: HomeIcon },
   { name: 'IdIcon', component: IdIcon },
   { name: 'InfoCircleIcon', component: InfoCircleIcon },
@@ -145,6 +148,7 @@ const iconEntries: IconEntry[] = [
   { name: 'StartIcon', component: StartIcon },
   { name: 'TabNewIcon', component: TabNewIcon },
   { name: 'TeamsIcon', component: TeamsIcon },
+  { name: 'UploadIcon', component: UploadIcon },
   { name: 'WarningIcon', component: WarningIcon },
   { name: 'WarningTriangleIcon', component: WarningTriangleIcon },
   { name: 'XIcon', component: XIcon },
@@ -204,7 +208,7 @@ export const IconsGallery: FC = () => {
               {`import { AccountsIcon } from '@konstructio/ui/icons';
 
 function MyComponent() {
-  return <AccountsIcon size={24} className="text-purple-500" />;
+  return <AccountsIcon size={24} className="text-aurora-500" />;
 }`}
             </code>
           </pre>
