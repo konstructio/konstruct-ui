@@ -48,10 +48,4 @@ export const viewportToastVariants = cva([
   'outline-none',
 ]);
 
-export const closeToastVariants = cva([
-  'top-2',
-  'right-2',
-  'w-4',
-  'h-4',
-  'text-white',
-]);
+export const closeToastVariants = cva(['w-4', 'h-4', 'text-white']);

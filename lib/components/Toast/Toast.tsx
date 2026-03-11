@@ -19,6 +19,11 @@ import {
 } from 'react';
 import { X } from 'react-feather';
 
+import {
+  CheckCircleFilledIcon,
+  ErrorIcon,
+  WarningTriangleIcon,
+} from '@/assets/icons/components';
 import { cn } from '@/utils';
 
 import { ToastProps } from './Toast.types';
@@ -103,18 +108,33 @@ export const Toast: FC<ToastProps> = ({
         onOpenChange={setOpen}
       >
         <div className="flex gap-2 items-center flex-1">
-          <Title asChild className={titleClassName}>
-            {titleResult}
-          </Title>
-
-          {descriptionResult && (
-            <Description asChild>{descriptionResult}</Description>
+          {variant === 'success' && (
+            <CheckCircleFilledIcon size={20} className="shrink-0" />
           )}
+          {variant === 'error' && <ErrorIcon size={20} className="shrink-0" />}
+          {variant === 'warning' && (
+            <WarningTriangleIcon size={20} className="shrink-0" />
+          )}
+
+          <div className="flex flex-col gap-1">
+            <Title asChild className={titleClassName}>
+              {titleResult}
+            </Title>
+
+            {descriptionResult &&
+              (isValidElement(descriptionResult) ? (
+                <Description asChild>{descriptionResult}</Description>
+              ) : (
+                <Description className={cn('text-sm', descriptionClassName)}>
+                  {descriptionResult}
+                </Description>
+              ))}
+          </div>
         </div>
 
         {showCloseButton && (
           <Action asChild altText="Close the toast">
-            <button type="button" className="absolute right-1.5 top-1.5">
+            <button type="button" className="cursor-pointer">
               <X
                 className={cn(
                   closeToastVariants({
