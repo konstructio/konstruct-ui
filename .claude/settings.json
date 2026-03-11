@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Read(//Users/futjesus/Developer/civo/microfront/spike-kubernetes-storage-mf/src/**)",
-      "Read(//Users/futjesus/Developer/civo/microfront/spike-kubernetes-storage-mf/**)"
-    ]
-  }
-}
