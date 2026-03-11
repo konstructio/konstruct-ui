@@ -51,6 +51,8 @@ export interface LineChartProps {
   lineWidth?: number;
   /** Show axis border lines (default: false) */
   showAxisBorder?: boolean;
+  /** Tooltip text color (default: metal-100) */
+  tooltipTextColor?: string;
   /** Additional className for wrapper */
   className?: string;
 }

@@ -69,6 +69,7 @@ export const LineChart: FC<LineChartProps> = ({
   showGrid = true,
   lineWidth = 2,
   showAxisBorder = false,
+  tooltipTextColor = resolveColor('--color-metal-100'),
   className,
 }) => {
   const displayLegend =
@@ -134,11 +135,11 @@ export const LineChart: FC<LineChartProps> = ({
           tooltip: {
             enabled: true,
             backgroundColor: resolveColor('--color-metal-700'),
+            titleColor: tooltipTextColor,
+            bodyColor: tooltipTextColor,
             boxPadding: 6,
             callbacks: {
-              labelTextColor: (context) => {
-                return context.dataset.borderColor as string;
-              },
+              labelTextColor: () => tooltipTextColor,
             },
           },
         },
