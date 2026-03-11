@@ -4,9 +4,12 @@ on:
   repository_dispatch:
     types: [release]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   bump-version-and-publish:
-    runs-on: self-hosted 
+    runs-on: self-hosted
 
     permissions:
       packages: write
