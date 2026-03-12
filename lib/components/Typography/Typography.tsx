@@ -2,7 +2,7 @@ import { forwardRef, ForwardRefExoticComponent, RefAttributes } from 'react';
 
 import { cn } from '@/utils';
 
-import { HeadingTag, TypographyProps } from './Typography.types';
+import { HeadingTag, Props } from './Typography.types';
 import { typographyVariants } from './Typography.variants';
 
 /**
@@ -20,11 +20,11 @@ import { typographyVariants } from './Typography.variants';
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-typography--docs Storybook}
  */
 const Typography: ForwardRefExoticComponent<
-  Omit<TypographyProps, 'ref'> &
+  Omit<Props, 'ref'> &
     RefAttributes<HTMLParagraphElement & HTMLHeadingElement & HTMLLabelElement>
 > = forwardRef<
   HTMLParagraphElement & HTMLHeadingElement & HTMLLabelElement,
-  TypographyProps
+  Props
 >(({ className, theme, children, variant, component, ...delegated }, ref) => {
   const Component =
     component ?? (variant?.includes('h') ? (variant as HeadingTag) : 'p');

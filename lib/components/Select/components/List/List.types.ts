@@ -1,6 +1,6 @@
 import { ComponentRef, RefObject } from 'react';
 
-import { SelectProps } from '../../Select.types';
+import { Props as SelectProps } from '../../Select.types';
 
 export type ListProps = Pick<
   SelectProps,

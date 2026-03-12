@@ -4,7 +4,7 @@ import { Slot } from '@radix-ui/react-slot';
 import { cn } from '@/utils';
 
 import { buttonVariants } from './Button.variants';
-import { ButtonProps } from './Button.types';
+import { Props } from './Button.types';
 
 /**
  * A customizable button component with multiple variants and styles.
@@ -35,7 +35,7 @@ import { ButtonProps } from './Button.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-button--docs Storybook}
  */
-const Button: FC<ButtonProps> = forwardRef<ComponentRef<'button'>, ButtonProps>(
+const Button: FC<Props> = forwardRef<ComponentRef<'button'>, Props>(
   (
     {
       appearance,

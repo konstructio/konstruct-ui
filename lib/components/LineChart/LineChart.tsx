@@ -16,7 +16,7 @@ import { Line } from 'react-chartjs-2';
 import { Typography } from '@/components/Typography/Typography';
 import { cn, resolveColor } from '@/utils';
 
-import { LineChartProps } from './LineChart.types';
+import { Props } from './LineChart.types';
 
 ChartJS.register(
   CategoryScale,
@@ -55,7 +55,7 @@ const CSS_VAR_COLORS = [
  * />
  * ```
  */
-export const LineChart: FC<LineChartProps> = ({
+export const LineChart: FC<Props> = ({
   title,
   titleProps,
   labels,

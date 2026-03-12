@@ -4,7 +4,7 @@ import { axe } from 'jest-axe';
 import { FC } from 'react';
 
 import { DatePicker } from './DatePicker';
-import type { DatePickerProps } from './DatePicker.types';
+import type { Props } from './DatePicker.types';
 
 const months = [
   'January',
@@ -29,9 +29,9 @@ describe('DatePicker', () => {
     onSelect: vi.fn(),
     animate: false,
     defaultMonth: currentMonth,
-  } satisfies DatePickerProps;
+  } satisfies Props;
 
-  const setup = (props: Partial<DatePickerProps> = {}, wrapper?: FC) => {
+  const setup = (props: Partial<Props> = {}, wrapper?: FC) => {
     const { container: component } = render(
       <DatePicker {...defaultProps} {...props} />,
       { wrapper },

@@ -5,7 +5,7 @@ import { Minus, Plus } from 'react-feather';
 
 import { cn } from '@/utils';
 
-import { CounterProps } from './Counter.types';
+import { Props } from './Counter.types';
 import {
   buttonVariants,
   labelVariants,
@@ -46,10 +46,7 @@ import { Typography } from '../Typography/Typography';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-counter--docs Storybook}
  */
-export const Counter: FC<CounterProps> = forwardRef<
-  HTMLInputElement,
-  CounterProps
->(
+export const Counter: FC<Props> = forwardRef<HTMLInputElement, Props>(
   (
     {
       canDecrement = true,

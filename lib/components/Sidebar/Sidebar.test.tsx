@@ -10,9 +10,9 @@ import {
   NavigationOption,
   Sidebar,
 } from './Sidebar';
-import { SidebarProps as SidebarPropsPrimitive } from './Sidebar.types';
+import { Props } from './Sidebar.types';
 
-type SidebarProps = SidebarPropsPrimitive & { options?: ReactNode };
+type SidebarProps = Props & { options?: ReactNode };
 
 describe('Sidebar', () => {
   const setup = ({ options, ...props }: SidebarProps = {}) => {
@@ -20,7 +20,7 @@ describe('Sidebar', () => {
       minWith: 100,
       maxWith: 400,
       ...props,
-    } satisfies SidebarPropsPrimitive;
+    } satisfies Props;
 
     const { container: component } = render(
       <Sidebar {...defaultProps}>

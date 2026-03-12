@@ -4,7 +4,7 @@ import { Eye, EyeOff } from 'react-feather';
 import { SearchIcon, WarningIcon } from '@/assets/icons/components';
 import { cn } from '@/utils';
 
-import { InputProps } from './Input.types';
+import { Props } from './Input.types';
 import { inputVariants } from './Input.variants';
 import { Typography } from '../Typography/Typography';
 
@@ -40,7 +40,7 @@ import { Typography } from '../Typography/Typography';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-input--docs Storybook}
  */
-const Input = forwardRef<HTMLInputElement, InputProps>(
+const Input = forwardRef<HTMLInputElement, Props>(
   (
     {
       className,

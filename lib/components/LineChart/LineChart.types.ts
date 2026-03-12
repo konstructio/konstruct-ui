@@ -1,4 +1,4 @@
-import { TypographyProps } from '@/components/Typography/Typography.types';
+import { Props as TypographyProps } from '@/components/Typography/Typography.types';
 
 export interface LineChartDataset {
   /** Dataset label (used in legend) */
@@ -24,7 +24,7 @@ export interface LineChartDataset {
  * />
  * ```
  */
-export interface LineChartProps {
+export interface Props {
   /** Chart title text */
   title?: string;
   /** Props passed to the Typography component used for the title */
@@ -56,3 +56,6 @@ export interface LineChartProps {
   /** Additional className for wrapper */
   className?: string;
 }
+
+/** @deprecated Use Props instead */
+export type LineChartProps = Props;

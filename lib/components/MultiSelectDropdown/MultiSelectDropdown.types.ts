@@ -45,7 +45,7 @@ type OnBlurFn = (event: {
  * />
  * ```
  */
-export interface MultiSelectDropdownProps
+export interface Props
   extends
     VariantProps<typeof multiSelectDropdownVariants>,
     Omit<
@@ -81,3 +81,6 @@ export interface MultiSelectDropdownProps
   /** Callback fired when the input loses focus */
   onBlur?: OnBlurFn;
 }
+
+/** @deprecated Use Props instead */
+export type MultiSelectDropdownProps = Props;

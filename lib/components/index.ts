@@ -90,5 +90,7 @@ export {
   stepperVariants,
   stepVariants,
 } from './Stepper/Stepper.variants';
+/** @deprecated Use Counter instead */
 export { Counter as NumberInput } from './Counter/Counter';
+/** @deprecated Use Select instead */
 export { Select as Dropdown } from './Select/Select';

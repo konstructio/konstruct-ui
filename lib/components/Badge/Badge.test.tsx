@@ -3,15 +3,15 @@ import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
 import { Badge } from './Badge';
-import { BadgeProps } from './Badge.types';
+import { Props } from './Badge.types';
 
 describe('Badge', () => {
   const defaultProps = {
     label: 'Badge',
     onClick: () => {},
-  } satisfies BadgeProps;
+  } satisfies Props;
 
-  const setup = (props?: Partial<BadgeProps>) => {
+  const setup = (props?: Partial<Props>) => {
     const { container: component } = render(
       <Badge {...defaultProps} {...props} />,
     );

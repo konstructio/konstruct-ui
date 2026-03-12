@@ -14,7 +14,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/Button/Button';
 import { cn } from '@/utils';
 
-import { AlertDialogProps } from './AlertDialog.types';
+import { Props } from './AlertDialog.types';
 import { AlertDialogTrigger } from './components';
 import { useAlertDialog } from './hooks';
 
@@ -46,7 +46,7 @@ import { useAlertDialog } from './hooks';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-alertdialog--docs Storybook}
  */
-const AlertDialog: FC<AlertDialogProps> = ({
+const AlertDialog: FC<Props> = ({
   buttonCancel: {
     className: buttonCancelClassName,
     text: buttonCancelText = 'Cancel',

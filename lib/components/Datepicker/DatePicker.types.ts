@@ -17,7 +17,7 @@ type TimeZone = keyof ReturnType<typeof getAllTimezones>;
  * />
  * ```
  */
-export type DatePickerProps = Omit<DayPickerPrimitiveProps, 'mode'> &
+export type Props = Omit<DayPickerPrimitiveProps, 'mode'> &
   VariantProps<typeof datePickerVariants> & {
     /** CSS classes for the navigation arrows */
     arrowClassName?: string;
@@ -30,3 +30,6 @@ export type DatePickerProps = Omit<DayPickerPrimitiveProps, 'mode'> &
     /** Callback when a date is selected */
     onSelect?: (date: Date) => void;
   };
+
+/** @deprecated Use Props instead */
+export type DatePickerProps = Props;

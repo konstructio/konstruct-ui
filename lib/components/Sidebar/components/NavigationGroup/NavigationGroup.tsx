@@ -4,10 +4,10 @@ import { cn } from '@/utils';
 
 import { NavigationTitle } from '../NavigationTitle/NavigationTitle';
 
-import { NavigationGroupProps } from './NavigationGroup.types';
+import { Props } from './NavigationGroup.types';
 import { navigationGroupsVariants } from './NavigationGroup.variants';
 
-const NavigationGroup: FC<NavigationGroupProps> = ({
+const NavigationGroup: FC<Props> = ({
   children,
   title,
   className,

@@ -12,7 +12,7 @@ import {
 
 import { cn } from '@/utils';
 
-import { SliderProps } from './Slider.types';
+import { Props } from './Slider.types';
 import {
   sliderVariants,
   thumbVariants,
@@ -37,10 +37,7 @@ import {
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-slider--docs Storybook}
  */
-export const Slider: FC<SliderProps> = forwardRef<
-  ComponentRef<'input'>,
-  SliderProps
->(
+export const Slider: FC<Props> = forwardRef<ComponentRef<'input'>, Props>(
   (
     {
       label,

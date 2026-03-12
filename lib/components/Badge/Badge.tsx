@@ -4,7 +4,7 @@ import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { LoaderIcon } from '@/assets/icons/components';
 import { cn } from '@/utils';
 
-import { BadgeProps } from './Badge.types';
+import { Props } from './Badge.types';
 import { badgeVariants, buttonDismissVariants } from './Badge.variants';
 import { Slot } from '@radix-ui/react-slot';
 
@@ -39,7 +39,7 @@ import { Slot } from '@radix-ui/react-slot';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-badge--docs Storybook}
  */
-export const Badge: FC<BadgeProps> = ({
+export const Badge: FC<Props> = ({
   className,
   dismissible = false,
   isSelectable = true,

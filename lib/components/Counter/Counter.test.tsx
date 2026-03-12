@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { CounterProps } from './Counter.types';
+import { Props } from './Counter.types';
 import { Counter } from './Counter';
 import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
@@ -11,9 +11,9 @@ describe('Counter', () => {
     label: 'Counter Input',
     init: 0,
     value: 0,
-  } satisfies CounterProps;
+  } satisfies Props;
 
-  const Wrapper = ({ ...delegated }: CounterProps) => {
+  const Wrapper = ({ ...delegated }: Props) => {
     const [count, setCount] = useState(0);
 
     return (
@@ -26,7 +26,7 @@ describe('Counter', () => {
     );
   };
 
-  const setup = (props?: Partial<CounterProps>) => {
+  const setup = (props?: Partial<Props>) => {
     const { container: component } = render(
       <Wrapper {...defaultProps} {...props} />,
     );

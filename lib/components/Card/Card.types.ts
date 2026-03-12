@@ -15,7 +15,7 @@ import { cardVariants } from './Card.variants';
  * <Card isActive>Active/selected card</Card>
  * ```
  */
-export interface CardProps
+export interface Props
   extends
     HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof cardVariants>,
@@ -29,3 +29,6 @@ export interface CardProps
   /** CSS classes for the outer wrapper */
   wrapperClassName?: string;
 }
+
+/** @deprecated Use Props instead */
+export type CardProps = Props;

@@ -26,7 +26,7 @@ import {
 } from '@/assets/icons/components';
 import { cn } from '@/utils';
 
-import { ToastProps } from './Toast.types';
+import { Props } from './Toast.types';
 import {
   closeToastVariants,
   toastVariants,
@@ -55,7 +55,7 @@ import {
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-toast--docs Storybook}
  */
-export const Toast: FC<ToastProps> = ({
+export const Toast: FC<Props> = ({
   title,
   duration = 5000,
   titleClassName,

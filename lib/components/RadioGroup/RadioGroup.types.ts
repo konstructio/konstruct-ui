@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import { Theme } from '@/domain/theme';
 
-import { RadioProps } from '../Radio/Radio.types';
+import { Props as RadioProps } from '../Radio/Radio.types';
 
 /**
  * Props for the RadioGroup component.
@@ -21,7 +21,7 @@ import { RadioProps } from '../Radio/Radio.types';
  * />
  * ```
  */
-export interface RadioGroupProps {
+export interface Props {
   /** Merge props onto child element */
   asChild?: boolean;
   /** CSS classes for each radio option */
@@ -45,3 +45,6 @@ export interface RadioGroupProps {
   /** Callback when selection changes */
   onValueChange?: (value: string) => void;
 }
+
+/** @deprecated Use Props instead */
+export type RadioGroupProps = Props;

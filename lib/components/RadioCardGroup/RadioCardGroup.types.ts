@@ -1,6 +1,6 @@
 import { Theme } from '@/domain/theme';
 
-import { RadioCardProps } from '../RadioCard/RadioCard.types';
+import { Props as RadioCardProps } from '../RadioCard/RadioCard.types';
 
 /**
  * Props for the RadioCardGroup component.
@@ -19,7 +19,7 @@ import { RadioCardProps } from '../RadioCard/RadioCard.types';
  * />
  * ```
  */
-export type RadioCardGroupProps = {
+export type Props = {
   asChild?: boolean;
   className?: string;
   defaultChecked?: string;
@@ -30,3 +30,6 @@ export type RadioCardGroupProps = {
   wrapperClassName?: string;
   onValueChange?: (value: string) => void;
 };
+
+/** @deprecated Use Props instead */
+export type RadioCardGroupProps = Props;

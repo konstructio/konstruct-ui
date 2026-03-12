@@ -2,13 +2,13 @@ import type { FC } from 'react';
 
 import { cn } from '@/utils';
 
-import type { ProgressBarProps } from './ProgressBar.types';
+import type { Props } from './ProgressBar.types';
 import {
   progressBarFillVariants,
   progressBarTrackVariants,
 } from './ProgressBar.variants';
 
-export const ProgressBar: FC<ProgressBarProps> = ({
+export const ProgressBar: FC<Props> = ({
   className,
   fillClassName,
   leftContent,

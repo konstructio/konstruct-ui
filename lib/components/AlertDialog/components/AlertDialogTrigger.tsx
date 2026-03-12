@@ -4,12 +4,9 @@ import { ComponentRef, forwardRef } from 'react';
 import { Button } from '@/components/Button/Button';
 import { cn } from '@/utils';
 
-import { AlertDialogTriggerProps } from './AlertDialogTrigger.types';
+import { Props } from './AlertDialogTrigger.types';
 
-export const AlertDialogTrigger = forwardRef<
-  ComponentRef<'button'>,
-  AlertDialogTriggerProps
->(
+export const AlertDialogTrigger = forwardRef<ComponentRef<'button'>, Props>(
   (
     { 'data-theme': dataTheme, className, text, variant, onOpen, onClick },
     ref,

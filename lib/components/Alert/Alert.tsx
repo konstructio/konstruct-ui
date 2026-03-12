@@ -18,7 +18,7 @@ import {
   WarningTriangleIcon,
 } from '@/assets/icons/components';
 
-import { AlertProps } from './Alert.types';
+import { Props } from './Alert.types';
 import {
   alertVariants,
   closeButtonVariants,
@@ -52,7 +52,7 @@ const ICON_MAP = {
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-alert--docs Storybook}
  */
-export const Alert: FC<AlertProps> = ({
+export const Alert: FC<Props> = ({
   theme,
   type,
   title,

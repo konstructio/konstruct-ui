@@ -101,7 +101,7 @@ type OnChangeFn = (params: { target: { value: string; name: string } }) => void;
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-select--docs Storybook}
  */
-export type SelectProps = VariantProps<typeof selectVariants> &
+export type Props = VariantProps<typeof selectVariants> &
   Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> & {
     additionalOptions?: ReactNode[] | string[] | AdditionalOptionGroup[];
     className?: string;
@@ -148,3 +148,6 @@ export type SelectProps = VariantProps<typeof selectVariants> &
         onFetchMoreOptions?: never;
       }
   );
+
+/** @deprecated Use Props instead */
+export type SelectProps = Props;

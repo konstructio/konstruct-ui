@@ -7,7 +7,7 @@ import { Button } from '@/components/Button/Button';
 import { Modal } from '@/components/Modal/Modal';
 
 import { Select } from './Select';
-import { SelectProps } from './Select.types';
+import { Props } from './Select.types';
 
 const defaultProps = {
   label: 'Select',
@@ -26,10 +26,10 @@ const defaultProps = {
       value: 'option-3',
     },
   ],
-} satisfies SelectProps;
+} satisfies Props;
 
 describe('Select', () => {
-  const setup = (props?: Partial<SelectProps>, wrapper?: FC) => {
+  const setup = (props?: Partial<Props>, wrapper?: FC) => {
     const { onFetchMoreOptions: _, ...restProps } = props || {};
 
     const { container: component } = render(

@@ -1,6 +1,6 @@
 import { PropsWithChildren, RefObject } from 'react';
 
-import { TagProps } from '@/components/Tag/Tag.types';
+import { Props as TagProps } from '@/components/Tag/Tag.types';
 
 export type State = {
   tags: TagProps[];

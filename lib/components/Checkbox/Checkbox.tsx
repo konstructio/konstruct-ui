@@ -5,7 +5,7 @@ import { Check } from 'react-feather';
 import { useToggle } from '@/hooks';
 import { cn } from '@/utils';
 
-import { CheckboxProps } from './Checkbox.types';
+import { Props } from './Checkbox.types';
 import { checkboxVariants, labelVariants } from './Checkbox.variants';
 
 /**
@@ -30,10 +30,7 @@ import { checkboxVariants, labelVariants } from './Checkbox.variants';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-checkbox--docs Storybook}
  */
-const Checkbox: FC<CheckboxProps> = forwardRef<
-  HTMLButtonElement,
-  CheckboxProps
->(
+const Checkbox: FC<Props> = forwardRef<HTMLButtonElement, Props>(
   (
     {
       ariaLabelledBy,

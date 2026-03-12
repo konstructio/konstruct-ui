@@ -21,7 +21,7 @@ import { rangeVariants } from './Range.variants';
  * />
  * ```
  */
-export interface RangeProps extends VariantProps<typeof rangeVariants> {
+export interface Props extends VariantProps<typeof rangeVariants> {
   /** Additional CSS classes */
   className?: string;
   /** Initial range values [min, max] */
@@ -43,3 +43,6 @@ export interface RangeProps extends VariantProps<typeof rangeVariants> {
   /** Theme override for this component */
   theme?: Theme;
 }
+
+/** @deprecated Use Props instead */
+export type RangeProps = Props;

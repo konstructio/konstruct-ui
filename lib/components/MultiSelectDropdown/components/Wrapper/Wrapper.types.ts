@@ -2,7 +2,7 @@ import { ForwardedRef } from 'react';
 
 import { Theme } from '@/domain/theme';
 
-import { MultiSelectDropdownProps } from '../../MultiSelectDropdown.types';
+import { Props as MultiSelectDropdownProps } from '../../MultiSelectDropdown.types';
 
 export type WrapperProps = Omit<
   MultiSelectDropdownProps,

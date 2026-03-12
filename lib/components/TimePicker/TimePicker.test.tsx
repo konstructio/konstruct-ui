@@ -4,16 +4,13 @@ import { axe } from 'jest-axe';
 import { FC, PropsWithChildren } from 'react';
 
 import { TimePicker } from './TimePicker';
-import { TimePickerProps } from './TimePicker.types';
+import { Props } from './TimePicker.types';
 
 describe('TimePicker', () => {
-  const setup = (
-    props?: Partial<TimePickerProps>,
-    wrapper?: FC<PropsWithChildren>,
-  ) => {
+  const setup = (props?: Partial<Props>, wrapper?: FC<PropsWithChildren>) => {
     const defaultProps = {
       name: 'time-picker-name',
-    } satisfies TimePickerProps;
+    } satisfies Props;
 
     const { container: component } = render(
       <TimePicker {...defaultProps} {...props} />,
@@ -331,12 +328,12 @@ describe('TimePicker', () => {
   });
 
   describe('Input Mode with List', () => {
-    const setup = (props?: Partial<TimePickerProps>) => {
+    const setup = (props?: Partial<Props>) => {
       const defaultProps = {
         name: 'time-input',
         mode: 'input' as const,
         showList: true,
-      } satisfies Partial<TimePickerProps>;
+      } satisfies Partial<Props>;
 
       const { container: component } = render(
         <TimePicker {...defaultProps} {...props} />,
@@ -562,12 +559,12 @@ describe('TimePicker', () => {
   });
 
   describe('Input Mode without List', () => {
-    const setup = (props?: Partial<TimePickerProps>) => {
+    const setup = (props?: Partial<Props>) => {
       const defaultProps = {
         name: 'time-input-no-list',
         mode: 'input' as const,
         showList: false,
-      } satisfies Partial<TimePickerProps>;
+      } satisfies Partial<Props>;
 
       const { container: component } = render(
         <TimePicker {...defaultProps} {...props} />,

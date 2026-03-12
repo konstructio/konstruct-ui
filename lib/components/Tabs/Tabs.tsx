@@ -3,7 +3,7 @@ import { FC } from 'react';
 
 import { cn } from '@/utils';
 
-import { ListProps, TabsProps, TriggerProps } from './Tabs.types';
+import { ListProps, Props as TabsProps, TriggerProps } from './Tabs.types';
 import { rootVariants } from './Tabs.variants';
 import { Content, List, Trigger } from './components';
 

@@ -14,7 +14,7 @@ import { badgeVariants } from './Badge.variants';
  * <Badge label="With Icon" leftIcon={<Icon />} />
  * ```
  */
-export type BadgeProps = VariantProps<typeof badgeVariants> & {
+export type Props = VariantProps<typeof badgeVariants> & {
   /** Additional CSS classes */
   className?: string;
   /** Show dismiss button */
@@ -34,3 +34,6 @@ export type BadgeProps = VariantProps<typeof badgeVariants> & {
   /** Callback when dismiss button clicked */
   onDismiss?: VoidFunction;
 };
+
+/** @deprecated Use Props instead */
+export type BadgeProps = Props;

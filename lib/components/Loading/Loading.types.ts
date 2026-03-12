@@ -14,8 +14,11 @@ import { loadingVariants } from './Loading.variants';
  * <Loading className="w-8 h-8" />
  * ```
  */
-export type LoadingProps = InputHTMLAttributes<SVGSVGElement> &
+export type Props = InputHTMLAttributes<SVGSVGElement> &
   VariantProps<typeof loadingVariants> & {
     /** Theme override for this component */
     theme?: Theme;
   };
+
+/** @deprecated Use Props instead */
+export type LoadingProps = Props;

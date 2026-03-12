@@ -15,7 +15,7 @@ import { inputVariants } from './Input.variants';
  * <Input error="Invalid email" helperText="We'll never share your email" />
  * ```
  */
-export interface InputProps
+export interface Props
   extends
     InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof inputVariants> {
@@ -40,3 +40,6 @@ export interface InputProps
   /** Theme override for this component */
   theme?: Theme;
 }
+
+/** @deprecated Use Props instead */
+export type InputProps = Props;

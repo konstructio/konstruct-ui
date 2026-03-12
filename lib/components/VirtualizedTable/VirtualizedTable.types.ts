@@ -7,7 +7,7 @@ import type {
 import { VariantProps } from 'class-variance-authority';
 import { ReactNode } from 'react';
 
-import { ButtonProps } from '@/components/Button/Button.types';
+import { Props as ButtonProps } from '@/components/Button/Button.types';
 import {
   DateRange,
   DateRangeWithTime,

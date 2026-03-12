@@ -3,18 +3,15 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
-import { SwitchProps } from './Switch.types';
+import { Props } from './Switch.types';
 import { Switch } from './Switch';
 
 describe('Switch', () => {
   const defaultProps = {
     label: 'Switch',
-  } satisfies SwitchProps;
+  } satisfies Props;
 
-  const setup = (
-    props?: Partial<SwitchProps>,
-    wrapper?: FC<PropsWithChildren>,
-  ) => {
+  const setup = (props?: Partial<Props>, wrapper?: FC<PropsWithChildren>) => {
     const { container: component } = render(
       <Switch {...defaultProps} {...props} />,
       { wrapper: wrapper },
@@ -60,7 +57,7 @@ describe('Switch', () => {
             handleSubmit(data);
           }}
         >
-          {React.cloneElement(children as React.ReactElement<SwitchProps>, {
+          {React.cloneElement(children as React.ReactElement<Props>, {
             ...props,
             value,
             onChange: (value: boolean) => setValue(value),
@@ -98,7 +95,7 @@ describe('Switch', () => {
             handleSubmit(data);
           }}
         >
-          {React.cloneElement(children as React.ReactElement<SwitchProps>, {
+          {React.cloneElement(children as React.ReactElement<Props>, {
             ...props,
             value,
             onChange: (value: boolean) => setValue(value),

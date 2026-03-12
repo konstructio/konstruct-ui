@@ -1,9 +1,16 @@
-import * as RadixTooltip from '@radix-ui/react-tooltip';
+import {
+  Arrow,
+  Content,
+  Portal,
+  Provider,
+  Root,
+  Trigger,
+} from '@radix-ui/react-tooltip';
 import { FC } from 'react';
 
 import { cn } from '@/utils';
 
-import { TooltipProps } from './Tooltip.types';
+import { Props } from './Tooltip.types';
 
 /**
  * A tooltip component that shows on hover.
@@ -24,7 +31,7 @@ import { TooltipProps } from './Tooltip.types';
  * </Tooltip>
  * ```
  */
-export const Tooltip: FC<TooltipProps> = ({
+export const Tooltip: FC<Props> = ({
   content,
   children,
   side = 'top',
@@ -35,25 +42,27 @@ export const Tooltip: FC<TooltipProps> = ({
   className,
   delayDuration = 0,
 }) => (
-  <RadixTooltip.Provider delayDuration={delayDuration}>
-    <RadixTooltip.Root>
-      <RadixTooltip.Trigger asChild>
+  <Provider delayDuration={delayDuration}>
+    <Root>
+      <Trigger asChild>
         <span>{children}</span>
-      </RadixTooltip.Trigger>
-      <RadixTooltip.Content
-        side={side}
-        sideOffset={sideOffset}
-        className={cn(
-          'rounded px-2 py-1 text-xs shadow-md',
-          'animate-in fade-in-0',
-          bgClassName,
-          textClassName,
-          className,
-        )}
-      >
-        {content}
-        <RadixTooltip.Arrow className={arrowClassName} />
-      </RadixTooltip.Content>
-    </RadixTooltip.Root>
-  </RadixTooltip.Provider>
+      </Trigger>
+      <Portal>
+        <Content
+          side={side}
+          sideOffset={sideOffset}
+          className={cn(
+            'rounded px-2 py-1 text-xs shadow-md',
+            'animate-in fade-in-0',
+            bgClassName,
+            textClassName,
+            className,
+          )}
+        >
+          {content}
+          <Arrow className={arrowClassName} />
+        </Content>
+      </Portal>
+    </Root>
+  </Provider>
 );

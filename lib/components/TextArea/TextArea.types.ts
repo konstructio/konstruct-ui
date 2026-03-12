@@ -15,7 +15,7 @@ import { textAreaVariants } from './TextArea.variants';
  * <TextArea name="bio" initialValue="Default text" />
  * ```
  */
-export interface TextAreaProps
+export interface Props
   extends
     InputHTMLAttributes<HTMLTextAreaElement>,
     VariantProps<typeof textAreaVariants> {
@@ -32,3 +32,6 @@ export interface TextAreaProps
   /** Theme override for this component */
   theme?: Theme;
 }
+
+/** @deprecated Use Props instead */
+export type TextAreaProps = Props;

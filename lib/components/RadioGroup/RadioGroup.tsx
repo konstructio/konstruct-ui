@@ -5,7 +5,7 @@ import { cn } from '@/utils';
 
 import { Radio } from '../Radio/Radio';
 
-import { RadioGroupProps } from './RadioGroup.types';
+import { Props } from './RadioGroup.types';
 import { radioGroupVariants } from './RadioGroup.variants';
 
 /**
@@ -39,7 +39,7 @@ import { radioGroupVariants } from './RadioGroup.variants';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-radiogroup--docs Storybook}
  */
-export const RadioGroup: FC<RadioGroupProps> = ({
+export const RadioGroup: FC<Props> = ({
   asChild,
   className,
   defaultChecked,
