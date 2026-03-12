@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.76](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.76) (2026-03-12)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.75...0.1.2-alpha.76)
+
+**Merged pull requests:**
+
+- ♻️ refactor: rename XxxProps to Props across all component types files [\#591](https://github.com/konstructio/konstruct-ui/pull/591) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.75](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.75) (2026-03-11)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.74...0.1.2-alpha.75)
