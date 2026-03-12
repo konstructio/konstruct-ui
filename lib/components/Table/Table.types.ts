@@ -31,7 +31,7 @@ import {
  * </Table>
  * ```
  */
-export interface TableProps
+export interface Props
   extends
     React.HTMLAttributes<HTMLTableElement>,
     PropsWithChildren,
@@ -39,6 +39,9 @@ export interface TableProps
   /** Theme override for this component */
   theme?: Theme;
 }
+
+/** @deprecated Use Props instead */
+export type TableProps = Props;
 
 /**
  * Props for Table.Row component.

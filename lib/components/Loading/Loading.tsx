@@ -3,7 +3,7 @@ import { LoaderCircle } from 'lucide-react';
 
 import { cn } from '@/utils';
 
-import { LoadingProps } from './Loading.types';
+import { Props } from './Loading.types';
 import { loadingVariants } from './Loading.variants';
 
 /**
@@ -26,7 +26,7 @@ import { loadingVariants } from './Loading.variants';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-loading--docs Storybook}
  */
-const Loading: FC<LoadingProps> = ({ className, theme, ...delegated }) => (
+const Loading: FC<Props> = ({ className, theme, ...delegated }) => (
   <LoaderCircle
     data-theme={theme}
     className={cn(

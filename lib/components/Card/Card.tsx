@@ -3,7 +3,7 @@ import { FC, forwardRef } from 'react';
 import { cn } from '../../utils';
 
 import { cardBaseVariants, cardVariants } from './Card.variants';
-import { CardProps } from './Card.types';
+import { Props } from './Card.types';
 
 /**
  * A container card component with optional hover and active states.
@@ -29,7 +29,7 @@ import { CardProps } from './Card.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-card--docs Storybook}
  */
-const Card: FC<CardProps> = forwardRef<HTMLDivElement, CardProps>(
+const Card: FC<Props> = forwardRef<HTMLDivElement, Props>(
   (
     { className, theme, isActive, canHover, wrapperClassName, ...props },
     ref,

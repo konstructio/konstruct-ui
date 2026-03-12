@@ -1,15 +1,18 @@
 export * from './Footer/Footer';
-export type * from './Footer/Footer.types';
+export type { FooterProps } from './Footer/Footer.types';
 export * from './Logo/Logo';
-export type * from './Logo/Logo.types';
+export type { LogoProps } from './Logo/Logo.types';
 export * from './Navigation/Navigation';
-export type * from './Navigation/Navigation.types';
+export type {
+  NavigationProps,
+  NavigationChildrenProps,
+} from './Navigation/Navigation.types';
 export * from './NavigationGroup/NavigationGroup';
-export type * from './NavigationGroup/NavigationGroup.types';
+export type { NavigationGroupProps } from './NavigationGroup/NavigationGroup.types';
 export * from './NavigationOption/NavigationOption';
-export type * from './NavigationOption/NavigationOption.types';
+export type { NavigationOptionProps } from './NavigationOption/NavigationOption.types';
 export * from './NavigationSeparator/NavigationSeparator';
-export type * from './NavigationSeparator/NavigationSeparator.types';
+export type { NavigationSeparatorProps } from './NavigationSeparator/NavigationSeparator.types';
 export * from './NavigationTitle/NavigationTitle';
-export type * from './NavigationTitle/NavigationTitle.types';
+export type { NavigationTitleProps } from './NavigationTitle/NavigationTitle.types';
 export * from './Wrapper/Wrapper';

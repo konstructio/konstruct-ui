@@ -14,7 +14,7 @@ import { checkboxVariants } from './Checkbox.variants';
  * <Checkbox label="Disabled option" disabled />
  * ```
  */
-export interface CheckboxProps
+export interface Props
   extends
     Omit<CheckboxPropsPrimitive, 'onChange'>,
     Omit<VariantProps<typeof checkboxVariants>, 'checked'> {
@@ -41,3 +41,6 @@ export interface CheckboxProps
   /** Callback when checked state changes */
   onChange?: (checked: boolean) => void;
 }
+
+/** @deprecated Use Props instead */
+export type CheckboxProps = Props;

@@ -19,7 +19,7 @@ export type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
  * <Typography variant="h2" component="p">Styled as h2 but renders as p</Typography>
  * ```
  */
-export interface TypographyProps
+export interface Props
   extends
     HTMLAttributes<ComponentRef<HeadingTag | 'p' | 'span'>>,
     VariantProps<typeof typographyVariants> {
@@ -34,3 +34,6 @@ export interface TypographyProps
   /** For use with label component to associate with form input */
   htmlFor?: string;
 }
+
+/** @deprecated Use Props instead */
+export type TypographyProps = Props;

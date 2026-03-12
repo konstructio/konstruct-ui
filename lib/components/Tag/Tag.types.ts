@@ -14,7 +14,7 @@ import { ReactNode } from 'react';
  * />
  * ```
  */
-export type TagProps = {
+export type Props = {
   /** Color variant for the tag */
   color?:
     | 'gray'
@@ -47,3 +47,6 @@ export type TagProps = {
   /** Whether the tag is in a selected state */
   isSelected?: boolean;
 };
+
+/** @deprecated Use Props instead */
+export type TagProps = Props;

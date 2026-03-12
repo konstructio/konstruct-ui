@@ -3,7 +3,7 @@ import { AlertDialogProps as AlertDialogPrimitiveProps } from '@radix-ui/react-a
 
 import { Theme } from '@/domain/theme';
 
-import { ButtonProps } from '../Button/Button.types';
+import { Props as ButtonProps } from '../Button/Button.types';
 
 type ButtonBaseProps = Partial<ButtonProps> & {
   className?: string;
@@ -27,8 +27,7 @@ type ButtonConfirmProps = ButtonBaseProps;
  * />
  * ```
  */
-export interface AlertDialogProps
-  extends PropsWithChildren, AlertDialogPrimitiveProps {
+export interface Props extends PropsWithChildren, AlertDialogPrimitiveProps {
   /** Cancel button props (className, text, etc.) */
   buttonCancel?: ButtonCancelProps;
   /** Confirm button props (className, text, etc.) */
@@ -59,6 +58,9 @@ export interface AlertDialogProps
   onClick?: VoidFunction;
 }
 
+/** @deprecated Use Props instead */
+export type AlertDialogProps = Props;
+
 export type UseAlertiDialogProps = {
-  onConfirm: AlertDialogProps['onConfirm'];
+  onConfirm: Props['onConfirm'];
 };

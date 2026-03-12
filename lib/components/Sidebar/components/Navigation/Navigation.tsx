@@ -7,10 +7,10 @@ import { NavigationOption } from '../NavigationOption/NavigationOption';
 import { NavigationSeparator } from '../NavigationSeparator/NavigationSeparator';
 import { NavigationTitle } from '../NavigationTitle/NavigationTitle';
 
-import { NavigationChildrenProps, NavigationProps } from './Navigation.types';
+import { NavigationChildrenProps, Props } from './Navigation.types';
 import { navigationVariants } from './Navigation.variants';
 
-const Navigation: FC<NavigationProps> & NavigationChildrenProps = ({
+const Navigation: FC<Props> & NavigationChildrenProps = ({
   className,
   children,
 }) => <nav className={cn(navigationVariants({ className }))}>{children}</nav>;

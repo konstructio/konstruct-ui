@@ -9,7 +9,7 @@ type NavigationOption = VariantProps<typeof navigationOptionVariants> & {
   isActive?: boolean;
 };
 
-export type NavigationOptionProps = NavigationOption &
+export type Props = NavigationOption &
   (
     | {
         role: 'button';
@@ -21,3 +21,6 @@ export type NavigationOptionProps = NavigationOption &
         children: ReactNode;
       }
   );
+
+/** @deprecated Use Props instead */
+export type NavigationOptionProps = Props;

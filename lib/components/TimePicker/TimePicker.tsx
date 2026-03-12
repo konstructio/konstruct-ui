@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { TimePickerProps } from './TimePicker.types';
+import { Props } from './TimePicker.types';
 import { TimePickerProvider } from './contexts/time-picker.provider';
 import { Wrapper } from './components/Wrapper/Wrapper';
 
@@ -21,7 +21,7 @@ import { Wrapper } from './components/Wrapper/Wrapper';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-timepicker--docs Storybook}
  */
-const TimePicker: FC<TimePickerProps> = ({
+const TimePicker: FC<Props> = ({
   format = '12',
   mode = 'select',
   showList = true,

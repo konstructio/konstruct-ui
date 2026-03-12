@@ -2,23 +2,23 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { TagSelect } from './TagSelect';
-import { TagSelectProps } from './TagSelect.types';
+import { Props } from './TagSelect.types';
 import { FC, PropsWithChildren } from 'react';
 
 describe('TagSelect', () => {
   const options = [
     { id: '1', color: 'gray', label: 'gray' },
     { id: '2', color: 'cyan', label: 'cyan' },
-  ] satisfies TagSelectProps['options'];
+  ] satisfies Props['options'];
 
   const setup = (
-    props: Partial<TagSelectProps> = {},
+    props: Partial<Props> = {},
     wrapper?: FC<PropsWithChildren>,
   ) => {
     const defaultProps = {
       name: 'tag-select',
       options,
-    } satisfies TagSelectProps;
+    } satisfies Props;
 
     const { container: component } = render(
       <TagSelect {...defaultProps} {...props} />,

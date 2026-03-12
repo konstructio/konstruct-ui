@@ -10,7 +10,7 @@ import {
   NavigationSeparator,
   Wrapper,
 } from './components';
-import { SidebarChildrenProps, SidebarProps } from './Sidebar.types';
+import { SidebarChildrenProps, Props as SidebarProps } from './Sidebar.types';
 
 /**
  * A compound component for building application sidebars.

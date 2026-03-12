@@ -3,7 +3,7 @@ import { FC, forwardRef } from 'react';
 
 import { Wrapper } from './components';
 import { TagSelectProvider } from './contexts';
-import { TagSelectProps } from './TagSelect.types';
+import { Props } from './TagSelect.types';
 
 /**
  * An input component for selecting from a list of tag options.
@@ -25,11 +25,10 @@ import { TagSelectProps } from './TagSelect.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-tagselect--docs Storybook}
  */
-export const TagSelect: FC<TagSelectProps> = forwardRef<
-  HTMLInputElement,
-  TagSelectProps
->(({ options, multiselect, ...delegated }, ref) => (
-  <TagSelectProvider defaultOptions={options} multiselect={multiselect}>
-    <Wrapper ref={ref} {...delegated} />
-  </TagSelectProvider>
-));
+export const TagSelect: FC<Props> = forwardRef<HTMLInputElement, Props>(
+  ({ options, multiselect, ...delegated }, ref) => (
+    <TagSelectProvider defaultOptions={options} multiselect={multiselect}>
+      <Wrapper ref={ref} {...delegated} />
+    </TagSelectProvider>
+  ),
+);

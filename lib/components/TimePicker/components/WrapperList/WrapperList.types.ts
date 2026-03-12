@@ -1,4 +1,4 @@
-import { TimePickerProps } from '../../TimePicker.types';
+import { Props as TimePickerProps } from '../../TimePicker.types';
 
 export type WrapperListProps = {
   isOpen: boolean;

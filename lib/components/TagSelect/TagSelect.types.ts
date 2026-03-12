@@ -1,6 +1,6 @@
 import { VariantProps } from 'class-variance-authority';
 
-import { TagProps } from '@/components/Tag/Tag.types';
+import { Props as TagProps } from '@/components/Tag/Tag.types';
 
 import { tagSelectVariants } from './TagSelect.variants';
 
@@ -22,7 +22,7 @@ import { tagSelectVariants } from './TagSelect.variants';
  * />
  * ```
  */
-export interface TagSelectProps extends VariantProps<typeof tagSelectVariants> {
+export interface Props extends VariantProps<typeof tagSelectVariants> {
   /** Label displayed above the input */
   label?: string;
   /** Available tag options to select from */
@@ -40,3 +40,6 @@ export interface TagSelectProps extends VariantProps<typeof tagSelectVariants> {
   /** Whether multiple tags can be selected */
   multiselect?: boolean;
 }
+
+/** @deprecated Use Props instead */
+export type TagSelectProps = Props;

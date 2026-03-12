@@ -3,7 +3,7 @@ import { DayPicker as DatePickerPrimitive } from 'react-day-picker';
 
 import { cn } from '@/utils';
 
-import { DatePickerProps } from './DatePicker.types';
+import { Props } from './DatePicker.types';
 import { datePickerVariants } from './DatePicker.variants';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
@@ -31,7 +31,7 @@ import 'react-day-picker/style.css';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-datepicker--docs Storybook}
  */
-const DatePicker: FC<DatePickerProps> = ({
+const DatePicker: FC<Props> = ({
   className,
   showOutsideDays = true,
   animate = true,

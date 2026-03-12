@@ -35,8 +35,11 @@ type AlertBaseProps = VariantProps<typeof alertVariants> & {
  * <Alert type="warning" title="Warning" description={<span>Action <strong>required</strong></span>} />
  * ```
  */
-export type AlertProps = AlertBaseProps &
+export type Props = AlertBaseProps &
   (
     | { title: string | ReactNode; description?: string | ReactNode }
     | { title?: string | ReactNode; description: string | ReactNode }
   );
+
+/** @deprecated Use Props instead */
+export type AlertProps = Props;

@@ -15,7 +15,7 @@ import { buttonVariants } from './Button.variants';
  * <Button variant="danger" shape="circle"><TrashIcon /></Button>
  * ```
  */
-export interface ButtonProps
+export interface Props
   extends
     Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'disabled'>,
     VariantProps<typeof buttonVariants> {
@@ -28,3 +28,6 @@ export interface ButtonProps
   /** Theme override for this component */
   theme?: Theme;
 }
+
+/** @deprecated Use Props instead */
+export type ButtonProps = Props;

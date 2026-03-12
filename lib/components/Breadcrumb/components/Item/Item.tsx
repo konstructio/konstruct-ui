@@ -5,13 +5,13 @@ import { cn } from '@/utils';
 
 import { useBreadcrumb } from '../../hooks/useBreadcrumb';
 
-import { ItemProps } from './Item.types';
+import { Props } from './Item.types';
 import {
   breadcrumbLabelVariants,
   breadcrumbLinkVariants,
 } from './Item.variants';
 
-export const Item: FC<ItemProps> = ({
+export const Item: FC<Props> = ({
   isActive,
   isLast,
   label,

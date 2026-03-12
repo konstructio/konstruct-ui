@@ -11,7 +11,7 @@ import {
 import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
 
-import { SwitchProps } from './Switch.types';
+import { Props } from './Switch.types';
 import { switchVariants, thumbVariants } from './Switch.variants';
 
 /**
@@ -40,10 +40,7 @@ import { switchVariants, thumbVariants } from './Switch.variants';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-switch--docs Storybook}
  */
-export const Switch: FC<SwitchProps> = forwardRef<
-  HTMLInputElement,
-  SwitchProps
->(
+export const Switch: FC<Props> = forwardRef<HTMLInputElement, Props>(
   (
     {
       alignment = 'horizontal',

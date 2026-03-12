@@ -20,10 +20,13 @@ import { Theme } from '@/domain/theme';
  * </Tabs>
  * ```
  */
-export interface TabsProps extends ReactTabs.TabsProps, PropsWithChildren {
+export interface Props extends ReactTabs.TabsProps, PropsWithChildren {
   /** Theme override for this component */
   theme?: Theme;
 }
+
+/** @deprecated Use Props instead */
+export type TabsProps = Props;
 
 /**
  * Props for Tabs.Trigger component.

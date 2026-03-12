@@ -3,7 +3,7 @@ import { ChevronRight } from 'react-feather';
 
 import { cn } from '@/utils';
 
-import { BreadcrumbProps } from './Breadcrumb.types';
+import { Props } from './Breadcrumb.types';
 import {
   breadcrumbVariants,
   breadcrumbWrapperVariants,
@@ -36,7 +36,7 @@ import { Item } from './components';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-breadcrumb--docs Storybook}
  */
-export const Breadcrumb: FC<BreadcrumbProps> = ({
+export const Breadcrumb: FC<Props> = ({
   'aria-label': ariaLabel = 'breadcrumb',
   className,
   steps,

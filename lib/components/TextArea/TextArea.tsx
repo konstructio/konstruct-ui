@@ -2,7 +2,7 @@ import { FC, forwardRef, useId } from 'react';
 
 import { cn } from '@/utils';
 
-import { TextAreaProps } from './TextArea.types';
+import { Props } from './TextArea.types';
 import { textAreaVariants } from './TextArea.variants';
 
 /**
@@ -26,10 +26,7 @@ import { textAreaVariants } from './TextArea.variants';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-textarea--docs Storybook}
  */
-export const TextArea: FC<TextAreaProps> = forwardRef<
-  HTMLTextAreaElement,
-  TextAreaProps
->(
+export const TextArea: FC<Props> = forwardRef<HTMLTextAreaElement, Props>(
   (
     {
       initialValue,

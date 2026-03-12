@@ -17,7 +17,7 @@ import {
 
 import { cn } from '@/utils';
 
-import { RangeProps } from './Range.types';
+import { Props } from './Range.types';
 import {
   rangeOutsideVariants,
   rangeVariants,
@@ -43,10 +43,7 @@ import {
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-range--docs Storybook}
  */
-export const Range: FC<RangeProps> = forwardRef<
-  ComponentRef<'input'>,
-  RangeProps
->(
+export const Range: FC<Props> = forwardRef<ComponentRef<'input'>, Props>(
   (
     {
       label,

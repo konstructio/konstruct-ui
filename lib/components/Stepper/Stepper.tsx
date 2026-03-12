@@ -3,7 +3,7 @@ import { useMemo, type FC } from 'react';
 import { cn } from '@/utils';
 
 import { StepItem } from './components/StepItem/StepItem';
-import type { StepperProps } from './Stepper.types';
+import type { Props } from './Stepper.types';
 import {
   stepItemVariants,
   stepListVariants,
@@ -58,7 +58,7 @@ import {
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-stepper--docs Storybook}
  */
-export const Stepper: FC<StepperProps> = ({
+export const Stepper: FC<Props> = ({
   className,
   classNames,
   clickable = false,

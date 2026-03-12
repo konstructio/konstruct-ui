@@ -9,7 +9,7 @@ import {
 
 import { cn } from '@/utils';
 
-import { AutocompleteProps } from './Autocomplete.types';
+import { Props } from './Autocomplete.types';
 import { autocompleteVariants, labelVariants } from './Autocomplete.variants';
 import { List } from './components';
 import { useAutocomplete } from './hooks';
@@ -42,7 +42,7 @@ import { useAutocomplete } from './hooks';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-autocomplete--docs Storybook}
  */
-const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
+const Autocomplete = forwardRef<HTMLInputElement, Props>(
   (
     {
       autoComplete = 'off',

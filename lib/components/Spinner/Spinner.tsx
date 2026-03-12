@@ -5,10 +5,10 @@ import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
 
 import spinnerSvgUrl from './assets/spinner.svg?url';
-import { SpinnerProps } from './Spinner.types';
+import { Props } from './Spinner.types';
 import { spinnerIconVariants, spinnerVariants } from './Spinner.variants';
 
-const Spinner: FC<SpinnerProps> = ({
+const Spinner: FC<Props> = ({
   className,
   spinnerClassName,
   textClassName,

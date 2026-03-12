@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
 import { Autocomplete } from './Autocomplete';
-import { AutocompleteProps } from './Autocomplete.types';
+import { Props } from './Autocomplete.types';
 
 describe('Autocomplete', () => {
   const defaultProps = {
@@ -20,9 +20,9 @@ describe('Autocomplete', () => {
       },
     ],
     onChange: () => {},
-  } satisfies AutocompleteProps;
+  } satisfies Props;
 
-  const setup = (props?: Partial<AutocompleteProps>) => {
+  const setup = (props?: Partial<Props>) => {
     const { container: component } = render(
       <Autocomplete {...defaultProps} {...props} />,
     );

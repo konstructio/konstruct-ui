@@ -5,7 +5,7 @@ import { cn } from '@/utils';
 import { Typography } from '@/components/Typography/Typography';
 import { CalendarPanel, DateTimeInputs, PresetPanel } from './components';
 import { DateRangePickerProvider } from './contexts';
-import { DateRangePickerProps } from './DateRangePicker.types';
+import { Props } from './DateRangePicker.types';
 import {
   dateRangePickerVariants,
   rightPanelVariants,
@@ -38,7 +38,7 @@ import {
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-daterangepicker--docs Storybook}
  */
-const DateRangePicker: FC<DateRangePickerProps> = ({
+const DateRangePicker: FC<Props> = ({
   animationDuration = 500,
   className,
   defaultPreset = 'custom',

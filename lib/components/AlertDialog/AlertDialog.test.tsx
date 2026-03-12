@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
-import { AlertDialogProps } from './AlertDialog.types';
+import { Props } from './AlertDialog.types';
 import { AlertDialog } from './AlertDialog';
 
 describe('AlertDialog', () => {
@@ -10,9 +10,9 @@ describe('AlertDialog', () => {
     buttonTriggerText: 'Click Me!',
     title: 'Title',
     description: 'Description',
-  } satisfies AlertDialogProps;
+  } satisfies Props;
 
-  const setup = (props?: Partial<AlertDialogProps>) => {
+  const setup = (props?: Partial<Props>) => {
     const { container: component } = render(
       <AlertDialog {...defaultProps} {...props} />,
     );

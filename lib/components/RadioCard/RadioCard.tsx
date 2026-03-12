@@ -5,7 +5,7 @@ import { cn } from '@/utils';
 import { Card } from '../Card/Card';
 import { Radio } from '../Radio/Radio';
 
-import { RadioCardProps } from './RadioCard.types';
+import { Props } from './RadioCard.types';
 import { radioCardVariants } from './RadioCard.variants';
 
 /**
@@ -26,7 +26,7 @@ import { radioCardVariants } from './RadioCard.variants';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-radiocard--docs Storybook}
  */
-const RadioCard: FC<RadioCardProps> = ({
+const RadioCard: FC<Props> = ({
   wrapperClassName,
   theme,
   labelWrapperClassName,

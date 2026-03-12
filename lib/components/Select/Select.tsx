@@ -4,12 +4,7 @@ import { cn } from '@/utils';
 
 import { Wrapper } from './components';
 import { SelectProvider } from './contexts';
-import {
-  isOptionGroup,
-  Option,
-  OptionGroup,
-  SelectProps,
-} from './Select.types';
+import { isOptionGroup, Option, OptionGroup, Props } from './Select.types';
 
 export type { OptionGroup, AdditionalOptionGroup } from './Select.types';
 
@@ -46,10 +41,7 @@ export type { OptionGroup, AdditionalOptionGroup } from './Select.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-select--docs Storybook}
  */
-export const Select: FC<SelectProps> = forwardRef<
-  ComponentRef<'input'>,
-  SelectProps
->(
+export const Select: FC<Props> = forwardRef<ComponentRef<'input'>, Props>(
   (
     {
       error,

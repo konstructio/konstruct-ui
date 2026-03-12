@@ -6,7 +6,7 @@ import { Button } from '@/components/Button/Button';
 import { WarningIcon } from '@/assets/icons/components';
 import { cn } from '@/utils';
 
-import { ImageUploadProps, ImageUploadStatus } from './ImageUpload.types';
+import { Props, ImageUploadStatus } from './ImageUpload.types';
 import {
   imageUploadVariants,
   inputContainerVariants,
@@ -53,7 +53,7 @@ const ImageUpload = ({
   uploadButtonText = 'Upload logo',
   accept = 'image/svg+xml,image/png,image/jpeg,image/jpg',
   maxSize = 5 * 1024 * 1024,
-}: ImageUploadProps) => {
+}: Props) => {
   const id = useId();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const uploadTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);

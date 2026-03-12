@@ -2,14 +2,10 @@ import { FC } from 'react';
 
 import { cn } from '@/utils';
 
-import { NavigationTitleProps } from './NavigationTitle.types';
+import { Props } from './NavigationTitle.types';
 import { navigationTitleVariants } from './NavigationTitle.variants';
 
-const NavigationTitle: FC<NavigationTitleProps> = ({
-  title,
-  className,
-  isVisible = true,
-}) => {
+const NavigationTitle: FC<Props> = ({ title, className, isVisible = true }) => {
   if (!isVisible) {
     return null;
   }

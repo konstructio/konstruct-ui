@@ -3,7 +3,7 @@ import { HtmlHTMLAttributes, PropsWithChildren } from 'react';
 
 import { navigationGroupsVariants } from './NavigationGroup.variants';
 
-export interface NavigationGroupProps
+export interface Props
   extends
     PropsWithChildren,
     VariantProps<typeof navigationGroupsVariants>,
@@ -12,3 +12,6 @@ export interface NavigationGroupProps
   titleClassName?: string;
   isVisible?: boolean;
 }
+
+/** @deprecated Use Props instead */
+export type NavigationGroupProps = Props;

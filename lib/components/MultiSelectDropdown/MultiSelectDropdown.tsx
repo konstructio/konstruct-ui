@@ -2,7 +2,7 @@ import { FC, forwardRef } from 'react';
 
 import { Wrapper } from './components';
 import { MultiSelectDropdownProvider } from './contexts';
-import { MultiSelectDropdownProps } from './MultiSelectDropdown.types';
+import { Props } from './MultiSelectDropdown.types';
 
 /**
  * A dropdown component for selecting one or multiple options with search functionality.
@@ -24,9 +24,9 @@ import { MultiSelectDropdownProps } from './MultiSelectDropdown.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-multiselectdropdown--docs Storybook}
  */
-export const MultiSelectDropdown: FC<MultiSelectDropdownProps> = forwardRef<
+export const MultiSelectDropdown: FC<Props> = forwardRef<
   HTMLInputElement,
-  MultiSelectDropdownProps
+  Props
 >(
   (
     {

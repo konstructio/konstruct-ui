@@ -4,7 +4,7 @@ import { cn } from '@/utils';
 
 import { RadioCard } from '../RadioCard/RadioCard';
 
-import { RadioCardGroupProps } from './RadioCardGroup.types';
+import { Props } from './RadioCardGroup.types';
 import { radioCardGroupVariants } from './RadioCardGroup.variants';
 
 /**
@@ -27,7 +27,7 @@ import { radioCardGroupVariants } from './RadioCardGroup.variants';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-radiocardgroup--docs Storybook}
  */
-export const RadioCardGroup: FC<RadioCardGroupProps> = ({
+export const RadioCardGroup: FC<Props> = ({
   className,
   defaultChecked,
   direction,

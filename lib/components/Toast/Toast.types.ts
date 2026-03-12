@@ -23,7 +23,7 @@ import { toastVariants } from './Toast.variants';
  * </Toast>
  * ```
  */
-export interface ToastProps
+export interface Props
   extends PropsWithChildren, VariantProps<typeof toastVariants> {
   /** Additional CSS classes for the toast */
   className?: string;
@@ -48,3 +48,6 @@ export interface ToastProps
   /** Callback to update open state */
   setOpen: (open: boolean) => void;
 }
+
+/** @deprecated Use Props instead */
+export type ToastProps = Props;

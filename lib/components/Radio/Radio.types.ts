@@ -19,7 +19,7 @@ import { radioVariants } from './Radio.variants';
  * />
  * ```
  */
-export interface RadioProps
+export interface Props
   extends
     Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'disabled'>,
     VariantProps<typeof radioVariants> {
@@ -48,3 +48,6 @@ export interface RadioProps
   /** Callback when selected */
   onChange?: (value: string) => void;
 }
+
+/** @deprecated Use Props instead */
+export type RadioProps = Props;

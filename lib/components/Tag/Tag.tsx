@@ -3,7 +3,7 @@ import { FC } from 'react';
 
 import { cn } from '@/utils';
 
-import { TagProps } from './Tag.types';
+import { Props } from './Tag.types';
 import { tagVariants } from './Tag.variants';
 
 /**
@@ -19,7 +19,7 @@ import { tagVariants } from './Tag.variants';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-tag--docs Storybook}
  */
-export const Tag: FC<TagProps> = ({
+export const Tag: FC<Props> = ({
   label,
   color,
   rightIcon,

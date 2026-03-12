@@ -3,7 +3,7 @@ import { FC, forwardRef, useCallback, useId } from 'react';
 import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
 
-import { RadioProps } from './Radio.types';
+import { Props } from './Radio.types';
 import {
   labelRadioVariants,
   radioVariants,
@@ -28,7 +28,7 @@ import {
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-radio--docs Storybook}
  */
-const Radio: FC<RadioProps> = forwardRef<HTMLInputElement, RadioProps>(
+const Radio: FC<Props> = forwardRef<HTMLInputElement, Props>(
   (
     {
       checked = false,

@@ -37,7 +37,7 @@ import {
  * </Sidebar>
  * ```
  */
-export interface SidebarProps
+export interface Props
   extends VariantProps<typeof wrapperSiderbarVariants>, PropsWithChildren {
   /** Whether the sidebar can be resized by dragging */
   canResize?: boolean;
@@ -52,6 +52,9 @@ export interface SidebarProps
   /** Additional CSS classes for the wrapper */
   wrapperClassName?: string;
 }
+
+/** @deprecated Use Props instead */
+export type SidebarProps = Props;
 
 /**
  * Sidebar compound component type with sub-components.

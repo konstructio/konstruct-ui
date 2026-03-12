@@ -4,7 +4,7 @@ import { FC } from 'react';
 
 import { cn } from '@/utils';
 
-import { CommandProps } from './Command.types';
+import { Props } from './Command.types';
 import { wrapperVariants } from './Command.variants';
 import {
   Command as CommandBase,
@@ -36,7 +36,7 @@ import {
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-command--docs Storybook}
  */
-const Command: FC<CommandProps> = ({
+const Command: FC<Props> = ({
   children,
   title,
   titleClassName,
@@ -46,7 +46,7 @@ const Command: FC<CommandProps> = ({
 }) => (
   <Root {...props}>
     <DialogContent
-      className="overflow-hidden p-0 border-0 !rounded-none"
+      className="overflow-hidden p-0 border-0 rounded-none!"
       data-theme={theme}
     >
       <DialogTitle className={cn('hidden', titleClassName)}>

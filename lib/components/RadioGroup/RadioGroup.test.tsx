@@ -6,14 +6,11 @@ import { FC, PropsWithChildren } from 'react';
 import { Button } from '../Button/Button';
 
 import { RadioGroup } from './RadioGroup';
-import { RadioGroupProps } from './RadioGroup.types';
+import { Props } from './RadioGroup.types';
 
 describe('RadioGroup', () => {
-  const setup = (
-    props?: Partial<RadioGroupProps>,
-    wrapper?: FC<PropsWithChildren>,
-  ) => {
-    const defaultProps: RadioGroupProps = {
+  const setup = (props?: Partial<Props>, wrapper?: FC<PropsWithChildren>) => {
+    const defaultProps: Props = {
       name: 'name-radio-group',
       defaultChecked: '1',
       options: [

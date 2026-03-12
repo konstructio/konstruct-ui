@@ -2,10 +2,10 @@ import { FC } from 'react';
 
 import { cn } from '@/utils';
 
-import { NavigationSeparatorProps } from './NavigationSeparator.types';
+import { Props } from './NavigationSeparator.types';
 import { navigationSeparatorVariant } from './NavigationSeparator.variants';
 
-const NavigationSeparator: FC<NavigationSeparatorProps> = ({ className }) => (
+const NavigationSeparator: FC<Props> = ({ className }) => (
   <div className={cn(navigationSeparatorVariant({ className }))} />
 );
 

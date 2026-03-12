@@ -4,11 +4,11 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
-import { BreadcrumbProps } from './Breadcrumb.types';
+import { Props } from './Breadcrumb.types';
 import { Breadcrumb } from './Breadcrumb';
 
 describe('Breadcrumb', () => {
-  const defaultProps: BreadcrumbProps = {
+  const defaultProps: Props = {
     steps: [
       {
         label: 'Step 1',
@@ -19,7 +19,7 @@ describe('Breadcrumb', () => {
     ],
   };
 
-  const setup = (props?: Partial<BreadcrumbProps>, wrapper?: FC) => {
+  const setup = (props?: Partial<Props>, wrapper?: FC) => {
     const { container: component, debug } = render(
       <Breadcrumb {...defaultProps} {...props} />,
       {
@@ -42,7 +42,7 @@ describe('Breadcrumb', () => {
   };
 
   it('should render correctly', () => {
-    const steps = [{ label: 'Step 1' }] satisfies BreadcrumbProps['steps'];
+    const steps = [{ label: 'Step 1' }] satisfies Props['steps'];
     const { user } = setup({ steps });
 
     expect(user).toBeDefined();
@@ -60,7 +60,7 @@ describe('Breadcrumb', () => {
     const steps = [
       { label: 'Step 1', to: '/step-1' },
       { label: 'Step 2' },
-    ] satisfies BreadcrumbProps['steps'];
+    ] satisfies Props['steps'];
 
     const RouterWrapper: FC<PropsWithChildren> = ({ children }) => (
       <MemoryRouter>
@@ -103,7 +103,7 @@ describe('Breadcrumb', () => {
       { label: 'Step 3', isActive: false },
       { label: 'Step 4', to: '/step-4' },
       { label: 'Step 5' },
-    ] satisfies BreadcrumbProps['steps'];
+    ] satisfies Props['steps'];
 
     const RouterWrapper: FC<PropsWithChildren> = ({ children }) => (
       <MemoryRouter>

@@ -2,10 +2,10 @@ import { FC } from 'react';
 
 import { cn } from '@/utils';
 
-import { NavigationOptionProps } from './NavigationOption.types';
+import { Props } from './NavigationOption.types';
 import { navigationOptionVariants } from './NavigationOption.variants';
 
-const NavigationOption: FC<NavigationOptionProps> = ({
+const NavigationOption: FC<Props> = ({
   children,
   className,
   isVisible = true,
