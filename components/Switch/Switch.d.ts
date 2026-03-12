@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { SwitchProps } from './Switch.types';
+import { Props } from './Switch.types';
 /**
  * A toggle switch component built on Radix UI primitives.
  * Supports horizontal and vertical layouts with label and helper text.
@@ -26,4 +26,4 @@ import { SwitchProps } from './Switch.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-switch--docs Storybook}
  */
-export declare const Switch: FC<SwitchProps>;
+export declare const Switch: FC<Props>;

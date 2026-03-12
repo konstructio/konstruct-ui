@@ -1,5 +1,5 @@
 import { ForwardRefExoticComponent, RefAttributes } from '../../../node_modules/react';
-import { TypographyProps } from './Typography.types';
+import { Props } from './Typography.types';
 /**
  * A flexible typography component for consistent text styling.
  * Automatically selects semantic HTML elements based on variant.
@@ -14,5 +14,5 @@ import { TypographyProps } from './Typography.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-typography--docs Storybook}
  */
-declare const Typography: ForwardRefExoticComponent<Omit<TypographyProps, 'ref'> & RefAttributes<HTMLParagraphElement & HTMLHeadingElement & HTMLLabelElement>>;
+declare const Typography: ForwardRefExoticComponent<Omit<Props, 'ref'> & RefAttributes<HTMLParagraphElement & HTMLHeadingElement & HTMLLabelElement>>;
 export { Typography };

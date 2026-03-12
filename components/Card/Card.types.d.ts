@@ -12,7 +12,7 @@ import { cardVariants } from './Card.variants';
  * <Card isActive>Active/selected card</Card>
  * ```
  */
-export interface CardProps extends HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardVariants>, PropsWithChildren {
+export interface Props extends HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardVariants>, PropsWithChildren {
     /** Enable hover effect */
     canHover?: boolean;
     /** Show active/selected state */
@@ -22,3 +22,5 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement>, VariantProps<
     /** CSS classes for the outer wrapper */
     wrapperClassName?: string;
 }
+/** @deprecated Use Props instead */
+export type CardProps = Props;

@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { CommandProps } from './Command.types';
+import { Props } from './Command.types';
 import { CommandGroup, CommandItem, CommandSeparator } from './components';
 /**
  * A command palette dialog for keyboard-driven navigation and actions.
@@ -23,5 +23,5 @@ import { CommandGroup, CommandItem, CommandSeparator } from './components';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-command--docs Storybook}
  */
-declare const Command: FC<CommandProps>;
+declare const Command: FC<Props>;
 export { Command, CommandGroup, CommandItem, CommandSeparator };

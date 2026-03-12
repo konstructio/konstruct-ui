@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { SelectProps } from './Select.types';
+import { Props } from './Select.types';
 export type { OptionGroup, AdditionalOptionGroup } from './Select.types';
 /**
  * A dropdown select component with search, icons, and infinite scroll support.
@@ -34,4 +34,4 @@ export type { OptionGroup, AdditionalOptionGroup } from './Select.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-select--docs Storybook}
  */
-export declare const Select: FC<SelectProps>;
+export declare const Select: FC<Props>;

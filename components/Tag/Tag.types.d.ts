@@ -13,7 +13,7 @@ import { ReactNode } from '../../../node_modules/react';
  * />
  * ```
  */
-export type TagProps = {
+export type Props = {
     /** Color variant for the tag */
     color?: 'gray' | 'gray-800' | 'cyan' | 'gold' | 'green' | 'light blue' | 'lime' | 'pink' | 'purple' | 'emerald' | 'fuscia' | 'indigo' | 'light-orange' | 'dark-sky-blue' | 'mistery';
     /** Unique identifier for the tag */
@@ -31,3 +31,5 @@ export type TagProps = {
     /** Whether the tag is in a selected state */
     isSelected?: boolean;
 };
+/** @deprecated Use Props instead */
+export type TagProps = Props;

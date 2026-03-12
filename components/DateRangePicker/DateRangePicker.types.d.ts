@@ -18,7 +18,7 @@ export type { CalendarPanelClassNames, DateTimeInputsClassNames, DayPickerClassN
  * />
  * ```
  */
-export type DateRangePickerProps = VariantProps<typeof dateRangePickerVariants> & {
+export type Props = VariantProps<typeof dateRangePickerVariants> & {
     /** Initial date range */
     defaultRange?: DateRange;
     /** Initial time range */
@@ -110,6 +110,8 @@ export type DateRangePickerProps = VariantProps<typeof dateRangePickerVariants> 
     /** Custom class names for different parts of the component */
     classNames?: DateRangePickerClassNames;
 };
+/** @deprecated Use Props instead */
+export type DateRangePickerProps = Props;
 /** Custom class names for different parts of the DateRangePicker component */
 export type DateRangePickerClassNames = {
     /** Class name for the main container */

@@ -12,7 +12,7 @@ import { inputVariants } from './Input.variants';
  * <Input error="Invalid email" helperText="We'll never share your email" />
  * ```
  */
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof inputVariants> {
+export interface Props extends InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof inputVariants> {
     /** Error message to display below the input */
     error?: string;
     /** Helper text displayed below the input when no error */
@@ -34,3 +34,5 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement>, Varia
     /** Theme override for this component */
     theme?: Theme;
 }
+/** @deprecated Use Props instead */
+export type InputProps = Props;

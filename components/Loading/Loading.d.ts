@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { LoadingProps } from './Loading.types';
+import { Props } from './Loading.types';
 /**
  * A spinning loading indicator.
  *
@@ -20,5 +20,5 @@ import { LoadingProps } from './Loading.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-loading--docs Storybook}
  */
-declare const Loading: FC<LoadingProps>;
+declare const Loading: FC<Props>;
 export { Loading };

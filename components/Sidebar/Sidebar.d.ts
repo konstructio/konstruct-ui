@@ -1,6 +1,6 @@
 import { FC } from '../../../node_modules/react';
 import { Footer, Logo, Navigation, NavigationGroup, NavigationOption, NavigationSeparator } from './components';
-import { SidebarChildrenProps, SidebarProps } from './Sidebar.types';
+import { SidebarChildrenProps, Props as SidebarProps } from './Sidebar.types';
 /**
  * A compound component for building application sidebars.
  * Includes sub-components for logo, navigation, groups, options, and footer.

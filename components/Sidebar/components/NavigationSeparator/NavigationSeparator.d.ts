@@ -1,4 +1,4 @@
 import { FC } from '../../../../../node_modules/react';
-import { NavigationSeparatorProps } from './NavigationSeparator.types';
-declare const NavigationSeparator: FC<NavigationSeparatorProps>;
+import { Props } from './NavigationSeparator.types';
+declare const NavigationSeparator: FC<Props>;
 export { NavigationSeparator };

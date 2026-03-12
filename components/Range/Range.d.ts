@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { RangeProps } from './Range.types';
+import { Props } from './Range.types';
 /**
  * A dual-thumb slider component for selecting a value range.
  * Built on Radix UI Slider for accessibility.
@@ -18,4 +18,4 @@ import { RangeProps } from './Range.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-range--docs Storybook}
  */
-export declare const Range: FC<RangeProps>;
+export declare const Range: FC<Props>;

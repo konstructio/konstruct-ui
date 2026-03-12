@@ -23,10 +23,12 @@ import { bodyVariants, headVariants, rowVariants, tableVariants } from './Table.
  * </Table>
  * ```
  */
-export interface TableProps extends React.HTMLAttributes<HTMLTableElement>, PropsWithChildren, VariantProps<typeof tableVariants> {
+export interface Props extends React.HTMLAttributes<HTMLTableElement>, PropsWithChildren, VariantProps<typeof tableVariants> {
     /** Theme override for this component */
     theme?: Theme;
 }
+/** @deprecated Use Props instead */
+export type TableProps = Props;
 /**
  * Props for Table.Row component.
  */

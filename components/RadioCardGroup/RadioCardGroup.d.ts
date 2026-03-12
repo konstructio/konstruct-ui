@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { RadioCardGroupProps } from './RadioCardGroup.types';
+import { Props } from './RadioCardGroup.types';
 /**
  * A group of card-style radio buttons with shared state management.
  *
@@ -20,4 +20,4 @@ import { RadioCardGroupProps } from './RadioCardGroup.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-radiocardgroup--docs Storybook}
  */
-export declare const RadioCardGroup: FC<RadioCardGroupProps>;
+export declare const RadioCardGroup: FC<Props>;

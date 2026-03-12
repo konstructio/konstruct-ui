@@ -16,7 +16,7 @@ import { radioVariants } from './Radio.variants';
  * />
  * ```
  */
-export interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'disabled'>, VariantProps<typeof radioVariants> {
+export interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'disabled'>, VariantProps<typeof radioVariants> {
     /** Whether the radio is checked */
     checked?: boolean;
     /** Initial checked state (uncontrolled) */
@@ -42,3 +42,5 @@ export interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
     /** Callback when selected */
     onChange?: (value: string) => void;
 }
+/** @deprecated Use Props instead */
+export type RadioProps = Props;

@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { LineChartProps } from './LineChart.types';
+import { Props } from './LineChart.types';
 /**
  * A line chart component for time-series data visualization.
  * Built on Chart.js with support for single and multi-line datasets.
@@ -14,4 +14,4 @@ import { LineChartProps } from './LineChart.types';
  * />
  * ```
  */
-export declare const LineChart: FC<LineChartProps>;
+export declare const LineChart: FC<Props>;

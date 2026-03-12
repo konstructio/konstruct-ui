@@ -20,7 +20,7 @@ import { toastVariants } from './Toast.variants';
  * </Toast>
  * ```
  */
-export interface ToastProps extends PropsWithChildren, VariantProps<typeof toastVariants> {
+export interface Props extends PropsWithChildren, VariantProps<typeof toastVariants> {
     /** Additional CSS classes for the toast */
     className?: string;
     /** CSS classes for the close button */
@@ -44,3 +44,5 @@ export interface ToastProps extends PropsWithChildren, VariantProps<typeof toast
     /** Callback to update open state */
     setOpen: (open: boolean) => void;
 }
+/** @deprecated Use Props instead */
+export type ToastProps = Props;

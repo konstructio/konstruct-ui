@@ -15,7 +15,7 @@ import { counterVariants } from './Counter.variants';
  * />
  * ```
  */
-export interface CounterProps extends VariantProps<typeof counterVariants> {
+export interface Props extends VariantProps<typeof counterVariants> {
     /** Allow decrement button to be clicked */
     canDecrement?: boolean;
     /** Allow increment button to be clicked */
@@ -51,3 +51,5 @@ export interface CounterProps extends VariantProps<typeof counterVariants> {
         };
     }) => void;
 }
+/** @deprecated Use Props instead */
+export type CounterProps = Props;

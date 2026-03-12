@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { RadioCardProps } from './RadioCard.types';
+import { Props } from './RadioCard.types';
 /**
  * A card-style radio button for visually prominent selection options.
  * Use RadioCardGroup to manage a group of radio cards.
@@ -18,5 +18,5 @@ import { RadioCardProps } from './RadioCard.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-radiocard--docs Storybook}
  */
-declare const RadioCard: FC<RadioCardProps>;
+declare const RadioCard: FC<Props>;
 export { RadioCard };

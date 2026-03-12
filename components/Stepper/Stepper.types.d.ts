@@ -47,7 +47,7 @@ export type StepperIcons = {
     /** Custom icon for error status */
     error?: ReactNode;
 };
-export type StepperProps = VariantProps<typeof stepperVariants> & {
+export type Props = VariantProps<typeof stepperVariants> & {
     /** Additional CSS classes for the wrapper */
     className?: string;
     /** Custom class names for each element */
@@ -71,3 +71,5 @@ export type StepperProps = VariantProps<typeof stepperVariants> & {
     /** Callback when a step is clicked */
     onStepClick?: (step: Step, index: number) => void;
 };
+/** @deprecated Use Props instead */
+export type StepperProps = Props;

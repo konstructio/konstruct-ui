@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { TagProps } from './Tag.types';
+import { Props } from './Tag.types';
 /**
  * A small label component for categorization, status display, or filtering.
  * Supports multiple color variants and optional icons.
@@ -13,4 +13,4 @@ import { TagProps } from './Tag.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-tag--docs Storybook}
  */
-export declare const Tag: FC<TagProps>;
+export declare const Tag: FC<Props>;

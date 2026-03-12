@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { DatePickerProps } from './DatePicker.types';
+import { Props } from './DatePicker.types';
 /**
  * A date picker component built on react-day-picker.
  * Allows single date selection with calendar navigation.
@@ -22,5 +22,5 @@ import { DatePickerProps } from './DatePicker.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-datepicker--docs Storybook}
  */
-declare const DatePicker: FC<DatePickerProps>;
+declare const DatePicker: FC<Props>;
 export { DatePicker };

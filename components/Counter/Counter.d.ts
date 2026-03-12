@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { CounterProps } from './Counter.types';
+import { Props } from './Counter.types';
 /**
  * A numeric input component with increment/decrement buttons.
  * Also exported as `NumberInput` for convenience.
@@ -33,4 +33,4 @@ import { CounterProps } from './Counter.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-counter--docs Storybook}
  */
-export declare const Counter: FC<CounterProps>;
+export declare const Counter: FC<Props>;

@@ -12,7 +12,7 @@ import { buttonVariants } from './Button.variants';
  * <Button variant="danger" shape="circle"><TrashIcon /></Button>
  * ```
  */
-export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'disabled'>, VariantProps<typeof buttonVariants> {
+export interface Props extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'disabled'>, VariantProps<typeof buttonVariants> {
     /** Ref to the underlying button element */
     ref?: Ref<HTMLButtonElement>;
     /** Merge props onto child element instead of rendering a button */
@@ -22,3 +22,5 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
     /** Theme override for this component */
     theme?: Theme;
 }
+/** @deprecated Use Props instead */
+export type ButtonProps = Props;

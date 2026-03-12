@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { TagSelectProps } from './TagSelect.types';
+import { Props } from './TagSelect.types';
 /**
  * An input component for selecting from a list of tag options.
  * Supports single and multi-selection modes.
@@ -20,4 +20,4 @@ import { TagSelectProps } from './TagSelect.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-tagselect--docs Storybook}
  */
-export declare const TagSelect: FC<TagSelectProps>;
+export declare const TagSelect: FC<Props>;

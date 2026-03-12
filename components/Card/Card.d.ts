@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { CardProps } from './Card.types';
+import { Props } from './Card.types';
 /**
  * A container card component with optional hover and active states.
  *
@@ -24,5 +24,5 @@ import { CardProps } from './Card.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-card--docs Storybook}
  */
-declare const Card: FC<CardProps>;
+declare const Card: FC<Props>;
 export { Card };

@@ -1,4 +1,4 @@
-import { TimePickerProps } from '../../TimePicker.types';
+import { Props as TimePickerProps } from '../../TimePicker.types';
 export type WrapperProps = Omit<TimePickerProps, 'format' | 'time' | 'onChange'> & {
     mode?: 'select' | 'input';
     showList?: boolean;

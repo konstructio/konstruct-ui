@@ -6,7 +6,7 @@ type NavigationOption = VariantProps<typeof navigationOptionVariants> & {
     isVisible?: boolean;
     isActive?: boolean;
 };
-export type NavigationOptionProps = NavigationOption & ({
+export type Props = NavigationOption & ({
     role: 'button';
     children: ReactNode;
     onClick: VoidFunction;
@@ -14,4 +14,6 @@ export type NavigationOptionProps = NavigationOption & ({
     role?: never;
     children: ReactNode;
 });
+/** @deprecated Use Props instead */
+export type NavigationOptionProps = Props;
 export {};

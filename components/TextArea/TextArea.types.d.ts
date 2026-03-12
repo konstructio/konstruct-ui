@@ -12,7 +12,7 @@ import { textAreaVariants } from './TextArea.variants';
  * <TextArea name="bio" initialValue="Default text" />
  * ```
  */
-export interface TextAreaProps extends InputHTMLAttributes<HTMLTextAreaElement>, VariantProps<typeof textAreaVariants> {
+export interface Props extends InputHTMLAttributes<HTMLTextAreaElement>, VariantProps<typeof textAreaVariants> {
     /** Number of visible text rows (default: 3) */
     rows?: number;
     /** Label displayed above the textarea */
@@ -26,3 +26,5 @@ export interface TextAreaProps extends InputHTMLAttributes<HTMLTextAreaElement>,
     /** Theme override for this component */
     theme?: Theme;
 }
+/** @deprecated Use Props instead */
+export type TextAreaProps = Props;

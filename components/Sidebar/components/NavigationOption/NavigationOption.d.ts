@@ -1,4 +1,4 @@
 import { FC } from '../../../../../node_modules/react';
-import { NavigationOptionProps } from './NavigationOption.types';
-declare const NavigationOption: FC<NavigationOptionProps>;
+import { Props } from './NavigationOption.types';
+declare const NavigationOption: FC<Props>;
 export { NavigationOption };

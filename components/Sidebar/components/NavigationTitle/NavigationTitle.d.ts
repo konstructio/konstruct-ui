@@ -1,4 +1,4 @@
 import { FC } from '../../../../../node_modules/react';
-import { NavigationTitleProps } from './NavigationTitle.types';
-declare const NavigationTitle: FC<NavigationTitleProps>;
+import { Props } from './NavigationTitle.types';
+declare const NavigationTitle: FC<Props>;
 export { NavigationTitle };

@@ -50,5 +50,7 @@ export type { VirtualizedTableEventDetail } from './VirtualizedTable/events';
 export type { ColumnDef, RowData, FilterConfig, ActionFilterConfig, BadgeMultiSelectFilterConfig, TextMultiSelectFilterConfig, DateFilterConfig, DateRangeFilterConfig, TimeFilterConfig, } from './VirtualizedTable/VirtualizedTable.types';
 export type { Step, StepperClassNames, StepperIcons, StepperProps, StepSize, StepStatus, StepVariant, } from './Stepper/Stepper.types';
 export { horizontalConnectorWrapperVariants, stepConnectorVariants, stepContentVariants, stepDescriptionVariants, stepIndicatorVariants, stepItemVariants, stepLabelVariants, stepListVariants, stepperVariants, stepVariants, } from './Stepper/Stepper.variants';
+/** @deprecated Use Counter instead */
 export { Counter as NumberInput } from './Counter/Counter';
+/** @deprecated Use Select instead */
 export { Select as Dropdown } from './Select/Select';

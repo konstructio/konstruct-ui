@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { DateRangePickerProps } from './DateRangePicker.types';
+import { Props } from './DateRangePicker.types';
 /**
  * A date range picker component that allows selecting a range of dates
  * with optional time inputs and preset options.
@@ -27,5 +27,5 @@ import { DateRangePickerProps } from './DateRangePicker.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-daterangepicker--docs Storybook}
  */
-declare const DateRangePicker: FC<DateRangePickerProps>;
+declare const DateRangePicker: FC<Props>;
 export { DateRangePicker };

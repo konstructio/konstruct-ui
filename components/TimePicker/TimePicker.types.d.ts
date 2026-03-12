@@ -15,7 +15,7 @@ import { timePickerVariants } from './TimePicker.variants';
  * />
  * ```
  */
-export type TimePickerProps = VariantProps<typeof timePickerVariants> & {
+export type Props = VariantProps<typeof timePickerVariants> & {
     /** Time format: '12' for AM/PM or '24' for military time */
     format?: '12' | '24';
     /** Input mode: 'select' for dropdown only, 'input' for typing */
@@ -51,3 +51,5 @@ export type TimePickerProps = VariantProps<typeof timePickerVariants> & {
     /** Direction to open the dropdown list (default: 'bottom') */
     listPosition?: 'top' | 'bottom';
 };
+/** @deprecated Use Props instead */
+export type TimePickerProps = Props;

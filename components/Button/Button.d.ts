@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { ButtonProps } from './Button.types';
+import { Props } from './Button.types';
 /**
  * A customizable button component with multiple variants and styles.
  *
@@ -29,5 +29,5 @@ import { ButtonProps } from './Button.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-button--docs Storybook}
  */
-declare const Button: FC<ButtonProps>;
+declare const Button: FC<Props>;
 export { Button };

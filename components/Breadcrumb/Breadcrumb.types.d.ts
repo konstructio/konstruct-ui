@@ -31,7 +31,7 @@ export type Step = {
  * />
  * ```
  */
-export interface BreadcrumbProps extends VariantProps<typeof breadcrumbVariants>, HTMLAttributes<HTMLOListElement> {
+export interface Props extends VariantProps<typeof breadcrumbVariants>, HTMLAttributes<HTMLOListElement> {
     /** Array of breadcrumb steps */
     steps: Step[];
     /** CSS classes for the nav wrapper */
@@ -39,3 +39,5 @@ export interface BreadcrumbProps extends VariantProps<typeof breadcrumbVariants>
     /** Theme override for this component */
     theme?: Theme;
 }
+/** @deprecated Use Props instead */
+export type BreadcrumbProps = Props;

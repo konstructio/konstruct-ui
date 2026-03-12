@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { TextAreaProps } from './TextArea.types';
+import { Props } from './TextArea.types';
 /**
  * A multiline text input component with optional label.
  *
@@ -21,4 +21,4 @@ import { TextAreaProps } from './TextArea.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-textarea--docs Storybook}
  */
-export declare const TextArea: FC<TextAreaProps>;
+export declare const TextArea: FC<Props>;

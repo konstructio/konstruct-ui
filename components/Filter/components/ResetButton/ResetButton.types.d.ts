@@ -1,4 +1,4 @@
-import { ButtonProps } from '../../../Button/Button.types';
+import { Props as ButtonProps } from '../../../Button/Button.types';
 export type ResetButtonProps = ButtonProps & {
     disabled?: boolean;
     onClick?: VoidFunction;

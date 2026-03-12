@@ -1,4 +1,4 @@
-import { InputProps } from './Input.types';
+import { Props } from './Input.types';
 /**
  * A text input component with label, error handling, and helper text support.
  * Includes built-in password visibility toggle and search icon variant.
@@ -31,5 +31,5 @@ import { InputProps } from './Input.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-input--docs Storybook}
  */
-declare const Input: import('../../../node_modules/react').ForwardRefExoticComponent<InputProps & import('../../../node_modules/react').RefAttributes<HTMLInputElement>>;
+declare const Input: import('../../../node_modules/react').ForwardRefExoticComponent<Props & import('../../../node_modules/react').RefAttributes<HTMLInputElement>>;
 export { Input };

@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { BadgeProps } from './Badge.types';
+import { Props } from './Badge.types';
 /**
  * A badge/tag component for status indicators and labels.
  * Supports multiple variants, icons, loading state, and dismissible mode.
@@ -31,4 +31,4 @@ import { BadgeProps } from './Badge.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-badge--docs Storybook}
  */
-export declare const Badge: FC<BadgeProps>;
+export declare const Badge: FC<Props>;

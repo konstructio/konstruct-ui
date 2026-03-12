@@ -1,6 +1,6 @@
 import { Theme } from '../../domain/theme';
-import { CardProps } from '../Card/Card.types';
-import { RadioProps } from '../Radio/Radio.types';
+import { Props as CardProps } from '../Card/Card.types';
+import { Props as RadioProps } from '../Radio/Radio.types';
 /**
  * Props for the RadioCard component.
  * Combines Card styling with Radio functionality.
@@ -17,7 +17,9 @@ import { RadioProps } from '../Radio/Radio.types';
  * />
  * ```
  */
-export type RadioCardProps = Omit<CardProps, 'canHover' | 'isActive'> & Pick<RadioProps, 'name' | 'value' | 'checked' | 'onChange' | 'label' | 'disabled' | 'defaultChecked' | 'labelTextClassName' | 'description' | 'descriptionClassName'> & {
+export type Props = Omit<CardProps, 'canHover' | 'isActive'> & Pick<RadioProps, 'name' | 'value' | 'checked' | 'onChange' | 'label' | 'disabled' | 'defaultChecked' | 'labelTextClassName' | 'description' | 'descriptionClassName'> & {
     labelWrapperClassName?: string;
     theme?: Theme;
 };
+/** @deprecated Use Props instead */
+export type RadioCardProps = Props;

@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { BreadcrumbProps } from './Breadcrumb.types';
+import { Props } from './Breadcrumb.types';
 /**
  * A breadcrumb navigation component showing the current location in a hierarchy.
  *
@@ -26,4 +26,4 @@ import { BreadcrumbProps } from './Breadcrumb.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-breadcrumb--docs Storybook}
  */
-export declare const Breadcrumb: FC<BreadcrumbProps>;
+export declare const Breadcrumb: FC<Props>;

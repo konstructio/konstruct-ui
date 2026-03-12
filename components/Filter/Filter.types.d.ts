@@ -1,7 +1,7 @@
 import { VariantProps } from 'class-variance-authority';
 import { FC, PropsWithChildren } from '../../../node_modules/react';
 import { Theme } from '../../domain/theme';
-import { BadgeProps } from '../Badge/Badge.types';
+import { Props as BadgeProps } from '../Badge/Badge.types';
 import { filterVariants } from './Filter.variants';
 import { BadgeMultiSelectProps, DateFilterDropdownProps, DateRangeFilterDropdownProps, ResetButtonProps, TextMultiSelectProps, TimeFilterDropdownProps } from './components';
 /**
@@ -42,7 +42,7 @@ export type Option = {
  * </Filter>
  * ```
  */
-export type FilterProps = VariantProps<typeof filterVariants> & PropsWithChildren & {
+export type Props = VariantProps<typeof filterVariants> & PropsWithChildren & {
     /** Additional CSS classes for the filter wrapper */
     className?: string;
     /** Theme override for this component */
@@ -50,10 +50,12 @@ export type FilterProps = VariantProps<typeof filterVariants> & PropsWithChildre
     /** Whether to close the filter dropdown automatically when Apply is clicked. Defaults to true. */
     closeOnApply?: boolean;
 };
+/** @deprecated Use Props instead */
+export type FilterProps = Props;
 /**
  * Filter compound component type with sub-components.
  */
-export type FilterComponentProps = FC<FilterProps> & {
+export type FilterComponentProps = FC<Props> & {
     BadgeMultiSelect: FC<BadgeMultiSelectProps>;
     TextMultiSelect: FC<TextMultiSelectProps>;
     DateFilterDropdown: FC<DateFilterDropdownProps>;

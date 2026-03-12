@@ -29,7 +29,7 @@ export type ImageUploadStatusType = ImageUploadStatus;
  * />
  * ```
  */
-export interface ImageUploadProps extends Omit<VariantProps<typeof imageUploadVariants>, 'status'> {
+export interface Props extends Omit<VariantProps<typeof imageUploadVariants>, 'status'> {
     /** Additional CSS classes */
     className?: string;
     /** Error message to display */
@@ -67,3 +67,5 @@ export interface ImageUploadProps extends Omit<VariantProps<typeof imageUploadVa
     /** Maximum file size in bytes */
     maxSize?: number;
 }
+/** @deprecated Use Props instead */
+export type ImageUploadProps = Props;

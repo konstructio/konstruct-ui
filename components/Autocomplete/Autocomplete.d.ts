@@ -1,4 +1,4 @@
-import { AutocompleteProps } from './Autocomplete.types';
+import { Props } from './Autocomplete.types';
 /**
  * An autocomplete/typeahead input component that suggests options as you type.
  *
@@ -27,5 +27,5 @@ import { AutocompleteProps } from './Autocomplete.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-autocomplete--docs Storybook}
  */
-declare const Autocomplete: import('../../../node_modules/react').ForwardRefExoticComponent<AutocompleteProps & import('../../../node_modules/react').RefAttributes<HTMLInputElement>>;
+declare const Autocomplete: import('../../../node_modules/react').ForwardRefExoticComponent<Props & import('../../../node_modules/react').RefAttributes<HTMLInputElement>>;
 export { Autocomplete };

@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { AlertDialogProps } from './AlertDialog.types';
+import { Props } from './AlertDialog.types';
 /**
  * A confirmation dialog component built on Radix UI AlertDialog.
  * Includes a trigger button that opens a modal with title, description, and action buttons.
@@ -28,5 +28,5 @@ import { AlertDialogProps } from './AlertDialog.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-alertdialog--docs Storybook}
  */
-declare const AlertDialog: FC<AlertDialogProps>;
+declare const AlertDialog: FC<Props>;
 export { AlertDialog };

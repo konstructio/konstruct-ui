@@ -1,7 +1,7 @@
 import { ColumnDef as ColumnDefPrimitive, ExpandedState, OnChangeFn, RowData as RowDataPrimitive } from '@tanstack/react-table';
 import { VariantProps } from 'class-variance-authority';
 import { ReactNode } from '../../../node_modules/react';
-import { ButtonProps } from '../Button/Button.types';
+import { Props as ButtonProps } from '../Button/Button.types';
 import { DateRange, DateRangeWithTime } from '../DateRangePicker/DateRangePicker.types';
 import { TimePreset } from '../Filter/components/TimeFilterDropdown/TimeFilterDropdown.types';
 import { virtualizeTableVariants } from './VirtualizedTable.variants';

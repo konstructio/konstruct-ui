@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { RadioGroupProps } from './RadioGroup.types';
+import { Props } from './RadioGroup.types';
 /**
  * A group of radio buttons with shared state management.
  *
@@ -31,4 +31,4 @@ import { RadioGroupProps } from './RadioGroup.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-radiogroup--docs Storybook}
  */
-export declare const RadioGroup: FC<RadioGroupProps>;
+export declare const RadioGroup: FC<Props>;

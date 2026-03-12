@@ -1,4 +1,4 @@
 import { FC } from '../../../../../node_modules/react';
-import { FooterProps } from './Footer.types';
-declare const Footer: FC<FooterProps>;
+import { Props } from './Footer.types';
+declare const Footer: FC<Props>;
 export { Footer };

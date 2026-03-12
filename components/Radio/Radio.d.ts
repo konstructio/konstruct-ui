@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { RadioProps } from './Radio.types';
+import { Props } from './Radio.types';
 /**
  * A radio button component with label and optional description.
  * Use RadioGroup to manage a group of radio buttons.
@@ -18,5 +18,5 @@ import { RadioProps } from './Radio.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-radio--docs Storybook}
  */
-declare const Radio: FC<RadioProps>;
+declare const Radio: FC<Props>;
 export { Radio };

@@ -1,5 +1,5 @@
 import { ComponentRef, RefObject } from '../../../../../node_modules/react';
-import { SelectProps } from '../../Select.types';
+import { Props as SelectProps } from '../../Select.types';
 export type ListProps = Pick<SelectProps, 'name' | 'options' | 'theme' | 'additionalOptions'> & {
     className?: string;
     groupedOptions: SelectProps['options'];

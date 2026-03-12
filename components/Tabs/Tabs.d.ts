@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { ListProps, TabsProps, TriggerProps } from './Tabs.types';
+import { ListProps, Props as TabsProps, TriggerProps } from './Tabs.types';
 import { Content, List, Trigger } from './components';
 import * as ReactTabs from '@radix-ui/react-tabs';
 /**

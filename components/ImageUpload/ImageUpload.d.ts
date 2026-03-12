@@ -1,4 +1,4 @@
-import { ImageUploadProps } from './ImageUpload.types';
+import { Props } from './ImageUpload.types';
 /**
  * A file input component for uploading images with preview and validation.
  * Supports drag states, file type validation, size limits, and upload progress.
@@ -19,7 +19,7 @@ import { ImageUploadProps } from './ImageUpload.types';
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-imageupload--docs Storybook}
  */
 declare const ImageUpload: {
-    ({ className, error, fileName, fileSize, fileUrl, helperText, isRequired, label, labelClassName, labelWrapperClassName, name, onChange, onRemove, status, theme, uploadButtonText, accept, maxSize, }: ImageUploadProps): import("react/jsx-runtime").JSX.Element;
+    ({ className, error, fileName, fileSize, fileUrl, helperText, isRequired, label, labelClassName, labelWrapperClassName, name, onChange, onRemove, status, theme, uploadButtonText, accept, maxSize, }: Props): import("react/jsx-runtime").JSX.Element;
     displayName: string;
 };
 export { ImageUpload };

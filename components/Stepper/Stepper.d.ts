@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { StepperProps } from './Stepper.types';
+import { Props } from './Stepper.types';
 /**
  * A stepper component for displaying multi-step processes.
  * Supports vertical and horizontal orientations with various step states.
@@ -48,4 +48,4 @@ import { StepperProps } from './Stepper.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-stepper--docs Storybook}
  */
-export declare const Stepper: FC<StepperProps>;
+export declare const Stepper: FC<Props>;

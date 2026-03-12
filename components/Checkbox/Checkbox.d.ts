@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { CheckboxProps } from './Checkbox.types';
+import { Props } from './Checkbox.types';
 /**
  * A checkbox component built on Radix UI primitives.
  * Supports controlled and uncontrolled modes with label support.
@@ -22,5 +22,5 @@ import { CheckboxProps } from './Checkbox.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-checkbox--docs Storybook}
  */
-declare const Checkbox: FC<CheckboxProps>;
+declare const Checkbox: FC<Props>;
 export { Checkbox };

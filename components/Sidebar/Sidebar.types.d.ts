@@ -27,7 +27,7 @@ import { FooterProps, LogoProps, NavigationGroupProps, NavigationOptionProps, Na
  * </Sidebar>
  * ```
  */
-export interface SidebarProps extends VariantProps<typeof wrapperSiderbarVariants>, PropsWithChildren {
+export interface Props extends VariantProps<typeof wrapperSiderbarVariants>, PropsWithChildren {
     /** Whether the sidebar can be resized by dragging */
     canResize?: boolean;
     /** Additional CSS classes for the divider */
@@ -41,6 +41,8 @@ export interface SidebarProps extends VariantProps<typeof wrapperSiderbarVariant
     /** Additional CSS classes for the wrapper */
     wrapperClassName?: string;
 }
+/** @deprecated Use Props instead */
+export type SidebarProps = Props;
 /**
  * Sidebar compound component type with sub-components.
  */

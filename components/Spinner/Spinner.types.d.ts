@@ -1,9 +1,9 @@
 import { VariantProps } from 'class-variance-authority';
 import { HTMLAttributes, ReactNode } from '../../../node_modules/react';
-import { TypographyProps } from '../Typography/Typography.types';
+import { Props as TypographyProps } from '../Typography/Typography.types';
 import { Theme } from '../../domain/theme';
 import { spinnerVariants } from './Spinner.variants';
-export type SpinnerProps = HTMLAttributes<HTMLDivElement> & VariantProps<typeof spinnerVariants> & {
+export type Props = HTMLAttributes<HTMLDivElement> & VariantProps<typeof spinnerVariants> & {
     spinnerClassName?: string;
     textClassName?: string;
     textVariant?: TypographyProps['variant'];
@@ -11,3 +11,5 @@ export type SpinnerProps = HTMLAttributes<HTMLDivElement> & VariantProps<typeof 
     srLabel?: string;
     theme?: Theme;
 };
+/** @deprecated Use Props instead */
+export type SpinnerProps = Props;

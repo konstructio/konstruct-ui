@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { TooltipProps } from './Tooltip.types';
+import { Props } from './Tooltip.types';
 /**
  * A tooltip component that shows on hover.
  * Built on Radix UI for accessible, well-positioned tooltips.
@@ -19,4 +19,4 @@ import { TooltipProps } from './Tooltip.types';
  * </Tooltip>
  * ```
  */
-export declare const Tooltip: FC<TooltipProps>;
+export declare const Tooltip: FC<Props>;

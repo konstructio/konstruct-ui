@@ -1,4 +1,4 @@
-import { TagProps } from '../../../Tag/Tag.types';
+import { Props as TagProps } from '../../../Tag/Tag.types';
 import { Theme } from '../../../../domain/theme';
 export type ItemProps = {
     option: TagProps;

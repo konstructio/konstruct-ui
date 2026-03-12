@@ -1,4 +1,4 @@
 import { FC } from '../../../../../node_modules/react';
-import { LogoProps } from './Logo.types';
-declare const Logo: FC<LogoProps>;
+import { Props } from './Logo.types';
+declare const Logo: FC<Props>;
 export { Logo };

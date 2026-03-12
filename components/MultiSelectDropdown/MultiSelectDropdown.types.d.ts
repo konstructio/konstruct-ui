@@ -43,7 +43,7 @@ type OnBlurFn = (event: {
  * />
  * ```
  */
-export interface MultiSelectDropdownProps extends VariantProps<typeof multiSelectDropdownVariants>, Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'onBlur'> {
+export interface Props extends VariantProps<typeof multiSelectDropdownVariants>, Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'onBlur'> {
     /** Whether the dropdown is in a loading state */
     isLoading?: boolean;
     /** Whether the field is required */
@@ -73,4 +73,6 @@ export interface MultiSelectDropdownProps extends VariantProps<typeof multiSelec
     /** Callback fired when the input loses focus */
     onBlur?: OnBlurFn;
 }
+/** @deprecated Use Props instead */
+export type MultiSelectDropdownProps = Props;
 export {};

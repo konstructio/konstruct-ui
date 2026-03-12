@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { TimePickerProps } from './TimePicker.types';
+import { Props } from './TimePicker.types';
 /**
  * A scrollable time picker component with 12 or 24 hour format support.
  * Features smooth scroll navigation through hours, minutes, and AM/PM options.
@@ -17,5 +17,5 @@ import { TimePickerProps } from './TimePicker.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-timepicker--docs Storybook}
  */
-declare const TimePicker: FC<TimePickerProps>;
+declare const TimePicker: FC<Props>;
 export { TimePicker };

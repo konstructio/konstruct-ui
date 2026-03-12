@@ -22,7 +22,7 @@ export type Option = {
  * />
  * ```
  */
-export interface AutocompleteProps extends VariantProps<typeof autocompleteVariants> {
+export interface Props extends VariantProps<typeof autocompleteVariants> {
     /** Disable browser autocomplete (default: 'off') */
     autoComplete?: 'off';
     /** Additional CSS classes */
@@ -48,3 +48,5 @@ export interface AutocompleteProps extends VariantProps<typeof autocompleteVaria
     /** Callback when a value is selected */
     onChange(value: string): void;
 }
+/** @deprecated Use Props instead */
+export type AutocompleteProps = Props;

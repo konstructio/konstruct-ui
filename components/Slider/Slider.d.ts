@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { SliderProps } from './Slider.types';
+import { Props } from './Slider.types';
 /**
  * A single-thumb slider component for selecting a value.
  * Built on Radix UI Slider for accessibility.
@@ -18,4 +18,4 @@ import { SliderProps } from './Slider.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-slider--docs Storybook}
  */
-export declare const Slider: FC<SliderProps>;
+export declare const Slider: FC<Props>;

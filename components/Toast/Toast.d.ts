@@ -1,5 +1,5 @@
 import { FC } from '../../../node_modules/react';
-import { ToastProps } from './Toast.types';
+import { Props } from './Toast.types';
 /**
  * A toast notification component built on Radix UI primitives.
  * Wraps a trigger element and shows a toast when clicked.
@@ -22,4 +22,4 @@ import { ToastProps } from './Toast.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-toast--docs Storybook}
  */
-export declare const Toast: FC<ToastProps>;
+export declare const Toast: FC<Props>;

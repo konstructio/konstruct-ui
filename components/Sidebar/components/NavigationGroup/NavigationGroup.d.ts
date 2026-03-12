@@ -1,4 +1,4 @@
 import { FC } from '../../../../../node_modules/react';
-import { NavigationGroupProps } from './NavigationGroup.types';
-declare const NavigationGroup: FC<NavigationGroupProps>;
+import { Props } from './NavigationGroup.types';
+declare const NavigationGroup: FC<Props>;
 export { NavigationGroup };
