@@ -1,0 +1,1 @@
+import{c as n}from"./compiler-runtime-DxXHijtq.js";import{r as u}from"./iframe-DLrn8Gk9.js";const f=a=>{const t=n.c(5),l=a===void 0?!1:a,[e,i]=u.useState(l);let o;t[0]!==e?(o=c=>i(c??!e),t[0]=e,t[1]=o):o=t[1];const r=o;let s;return t[2]!==r||t[3]!==e?(s=[e,r],t[2]=r,t[3]=e,t[4]=s):s=t[4],s};export{f as u};
