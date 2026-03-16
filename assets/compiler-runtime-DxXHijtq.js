@@ -1,1 +1,0 @@
-import{e as n}from"./iframe-DLrn8Gk9.js";var e={exports:{}},r={};var t;function a(){if(t)return r;t=1;var o=n().__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;return r.c=function(u){return o.H.useMemoCache(u)},r}var i;function R(){return i||(i=1,e.exports=a()),e.exports}var p=R();export{p as c};
