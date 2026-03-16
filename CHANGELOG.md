@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.78](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.78) (2026-03-16)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.77...0.1.2-alpha.78)
+
+**Merged pull requests:**
+
+- 🔥 chore: remove React Compiler [\#598](https://github.com/konstructio/konstruct-ui/pull/598) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.77](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.77) (2026-03-16)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.76...0.1.2-alpha.77)
