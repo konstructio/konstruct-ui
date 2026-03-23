@@ -109,18 +109,21 @@ export const TableProvider = <TData extends RowData = RowData>({
     refetchOnWindowFocus: false,
     initialData: defaultData,
     enabled: !!fetchData,
-    queryFn: async () =>
-      fetchData!({
-        page: Math.max(page + 1, 1),
-        pageSize,
-        termOfSearch,
-        ...(Object.keys(multiselectSelected).length > 0
-          ? multiselectSelected
-          : {}),
-        ...(Object.keys(dateFilters).length > 0 ? dateFilters : {}),
-        ...(Object.keys(dateRangeFilters).length > 0 ? dateRangeFilters : {}),
-        ...(Object.keys(timeFilters).length > 0 ? timeFilters : {}),
-      }).then(({ data, totalItemsCount }) => {
+    queryFn: async ({ signal }) =>
+      fetchData!(
+        {
+          page: Math.max(page + 1, 1),
+          pageSize,
+          termOfSearch,
+          ...(Object.keys(multiselectSelected).length > 0
+            ? multiselectSelected
+            : {}),
+          ...(Object.keys(dateFilters).length > 0 ? dateFilters : {}),
+          ...(Object.keys(dateRangeFilters).length > 0 ? dateRangeFilters : {}),
+          ...(Object.keys(timeFilters).length > 0 ? timeFilters : {}),
+        },
+        signal,
+      ).then(({ data, totalItemsCount }) => {
         setIsFirstLoad(false);
 
         if (totalItemsCount) {
