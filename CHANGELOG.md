@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.79](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.79) (2026-03-23)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.78...0.1.2-alpha.79)
+
+**Merged pull requests:**
+
+- ✨ feat: forward AbortSignal to fetchData & update all dependencies [\#604](https://github.com/konstructio/konstruct-ui/pull/604) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.78](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.78) (2026-03-16)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.77...0.1.2-alpha.78)
