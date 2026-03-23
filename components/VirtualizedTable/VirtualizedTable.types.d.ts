@@ -156,7 +156,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<typeof virtuali
     queryOptions?: Omit<UseQueryOptions<any, any, any, any>, 'queryKey' | 'queryFn'>;
     isLoading?: boolean;
     getRowId?: (originalRow: TData, index: number) => string;
-    fetchData?: (params: Record<string, string | number | string[] | number[] | undefined>) => Promise<{
+    fetchData?: (params: Record<string, string | number | string[] | number[] | undefined>, signal?: AbortSignal) => Promise<{
         data: TData[];
         totalItemsCount?: number;
     }>;

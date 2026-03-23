@@ -1,0 +1,1 @@
+import{n as e,o as t}from"./chunk-zsgVPwQN.js";import{o as n}from"./iframe-Cmi29qjC.js";function r(e){let t=i.useRef({value:e,previous:e});return i.useMemo(()=>(t.current.value!==e&&(t.current.previous=t.current.value,t.current.value=e),t.current.previous),[e])}var i,a=e((()=>{i=t(n(),1)}));export{r as n,a as t};

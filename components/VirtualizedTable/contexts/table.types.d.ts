@@ -22,7 +22,7 @@ export type Props<TData extends RowData = RowData> = PropsWithChildren & {
     renderExpandedRow?: (data: TData) => ReactNode;
     keepExpandColumnVisible?: boolean | Record<string, boolean>;
     getRowId?: (originalRow: TData, index: number) => string;
-    fetchData?: (params: Record<string, string | number | string[] | number[] | undefined>) => Promise<{
+    fetchData?: (params: Record<string, string | number | string[] | number[] | undefined>, signal?: AbortSignal) => Promise<{
         data: TData[];
         totalItemsCount?: number;
     }>;

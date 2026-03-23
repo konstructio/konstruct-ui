@@ -1,0 +1,1 @@
+import{n as e,o as t}from"./chunk-zsgVPwQN.js";import{o as n,t as r}from"./iframe-Cmi29qjC.js";function i(e){let t=a.useContext(o);return e||t||`ltr`}var a,o,s=e((()=>{a=t(n(),1),r(),o=a.createContext(void 0)}));export{i as n,s as t};
