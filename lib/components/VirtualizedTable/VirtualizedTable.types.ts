@@ -199,6 +199,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
   getRowId?: (originalRow: TData, index: number) => string;
   fetchData?: (
     params: Record<string, string | number | string[] | number[] | undefined>,
+    signal?: AbortSignal,
   ) => Promise<{ data: TData[]; totalItemsCount?: number }>;
 } & (
     | {
