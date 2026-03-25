@@ -576,13 +576,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">2/101 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">13/101 infos</a><span class="filter-pill ok" aria-disabled="true">133 stories ok</span><a class="filter-pill ok" data-k="docs" href="#filter-docs">2 docs ok</a></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><a class="filter-pill err" data-k="errors" href="#filter-errors">2/101 prop type errors</a><a class="filter-pill info" data-k="infos" href="#filter-infos">13/101 infos</a><span class="filter-pill ok" aria-disabled="true">134 stories ok</span><a class="filter-pill ok" data-k="docs" href="#filter-docs">2 docs ok</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>6.3s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>5.7s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -15766,7 +15766,7 @@ time?: Date</code></pre>
       <div class="badges">
         <label for="c-95-in-review-toast-props" class="badge ok as-toggle">11 prop types</label>
         
-        <label for="c-95-in-review-toast-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-95-in-review-toast-stories" class="badge ok as-toggle">4 stories</label>
         
       </div>
     </div>
@@ -15931,6 +15931,29 @@ titleClassName?: string</code></pre>
                 duration={5000}
                 variant=&quot;warning&quot;
                 title={&lt;span&gt;This is a warning toast!&lt;/span&gt;}
+                open={open}
+                setOpen={setOpen} /&gt;
+        &lt;/div&gt;
+    );
+};</code></pre>
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Info</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Info = () =&gt; {
+    const [open, setOpen] = useState(false);
+
+    return (
+        &lt;div className=&quot;w-87.5 flex flex-col gap-3&quot;&gt;
+            &lt;Button onClick={() =&gt; setOpen(true)}&gt;Open Info Toast&lt;/Button&gt;
+            &lt;ToastComponent
+                duration={5000}
+                variant=&quot;info&quot;
+                title={&lt;span&gt;This is an info toast!&lt;/span&gt;}
                 open={open}
                 setOpen={setOpen} /&gt;
         &lt;/div&gt;

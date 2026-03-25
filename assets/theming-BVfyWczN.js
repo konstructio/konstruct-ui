@@ -1,0 +1,1 @@
+import{c as e,g as t}from"./theming-BNbMyHV3.js";e();export{t as color};
