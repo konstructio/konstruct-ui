@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.2-alpha.80](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.80) (2026-03-25)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.79...0.1.2-alpha.80)
+
+**Merged pull requests:**
+
+- ⬆️ chore: update @faker-js/faker and lucide-react [\#606](https://github.com/konstructio/konstruct-ui/pull/606) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add info variant to Toast component [\#605](https://github.com/konstructio/konstruct-ui/pull/605) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.79](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.79) (2026-03-23)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.78...0.1.2-alpha.79)
