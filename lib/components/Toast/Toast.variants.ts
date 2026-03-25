@@ -25,6 +25,7 @@ export const toastVariants = cva(
         success: ['bg-green-800'],
         error: ['bg-red-800'],
         warning: ['bg-amber-800'],
+        info: ['bg-blue-800'],
       },
     },
     defaultVariants: {

@@ -66,4 +66,22 @@ export const Warning: Story = {
   },
 };
 
+export const Info: Story = {
+  args: {
+    duration: 5000,
+    variant: 'info',
+    title: <span>This is an info toast!</span>,
+  },
+  render: function ToastStory(args) {
+    const [open, setOpen] = useState(false);
+
+    return (
+      <div className="w-87.5 flex flex-col gap-3">
+        <Button onClick={() => setOpen(true)}>Open Info Toast</Button>
+        <ToastComponent {...args} open={open} setOpen={setOpen} />
+      </div>
+    );
+  },
+};
+
 export default meta;

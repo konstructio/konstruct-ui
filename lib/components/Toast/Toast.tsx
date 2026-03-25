@@ -22,6 +22,7 @@ import { X } from 'react-feather';
 import {
   CheckCircleFilledIcon,
   ErrorIcon,
+  InformationOutlineIcon,
   WarningTriangleIcon,
 } from '@/assets/icons/components';
 import { cn } from '@/utils';
@@ -114,6 +115,9 @@ export const Toast: FC<Props> = ({
           {variant === 'error' && <ErrorIcon size={20} className="shrink-0" />}
           {variant === 'warning' && (
             <WarningTriangleIcon size={20} className="shrink-0" />
+          )}
+          {variant === 'info' && (
+            <InformationOutlineIcon size={20} className="shrink-0" />
           )}
 
           <div className="flex flex-col gap-1">
