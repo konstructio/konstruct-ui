@@ -24,7 +24,6 @@ export default defineConfig({
     dts({
       include: ['lib'],
       exclude: ['**/*.stories.(ts|js|tsx|jsx)', '**/*.test.(ts|js|tsx|jsx)'],
-      insertTypesEntry: true,
     }),
   ],
   build: {
