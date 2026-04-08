@@ -1,1 +1,0 @@
-import{n as e,o as t}from"./chunk-zsgVPwQN.js";import{o as n}from"./iframe-BhrQdzJp.js";var r,i,a=e((()=>{r=t(n(),1),i=(e=!1)=>{let[t,n]=(0,r.useState)(e);return[t,(0,r.useCallback)(e=>n(e??!t),[t])]}})),o=e((()=>{a()}));export{i as n,o as t};

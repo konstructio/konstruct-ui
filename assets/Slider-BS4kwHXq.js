@@ -1,0 +1,16 @@
+import{n as e,o as t}from"./chunk-zsgVPwQN.js";import{t as n}from"./react-C184PLS3.js";import{t as r}from"./jsx-runtime-De-1JGbp.js";import{a as i,n as a,r as o,t as s}from"./dist-CeciwoH6.js";import{a as c,i as l,n as u,r as d}from"./dist-CwmOdNzN.js";var f,p,m,h=e((()=>{a(),f=s([`relative`,`flex`,`items-center`,`w-full`]),p=s([`relative`,`flex-grow`,`rounded-full`,`bg-kubefirst-secondary`],{variants:{size:{sm:[`h-1`],md:[`h-2`],lg:[`h-3`]}},defaultVariants:{size:`md`}}),m=s([`block`,`w-5`,`h-5`,`rounded-full`,`cursor-pointer`,`focus-visible:outline-none`,`shadow-md`,`bg-white`,`border`,`border-gray-300`],{variants:{size:{sm:[`w-5`,`h-5`],md:[`w-6`,`h-6`],lg:[`w-7`,`h-7`]}},defaultVariants:{size:`md`}})})),g,_,v,y=e((()=>{c(),g=t(n(),1),i(),h(),_=r(),v=(0,g.forwardRef)(({label:e,labelWrapperClassName:t,defaultValue:n=[0],name:r,theme:i,size:a,showValue:s,...c},h)=>{let v=(0,g.useRef)(null),[y,b]=(0,g.useState)(n);(0,g.useImperativeHandle)(h,()=>v.current,[v]),(0,g.useEffect)(()=>{v.current&&(v.current.value=y.toString())},[y]);let x=(0,g.useCallback)(e=>b(e),[]);return(0,_.jsxs)(`div`,{className:`w-full relative flex flex-col gap-3`,"data-theme":i,children:[(0,_.jsxs)(`div`,{className:o(`flex items-center`,e?`justify-between`:`justify-end`,t),children:[e?(0,_.jsx)(`label`,{children:e}):null,s?(0,_.jsx)(`span`,{className:`text-xs`,children:y}):null]}),(0,_.jsx)(`input`,{ref:v,name:r,className:`hidden`,type:`number`}),(0,_.jsxs)(u,{value:y,className:o(f()),onValueChange:x,...c,children:[(0,_.jsx)(l,{className:o(p({size:a}))}),(0,_.jsx)(d,{className:o(m({size:a}))})]})]})}),v.__docgenInfo={description:`A single-thumb slider component for selecting a value.
+Built on Radix UI Slider for accessibility.
+
+@example
+\`\`\`tsx
+<Slider
+  label="Brightness"
+  min={0}
+  max={100}
+  defaultValue={[75]}
+  showValue
+  name="brightness"
+/>
+\`\`\`
+
+@see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-slider--docs Storybook}`,methods:[],displayName:`Slider`,props:{className:{required:!1,tsType:{name:`string`},description:`Additional CSS classes`},defaultValue:{required:!1,tsType:{name:`SliderPropsBase['defaultValue']`,raw:`SliderPropsBase['defaultValue']`},description:`Initial value as single-element array`,defaultValue:{value:`[0]`,computed:!1}},label:{required:!1,tsType:{name:`string`},description:`Label displayed above the slider`},labelWrapperClassName:{required:!1,tsType:{name:`string`},description:`Additional CSS classes for the label wrapper`},max:{required:!1,tsType:{name:`SliderPropsBase['max']`,raw:`SliderPropsBase['max']`},description:`Maximum value for the slider`},min:{required:!1,tsType:{name:`SliderPropsBase['min']`,raw:`SliderPropsBase['min']`},description:`Minimum value for the slider`},name:{required:!1,tsType:{name:`string`},description:`Form field name for the hidden input`},showValue:{required:!1,tsType:{name:`boolean`},description:`Whether to display the current value`},size:{required:!1,tsType:{name:`union`,raw:`'sm' | 'md' | 'lg'`,elements:[{name:`literal`,value:`'sm'`},{name:`literal`,value:`'md'`},{name:`literal`,value:`'lg'`}]},description:`Size of the slider track and thumb`},theme:{required:!1,tsType:{name:`Theme`},description:`Theme override for this component`}},composes:[`VariantProps`]}}));export{y as n,v as t};

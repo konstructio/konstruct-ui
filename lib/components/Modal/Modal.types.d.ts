@@ -1,0 +1,50 @@
+import { VariantProps } from 'class-variance-authority';
+import { Transition } from 'motion/react';
+import { PropsWithChildren, ReactNode } from '../../../../node_modules/react';
+import { Theme } from '../../../domain/theme';
+import { modalVariants } from './components/Wrapper/Wrapper.variants';
+/**
+ * Props for the Modal component.
+ *
+ * @example
+ * ```tsx
+ * <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+ *   <Modal.Header>Title</Modal.Header>
+ *   <Modal.Body>Content</Modal.Body>
+ *   <Modal.Footer>
+ *     <Button onClick={() => setIsOpen(false)}>Close</Button>
+ *   </Modal.Footer>
+ * </Modal>
+ * ```
+ */
+export type Props = PropsWithChildren & VariantProps<typeof modalVariants> & {
+    /** CSS classes for the close button */
+    buttonCloseClassName?: string;
+    /** Additional CSS classes for the modal */
+    className?: string;
+    /** CSS classes for the outer container (the overlay grid wrapper) */
+    containerClassName?: string;
+    /** DOM element to portal the modal into (defaults to document.body) */
+    container?: Element | DocumentFragment;
+    /** Whether the modal is open */
+    isOpen?: boolean;
+    /** Show the X close button in the corner */
+    showCloseButton?: boolean;
+    /** Theme override for this component */
+    theme?: Theme;
+    /** Motion transition config for the modal animation */
+    transition?: Transition;
+    /** Callback when modal is closed (Escape key or close button) */
+    onClose?: () => void;
+};
+/**
+ * Props for Modal sub-components (Header, Body, Footer).
+ */
+export type ChildProps = {
+    /** Content of the modal section */
+    children: ReactNode;
+    /** Additional CSS classes */
+    className?: string;
+    /** Merge props onto child element */
+    asChild?: boolean;
+};
