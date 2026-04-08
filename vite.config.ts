@@ -24,7 +24,6 @@ export default defineConfig({
     dts({
       include: ['lib'],
       exclude: ['**/*.stories.(ts|js|tsx|jsx)', '**/*.test.(ts|js|tsx|jsx)'],
-      insertTypesEntry: true,
     }),
   ],
   build: {
@@ -36,6 +35,9 @@ export default defineConfig({
     minify: 'esbuild',
     sourcemap: false,
     rollupOptions: {
+      checks: {
+        eval: false,
+      },
       external: [
         'react',
         'react/jsx-runtime',
@@ -44,7 +46,6 @@ export default defineConfig({
       ],
       treeshake: {
         moduleSideEffects: false,
-        preset: 'smallest',
       },
       plugins: [
         alias({
@@ -75,7 +76,6 @@ export default defineConfig({
       output: {
         assetFileNames: '[name][extname]',
         entryFileNames: '[name].js',
-        compact: true,
         preserveModules: false,
       },
     },
