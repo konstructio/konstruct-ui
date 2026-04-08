@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.2-alpha.81](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.81) (2026-04-08)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.80...0.1.2-alpha.81)
+
+**Merged pull requests:**
+
+- ✨ feat: add 19 navigation icons to the icon library [\#614](https://github.com/konstructio/konstruct-ui/pull/614) ([futjesus](https://github.com/futjesus))
+- ⬆️ chore: update dependencies to latest compatible versions [\#613](https://github.com/konstructio/konstruct-ui/pull/613) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add defaultWidth prop to Drawer component [\#612](https://github.com/konstructio/konstruct-ui/pull/612) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.80](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.80) (2026-03-25)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.79...0.1.2-alpha.80)
