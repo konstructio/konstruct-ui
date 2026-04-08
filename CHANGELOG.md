@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.82](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.82) (2026-04-08)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.81...0.1.2-alpha.82)
+
+**Merged pull requests:**
+
+- 🐛 fix: generate correct .d.ts paths for package exports [\#615](https://github.com/konstructio/konstruct-ui/pull/615) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.81](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.81) (2026-04-08)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.80...0.1.2-alpha.81)
