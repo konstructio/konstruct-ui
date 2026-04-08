@@ -63,6 +63,7 @@ const Drawer: FC<Props> & {
   className,
   classNames,
   container,
+  defaultWidth = DEFAULT_WIDTH,
   isOpen,
   maxWidth,
   minWidth,
@@ -82,7 +83,7 @@ const Drawer: FC<Props> & {
     width,
   } = useDrawer({
     canResize,
-    defaultWidth: DEFAULT_WIDTH,
+    defaultWidth,
     isOpen,
     maxWidth,
     minWidth,
@@ -129,7 +130,7 @@ const Drawer: FC<Props> & {
               classNames?.panel,
               className,
             )}
-            style={{ width: canResize ? width : DEFAULT_WIDTH }}
+            style={{ width: canResize ? width : defaultWidth }}
             role="dialog"
             aria-modal="true"
             aria-labelledby={headerId}

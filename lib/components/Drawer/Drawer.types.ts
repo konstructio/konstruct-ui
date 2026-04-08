@@ -46,6 +46,8 @@ export type Props = PropsWithChildren &
   VariantProps<typeof drawerVariants> & {
     /** Enable resizable drawer */
     canResize?: boolean;
+    /** Default width of the drawer in pixels (default: 500) */
+    defaultWidth?: number;
     /** Additional CSS classes for the drawer panel */
     className?: string;
     /** Custom class names for each element */
