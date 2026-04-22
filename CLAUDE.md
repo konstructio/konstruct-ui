@@ -206,6 +206,12 @@ Test files: `ComponentName.test.tsx`
 - **Always rebase with `main`** before every push, regardless of the commit (`git fetch origin main && git rebase origin/main`). This is mandatory — never push without rebasing first.
 - **Commit/PR message format**: `<emoji> <type>: <description>` — use gitmoji emojis (https://gitmoji.dev/). Examples: `✨ feat: add cluster detail page`, `🐛 fix: resolve onBlur validation`, `♻️ refactor: extract Tabs component`, `📝 docs: update CLAUDE.md rules`.
 
+## Security
+
+- **Postinstall scripts are disabled** via `ignore-scripts=true` in `.npmrc`. This prevents malicious code execution from compromised/unknown npm packages during install.
+- After `npm install`, run `npm run setup` once to rebuild the trusted packages the project needs (currently `esbuild` for Vite's build, and `husky` for git hooks).
+- Trusted-package allowlist lives in the `setup` script in `package.json`. To add a new entry, verify the package source, maintainers, and recent release history first, then extend the `setup` script — do not re-enable scripts globally.
+
 ## Coding Conventions
 
 - **Indentation**: tabs
