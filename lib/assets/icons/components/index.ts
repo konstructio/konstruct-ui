@@ -59,6 +59,7 @@ export { KubernetesIcon } from './Kubernetes';
 export { LoadBalancerIcon } from './LoadBalancer';
 export { LoaderIcon } from './Loader';
 export { LightBulbIcon } from './LightBulb';
+export { LockIcon } from './Lock';
 export { NetworkIcon } from './Network';
 export { ObjectStorageIcon } from './ObjectStorage';
 export { OrganizationIcon } from './Organization';
