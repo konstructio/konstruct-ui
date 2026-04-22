@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.2-alpha.83](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.83) (2026-04-22)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.82...0.1.2-alpha.83)
+
+**Merged pull requests:**
+
+- ✨ feat: add new icons and alt variants for existing ones [\#622](https://github.com/konstructio/konstruct-ui/pull/622) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add LockIcon component and export it in the index [\#621](https://github.com/konstructio/konstruct-ui/pull/621) ([fulviodenza](https://github.com/fulviodenza))
+
 ## [0.1.2-alpha.82](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.82) (2026-04-08)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.81...0.1.2-alpha.82)
