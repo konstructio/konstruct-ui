@@ -69,6 +69,7 @@
     "format:prettier": "prettier lib --write './**/*.{js,jsx,ts,tsx}' --config ./.prettierrc",
     "lint": "eslint lib --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "prepare": "husky",
+    "setup": "npm rebuild esbuild && husky",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "test": "vitest run --coverage",
