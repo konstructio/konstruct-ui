@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.2-alpha.84](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.84) (2026-04-22)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.83...0.1.2-alpha.84)
+
 ## [0.1.2-alpha.83](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.83) (2026-04-22)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.82...0.1.2-alpha.83)
