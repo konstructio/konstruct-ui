@@ -1,20 +1,15 @@
-import {
-  Children,
-  ComponentRef,
-  FC,
-  isValidElement,
-  useCallback,
-  useMemo,
-  useRef,
-} from 'react';
+import { ComponentRef, FC, useCallback, useRef, useState } from 'react';
 
+import { Drawer } from '@/components/Drawer/Drawer';
 import { cn } from '@/utils';
 
+import { SidebarContext, SidebarMode } from '../../contexts';
+import { useSidebarMode } from '../../hooks';
 import { SidebarProps } from '../../Sidebar.types';
 import { dragVariants, wrapperSiderbarVariants } from '../../Sidebar.variants';
-import { Footer } from '../Footer/Footer';
-import { Logo } from '../Logo/Logo';
-import { Navigation } from '../Navigation/Navigation';
+import { HamburgerTrigger } from '../HamburgerTrigger/HamburgerTrigger';
+
+const DRAWER_DEFAULT_WIDTH = 280;
 
 const Wrapper: FC<SidebarProps> = ({
   canResize = true,
@@ -22,9 +17,13 @@ const Wrapper: FC<SidebarProps> = ({
   dividerClassName,
   maxWith = 300,
   minWith = 240,
+  mode = 'auto',
   theme,
   wrapperClassName,
 }) => {
+  const resolvedMode = useSidebarMode(mode);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
   const dragRef = useRef<ComponentRef<'div'>>(null);
   const asideRef = useRef<ComponentRef<'aside'>>(null);
   const isResizingRef = useRef(false);
@@ -80,57 +79,79 @@ const Wrapper: FC<SidebarProps> = ({
     [handleMouseMove, handleMouseUp],
   );
 
-  const memoizedChildren = useMemo(
-    () => Children.toArray(children),
-    [children],
-  );
+  const handleOpenDrawer = useCallback(() => {
+    setIsDrawerOpen(true);
+  }, []);
 
-  const logo = useMemo(
-    () =>
-      Children.toArray(memoizedChildren).find(
-        (child) => isValidElement(child) && child.type === Logo,
-      ),
-    [memoizedChildren],
-  );
+  const handleCloseDrawer = useCallback(() => {
+    setIsDrawerOpen(false);
+  }, []);
 
-  const navigation = useMemo(
-    () =>
-      Children.toArray(memoizedChildren).find(
-        (child) => isValidElement(child) && child.type === Navigation,
-      ),
-    [memoizedChildren],
-  );
+  if (resolvedMode === 'drawer') {
+    return (
+      <>
+        <HamburgerTrigger isOpen={isDrawerOpen} onClick={handleOpenDrawer} />
+        <Drawer
+          isOpen={isDrawerOpen}
+          onClose={handleCloseDrawer}
+          position="left"
+          defaultWidth={DRAWER_DEFAULT_WIDTH}
+          theme={theme}
+          classNames={{
+            panel: cn(
+              wrapperSiderbarVariants({ mode: 'expanded' }),
+              'h-full w-full',
+              wrapperClassName,
+            ),
+            content: 'gap-0',
+          }}
+        >
+          <SidebarContext.Provider
+            value={{ mode: 'expanded', isCollapsed: false }}
+          >
+            <div
+              className="group/sidebar flex flex-col flex-1 min-h-0"
+              data-mode="expanded"
+            >
+              {children}
+            </div>
+          </SidebarContext.Provider>
+        </Drawer>
+      </>
+    );
+  }
 
-  const footer = useMemo(
-    () =>
-      Children.toArray(memoizedChildren).find(
-        (child) => isValidElement(child) && child.type === Footer,
-      ),
-    [memoizedChildren],
-  );
+  const asideMode: Exclude<SidebarMode, 'drawer'> = resolvedMode;
+  const showResizeHandle = canResize && asideMode === 'expanded';
+  const contextValue = {
+    mode: asideMode,
+    isCollapsed: asideMode === 'collapsed',
+  };
 
   return (
-    <aside
-      ref={asideRef}
-      className={cn(
-        wrapperSiderbarVariants({
-          className: wrapperClassName,
-        }),
-      )}
-      data-theme={theme}
-    >
-      {logo}
-      {navigation}
-      {footer}
+    <SidebarContext.Provider value={contextValue}>
+      <aside
+        ref={asideRef}
+        className={cn(
+          wrapperSiderbarVariants({
+            mode: asideMode,
+            className: wrapperClassName,
+          }),
+        )}
+        data-theme={theme}
+        data-mode={asideMode}
+      >
+        {children}
 
-      {canResize && (
-        <div
-          ref={dragRef}
-          className={cn(dragVariants({ className: dividerClassName }))}
-          onMouseDown={handleMouseDown}
-        />
-      )}
-    </aside>
+        {showResizeHandle && (
+          <div
+            ref={dragRef}
+            className={cn(dragVariants({ className: dividerClassName }))}
+            onMouseDown={handleMouseDown}
+          />
+        )}
+      </aside>
+    </SidebarContext.Provider>
   );
 };
 

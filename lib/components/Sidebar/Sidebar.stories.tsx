@@ -14,6 +14,7 @@ import { Theme } from '@/domain/theme';
 import { Typography } from '../Typography/Typography';
 import {
   Footer,
+  Label,
   Logo,
   Navigation,
   NavigationGroup,
@@ -84,105 +85,110 @@ const meta = {
   ],
 } satisfies Meta<typeof SidebarPrimitive>;
 
+const renderSidebarContent = (
+  theme: Theme,
+  onThemeChange: (next: Theme) => void,
+) => (
+  <>
+    <Logo>
+      <a className="flex items-center gap-2">
+        <img
+          className="flex-1 shrink-0 hidden group-data-[mode=expanded]/sidebar:block"
+          src="./logo-kubefirst.svg"
+          alt="Company logo"
+        />
+        <img
+          className="block h-10 w-12 group-data-[mode=expanded]/sidebar:hidden"
+          src="./ray.svg"
+          alt="Company logo"
+        />
+        <Typography
+          variant="labelSmall"
+          className="group-data-[mode=expanded]/sidebar:left-[35%] -bottom-5! group-data-[mode=expanded]/sidebar:bottom-0! text-[#ABADC6] lowercase"
+        >
+          v1.11.1
+        </Typography>
+      </a>
+    </Logo>
+
+    <Navigation className="mt-4 group-data-[mode=expanded]/sidebar:mt-0">
+      <NavigationGroup>
+        <NavigationOption>
+          <a className="flex items-center gap-2">
+            <ScatterPlotIcon className="w-6 h-6" />
+            <Label>Clusters</Label>
+          </a>
+        </NavigationOption>
+
+        <NavigationOption
+          role="button"
+          onClick={() => onThemeChange('kubefirst')}
+          isActive={theme === 'kubefirst'}
+        >
+          <PhotoLibraryIcon className="w-6 h-6" />
+          <Label>Environments</Label>
+        </NavigationOption>
+      </NavigationGroup>
+
+      <NavigationGroup title="Admin settings" titleClassName="uppercase">
+        <NavigationOption
+          role="button"
+          onClick={() => onThemeChange('light')}
+          isActive={theme === 'light'}
+        >
+          <ReceiptLongIcon className="w-6 h-6" />
+          <Label>Plans & Billing</Label>
+        </NavigationOption>
+
+        <NavigationOption>
+          <a className="flex items-center gap-2">
+            <CloudIcon className="w-6 h-6" />
+            <Label>Cloud accounts</Label>
+          </a>
+        </NavigationOption>
+      </NavigationGroup>
+    </Navigation>
+
+    <Footer>
+      <span className="text-[#81e2b4] flex items-center gap-2 justify-center font-semibold cursor-pointer">
+        <Star className="w-5 h-5" />
+        <Label>Upgrade to Business</Label>
+      </span>
+    </Footer>
+  </>
+);
+
 export const Sidebar = {
   render: function SidebarStory() {
     const [theme, setTheme] = useState<Theme>('kubefirst');
 
     return (
       <SidebarPrimitive theme={theme}>
-        <Logo>
-          <a className="flex items-center gap-2">
-            <img
-              className="flex-1 shrink-0 hidden md:block"
-              src="./logo-kubefirst.svg"
-              alt="Company logo"
-            />
-            <img
-              className="block h-10 w-12 md:hidden"
-              src="./ray.svg"
-              alt="Company logo"
-            />
-            <Typography
-              variant="labelSmall"
-              className="md:left-[35%] !bottom-[-20px] md:!bottom-0 text-[#ABADC6] lowercase"
-            >
-              v1.11.1
-            </Typography>
-          </a>
-        </Logo>
+        {renderSidebarContent(theme, setTheme)}
+      </SidebarPrimitive>
+    );
+  },
+} satisfies Story;
 
-        <Navigation className="mt-4 md:mt-0">
-          <NavigationGroup>
-            <NavigationOption>
-              <a className="flex items-center gap-2 md:mt-0">
-                <ScatterPlotIcon className="w-6 h-6" />{' '}
-                <Typography
-                  variant="body1"
-                  className="hidden md:block text-inherit"
-                >
-                  Clusters
-                </Typography>
-              </a>
-            </NavigationOption>
+export const CollapsedMode = {
+  render: function CollapsedStory() {
+    const [theme, setTheme] = useState<Theme>('kubefirst');
 
-            <NavigationOption
-              role="button"
-              onClick={() => setTheme('kubefirst')}
-              isActive={theme === 'kubefirst'}
-            >
-              <PhotoLibraryIcon className="w-6 h-6" />{' '}
-              <Typography
-                variant="body1"
-                className="hidden md:block text-inherit"
-              >
-                Environments
-              </Typography>
-            </NavigationOption>
-          </NavigationGroup>
+    return (
+      <SidebarPrimitive theme={theme} mode="collapsed">
+        {renderSidebarContent(theme, setTheme)}
+      </SidebarPrimitive>
+    );
+  },
+} satisfies Story;
 
-          <NavigationGroup
-            title="Admin settings"
-            titleClassName="uppercase hidden md:block "
-          >
-            <NavigationOption
-              role="button"
-              onClick={() => setTheme('light')}
-              isActive={theme === 'light'}
-            >
-              <ReceiptLongIcon className="w-6 h-6" />{' '}
-              <Typography
-                variant="body1"
-                className="hidden md:block text-inherit"
-              >
-                Plans & Billing
-              </Typography>
-            </NavigationOption>
+export const DrawerMode = {
+  render: function DrawerStory() {
+    const [theme, setTheme] = useState<Theme>('kubefirst');
 
-            <NavigationOption>
-              <a className="flex items-center gap-2">
-                <CloudIcon className="w-6 h-6" />{' '}
-                <Typography
-                  variant="body1"
-                  className="hidden md:block text-inherit"
-                >
-                  Cloud accounts
-                </Typography>
-              </a>
-            </NavigationOption>
-          </NavigationGroup>
-        </Navigation>
-
-        <Footer>
-          <span className="text-[#81e2b4] flex items-center gap-2 justify-center font-semibold cursor-pointer">
-            <Star className="w-5 h-5" />{' '}
-            <Typography
-              variant="body1"
-              className="hidden md:block text-inherit"
-            >
-              Upgrade to Business
-            </Typography>
-          </span>
-        </Footer>
+    return (
+      <SidebarPrimitive theme={theme} mode="drawer">
+        {renderSidebarContent(theme, setTheme)}
       </SidebarPrimitive>
     );
   },

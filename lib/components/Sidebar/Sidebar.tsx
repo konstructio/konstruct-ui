@@ -3,6 +3,7 @@ import { FC } from 'react';
 
 import {
   Footer,
+  Label,
   Logo,
   Navigation,
   NavigationGroup,
@@ -42,6 +43,7 @@ const Sidebar: FC<SidebarProps> & SidebarChildrenProps = (props) => (
 Sidebar.displayName = 'KonstructSidebar';
 
 Sidebar.Footer = Footer;
+Sidebar.Label = Label;
 Sidebar.Logo = Logo;
 Sidebar.Navigation = Navigation;
 Sidebar.NavigationGroup = NavigationGroup;
@@ -50,6 +52,7 @@ Sidebar.NavigationSeparator = NavigationSeparator;
 
 export {
   Footer,
+  Label,
   Logo,
   Navigation,
   NavigationGroup,

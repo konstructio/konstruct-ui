@@ -3,9 +3,11 @@ import { FC, PropsWithChildren } from 'react';
 
 import { Theme } from '@/domain/theme';
 
+import { SidebarModeProp } from './hooks/useSidebarMode';
 import { wrapperSiderbarVariants } from './Sidebar.variants';
 import {
   FooterProps,
+  LabelProps,
   LogoProps,
   NavigationGroupProps,
   NavigationOptionProps,
@@ -38,8 +40,10 @@ import {
  * ```
  */
 export interface Props
-  extends VariantProps<typeof wrapperSiderbarVariants>, PropsWithChildren {
-  /** Whether the sidebar can be resized by dragging */
+  extends
+    Omit<VariantProps<typeof wrapperSiderbarVariants>, 'mode'>,
+    PropsWithChildren {
+  /** Whether the sidebar can be resized by dragging (only in expanded mode) */
   canResize?: boolean;
   /** Additional CSS classes for the divider */
   dividerClassName?: string;
@@ -47,6 +51,14 @@ export interface Props
   maxWith?: number;
   /** Minimum width when resizing (in pixels) */
   minWith?: number;
+  /**
+   * Controls the responsive mode of the sidebar.
+   * - `auto` (default): derives the mode from the viewport width
+   *   (`>=1024px` expanded, `640-1023px` collapsed, `<640px` drawer).
+   * - `expanded`, `collapsed`, `drawer`: force a specific mode
+   *   (useful for testing, stories, or manual control).
+   */
+  mode?: SidebarModeProp;
   /** Theme override for this component */
   theme?: Theme;
   /** Additional CSS classes for the wrapper */
@@ -61,6 +73,7 @@ export type SidebarProps = Props;
  */
 export type SidebarChildrenProps = {
   Footer: FC<FooterProps>;
+  Label: FC<LabelProps>;
   Logo: FC<LogoProps>;
   Navigation: FC<NavigationProps>;
   NavigationGroup: FC<NavigationGroupProps>;
