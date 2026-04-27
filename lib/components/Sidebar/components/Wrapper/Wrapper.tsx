@@ -16,28 +16,55 @@ import { Props } from '../../Sidebar.types';
 import { dragVariants, wrapperSiderbarVariants } from '../../Sidebar.variants';
 import { HamburgerTrigger } from '../HamburgerTrigger/HamburgerTrigger';
 
-const DRAWER_DEFAULT_WIDTH = 280;
+const DRAWER_DEFAULT_MAX_WIDTH = 280;
 
 const Wrapper: FC<Props> = ({
   animateOnHover = true,
   canResize = true,
   children,
   dividerClassName,
+  drawerBreakpoint,
+  drawerMaxWidth = DRAWER_DEFAULT_MAX_WIDTH,
+  expandedBreakpoint,
   expandOnHover = true,
   initialWidth = 256,
   maxWith = 300,
   minWith = 240,
   mode = 'auto',
+  separatorClassName,
   theme,
+  triggerClassName,
   wrapperClassName,
 }) => {
-  const resolvedMode = useSidebarMode(mode);
+  const resolvedMode = useSidebarMode(
+    mode,
+    expandedBreakpoint,
+    drawerBreakpoint,
+  );
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState<number | null>(null);
 
   const dragRef = useRef<ComponentRef<'div'>>(null);
   const asideRef = useRef<ComponentRef<'aside'>>(null);
   const isResizingRef = useRef(false);
   const hasAppliedInitialWidthRef = useRef(false);
+
+  useEffect(() => {
+    if (resolvedMode !== 'drawer') {
+      return;
+    }
+
+    const updateViewportWidth = () => {
+      setViewportWidth(window.innerWidth);
+    };
+
+    updateViewportWidth();
+    window.addEventListener('resize', updateViewportWidth);
+
+    return () => {
+      window.removeEventListener('resize', updateViewportWidth);
+    };
+  }, [resolvedMode]);
 
   const handleMouseMove = useCallback(
     (event: MouseEvent) => {
@@ -134,19 +161,28 @@ const Wrapper: FC<Props> = ({
   }, []);
 
   if (resolvedMode === 'drawer') {
+    const drawerWidth =
+      viewportWidth !== null
+        ? Math.min(viewportWidth, drawerMaxWidth)
+        : drawerMaxWidth;
+
     return (
       <>
-        <HamburgerTrigger isOpen={isDrawerOpen} onClick={handleOpenDrawer} />
+        <HamburgerTrigger
+          isOpen={isDrawerOpen}
+          onClick={handleOpenDrawer}
+          className={triggerClassName}
+        />
         <Drawer
           isOpen={isDrawerOpen}
           onClose={handleCloseDrawer}
           position="left"
-          defaultWidth={DRAWER_DEFAULT_WIDTH}
+          defaultWidth={drawerWidth}
           theme={theme}
           classNames={{
             panel: cn(
               wrapperSiderbarVariants({ mode: 'expanded' }),
-              'h-full w-full',
+              'h-full border-r-0',
               wrapperClassName,
             ),
             content: 'gap-0',
@@ -158,6 +194,7 @@ const Wrapper: FC<Props> = ({
               isCollapsed: false,
               expandOnHover: false,
               animateOnHover: false,
+              separatorClassName,
             }}
           >
             <div
@@ -179,6 +216,7 @@ const Wrapper: FC<Props> = ({
     isCollapsed: asideMode === 'collapsed',
     expandOnHover,
     animateOnHover,
+    separatorClassName,
   };
 
   return (

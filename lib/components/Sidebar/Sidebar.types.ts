@@ -48,6 +48,20 @@ export interface Props
   /** Additional CSS classes for the divider */
   dividerClassName?: string;
   /**
+   * Viewport width in pixels below which the sidebar switches to `drawer` mode in `auto` mode (defaults to 640).
+   */
+  drawerBreakpoint?: number;
+  /**
+   * Maximum width in pixels for the drawer panel in `drawer` mode (defaults to 280).
+   * The drawer width is `min(viewport, drawerMaxWidth)`, so on viewports narrower than
+   * the cap it shrinks to fit instead of overflowing.
+   */
+  drawerMaxWidth?: number;
+  /**
+   * Viewport width in pixels at or above which the sidebar switches to `expanded` mode in `auto` mode (defaults to 1024).
+   */
+  expandedBreakpoint?: number;
+  /**
    * When true, animates the hover-expand width transition with `motion`. Only takes effect
    * together with `expandOnHover`. Defaults to `true`.
    */
@@ -64,6 +78,10 @@ export interface Props
   maxWith?: number;
   /** Minimum width when resizing in pixels (defaults to 240) */
   minWith?: number;
+  /** Additional CSS classes for the auto-injected separator between groups in collapsed mode */
+  separatorClassName?: string;
+  /** Additional CSS classes for the hamburger trigger button rendered in drawer mode */
+  triggerClassName?: string;
   /**
    * Controls the responsive mode of the sidebar.
    * - `auto` (default): derives the mode from the viewport width

@@ -23,7 +23,7 @@ const Navigation: FC<Props> & NavigationChildrenProps = ({
   className,
   children,
 }) => {
-  const { isCollapsed } = useSidebarContext();
+  const { isCollapsed, separatorClassName } = useSidebarContext();
 
   const renderedChildren = (() => {
     if (!isCollapsed) {
@@ -44,7 +44,10 @@ const Navigation: FC<Props> & NavigationChildrenProps = ({
 
       if (shouldInsertSeparator) {
         output.push(
-          <NavigationSeparator key={`sidebar-auto-separator-${index}`} />,
+          <NavigationSeparator
+            key={`sidebar-auto-separator-${index}`}
+            className={separatorClassName}
+          />,
         );
       }
 

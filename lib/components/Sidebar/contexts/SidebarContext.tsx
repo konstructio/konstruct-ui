@@ -7,6 +7,7 @@ export interface SidebarContextValue {
   isCollapsed: boolean;
   expandOnHover: boolean;
   animateOnHover: boolean;
+  separatorClassName?: string;
 }
 
 export const SidebarContext = createContext<SidebarContextValue>({
