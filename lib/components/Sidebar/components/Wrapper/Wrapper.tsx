@@ -1,20 +1,30 @@
-import { ComponentRef, FC, useCallback, useRef, useState } from 'react';
+import {
+  ComponentRef,
+  FC,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { Drawer } from '@/components/Drawer/Drawer';
 import { cn } from '@/utils';
 
 import { SidebarContext, SidebarMode } from '../../contexts';
 import { useSidebarMode } from '../../hooks';
-import { SidebarProps } from '../../Sidebar.types';
+import { Props } from '../../Sidebar.types';
 import { dragVariants, wrapperSiderbarVariants } from '../../Sidebar.variants';
 import { HamburgerTrigger } from '../HamburgerTrigger/HamburgerTrigger';
 
 const DRAWER_DEFAULT_WIDTH = 280;
 
-const Wrapper: FC<SidebarProps> = ({
+const Wrapper: FC<Props> = ({
+  animateOnHover = true,
   canResize = true,
   children,
   dividerClassName,
+  expandOnHover = true,
+  initialWidth = 256,
   maxWith = 300,
   minWith = 240,
   mode = 'auto',
@@ -27,6 +37,7 @@ const Wrapper: FC<SidebarProps> = ({
   const dragRef = useRef<ComponentRef<'div'>>(null);
   const asideRef = useRef<ComponentRef<'aside'>>(null);
   const isResizingRef = useRef(false);
+  const hasAppliedInitialWidthRef = useRef(false);
 
   const handleMouseMove = useCallback(
     (event: MouseEvent) => {
@@ -63,6 +74,13 @@ const Wrapper: FC<SidebarProps> = ({
       dragRef.current.classList.remove('opacity-100');
     }
 
+    if (asideRef.current) {
+      asideRef.current.classList.remove('transition-none');
+    }
+
+    document.body.style.userSelect = '';
+    document.body.style.cursor = '';
+
     document.removeEventListener('mousemove', handleMouseMove);
     document.removeEventListener('mouseup', handleMouseUp);
   }, [handleMouseMove]);
@@ -73,11 +91,39 @@ const Wrapper: FC<SidebarProps> = ({
       event.stopPropagation();
 
       isResizingRef.current = true;
+
+      if (asideRef.current) {
+        asideRef.current.classList.add('transition-none');
+      }
+
+      document.body.style.userSelect = 'none';
+      document.body.style.cursor = 'col-resize';
+
       document.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseup', handleMouseUp);
     },
     [handleMouseMove, handleMouseUp],
   );
+
+  useEffect(() => {
+    if (resolvedMode !== 'expanded' && asideRef.current) {
+      asideRef.current.style.width = '';
+    }
+  }, [resolvedMode]);
+
+  useEffect(() => {
+    if (
+      hasAppliedInitialWidthRef.current ||
+      resolvedMode !== 'expanded' ||
+      !asideRef.current
+    ) {
+      return;
+    }
+
+    const clamped = Math.min(Math.max(initialWidth, minWith), maxWith);
+    asideRef.current.style.width = `${clamped}px`;
+    hasAppliedInitialWidthRef.current = true;
+  }, [initialWidth, maxWith, minWith, resolvedMode]);
 
   const handleOpenDrawer = useCallback(() => {
     setIsDrawerOpen(true);
@@ -107,7 +153,12 @@ const Wrapper: FC<SidebarProps> = ({
           }}
         >
           <SidebarContext.Provider
-            value={{ mode: 'expanded', isCollapsed: false }}
+            value={{
+              mode: 'expanded',
+              isCollapsed: false,
+              expandOnHover: false,
+              animateOnHover: false,
+            }}
           >
             <div
               className="group/sidebar flex flex-col flex-1 min-h-0"
@@ -126,6 +177,8 @@ const Wrapper: FC<SidebarProps> = ({
   const contextValue = {
     mode: asideMode,
     isCollapsed: asideMode === 'collapsed',
+    expandOnHover,
+    animateOnHover,
   };
 
   return (

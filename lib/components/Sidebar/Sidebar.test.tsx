@@ -120,9 +120,12 @@ describe('Sidebar', () => {
   });
 
   describe('responsive modes', () => {
-    const renderWithGroups = (mode: 'expanded' | 'collapsed' | 'drawer') =>
+    const renderWithGroups = (
+      mode: 'expanded' | 'collapsed' | 'drawer',
+      extraProps: Partial<Props> = {},
+    ) =>
       render(
-        <Sidebar mode={mode}>
+        <Sidebar mode={mode} {...extraProps}>
           <Logo>Logo</Logo>
           <Navigation>
             <NavigationGroup title="Main">
@@ -153,12 +156,21 @@ describe('Sidebar', () => {
       expect(screen.getByText('Admin')).toBeInTheDocument();
     });
 
-    it('hides labels and group titles in collapsed mode', () => {
-      renderWithGroups('collapsed');
+    it('hides labels and group titles in collapsed mode without expandOnHover', () => {
+      renderWithGroups('collapsed', { expandOnHover: false });
 
       expect(screen.queryByText('Clusters')).not.toBeInTheDocument();
       expect(screen.queryByText('Billing')).not.toBeInTheDocument();
       expect(screen.queryByText('Upgrade')).not.toBeInTheDocument();
+      expect(screen.queryByText('Main')).not.toBeInTheDocument();
+      expect(screen.queryByText('Admin')).not.toBeInTheDocument();
+    });
+
+    it('keeps labels in the DOM but visually clipped in collapsed mode with expandOnHover', () => {
+      renderWithGroups('collapsed');
+
+      expect(screen.getByText('Clusters')).toHaveClass('max-w-0');
+      expect(screen.getByText('Billing')).toHaveClass('max-w-0');
       expect(screen.queryByText('Main')).not.toBeInTheDocument();
       expect(screen.queryByText('Admin')).not.toBeInTheDocument();
     });

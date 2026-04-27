@@ -2,6 +2,8 @@ import { FC } from 'react';
 
 import { cn } from '@/utils';
 
+import { useSidebarContext } from '../../contexts';
+
 import { Props } from './NavigationOption.types';
 import { navigationOptionVariants } from './NavigationOption.variants';
 
@@ -12,6 +14,9 @@ const NavigationOption: FC<Props> = ({
   isActive,
   ...delegated
 }) => {
+  const { isCollapsed, expandOnHover } = useSidebarContext();
+  const isHoverExpandable = isCollapsed && expandOnHover;
+
   if (!isVisible) {
     return null;
   }
@@ -25,6 +30,13 @@ const NavigationOption: FC<Props> = ({
           className,
           isActive,
         }),
+        isHoverExpandable && [
+          'group/sidebar-option',
+          'relative',
+          'hover:z-50',
+          'hover:shadow-lg',
+          'hover:bg-kubefirst-dark-blue-900',
+        ],
       )}
     >
       {children}

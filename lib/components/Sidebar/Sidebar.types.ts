@@ -47,9 +47,22 @@ export interface Props
   canResize?: boolean;
   /** Additional CSS classes for the divider */
   dividerClassName?: string;
-  /** Maximum width when resizing (in pixels) */
+  /**
+   * When true, animates the hover-expand width transition with `motion`. Only takes effect
+   * together with `expandOnHover`. Defaults to `true`.
+   */
+  animateOnHover?: boolean;
+  /**
+   * When true and the sidebar is in `collapsed` mode, hovering a navigation option
+   * expands only that option (animated width) to reveal its label. The expanded
+   * option overlays content to its right and does not push siblings. Defaults to `true`.
+   */
+  expandOnHover?: boolean;
+  /** Initial width in pixels when entering expanded mode (defaults to 256, clamped to [minWith, maxWith]) */
+  initialWidth?: number;
+  /** Maximum width when resizing in pixels (defaults to 300) */
   maxWith?: number;
-  /** Minimum width when resizing (in pixels) */
+  /** Minimum width when resizing in pixels (defaults to 240) */
   minWith?: number;
   /**
    * Controls the responsive mode of the sidebar.
