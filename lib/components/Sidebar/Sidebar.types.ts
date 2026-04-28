@@ -1,6 +1,7 @@
 import { VariantProps } from 'class-variance-authority';
 import { FC, PropsWithChildren } from 'react';
 
+import { ClassNames as DrawerClassNames } from '@/components/Drawer/Drawer.types';
 import { Theme } from '@/domain/theme';
 
 import { SidebarModeProp } from './hooks/useSidebarMode';
@@ -82,6 +83,19 @@ export interface Props
   separatorClassName?: string;
   /** Additional CSS classes for the hamburger trigger button rendered in drawer mode */
   triggerClassName?: string;
+  /**
+   * Per-slot class overrides for the underlying `Drawer` rendered in
+   * `drawer` mode. Mirrors `Drawer`'s `classNames` shape: `root`, `overlay`,
+   * `panel`, `closeButton`, `content`, `header`, `body`, `footer`,
+   * `resizeHandle`. Useful for tweaking the close-button position, removing
+   * the panel's horizontal padding so dividers can span edge-to-edge,
+   * raising the root `z-index` past higher-z layers, etc.
+   *
+   * The Sidebar already applies sensible defaults internally (root `z-[60]`,
+   * panel uses `wrapperClassName`, content `gap-0`); user-provided classes
+   * are appended via `cn`, so they win on conflicts.
+   */
+  drawerClassNames?: DrawerClassNames;
   /**
    * Controls the responsive mode of the sidebar.
    * - `auto` (default): derives the mode from the viewport width

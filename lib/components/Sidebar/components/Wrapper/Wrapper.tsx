@@ -24,6 +24,7 @@ const Wrapper: FC<Props> = ({
   children,
   dividerClassName,
   drawerBreakpoint,
+  drawerClassNames,
   drawerMaxWidth = DRAWER_DEFAULT_MAX_WIDTH,
   expandedBreakpoint,
   expandOnHover = true,
@@ -186,12 +187,15 @@ const Wrapper: FC<Props> = ({
           defaultWidth={drawerWidth}
           theme={theme}
           classNames={{
+            ...drawerClassNames,
+            root: cn('z-[60]', drawerClassNames?.root),
             panel: cn(
               wrapperSiderbarVariants({ mode: 'expanded' }),
               'h-full border-r-0',
               wrapperClassName,
+              drawerClassNames?.panel,
             ),
-            content: 'gap-0',
+            content: cn('gap-0', drawerClassNames?.content),
           }}
         >
           <SidebarContext.Provider
