@@ -139,6 +139,12 @@ const Wrapper: FC<Props> = ({
   }, [resolvedMode]);
 
   useEffect(() => {
+    if (resolvedMode !== 'drawer') {
+      setIsDrawerOpen(false);
+    }
+  }, [resolvedMode]);
+
+  useEffect(() => {
     if (
       hasAppliedInitialWidthRef.current ||
       resolvedMode !== 'expanded' ||
@@ -195,6 +201,7 @@ const Wrapper: FC<Props> = ({
               expandOnHover: false,
               animateOnHover: false,
               separatorClassName,
+              closeDrawer: handleCloseDrawer,
             }}
           >
             <div
@@ -217,6 +224,7 @@ const Wrapper: FC<Props> = ({
     expandOnHover,
     animateOnHover,
     separatorClassName,
+    closeDrawer: handleCloseDrawer,
   };
 
   return (
