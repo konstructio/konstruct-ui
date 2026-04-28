@@ -1,8 +1,9 @@
 import { VariantProps } from 'class-variance-authority';
 import { FC, PropsWithChildren } from '../../../../node_modules/react';
 import { Theme } from '../../../domain/theme';
+import { SidebarModeProp } from './hooks/useSidebarMode';
 import { wrapperSiderbarVariants } from './Sidebar.variants';
-import { FooterProps, LogoProps, NavigationGroupProps, NavigationOptionProps, NavigationProps, NavigationSeparatorProps } from './components';
+import { FooterProps, LabelProps, LogoProps, NavigationGroupProps, NavigationOptionProps, NavigationProps, NavigationSeparatorProps } from './components';
 /**
  * Props for the Sidebar component.
  * A compound component for building application sidebars with navigation.
@@ -27,15 +28,54 @@ import { FooterProps, LogoProps, NavigationGroupProps, NavigationOptionProps, Na
  * </Sidebar>
  * ```
  */
-export interface Props extends VariantProps<typeof wrapperSiderbarVariants>, PropsWithChildren {
-    /** Whether the sidebar can be resized by dragging */
+export interface Props extends Omit<VariantProps<typeof wrapperSiderbarVariants>, 'mode'>, PropsWithChildren {
+    /** Whether the sidebar can be resized by dragging (only in expanded mode) */
     canResize?: boolean;
     /** Additional CSS classes for the divider */
     dividerClassName?: string;
-    /** Maximum width when resizing (in pixels) */
+    /**
+     * Viewport width in pixels below which the sidebar switches to `drawer` mode in `auto` mode (defaults to 640).
+     */
+    drawerBreakpoint?: number;
+    /**
+     * Maximum width in pixels for the drawer panel in `drawer` mode (defaults to 280).
+     * The drawer width is `min(viewport, drawerMaxWidth)`, so on viewports narrower than
+     * the cap it shrinks to fit instead of overflowing.
+     */
+    drawerMaxWidth?: number;
+    /**
+     * Viewport width in pixels at or above which the sidebar switches to `expanded` mode in `auto` mode (defaults to 1024).
+     */
+    expandedBreakpoint?: number;
+    /**
+     * When true, animates the hover-expand width transition with `motion`. Only takes effect
+     * together with `expandOnHover`. Defaults to `true`.
+     */
+    animateOnHover?: boolean;
+    /**
+     * When true and the sidebar is in `collapsed` mode, hovering a navigation option
+     * expands only that option (animated width) to reveal its label. The expanded
+     * option overlays content to its right and does not push siblings. Defaults to `true`.
+     */
+    expandOnHover?: boolean;
+    /** Initial width in pixels when entering expanded mode (defaults to 256, clamped to [minWith, maxWith]) */
+    initialWidth?: number;
+    /** Maximum width when resizing in pixels (defaults to 300) */
     maxWith?: number;
-    /** Minimum width when resizing (in pixels) */
+    /** Minimum width when resizing in pixels (defaults to 240) */
     minWith?: number;
+    /** Additional CSS classes for the auto-injected separator between groups in collapsed mode */
+    separatorClassName?: string;
+    /** Additional CSS classes for the hamburger trigger button rendered in drawer mode */
+    triggerClassName?: string;
+    /**
+     * Controls the responsive mode of the sidebar.
+     * - `auto` (default): derives the mode from the viewport width
+     *   (`>=1024px` expanded, `640-1023px` collapsed, `<640px` drawer).
+     * - `expanded`, `collapsed`, `drawer`: force a specific mode
+     *   (useful for testing, stories, or manual control).
+     */
+    mode?: SidebarModeProp;
     /** Theme override for this component */
     theme?: Theme;
     /** Additional CSS classes for the wrapper */
@@ -48,6 +88,7 @@ export type SidebarProps = Props;
  */
 export type SidebarChildrenProps = {
     Footer: FC<FooterProps>;
+    Label: FC<LabelProps>;
     Logo: FC<LogoProps>;
     Navigation: FC<NavigationProps>;
     NavigationGroup: FC<NavigationGroupProps>;

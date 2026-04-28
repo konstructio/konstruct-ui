@@ -1,4 +1,4 @@
 import { FC } from '../../../../../../node_modules/react';
-import { SidebarProps } from '../../Sidebar.types';
-declare const Wrapper: FC<SidebarProps>;
+import { Props } from '../../Sidebar.types';
+declare const Wrapper: FC<Props>;
 export { Wrapper };

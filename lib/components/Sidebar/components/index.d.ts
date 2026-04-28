@@ -1,5 +1,9 @@
 export * from './Footer/Footer';
 export type { FooterProps } from './Footer/Footer.types';
+export * from './HamburgerTrigger/HamburgerTrigger';
+export type { HamburgerTriggerProps } from './HamburgerTrigger/HamburgerTrigger.types';
+export * from './Label/Label';
+export type { LabelProps } from './Label/Label.types';
 export * from './Logo/Logo';
 export type { LogoProps } from './Logo/Logo.types';
 export * from './Navigation/Navigation';

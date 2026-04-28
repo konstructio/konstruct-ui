@@ -1,5 +1,5 @@
 import { FC } from '../../../../node_modules/react';
-import { Footer, Logo, Navigation, NavigationGroup, NavigationOption, NavigationSeparator } from './components';
+import { Footer, Label, Logo, Navigation, NavigationGroup, NavigationOption, NavigationSeparator } from './components';
 import { SidebarChildrenProps, Props as SidebarProps } from './Sidebar.types';
 /**
  * A compound component for building application sidebars.
@@ -25,4 +25,4 @@ import { SidebarChildrenProps, Props as SidebarProps } from './Sidebar.types';
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-sidebar--docs Storybook}
  */
 declare const Sidebar: FC<SidebarProps> & SidebarChildrenProps;
-export { Footer, Logo, Navigation, NavigationGroup, NavigationOption, NavigationSeparator, Sidebar, };
+export { Footer, Label, Logo, Navigation, NavigationGroup, NavigationOption, NavigationSeparator, Sidebar, };
