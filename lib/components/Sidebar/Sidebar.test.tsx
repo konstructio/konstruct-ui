@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ReactNode } from 'react';
 
@@ -221,6 +221,55 @@ describe('Sidebar', () => {
       expect(screen.getByRole('dialog')).toBeInTheDocument();
       expect(screen.getByText('Clusters')).toBeInTheDocument();
       expect(screen.getByText('Main')).toBeInTheDocument();
+    });
+
+    it('closes the drawer when a navigation option is clicked', async () => {
+      renderWithGroups('drawer');
+
+      const user = userEvent.setup();
+      const trigger = screen.getByRole('button', {
+        name: /open navigation/i,
+      });
+
+      await user.click(trigger);
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+      const option = await screen.findByRole('option', { name: /clusters/i });
+      await user.click(option);
+
+      await waitFor(() =>
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument(),
+      );
+    });
+
+    it('keeps the drawer open when a navigation option opts out via closeDrawerOnClick={false}', async () => {
+      render(
+        <Sidebar mode="drawer">
+          <Logo>Logo</Logo>
+          <Navigation>
+            <NavigationGroup title="Main">
+              <NavigationOption closeDrawerOnClick={false}>
+                <Label>Stay open</Label>
+              </NavigationOption>
+            </NavigationGroup>
+          </Navigation>
+        </Sidebar>,
+      );
+
+      const user = userEvent.setup();
+      const trigger = screen.getByRole('button', {
+        name: /open navigation/i,
+      });
+
+      await user.click(trigger);
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+      const option = await screen.findByRole('option', { name: /stay open/i });
+      await user.click(option);
+
+      // Wait past the drawer close-animation window; dialog should remain.
+      await new Promise((resolve) => setTimeout(resolve, 350));
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
     });
   });
 });
