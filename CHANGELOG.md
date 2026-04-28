@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.86](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.86) (2026-04-28)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.85...0.1.2-alpha.86)
+
+**Merged pull requests:**
+
+- ✨ feat: auto-close Sidebar drawer on navigation and resolution change [\#630](https://github.com/konstructio/konstruct-ui/pull/630) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.85](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.85) (2026-04-28)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.84...0.1.2-alpha.85)
