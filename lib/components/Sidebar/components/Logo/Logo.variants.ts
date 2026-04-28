@@ -1,8 +1,8 @@
 import { cva } from 'class-variance-authority';
 
 export const logoVariants = cva([
-  'md:px-4',
-  'md:py-5',
+  'group-data-[mode=expanded]/sidebar:px-4',
+  'group-data-[mode=expanded]/sidebar:py-5',
   'flex',
   'flex-col',
   'justify-center',

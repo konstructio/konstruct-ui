@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import { cn } from '@/utils';
 
+import { useSidebarContext } from '../../contexts';
 import { NavigationTitle } from '../NavigationTitle/NavigationTitle';
 
 import { Props } from './NavigationGroup.types';
@@ -15,13 +16,17 @@ const NavigationGroup: FC<Props> = ({
   isVisible = true,
   ...delegated
 }) => {
+  const { isCollapsed } = useSidebarContext();
+
   if (!isVisible) {
     return null;
   }
 
+  const showTitle = !!title && !isCollapsed;
+
   return (
     <>
-      {title ? (
+      {showTitle ? (
         <NavigationTitle
           title={title}
           className={titleClassName}

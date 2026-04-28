@@ -1,33 +1,70 @@
 import {
-  Children,
   ComponentRef,
   FC,
-  isValidElement,
   useCallback,
-  useMemo,
+  useEffect,
   useRef,
+  useState,
 } from 'react';
 
+import { Drawer } from '@/components/Drawer/Drawer';
 import { cn } from '@/utils';
 
-import { SidebarProps } from '../../Sidebar.types';
+import { SidebarContext, SidebarMode } from '../../contexts';
+import { useSidebarMode } from '../../hooks';
+import { Props } from '../../Sidebar.types';
 import { dragVariants, wrapperSiderbarVariants } from '../../Sidebar.variants';
-import { Footer } from '../Footer/Footer';
-import { Logo } from '../Logo/Logo';
-import { Navigation } from '../Navigation/Navigation';
+import { HamburgerTrigger } from '../HamburgerTrigger/HamburgerTrigger';
 
-const Wrapper: FC<SidebarProps> = ({
+const DRAWER_DEFAULT_MAX_WIDTH = 280;
+
+const Wrapper: FC<Props> = ({
+  animateOnHover = true,
   canResize = true,
   children,
   dividerClassName,
+  drawerBreakpoint,
+  drawerMaxWidth = DRAWER_DEFAULT_MAX_WIDTH,
+  expandedBreakpoint,
+  expandOnHover = true,
+  initialWidth = 256,
   maxWith = 300,
   minWith = 240,
+  mode = 'auto',
+  separatorClassName,
   theme,
+  triggerClassName,
   wrapperClassName,
 }) => {
+  const resolvedMode = useSidebarMode(
+    mode,
+    expandedBreakpoint,
+    drawerBreakpoint,
+  );
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState<number | null>(null);
+
   const dragRef = useRef<ComponentRef<'div'>>(null);
   const asideRef = useRef<ComponentRef<'aside'>>(null);
   const isResizingRef = useRef(false);
+  const hasAppliedInitialWidthRef = useRef(false);
+
+  useEffect(() => {
+    if (resolvedMode !== 'drawer') {
+      return;
+    }
+
+    const updateViewportWidth = () => {
+      setViewportWidth(window.innerWidth);
+    };
+
+    updateViewportWidth();
+    window.addEventListener('resize', updateViewportWidth);
+
+    return () => {
+      window.removeEventListener('resize', updateViewportWidth);
+    };
+  }, [resolvedMode]);
 
   const handleMouseMove = useCallback(
     (event: MouseEvent) => {
@@ -64,6 +101,13 @@ const Wrapper: FC<SidebarProps> = ({
       dragRef.current.classList.remove('opacity-100');
     }
 
+    if (asideRef.current) {
+      asideRef.current.classList.remove('transition-none');
+    }
+
+    document.body.style.userSelect = '';
+    document.body.style.cursor = '';
+
     document.removeEventListener('mousemove', handleMouseMove);
     document.removeEventListener('mouseup', handleMouseUp);
   }, [handleMouseMove]);
@@ -74,63 +118,131 @@ const Wrapper: FC<SidebarProps> = ({
       event.stopPropagation();
 
       isResizingRef.current = true;
+
+      if (asideRef.current) {
+        asideRef.current.classList.add('transition-none');
+      }
+
+      document.body.style.userSelect = 'none';
+      document.body.style.cursor = 'col-resize';
+
       document.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseup', handleMouseUp);
     },
     [handleMouseMove, handleMouseUp],
   );
 
-  const memoizedChildren = useMemo(
-    () => Children.toArray(children),
-    [children],
-  );
+  useEffect(() => {
+    if (resolvedMode !== 'expanded' && asideRef.current) {
+      asideRef.current.style.width = '';
+    }
+  }, [resolvedMode]);
 
-  const logo = useMemo(
-    () =>
-      Children.toArray(memoizedChildren).find(
-        (child) => isValidElement(child) && child.type === Logo,
-      ),
-    [memoizedChildren],
-  );
+  useEffect(() => {
+    if (
+      hasAppliedInitialWidthRef.current ||
+      resolvedMode !== 'expanded' ||
+      !asideRef.current
+    ) {
+      return;
+    }
 
-  const navigation = useMemo(
-    () =>
-      Children.toArray(memoizedChildren).find(
-        (child) => isValidElement(child) && child.type === Navigation,
-      ),
-    [memoizedChildren],
-  );
+    const clamped = Math.min(Math.max(initialWidth, minWith), maxWith);
+    asideRef.current.style.width = `${clamped}px`;
+    hasAppliedInitialWidthRef.current = true;
+  }, [initialWidth, maxWith, minWith, resolvedMode]);
 
-  const footer = useMemo(
-    () =>
-      Children.toArray(memoizedChildren).find(
-        (child) => isValidElement(child) && child.type === Footer,
-      ),
-    [memoizedChildren],
-  );
+  const handleOpenDrawer = useCallback(() => {
+    setIsDrawerOpen(true);
+  }, []);
+
+  const handleCloseDrawer = useCallback(() => {
+    setIsDrawerOpen(false);
+  }, []);
+
+  if (resolvedMode === 'drawer') {
+    const drawerWidth =
+      viewportWidth !== null
+        ? Math.min(viewportWidth, drawerMaxWidth)
+        : drawerMaxWidth;
+
+    return (
+      <>
+        <HamburgerTrigger
+          isOpen={isDrawerOpen}
+          onClick={handleOpenDrawer}
+          className={triggerClassName}
+        />
+        <Drawer
+          isOpen={isDrawerOpen}
+          onClose={handleCloseDrawer}
+          position="left"
+          defaultWidth={drawerWidth}
+          theme={theme}
+          classNames={{
+            panel: cn(
+              wrapperSiderbarVariants({ mode: 'expanded' }),
+              'h-full border-r-0',
+              wrapperClassName,
+            ),
+            content: 'gap-0',
+          }}
+        >
+          <SidebarContext.Provider
+            value={{
+              mode: 'expanded',
+              isCollapsed: false,
+              expandOnHover: false,
+              animateOnHover: false,
+              separatorClassName,
+            }}
+          >
+            <div
+              className="group/sidebar flex flex-col flex-1 min-h-0"
+              data-mode="expanded"
+            >
+              {children}
+            </div>
+          </SidebarContext.Provider>
+        </Drawer>
+      </>
+    );
+  }
+
+  const asideMode: Exclude<SidebarMode, 'drawer'> = resolvedMode;
+  const showResizeHandle = canResize && asideMode === 'expanded';
+  const contextValue = {
+    mode: asideMode,
+    isCollapsed: asideMode === 'collapsed',
+    expandOnHover,
+    animateOnHover,
+    separatorClassName,
+  };
 
   return (
-    <aside
-      ref={asideRef}
-      className={cn(
-        wrapperSiderbarVariants({
-          className: wrapperClassName,
-        }),
-      )}
-      data-theme={theme}
-    >
-      {logo}
-      {navigation}
-      {footer}
+    <SidebarContext.Provider value={contextValue}>
+      <aside
+        ref={asideRef}
+        className={cn(
+          wrapperSiderbarVariants({
+            mode: asideMode,
+            className: wrapperClassName,
+          }),
+        )}
+        data-theme={theme}
+        data-mode={asideMode}
+      >
+        {children}
 
-      {canResize && (
-        <div
-          ref={dragRef}
-          className={cn(dragVariants({ className: dividerClassName }))}
-          onMouseDown={handleMouseDown}
-        />
-      )}
-    </aside>
+        {showResizeHandle && (
+          <div
+            ref={dragRef}
+            className={cn(dragVariants({ className: dividerClassName }))}
+            onMouseDown={handleMouseDown}
+          />
+        )}
+      </aside>
+    </SidebarContext.Provider>
   );
 };
 
