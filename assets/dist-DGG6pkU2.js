@@ -1,1 +1,0 @@
-import{n as e,o as t}from"./chunk-jRWAZmH_.js";import{o as n}from"./iframe-Dy5_rkim.js";function r(e){let t=i.useRef(e);return i.useEffect(()=>{t.current=e}),i.useMemo(()=>(...e)=>t.current?.(...e),[])}var i,a=e((()=>{i=t(n(),1)}));export{r as n,a as t};
