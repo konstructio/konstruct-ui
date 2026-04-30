@@ -166,11 +166,15 @@ describe('Sidebar', () => {
       expect(screen.queryByText('Admin')).not.toBeInTheDocument();
     });
 
-    it('keeps labels in the DOM but visually clipped in collapsed mode with expandOnHover', () => {
+    it('keeps labels in the DOM as sr-only in collapsed mode with expandOnHover', () => {
+      // In collapsed + expandOnHover the visible label moves to a Radix
+      // tooltip rendered via portal by NavigationOption. The inline node
+      // stays in the tree as `sr-only` so the link's accessible name is
+      // preserved for screen readers.
       renderWithGroups('collapsed');
 
-      expect(screen.getByText('Clusters')).toHaveClass('max-w-0');
-      expect(screen.getByText('Billing')).toHaveClass('max-w-0');
+      expect(screen.getByText('Clusters')).toHaveClass('sr-only');
+      expect(screen.getByText('Billing')).toHaveClass('sr-only');
       expect(screen.queryByText('Main')).not.toBeInTheDocument();
       expect(screen.queryByText('Admin')).not.toBeInTheDocument();
     });

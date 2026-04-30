@@ -1,14 +1,33 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
 
 import { useSidebarContext } from '../../contexts';
+import { useNavigationOptionContext } from '../NavigationOption/NavigationOption.context';
 
 import { Props } from './Label.types';
 
 const Label: FC<Props> = ({ children, className, variant = 'body1' }) => {
   const { isCollapsed, expandOnHover, animateOnHover } = useSidebarContext();
+  const optionContext = useNavigationOptionContext();
+  const isOwnedTooltip = optionContext?.hasOwnTooltip ?? false;
+
+  useEffect(() => {
+    if (!isOwnedTooltip || !optionContext) {
+      return;
+    }
+
+    optionContext.registerTooltipContent(children);
+
+    return () => {
+      optionContext.registerTooltipContent(null);
+    };
+  }, [children, isOwnedTooltip, optionContext]);
+
+  if (isOwnedTooltip) {
+    return <span className="sr-only">{children}</span>;
+  }
 
   if (isCollapsed && !expandOnHover) {
     return null;

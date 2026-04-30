@@ -13,6 +13,8 @@ import {
 } from './components';
 import { SidebarChildrenProps, Props as SidebarProps } from './Sidebar.types';
 
+import './Sidebar.css';
+
 /**
  * A compound component for building application sidebars.
  * Includes sub-components for logo, navigation, groups, options, and footer.

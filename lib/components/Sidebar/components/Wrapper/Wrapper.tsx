@@ -28,11 +28,13 @@ const Wrapper: FC<Props> = ({
   drawerMaxWidth = DRAWER_DEFAULT_MAX_WIDTH,
   expandedBreakpoint,
   expandOnHover = true,
+  initialMode,
   initialWidth = 256,
   maxWith = 300,
   minWith = 240,
   mode = 'auto',
   separatorClassName,
+  style,
   theme,
   triggerClassName,
   wrapperClassName,
@@ -41,6 +43,7 @@ const Wrapper: FC<Props> = ({
     mode,
     expandedBreakpoint,
     drawerBreakpoint,
+    initialMode,
   );
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [viewportWidth, setViewportWidth] = useState<number | null>(null);
@@ -209,8 +212,9 @@ const Wrapper: FC<Props> = ({
             }}
           >
             <div
-              className="group/sidebar flex flex-col flex-1 min-h-0"
+              className="konstruct-sidebar group/sidebar flex flex-col flex-1 min-h-0"
               data-mode="expanded"
+              style={style}
             >
               {children}
             </div>
@@ -236,6 +240,7 @@ const Wrapper: FC<Props> = ({
       <aside
         ref={asideRef}
         className={cn(
+          'konstruct-sidebar',
           wrapperSiderbarVariants({
             mode: asideMode,
             className: wrapperClassName,
@@ -243,6 +248,7 @@ const Wrapper: FC<Props> = ({
         )}
         data-theme={theme}
         data-mode={asideMode}
+        style={style}
       >
         {children}
 
