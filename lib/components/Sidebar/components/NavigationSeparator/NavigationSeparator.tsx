@@ -6,7 +6,12 @@ import { Props } from './NavigationSeparator.types';
 import { navigationSeparatorVariant } from './NavigationSeparator.variants';
 
 const NavigationSeparator: FC<Props> = ({ className }) => (
-  <div className={cn(navigationSeparatorVariant({ className }))} />
+  <div
+    data-konstruct-sidebar-separator=""
+    role="separator"
+    aria-orientation="horizontal"
+    className={cn(navigationSeparatorVariant({ className }))}
+  />
 );
 
 NavigationSeparator.displayName = 'KonstructSidebarNavigationSeparator';

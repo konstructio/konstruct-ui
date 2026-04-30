@@ -91,9 +91,9 @@ const renderSidebarContent = (
 ) => (
   <>
     <Logo>
-      <a className="flex items-center gap-2">
+      <a className="flex items-center w-full">
         <img
-          className="flex-1 shrink-0 hidden group-data-[mode=expanded]/sidebar:block"
+          className="hidden group-data-[mode=expanded]/sidebar:block w-auto h-auto max-w-full"
           src="./logo-kubefirst.svg"
           alt="Company logo"
         />
@@ -102,20 +102,17 @@ const renderSidebarContent = (
           src="./ray.svg"
           alt="Company logo"
         />
-        <Typography
-          variant="labelSmall"
-          className="group-data-[mode=expanded]/sidebar:left-[35%] -bottom-5! group-data-[mode=expanded]/sidebar:bottom-0! text-[#ABADC6] lowercase"
-        >
-          v1.11.1
-        </Typography>
       </a>
+      <Typography variant="labelSmall" className="text-[#ABADC6] lowercase">
+        v1.11.1
+      </Typography>
     </Logo>
 
     <Navigation className="mt-4 group-data-[mode=expanded]/sidebar:mt-0">
       <NavigationGroup>
         <NavigationOption>
-          <a className="flex items-center gap-2">
-            <ScatterPlotIcon className="w-6 h-6" />
+          <a>
+            <ScatterPlotIcon className="w-6 h-6 shrink-0" />
             <Label>Clusters</Label>
           </a>
         </NavigationOption>
@@ -125,8 +122,10 @@ const renderSidebarContent = (
           onClick={() => onThemeChange('kubefirst')}
           isActive={theme === 'kubefirst'}
         >
-          <PhotoLibraryIcon className="w-6 h-6" />
-          <Label>Environments</Label>
+          <a>
+            <PhotoLibraryIcon className="w-6 h-6 shrink-0" />
+            <Label>Environments</Label>
+          </a>
         </NavigationOption>
       </NavigationGroup>
 
@@ -136,13 +135,15 @@ const renderSidebarContent = (
           onClick={() => onThemeChange('light')}
           isActive={theme === 'light'}
         >
-          <ReceiptLongIcon className="w-6 h-6" />
-          <Label>Plans & Billing</Label>
+          <a>
+            <ReceiptLongIcon className="w-6 h-6 shrink-0" />
+            <Label>Plans & Billing</Label>
+          </a>
         </NavigationOption>
 
         <NavigationOption>
-          <a className="flex items-center gap-2">
-            <CloudIcon className="w-6 h-6" />
+          <a>
+            <CloudIcon className="w-6 h-6 shrink-0" />
             <Label>Cloud accounts</Label>
           </a>
         </NavigationOption>

@@ -1,0 +1,149 @@
+/*
+ * Sidebar layout protection — these rules mirror the Tailwind utilities
+ * the Sidebar internally relies on, but as plain (un-layered) CSS so they
+ * survive un-layered overrides shipped by host apps and federated remotes
+ * (a common pain point in micro-frontend setups where remote bundles
+ * include their own CSS reset that targets `nav`, `ul`, etc.).
+ *
+ * Targets the stable `konstruct-sidebar` class set on the wrapper aside.
+ * Consumers can opt in by importing `@konstructio/ui/sidebar.css`.
+ */
+
+.konstruct-sidebar {
+  height: 100%;
+}
+/*
+ * Width protection — applies only to the standalone `<aside>` (not to the
+ * `.konstruct-sidebar` that lives inside the Drawer panel in drawer mode).
+ * The drawer panel handles its own width via `defaultWidth` and the inner
+ * `<div>` should fill it via `flex-1`.
+ */
+aside.konstruct-sidebar {
+  width: 16rem;
+}
+aside.konstruct-sidebar[data-mode='collapsed'] {
+  width: 4.5rem;
+}
+
+.konstruct-sidebar nav {
+  display: flex;
+  flex: 1 1 0%;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+  width: 100%;
+  scrollbar-color: rgb(120 120 120 / 0.4) transparent;
+  scrollbar-width: thin;
+}
+.konstruct-sidebar nav::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+.konstruct-sidebar nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+.konstruct-sidebar nav::-webkit-scrollbar-thumb {
+  background-color: rgb(120 120 120 / 0.4);
+  border-radius: 9999px;
+  transition: background-color 0.2s;
+}
+.konstruct-sidebar nav::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(120 120 120 / 0.6);
+}
+.konstruct-sidebar nav::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.konstruct-sidebar ul {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0 0.5rem;
+}
+
+.konstruct-sidebar li[role='option'] {
+  flex-shrink: 0;
+}
+
+/*
+ * Padding lives on the inner anchor (not the `<li>`) so the full
+ * hover/click area routes through the link — both navigation clicks and
+ * the Radix Tooltip trigger (in collapsed + expandOnHover mode) cover the
+ * whole option, not just the icon.
+ */
+.konstruct-sidebar li[role='option'] > a {
+  padding: 0.625rem;
+}
+.konstruct-sidebar[data-mode='expanded'] li[role='option'] > a {
+  padding: 0.625rem 1rem;
+}
+
+/*
+ * Hover / active styling driven by CSS custom properties. The properties
+ * are inherited from `.konstruct-sidebar` (or a closer ancestor) so the
+ * consumer can theme with a single inline `style` on the wrapper, which
+ * outranks any un-layered Tailwind utility shipped by federated remote
+ * micro-frontends.
+ */
+.konstruct-sidebar li[role='option']:hover {
+  background-color: var(--konstruct-sidebar-hover-bg, #252a41);
+  color: var(--konstruct-sidebar-hover-color, #fff);
+}
+.konstruct-sidebar li[role='option'][data-active='true'] {
+  background-color: var(--konstruct-sidebar-active-bg, #252a41);
+  color: var(--konstruct-sidebar-active-color, #fff);
+}
+
+.konstruct-sidebar li[role='option'] > a {
+  align-items: center;
+  color: inherit;
+  display: flex;
+  gap: 1rem;
+  text-decoration: none;
+  width: 100%;
+}
+
+/* Center icon-only content (option icons and Logo) in collapsed mode. */
+.konstruct-sidebar[data-mode='collapsed'] li[role='option'],
+.konstruct-sidebar[data-mode='collapsed'] li[role='option'] > a,
+.konstruct-sidebar[data-mode='collapsed'] [data-konstruct-sidebar-logo] > a {
+  justify-content: center;
+}
+.konstruct-sidebar[data-mode='collapsed'] [data-konstruct-sidebar-logo] {
+  align-items: center;
+}
+
+/*
+ * Logo padding driven by CSS custom properties (same MFE-survival pattern
+ * as the option hover/active rules above). Consumers can override per-mode
+ * by setting `--konstruct-sidebar-logo-padding-expanded` and
+ * `--konstruct-sidebar-logo-padding-collapsed` (or the generic
+ * `--konstruct-sidebar-logo-padding`) in an inline `style` on the wrapper.
+ */
+.konstruct-sidebar[data-mode='expanded'] [data-konstruct-sidebar-logo] {
+  padding: var(
+    --konstruct-sidebar-logo-padding-expanded,
+    var(--konstruct-sidebar-logo-padding, 1.25rem 1rem)
+  );
+}
+.konstruct-sidebar[data-mode='collapsed'] [data-konstruct-sidebar-logo] {
+  padding: var(
+    --konstruct-sidebar-logo-padding-collapsed,
+    var(--konstruct-sidebar-logo-padding, 0)
+  );
+}
+
+/*
+ * Auto-inserted separator between consecutive NavigationGroups.
+ * Mirrors the Tailwind variant (`h-px w-full bg-white/20 my-3`) as plain
+ * CSS so it survives un-layered overrides from MFE bundles.
+ */
+.konstruct-sidebar [data-konstruct-sidebar-separator] {
+  background-color: rgb(255 255 255 / 0.2);
+  flex-shrink: 0;
+  height: 1px;
+  margin: 0.75rem 0.5rem;
+}

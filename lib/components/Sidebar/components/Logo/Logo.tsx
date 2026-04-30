@@ -12,6 +12,7 @@ const Logo: FC<Props> = ({ children, className }) => {
 
   return (
     <header
+      data-konstruct-sidebar-logo=""
       className={cn(logoVariants({ className }))}
       onClick={() => closeDrawer()}
     >
