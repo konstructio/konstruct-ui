@@ -1,5 +1,5 @@
 import { VariantProps } from 'class-variance-authority';
-import { FC, PropsWithChildren } from '../../../../node_modules/react';
+import { CSSProperties, FC, PropsWithChildren } from '../../../../node_modules/react';
 import { ClassNames as DrawerClassNames } from '../../../components/Drawer/Drawer.types';
 import { Theme } from '../../../domain/theme';
 import { SidebarModeProp } from './hooks/useSidebarMode';
@@ -90,10 +90,28 @@ export interface Props extends Omit<VariantProps<typeof wrapperSiderbarVariants>
      *   (useful for testing, stories, or manual control).
      */
     mode?: SidebarModeProp;
+    /**
+     * SSR / first-paint hint for `auto` mode. `useMediaQuery` cannot run on
+     * the server, so the resolved mode flickers from the desktop default to
+     * the actual viewport-derived mode after hydration. Pass the last-known
+     * mode (e.g. read from a cookie written by a prior client visit) to
+     * make the SSR markup match the actual viewport on subsequent loads.
+     * Ignored when `mode` is anything other than `auto`.
+     */
+    initialMode?: Exclude<SidebarModeProp, 'auto'>;
     /** Theme override for this component */
     theme?: Theme;
     /** Additional CSS classes for the wrapper */
     wrapperClassName?: string;
+    /**
+     * Inline styles applied to the wrapper `<aside>` (or the drawer panel in
+     * drawer mode). Useful for setting CSS custom properties that drive
+     * theming via the protection stylesheet (e.g.
+     * `--konstruct-sidebar-hover-bg`, `--konstruct-sidebar-active-bg`),
+     * since inline styles outrank un-layered utilities shipped by federated
+     * remote micro-frontends.
+     */
+    style?: CSSProperties;
 }
 /** @deprecated Use Props instead */
 export type SidebarProps = Props;
