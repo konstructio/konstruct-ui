@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.1.2-alpha.89](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.89) (2026-05-12)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.88...0.1.2-alpha.89)
+
+**Merged pull requests:**
+
+- ✨ feat: expose package.json in exports field [\#640](https://github.com/konstructio/konstruct-ui/pull/640) ([CristhianF7](https://github.com/CristhianF7))
+- build\(deps-dev\): bump postcss from 8.5.10 to 8.5.12 [\#629](https://github.com/konstructio/konstruct-ui/pull/629) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump lucide-react from 1.8.0 to 1.11.0 [\#628](https://github.com/konstructio/konstruct-ui/pull/628) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps-dev\): bump @tanstack/react-query from 5.99.2 to 5.100.5 [\#627](https://github.com/konstructio/konstruct-ui/pull/627) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [0.1.2-alpha.88](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.88) (2026-04-30)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.87...0.1.2-alpha.88)
