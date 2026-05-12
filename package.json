@@ -25,7 +25,8 @@
     },
     "./*.css": {
       "import": "./dist/*.css"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "dist"
