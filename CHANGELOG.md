@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.92](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.92) (2026-05-27)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.91...0.1.2-alpha.92)
+
+**Merged pull requests:**
+
+- 👷 ci: migrate npm publish to OIDC trusted publishing [\#642](https://github.com/konstructio/konstruct-ui/pull/642) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.91](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.91) (2026-05-27)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.90...0.1.2-alpha.91)
