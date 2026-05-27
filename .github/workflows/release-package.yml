@@ -16,9 +16,6 @@ jobs:
       contents: write
       actions: write
 
-    outputs:
-      tag: ${{ steps.dist-tag.outputs.tag }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -52,25 +49,10 @@ jobs:
       - name: Authenticate with GitHub Packages
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_TOKEN }}" > ~/.npmrc
 
-      - name: Determine npm dist-tag
-        id: dist-tag
-        run: |
-          VERSION="${{ github.event.client_payload.version }}"
-          if [[ "$VERSION" == *"-"* ]]; then
-            TAG=$(echo "$VERSION" | sed 's/.*-\([a-zA-Z]*\).*/\1/')
-          else
-            TAG="latest"
-          fi
-          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-
       # Publish as `latest` so the newest version is always latest, regardless of
-      # its prerelease tag; then also point the prerelease tag (e.g. alpha) at it.
+      # its prerelease tag.
       - name: Publish to GitHub Packages
-        run: |
-          npm publish --registry https://npm.pkg.github.com/ --tag latest
-          if [ "${{ steps.dist-tag.outputs.tag }}" != "latest" ]; then
-            npm dist-tag add @konstructio/ui@${{ github.event.client_payload.version }} ${{ steps.dist-tag.outputs.tag }} --registry https://npm.pkg.github.com/
-          fi
+        run: npm publish --registry https://npm.pkg.github.com/ --tag latest
 
       - name: Upload built package
         uses: actions/upload-artifact@v4
@@ -112,33 +94,15 @@ jobs:
           name: dist
           path: dist
 
-      # Diagnostic only (no secret values printed): confirms whether the GitHub
-      # OIDC token request env is available (it requires id-token: write) and shows
-      # the npm registry/.npmrc state that decides token-vs-OIDC auth.
-      - name: Debug OIDC environment
-        run: |
-          echo "npm: $(npm -v) | node: $(node -v)"
-          [ -n "$ACTIONS_ID_TOKEN_REQUEST_URL" ] && echo "ACTIONS_ID_TOKEN_REQUEST_URL: present" || echo "ACTIONS_ID_TOKEN_REQUEST_URL: MISSING"
-          [ -n "$ACTIONS_ID_TOKEN_REQUEST_TOKEN" ] && echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN: present" || echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN: MISSING"
-          [ -n "$NODE_AUTH_TOKEN" ] && echo "NODE_AUTH_TOKEN: present" || echo "NODE_AUTH_TOKEN: unset"
-          echo "registry: $(npm config get registry)"
-          echo "--- project .npmrc ---"
-          sed 's/\(_authToken=\).*/\1<redacted>/' .npmrc 2>/dev/null || echo "(none)"
-          echo "--- ~/.npmrc ---"
-          sed 's/\(_authToken=\).*/\1<redacted>/' "$HOME/.npmrc" 2>/dev/null || echo "(none)"
-
       # ignore-scripts=true means no build/prepare runs during publish, so the
       # downloaded dist is exactly what gets published. Do not set NODE_AUTH_TOKEN.
       # --provenance forces the OIDC/id-token path: if id-token: write is missing it
       # fails with an explicit error instead of a misleading ENEEDAUTH.
-      # Publish as `latest` so the newest version is always latest, regardless of
-      # its prerelease tag; then also point the prerelease tag (e.g. alpha) at it.
+      # Publish as `latest` so the newest version is always latest, regardless of its
+      # prerelease tag. npm Trusted Publishing (OIDC) only authenticates `npm publish`,
+      # not `dist-tag`/`deprecate`/etc, so a secondary dist-tag cannot be set here.
       - name: Publish to npm (OIDC)
-        run: |
-          npm publish --provenance --tag latest
-          if [ "${{ needs.bump-and-publish-github.outputs.tag }}" != "latest" ]; then
-            npm dist-tag add @konstructio/ui@${{ github.event.client_payload.version }} ${{ needs.bump-and-publish-github.outputs.tag }}
-          fi
+        run: npm publish --provenance --tag latest
 
   notify-slack:
     needs: [bump-and-publish-github, publish-npm]
