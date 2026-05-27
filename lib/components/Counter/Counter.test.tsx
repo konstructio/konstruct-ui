@@ -56,6 +56,12 @@ describe('Counter', () => {
     expect(input).toHaveValue(defaultProps.init);
   });
 
+  it('should render the provided label', () => {
+    setup({ label: 'Number of instances' });
+
+    expect(screen.getByText('Number of instances')).toBeInTheDocument();
+  });
+
   it("should doesn't have violations", async () => {
     const { component } = setup();
 
