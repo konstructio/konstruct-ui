@@ -8,13 +8,16 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  bump-version-and-publish:
+  bump-and-publish-github:
     runs-on: self-hosted
 
     permissions:
       packages: write
       contents: write
       actions: write
+
+    outputs:
+      tag: ${{ steps.dist-tag.outputs.tag }}
 
     steps:
       - name: Checkout repository
@@ -49,9 +52,6 @@ jobs:
       - name: Authenticate with GitHub Packages
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_TOKEN }}" > ~/.npmrc
 
-      - name: Authenticate with npmjs
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
-
       - name: Determine npm dist-tag
         id: dist-tag
         run: |
@@ -70,13 +70,61 @@ jobs:
             npm dist-tag add @konstructio/ui@${{ github.event.client_payload.version }} latest --registry https://npm.pkg.github.com/
           fi
 
-      - name: Publish to npm
+      - name: Upload built package
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+  # npm Trusted Publishing (OIDC) does not support self-hosted runners yet, so the
+  # npm publish runs on a GitHub-hosted runner. No npm token is used: the npm CLI
+  # exchanges the GitHub OIDC token (id-token: write) for a short-lived publish token.
+  publish-npm:
+    needs: bump-and-publish-github
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      # Do NOT set registry-url here: it writes `_authToken=${NODE_AUTH_TOKEN}` into
+      # .npmrc, and an empty token disables OIDC. publishConfig.registry already
+      # points npm publish at https://registry.npmjs.org/.
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Ensure npm supports trusted publishing
+        run: npm install -g npm@latest
+
+      - name: Download built package
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      # ignore-scripts=true means no build/prepare runs during publish, so the
+      # downloaded dist is exactly what gets published. Provenance is generated
+      # automatically by trusted publishing. Do not set NODE_AUTH_TOKEN.
+      - name: Publish to npm (OIDC)
         run: |
-          npm publish --registry https://registry.npmjs.org/ --tag ${{ steps.dist-tag.outputs.tag }}
-          if [ "${{ steps.dist-tag.outputs.tag }}" != "latest" ]; then
-            npm dist-tag add @konstructio/ui@${{ github.event.client_payload.version }} latest --registry https://registry.npmjs.org/
+          npm publish --tag ${{ needs.bump-and-publish-github.outputs.tag }}
+          if [ "${{ needs.bump-and-publish-github.outputs.tag }}" != "latest" ]; then
+            npm dist-tag add @konstructio/ui@${{ github.event.client_payload.version }} latest
           fi
 
+  notify-slack:
+    needs: [bump-and-publish-github, publish-npm]
+    runs-on: self-hosted
+
+    steps:
       - name: Send new version of the package to Konstruct Slack
         run: |
           curl --location 'https://n8n-production.mgmt-24.konstruct.io/webhook/konstruct-ui/updates' \
