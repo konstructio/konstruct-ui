@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.93](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.93) (2026-05-27)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.92...0.1.2-alpha.93)
+
+**Merged pull requests:**
+
+- 🔍 ci: fix npm OIDC ENEEDAUTH \(+provenance\) and always tag latest [\#643](https://github.com/konstructio/konstruct-ui/pull/643) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.92](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.92) (2026-05-27)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.91...0.1.2-alpha.92)
