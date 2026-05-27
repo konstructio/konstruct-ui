@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.2-alpha.90](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.90) (2026-05-27)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.89...0.1.2-alpha.90)
+
+**Merged pull requests:**
+
+- ✨ feat: update Counter component to use dynamic label [\#641](https://github.com/konstructio/konstruct-ui/pull/641) ([jairoFernandez](https://github.com/jairoFernandez))
+- build\(deps-dev\): bump @typescript-eslint/eslint-plugin from 8.59.0 to 8.59.2 [\#639](https://github.com/konstructio/konstruct-ui/pull/639) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps-dev\): bump storybook from 10.3.5 to 10.3.6 [\#638](https://github.com/konstructio/konstruct-ui/pull/638) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump country-flag-icons from 1.6.16 to 1.6.17 [\#637](https://github.com/konstructio/konstruct-ui/pull/637) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps-dev\): bump @tailwindcss/vite from 4.2.4 to 4.3.0 [\#636](https://github.com/konstructio/konstruct-ui/pull/636) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps-dev\): bump @storybook/addon-links from 10.3.5 to 10.3.6 [\#635](https://github.com/konstructio/konstruct-ui/pull/635) ([dependabot[bot]](https://github.com/apps/dependabot))
+- ✨ feat: expose 11 additional icons from public icons barrel [\#634](https://github.com/konstructio/konstruct-ui/pull/634) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.89](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.89) (2026-05-12)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.88...0.1.2-alpha.89)
