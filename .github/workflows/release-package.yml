@@ -110,12 +110,28 @@ jobs:
           name: dist
           path: dist
 
+      # Diagnostic only (no secret values printed): confirms whether the GitHub
+      # OIDC token request env is available (it requires id-token: write) and shows
+      # the npm registry/.npmrc state that decides token-vs-OIDC auth.
+      - name: Debug OIDC environment
+        run: |
+          echo "npm: $(npm -v) | node: $(node -v)"
+          [ -n "$ACTIONS_ID_TOKEN_REQUEST_URL" ] && echo "ACTIONS_ID_TOKEN_REQUEST_URL: present" || echo "ACTIONS_ID_TOKEN_REQUEST_URL: MISSING"
+          [ -n "$ACTIONS_ID_TOKEN_REQUEST_TOKEN" ] && echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN: present" || echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN: MISSING"
+          [ -n "$NODE_AUTH_TOKEN" ] && echo "NODE_AUTH_TOKEN: present" || echo "NODE_AUTH_TOKEN: unset"
+          echo "registry: $(npm config get registry)"
+          echo "--- project .npmrc ---"
+          sed 's/\(_authToken=\).*/\1<redacted>/' .npmrc 2>/dev/null || echo "(none)"
+          echo "--- ~/.npmrc ---"
+          sed 's/\(_authToken=\).*/\1<redacted>/' "$HOME/.npmrc" 2>/dev/null || echo "(none)"
+
       # ignore-scripts=true means no build/prepare runs during publish, so the
-      # downloaded dist is exactly what gets published. Provenance is generated
-      # automatically by trusted publishing. Do not set NODE_AUTH_TOKEN.
+      # downloaded dist is exactly what gets published. Do not set NODE_AUTH_TOKEN.
+      # --provenance forces the OIDC/id-token path: if id-token: write is missing it
+      # fails with an explicit error instead of a misleading ENEEDAUTH.
       - name: Publish to npm (OIDC)
         run: |
-          npm publish --tag ${{ needs.bump-and-publish-github.outputs.tag }}
+          npm publish --provenance --tag ${{ needs.bump-and-publish-github.outputs.tag }}
           if [ "${{ needs.bump-and-publish-github.outputs.tag }}" != "latest" ]; then
             npm dist-tag add @konstructio/ui@${{ github.event.client_payload.version }} latest
           fi
