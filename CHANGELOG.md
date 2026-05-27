@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.94](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.94) (2026-05-27)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.93...0.1.2-alpha.94)
+
+**Merged pull requests:**
+
+- 🔧 ci: publish latest-only via OIDC, drop unauthenticated dist-tag step [\#644](https://github.com/konstructio/konstruct-ui/pull/644) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.93](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.93) (2026-05-27)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.92...0.1.2-alpha.93)
