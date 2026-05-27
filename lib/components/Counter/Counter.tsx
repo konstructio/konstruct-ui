@@ -104,7 +104,7 @@ export const Counter: FC<Props> = forwardRef<HTMLInputElement, Props>(
               variant="labelLarge"
               className={cn(labelVariants())}
             >
-              Number of nodes{' '}
+              {label}{' '}
               {isRequired && (
                 <span className="text-red-600 dark:text-red-500">*</span>
               )}
