@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { RadioCardGroup } from './RadioCardGroup';
+import { RadioGroup } from './RadioGroup';
 
-const meta: Meta<typeof RadioCardGroup> = {
-  title: 'Components/RadioCardGroup',
-  component: RadioCardGroup,
+const meta: Meta<typeof RadioGroup> = {
+  title: 'Components/RadioGroup',
+  component: RadioGroup,
   tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
         component:
-          'A group of card-style radio options. Use the **Controls** panel below to interact with the props.',
+          'A group of radio button options. Use the **Controls** panel below to interact with the props.',
       },
     },
   },
@@ -18,6 +18,10 @@ const meta: Meta<typeof RadioCardGroup> = {
     name: {
       control: { type: 'text' },
       description: 'Form field name (shared by all radios)',
+    },
+    label: {
+      control: { type: 'text' },
+      description: 'Label for the group',
     },
     direction: {
       control: { type: 'inline-radio' },
@@ -30,7 +34,7 @@ const meta: Meta<typeof RadioCardGroup> = {
     },
     options: {
       control: { type: 'object' },
-      description: 'Array of radio card options',
+      description: 'Array of radio options',
     },
     theme: {
       control: { type: 'select' },
@@ -40,19 +44,20 @@ const meta: Meta<typeof RadioCardGroup> = {
     onValueChange: { action: 'changed', table: { disable: true } },
   },
   args: {
-    name: 'pricing',
+    name: 'plan',
+    label: 'Choose a plan',
     direction: 'col',
-    defaultChecked: 'pro',
+    defaultChecked: 'basic',
     options: [
-      { value: 'basic', label: 'Basic', description: '$9 / month' },
-      { value: 'pro', label: 'Pro', description: '$29 / month' },
-      { value: 'enterprise', label: 'Enterprise', description: 'Custom pricing' },
+      { value: 'basic', label: 'Basic' },
+      { value: 'pro', label: 'Pro' },
+      { value: 'enterprise', label: 'Enterprise' },
     ],
   },
 };
 
 export default meta;
 
-type Story = StoryObj<typeof RadioCardGroup>;
+type Story = StoryObj<typeof RadioGroup>;
 
 export const Playground: Story = {};

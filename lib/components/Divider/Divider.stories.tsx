@@ -1,28 +1,39 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Divider as DividerComponent } from './Divider';
+import { Divider } from './Divider';
 
-type Story = StoryObj<typeof DividerComponent>;
-
-const meta: Meta<typeof DividerComponent> = {
-  title: 'In Review/Divider',
-  component: DividerComponent,
-};
-
-export const Divider: Story = {
-  render: () => (
-    <div className="flex w-full flex-col gap-4">
-      <div className="w-[350px] space-y-4">
-        <DividerComponent />
+const meta: Meta<typeof Divider> = {
+  title: 'Components/Divider',
+  component: Divider,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A simple horizontal separator line. Use the **Controls** panel below to interact with the props.',
+      },
+    },
+  },
+  argTypes: {
+    className: {
+      control: { type: 'text' },
+      description: 'Additional CSS classes',
+    },
+  },
+  args: {},
+  render: (args) => {
+    return (
+      <div className="w-80 flex flex-col gap-2">
+        <p className="text-sm">Section above</p>
+        <Divider {...args} />
+        <p className="text-sm">Section below</p>
       </div>
-      <div className="w-[600px] space-y-4">
-        <DividerComponent className="bg-zinc-300" />
-      </div>
-      <div className="w-full space-y-4">
-        <DividerComponent className="bg-zinc-400" />
-      </div>
-    </div>
-  ),
+    );
+  },
 };
 
 export default meta;
+
+type Story = StoryObj<typeof Divider>;
+
+export const Playground: Story = {};

@@ -1,29 +1,43 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { DatePicker as DatepickerComponent } from './DatePicker';
+import { DatePicker } from './DatePicker';
 
-type Story = StoryObj<typeof DatepickerComponent>;
-
-const meta: Meta<typeof DatepickerComponent> = {
-  title: 'In Review/Datepicker',
-  component: DatepickerComponent,
-};
-
-export const Datepicker: Story = {
-  render: () => (
-    <>
-      <div className="max-w-[350px] flex justify-center gap-2">
-        <DatepickerComponent />
-      </div>
-
-      <div
-        className="max-w-[350px] flex justify-center gap-2 mt-6 rounded-lg bg-metal-900"
-        data-theme="dark"
-      >
-        <DatepickerComponent />
-      </div>
-    </>
-  ),
+const meta: Meta<typeof DatePicker> = {
+  title: 'Components/Datepicker',
+  component: DatePicker,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A date picker built on react-day-picker for single date selection. Use the **Controls** panel below to interact with the props.',
+      },
+    },
+  },
+  argTypes: {
+    defaultSelected: {
+      control: { type: 'date' },
+      description: 'Initial selected date',
+    },
+    showOutsideDays: {
+      control: { type: 'boolean' },
+      description: 'Show days from the previous and next months',
+    },
+    animate: {
+      control: { type: 'boolean' },
+      description: 'Animate month transitions',
+    },
+    onSelect: { action: 'selected', table: { disable: true } },
+  },
+  args: {
+    defaultSelected: new Date(),
+    showOutsideDays: true,
+    animate: true,
+  },
 };
 
 export default meta;
+
+type Story = StoryObj<typeof DatePicker>;
+
+export const Playground: Story = {};

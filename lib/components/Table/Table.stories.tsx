@@ -1,79 +1,61 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Table as TableComponent } from './Table';
-import { Typography } from '../Typography/Typography';
-import { useState } from 'react';
-import { Button } from '../Button/Button';
+import { Table } from './Table';
 
-type Story = StoryObj<typeof TableComponent>;
-
-const meta = {
-  title: 'In Review/Table',
-  component: TableComponent,
-} satisfies Meta<typeof TableComponent>;
-
-const data = [
-  { name: 'John Doe', age: 30, email: 'john.doe@example.com' },
-  { name: 'Jane Doe', age: 25, email: 'jane.doe@example.com' },
-];
-
-export const Table = {
-  render: function TableStory() {
-    const [filter, setFilter] = useState('');
-
-    const filteredData = data.filter((item) =>
-      item.name.toLowerCase().includes(filter.toLowerCase()),
-    );
+const meta: Meta<typeof Table> = {
+  title: 'Components/Table',
+  component: Table,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A semantic HTML table with Head, Body, and Row sub-components. Use the **Controls** panel below to interact with the props.',
+      },
+    },
+  },
+  argTypes: {
+    theme: {
+      control: { type: 'select' },
+      options: [undefined, 'kubefirst', 'light', 'kubefirst-dark', 'dark'],
+      description: 'Theme override for this instance',
+    },
+  },
+  args: {},
+  render: (args) => {
+    const data = [
+      { name: 'John Doe', email: 'john@example.com', role: 'Admin' },
+      { name: 'Jane Smith', email: 'jane@example.com', role: 'User' },
+      { name: 'Alex Brown', email: 'alex@example.com', role: 'User' },
+    ];
 
     return (
-      <div className="w-full kubefirst-table">
-        <TableComponent.Filter
-          placeholder="Search"
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-        >
-          <Button variant="primary">Add cloud account</Button>
-        </TableComponent.Filter>
-
-        <TableComponent className="">
-          <TableComponent.Head>
-            <TableComponent.Row width="100px">
-              <th className="w-[100px]">
-                <Typography variant="labelMedium" className="text-slate-500">
-                  Name
-                </Typography>
-              </th>
-              <th>
-                <Typography variant="labelMedium" className="text-slate-500">
-                  Age
-                </Typography>
-              </th>
-              <th>
-                <Typography variant="labelMedium" className="text-slate-500">
-                  Email
-                </Typography>
-              </th>
-            </TableComponent.Row>
-          </TableComponent.Head>
-          <TableComponent.Body>
-            {filteredData.map((item) => (
-              <TableComponent.Row key={item.name}>
-                <td>
-                  <Typography variant="body2">{item.name}</Typography>
-                </td>
-                <td>
-                  <Typography variant="body2">30</Typography>
-                </td>
-                <td>
-                  <Typography variant="body2">john.doe@example.com</Typography>
-                </td>
-              </TableComponent.Row>
-            ))}
-          </TableComponent.Body>
-        </TableComponent>
-      </div>
+      <Table {...args}>
+        <Table.Head>
+          <Table.Row>
+            <th className="px-3 py-2 text-left text-sm font-medium">Name</th>
+            <th className="px-3 py-2 text-left text-sm font-medium">Email</th>
+            <th className="px-3 py-2 text-left text-sm font-medium">Role</th>
+          </Table.Row>
+        </Table.Head>
+        <Table.Body>
+          {data.map((row) => {
+            return (
+              <Table.Row key={row.email}>
+                <td className="px-3 py-2 text-sm">{row.name}</td>
+                <td className="px-3 py-2 text-sm">{row.email}</td>
+                <td className="px-3 py-2 text-sm">{row.role}</td>
+              </Table.Row>
+            );
+          })}
+        </Table.Body>
+      </Table>
     );
   },
-} satisfies Story;
+};
 
 export default meta;
+
+type Story = StoryObj<typeof Table>;
+
+export const Playground: Story = {};

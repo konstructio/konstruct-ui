@@ -18,6 +18,8 @@ const preview = {
         order: [
           'Documentation',
           ['Introduction', 'Changelog', 'Icons Gallery', '*'],
+          'Components',
+          ['*'],
           'In Review',
           [
             '*',
