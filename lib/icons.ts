@@ -7,6 +7,7 @@ export {
   AppRepoIcon,
   AppsIcon,
   ArchivesIcon,
+  ArrowBackIcon,
   ArrowDownIcon,
   ArrowLeftIcon,
   ArrowRightIcon,
