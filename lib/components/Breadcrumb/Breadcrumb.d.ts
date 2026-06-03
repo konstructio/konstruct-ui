@@ -22,6 +22,15 @@ import { Props } from './Breadcrumb.types';
  *     { label: 'Edit User', isActive: true },
  *   ]}
  * />
+ *
+ * // With an optional back button and step icons
+ * <Breadcrumb
+ *   backButton={{ onClick: () => navigate(-1) }}
+ *   steps={[
+ *     { label: 'Home', to: '/', leftIcon: <HomeIcon /> },
+ *     { label: 'Profile', isActive: true },
+ *   ]}
+ * />
  * ```
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-breadcrumb--docs Storybook}
