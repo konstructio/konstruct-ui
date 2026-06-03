@@ -222,26 +222,36 @@ export const TableProvider = <TData extends RowData = RowData>({
 
     const handleExpand = (e: Event) => {
       const { detail } = e as CustomEvent<VirtualizedTableEventDetail>;
+      const { rowId } = detail;
 
-      if (detail.tableId !== tableId) return;
+      if (detail.tableId !== tableId || !rowId) {
+        return;
+      }
 
       handleExpandedChange((prev) => {
-        if (typeof prev === 'boolean') return { [detail.rowId]: true };
+        if (typeof prev === 'boolean') {
+          return { [rowId]: true };
+        }
 
-        return { ...prev, [detail.rowId]: true };
+        return { ...prev, [rowId]: true };
       });
     };
 
     const handleCollapse = (e: Event) => {
       const { detail } = e as CustomEvent<VirtualizedTableEventDetail>;
+      const { rowId } = detail;
 
-      if (detail.tableId !== tableId) return;
+      if (detail.tableId !== tableId || !rowId) {
+        return;
+      }
 
       handleExpandedChange((prev) => {
-        if (typeof prev === 'boolean') return {};
+        if (typeof prev === 'boolean') {
+          return {};
+        }
 
         const next = { ...prev };
-        delete next[detail.rowId];
+        delete next[rowId];
 
         return next;
       });
@@ -249,19 +259,24 @@ export const TableProvider = <TData extends RowData = RowData>({
 
     const handleToggle = (e: Event) => {
       const { detail } = e as CustomEvent<VirtualizedTableEventDetail>;
+      const { rowId } = detail;
 
-      if (detail.tableId !== tableId) return;
+      if (detail.tableId !== tableId || !rowId) {
+        return;
+      }
 
       handleExpandedChange((prev) => {
-        if (typeof prev === 'boolean') return { [detail.rowId]: !prev };
+        if (typeof prev === 'boolean') {
+          return { [rowId]: !prev };
+        }
 
-        const isExpanded = !!prev[detail.rowId];
+        const isExpanded = !!prev[rowId];
         const next = { ...prev };
 
         if (isExpanded) {
-          delete next[detail.rowId];
+          delete next[rowId];
         } else {
-          next[detail.rowId] = true;
+          next[rowId] = true;
         }
 
         return next;

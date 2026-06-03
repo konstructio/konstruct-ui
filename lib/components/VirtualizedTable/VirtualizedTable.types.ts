@@ -196,6 +196,8 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
     'queryKey' | 'queryFn'
   >;
   isLoading?: boolean;
+  /** Rendered in place of rows when the table has no data (and is not loading). */
+  emptyState?: ReactNode;
   getRowId?: (originalRow: TData, index: number) => string;
   fetchData?: (
     params: Record<string, string | number | string[] | number[] | undefined>,
