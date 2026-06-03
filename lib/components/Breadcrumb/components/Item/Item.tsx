@@ -15,6 +15,8 @@ export const Item: FC<Props> = ({
   isActive,
   isLast,
   label,
+  leftIcon,
+  rightIcon,
   target,
   theme,
   to,
@@ -28,12 +30,30 @@ export const Item: FC<Props> = ({
     }
   };
 
+  const hasIcons = Boolean(leftIcon || rightIcon);
+
+  const content = hasIcons ? (
+    <span className="flex items-center gap-1">
+      {leftIcon && (
+        <span className="flex items-center shrink-0">{leftIcon}</span>
+      )}
+
+      <span className="flex items-center">{label}</span>
+
+      {rightIcon && (
+        <span className="flex items-center shrink-0">{rightIcon}</span>
+      )}
+    </span>
+  ) : (
+    label
+  );
+
   const Component = component;
 
   return (
     <li
       aria-current={isLast ? 'page' : undefined}
-      className="group font-medium text-inherit"
+      className="group font-medium text-inherit flex items-center"
       data-theme={theme}
     >
       {to ? (
@@ -46,7 +66,7 @@ export const Item: FC<Props> = ({
               aria-disabled={isActive ? 'true' : 'false'}
               onClick={handleClick}
             >
-              {label}
+              {content}
             </Link>
           ) : (
             <Component
@@ -57,13 +77,13 @@ export const Item: FC<Props> = ({
               aria-disabled={isActive ? 'true' : 'false'}
               onClick={handleClick}
             >
-              {label}
+              {content}
             </Component>
           )}
         </>
       ) : (
         <span className={cn(breadcrumbLabelVariants({ isActive }))}>
-          {label}
+          {content}
         </span>
       )}
     </li>

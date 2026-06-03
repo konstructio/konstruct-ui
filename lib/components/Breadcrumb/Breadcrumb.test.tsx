@@ -138,4 +138,143 @@ describe('Breadcrumb', () => {
 
     expect(screen.getByText(/step 5/i)).toBeInTheDocument();
   });
+
+  it('should not render the back button by default', () => {
+    setup();
+
+    expect(
+      screen.queryByRole('button', { name: /go back/i }),
+    ).not.toBeInTheDocument();
+  });
+
+  it('should render the back button and call onClick when clicked', async () => {
+    const onClick = vi.fn();
+    const { user } = setup({ backButton: { onClick } });
+
+    const backButton = screen.getByRole('button', { name: /go back/i });
+
+    await user.click(backButton);
+
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('should render the back button as a link and navigate when it has a route', async () => {
+    const RouterWrapper: FC<PropsWithChildren> = ({ children }) => (
+      <MemoryRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                {children}
+                <main>Home Page</main>
+              </>
+            }
+          />
+          <Route
+            path="/back"
+            element={
+              <>
+                {children}
+                <main>Back Page</main>
+              </>
+            }
+          />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    const { user } = setup({ backButton: { to: '/back' } }, RouterWrapper);
+
+    const backButton = screen.getByRole('link', { name: /go back/i });
+
+    await user.click(backButton);
+
+    expect(screen.getByText(/back page/i)).toBeInTheDocument();
+  });
+
+  it('should render the leftIcon and rightIcon of a step', () => {
+    const steps = [
+      {
+        label: 'Step 1',
+        leftIcon: <span data-testid="left-icon" />,
+        rightIcon: <span data-testid="right-icon" />,
+      },
+      { label: 'Step 2' },
+    ] satisfies Props['steps'];
+
+    setup({ steps });
+
+    expect(screen.getByTestId('left-icon')).toBeInTheDocument();
+    expect(screen.getByTestId('right-icon')).toBeInTheDocument();
+  });
+
+  it('should render only the leftIcon when rightIcon is not provided', () => {
+    const steps = [
+      { label: 'Step 1', leftIcon: <span data-testid="left-icon" /> },
+      { label: 'Step 2' },
+    ] satisfies Props['steps'];
+
+    setup({ steps });
+
+    expect(screen.getByTestId('left-icon')).toBeInTheDocument();
+    expect(screen.queryByTestId('right-icon')).not.toBeInTheDocument();
+  });
+
+  it('should render the default back icon when no custom icon is provided', () => {
+    setup({ backButton: { onClick: vi.fn() } });
+
+    const backButton = screen.getByRole('button', { name: /go back/i });
+
+    expect(backButton.querySelector('svg')).toBeInTheDocument();
+  });
+
+  it('should render a custom icon inside the back button', () => {
+    setup({
+      backButton: { onClick: vi.fn(), icon: <span data-testid="back-icon" /> },
+    });
+
+    expect(screen.getByTestId('back-icon')).toBeInTheDocument();
+  });
+
+  it('should use a custom accessible label for the back button', () => {
+    setup({ backButton: { onClick: vi.fn(), label: 'Go home' } });
+
+    expect(
+      screen.getByRole('button', { name: /go home/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: /go back/i }),
+    ).not.toBeInTheDocument();
+  });
+
+  it('should call onClick even when the back button has a route', async () => {
+    const onClick = vi.fn();
+
+    const RouterWrapper: FC<PropsWithChildren> = ({ children }) => (
+      <MemoryRouter>{children}</MemoryRouter>
+    );
+
+    const { user } = setup({ backButton: { to: '#', onClick } }, RouterWrapper);
+
+    const backButton = screen.getByRole('link', { name: /go back/i });
+
+    await user.click(backButton);
+
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('should not have accessibility violations with a back button and step icons', async () => {
+    const { component } = setup({
+      backButton: { onClick: vi.fn() },
+      steps: [
+        { label: 'Home', to: '#', leftIcon: <span /> },
+        { label: 'Step 2' },
+      ],
+    });
+
+    const results = await axe(component);
+
+    expect(results).toHaveNoViolations();
+  });
 });

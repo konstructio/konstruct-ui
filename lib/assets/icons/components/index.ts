@@ -5,6 +5,7 @@ export { AlertOutlineIcon } from './AlertOutline';
 export { AppRepoIcon } from './AppRepo';
 export { AppsIcon } from './Apps';
 export { ArchivesIcon } from './Archives';
+export { ArrowBackIcon } from './ArrowBack';
 export { ArrowDownIcon } from './ArrowDown';
 export { ArrowLeftIcon } from './ArrowLeft';
 export { ArrowRightIcon } from './ArrowRight';
