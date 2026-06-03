@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.2-alpha.95](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.95) (2026-06-03)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.94...0.1.2-alpha.95)
+
+**Merged pull requests:**
+
+- ✨ feat: add ApiKey, Configure, Deploy, Github, CheckAlt and LockAlt icons [\#652](https://github.com/konstructio/konstruct-ui/pull/652) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add optional back button and step icons to Breadcrumb [\#651](https://github.com/konstructio/konstruct-ui/pull/651) ([jairoFernandez](https://github.com/jairoFernandez))
+
 ## [0.1.2-alpha.94](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.94) (2026-05-27)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.93...0.1.2-alpha.94)
