@@ -3,6 +3,7 @@ export type { Option } from '../../../../../components/Filter/Filter.types';
 /** @deprecated Use `ActionFilterConfig` with `type: 'action'` in the `filters` array instead */
 export type FilterAction = ActionFilterConfig;
 export type Props = {
+    id: string | string[] | number | number[];
     filters?: FilterConfig[];
     /** @deprecated Use `filters` instead */
     multiSelectFilter?: MultiSelectFilter[];

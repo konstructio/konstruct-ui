@@ -9,6 +9,7 @@ type VirtualizedTableCompound = (<TData extends RowData>(props: Props<TData>) =>
         sendExpandRowEvent: (tableId: string, rowId: string) => void;
         sendCollapseRowEvent: (tableId: string, rowId: string) => void;
         sendToggleRowEvent: (tableId: string, rowId: string) => void;
+        sendResetFiltersEvent: (tableId: string) => void;
     };
     displayName?: string;
 };
