@@ -17,6 +17,7 @@ import { TableProvider } from './contexts';
 import {
   sendCollapseRowEvent,
   sendExpandRowEvent,
+  sendResetFiltersEvent,
   sendToggleRowEvent,
 } from './events';
 
@@ -58,6 +59,7 @@ const VirtualizedTableInner = <TData extends RowData>({
   classNameTable,
   classNameWrapperTable,
   isLoading,
+  emptyState,
   getRowId,
   fetchData,
   queryOptions,
@@ -133,6 +135,7 @@ const VirtualizedTableInner = <TData extends RowData>({
       <section className={cn('w-full min-w-fit', className)}>
         {showFilter && (
           <Filter
+            id={id}
             actions={filterActions}
             filters={filters}
             multiSelectFilter={multiSelectFilter}
@@ -162,7 +165,11 @@ const VirtualizedTableInner = <TData extends RowData>({
               classNameArrows={classNameHeaderArrows}
               classNameActiveArrows={classNameHeaderActiveArrows}
             />
-            <Body isLoading={isLoading} showPagination={showPagination} />
+            <Body
+              isLoading={isLoading}
+              showPagination={showPagination}
+              emptyState={emptyState}
+            />
           </table>
         </WrapperBody>
 
@@ -192,6 +199,7 @@ type VirtualizedTableCompound = (<TData extends RowData>(
     sendExpandRowEvent: (tableId: string, rowId: string) => void;
     sendCollapseRowEvent: (tableId: string, rowId: string) => void;
     sendToggleRowEvent: (tableId: string, rowId: string) => void;
+    sendResetFiltersEvent: (tableId: string) => void;
   };
   displayName?: string;
 };
@@ -206,6 +214,7 @@ VirtualizedTable.Events = {
   sendExpandRowEvent,
   sendCollapseRowEvent,
   sendToggleRowEvent,
+  sendResetFiltersEvent,
 };
 
 export { TruncateText, VirtualizedTable };

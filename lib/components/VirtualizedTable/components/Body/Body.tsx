@@ -13,6 +13,7 @@ import { BodyProps } from './Body.types';
 export const Body = <TData extends RowData = RowData>({
   isLoading,
   showPagination,
+  emptyState,
 }: BodyProps<TData>) => {
   const {
     table,
@@ -35,6 +36,46 @@ export const Body = <TData extends RowData = RowData>({
   }
 
   const rows = table.getRowModel().rows ?? [];
+
+  if (rows.length === 0 && emptyState) {
+    const colSpan = table.getVisibleLeafColumns().length;
+
+    return (
+      <tbody
+        className={cn(
+          'text-slate-800',
+          'text-sm',
+          'font-normal',
+          'relative',
+          'dark:border-x',
+        )}
+      >
+        <tr
+          className={cn(
+            'border-b',
+            'border-b-gray-200',
+            'dark:border-b-metal-700',
+            'bg-transparent',
+          )}
+          data-empty-row
+        >
+          <td
+            colSpan={colSpan}
+            className={cn(
+              'p-0',
+              'bg-white',
+              'dark:bg-metal-900',
+              'dark:border',
+              'dark:border-metal-700',
+              'rounded-b-lg',
+            )}
+          >
+            <div className="flex items-center justify-center">{emptyState}</div>
+          </td>
+        </tr>
+      </tbody>
+    );
+  }
 
   return (
     <tbody

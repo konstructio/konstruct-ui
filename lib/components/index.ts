@@ -55,6 +55,7 @@ export {
   sendExpandRowEvent,
   sendCollapseRowEvent,
   sendToggleRowEvent,
+  sendResetFiltersEvent,
   VirtualizedTableEvent,
 } from './VirtualizedTable/events';
 export type { VirtualizedTableEventDetail } from './VirtualizedTable/events';

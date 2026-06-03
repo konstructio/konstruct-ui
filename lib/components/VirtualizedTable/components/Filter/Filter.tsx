@@ -1,17 +1,30 @@
 import debounce from 'lodash/debounce';
-import { ChangeEvent, FC, useCallback, useMemo, useRef } from 'react';
+import {
+  ChangeEvent,
+  FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 
 import { Button } from '@/components/Button/Button';
 import { Filter as FilterPrimitive } from '@/components/Filter/Filter';
+import { resetEvent } from '@/components/Filter/events';
 import { Input } from '@/components/Input/Input';
 import { cn } from '@/utils';
 
 import { useTableContext } from '../../contexts';
+import {
+  VirtualizedTableEvent,
+  VirtualizedTableEventDetail,
+} from '../../events';
 import { FilterConfig } from '../../VirtualizedTable.types';
 
 import { Option, Props } from './Filter.types';
 
 export const Filter: FC<Props> = ({
+  id,
   actions,
   filters,
   multiSelectFilter,
@@ -65,6 +78,36 @@ export const Filter: FC<Props> = ({
       inputRef.current.value = '';
     }
   }, [onChangeTermOfSearch]);
+
+  useEffect(() => {
+    const tableId = Array.isArray(id) ? id.join(',') : String(id);
+    const controller = new AbortController();
+
+    document.addEventListener(
+      VirtualizedTableEvent.RESET_FILTERS,
+      (event) => {
+        const { detail } = event as CustomEvent<VirtualizedTableEventDetail>;
+
+        if (detail.tableId !== tableId) {
+          return;
+        }
+
+        // Scoped: clear this table's search term + reset its page to 0.
+        onChangeTermOfSearch('');
+
+        if (inputRef.current) {
+          inputRef.current.value = '';
+        }
+
+        // Clear all dropdowns (multiselect/date/dateRange/time) and their
+        // provider state via each dropdown's FilterEvent.RESET listener.
+        resetEvent();
+      },
+      { signal: controller.signal },
+    );
+
+    return () => controller.abort();
+  }, [id, onChangeTermOfSearch]);
 
   const handleChangeTermOfSearch = useMemo(
     () =>

@@ -1,6 +1,9 @@
+import { ReactNode } from 'react';
+
 import { RowData } from '../../VirtualizedTable.types';
 
 export type BodyProps<_TData extends RowData = RowData> = {
   isLoading?: boolean;
   showPagination?: boolean;
+  emptyState?: ReactNode;
 };

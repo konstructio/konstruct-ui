@@ -2,11 +2,12 @@ export enum VirtualizedTableEvent {
   EXPAND_ROW = '@konstructio/VirtualizedTable/event-EXPAND_ROW',
   COLLAPSE_ROW = '@konstructio/VirtualizedTable/event-COLLAPSE_ROW',
   TOGGLE_ROW = '@konstructio/VirtualizedTable/event-TOGGLE_ROW',
+  RESET_FILTERS = '@konstructio/VirtualizedTable/event-RESET_FILTERS',
 }
 
 export type VirtualizedTableEventDetail = {
   tableId: string;
-  rowId: string;
+  rowId?: string;
 };
 
 export const sendExpandRowEvent = (tableId: string, rowId: string) => {
@@ -32,6 +33,15 @@ export const sendToggleRowEvent = (tableId: string, rowId: string) => {
     new CustomEvent<VirtualizedTableEventDetail>(
       VirtualizedTableEvent.TOGGLE_ROW,
       { detail: { tableId, rowId } },
+    ),
+  );
+};
+
+export const sendResetFiltersEvent = (tableId: string) => {
+  document.dispatchEvent(
+    new CustomEvent<VirtualizedTableEventDetail>(
+      VirtualizedTableEvent.RESET_FILTERS,
+      { detail: { tableId } },
     ),
   );
 };
