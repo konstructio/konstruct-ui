@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.96](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.96) (2026-06-03)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.95...0.1.2-alpha.96)
+
+**Merged pull requests:**
+
+- ✨ feat: VirtualizedTable emptyState prop and table-scoped reset filters event [\#653](https://github.com/konstructio/konstruct-ui/pull/653) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.95](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.95) (2026-06-03)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.94...0.1.2-alpha.95)
