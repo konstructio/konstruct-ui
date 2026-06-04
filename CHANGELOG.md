@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.97](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.97) (2026-06-04)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.96...0.1.2-alpha.97)
+
+**Merged pull requests:**
+
+- 🐛 fix: VirtualizedTable shows skeleton only on initial load, not on background refetch [\#654](https://github.com/konstructio/konstruct-ui/pull/654) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.96](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.96) (2026-06-03)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.95...0.1.2-alpha.96)
