@@ -18,7 +18,7 @@ export const Body = <TData extends RowData = RowData>({
   const {
     table,
     pageSize,
-    tableLoading,
+    tableFetching,
     enableExpandedRow,
     classNameExpandedRow,
     classNameExpandedCell,
@@ -31,13 +31,7 @@ export const Body = <TData extends RowData = RowData>({
     isExpandColumnVisible,
   } = useTableContext<TData>();
 
-  // Skeleton only on the initial load (no data yet). `tableLoading`
-  // (queryResult.isLoading) is true only while fetching with no data to show;
-  // background refetches (refetchInterval / keepPreviousData) keep
-  // `tableLoading` false so existing rows stay visible and refresh silently —
-  // and an empty result still falls through to the `emptyState` below instead
-  // of being masked by a transient fetch.
-  if (isLoading || tableLoading) {
+  if (isLoading || tableFetching) {
     return <Skeleton numberOfRows={pageSize} table={table} />;
   }
 
