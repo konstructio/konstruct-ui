@@ -1,97 +1,70 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useContext, useEffect } from 'react';
-import { Sun } from 'react-feather';
+import { useState } from 'react';
 
-import { ThemeProvider, useTheme } from '@/contexts';
+import { Button } from '../Button/Button';
 
-import { Command as CommandComponent } from './Command';
-import {
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandSeparator,
-} from './components';
-import { CommandContext, CommandProvider } from './contexts';
+import { Command } from './Command';
 
-type Story = StoryObj<typeof CommandComponent>;
-
-const meta: Meta<typeof CommandComponent> = {
-  title: 'In Review/Command',
-  component: CommandComponent,
-};
-
-export const Command: Story = {
-  render: () => {
-    const Wrapper = () => {
-      const { theme, setTheme } = useTheme();
-      const { isOpen, setOpen, toggleOpen } = useContext(CommandContext);
-
-      useEffect(() => {
-        const down = (e: KeyboardEvent) => {
-          if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') {
-            if (
-              (e.target instanceof HTMLElement && e.target.isContentEditable) ||
-              e.target instanceof HTMLInputElement ||
-              e.target instanceof HTMLTextAreaElement ||
-              e.target instanceof HTMLSelectElement
-            ) {
-              return;
-            }
-
-            e.preventDefault();
-            toggleOpen();
-          }
-        };
-
-        document.addEventListener('keydown', down);
-
-        return () => {
-          document.removeEventListener('keydown', down);
-        };
-      }, [toggleOpen]);
+const meta: Meta<typeof Command> = {
+  title: 'Components/Command',
+  component: Command,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A command palette dialog for keyboard-driven navigation and actions. Use the **Controls** panel below to interact with the props.',
+      },
+    },
+  },
+  argTypes: {
+    placeholder: {
+      control: { type: 'text' },
+      description: 'Placeholder text for the search input',
+    },
+    emptyResults: {
+      control: { type: 'text' },
+      description: 'Text shown when no results match the search',
+    },
+    title: {
+      control: { type: 'text' },
+      description: 'Accessible title for the dialog',
+    },
+    theme: {
+      control: { type: 'select' },
+      options: [undefined, 'kubefirst', 'light', 'kubefirst-dark', 'dark'],
+      description: 'Theme override for this instance',
+    },
+  },
+  args: {
+    placeholder: 'Type a command or search...',
+    emptyResults: 'No results found.',
+    title: 'Command Palette',
+  },
+  render: (args) => {
+    const Demo = () => {
+      const [open, setOpen] = useState(false);
 
       return (
         <>
-          <div className="flex gap-3 items-center">
-            <p>
-              Current Theme: <span>{theme}</span>
-            </p>
-
-            <kbd className="pointer-events-none h-5 select-none flex items-center gap-1 rounded-md bg-kubefirst-secondary px-1.5 font-mono text-[10px] font-medium opacity-100 text-white">
-              <span className="text-xs">⌘</span>K
-            </kbd>
-          </div>
-
-          <CommandComponent open={isOpen} onOpenChange={setOpen}>
-            <CommandInput placeholder="Type a command or search..." />
-            <CommandGroup heading="Theme">
-              <CommandItem onSelect={() => setTheme!('kubefirst')}>
-                <Sun />
-                Kubefirst
-              </CommandItem>
-            </CommandGroup>
-
-            <CommandSeparator />
-
-            <CommandGroup heading="Theme">
-              <CommandItem onSelect={() => setTheme!('kubefirst')}>
-                <Sun />
-                Kubefirst
-              </CommandItem>
-            </CommandGroup>
-          </CommandComponent>
+          <Button
+            onClick={() => {
+              setOpen(true);
+            }}
+          >
+            Open command palette
+          </Button>
+          <Command {...args} open={open} onOpenChange={setOpen} />
         </>
       );
     };
 
-    return (
-      <ThemeProvider theme="kubefirst">
-        <CommandProvider>
-          <Wrapper />
-        </CommandProvider>
-      </ThemeProvider>
-    );
+    return <Demo />;
   },
 };
 
 export default meta;
+
+type Story = StoryObj<typeof Command>;
+
+export const Playground: Story = {};

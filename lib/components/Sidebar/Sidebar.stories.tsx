@@ -1,198 +1,85 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import debounce from 'lodash/debounce';
-import { useEffect, useState } from 'react';
-import { Star } from 'react-feather';
+import { Home, Settings } from 'lucide-react';
 
-import {
-  CloudIcon,
-  PhotoLibraryIcon,
-  ReceiptLongIcon,
-  ScatterPlotIcon,
-} from '@/assets/icons/components';
-import { Theme } from '@/domain/theme';
+import { Sidebar } from './Sidebar';
 
-import { Typography } from '../Typography/Typography';
-import {
-  Footer,
-  Label,
-  Logo,
-  Navigation,
-  NavigationGroup,
-  NavigationOption,
-  Sidebar as SidebarPrimitive,
-} from './Sidebar';
-
-type Story = StoryObj<typeof SidebarPrimitive>;
-
-const meta = {
-  title: 'In Review/Sidebar',
-  component: SidebarPrimitive,
-  decorators: [
-    (Story) => {
-      const [height, setHeight] = useState(window.innerHeight);
-      const debounced = debounce(() => setHeight(window.innerHeight), 150);
-
-      useEffect(() => {
-        const panel = window.parent.document.getElementById(
-          'storybook-panel-root',
-        );
-
-        if (!panel) {
-          return;
-        }
-
-        const observer = new ResizeObserver(debounced);
-
-        observer.observe(panel);
-
-        return () => {
-          observer.disconnect();
-        };
-      }, [debounced]);
-
-      useEffect(() => {
-        const callback = (node?: Node) => {
-          const sidebar = (node as HTMLElement)?.querySelector(
-            '.sidebar-container',
-          );
-
-          if (sidebar) {
-            debounced();
-          }
-        };
-
-        const mutationCallback: MutationCallback = (mutationsList) => {
-          mutationsList.forEach((mutation) => {
-            mutation.addedNodes.forEach(callback);
-            mutation.removedNodes.forEach(callback);
-          });
-        };
-
-        const mutationObserver = new MutationObserver(mutationCallback);
-
-        mutationObserver.observe(window.parent.document.body, {
-          childList: true,
-          subtree: true,
-        });
-      }, [debounced]);
-
-      return (
-        <div style={{ margin: '-1rem', height }}>
-          <Story />
-        </div>
-      );
+const meta: Meta<typeof Sidebar> = {
+  title: 'Components/Sidebar',
+  component: Sidebar,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A compound component for building application sidebars with navigation. Use the **Controls** panel below to interact with the props.',
+      },
     },
-  ],
-} satisfies Meta<typeof SidebarPrimitive>;
-
-const renderSidebarContent = (
-  theme: Theme,
-  onThemeChange: (next: Theme) => void,
-) => (
-  <>
-    <Logo>
-      <a className="flex items-center w-full">
-        <img
-          className="hidden group-data-[mode=expanded]/sidebar:block w-auto h-auto max-w-full"
-          src="./logo-kubefirst.svg"
-          alt="Company logo"
-        />
-        <img
-          className="block h-10 w-12 group-data-[mode=expanded]/sidebar:hidden"
-          src="./ray.svg"
-          alt="Company logo"
-        />
-      </a>
-      <Typography variant="labelSmall" className="text-[#ABADC6] lowercase">
-        v1.11.1
-      </Typography>
-    </Logo>
-
-    <Navigation className="mt-4 group-data-[mode=expanded]/sidebar:mt-0">
-      <NavigationGroup>
-        <NavigationOption>
-          <a>
-            <ScatterPlotIcon className="w-6 h-6 shrink-0" />
-            <Label>Clusters</Label>
-          </a>
-        </NavigationOption>
-
-        <NavigationOption
-          role="button"
-          onClick={() => onThemeChange('kubefirst')}
-          isActive={theme === 'kubefirst'}
-        >
-          <a>
-            <PhotoLibraryIcon className="w-6 h-6 shrink-0" />
-            <Label>Environments</Label>
-          </a>
-        </NavigationOption>
-      </NavigationGroup>
-
-      <NavigationGroup title="Admin settings" titleClassName="uppercase">
-        <NavigationOption
-          role="button"
-          onClick={() => onThemeChange('light')}
-          isActive={theme === 'light'}
-        >
-          <a>
-            <ReceiptLongIcon className="w-6 h-6 shrink-0" />
-            <Label>Plans & Billing</Label>
-          </a>
-        </NavigationOption>
-
-        <NavigationOption>
-          <a>
-            <CloudIcon className="w-6 h-6 shrink-0" />
-            <Label>Cloud accounts</Label>
-          </a>
-        </NavigationOption>
-      </NavigationGroup>
-    </Navigation>
-
-    <Footer>
-      <span className="text-[#81e2b4] flex items-center gap-2 justify-center font-semibold cursor-pointer">
-        <Star className="w-5 h-5" />
-        <Label>Upgrade to Business</Label>
-      </span>
-    </Footer>
-  </>
-);
-
-export const Sidebar = {
-  render: function SidebarStory() {
-    const [theme, setTheme] = useState<Theme>('kubefirst');
-
+  },
+  argTypes: {
+    mode: {
+      control: { type: 'select' },
+      options: ['auto', 'expanded', 'collapsed', 'drawer'],
+      description: 'Controls the responsive mode of the sidebar',
+    },
+    canResize: {
+      control: { type: 'boolean' },
+      description: 'Whether the sidebar can be resized by dragging',
+    },
+    expandOnHover: {
+      control: { type: 'boolean' },
+      description: 'Expand hovered option when in collapsed mode',
+    },
+    minWith: {
+      control: { type: 'number' },
+      description: 'Minimum width when resizing in pixels',
+    },
+    maxWith: {
+      control: { type: 'number' },
+      description: 'Maximum width when resizing in pixels',
+    },
+    initialWidth: {
+      control: { type: 'number' },
+      description: 'Initial width in pixels when entering expanded mode',
+    },
+    theme: {
+      control: { type: 'select' },
+      options: [undefined, 'kubefirst', 'light', 'kubefirst-dark', 'dark'],
+      description: 'Theme override for this instance',
+    },
+  },
+  args: {
+    mode: 'expanded',
+    canResize: false,
+    expandOnHover: true,
+    minWith: 240,
+    maxWith: 300,
+    initialWidth: 256,
+  },
+  render: (args) => {
     return (
-      <SidebarPrimitive theme={theme}>
-        {renderSidebarContent(theme, setTheme)}
-      </SidebarPrimitive>
+      <div style={{ height: 500, display: 'flex' }}>
+        <Sidebar {...args}>
+          <Sidebar.Navigation>
+            <Sidebar.NavigationGroup title="Main">
+              <Sidebar.NavigationOption>
+                <Home size={18} />
+                <Sidebar.Label>Dashboard</Sidebar.Label>
+              </Sidebar.NavigationOption>
+              <Sidebar.NavigationOption>
+                <Settings size={18} />
+                <Sidebar.Label>Settings</Sidebar.Label>
+              </Sidebar.NavigationOption>
+            </Sidebar.NavigationGroup>
+          </Sidebar.Navigation>
+          <Sidebar.Footer>v1.0.0</Sidebar.Footer>
+        </Sidebar>
+      </div>
     );
   },
-} satisfies Story;
-
-export const CollapsedMode = {
-  render: function CollapsedStory() {
-    const [theme, setTheme] = useState<Theme>('kubefirst');
-
-    return (
-      <SidebarPrimitive theme={theme} mode="collapsed">
-        {renderSidebarContent(theme, setTheme)}
-      </SidebarPrimitive>
-    );
-  },
-} satisfies Story;
-
-export const DrawerMode = {
-  render: function DrawerStory() {
-    const [theme, setTheme] = useState<Theme>('kubefirst');
-
-    return (
-      <SidebarPrimitive theme={theme} mode="drawer">
-        {renderSidebarContent(theme, setTheme)}
-      </SidebarPrimitive>
-    );
-  },
-} satisfies Story;
+};
 
 export default meta;
+
+type Story = StoryObj<typeof Sidebar>;
+
+export const Playground: Story = {};
