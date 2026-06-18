@@ -1,6 +1,13 @@
 'use client';
 import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import { FC, forwardRef, useCallback, useId } from 'react';
+import {
+  ChangeEvent,
+  FC,
+  forwardRef,
+  useCallback,
+  useId,
+  useState,
+} from 'react';
 import { Minus, Plus } from 'react-feather';
 
 import { cn } from '@/utils';
@@ -53,6 +60,7 @@ export const Counter: FC<Props> = forwardRef<HTMLInputElement, Props>(
       canIncrement = true,
       className,
       decrementButtonClassName,
+      editable = false,
       incrementButtonClassName,
       isRequired,
       label,
@@ -69,6 +77,8 @@ export const Counter: FC<Props> = forwardRef<HTMLInputElement, Props>(
     const id = useId();
 
     const count = value ?? 0;
+    const [draft, setDraft] = useState<string | null>(null);
+    const displayed = draft ?? String(count);
 
     const handleDecrement = useCallback(() => {
       let newValue: number = 0;
@@ -79,6 +89,7 @@ export const Counter: FC<Props> = forwardRef<HTMLInputElement, Props>(
         newValue = Math.max(min, count - 1);
       }
 
+      setDraft(null);
       onChange?.({ target: { value: newValue } });
     }, [count, min, onChange]);
 
@@ -91,8 +102,35 @@ export const Counter: FC<Props> = forwardRef<HTMLInputElement, Props>(
         newValue = Math.min(max, count + 1);
       }
 
+      setDraft(null);
       onChange?.({ target: { value: newValue } });
     }, [count, max, onChange]);
+
+    const handleChange = useCallback(
+      (event: ChangeEvent<HTMLInputElement>) => {
+        const raw = event.target.value;
+        setDraft(raw);
+        if (raw === '') {
+          return;
+        }
+        const parsed = Number(raw);
+        if (!Number.isFinite(parsed)) {
+          return;
+        }
+        onChange?.({ target: { value: parsed } });
+      },
+      [onChange],
+    );
+
+    const handleBlur = useCallback(() => {
+      setDraft(null);
+      const lowerBound = min === Infinity ? -Infinity : min;
+      const upperBound = max === -Infinity ? Infinity : max;
+      const clamped = Math.min(upperBound, Math.max(lowerBound, count));
+      if (clamped !== count) {
+        onChange?.({ target: { value: clamped } });
+      }
+    }, [count, min, max, onChange]);
 
     return (
       <div className="flex flex-col gap-2" data-theme={theme}>
@@ -131,10 +169,12 @@ export const Counter: FC<Props> = forwardRef<HTMLInputElement, Props>(
           <input
             ref={ref}
             type="number"
-            value={count}
+            value={editable ? displayed : count}
             name={name}
             className={cn(counterVariants({ className }))}
-            readOnly
+            {...(editable
+              ? { onChange: handleChange, onBlur: handleBlur }
+              : { readOnly: true })}
             aria-label={typeof label === 'string' ? label : 'number input'}
           />
 

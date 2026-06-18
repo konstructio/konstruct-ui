@@ -40,6 +40,14 @@ export const Light = {
           onChange={({ target: { value } }) => setCount(value)}
           canIncrement={false}
         />
+        <CounterComponent
+          {...args}
+          label="Number of nodes (editable)"
+          isRequired
+          value={count}
+          onChange={({ target: { value } }) => setCount(value)}
+          editable
+        />
       </div>
     );
   },
