@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.99](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.99) (2026-06-18)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.98...0.1.2-alpha.99)
+
+**Merged pull requests:**
+
+- feat: enhance Counter component to allow typing multi-digit values an… [\#633](https://github.com/konstructio/konstruct-ui/pull/633) ([fulviodenza](https://github.com/fulviodenza))
+
 ## [0.1.2-alpha.98](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.98) (2026-06-05)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.97...0.1.2-alpha.98)
