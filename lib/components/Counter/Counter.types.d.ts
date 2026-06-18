@@ -24,6 +24,8 @@ export interface Props extends VariantProps<typeof counterVariants> {
     className?: string;
     /** CSS classes for decrement button */
     decrementButtonClassName?: string;
+    /** Allow typing values directly into the input. Defaults to false (read-only) */
+    editable?: boolean;
     /** CSS classes for increment button */
     incrementButtonClassName?: string;
     /** Initial value (deprecated, use value) */
