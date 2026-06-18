@@ -112,8 +112,21 @@ describe('Counter', () => {
     expect(input).toHaveValue(-1);
   });
 
-  it('should accept multi-digit values typed into the input', async () => {
+  it('should be read-only by default and ignore typing', async () => {
     const { user, getInput } = setup();
+
+    const input = await getInput();
+
+    expect(input).toHaveAttribute('readonly');
+
+    await user.click(input);
+    await user.type(input, '500');
+
+    expect(input).toHaveValue(defaultProps.init);
+  });
+
+  it('should accept multi-digit values typed into the input', async () => {
+    const { user, getInput } = setup({ editable: true });
 
     const input = await getInput();
 
@@ -124,7 +137,7 @@ describe('Counter', () => {
   });
 
   it('should display empty string while clearing and clamp to min on blur', async () => {
-    const { user, getInput } = setup({ init: 5, min: 1 });
+    const { user, getInput } = setup({ editable: true, init: 5, min: 1 });
 
     const input = await getInput();
 
@@ -139,7 +152,7 @@ describe('Counter', () => {
   });
 
   it('should not clamp while typing but clamp to max on blur', async () => {
-    const { user, getInput } = setup({ init: 0, max: 10 });
+    const { user, getInput } = setup({ editable: true, init: 0, max: 10 });
 
     const input = await getInput();
 
@@ -154,7 +167,7 @@ describe('Counter', () => {
   });
 
   it('should clamp negative typed values to min on blur', async () => {
-    const { user, getInput } = setup({ init: 5, min: 0 });
+    const { user, getInput } = setup({ editable: true, init: 5, min: 0 });
 
     const input = await getInput();
 
@@ -169,8 +182,72 @@ describe('Counter', () => {
     expect(input).toHaveValue(0);
   });
 
+  it('should clamp to max on blur when editable with min and max bounds', async () => {
+    const { user, getInput } = setup({
+      editable: true,
+      init: 5,
+      min: 1,
+      max: 10,
+    });
+
+    const input = await getInput();
+
+    await user.click(input);
+    await user.clear(input);
+    await user.type(input, '25');
+
+    expect(input).toHaveValue(25);
+
+    await user.tab();
+
+    expect(input).toHaveValue(10);
+  });
+
+  it('should clamp to min on blur when editable with min and max bounds', async () => {
+    const { user, getInput } = setup({
+      editable: true,
+      init: 5,
+      min: 1,
+      max: 10,
+    });
+
+    const input = await getInput();
+
+    await user.click(input);
+    await user.clear(input);
+    await user.type(input, '-3');
+
+    expect(input).toHaveValue(-3);
+
+    await user.tab();
+
+    expect(input).toHaveValue(1);
+  });
+
+  it('should keep a value within min and max bounds when editable', async () => {
+    const { user, getInput } = setup({
+      editable: true,
+      init: 5,
+      min: 1,
+      max: 10,
+    });
+
+    const input = await getInput();
+
+    await user.click(input);
+    await user.clear(input);
+    await user.type(input, '7');
+
+    expect(input).toHaveValue(7);
+
+    await user.tab();
+
+    expect(input).toHaveValue(7);
+  });
+
   it('should keep increment/decrement buttons working after typing', async () => {
     const { user, getInput, getIncrementButton, getDecrementButton } = setup({
+      editable: true,
       init: 0,
       max: 100,
     });

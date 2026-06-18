@@ -60,6 +60,7 @@ export const Counter: FC<Props> = forwardRef<HTMLInputElement, Props>(
       canIncrement = true,
       className,
       decrementButtonClassName,
+      editable = false,
       incrementButtonClassName,
       isRequired,
       label,
@@ -168,11 +169,12 @@ export const Counter: FC<Props> = forwardRef<HTMLInputElement, Props>(
           <input
             ref={ref}
             type="number"
-            value={displayed}
+            value={editable ? displayed : count}
             name={name}
             className={cn(counterVariants({ className }))}
-            onChange={handleChange}
-            onBlur={handleBlur}
+            {...(editable
+              ? { onChange: handleChange, onBlur: handleBlur }
+              : { readOnly: true })}
             aria-label={typeof label === 'string' ? label : 'number input'}
           />
 
