@@ -76,10 +76,8 @@ describe('Actions', () => {
     const root = container.querySelector('.group') as HTMLElement;
     const panel = container.querySelector('.absolute') as HTMLElement;
 
-    clip.getBoundingClientRect = () =>
-      ({ top: 0, bottom: 100 }) as DOMRect;
-    root.getBoundingClientRect = () =>
-      ({ top: 90, bottom: 98 }) as DOMRect;
+    clip.getBoundingClientRect = () => ({ top: 0, bottom: 100 }) as DOMRect;
+    root.getBoundingClientRect = () => ({ top: 90, bottom: 98 }) as DOMRect;
 
     const getComputedStyleSpy = vi
       .spyOn(window, 'getComputedStyle')
