@@ -40,8 +40,8 @@ export const PhoneNumberProvider: FC<Props> = ({
         }),
     [],
   );
-  const [selectedCountry, setSelectedCuntry] = useState<Country>(
-    () => countriesList.find(({ code }) => code === defaultCountryCode)!,
+  const [selectedCountry, setSelectedCuntry] = useState<Country>(() =>
+    countriesList.find(({ code }) => code === defaultCountryCode)!,
   );
 
   const [value, setValue] = useState<string>(() => {

@@ -487,8 +487,7 @@ export const TableProvider = <TData extends RowData = RowData>({
         onSelectTimeFilter,
         onSorting: setSortedData,
         renderExpandedRow: renderExpandedRow as
-          | ((data: RowData) => ReactNode)
-          | undefined,
+          ((data: RowData) => ReactNode) | undefined,
       }}
     >
       {children}

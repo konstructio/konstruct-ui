@@ -1,11 +1,7 @@
 import { createContext } from 'react';
 
 export type DateRangePreset =
-  | 'today'
-  | 'current-month'
-  | 'custom'
-  | 'last-7-days'
-  | 'last-2-weeks';
+  'today' | 'current-month' | 'custom' | 'last-7-days' | 'last-2-weeks';
 
 export type DateRange = {
   from?: Date;
