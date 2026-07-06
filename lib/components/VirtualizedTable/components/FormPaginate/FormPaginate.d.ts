@@ -1,1 +1,1 @@
-export declare const FormPaginate: () => import("react/jsx-runtime").JSX.Element;
+export declare const FormPaginate: () => import("react").JSX.Element;

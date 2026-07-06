@@ -1,0 +1,5 @@
+import{i as e}from"./preload-helper-B45gAKPr.js";import{t}from"./iframe-Bk40TjTJ.js";import{n,t as r}from"./Spinner-DYU7Rz02.js";var i,a,o,s;e((()=>{n(),i=t(),a={title:`In Review/Spinner/Light/Clean`,component:r},o={render:()=>(0,i.jsx)(`div`,{className:`flex flex-col gap-3 h-[400px]`,children:(0,i.jsx)(r,{})})},o.parameters={...o.parameters,docs:{...o.parameters?.docs,source:{originalSource:`{
+  render: () => <div className="flex flex-col gap-3 h-[400px]">
+      <Spinner />
+    </div>
+}`,...o.parameters?.docs?.source}}},s=[`Clean`]}))();export{o as Clean,s as __namedExportsOrder,a as default};

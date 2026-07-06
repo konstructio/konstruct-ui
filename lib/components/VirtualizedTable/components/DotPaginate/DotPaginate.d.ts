@@ -1,1 +1,1 @@
-export declare const DotPaginate: () => import("react/jsx-runtime").JSX.Element;
+export declare const DotPaginate: () => import("react").JSX.Element;
