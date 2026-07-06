@@ -5,6 +5,7 @@ import { Skeleton } from '@/components/VirtualizedTable/components/Skeleton/Skel
 import { cn } from '@/utils';
 
 import { useTableContext } from '../../contexts';
+import { isPaginationBarVisible } from '../../utils';
 import { RowData, RowDataWithMeta } from '../../VirtualizedTable.types';
 import { ExpandableRow } from '../ExpandableRow/ExpandableRow';
 
@@ -18,6 +19,7 @@ export const Body = <TData extends RowData = RowData>({
   const {
     table,
     pageSize,
+    totalItems = -Infinity,
     tableFetching,
     enableExpandedRow,
     classNameExpandedRow,
@@ -36,6 +38,7 @@ export const Body = <TData extends RowData = RowData>({
   }
 
   const rows = table.getRowModel().rows ?? [];
+  const hasPaginationBar = showPagination && isPaginationBarVisible(totalItems);
 
   if (rows.length === 0 && emptyState) {
     const colSpan = table.getVisibleLeafColumns().length;
@@ -156,14 +159,14 @@ export const Body = <TData extends RowData = RowData>({
                           rowIndex === rows.length - 1 &&
                           firstDataColumnIndex !== null &&
                           columnIndex === firstDataColumnIndex &&
-                          !showPagination &&
+                          !hasPaginationBar &&
                           !isExpanded,
                         'rounded-br-lg':
                           rowIndex === rows.length - 1 &&
                           columnIndex === columns.length - 1 &&
-                          !showPagination &&
+                          !hasPaginationBar &&
                           !isExpanded,
-                        'dark:[tr:last-child_&]:border-b': !showPagination,
+                        'dark:[tr:last-child_&]:border-b': !hasPaginationBar,
                       },
                     )}
                     data-expanded={isExpanded ? true : undefined}
@@ -183,7 +186,7 @@ export const Body = <TData extends RowData = RowData>({
                 colSpan={columns.length}
                 id={id}
                 isExpanded={!!isExpanded}
-                isLastRow={rowIndex === rows.length - 1 && !showPagination}
+                isLastRow={rowIndex === rows.length - 1 && !hasPaginationBar}
               >
                 {meta.expandedRow ?? renderExpandedRow?.(original)}
               </ExpandableRow>
