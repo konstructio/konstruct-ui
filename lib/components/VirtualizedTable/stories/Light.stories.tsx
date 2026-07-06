@@ -304,6 +304,36 @@ export const Default: Story = {
   },
 };
 
+export const PaginationWithFewItems: Story = {
+  render: () => {
+    const id = useId();
+    const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+
+    useEffect(() => {
+      const init = async () => {
+        const result = await getPokemons({ page: 1, pageSize: 5 });
+
+        setPokemons(result.results);
+      };
+
+      init();
+    }, []);
+
+    return (
+      <QueryClientProvider client={queryClient}>
+        <VirtualizedTableComponent<Pokemon>
+          id={id}
+          ariaLabel="List of pokemons"
+          data={pokemons}
+          columns={columns}
+          showPagination={true}
+          totalItems={pokemons.length}
+        />
+      </QueryClientProvider>
+    );
+  },
+};
+
 type PokemonWithMeta = Pokemon & {
   meta?: { expandedRow?: ReactNode };
 };

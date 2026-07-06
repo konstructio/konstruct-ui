@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import { DEFAULT_PAGE_SIZE } from '../../constants';
 import { useTableContext } from '../../contexts';
+import { isPaginationBarVisible } from '../../utils';
 
 import { DotPaginate } from '../DotPaginate/DotPaginate';
 import { DropdownPaginate } from '../DropdownPaginate/DropdownPaginate';
@@ -25,7 +25,7 @@ export const Pagination: FC<Props> = ({
     isFirstLoad,
   } = useTableContext();
 
-  if (totalItems <= DEFAULT_PAGE_SIZE || tableFetching || isLoading) {
+  if (!isPaginationBarVisible(totalItems) || tableFetching || isLoading) {
     return null;
   }
 

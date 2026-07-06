@@ -29,7 +29,7 @@ export const rowVariants = cva(
 );
 
 export const headVariants = cva([
-  'h-[18px]',
+  'h-4.5',
   'bg-slate-100',
   '[&>tr>th]:py-3',
   '[&>tr>th]:px-4',

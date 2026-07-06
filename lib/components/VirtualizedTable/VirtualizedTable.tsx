@@ -105,7 +105,13 @@ const VirtualizedTableInner = <TData extends RowData>({
         showDotPagination,
         showFormPagination,
       ].some(Boolean),
-    [],
+    [
+      showPaginationProp,
+      showTotalItems,
+      showDropdownPagination,
+      showDotPagination,
+      showFormPagination,
+    ],
   );
 
   return (
