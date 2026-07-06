@@ -98,6 +98,5 @@ export type Props = {
  * - No title and no subtitle
  * - Title with optional subtitle
  */ & (
-  | { title?: undefined; subtitle?: never }
-  | { title: string; subtitle?: string }
+  { title?: undefined; subtitle?: never } | { title: string; subtitle?: string }
 );
