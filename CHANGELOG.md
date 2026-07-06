@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.2-alpha.100](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.100) (2026-07-06)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.99...0.1.2-alpha.100)
+
+**Merged pull requests:**
+
+- ⬆️ chore: update dependencies to latest in-range versions [\#658](https://github.com/konstructio/konstruct-ui/pull/658) ([futjesus](https://github.com/futjesus))
+- 🐛 fix: show VirtualizedTable bottom borders when pagination bar is hidden [\#657](https://github.com/konstructio/konstruct-ui/pull/657) ([futjesus](https://github.com/futjesus))
+- 🐛 fix: prevent actions menu closing on diagonal hover [\#656](https://github.com/konstructio/konstruct-ui/pull/656) ([jairoFernandez](https://github.com/jairoFernandez))
+
 ## [0.1.2-alpha.99](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.99) (2026-06-18)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.98...0.1.2-alpha.99)
