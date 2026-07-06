@@ -324,6 +324,7 @@ export const PaginationWithFewItems: Story = {
         <VirtualizedTableComponent<Pokemon>
           id={id}
           ariaLabel="List of pokemons"
+          classNameWrapperTable="overflow-visible"
           data={pokemons}
           columns={columns}
           showPagination={true}
