@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.101](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.101) (2026-07-06)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.100...0.1.2-alpha.101)
+
+**Merged pull requests:**
+
+- 🎨 style: fix prettier formatting in Actions test [\#659](https://github.com/konstructio/konstruct-ui/pull/659) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.100](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.100) (2026-07-06)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.99...0.1.2-alpha.100)
