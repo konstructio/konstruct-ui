@@ -13,6 +13,7 @@ import { Theme } from '@/domain/theme';
 
 import { Typography } from '../Typography/Typography';
 import {
+  CollapseTrigger,
   Footer,
   Label,
   Logo,
@@ -106,6 +107,7 @@ const renderSidebarContent = (
       <Typography variant="labelSmall" className="text-[#ABADC6] lowercase">
         v1.11.1
       </Typography>
+      <CollapseTrigger className="group-data-[mode=expanded]/sidebar:absolute group-data-[mode=expanded]/sidebar:right-4 group-data-[mode=expanded]/sidebar:top-5" />
     </Logo>
 
     <Navigation className="mt-4 group-data-[mode=expanded]/sidebar:mt-0">

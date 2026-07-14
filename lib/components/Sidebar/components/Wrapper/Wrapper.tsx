@@ -47,6 +47,15 @@ const Wrapper: FC<Props> = ({
   );
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [viewportWidth, setViewportWidth] = useState<number | null>(null);
+  // User-driven expand/collapse override (set via `toggleMode`, e.g. the
+  // CollapseTrigger). Wins over the viewport-derived mode until the
+  // viewport crosses a breakpoint, then resets so `auto` stays in charge.
+  const [modeOverride, setModeOverride] = useState<Exclude<
+    SidebarMode,
+    'drawer'
+  > | null>(null);
+  const effectiveMode: SidebarMode =
+    resolvedMode === 'drawer' ? 'drawer' : (modeOverride ?? resolvedMode);
 
   const dragRef = useRef<ComponentRef<'div'>>(null);
   const asideRef = useRef<ComponentRef<'aside'>>(null);
@@ -137,21 +146,23 @@ const Wrapper: FC<Props> = ({
   );
 
   useEffect(() => {
-    if (resolvedMode !== 'expanded' && asideRef.current) {
+    if (effectiveMode !== 'expanded' && asideRef.current) {
       asideRef.current.style.width = '';
     }
-  }, [resolvedMode]);
+  }, [effectiveMode]);
 
   useEffect(() => {
     if (resolvedMode !== 'drawer') {
       setIsDrawerOpen(false);
     }
+
+    setModeOverride(null);
   }, [resolvedMode]);
 
   useEffect(() => {
     if (
       hasAppliedInitialWidthRef.current ||
-      resolvedMode !== 'expanded' ||
+      effectiveMode !== 'expanded' ||
       !asideRef.current
     ) {
       return;
@@ -160,7 +171,7 @@ const Wrapper: FC<Props> = ({
     const clamped = Math.min(Math.max(initialWidth, minWith), maxWith);
     asideRef.current.style.width = `${clamped}px`;
     hasAppliedInitialWidthRef.current = true;
-  }, [initialWidth, maxWith, minWith, resolvedMode]);
+  }, [initialWidth, maxWith, minWith, effectiveMode]);
 
   const handleOpenDrawer = useCallback(() => {
     setIsDrawerOpen(true);
@@ -169,6 +180,14 @@ const Wrapper: FC<Props> = ({
   const handleCloseDrawer = useCallback(() => {
     setIsDrawerOpen(false);
   }, []);
+
+  const handleToggleMode = useCallback(() => {
+    setModeOverride((current) => {
+      const base = current ?? resolvedMode;
+
+      return base === 'collapsed' ? 'expanded' : 'collapsed';
+    });
+  }, [resolvedMode]);
 
   if (resolvedMode === 'drawer') {
     const drawerWidth =
@@ -209,6 +228,8 @@ const Wrapper: FC<Props> = ({
               animateOnHover: false,
               separatorClassName,
               closeDrawer: handleCloseDrawer,
+              canToggle: false,
+              toggleMode: () => {},
             }}
           >
             <div
@@ -224,7 +245,8 @@ const Wrapper: FC<Props> = ({
     );
   }
 
-  const asideMode: Exclude<SidebarMode, 'drawer'> = resolvedMode;
+  const asideMode: Exclude<SidebarMode, 'drawer'> =
+    modeOverride ?? resolvedMode;
   const showResizeHandle = canResize && asideMode === 'expanded';
   const contextValue = {
     mode: asideMode,
@@ -233,6 +255,8 @@ const Wrapper: FC<Props> = ({
     animateOnHover,
     separatorClassName,
     closeDrawer: handleCloseDrawer,
+    canToggle: true,
+    toggleMode: handleToggleMode,
   };
 
   return (

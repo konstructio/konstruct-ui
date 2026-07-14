@@ -1,3 +1,5 @@
+export * from './CollapseTrigger/CollapseTrigger';
+export type { CollapseTriggerProps } from './CollapseTrigger/CollapseTrigger.types';
 export * from './Footer/Footer';
 export type { FooterProps } from './Footer/Footer.types';
 export * from './HamburgerTrigger/HamburgerTrigger';

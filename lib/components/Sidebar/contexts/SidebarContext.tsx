@@ -14,6 +14,18 @@ export interface SidebarContextValue {
    * navigation events (e.g. when the user clicks a link).
    */
   closeDrawer: () => void;
+  /**
+   * Whether the sidebar can be toggled between `expanded` and `collapsed`.
+   * `false` in `drawer` mode, where the drawer's own open/close controls
+   * apply instead.
+   */
+  canToggle: boolean;
+  /**
+   * Toggles the sidebar between `expanded` and `collapsed`, overriding the
+   * viewport-derived mode until the viewport crosses a breakpoint. No-op in
+   * `drawer` mode.
+   */
+  toggleMode: () => void;
 }
 
 export const SidebarContext = createContext<SidebarContextValue>({
@@ -22,6 +34,8 @@ export const SidebarContext = createContext<SidebarContextValue>({
   expandOnHover: false,
   animateOnHover: true,
   closeDrawer: () => {},
+  canToggle: false,
+  toggleMode: () => {},
 });
 
 export const useSidebarContext = (): SidebarContextValue => {

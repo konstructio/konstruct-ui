@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { ReactNode } from 'react';
 
 import {
+  CollapseTrigger,
   Footer,
   Label,
   Logo,
@@ -126,7 +127,10 @@ describe('Sidebar', () => {
     ) =>
       render(
         <Sidebar mode={mode} {...extraProps}>
-          <Logo>Logo</Logo>
+          <Logo>
+            Logo
+            <CollapseTrigger />
+          </Logo>
           <Navigation>
             <NavigationGroup title="Main">
               <NavigationOption>
@@ -197,6 +201,70 @@ describe('Sidebar', () => {
       const separators = nav?.querySelectorAll(':scope > div') ?? [];
 
       expect(separators.length).toBe(0);
+    });
+
+    it('expands the sidebar when the collapse trigger is clicked in collapsed mode', async () => {
+      renderWithGroups('collapsed');
+
+      const user = userEvent.setup();
+      const trigger = screen.getByRole('button', {
+        name: /expand navigation/i,
+      });
+
+      expect(document.querySelector('aside')).toHaveAttribute(
+        'data-mode',
+        'collapsed',
+      );
+
+      await user.click(trigger);
+
+      expect(document.querySelector('aside')).toHaveAttribute(
+        'data-mode',
+        'expanded',
+      );
+      expect(screen.getByText('Main')).toBeInTheDocument();
+      expect(
+        screen.getByRole('button', { name: /collapse navigation/i }),
+      ).toBeInTheDocument();
+    });
+
+    it('collapses the sidebar when the collapse trigger is clicked in expanded mode', async () => {
+      renderWithGroups('expanded');
+
+      const user = userEvent.setup();
+      const trigger = screen.getByRole('button', {
+        name: /collapse navigation/i,
+      });
+
+      await user.click(trigger);
+
+      expect(document.querySelector('aside')).toHaveAttribute(
+        'data-mode',
+        'collapsed',
+      );
+      expect(screen.queryByText('Main')).not.toBeInTheDocument();
+      expect(
+        screen.getByRole('button', { name: /expand navigation/i }),
+      ).toBeInTheDocument();
+    });
+
+    it('does not render the collapse trigger in drawer mode', async () => {
+      renderWithGroups('drawer');
+
+      const user = userEvent.setup();
+      const trigger = screen.getByRole('button', {
+        name: /open navigation/i,
+      });
+
+      await user.click(trigger);
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+      expect(
+        screen.queryByRole('button', { name: /collapse navigation/i }),
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole('button', { name: /expand navigation/i }),
+      ).not.toBeInTheDocument();
     });
 
     it('renders a hamburger trigger and hides the aside in drawer mode', async () => {

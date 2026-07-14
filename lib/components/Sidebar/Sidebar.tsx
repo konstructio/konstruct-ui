@@ -2,6 +2,7 @@
 import { FC } from 'react';
 
 import {
+  CollapseTrigger,
   Footer,
   Label,
   Logo,
@@ -44,6 +45,7 @@ const Sidebar: FC<SidebarProps> & SidebarChildrenProps = (props) => (
 
 Sidebar.displayName = 'KonstructSidebar';
 
+Sidebar.CollapseTrigger = CollapseTrigger;
 Sidebar.Footer = Footer;
 Sidebar.Label = Label;
 Sidebar.Logo = Logo;
@@ -53,6 +55,7 @@ Sidebar.NavigationOption = NavigationOption;
 Sidebar.NavigationSeparator = NavigationSeparator;
 
 export {
+  CollapseTrigger,
   Footer,
   Label,
   Logo,
