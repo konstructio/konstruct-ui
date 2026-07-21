@@ -1,4 +1,4 @@
-import { JSX, useMemo } from 'react';
+import { JSX } from 'react';
 
 import { cn } from '@/utils';
 
@@ -60,6 +60,10 @@ const VirtualizedTableInner = <TData extends RowData>({
   classNameWrapperTable,
   isLoading,
   emptyState,
+  errorState,
+  headerContent,
+  classNameHeaderContent,
+  classNameScrollContainer,
   getRowId,
   fetchData,
   queryOptions,
@@ -70,6 +74,7 @@ const VirtualizedTableInner = <TData extends RowData>({
   showDotPagination,
   showFormPagination,
   pageSizes,
+  dropdownPaginationDirection,
   // Filter
   showFilter = false,
   showFilterInput,
@@ -96,29 +101,21 @@ const VirtualizedTableInner = <TData extends RowData>({
   renderExpandedRow,
   keepExpandColumnVisible,
 }: Props<TData>): JSX.Element => {
-  const showPagination = useMemo(
-    () =>
-      showPaginationProp ||
-      [
-        showTotalItems,
-        showDropdownPagination,
-        showDotPagination,
-        showFormPagination,
-      ].some(Boolean),
+  const showPagination =
+    showPaginationProp ||
     [
-      showPaginationProp,
       showTotalItems,
       showDropdownPagination,
       showDotPagination,
       showFormPagination,
-    ],
-  );
+    ].some(Boolean);
 
   return (
     <TableProvider<TData>
       id={id}
       columns={columns}
       data={data}
+      headerContent={headerContent}
       getRowId={getRowId}
       fetchData={fetchData}
       totalItems={totalItems}
@@ -138,7 +135,7 @@ const VirtualizedTableInner = <TData extends RowData>({
       renderExpandedRow={renderExpandedRow}
       keepExpandColumnVisible={keepExpandColumnVisible}
     >
-      <section className={cn('w-full min-w-fit', className)}>
+      <section className={cn('kvt', 'w-full min-w-fit', className)}>
         {showFilter && (
           <Filter
             id={id}
@@ -153,42 +150,51 @@ const VirtualizedTableInner = <TData extends RowData>({
           />
         )}
 
-        <WrapperBody
-          showPagination={showPagination}
-          classNameWrapperTable={classNameWrapperTable}
-          isLoading={isLoading}
-        >
-          <table
-            className={cn(
-              'w-full border-collapse table-auto',
-              'dark:border-separate dark:border-spacing-0',
-              classNameTable,
-            )}
-            aria-label={ariaLabel}
-          >
-            <Header
-              className={classNameHeaderTable}
-              classNameArrows={classNameHeaderArrows}
-              classNameActiveArrows={classNameHeaderActiveArrows}
-            />
-            <Body
-              isLoading={isLoading}
+        <div className={cn('kvt-scroll', 'w-full', classNameScrollContainer)}>
+          <div className="kvt-scroll-content w-full min-w-fit">
+            <WrapperBody
               showPagination={showPagination}
-              emptyState={emptyState}
-            />
-          </table>
-        </WrapperBody>
+              classNameWrapperTable={classNameWrapperTable}
+              isLoading={isLoading}
+            >
+              <table
+                className={cn(
+                  'kvt-table',
+                  'w-full border-collapse table-auto',
+                  'dark:border-separate dark:border-spacing-0',
+                  classNameTable,
+                )}
+                aria-label={ariaLabel}
+              >
+                <Header
+                  className={classNameHeaderTable}
+                  classNameArrows={classNameHeaderArrows}
+                  classNameActiveArrows={classNameHeaderActiveArrows}
+                  classNameHeaderContent={classNameHeaderContent}
+                />
+                <Body
+                  isLoading={isLoading}
+                  showPagination={showPagination}
+                  emptyState={emptyState}
+                  errorState={errorState}
+                />
+              </table>
+            </WrapperBody>
 
-        {showPagination && (
-          <Pagination
-            showTotalItems={showTotalItems}
-            showDropdownPagination={showDropdownPagination}
-            showDotPagination={showDotPagination}
-            showFormPagination={showFormPagination}
-            pageSizes={pageSizes}
-            isLoading={isLoading}
-          />
-        )}
+            {showPagination && (
+              <Pagination
+                showTotalItems={showTotalItems}
+                showDropdownPagination={showDropdownPagination}
+                showDotPagination={showDotPagination}
+                showFormPagination={showFormPagination}
+                pageSizes={pageSizes}
+                isLoading={isLoading}
+                isListPortal={!!classNameScrollContainer}
+                dropdownPaginationDirection={dropdownPaginationDirection}
+              />
+            )}
+          </div>
+        </div>
       </section>
     </TableProvider>
   );

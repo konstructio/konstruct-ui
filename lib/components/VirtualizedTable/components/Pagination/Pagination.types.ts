@@ -6,4 +6,6 @@ export type Props = {
   pageSizes?: number[] | string[];
   classNamePagination?: string;
   isLoading?: boolean;
+  isListPortal?: boolean;
+  dropdownPaginationDirection?: 'auto' | 'up' | 'down';
 };

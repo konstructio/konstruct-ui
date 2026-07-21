@@ -22,6 +22,9 @@ export default defineConfig({
     tailwindcss(),
     libInjectCss(),
     dts({
+      // Keep declarations under dist/lib/ (the layout copy.sh and the package
+      // "types" entry expect) instead of letting the plugin infer the root.
+      entryRoot: '.',
       include: ['lib'],
       exclude: ['**/*.stories.(ts|js|tsx|jsx)', '**/*.test.(ts|js|tsx|jsx)'],
     }),

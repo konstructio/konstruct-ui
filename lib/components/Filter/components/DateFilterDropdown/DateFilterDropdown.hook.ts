@@ -1,11 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useId,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useId, useMemo, useState } from 'react';
 
 import { useFilterContext } from '@/components/Filter/contexts';
 
@@ -19,7 +12,6 @@ export const useDateFilterDropdown = ({
   countryCode = 'US',
 }: Pick<DateFilterDropdownProps, 'onApply' | 'countryCode'>) => {
   const { closeOnApply } = useFilterContext();
-  const wrapperRef = useRef<HTMLDivElement>(null);
   const id = useId();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedDay, setSelectedDay] = useState<Date>();
@@ -35,15 +27,14 @@ export const useDateFilterDropdown = ({
     [appliedDay, countryCode],
   );
 
-  const handleOpen = useCallback(
-    () =>
-      setIsOpen((prev) => {
-        if (!prev) {
-          sendOpenFilterEvent(id);
-        }
+  const handleOpenChange = useCallback(
+    (open: boolean) => {
+      if (open) {
+        sendOpenFilterEvent(id);
+      }
 
-        return !prev;
-      }),
+      setIsOpen(open);
+    },
     [id],
   );
 
@@ -67,28 +58,6 @@ export const useDateFilterDropdown = ({
       setIsOpen(false);
     }
   }, [closeOnApply, onApply]);
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    document.addEventListener(
-      FilterEvent.OPEN as string,
-      ((event: Event) => {
-        const customEvent = event as CustomEvent<string>;
-
-        if (customEvent.detail !== id) {
-          setIsOpen(false);
-        }
-      }) as EventListener,
-      {
-        signal: controller.signal,
-      },
-    );
-
-    return () => {
-      controller.abort();
-    };
-  }, [id]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -127,16 +96,6 @@ export const useDateFilterDropdown = ({
   useEffect(() => {
     const controller = new AbortController();
 
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!wrapperRef.current?.contains(event.target as Node)) {
-        handleClose();
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside, {
-      signal: controller.signal,
-    });
-
     document.addEventListener(
       'visibilitychange',
       () => {
@@ -152,16 +111,15 @@ export const useDateFilterDropdown = ({
     return () => {
       controller.abort();
     };
-  }, [handleClose, wrapperRef]);
+  }, [handleClose]);
 
   return {
     id,
     appliedDay: appliedDayFormatted,
     isOpen,
     selectedDay,
-    wrapperRef,
     handleApply,
-    handleOpen,
+    handleOpenChange,
     handleSelect,
     handleReset,
   };

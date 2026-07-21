@@ -221,6 +221,7 @@ Test files: `ComponentName.test.tsx`
 ## Coding Conventions
 
 - **Indentation**: tabs
+- **Comments**: do not add code comments unless strictly necessary — only to state a non-obvious constraint the code itself can't show. Never add comments that narrate what the next line does or why a change is correct.
 - **Quotes**: single quotes
 - **Line width**: 120 characters
 - **TypeScript**: strict mode (`strict`, `noUnusedLocals`, `noUnusedParameters`)

@@ -1,12 +1,5 @@
 import debounce from 'lodash/debounce';
-import {
-  ChangeEvent,
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-} from 'react';
+import { ChangeEvent, FC, useEffect, useMemo, useRef } from 'react';
 
 import { Button } from '@/components/Button/Button';
 import { Filter as FilterPrimitive } from '@/components/Filter/Filter';
@@ -48,36 +41,29 @@ export const Filter: FC<Props> = ({
     onSelectTimeFilter,
   } = useTableContext();
 
-  const resolvedFilters: FilterConfig[] = useMemo(() => {
-    const base: FilterConfig[] =
-      filters ??
-      multiSelectFilter?.map((f) => ({
-        ...f,
-        type: 'badgeMultiSelect' as const,
-      })) ??
-      [];
+  const baseFilters: FilterConfig[] =
+    filters ??
+    multiSelectFilter?.map((f) => ({
+      ...f,
+      type: 'badgeMultiSelect' as const,
+    })) ??
+    [];
+  const resolvedFilters: FilterConfig[] = [...baseFilters, ...(actions ?? [])];
 
-    const legacyActions: FilterConfig[] = actions ?? [];
+  const handleChangeMultiselectFilter = (key: string, selected: Option[]) => {
+    onSelectMultiselect(
+      key,
+      selected.map((option) => option.id),
+    );
+  };
 
-    return [...base, ...legacyActions];
-  }, [filters, multiSelectFilter, actions]);
-
-  const handleChangeMultiselectFilter = useCallback(
-    (key: string, selected: Option[]) =>
-      onSelectMultiselect(
-        key,
-        selected.map((option) => option.id),
-      ),
-    [onSelectMultiselect],
-  );
-
-  const handleResetFilters = useCallback(() => {
+  const handleResetFilters = () => {
     onChangeTermOfSearch('');
 
     if (inputRef.current) {
       inputRef.current.value = '';
     }
-  }, [onChangeTermOfSearch]);
+  };
 
   useEffect(() => {
     const tableId = Array.isArray(id) ? id.join(',') : String(id);
@@ -117,21 +103,12 @@ export const Filter: FC<Props> = ({
     [onChangeTermOfSearch],
   );
 
-  const hasData = useMemo(
-    () =>
-      !!termOfSearch ||
-      Object.values(multiselectSelected ?? {}).flat().length > 0 ||
-      Object.values(dateFilters ?? {}).some(Boolean) ||
-      Object.values(dateRangeFilters ?? {}).some(Boolean) ||
-      Object.values(timeFilters ?? {}).some(Boolean),
-    [
-      termOfSearch,
-      multiselectSelected,
-      dateFilters,
-      dateRangeFilters,
-      timeFilters,
-    ],
-  );
+  const hasData =
+    !!termOfSearch ||
+    Object.values(multiselectSelected ?? {}).flat().length > 0 ||
+    Object.values(dateFilters ?? {}).some(Boolean) ||
+    Object.values(dateRangeFilters ?? {}).some(Boolean) ||
+    Object.values(timeFilters ?? {}).some(Boolean);
 
   const renderFilter = (filterConfig: FilterConfig) => {
     if (filterConfig.type === 'action') {
@@ -241,20 +218,23 @@ export const Filter: FC<Props> = ({
   };
 
   return (
-    <div className="w-full flex items-center justify-end pb-6">
+    <div className="kvt-filter w-full flex items-center justify-end pb-6">
       {showFilterInput && (
         <Input
           ref={inputRef}
           placeholder={placeholder}
           isSearch
           autoComplete="false"
-          className="w-72"
+          className="kvt-search w-72"
           inputMode="search"
           onChange={handleChangeTermOfSearch}
         />
       )}
 
-      <FilterPrimitive closeOnApply={closeOnApply}>
+      <FilterPrimitive
+        className="kvt-filter-actions"
+        closeOnApply={closeOnApply}
+      >
         {resolvedFilters.map(renderFilter)}
 
         {showResetButton && (

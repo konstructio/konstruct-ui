@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useId, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useState } from 'react';
 
 import { getFormattedTime } from '@/components/TimePicker/utils';
 
@@ -16,7 +16,6 @@ export const useTimeFilterDropdown = ({
   format = '24',
 }: Pick<TimeFilterDropdownProps, 'onApply' | 'format'>) => {
   const { closeOnApply } = useFilterContext();
-  const wrapperRef = useRef<HTMLDivElement>(null);
   const id = useId();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState<Date>();
@@ -28,15 +27,14 @@ export const useTimeFilterDropdown = ({
     appliedPresetLabel ??
     (appliedTime ? getFormattedTime(appliedTime, format) : undefined);
 
-  const handleOpen = useCallback(
-    () =>
-      setIsOpen((prev) => {
-        if (!prev) {
-          sendOpenFilterEvent(id);
-        }
+  const handleOpenChange = useCallback(
+    (open: boolean) => {
+      if (open) {
+        sendOpenFilterEvent(id);
+      }
 
-        return !prev;
-      }),
+      setIsOpen(open);
+    },
     [id],
   );
 
@@ -113,16 +111,6 @@ export const useTimeFilterDropdown = ({
   useEffect(() => {
     const controller = new AbortController();
 
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!wrapperRef.current?.contains(event.target as Node)) {
-        handleClose();
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside, {
-      signal: controller.signal,
-    });
-
     document.addEventListener(
       'visibilitychange',
       () => {
@@ -138,7 +126,7 @@ export const useTimeFilterDropdown = ({
     return () => {
       controller.abort();
     };
-  }, [handleClose, wrapperRef]);
+  }, [handleClose]);
 
   return {
     id,
@@ -146,9 +134,8 @@ export const useTimeFilterDropdown = ({
     isOpen,
     selectedTime,
     selectedPresetLabel,
-    wrapperRef,
     handleApply,
-    handleOpen,
+    handleOpenChange,
     handleSelectPreset,
     handleSelectCustom,
     handleReset,

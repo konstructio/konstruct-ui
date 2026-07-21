@@ -11,17 +11,18 @@ export const WrapperBody: FC<Props> = ({
   isLoading,
   showPagination,
 }) => {
-  const { tableFetching, totalItems = -Infinity } = useTableContext();
+  const { tableLoading, totalItems = -Infinity } = useTableContext();
 
   return (
     <div
       className={cn(
+        'kvt-wrapper',
         'shadow rounded-t-lg overflow-hidden',
         {
           'rounded-lg':
             !showPagination ||
             !isPaginationBarVisible(totalItems) ||
-            tableFetching ||
+            tableLoading ||
             isLoading,
         },
         classNameWrapperTable,

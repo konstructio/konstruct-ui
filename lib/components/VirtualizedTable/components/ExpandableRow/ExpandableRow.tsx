@@ -15,7 +15,7 @@ export const ExpandableRow: FC<Props> = ({
   isLastRow,
 }) => (
   <tr
-    className={cn('h-0 leading-0', classNameExpandedRow)}
+    className={cn('kvt-expanded-row h-0 leading-0', classNameExpandedRow)}
     data-expanded-row-id={id}
   >
     <td

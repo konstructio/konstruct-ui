@@ -1,11 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useId,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useId, useMemo, useState } from 'react';
 
 import {
   DateRange,
@@ -28,7 +21,6 @@ export const useDateRangeFilterDropdown = ({
   'defaultRange' | 'onApply' | 'countryCode'
 >) => {
   const { closeOnApply } = useFilterContext();
-  const wrapperRef = useRef<HTMLDivElement>(null);
   const id = useId();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedRange, setSelectedRange] = useState<DateRange | undefined>(
@@ -54,15 +46,14 @@ export const useDateRangeFilterDropdown = ({
     return formatDate(appliedRange.from);
   }, [appliedRange]);
 
-  const handleOpen = useCallback(
-    () =>
-      setIsOpen((prev) => {
-        if (!prev) {
-          sendOpenFilterEvent(id);
-        }
+  const handleOpenChange = useCallback(
+    (open: boolean) => {
+      if (open) {
+        sendOpenFilterEvent(id);
+      }
 
-        return !prev;
-      }),
+      setIsOpen(open);
+    },
     [id],
   );
 
@@ -132,16 +123,6 @@ export const useDateRangeFilterDropdown = ({
   useEffect(() => {
     const controller = new AbortController();
 
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!wrapperRef.current?.contains(event.target as Node)) {
-        handleClose();
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside, {
-      signal: controller.signal,
-    });
-
     document.addEventListener(
       'visibilitychange',
       () => {
@@ -157,16 +138,15 @@ export const useDateRangeFilterDropdown = ({
     return () => {
       controller.abort();
     };
-  }, [handleClose, wrapperRef]);
+  }, [handleClose]);
 
   return {
     id,
     appliedRange: appliedRangeFormatted,
     isOpen,
     selectedRange,
-    wrapperRef,
     handleApply,
-    handleOpen,
+    handleOpenChange,
     handleRangeChange,
     handleReset,
   };

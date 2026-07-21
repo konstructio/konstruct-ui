@@ -122,7 +122,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
                 'absolute',
                 'left-2.5',
                 'top-1/2',
-                '-translate-y-[50%]',
+                'translate-y-[-50%]',
                 'text-slate-400',
                 'dark:text-metal-400',
                 {
@@ -162,7 +162,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
           {hasError ? (
             <i
               className={cn(
-                '-translate-y-[50%]',
+                'translate-y-[-50%]',
                 'absolute',
                 'right-3',
                 'text-red-700',
@@ -177,7 +177,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
           {type === 'password' && !error ? (
             <i
               className={cn(
-                '-translate-y-[50%]',
+                'translate-y-[-50%]',
                 'absolute',
                 'right-3',
                 'text-slate-400',
