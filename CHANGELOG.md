@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.103](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.103) (2026-07-21)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.102...0.1.2-alpha.103)
+
+**Merged pull requests:**
+
+- 💚 ci: bump node to v24.18.0 so npm@latest installs in the release [\#667](https://github.com/konstructio/konstruct-ui/pull/667) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.102](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.102) (2026-07-21)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.101...0.1.2-alpha.102)
