@@ -1,5 +1,5 @@
 import { EllipsisVertical } from 'lucide-react';
-import { useCallback, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { Button } from '@/components/Button/Button';
 import { cn } from '@/utils';
@@ -23,7 +23,7 @@ export const Actions = <TData extends RowData>({
   const rootRef = useRef<HTMLDivElement>(null);
   const [openUp, setOpenUp] = useState(false);
 
-  const updateDirection = useCallback(() => {
+  const updateDirection = () => {
     const root = rootRef.current;
 
     if (!root || !actions) {
@@ -54,7 +54,7 @@ export const Actions = <TData extends RowData>({
     const spaceAbove = triggerRect.top - clipTop;
 
     setOpenUp(spaceBelow < menuHeight && spaceAbove > spaceBelow);
-  }, [actions]);
+  };
 
   if (!actions) {
     return null;
