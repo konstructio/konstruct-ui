@@ -138,7 +138,6 @@ const DatePicker: FC<Props> = ({
           'dark:[&>button]:hover:bg-aurora-500',
           'dark:[&>button]:text-metal-900',
         ),
-        table: 'w-full',
         weekdays: 'text-slate-500 dark:text-metal-300',
         weeks: cn(
           'text-slate-700',
@@ -151,6 +150,7 @@ const DatePicker: FC<Props> = ({
         today:
           'text-blue-600 dark:text-aurora-500 data-[selected=true]:text-white',
         month_grid: cn(
+          'w-full',
           '[&>thead]:table-header-group',
           '[&>thead]:relative',
           '[&>thead]:after:block',
