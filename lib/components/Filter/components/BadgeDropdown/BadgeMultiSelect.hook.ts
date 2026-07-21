@@ -1,11 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useId,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useId, useMemo, useState } from 'react';
 
 import { useFilterContext } from '@/components/Filter/contexts';
 import { FilterEvent, sendOpenFilterEvent } from '@/components/Filter/events';
@@ -22,7 +15,6 @@ export const useBadgeMultiSelect = ({
 }: Pick<BadgeMultiSelectProps, 'onApply' | 'options'>) => {
   const { closeOnApply } = useFilterContext();
   const id = useId();
-  const wrapperRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptions[]>([]);
 
@@ -59,19 +51,18 @@ export const useBadgeMultiSelect = ({
     };
   }, [id, onApply]);
 
-  const handleOpen = useCallback(
-    () =>
-      setIsOpen((prev) => {
-        if (!prev) {
-          sendOpenFilterEvent(id);
-          setSelectedOptions((prevOptions) =>
-            prevOptions.filter((option) => option.isApplied),
-          );
-        }
+  const handleOpenChange = useCallback(
+    (open: boolean) => {
+      if (open) {
+        sendOpenFilterEvent(id);
+        setSelectedOptions((prevOptions) =>
+          prevOptions.filter((option) => option.isApplied),
+        );
+      }
 
-        return !prev;
-      }),
-    [id, setIsOpen],
+      setIsOpen(open);
+    },
+    [id],
   );
 
   const handleClose = useCallback(() => setIsOpen(false), []);
@@ -152,16 +143,6 @@ export const useBadgeMultiSelect = ({
   useEffect(() => {
     const controller = new AbortController();
 
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!wrapperRef.current?.contains(event.target as Node)) {
-        handleClose();
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside, {
-      signal: controller.signal,
-    });
-
     document.addEventListener(
       'visibilitychange',
       () => {
@@ -177,16 +158,15 @@ export const useBadgeMultiSelect = ({
     return () => {
       controller.abort();
     };
-  }, [handleClose, wrapperRef]);
+  }, [handleClose]);
 
   return {
     isOpen,
     isAllSelected,
     selectedCount,
     selectedOptions,
-    wrapperRef,
     handleApplyOptions,
-    handleOpen,
+    handleOpenChange,
     handleResetOptions,
     handleSelectAll,
     handleSelectOption,

@@ -41,7 +41,7 @@ const Filter: FilterComponentProps = ({
   children,
   closeOnApply = true,
 }) => (
-  <FilterProvider closeOnApply={closeOnApply}>
+  <FilterProvider closeOnApply={closeOnApply} theme={theme}>
     <div className={cn(filterVariants({ className }))} data-theme={theme}>
       {children}
     </div>

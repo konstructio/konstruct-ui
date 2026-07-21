@@ -1,10 +1,11 @@
-import { queryByAttribute, render, screen } from '@testing-library/react';
+import { act, queryByAttribute, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
 import { Filter } from './Filter';
 import { Option } from './Filter.types';
 import { BadgeMultiSelectProps, DateFilterDropdownProps } from './components';
+import { resetEvent } from './events';
 
 const options: Option[] = [
   {
@@ -95,7 +96,11 @@ describe('FilterComponent', () => {
     };
 
     const getOptionBadge = async (option: string) => {
-      return queryByAttribute('data-label', component, new RegExp(option, 'i'));
+      return queryByAttribute(
+        'data-label',
+        document.body,
+        new RegExp(option, 'i'),
+      );
     };
 
     const getApplyButton = async () => {
@@ -111,7 +116,11 @@ describe('FilterComponent', () => {
     };
 
     const getDateButtonByLabel = async (date: string) => {
-      return queryByAttribute('aria-label', component, new RegExp(date, 'i'));
+      return queryByAttribute(
+        'aria-label',
+        document.body,
+        new RegExp(date, 'i'),
+      );
     };
 
     return {
@@ -254,6 +263,53 @@ describe('FilterComponent', () => {
     await user.click(applyButton);
 
     expect(mockOnApply).toHaveBeenCalledWith(expect.any(Date));
+  });
+
+  it('should close the dropdown when clicking outside', async () => {
+    const { user, getBadgeButton, getOptionBadge } = setup();
+
+    await user.click(await getBadgeButton('Badge'));
+
+    expect(await getOptionBadge(options.at(0)!.id)).toBeInTheDocument();
+
+    await user.click(document.body);
+
+    expect(await getOptionBadge(options.at(0)!.id)).not.toBeInTheDocument();
+  });
+
+  it('should keep the dropdown open when clicking inside the portaled menu', async () => {
+    const { user, getBadgeButton, getOptionBadge, getApplyButton } = setup();
+
+    await user.click(await getBadgeButton('Badge'));
+
+    const option = await getOptionBadge(options.at(0)!.id);
+
+    await user.click(option!);
+
+    expect(await getApplyButton()).toBeInTheDocument();
+    expect(await getOptionBadge(options.at(0)!.id)).toBeInTheDocument();
+  });
+
+  it('should clear applied values when the reset event fires', async () => {
+    const mockOnApply = vi.fn();
+
+    const { user, getBadgeButton, getOptionBadge, getApplyButton } = setup({
+      onApplyBadge: mockOnApply,
+    });
+
+    await user.click(await getBadgeButton('Badge'));
+    await user.click((await getOptionBadge(options.at(0)!.id))!);
+    await user.click(await getApplyButton());
+
+    expect(mockOnApply).toHaveBeenCalledWith([
+      { id: 'creating', label: 'Creating', variant: 'warning' },
+    ]);
+
+    act(() => {
+      resetEvent();
+    });
+
+    expect(mockOnApply).toHaveBeenCalledWith([]);
   });
 
   it('should select a date and reset the values', async () => {

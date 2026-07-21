@@ -18,14 +18,16 @@ export const Pagination: FC<Props> = ({
   pageSizes,
   classNamePagination,
   isLoading,
+  isListPortal,
+  dropdownPaginationDirection,
 }) => {
   const {
     totalItems = -Infinity,
-    tableFetching,
+    tableLoading,
     isFirstLoad,
   } = useTableContext();
 
-  if (!isPaginationBarVisible(totalItems) || tableFetching || isLoading) {
+  if (!isPaginationBarVisible(totalItems) || tableLoading || isLoading) {
     return null;
   }
 
@@ -33,6 +35,7 @@ export const Pagination: FC<Props> = ({
     <>
       <div
         className={cn(
+          'kvt-pagination',
           'bg-slate-50',
           'border',
           'border-y-transparent',
@@ -63,7 +66,11 @@ export const Pagination: FC<Props> = ({
 
             {showDropdownPagination && (
               <div className="flex items-center gap-2">
-                <DropdownPaginate pageSizes={pageSizes} />
+                <DropdownPaginate
+                  pageSizes={pageSizes}
+                  isListPortal={isListPortal}
+                  direction={dropdownPaginationDirection}
+                />
               </div>
             )}
           </div>
@@ -74,7 +81,6 @@ export const Pagination: FC<Props> = ({
           </div>
         </div>
       </div>
-      <div className="w-full min-h-37.5"></div>
     </>
   );
 };
