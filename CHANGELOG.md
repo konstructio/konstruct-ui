@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.2-alpha.102](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.102) (2026-07-21)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.101...0.1.2-alpha.102)
+
+**Merged pull requests:**
+
+- 🐛 fix: VirtualizedTable query lifecycle + errorState/headerContent/scroll container [\#666](https://github.com/konstructio/konstruct-ui/pull/666) ([futjesus](https://github.com/futjesus))
+- ⬆️ chore: update dependencies to latest compatible versions [\#665](https://github.com/konstructio/konstruct-ui/pull/665) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.101](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.101) (2026-07-06)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.100...0.1.2-alpha.101)
