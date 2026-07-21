@@ -1,6 +1,6 @@
 import { VariantProps } from 'class-variance-authority';
-import { InputHTMLAttributes } from '../../../../node_modules/react';
-import { Theme } from '../../../domain/theme';
+import { InputHTMLAttributes } from '../../../node_modules/react';
+import { Theme } from '../../domain/theme';
 import { loadingVariants } from './Loading.variants';
 /**
  * Props for the Loading component.

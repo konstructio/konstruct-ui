@@ -7,7 +7,7 @@ export declare const useIndependentCarousel: ({ displayedMonths, animationDurati
     leftInternalMonth: Date;
     leftPrevMonth: Date;
     leftNextMonth: Date;
-    leftCarouselRef: import('../../../../../../../node_modules/react').RefObject<HTMLDivElement | null>;
+    leftCarouselRef: import('../../../../../../node_modules/react').RefObject<HTMLDivElement | null>;
     isLeftAnimating: boolean;
     enableLeftTransition: boolean;
     leftAnimateTransform: boolean;
@@ -15,7 +15,7 @@ export declare const useIndependentCarousel: ({ displayedMonths, animationDurati
     rightInternalMonth: Date;
     rightPrevMonth: Date;
     rightNextMonth: Date;
-    rightCarouselRef: import('../../../../../../../node_modules/react').RefObject<HTMLDivElement | null>;
+    rightCarouselRef: import('../../../../../../node_modules/react').RefObject<HTMLDivElement | null>;
     isRightAnimating: boolean;
     enableRightTransition: boolean;
     rightAnimateTransform: boolean;

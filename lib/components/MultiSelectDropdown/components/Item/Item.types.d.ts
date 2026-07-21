@@ -1,4 +1,4 @@
-import { Theme } from '../../../../../domain/theme';
+import { Theme } from '../../../../domain/theme';
 import { MultiSelectDropdownOption } from '../../MultiSelectDropdown.types';
 export type ItemProps = {
     option: MultiSelectDropdownOption;

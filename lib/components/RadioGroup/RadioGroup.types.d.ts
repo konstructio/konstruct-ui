@@ -1,5 +1,5 @@
-import { ReactNode } from '../../../../node_modules/react';
-import { Theme } from '../../../domain/theme';
+import { ReactNode } from '../../../node_modules/react';
+import { Theme } from '../../domain/theme';
 import { Props as RadioProps } from '../Radio/Radio.types';
 /**
  * Props for the RadioGroup component.

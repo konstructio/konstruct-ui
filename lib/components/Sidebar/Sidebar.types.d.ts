@@ -1,7 +1,7 @@
 import { VariantProps } from 'class-variance-authority';
-import { CSSProperties, FC, PropsWithChildren } from '../../../../node_modules/react';
-import { ClassNames as DrawerClassNames } from '../../../components/Drawer/Drawer.types';
-import { Theme } from '../../../domain/theme';
+import { CSSProperties, FC, PropsWithChildren } from '../../../node_modules/react';
+import { ClassNames as DrawerClassNames } from '../Drawer/Drawer.types';
+import { Theme } from '../../domain/theme';
 import { SidebarModeProp } from './hooks/useSidebarMode';
 import { wrapperSiderbarVariants } from './Sidebar.variants';
 import { FooterProps, LabelProps, LogoProps, NavigationGroupProps, NavigationOptionProps, NavigationProps, NavigationSeparatorProps } from './components';

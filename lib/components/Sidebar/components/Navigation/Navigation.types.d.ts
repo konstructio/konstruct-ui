@@ -1,5 +1,5 @@
 import { VariantProps } from 'class-variance-authority';
-import { FC, PropsWithChildren } from '../../../../../../node_modules/react';
+import { FC, PropsWithChildren } from '../../../../../node_modules/react';
 import { Props as NavigationGroupProps } from '../NavigationGroup/NavigationGroup.types';
 import { Props as NavigationOptionProps } from '../NavigationOption/NavigationOption.types';
 import { Props as NavigationSeparatorProps } from '../NavigationSeparator/NavigationSeparator.types';

@@ -1,5 +1,5 @@
 import { CellContext } from '@tanstack/react-table';
-import { FC, ReactNode } from '../../../../../../node_modules/react';
+import { FC, ReactNode } from '../../../../../node_modules/react';
 import { RowData } from '../../VirtualizedTable.types';
 export type Action<TData> = {
     className?: string;

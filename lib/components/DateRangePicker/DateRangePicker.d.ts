@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Props } from './DateRangePicker.types';
 /**
  * A date range picker component that allows selecting a range of dates

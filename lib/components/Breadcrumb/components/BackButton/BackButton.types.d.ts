@@ -1,4 +1,4 @@
-import { Theme } from '../../../../../domain/theme';
+import { Theme } from '../../../../domain/theme';
 import { BackButton as BackButtonConfig } from '../../Breadcrumb.types';
 export interface Props extends BackButtonConfig {
     theme?: Theme;

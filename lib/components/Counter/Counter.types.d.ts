@@ -1,5 +1,5 @@
 import { VariantProps } from 'class-variance-authority';
-import { Theme } from '../../../domain/theme';
+import { Theme } from '../../domain/theme';
 import { counterVariants } from './Counter.variants';
 /**
  * Props for the Counter (NumberInput) component.

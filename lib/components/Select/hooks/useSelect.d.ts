@@ -1,4 +1,4 @@
-import { ComponentRef, RefObject } from '../../../../../node_modules/react';
+import { ComponentRef, RefObject } from '../../../../node_modules/react';
 import { SelectProps, Option } from '../Select.types';
 type UseSelectParams = {
     ulRef: RefObject<ComponentRef<'ul'> | null>;

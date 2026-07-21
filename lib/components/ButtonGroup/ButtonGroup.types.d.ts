@@ -1,6 +1,6 @@
-import { ReactNode } from '../../../../node_modules/react';
+import { ReactNode } from '../../../node_modules/react';
 import { VariantProps } from 'class-variance-authority';
-import { Theme } from '../../../domain/theme';
+import { Theme } from '../../domain/theme';
 import { buttonGroupVariants } from './ButtonGroup.variants';
 /** Horizontal text alignment for label and description */
 export type TextAlign = 'left' | 'center' | 'right';

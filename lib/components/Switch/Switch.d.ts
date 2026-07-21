@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Props } from './Switch.types';
 /**
  * A toggle switch component built on Radix UI primitives.

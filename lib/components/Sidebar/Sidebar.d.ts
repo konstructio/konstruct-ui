@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Footer, Label, Logo, Navigation, NavigationGroup, NavigationOption, NavigationSeparator } from './components';
 import { SidebarChildrenProps, Props as SidebarProps } from './Sidebar.types';
 /**

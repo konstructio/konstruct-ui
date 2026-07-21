@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Props } from './Slider.types';
 /**
  * A single-thumb slider component for selecting a value.

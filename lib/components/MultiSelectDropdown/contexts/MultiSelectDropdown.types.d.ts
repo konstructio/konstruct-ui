@@ -1,4 +1,4 @@
-import { PropsWithChildren, RefObject } from '../../../../../node_modules/react';
+import { PropsWithChildren, RefObject } from '../../../../node_modules/react';
 import { MultiSelectDropdownOption } from '../MultiSelectDropdown.types';
 export type State = {
     inputRef: RefObject<HTMLInputElement | null> | null;

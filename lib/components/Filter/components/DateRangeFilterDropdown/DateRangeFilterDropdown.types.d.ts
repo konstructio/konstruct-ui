@@ -1,4 +1,4 @@
-import { DateRange, DateRangeWithTime } from '../../../../../components/DateRangePicker/DateRangePicker.types';
+import { DateRange, DateRangeWithTime } from '../../../DateRangePicker/DateRangePicker.types';
 export type DateRangeFilterDropdownProps = {
     /** Label for the filter button */
     label: string;

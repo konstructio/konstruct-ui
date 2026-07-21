@@ -1,2 +1,2 @@
-import { FC } from '../../../../../../node_modules/react';
+import { FC } from '../../../../../node_modules/react';
 export declare const FlagContent: FC;

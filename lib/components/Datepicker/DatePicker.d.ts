@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Props } from './DatePicker.types';
 /**
  * A date picker component built on react-day-picker.

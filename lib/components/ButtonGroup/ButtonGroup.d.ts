@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Props } from './ButtonGroup.types';
 /**
  * A segmented toggle button group for single selection among options.

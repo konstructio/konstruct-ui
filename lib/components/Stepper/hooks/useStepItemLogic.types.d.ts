@@ -1,5 +1,5 @@
 import { Slot } from '@radix-ui/react-slot';
-import { KeyboardEvent } from '../../../../../node_modules/react';
+import { KeyboardEvent } from '../../../../node_modules/react';
 import { Step, StepStatus } from '../Stepper.types';
 export type UseStepItemLogicProps = {
     clickable: boolean;

@@ -1,7 +1,7 @@
 import { VariantProps } from 'class-variance-authority';
 import { Transition } from 'motion/react';
-import { PropsWithChildren, ReactNode } from '../../../../node_modules/react';
-import { Theme } from '../../../domain/theme';
+import { PropsWithChildren, ReactNode } from '../../../node_modules/react';
+import { Theme } from '../../domain/theme';
 import { modalVariants } from './components/Wrapper/Wrapper.variants';
 /**
  * Props for the Modal component.

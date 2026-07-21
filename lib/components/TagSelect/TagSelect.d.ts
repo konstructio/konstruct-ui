@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Props } from './TagSelect.types';
 /**
  * An input component for selecting from a list of tag options.

@@ -1,4 +1,4 @@
-import { KeyboardEvent, RefObject } from '../../../../../node_modules/react';
+import { KeyboardEvent, RefObject } from '../../../../node_modules/react';
 import { ButtonGroupOption } from '../ButtonGroup.types';
 export type AnimationDirection = 'left' | 'right' | 'none';
 export type UseButtonGroupProps = {

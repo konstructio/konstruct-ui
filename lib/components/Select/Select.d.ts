@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Props } from './Select.types';
 export type { OptionGroup, AdditionalOptionGroup } from './Select.types';
 /**

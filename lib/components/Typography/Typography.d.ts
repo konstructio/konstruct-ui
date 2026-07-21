@@ -1,4 +1,4 @@
-import { ForwardRefExoticComponent, RefAttributes } from '../../../../node_modules/react';
+import { ForwardRefExoticComponent, RefAttributes } from '../../../node_modules/react';
 import { Props } from './Typography.types';
 /**
  * A flexible typography component for consistent text styling.

@@ -1,6 +1,6 @@
 import { VariantProps } from 'class-variance-authority';
-import { ChangeEvent, ReactNode } from '../../../../node_modules/react';
-import { Theme } from '../../../domain/theme';
+import { ChangeEvent, ReactNode } from '../../../node_modules/react';
+import { Theme } from '../../domain/theme';
 import { imageUploadVariants } from './ImageUpload.variants';
 /**
  * Upload status states for the ImageUpload component.

@@ -1,6 +1,6 @@
 import { VariantProps } from 'class-variance-authority';
-import { FC, HTMLAttributes, ReactNode } from '../../../../node_modules/react';
-import { Theme } from '../../../domain/theme';
+import { FC, HTMLAttributes, ReactNode } from '../../../node_modules/react';
+import { Theme } from '../../domain/theme';
 import { breadcrumbVariants } from './Breadcrumb.variants';
 /**
  * A single step in the breadcrumb navigation.

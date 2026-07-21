@@ -31,5 +31,5 @@ import { Props } from './Input.types';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-input--docs Storybook}
  */
-declare const Input: import('../../../../node_modules/react').ForwardRefExoticComponent<Props & import('../../../../node_modules/react').RefAttributes<HTMLInputElement>>;
+declare const Input: import('../../../node_modules/react').ForwardRefExoticComponent<Props & import('../../../node_modules/react').RefAttributes<HTMLInputElement>>;
 export { Input };

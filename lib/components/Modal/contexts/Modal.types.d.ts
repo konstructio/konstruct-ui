@@ -1,4 +1,4 @@
-import { ReactNode } from '../../../../../node_modules/react';
+import { ReactNode } from '../../../../node_modules/react';
 export type State = {
     isOpen: boolean;
     content: string | ReactNode;

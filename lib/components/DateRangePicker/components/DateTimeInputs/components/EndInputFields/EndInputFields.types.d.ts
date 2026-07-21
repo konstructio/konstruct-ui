@@ -1,4 +1,4 @@
-import { ChangeEvent, FocusEvent } from '../../../../../../../../node_modules/react';
+import { ChangeEvent, FocusEvent } from '../../../../../../../node_modules/react';
 export type Props = {
     dateValue: string;
     timeValue?: Date;

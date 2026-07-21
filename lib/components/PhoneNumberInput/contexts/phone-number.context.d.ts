@@ -1,5 +1,5 @@
 import { RegionCode } from 'google-libphonenumber';
-import { FC } from '../../../../../node_modules/react';
+import { FC } from '../../../../node_modules/react';
 export type Country = {
     code: RegionCode;
     flag: FC;
@@ -17,4 +17,4 @@ export type ContextType = {
     onChangeTermOfSearch: (term: string) => void;
     onChangeValue: (value: string) => void;
 };
-export declare const PhoneNumberContext: import('../../../../../node_modules/react').Context<ContextType>;
+export declare const PhoneNumberContext: import('../../../../node_modules/react').Context<ContextType>;

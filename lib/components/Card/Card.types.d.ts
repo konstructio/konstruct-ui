@@ -1,6 +1,6 @@
 import { VariantProps } from 'class-variance-authority';
-import { HTMLAttributes, PropsWithChildren } from '../../../../node_modules/react';
-import { Theme } from '../../../domain/theme';
+import { HTMLAttributes, PropsWithChildren } from '../../../node_modules/react';
+import { Theme } from '../../domain/theme';
 import { cardVariants } from './Card.variants';
 /**
  * Props for the Card component.

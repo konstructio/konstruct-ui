@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes } from '../../../../node_modules/react';
+import { FC, HTMLAttributes } from '../../../node_modules/react';
 /**
  * A horizontal divider/separator line.
  *

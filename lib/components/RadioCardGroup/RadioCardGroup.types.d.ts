@@ -1,4 +1,4 @@
-import { Theme } from '../../../domain/theme';
+import { Theme } from '../../domain/theme';
 import { Props as RadioCardProps } from '../RadioCard/RadioCard.types';
 /**
  * Props for the RadioCardGroup component.

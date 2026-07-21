@@ -1,4 +1,4 @@
-import { Props as TypographyProps } from '../../../components/Typography/Typography.types';
+import { Props as TypographyProps } from '../Typography/Typography.types';
 export interface LineChartDataset {
     /** Dataset label (used in legend) */
     label: string;

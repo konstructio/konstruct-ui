@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Props } from './Badge.types';
 /**
  * A badge/tag component for status indicators and labels.

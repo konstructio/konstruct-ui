@@ -1,5 +1,5 @@
 import { VariantProps } from 'class-variance-authority';
-import { ComponentRef, ReactNode, RefObject } from '../../../../../../node_modules/react';
+import { ComponentRef, ReactNode, RefObject } from '../../../../../node_modules/react';
 import { Option } from '../../Autocomplete.types';
 import { autocompleteVariants } from '../../Autocomplete.variants';
 export interface Props extends VariantProps<typeof autocompleteVariants> {

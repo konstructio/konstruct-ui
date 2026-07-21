@@ -1,7 +1,7 @@
 import { VariantProps } from 'class-variance-authority';
-import { PropsWithChildren } from '../../../../node_modules/react';
+import { PropsWithChildren } from '../../../node_modules/react';
 import { triggerVariants } from './Tabs.variants';
-import { Theme } from '../../../domain/theme';
+import { Theme } from '../../domain/theme';
 import * as ReactTabs from '@radix-ui/react-tabs';
 /**
  * Props for the Tabs component.

@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Props } from './Tag.types';
 /**
  * A small label component for categorization, status display, or filtering.

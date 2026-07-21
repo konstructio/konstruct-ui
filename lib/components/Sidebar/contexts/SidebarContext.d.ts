@@ -12,5 +12,5 @@ export interface SidebarContextValue {
      */
     closeDrawer: () => void;
 }
-export declare const SidebarContext: import('../../../../../node_modules/react').Context<SidebarContextValue>;
+export declare const SidebarContext: import('../../../../node_modules/react').Context<SidebarContextValue>;
 export declare const useSidebarContext: () => SidebarContextValue;

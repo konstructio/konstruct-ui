@@ -1,5 +1,5 @@
-import { Props as ButtonProps } from '../../../../components/Button/Button.types';
-import { Theme } from '../../../../domain/theme';
+import { Props as ButtonProps } from '../../Button/Button.types';
+import { Theme } from '../../../domain/theme';
 export interface Props {
     'data-theme'?: Theme;
     variant?: ButtonProps['variant'];

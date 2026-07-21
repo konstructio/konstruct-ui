@@ -78,4 +78,4 @@ export type DateRangePickerContextValue = {
     /** Set displayed months directly */
     setDisplayedMonths: (months: [Date, Date]) => void;
 };
-export declare const DateRangePickerContext: import('../../../../../node_modules/react').Context<DateRangePickerContextValue | null>;
+export declare const DateRangePickerContext: import('../../../../node_modules/react').Context<DateRangePickerContextValue | null>;

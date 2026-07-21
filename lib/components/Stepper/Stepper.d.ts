@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Props } from './Stepper.types';
 /**
  * A stepper component for displaying multi-step processes.

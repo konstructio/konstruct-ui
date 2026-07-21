@@ -1,9 +1,10 @@
 import { ColumnDef, ExpandedState, OnChangeFn } from '@tanstack/react-table';
-import { PropsWithChildren, ReactNode } from '../../../../../node_modules/react';
+import { PropsWithChildren, ReactNode } from '../../../../node_modules/react';
 import { RowData, Props as TableProps } from '../VirtualizedTable.types';
 export type Props<TData extends RowData = RowData> = PropsWithChildren & {
     id: string | string[] | number | number[];
     data: TData[];
+    headerContent?: ReactNode;
     columns: ColumnDef<TData, string>[];
     totalItems: number;
     queryOptions?: TableProps<TData>['queryOptions'];

@@ -9,7 +9,7 @@ export type UseTogetherCarouselProps = {
     navigateNextMonth: () => void;
 };
 export declare const useTogetherCarousel: ({ displayedMonths, animationDuration, disabled, canNavigatePrev, canNavigateNext, navigationMode, navigatePrevMonth, navigateNextMonth, }: UseTogetherCarouselProps) => {
-    carouselRef: import('../../../../../../../node_modules/react').RefObject<HTMLDivElement | null>;
+    carouselRef: import('../../../../../../node_modules/react').RefObject<HTMLDivElement | null>;
     isAnimating: boolean;
     enableTransition: boolean;
     animateTransform: boolean;

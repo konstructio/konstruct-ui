@@ -1,6 +1,6 @@
 import { VariantProps } from 'class-variance-authority';
-import { ReactNode } from '../../../../node_modules/react';
-import { Theme } from '../../../domain/theme';
+import { ReactNode } from '../../../node_modules/react';
+import { Theme } from '../../domain/theme';
 import { autocompleteVariants } from './Autocomplete.variants';
 /**
  * Option type for Autocomplete suggestions.

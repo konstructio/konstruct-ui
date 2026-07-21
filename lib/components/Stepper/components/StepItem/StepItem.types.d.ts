@@ -1,5 +1,5 @@
 import { VariantProps } from 'class-variance-authority';
-import { Theme } from '../../../../../domain/theme';
+import { Theme } from '../../../../domain/theme';
 import { Step, StepperClassNames, StepperIcons, StepSize, StepStatus, StepVariant } from '../../Stepper.types';
 import { stepIndicatorVariants } from '../../Stepper.variants';
 export type Props = VariantProps<typeof stepIndicatorVariants> & {

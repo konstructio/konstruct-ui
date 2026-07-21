@@ -1,4 +1,4 @@
-import { ReactNode } from '../../../../../../node_modules/react';
+import { ReactNode } from '../../../../../node_modules/react';
 export type Props = {
     className?: string;
     htmlFor: string;

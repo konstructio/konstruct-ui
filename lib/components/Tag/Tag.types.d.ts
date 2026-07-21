@@ -1,4 +1,4 @@
-import { ReactNode } from '../../../../node_modules/react';
+import { ReactNode } from '../../../node_modules/react';
 /**
  * Props for the Tag component.
  * A small label component for categorization or status display.

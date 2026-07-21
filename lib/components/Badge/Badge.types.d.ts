@@ -1,5 +1,5 @@
 import { VariantProps } from 'class-variance-authority';
-import { ReactNode } from '../../../../node_modules/react';
+import { ReactNode } from '../../../node_modules/react';
 import { badgeVariants } from './Badge.variants';
 /**
  * Props for the Badge component.

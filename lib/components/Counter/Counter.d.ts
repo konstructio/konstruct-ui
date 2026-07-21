@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Props } from './Counter.types';
 /**
  * A numeric input component with increment/decrement buttons.

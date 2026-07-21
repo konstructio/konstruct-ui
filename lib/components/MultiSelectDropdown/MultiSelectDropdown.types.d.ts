@@ -1,5 +1,5 @@
 import { VariantProps } from 'class-variance-authority';
-import { InputHTMLAttributes } from '../../../../node_modules/react';
+import { InputHTMLAttributes } from '../../../node_modules/react';
 import { multiSelectDropdownVariants } from './MultiSelectDropdown.variants';
 /**
  * Configuration for a multi-select dropdown option.

@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Props } from './Breadcrumb.types';
 /**
  * A breadcrumb navigation component showing the current location in a hierarchy.

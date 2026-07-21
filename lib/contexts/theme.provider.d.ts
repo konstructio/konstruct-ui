@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from '../../../node_modules/react';
+import { FC, PropsWithChildren } from '../../node_modules/react';
 import { ThemeContextType } from './theme.context';
 /**
  * Props for the ThemeProvider component.

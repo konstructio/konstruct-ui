@@ -1,9 +1,9 @@
 import { ColumnDef as ColumnDefPrimitive, ExpandedState, OnChangeFn, RowData as RowDataPrimitive } from '@tanstack/react-table';
 import { VariantProps } from 'class-variance-authority';
-import { ReactNode } from '../../../../node_modules/react';
-import { Props as ButtonProps } from '../../../components/Button/Button.types';
-import { DateRange, DateRangeWithTime } from '../../../components/DateRangePicker/DateRangePicker.types';
-import { TimePreset } from '../../../components/Filter/components/TimeFilterDropdown/TimeFilterDropdown.types';
+import { ReactNode } from '../../../node_modules/react';
+import { Props as ButtonProps } from '../Button/Button.types';
+import { DateRange, DateRangeWithTime } from '../DateRangePicker/DateRangePicker.types';
+import { TimePreset } from '../Filter/components/TimeFilterDropdown/TimeFilterDropdown.types';
 import { virtualizeTableVariants } from './VirtualizedTable.variants';
 import { Option } from './components/Filter/Filter.types';
 import { UseQueryOptions } from '@tanstack/react-query';
@@ -157,6 +157,24 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<typeof virtuali
     isLoading?: boolean;
     /** Rendered in place of rows when the table has no data (and is not loading). */
     emptyState?: ReactNode;
+    /**
+     * Rendered in place of rows when the query failed and there are no rows to
+     * display. With React Query's default retry (3 attempts) it appears after
+     * retries are exhausted; pass `queryOptions={{ retry: false }}` to show it
+     * immediately. When both `errorState` and `emptyState` are set, `errorState`
+     * wins on error.
+     */
+    errorState?: ReactNode | ((error: Error) => ReactNode);
+    /** Rendered as a full-width band above the column headers, inside the table. */
+    headerContent?: ReactNode;
+    classNameHeaderContent?: string;
+    /**
+     * Classes for the div wrapping the table body + pagination bar (the filter
+     * row stays outside, fixed to the container width). Pass e.g.
+     * `'overflow-x-auto contain-inline-size'` to get a horizontal scroll
+     * container whose pagination bar tracks the table width.
+     */
+    classNameScrollContainer?: string;
     getRowId?: (originalRow: TData, index: number) => string;
     fetchData?: (params: Record<string, string | number | string[] | number[] | undefined>, signal?: AbortSignal) => Promise<{
         data: TData[];
@@ -170,6 +188,11 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<typeof virtuali
     showFormPagination?: boolean;
     pageSizes?: number[] | string[];
     totalItems: number;
+    /**
+     * Direction of the page-size dropdown. 'auto' (default) opens downward
+     * and flips upward when there is no room below in the viewport.
+     */
+    dropdownPaginationDirection?: 'auto' | 'up' | 'down';
 } | {
     showPagination?: false | undefined;
     showTotalItems?: never;
@@ -178,6 +201,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<typeof virtuali
     showFormPagination?: never;
     pageSizes?: never;
     totalItems?: never;
+    dropdownPaginationDirection?: never;
 }) & ({
     filterSearchPlaceholder?: string;
     /** @deprecated Use `filters` instead */

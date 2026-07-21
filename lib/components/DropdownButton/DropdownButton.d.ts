@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Props } from './DropdownButton.types';
 /**
  * A button with an attached dropdown menu for selecting actions.

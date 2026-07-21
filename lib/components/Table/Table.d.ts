@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { BodyProps, FilterProps, HeadProps, RowProps, TableProps } from './Table.types';
 /**
  * A composable table component with Head, Body, Row, and Filter sub-components.

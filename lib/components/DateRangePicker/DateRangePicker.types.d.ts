@@ -1,5 +1,5 @@
 import { VariantProps } from 'class-variance-authority';
-import { Theme } from '../../../domain/theme';
+import { Theme } from '../../domain/theme';
 import { CalendarPanelClassNames, DayPickerClassNames } from './components/CalendarPanel/CalendarPanel.types';
 import { DateTimeInputsClassNames } from './components/DateTimeInputs/DateTimeInputs.types';
 import { PresetLabels, PresetPanelClassNames } from './components/PresetPanel/PresetPanel.types';

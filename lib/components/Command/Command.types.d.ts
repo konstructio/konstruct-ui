@@ -1,6 +1,6 @@
-import { Theme } from '../../../domain/theme';
+import { Theme } from '../../domain/theme';
 import { DialogProps } from '@radix-ui/react-dialog';
-import { PropsWithChildren } from '../../../../node_modules/react';
+import { PropsWithChildren } from '../../../node_modules/react';
 /**
  * Props for the Command component.
  * A command palette dialog for keyboard-driven navigation and actions.

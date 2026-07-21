@@ -1,4 +1,4 @@
-import { KeyboardEvent } from '../../../../../../node_modules/react';
+import { KeyboardEvent } from '../../../../../node_modules/react';
 import { ButtonGroupOption, TextAlign } from '../../ButtonGroup.types';
 import { AnimationDirection } from '../../hooks';
 export type Props = {

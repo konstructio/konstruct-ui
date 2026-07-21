@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Props } from './MultiSelectDropdown.types';
 /**
  * A dropdown component for selecting one or multiple options with search functionality.

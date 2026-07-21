@@ -1,4 +1,4 @@
-import { Theme } from '../../../../../domain/theme';
+import { Theme } from '../../../../domain/theme';
 import { Step } from '../../Breadcrumb.types';
 export interface Props extends Step {
     isLast: boolean;

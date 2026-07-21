@@ -1,6 +1,6 @@
 import { VariantProps } from 'class-variance-authority';
-import { ComponentRef, HTMLAttributes, ReactNode, Ref } from '../../../../node_modules/react';
-import { Theme } from '../../../domain/theme';
+import { ComponentRef, HTMLAttributes, ReactNode, Ref } from '../../../node_modules/react';
+import { Theme } from '../../domain/theme';
 import { typographyVariants } from './Typography.variants';
 /** Valid HTML heading tags */
 export type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';

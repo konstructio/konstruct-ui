@@ -4,9 +4,8 @@ export declare const useDateFilterDropdown: ({ onApply, countryCode, }: Pick<Dat
     appliedDay: string | undefined;
     isOpen: boolean;
     selectedDay: Date | undefined;
-    wrapperRef: import('../../../../../../node_modules/react').RefObject<HTMLDivElement | null>;
     handleApply: () => void;
-    handleOpen: () => void;
+    handleOpenChange: (open: boolean) => void;
     handleSelect: (date: Date) => void;
     handleReset: () => void;
 };

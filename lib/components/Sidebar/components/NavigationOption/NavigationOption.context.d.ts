@@ -1,4 +1,4 @@
-import { ReactNode } from '../../../../../../node_modules/react';
+import { ReactNode } from '../../../../../node_modules/react';
 export interface NavigationOptionContextValue {
     /**
      * Whether this NavigationOption is rendered in hover-expandable mode
@@ -14,5 +14,5 @@ export interface NavigationOptionContextValue {
      */
     registerTooltipContent: (content: ReactNode) => void;
 }
-export declare const NavigationOptionContext: import('../../../../../../node_modules/react').Context<NavigationOptionContextValue | null>;
+export declare const NavigationOptionContext: import('../../../../../node_modules/react').Context<NavigationOptionContextValue | null>;
 export declare const useNavigationOptionContext: () => NavigationOptionContextValue | null;

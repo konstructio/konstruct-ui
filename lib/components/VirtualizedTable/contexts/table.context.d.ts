@@ -1,5 +1,5 @@
 import { ColumnSort, SortingState, Table } from '@tanstack/react-table';
-import { Dispatch, ReactNode, SetStateAction } from '../../../../../node_modules/react';
+import { Dispatch, ReactNode, SetStateAction } from '../../../../node_modules/react';
 import { RowData } from '../VirtualizedTable.types';
 export type ContextType<TData extends RowData = RowData> = {
     sortedData: ColumnSort[];
@@ -7,6 +7,8 @@ export type ContextType<TData extends RowData = RowData> = {
     pageSize: number;
     tableFetching?: boolean;
     tableLoading?: boolean;
+    tableError?: Error | null;
+    headerContent?: ReactNode;
     totalItems?: number;
     termOfSearch?: string;
     page: number;
@@ -41,4 +43,4 @@ export type ContextType<TData extends RowData = RowData> = {
     }) => void;
     onSelectTimeFilter: (key: string, time?: Date) => void;
 };
-export declare const TableContext: import('../../../../../node_modules/react').Context<ContextType<unknown>>;
+export declare const TableContext: import('../../../../node_modules/react').Context<ContextType<unknown>>;

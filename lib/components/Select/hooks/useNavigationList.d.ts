@@ -1,4 +1,4 @@
-import { ComponentRef, RefObject } from '../../../../../node_modules/react';
+import { ComponentRef, RefObject } from '../../../../node_modules/react';
 import { Option } from '../Select.types';
 type UseNavigationListProps = {
     inputRef?: RefObject<ComponentRef<'input'> | null>;

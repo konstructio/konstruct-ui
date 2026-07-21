@@ -1,7 +1,7 @@
-import { PropsWithChildren } from '../../../../node_modules/react';
+import { PropsWithChildren } from '../../../node_modules/react';
 import { VariantProps } from 'class-variance-authority';
 import { drawerVariants } from './Drawer.variants';
-import { Theme } from '../../../domain/theme';
+import { Theme } from '../../domain/theme';
 /**
  * Custom class names for each Drawer element.
  */

@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Props } from './Button.types';
 /**
  * A customizable button component with multiple variants and styles.

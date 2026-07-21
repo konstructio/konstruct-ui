@@ -1,6 +1,6 @@
-import { ReactNode } from '../../../../node_modules/react';
+import { ReactNode } from '../../../node_modules/react';
 import { VariantProps } from 'class-variance-authority';
-import { Theme } from '../../../domain/theme';
+import { Theme } from '../../domain/theme';
 import { progressBarFillVariants } from './ProgressBar.variants';
 export interface Props extends VariantProps<typeof progressBarFillVariants> {
     /** Additional CSS classes for the outer wrapper */

@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Props } from './TimePicker.types';
 /**
  * A scrollable time picker component with 12 or 24 hour format support.

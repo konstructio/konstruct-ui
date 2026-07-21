@@ -1,4 +1,4 @@
-import { Theme } from '../../../domain/theme';
+import { Theme } from '../../domain/theme';
 import { Props as CardProps } from '../Card/Card.types';
 import { Props as RadioProps } from '../Radio/Radio.types';
 /**

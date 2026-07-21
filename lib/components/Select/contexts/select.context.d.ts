@@ -1,4 +1,4 @@
-import { ComponentRef, Dispatch, RefObject, SetStateAction } from '../../../../../node_modules/react';
+import { ComponentRef, Dispatch, RefObject, SetStateAction } from '../../../../node_modules/react';
 import { Option } from '../Select.types';
 export type SelectContextType = {
     highlightSearchEnabled: boolean;
@@ -18,4 +18,4 @@ export type SelectContextType = {
     setValue: (value: string, inputRef?: RefObject<ComponentRef<'input'> | null>) => void;
     toggleOpen: (value?: boolean) => void;
 };
-export declare const SelectContext: import('../../../../../node_modules/react').Context<SelectContextType>;
+export declare const SelectContext: import('../../../../node_modules/react').Context<SelectContextType>;

@@ -1,6 +1,6 @@
 import { CheckboxProps as CheckboxPropsPrimitive } from '@radix-ui/react-checkbox';
 import { VariantProps } from 'class-variance-authority';
-import { Theme } from '../../../domain/theme';
+import { Theme } from '../../domain/theme';
 import { checkboxVariants } from './Checkbox.variants';
 /**
  * Props for the Checkbox component.

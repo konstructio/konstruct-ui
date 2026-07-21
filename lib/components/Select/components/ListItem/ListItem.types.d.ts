@@ -1,4 +1,4 @@
-import { ComponentRef, RefObject } from '../../../../../../node_modules/react';
+import { ComponentRef, RefObject } from '../../../../../node_modules/react';
 import { Option } from '../../Select.types';
 export type ListItemProps = Option & {
     isEmpty?: boolean;

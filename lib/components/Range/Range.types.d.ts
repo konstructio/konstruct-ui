@@ -1,6 +1,6 @@
 import { SliderProps as SliderPropsBase } from '@radix-ui/react-slider';
 import { VariantProps } from 'class-variance-authority';
-import { Theme } from '../../../domain/theme';
+import { Theme } from '../../domain/theme';
 import { rangeVariants } from './Range.variants';
 /**
  * Props for the Range component.

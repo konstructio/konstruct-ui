@@ -1,5 +1,5 @@
 import { RegionCode } from 'google-libphonenumber';
-import { InputHTMLAttributes } from '../../../../node_modules/react';
+import { InputHTMLAttributes } from '../../../node_modules/react';
 /**
  * Props for the PhoneNumberInput component.
  * An input with country code selector and phone number formatting.

@@ -1,6 +1,6 @@
 import { VariantProps } from 'class-variance-authority';
-import { FC, PropsWithChildren } from '../../../../node_modules/react';
-import { Theme } from '../../../domain/theme';
+import { FC, PropsWithChildren } from '../../../node_modules/react';
+import { Theme } from '../../domain/theme';
 import { Props as BadgeProps } from '../Badge/Badge.types';
 import { filterVariants } from './Filter.variants';
 import { BadgeMultiSelectProps, DateFilterDropdownProps, DateRangeFilterDropdownProps, ResetButtonProps, TextMultiSelectProps, TimeFilterDropdownProps } from './components';

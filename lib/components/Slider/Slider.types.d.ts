@@ -1,6 +1,6 @@
 import { SliderProps as SliderPropsBase } from '@radix-ui/react-slider';
 import { VariantProps } from 'class-variance-authority';
-import { Theme } from '../../../domain/theme';
+import { Theme } from '../../domain/theme';
 import { sliderVariants } from './Slider.variants';
 /**
  * Props for the Slider component.

@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Props } from './PhoneNumberInput.types';
 /**
  * A phone number input with country code selector and automatic formatting.

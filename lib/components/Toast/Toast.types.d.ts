@@ -1,6 +1,6 @@
 import { VariantProps } from 'class-variance-authority';
-import { PropsWithChildren, ReactNode } from '../../../../node_modules/react';
-import { Theme } from '../../../domain/theme';
+import { PropsWithChildren, ReactNode } from '../../../node_modules/react';
+import { Theme } from '../../domain/theme';
 import { toastVariants } from './Toast.variants';
 /**
  * Props for the Toast component.

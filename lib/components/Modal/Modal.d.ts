@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { ChildProps, Props } from './Modal.types';
 /**
  * A modal dialog component with Header, Body, and Footer sub-components.

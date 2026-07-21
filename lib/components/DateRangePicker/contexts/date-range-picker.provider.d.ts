@@ -1,4 +1,4 @@
-import { FC, ReactNode } from '../../../../../node_modules/react';
+import { FC, ReactNode } from '../../../../node_modules/react';
 import { BlockedMonth, DateRange, DateRangePreset, TimeRange } from './date-range-picker.context';
 interface DateRangePickerProviderProps {
     children: ReactNode;

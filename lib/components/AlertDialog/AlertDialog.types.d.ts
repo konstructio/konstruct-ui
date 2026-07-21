@@ -1,6 +1,6 @@
-import { PropsWithChildren, ReactNode } from '../../../../node_modules/react';
+import { PropsWithChildren, ReactNode } from '../../../node_modules/react';
 import { AlertDialogProps as AlertDialogPrimitiveProps } from '@radix-ui/react-alert-dialog';
-import { Theme } from '../../../domain/theme';
+import { Theme } from '../../domain/theme';
 import { Props as ButtonProps } from '../Button/Button.types';
 type ButtonBaseProps = Partial<ButtonProps> & {
     className?: string;

@@ -1,6 +1,6 @@
 import { VariantProps } from 'class-variance-authority';
-import { ButtonHTMLAttributes, Ref } from '../../../../node_modules/react';
-import { Theme } from '../../../domain/theme';
+import { ButtonHTMLAttributes, Ref } from '../../../node_modules/react';
+import { Theme } from '../../domain/theme';
 import { buttonVariants } from './Button.variants';
 /**
  * Props for the Button component.

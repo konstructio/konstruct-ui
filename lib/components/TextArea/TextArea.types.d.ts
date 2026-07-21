@@ -1,6 +1,6 @@
 import { VariantProps } from 'class-variance-authority';
-import { InputHTMLAttributes, ReactNode } from '../../../../node_modules/react';
-import { Theme } from '../../../domain/theme';
+import { InputHTMLAttributes, ReactNode } from '../../../node_modules/react';
+import { Theme } from '../../domain/theme';
 import { textAreaVariants } from './TextArea.variants';
 /**
  * Props for the TextArea component.

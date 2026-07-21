@@ -1,5 +1,5 @@
 import { VariantProps } from 'class-variance-authority';
-import { Theme } from '../../../domain/theme';
+import { Theme } from '../../domain/theme';
 import { switchVariants } from './Switch.variants';
 /**
  * Props for the Switch component.

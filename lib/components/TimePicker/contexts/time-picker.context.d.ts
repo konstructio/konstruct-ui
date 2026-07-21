@@ -12,4 +12,4 @@ export type TimePickerContextType = {
     setTimeDirectly: (time: Date) => void;
     setIsTyping: (value: boolean) => void;
 };
-export declare const TimePickerContext: import('../../../../../node_modules/react').Context<TimePickerContextType>;
+export declare const TimePickerContext: import('../../../../node_modules/react').Context<TimePickerContextType>;

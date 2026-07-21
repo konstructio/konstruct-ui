@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Props } from './RadioGroup.types';
 /**
  * A group of radio buttons with shared state management.

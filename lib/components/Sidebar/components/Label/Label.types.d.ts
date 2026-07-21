@@ -1,6 +1,6 @@
 import { VariantProps } from 'class-variance-authority';
-import { PropsWithChildren } from '../../../../../../node_modules/react';
-import { typographyVariants } from '../../../../../components/Typography/Typography.variants';
+import { PropsWithChildren } from '../../../../../node_modules/react';
+import { typographyVariants } from '../../../Typography/Typography.variants';
 export interface Props extends PropsWithChildren {
     className?: string;
     variant?: VariantProps<typeof typographyVariants>['variant'];

@@ -1,5 +1,5 @@
 import { ActionFilterConfig, FilterConfig, MultiSelectFilter } from '../../VirtualizedTable.types';
-export type { Option } from '../../../../../components/Filter/Filter.types';
+export type { Option } from '../../../Filter/Filter.types';
 /** @deprecated Use `ActionFilterConfig` with `type: 'action'` in the `filters` array instead */
 export type FilterAction = ActionFilterConfig;
 export type Props = {

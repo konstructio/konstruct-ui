@@ -1,5 +1,5 @@
 import { VariantProps } from 'class-variance-authority';
-import { Props as TagProps } from '../../../components/Tag/Tag.types';
+import { Props as TagProps } from '../Tag/Tag.types';
 import { tagSelectVariants } from './TagSelect.variants';
 /**
  * Props for the TagSelect component.

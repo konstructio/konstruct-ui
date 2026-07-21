@@ -1,4 +1,4 @@
-import { ReactNode } from '../../../../../../node_modules/react';
+import { ReactNode } from '../../../../../node_modules/react';
 export type Props = {
     /** Content of the header section */
     children: ReactNode;

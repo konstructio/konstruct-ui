@@ -1,4 +1,4 @@
-import { JSX } from '../../../../node_modules/react';
+import { JSX } from '../../../node_modules/react';
 import { Props, RowData } from './VirtualizedTable.types';
 import { TruncateText } from './components';
 import { Props as ActionProps } from './components/Actions/Actions.types';

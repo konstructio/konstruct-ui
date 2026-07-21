@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Props } from './RadioCard.types';
 /**
  * A card-style radio button for visually prominent selection options.

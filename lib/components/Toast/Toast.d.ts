@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { Props } from './Toast.types';
 /**
  * A toast notification component built on Radix UI primitives.

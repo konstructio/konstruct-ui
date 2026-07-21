@@ -5,9 +5,8 @@ export declare const useTimeFilterDropdown: ({ onApply, format, }: Pick<TimeFilt
     isOpen: boolean;
     selectedTime: Date | undefined;
     selectedPresetLabel: string | undefined;
-    wrapperRef: import('../../../../../../node_modules/react').RefObject<HTMLDivElement | null>;
     handleApply: () => void;
-    handleOpen: () => void;
+    handleOpenChange: (open: boolean) => void;
     handleSelectPreset: (preset: TimePreset) => void;
     handleSelectCustom: (time: Date) => void;
     handleReset: () => void;

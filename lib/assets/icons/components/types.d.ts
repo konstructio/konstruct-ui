@@ -1,4 +1,4 @@
-import { SVGProps, RefAttributes, ForwardRefExoticComponent } from '../../../../../node_modules/react';
+import { SVGProps, RefAttributes, ForwardRefExoticComponent } from '../../../../node_modules/react';
 export interface IconProps extends SVGProps<SVGSVGElement> {
     size?: string | number;
 }

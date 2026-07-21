@@ -1,6 +1,6 @@
-import { ReactNode } from '../../../../node_modules/react';
+import { ReactNode } from '../../../node_modules/react';
 import { VariantProps } from 'class-variance-authority';
-import { Theme } from '../../../domain/theme';
+import { Theme } from '../../domain/theme';
 import { stepperVariants } from './Stepper.variants';
 export type StepStatus = 'completed' | 'active' | 'pending' | 'error';
 export type StepSize = 'sm' | 'md' | 'lg';

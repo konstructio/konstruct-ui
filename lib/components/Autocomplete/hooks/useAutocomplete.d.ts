@@ -1,4 +1,4 @@
-import { ChangeEvent, ComponentRef, RefObject } from '../../../../../node_modules/react';
+import { ChangeEvent, ComponentRef, RefObject } from '../../../../node_modules/react';
 import { Option } from '../Autocomplete.types';
 type UseAutocompleteProps = {
     options: Option[];

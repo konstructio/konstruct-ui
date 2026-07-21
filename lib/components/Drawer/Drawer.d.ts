@@ -1,4 +1,4 @@
-import { FC } from '../../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
 import { BodyProps, FooterProps, HeaderProps } from './components';
 import { Props } from './Drawer.types';
 /**

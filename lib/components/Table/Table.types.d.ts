@@ -1,6 +1,6 @@
 import { VariantProps } from 'class-variance-authority';
-import { PropsWithChildren } from '../../../../node_modules/react';
-import { Theme } from '../../../domain/theme';
+import { PropsWithChildren } from '../../../node_modules/react';
+import { Theme } from '../../domain/theme';
 import { bodyVariants, headVariants, rowVariants, tableVariants } from './Table.variants';
 /**
  * Props for the Table component.
