@@ -1,5 +1,4 @@
 import { Column, flexRender } from '@tanstack/react-table';
-import { useCallback } from 'react';
 
 import { cn } from '@/utils';
 
@@ -13,24 +12,22 @@ export const Header = <TData extends RowData>({
   className,
   classNameArrows,
   classNameActiveArrows,
+  classNameHeaderContent,
 }: Props) => {
-  const { table, onSorting } = useTableContext<TData>();
+  const { table, headerContent, onSorting } = useTableContext<TData>();
 
-  const handleAscSort = useCallback(
-    (column: Column<TData, unknown>) =>
-      onSorting([{ id: column.id, desc: false }]),
-    [onSorting],
-  );
+  const handleAscSort = (column: Column<TData, unknown>) => {
+    onSorting([{ id: column.id, desc: false }]);
+  };
 
-  const handleDescSort = useCallback(
-    (column: Column<TData, unknown>) =>
-      onSorting([{ id: column.id, desc: true }]),
-    [onSorting],
-  );
+  const handleDescSort = (column: Column<TData, unknown>) => {
+    onSorting([{ id: column.id, desc: true }]);
+  };
 
   return (
     <thead
       className={cn(
+        'kvt-header',
         'font-semibold',
         'uppercase',
         'text-slate-500',
@@ -43,19 +40,52 @@ export const Header = <TData extends RowData>({
         className,
       )}
     >
+      {headerContent && (
+        <tr data-header-content>
+          <th
+            colSpan={table.getVisibleLeafColumns().length}
+            className={cn(
+              'kvt-header-content',
+              'px-6',
+              'py-4',
+              'text-left',
+              'text-sm',
+              'font-normal',
+              'normal-case',
+              'text-slate-800',
+              'bg-white',
+              'rounded-tl-lg',
+              'rounded-tr-lg',
+              'border-b',
+              'border-b-gray-200',
+              'dark:border-b-0',
+              'dark:text-metal-50',
+              'dark:bg-metal-900',
+              'dark:border-t',
+              'dark:border-x',
+              'dark:border-metal-700',
+              classNameHeaderContent,
+            )}
+          >
+            {headerContent}
+          </th>
+        </tr>
+      )}
+
       {table.getHeaderGroups().map(({ id, headers }) => (
-        <tr key={id}>
+        <tr key={id} className="kvt-header-row">
           {headers.map(({ id, column, getContext }) => (
             <th
               scope="col"
               key={id}
               className={cn(
+                'kvt-header-cell',
                 'px-4',
                 'py-3',
                 'text-left',
                 'text-xs',
-                'first:rounded-tl-lg',
-                'last:rounded-tr-lg',
+                !headerContent && 'first:rounded-tl-lg',
+                !headerContent && 'last:rounded-tr-lg',
                 'border-transparent',
                 'dark:border-t',
                 'dark:border-metal-700',

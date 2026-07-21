@@ -15,12 +15,14 @@ export const Body = <TData extends RowData = RowData>({
   isLoading,
   showPagination,
   emptyState,
+  errorState,
 }: BodyProps<TData>) => {
   const {
     table,
     pageSize,
     totalItems = -Infinity,
-    tableFetching,
+    tableLoading,
+    tableError,
     enableExpandedRow,
     classNameExpandedRow,
     classNameExpandedCell,
@@ -33,19 +35,35 @@ export const Body = <TData extends RowData = RowData>({
     isExpandColumnVisible,
   } = useTableContext<TData>();
 
-  if (isLoading || tableFetching) {
+  if (isLoading || tableLoading) {
     return <Skeleton numberOfRows={pageSize} table={table} />;
   }
 
   const rows = table.getRowModel().rows ?? [];
   const hasPaginationBar = showPagination && isPaginationBarVisible(totalItems);
+  const isErrorContent = rows.length === 0 && !!tableError && !!errorState;
 
-  if (rows.length === 0 && emptyState) {
+  const stateContent = (() => {
+    if (rows.length > 0) {
+      return null;
+    }
+
+    if (tableError && errorState) {
+      return typeof errorState === 'function'
+        ? errorState(tableError)
+        : errorState;
+    }
+
+    return emptyState ?? null;
+  })();
+
+  if (stateContent) {
     const colSpan = table.getVisibleLeafColumns().length;
 
     return (
       <tbody
         className={cn(
+          'kvt-body',
           'text-slate-800',
           'text-sm',
           'font-normal',
@@ -55,12 +73,14 @@ export const Body = <TData extends RowData = RowData>({
       >
         <tr
           className={cn(
+            isErrorContent ? 'kvt-error-row' : 'kvt-empty-row',
             'border-b',
             'border-b-gray-200',
             'dark:border-b-metal-700',
             'bg-transparent',
           )}
           data-empty-row
+          data-error-row={isErrorContent ? true : undefined}
         >
           <td
             colSpan={colSpan}
@@ -73,7 +93,9 @@ export const Body = <TData extends RowData = RowData>({
               'rounded-b-lg',
             )}
           >
-            <div className="flex items-center justify-center">{emptyState}</div>
+            <div className="flex items-center justify-center">
+              {stateContent}
+            </div>
           </td>
         </tr>
       </tbody>
@@ -83,6 +105,7 @@ export const Body = <TData extends RowData = RowData>({
   return (
     <tbody
       className={cn(
+        'kvt-body',
         'text-slate-800',
         'text-sm',
         'font-normal',
@@ -114,6 +137,7 @@ export const Body = <TData extends RowData = RowData>({
           <Fragment key={id}>
             <tr
               className={cn(
+                'kvt-row',
                 { 'group/row': enableHoverRow },
                 'border-b',
                 'border-b-gray-200',
@@ -135,6 +159,7 @@ export const Body = <TData extends RowData = RowData>({
                   <td
                     key={id}
                     className={cn(
+                      'kvt-cell',
                       'px-4',
                       'py-1',
                       'text-sm',

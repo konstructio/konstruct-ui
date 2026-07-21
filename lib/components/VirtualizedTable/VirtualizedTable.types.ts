@@ -198,6 +198,24 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
   isLoading?: boolean;
   /** Rendered in place of rows when the table has no data (and is not loading). */
   emptyState?: ReactNode;
+  /**
+   * Rendered in place of rows when the query failed and there are no rows to
+   * display. With React Query's default retry (3 attempts) it appears after
+   * retries are exhausted; pass `queryOptions={{ retry: false }}` to show it
+   * immediately. When both `errorState` and `emptyState` are set, `errorState`
+   * wins on error.
+   */
+  errorState?: ReactNode | ((error: Error) => ReactNode);
+  /** Rendered as a full-width band above the column headers, inside the table. */
+  headerContent?: ReactNode;
+  classNameHeaderContent?: string;
+  /**
+   * Classes for the div wrapping the table body + pagination bar (the filter
+   * row stays outside, fixed to the container width). Pass e.g.
+   * `'overflow-x-auto contain-inline-size'` to get a horizontal scroll
+   * container whose pagination bar tracks the table width.
+   */
+  classNameScrollContainer?: string;
   getRowId?: (originalRow: TData, index: number) => string;
   fetchData?: (
     params: Record<string, string | number | string[] | number[] | undefined>,
@@ -212,6 +230,11 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         showFormPagination?: boolean;
         pageSizes?: number[] | string[];
         totalItems: number;
+        /**
+         * Direction of the page-size dropdown. 'auto' (default) opens downward
+         * and flips upward when there is no room below in the viewport.
+         */
+        dropdownPaginationDirection?: 'auto' | 'up' | 'down';
       }
     | {
         showPagination?: false | undefined;
@@ -221,6 +244,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         showFormPagination?: never;
         pageSizes?: never;
         totalItems?: never;
+        dropdownPaginationDirection?: never;
       }
   ) &
   (

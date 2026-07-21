@@ -450,4 +450,169 @@ export const ExpandableRows: Story = {
   },
 };
 
+export const HeaderContent: Story = {
+  render: () => {
+    const id = useId();
+    const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+
+    useEffect(() => {
+      const init = async () => {
+        const result = await getPokemons({
+          page: 1,
+          pageSize: DEFAULT_PAGE_SIZE,
+        });
+
+        setPokemons(result.results);
+      };
+
+      init();
+    }, []);
+
+    return (
+      <QueryClientProvider client={queryClient}>
+        <VirtualizedTableComponent<Pokemon>
+          id={id}
+          ariaLabel="List of pokemons"
+          data={pokemons}
+          columns={columns}
+          headerContent={
+            <div className="flex w-full items-center justify-between">
+              <span>Usage for billing period 1 - 31 March 2026</span>
+              <span className="font-semibold">$0.00</span>
+            </div>
+          }
+        />
+      </QueryClientProvider>
+    );
+  },
+};
+
+export const ErrorState: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'With React Query default retry (3 attempts) the errorState appears after retries are exhausted; pass `queryOptions={{ retry: false }}` to show it immediately. A background refetch failure keeps the current rows visible.',
+      },
+    },
+  },
+  render: () => {
+    const id = useId();
+
+    const fetchWithError = useCallback(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      throw new Error('Failed to load pokemons');
+    }, []);
+
+    return (
+      <QueryClientProvider client={queryClient}>
+        <VirtualizedTableComponent<Pokemon>
+          id={id}
+          ariaLabel="List of pokemons"
+          data={[]}
+          columns={columns}
+          fetchData={fetchWithError}
+          queryOptions={{ retry: false }}
+          errorState={(error) => (
+            <div className="flex flex-col items-center gap-2 py-12">
+              <Typography variant="body2" className="font-medium">
+                Something went wrong
+              </Typography>
+              <Typography variant="body3" className="text-gray-500">
+                {error.message}
+              </Typography>
+            </div>
+          )}
+        />
+      </QueryClientProvider>
+    );
+  },
+};
+
+export const HorizontalScrollWithFilters: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The scroll container (classNameScrollContainer) wraps the table and the pagination bar so both scroll together; the filter row stays fixed to the container width. Filter dropdowns always render in a portal, and the page-size dropdown does so automatically when classNameScrollContainer is set, so the overflow container never clips them.',
+      },
+    },
+  },
+  render: () => {
+    const id = useId();
+    const [{ data, totalItemsCount }, setData] = useState<{
+      data: Pokemon[];
+      totalItemsCount: number;
+    }>({ data: [], totalItemsCount: 0 });
+
+    useEffect(() => {
+      const init = async () => {
+        const result = await getPokemons({
+          page: 1,
+          pageSize: DEFAULT_PAGE_SIZE,
+        });
+
+        setData({
+          data: result.results,
+          totalItemsCount: result.totalItemsCount,
+        });
+      };
+
+      init();
+    }, []);
+
+    const getNewData = useCallback(
+      async ({
+        page = 1,
+        pageSize = DEFAULT_PAGE_SIZE,
+        termOfSearch = undefined,
+        type = undefined,
+      }: PokemonResponse) => {
+        const result = await getPokemons({
+          page,
+          pageSize,
+          termOfSearch,
+          type,
+        });
+
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        return {
+          data: result.results,
+          totalItemsCount: result.totalItemsCount,
+        };
+      },
+      [],
+    );
+
+    if (data.length === 0) {
+      return <div>Loading...</div>;
+    }
+
+    return (
+      <QueryClientProvider client={queryClient}>
+        <div className="max-w-3xl">
+          <VirtualizedTableComponent<Pokemon>
+            id={id}
+            ariaLabel="List of pokemons"
+            data={data}
+            columns={columns}
+            classNameTable="min-w-[1200px]"
+            classNameScrollContainer="overflow-x-auto contain-inline-size"
+            showPagination={true}
+            pageSizes={[5, 10, 20, 30, 50]}
+            showFilter
+            showFilterInput
+            showResetButton
+            filterSearchPlaceholder="Search pokemons..."
+            filters={args.filters}
+            fetchData={getNewData}
+            totalItems={totalItemsCount}
+          />
+        </div>
+      </QueryClientProvider>
+    );
+  },
+};
+
 export default meta;

@@ -6,4 +6,5 @@ export type BodyProps<_TData extends RowData = RowData> = {
   isLoading?: boolean;
   showPagination?: boolean;
   emptyState?: ReactNode;
+  errorState?: ReactNode | ((error: Error) => ReactNode);
 };
