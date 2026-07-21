@@ -1,5 +1,5 @@
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, type NotifyOnChangeProps } from '@tanstack/react-query';
 import {
   ColumnDef,
   ExpandedState,
@@ -11,7 +11,14 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { ChevronRight } from 'lucide-react';
-import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { cn } from '@/utils';
 
@@ -22,6 +29,42 @@ import { VirtualizedTableEvent, VirtualizedTableEventDetail } from '../events';
 
 import { TableContext } from './table.context';
 import { Props } from './table.types';
+
+// The provider reads these result props; consumer notifyOnChangeProps must
+// keep including them or a fetch resolving to structurally-equal data never
+// re-renders the table and the skeleton stays stuck.
+const INTERNAL_NOTIFY_PROPS = [
+  'data',
+  'error',
+  'isError',
+  'isLoading',
+  'isFetching',
+  'dataUpdatedAt',
+] satisfies NotifyOnChangeProps;
+
+const EMPTY_DATA: RowData[] = [];
+
+const mergeNotifyOnChangeProps = (
+  consumerNotify?: NotifyOnChangeProps,
+): NotifyOnChangeProps | undefined => {
+  if (consumerNotify === undefined || consumerNotify === 'all') {
+    return consumerNotify;
+  }
+
+  if (typeof consumerNotify === 'function') {
+    return () => {
+      const resolved = consumerNotify();
+
+      if (resolved === undefined || resolved === 'all') {
+        return resolved;
+      }
+
+      return [...new Set([...resolved, ...INTERNAL_NOTIFY_PROPS])];
+    };
+  }
+
+  return [...new Set([...consumerNotify, ...INTERNAL_NOTIFY_PROPS])];
+};
 
 export const TableProvider = <TData extends RowData = RowData>({
   children,
@@ -37,6 +80,7 @@ export const TableProvider = <TData extends RowData = RowData>({
   enableExpandedRow,
   enableHoverRow,
   expandedState,
+  headerContent,
   id,
   isPaginationEnabled,
   queryOptions = {},
@@ -55,10 +99,7 @@ export const TableProvider = <TData extends RowData = RowData>({
   const [internalTotalItemsCount, setInternalTotalItemsCount] =
     useState(totalItems);
   const totalItemsCount = fetchData ? internalTotalItemsCount : totalItems;
-  const totalPages = useMemo(
-    () => Math.ceil(totalItemsCount / pageSize),
-    [totalItemsCount, pageSize],
-  );
+  const totalPages = Math.ceil(totalItemsCount / pageSize);
   const [multiselectSelected, setMultiselectSelected] = useState<
     Record<string, string[]>
   >({});
@@ -73,8 +114,8 @@ export const TableProvider = <TData extends RowData = RowData>({
   >({});
 
   const getQueryKey = () => {
-    const queryKey =
-      typeof id === 'string' || typeof id === 'number' ? [id] : id;
+    const queryKey: (string | number)[] =
+      typeof id === 'string' || typeof id === 'number' ? [id] : [...id];
 
     if (isPaginationEnabled) {
       queryKey.push(page, pageSize);
@@ -103,14 +144,43 @@ export const TableProvider = <TData extends RowData = RowData>({
     return queryKey;
   };
 
+  const {
+    notifyOnChangeProps: consumerNotifyOnChangeProps,
+    ...restQueryOptions
+  } = queryOptions;
+  const lastFetchMetaRef = useRef<{ totalItemsCount?: number }>({});
+  const hasSeededInitialDataRef = useRef(false);
+
   const queryResult = useQuery<TData[]>({
-    queryKey: getQueryKey(),
     refetchOnMount: false,
     refetchOnWindowFocus: false,
-    initialData: defaultData,
-    enabled: !!fetchData,
-    queryFn: async ({ signal }) =>
-      fetchData!(
+    ...restQueryOptions,
+    notifyOnChangeProps: mergeNotifyOnChangeProps(consumerNotifyOnChangeProps),
+    queryKey: getQueryKey(),
+    enabled: (query) => {
+      if (!fetchData) {
+        return false;
+      }
+
+      const { enabled } = restQueryOptions;
+
+      return typeof enabled === 'function'
+        ? !!enabled(query)
+        : (enabled ?? true);
+    },
+    // Seed only the first cache entry: seeding every key with [] keeps the
+    // query in 'success' from the start and isLoading permanently false.
+    initialData: () => {
+      if (hasSeededInitialDataRef.current || defaultData.length === 0) {
+        return undefined;
+      }
+
+      hasSeededInitialDataRef.current = true;
+
+      return defaultData;
+    },
+    queryFn: async ({ signal }) => {
+      const { data, totalItemsCount } = await fetchData!(
         {
           page: Math.max(page + 1, 1),
           pageSize,
@@ -123,22 +193,37 @@ export const TableProvider = <TData extends RowData = RowData>({
           ...(Object.keys(timeFilters).length > 0 ? timeFilters : {}),
         },
         signal,
-      ).then(({ data, totalItemsCount }) => {
-        setIsFirstLoad(false);
+      );
 
-        if (totalItemsCount) {
-          setInternalTotalItemsCount(totalItemsCount);
-        }
+      lastFetchMetaRef.current = { totalItemsCount };
 
-        return data;
-      }),
-
-    ...queryOptions,
+      return data;
+    },
   });
 
-  const data = fetchData ? queryResult.data : defaultData;
+  const data = fetchData
+    ? (queryResult.data ?? (EMPTY_DATA as TData[]))
+    : defaultData;
   const isLoading = fetchData ? queryResult.isLoading : false;
   const isFetching = fetchData ? queryResult.isFetching : false;
+  const tableError = fetchData ? queryResult.error : null;
+  const hasHeaderContent = !!headerContent;
+
+  // dataUpdatedAt changes on every successful fetch even when structural
+  // sharing keeps the same data reference.
+  useEffect(() => {
+    if (!fetchData || queryResult.dataUpdatedAt === 0) {
+      return;
+    }
+
+    setIsFirstLoad(false);
+
+    const { totalItemsCount } = lastFetchMetaRef.current;
+
+    if (totalItemsCount) {
+      setInternalTotalItemsCount(totalItemsCount);
+    }
+  }, [fetchData, queryResult.dataUpdatedAt]);
 
   const onChangeTermOfSearch = useCallback((term: string) => {
     setTermOfSearch(term);
@@ -305,12 +390,10 @@ export const TableProvider = <TData extends RowData = RowData>({
 
   const currentRowIds = useMemo(
     () =>
-      isFetching
-        ? []
-        : data.map((row, index) =>
-            getRowId ? getRowId(row, index) : String(index),
-          ),
-    [data, getRowId, isFetching],
+      data.map((row, index) =>
+        getRowId ? getRowId(row, index) : String(index),
+      ),
+    [data, getRowId],
   );
 
   const hasAnyExpanded = useMemo(() => {
@@ -407,7 +490,10 @@ export const TableProvider = <TData extends RowData = RowData>({
           isExpandColumnVisible ? 'w-10 max-w-10 px-2' : 'w-0 max-w-0 !p-0',
           // Border/radius: deferred on collapse so border stays during exit
           isBorderOnAdjacentCell &&
-            '!border-0 !rounded-none [&+th]:rounded-tl-lg dark:[&+th]:border-l',
+            cn(
+              '!border-0 !rounded-none dark:[&+th]:border-l',
+              !hasHeaderContent && '[&+th]:rounded-tl-lg',
+            ),
         ),
         className: cn(
           'transition-[width,max-width,padding] duration-300 ease-in-out overflow-hidden',
@@ -421,6 +507,7 @@ export const TableProvider = <TData extends RowData = RowData>({
   }, [
     enableExpandedRow,
     hasStaticExpandedContent,
+    hasHeaderContent,
     renderExpandedRow,
     isExpandColumnVisible,
     isBorderOnAdjacentCell,
@@ -475,6 +562,8 @@ export const TableProvider = <TData extends RowData = RowData>({
         table: table as unknown as Table<RowData>,
         tableFetching: isFetching,
         tableLoading: isLoading,
+        tableError,
+        headerContent,
         termOfSearch,
         totalItems: totalItemsCount,
         totalPages,

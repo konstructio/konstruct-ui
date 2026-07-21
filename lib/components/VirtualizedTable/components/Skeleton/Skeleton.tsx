@@ -8,11 +8,11 @@ import { SkeletonProps } from './Skeleton.types';
 import { cn } from '@/utils';
 
 export const Skeleton = <T,>({ numberOfRows, table }: SkeletonProps<T>) => {
-  const { tableFetching, tableLoading } = useTableContext();
+  const { tableLoading } = useTableContext();
   const rows = Array.from({ length: numberOfRows });
 
   return (
-    <tbody className="text-slate-800 text-sm font-normal relative">
+    <tbody className="kvt-skeleton text-slate-800 text-sm font-normal relative">
       {rows.map((_, rowIndex) => {
         const columns = table.getAllColumns();
 
@@ -104,8 +104,7 @@ export const Skeleton = <T,>({ numberOfRows, table }: SkeletonProps<T>) => {
                         'text-slate-400',
                         'dark:text-metal-700',
                         {
-                          'text-gray-300 animate-pulse':
-                            tableFetching || tableLoading,
+                          'text-gray-300 animate-pulse': tableLoading,
                         },
                       )}
                     />

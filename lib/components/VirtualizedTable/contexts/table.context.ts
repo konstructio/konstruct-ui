@@ -10,6 +10,8 @@ export type ContextType<TData extends RowData = RowData> = {
   pageSize: number;
   tableFetching?: boolean;
   tableLoading?: boolean;
+  tableError?: Error | null;
+  headerContent?: ReactNode;
   totalItems?: number;
   termOfSearch?: string;
   page: number;
@@ -47,6 +49,7 @@ export const TableContext = createContext<ContextType<RowData>>({
   table: {} as Table<RowData>,
   tableFetching: false,
   tableLoading: false,
+  tableError: null,
   totalItems: -Infinity,
   termOfSearch: '',
   page: 0,

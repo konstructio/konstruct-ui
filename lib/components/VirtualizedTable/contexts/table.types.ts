@@ -6,6 +6,7 @@ import { RowData, Props as TableProps } from '../VirtualizedTable.types';
 export type Props<TData extends RowData = RowData> = PropsWithChildren & {
   id: string | string[] | number | number[];
   data: TData[];
+  headerContent?: ReactNode;
   columns: ColumnDef<TData, string>[];
   totalItems: number;
   queryOptions?: TableProps<TData>['queryOptions'];
