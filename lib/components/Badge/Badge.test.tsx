@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
@@ -65,6 +65,18 @@ describe('Badge', () => {
     const badge = await getBadge();
 
     expect(badge).toHaveAttribute('aria-busy', 'true');
+  });
+
+  it('should stay mounted when the loading spinner animation ends', async () => {
+    const { getBadge, component } = setup({ loading: true });
+
+    const badge = await getBadge();
+    const spinner = component.querySelector('svg');
+
+    // animationend bubbles; only the badge's own exit animation may remove it.
+    fireEvent.animationEnd(spinner!);
+
+    expect(badge).toBeInTheDocument();
   });
 
   it('should show the badge label', async () => {

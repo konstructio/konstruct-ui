@@ -65,19 +65,29 @@ export const Badge: FC<Props> = ({
   );
 
   useEffect(() => {
-    const controller = new AbortController();
+    if (isVisible !== 'hidden') {
+      return;
+    }
 
-    badgeRef.current?.addEventListener(
+    const controller = new AbortController();
+    const badge = badgeRef.current;
+
+    badge?.addEventListener(
       'animationend',
-      () => {
-        badgeRef.current?.style.setProperty('display', 'none');
-        badgeRef.current?.remove();
+      (event) => {
+        // Animation events bubble; only the badge's own exit animation may remove it.
+        if (event.target !== badge) {
+          return;
+        }
+
+        badge.style.setProperty('display', 'none');
+        badge.remove();
       },
       { signal: controller.signal },
     );
 
     return () => controller.abort();
-  }, []);
+  }, [isVisible]);
 
   return (
     <span
