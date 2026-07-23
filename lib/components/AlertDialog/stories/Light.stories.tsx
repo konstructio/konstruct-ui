@@ -38,7 +38,7 @@ export const Light = {
             <Checkbox defaultChecked label="Don't show this message again" />
           </div>
         }
-        wrapperClassName="max-w-[500px]"
+        wrapperClassName="max-w-125"
         buttonConfirm={{
           text: 'Got it!',
         }}
@@ -62,7 +62,7 @@ export const Light = {
             </p>
           </div>
         }
-        wrapperClassName="max-w-[500px]"
+        wrapperClassName="max-w-125"
         buttonConfirm={{
           text: 'Yes, delete',
           variant: 'danger',
@@ -94,7 +94,7 @@ export const Light = {
           </div>
         }
         showCancelButton={false}
-        wrapperClassName="max-w-[384px] gap-4"
+        wrapperClassName="max-w-96 gap-4"
         buttonConfirm={{
           text: 'Got it!',
           className: 'w-full mt-4',

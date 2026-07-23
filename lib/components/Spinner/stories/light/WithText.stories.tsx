@@ -11,7 +11,7 @@ const meta: Meta<typeof Spinner> = {
 
 export const Clean: Story = {
   render: () => (
-    <div className="flex flex-col gap-3 h-[400px]">
+    <div className="flex flex-col gap-3 h-100">
       <Spinner />
     </div>
   ),

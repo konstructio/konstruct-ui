@@ -50,17 +50,17 @@ export const RadioCardGroup = {
       {
         label: <CivoLogo />,
         value: 'option-1',
-        wrapperClassName: 'w-[200px]',
+        wrapperClassName: 'w-50',
       },
       {
         label: <CivoLogo />,
         value: 'option-2',
-        wrapperClassName: 'w-[200px]',
+        wrapperClassName: 'w-50',
       },
       {
         label: <CivoLogo />,
         value: 'option-3',
-        wrapperClassName: 'w-[200px]',
+        wrapperClassName: 'w-50',
       },
     ],
   },

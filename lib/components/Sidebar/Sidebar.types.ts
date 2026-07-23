@@ -91,7 +91,7 @@ export interface Props
    * the panel's horizontal padding so dividers can span edge-to-edge,
    * raising the root `z-index` past higher-z layers, etc.
    *
-   * The Sidebar already applies sensible defaults internally (root `z-[60]`,
+   * The Sidebar already applies sensible defaults internally (root `z-60`,
    * panel uses `wrapperClassName`, content `gap-0`); user-provided classes
    * are appended via `cn`, so they win on conflicts.
    */

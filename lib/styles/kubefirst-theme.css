@@ -288,7 +288,11 @@
 
   --color-kubefirst-primary: #8851c8;
   --color-kubefirst-secondary: #7037ae;
+  --color-kubefirst-dark-blue-200: #abadc6;
+  --color-kubefirst-dark-blue-300: #9ea2c6;
+  --color-kubefirst-dark-blue-800: #252a41;
   --color-kubefirst-dark-blue-900: #1e2235;
+  --color-mistery: #81e2b4;
 
   --color-kubefirst-pro-primary: #1fb4d5;
   --color-kubefirst-pro-secondary: #3dc3e2;

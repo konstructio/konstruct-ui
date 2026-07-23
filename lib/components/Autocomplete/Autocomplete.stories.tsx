@@ -22,7 +22,7 @@ export const Autocomplete: Story = {
     ],
   },
   render: (args) => (
-    <div className="w-[350px] flex flex-col gap-3">
+    <div className="w-87.5 flex flex-col gap-3">
       <AutocompleteComponent
         label="Kubefirst colors"
         theme="kubefirst"

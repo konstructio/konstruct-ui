@@ -14,7 +14,7 @@ export const TextArea: Story = {
     placeholder: 'Type your message here.',
   },
   render: (args) => (
-    <div className="w-[350px] flex flex-col gap-3">
+    <div className="w-87.5 flex flex-col gap-3">
       <TextAreaComponent
         {...args}
         label="This is a textarea with Kubefirst theme"

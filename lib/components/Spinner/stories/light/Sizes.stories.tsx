@@ -11,7 +11,7 @@ const meta: Meta<typeof Spinner> = {
 
 export const Sizes: Story = {
   render: () => (
-    <div className="flex gap-12 items-end h-[400px]">
+    <div className="flex gap-12 items-end h-100">
       <div className="flex-1 h-full">
         <Spinner size="sm" text="Small" />
       </div>

@@ -14,7 +14,7 @@ export const Default: Story = {
     theme: 'dark',
   },
   render: () => (
-    <div className="flex flex-col gap-3 h-[400px]">
+    <div className="flex flex-col gap-3 h-100">
       <Spinner text="Getting everything ready..." />
     </div>
   ),

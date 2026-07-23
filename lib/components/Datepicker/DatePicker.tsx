@@ -77,13 +77,13 @@ const DatePicker: FC<Props> = ({
           'dark:text-metal-200',
         ),
         day_button: cn(
-          'h-[30px]',
+          'h-7.5',
           'aria-selected:opacity-100',
           'font-semibold',
           'hover:rounded-full',
           'cursor-pointer',
           'rounded-full',
-          'w-[30px]',
+          'w-7.5',
         ),
         day: 'text-center text-sm leading-5',
         month_caption: cn(

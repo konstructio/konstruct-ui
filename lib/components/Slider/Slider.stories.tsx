@@ -14,7 +14,7 @@ export const Slider: Story = {
     showValue: true,
   },
   render: (args) => (
-    <div className="max-w-[350px]">
+    <div className="max-w-87.5">
       <SliderComponent
         theme="kubefirst"
         label="Slider with Kubefirst theme"
