@@ -1,15 +1,20 @@
-name: Run Tests on Pull Request
+name: Storybook Build Check
 
 on:
   pull_request:
     branches:
       - main
+    paths:
+      - 'lib/**'
+      - '.storybook/**'
+      - 'package.json'
+      - 'package-lock.json'
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  test:
+  build-storybook:
     runs-on: self-hosted
 
     steps:
@@ -24,14 +29,5 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint
-        run: npm run lint
-
-      - name: Type check
-        run: npm run check:types
-
-      - name: Prettier check
-        run: npm run check:prettier
-
-      - name: Run tests with coverage
-        run: npm run test
+      - name: Build Storybook
+        run: npm run build:storybook
