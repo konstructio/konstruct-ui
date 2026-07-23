@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 import { FC, PropsWithChildren } from 'react';
 
 import { Button } from '../Button/Button';
@@ -172,5 +173,13 @@ describe('RadioCardGroup', () => {
         'name-radio-group': options.at(1)?.value,
       }),
     );
+  });
+
+  it("shouldn't have accessibility violations", async () => {
+    const { component } = setup();
+
+    const results = await axe(component);
+
+    expect(results).toHaveNoViolations();
   });
 });

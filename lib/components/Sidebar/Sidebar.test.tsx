@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 import { ReactNode } from 'react';
 
 import {
@@ -39,7 +40,9 @@ describe('Sidebar', () => {
     const user = userEvent.setup();
 
     const getOption = async (optionText: RegExp) => {
-      return screen.findByRole('option', { name: new RegExp(optionText, 'i') });
+      return screen.findByRole('button', {
+        name: new RegExp(optionText, 'i'),
+      });
     };
 
     const getLink = async (linkText: RegExp) => {
@@ -119,6 +122,20 @@ describe('Sidebar', () => {
     expect(mockOnClick).toHaveBeenCalledTimes(1);
   });
 
+  it("shouldn't have accessibility violations", async () => {
+    const { component } = setup({
+      options: (
+        <NavigationOption>
+          <Label>Option 1</Label>
+        </NavigationOption>
+      ),
+    });
+
+    const results = await axe(component);
+
+    expect(results).toHaveNoViolations();
+  });
+
   describe('responsive modes', () => {
     const renderWithGroups = (
       mode: 'expanded' | 'collapsed' | 'drawer',
@@ -129,13 +146,13 @@ describe('Sidebar', () => {
           <Logo>Logo</Logo>
           <Navigation>
             <NavigationGroup title="Main">
-              <NavigationOption>
+              <NavigationOption role="button" onClick={() => {}}>
                 <Label>Clusters</Label>
               </NavigationOption>
             </NavigationGroup>
 
             <NavigationGroup title="Admin">
-              <NavigationOption>
+              <NavigationOption role="button" onClick={() => {}}>
                 <Label>Billing</Label>
               </NavigationOption>
             </NavigationGroup>
@@ -238,7 +255,7 @@ describe('Sidebar', () => {
       await user.click(trigger);
       expect(screen.getByRole('dialog')).toBeInTheDocument();
 
-      const option = await screen.findByRole('option', { name: /clusters/i });
+      const option = await screen.findByRole('button', { name: /clusters/i });
       await user.click(option);
 
       await waitFor(() =>
@@ -252,7 +269,11 @@ describe('Sidebar', () => {
           <Logo>Logo</Logo>
           <Navigation>
             <NavigationGroup title="Main">
-              <NavigationOption closeDrawerOnClick={false}>
+              <NavigationOption
+                role="button"
+                closeDrawerOnClick={false}
+                onClick={() => {}}
+              >
                 <Label>Stay open</Label>
               </NavigationOption>
             </NavigationGroup>
@@ -268,7 +289,9 @@ describe('Sidebar', () => {
       await user.click(trigger);
       expect(screen.getByRole('dialog')).toBeInTheDocument();
 
-      const option = await screen.findByRole('option', { name: /stay open/i });
+      const option = await screen.findByRole('button', {
+        name: /stay open/i,
+      });
       await user.click(option);
 
       // Wait past the drawer close-animation window; dialog should remain.

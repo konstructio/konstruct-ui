@@ -1,10 +1,8 @@
-import {
-  QueryClient,
-  QueryClientProvider,
-  keepPreviousData,
-} from '@tanstack/react-query';
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { keepPreviousData } from '@tanstack/react-query';
+import { act, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
+import { renderWithProviders } from '@tests/utils/renderWithProviders';
 
 import { VirtualizedTable } from '../VirtualizedTable';
 import { ColumnDef, Props } from '../VirtualizedTable.types';
@@ -59,10 +57,6 @@ const setup = (
 ) => {
   const { fetchData, resolveFetch, rejectFetch } = createDeferredFetchData();
 
-  const queryClient = new QueryClient({
-    defaultOptions: { queries: { retry: false } },
-  });
-
   const defaultProps = {
     id: 'fetch-table',
     ariaLabel: 'Fetch table',
@@ -76,10 +70,8 @@ const setup = (
     totalItems: 0,
   } as unknown as Props<Item>;
 
-  const utils = render(
-    <QueryClientProvider client={queryClient}>
-      <VirtualizedTable<Item> {...defaultProps} {...(props as object)} />
-    </QueryClientProvider>,
+  const utils = renderWithProviders(
+    <VirtualizedTable<Item> {...defaultProps} {...(props as object)} />,
   );
 
   const user = userEvent.setup();
@@ -90,7 +82,6 @@ const setup = (
   return {
     ...utils,
     user,
-    queryClient,
     fetchData,
     resolveFetch,
     rejectFetch,

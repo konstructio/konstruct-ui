@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 
 import { TagSelect } from './TagSelect';
 import { Props } from './TagSelect.types';
@@ -194,5 +195,13 @@ describe('TagSelect', () => {
     expect(handleSubmit).toHaveBeenCalledWith({
       'tag-select': result,
     });
+  });
+
+  it("shouldn't have accessibility violations", async () => {
+    const { component } = setup({ label: 'Tags' });
+
+    const results = await axe(component);
+
+    expect(results).toHaveNoViolations();
   });
 });

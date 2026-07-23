@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 import { Tabs } from './Tabs';
 
 describe('Tabs', () => {
@@ -82,5 +83,13 @@ describe('Tabs', () => {
       <Tabs {...defaultProps} className="custom-class" />,
     );
     expect(container.firstChild).toHaveClass('custom-class');
+  });
+
+  it("shouldn't have accessibility violations", async () => {
+    const { container } = render(<Tabs {...defaultProps} />);
+
+    const results = await axe(container);
+
+    expect(results).toHaveNoViolations();
   });
 });

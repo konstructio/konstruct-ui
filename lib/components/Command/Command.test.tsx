@@ -56,8 +56,10 @@ describe('Command', () => {
     await user.click(getTrigger());
 
     expect(await screen.findByRole('dialog')).toBeInTheDocument();
-    expect(screen.getByText('Home')).toBeInTheDocument();
-    expect(screen.getByText('Settings')).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: 'Home' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('option', { name: 'Settings' }),
+    ).toBeInTheDocument();
   });
 
   it('should filter items when typing in the search input', async () => {
@@ -66,8 +68,12 @@ describe('Command', () => {
     await user.click(getTrigger());
     await user.keyboard('sett');
 
-    expect(screen.queryByText('Home')).not.toBeInTheDocument();
-    expect(screen.getByText('Settings')).toBeInTheDocument();
+    expect(
+      screen.queryByRole('option', { name: 'Home' }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('option', { name: 'Settings' }),
+    ).toBeInTheDocument();
   });
 
   it('should fire onSelect when choosing an item with the keyboard', async () => {

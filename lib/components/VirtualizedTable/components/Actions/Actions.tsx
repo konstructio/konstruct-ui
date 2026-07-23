@@ -79,7 +79,6 @@ export const Actions = <TData extends RowData>({
           'dark:group-hover:bg-aurora-900',
           triggerButtonClassName,
         )}
-        role="presentation"
       >
         <EllipsisVertical
           aria-hidden="true"
@@ -157,7 +156,6 @@ export const Actions = <TData extends RowData>({
                   className,
                 )}
                 variant="link"
-                role="presentation"
                 onClick={() => onClick(delegated.row.original)}
                 {...componentProps}
               >

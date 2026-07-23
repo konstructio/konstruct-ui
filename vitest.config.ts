@@ -40,6 +40,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'lib'),
+      '@tests': path.resolve(__dirname, 'tests'),
     },
   },
 });

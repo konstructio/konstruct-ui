@@ -57,17 +57,18 @@ describe('Input', () => {
   it('should toggle password visibility', async () => {
     const user = userEvent.setup();
 
-    const { container } = render(<Input label="Password" type="password" />);
+    render(<Input label="Password" type="password" />);
 
     const input = screen.getByLabelText('Password');
 
     expect(input).toHaveAttribute('type', 'password');
 
-    const toggle = container.querySelector('svg.cursor-pointer');
-
-    await user.click(toggle as Element);
+    await user.click(screen.getByRole('button', { name: 'Show password' }));
 
     expect(input).toHaveAttribute('type', 'text');
+    expect(
+      screen.getByRole('button', { name: 'Hide password' }),
+    ).toBeInTheDocument();
   });
 
   it("shouldn't have accessibility violations", async () => {

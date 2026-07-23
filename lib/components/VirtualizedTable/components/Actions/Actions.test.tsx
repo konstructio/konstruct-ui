@@ -1,6 +1,7 @@
 import { CellContext } from '@tanstack/react-table';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 
 import { Actions } from './Actions';
 import { Action, Props } from './Actions.types';
@@ -94,5 +95,20 @@ describe('Actions', () => {
 
     expect(panel.className).toContain('bottom-full');
     expect(panel.className).not.toContain('top-full');
+  });
+
+  it("shouldn't have accessibility violations", async () => {
+    const { container } = render(
+      <Actions
+        {...buildProps([
+          { label: 'Edit', onClick: vi.fn() },
+          { label: 'Delete', onClick: vi.fn() },
+        ])}
+      />,
+    );
+
+    const results = await axe(container);
+
+    expect(results).toHaveNoViolations();
   });
 });
