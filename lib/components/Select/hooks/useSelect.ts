@@ -8,6 +8,7 @@ import { SelectProps, Option } from '../Select.types';
 type UseSelectParams = {
   ulRef: RefObject<ComponentRef<'ul'> | null>;
   inputRef?: RefObject<ComponentRef<'input'> | null>;
+  searchInputRef?: RefObject<ComponentRef<'input'> | null>;
   disabled: boolean;
   internalValue?: Option;
   onBlur?: SelectProps['onBlur'];
@@ -16,6 +17,7 @@ type UseSelectParams = {
 export const useSelect = ({
   ulRef,
   inputRef,
+  searchInputRef,
   disabled,
   internalValue,
   onBlur,
@@ -163,8 +165,8 @@ export const useSelect = ({
 
   const handleOpen = useCallback(() => {
     toggleOpen(true);
-    requestAnimationFrame(() => inputRef?.current?.focus());
-  }, [inputRef, toggleOpen]);
+    requestAnimationFrame(() => searchInputRef?.current?.focus());
+  }, [searchInputRef, toggleOpen]);
 
   return {
     wrapperRef,

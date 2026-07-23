@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { FC, FormEvent, PropsWithChildren, useState } from 'react';
@@ -176,6 +176,46 @@ describe('Select', () => {
       const option = getElement('No options');
 
       expect(option).toBeInTheDocument();
+    });
+
+    it('should focus the search input when opening a searchable select', async () => {
+      const { user, findComboBox } = setup({ searchable: true });
+
+      const comboBox = await findComboBox();
+
+      await user.click(comboBox);
+
+      const searchInput = screen.getByRole('textbox');
+
+      await waitFor(() => {
+        expect(searchInput).toHaveFocus();
+      });
+      expect(searchInput).toHaveAttribute('tabindex', '-1');
+    });
+
+    it('should allow typing right after opening a searchable select', async () => {
+      const { user, findComboBox } = setup({ searchable: true });
+
+      const comboBox = await findComboBox();
+
+      await user.click(comboBox);
+      await waitFor(() => {
+        expect(screen.getByRole('textbox')).toHaveFocus();
+      });
+      await user.keyboard('Option 2');
+
+      expect(screen.getByRole('textbox')).toHaveValue('Option 2');
+    });
+
+    it('should keep the combobox as the tab stop in searchable mode', async () => {
+      const { user, findComboBox } = setup({ searchable: true });
+
+      const comboBox = await findComboBox();
+
+      await user.tab();
+
+      expect(comboBox).toHaveFocus();
+      expect(screen.getByRole('textbox')).toHaveAttribute('tabindex', '-1');
     });
 
     it('should render the labelAction next to the label', () => {

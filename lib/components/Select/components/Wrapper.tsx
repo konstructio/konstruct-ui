@@ -74,6 +74,7 @@ export const Wrapper: ForwardRefExoticComponent<
   ) => {
     const id = useId();
     const inputRef = useRef<ComponentRef<'input'>>(null);
+    const searchInputRef = useRef<ComponentRef<'input'>>(null);
     const ulRef = useRef<ComponentRef<'ul'>>(null);
     const isWrapperInputFocusable = useRef<number>(0);
     const {
@@ -94,10 +95,25 @@ export const Wrapper: ForwardRefExoticComponent<
     const { wrapperRef, wrapperInputRef, handleOpen } = useSelect({
       ulRef,
       inputRef,
+      searchInputRef,
       disabled,
       internalValue,
       onBlur,
     });
+
+    const handleToggleOpen = () => {
+      if (disabled) {
+        return;
+      }
+
+      if (isOpen) {
+        toggleOpen(false);
+
+        return;
+      }
+
+      handleOpen();
+    };
 
     const htmlFor = name ? `${id}-${name}` : id;
 
@@ -170,7 +186,7 @@ export const Wrapper: ForwardRefExoticComponent<
             selectVariants({ className, hasError: !!error, disabled }),
           )}
           role="combobox"
-          onClick={() => !disabled && toggleOpen(!isOpen)}
+          onClick={handleToggleOpen}
           aria-expanded={isOpen}
           tabIndex={isWrapperInputFocusable.current}
           aria-labelledby={htmlFor}
@@ -199,6 +215,7 @@ export const Wrapper: ForwardRefExoticComponent<
 
             {searchable ? (
               <input
+                ref={searchInputRef}
                 type="text"
                 value={
                   isOpen ? searchTerm : (internalValue?.label ?? value ?? '')
