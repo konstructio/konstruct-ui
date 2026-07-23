@@ -1,5 +1,11 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { render, screen } from '@testing-library/react';
+import {
+  act,
+  queryByAttribute,
+  render,
+  screen,
+  within,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
@@ -258,5 +264,60 @@ describe('VirtualizedTable', () => {
     expect(sizer!.contains(screen.getByRole('table'))).toBe(true);
     expect(sizer!.contains(screen.getByText(/results/i))).toBe(true);
     expect(scrollDiv.contains(screen.getByRole('textbox'))).toBe(false);
+  });
+
+  it('should reset only the targeted table filters when the reset event is scoped', async () => {
+    const user = userEvent.setup();
+    const filterOptions = [
+      { id: 'active', label: 'Active' },
+      { id: 'inactive', label: 'Inactive' },
+    ];
+    const queryClient = new QueryClient();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <VirtualizedTable<Item>
+          id="table-a"
+          ariaLabel="Table A"
+          columns={columns}
+          data={data}
+          showFilter
+          filters={[
+            { key: 'status', label: 'Status A', options: filterOptions },
+          ]}
+        />
+        <VirtualizedTable<Item>
+          id="table-b"
+          ariaLabel="Table B"
+          columns={columns}
+          data={data}
+          showFilter
+          filters={[
+            { key: 'status', label: 'Status B', options: filterOptions },
+          ]}
+        />
+      </QueryClientProvider>,
+    );
+
+    const triggerA = screen.getByRole('button', { name: /status a/i });
+    const triggerB = screen.getByRole('button', { name: /status b/i });
+
+    await user.click(triggerA);
+    await user.click(queryByAttribute('data-label', document.body, 'active')!);
+    await user.click(screen.getByRole('button', { name: /apply/i }));
+
+    await user.click(triggerB);
+    await user.click(queryByAttribute('data-label', document.body, 'active')!);
+    await user.click(screen.getByRole('button', { name: /apply/i }));
+
+    expect(within(triggerA).getByText('1')).toBeInTheDocument();
+    expect(within(triggerB).getByText('1')).toBeInTheDocument();
+
+    act(() => {
+      VirtualizedTable.Events.sendResetFiltersEvent('table-a');
+    });
+
+    expect(within(triggerA).queryByText('1')).not.toBeInTheDocument();
+    expect(within(triggerB).getByText('1')).toBeInTheDocument();
   });
 });

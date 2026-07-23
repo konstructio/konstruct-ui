@@ -8,5 +8,7 @@ export const sendOpenFilterEvent = (id: string) =>
     new CustomEvent<string>(FilterEvent.OPEN, { detail: id }),
   );
 
-export const resetEvent = () =>
-  document.dispatchEvent(new CustomEvent<string>(FilterEvent.RESET));
+export const resetEvent = (scope?: string) =>
+  document.dispatchEvent(
+    new CustomEvent<string | undefined>(FilterEvent.RESET, { detail: scope }),
+  );

@@ -1,14 +1,17 @@
 import { describe, expect, it, vi } from 'vitest';
 
 import {
+  VirtualizedTableEvent,
+  VirtualizedTableEventDetail,
+} from '../events.types';
+
+import {
   sendCollapseRowEvent,
   sendExpandRowEvent,
   sendToggleRowEvent,
-  VirtualizedTableEvent,
-  VirtualizedTableEventDetail,
-} from '.';
+} from './row';
 
-describe('VirtualizedTable events', () => {
+describe('VirtualizedTable row events', () => {
   it('sendExpandRowEvent dispatches EXPAND_ROW with correct detail', () => {
     const handler = vi.fn();
 

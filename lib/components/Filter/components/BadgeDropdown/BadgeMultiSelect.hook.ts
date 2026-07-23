@@ -13,7 +13,7 @@ export const useBadgeMultiSelect = ({
   onApply,
   options = [],
 }: Pick<BadgeMultiSelectProps, 'onApply' | 'options'>) => {
-  const { closeOnApply } = useFilterContext();
+  const { closeOnApply, resetScope } = useFilterContext();
   const id = useId();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptions[]>([]);
@@ -37,7 +37,13 @@ export const useBadgeMultiSelect = ({
 
     document.addEventListener(
       FilterEvent.RESET,
-      () => {
+      (event: Event) => {
+        const { detail } = event as CustomEvent<string | null | undefined>;
+
+        if (detail != null && detail !== resetScope) {
+          return;
+        }
+
         setSelectedOptions([]);
         onApply?.([]);
       },
@@ -49,7 +55,7 @@ export const useBadgeMultiSelect = ({
     return () => {
       controller.abort();
     };
-  }, [id, onApply]);
+  }, [id, onApply, resetScope]);
 
   const handleOpenChange = useCallback(
     (open: boolean) => {

@@ -20,7 +20,7 @@ export const useDateRangeFilterDropdown = ({
   DateRangeFilterDropdownProps,
   'defaultRange' | 'onApply' | 'countryCode'
 >) => {
-  const { closeOnApply } = useFilterContext();
+  const { closeOnApply, resetScope } = useFilterContext();
   const id = useId();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedRange, setSelectedRange] = useState<DateRange | undefined>(
@@ -105,7 +105,13 @@ export const useDateRangeFilterDropdown = ({
 
     document.addEventListener(
       FilterEvent.RESET,
-      () => {
+      (event: Event) => {
+        const { detail } = event as CustomEvent<string | null | undefined>;
+
+        if (detail != null && detail !== resetScope) {
+          return;
+        }
+
         setSelectedRange(undefined);
         setAppliedRange(undefined);
         onApply?.();
@@ -118,7 +124,7 @@ export const useDateRangeFilterDropdown = ({
     return () => {
       controller.abort();
     };
-  }, [id, onApply]);
+  }, [id, onApply, resetScope]);
 
   useEffect(() => {
     const controller = new AbortController();

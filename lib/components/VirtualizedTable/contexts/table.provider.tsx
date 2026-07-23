@@ -25,7 +25,11 @@ import { cn } from '@/utils';
 import { RowData, RowDataWithMeta } from '../VirtualizedTable.types';
 import { DEFAULT_PAGE_SIZE } from '../constants';
 
-import { VirtualizedTableEvent, VirtualizedTableEventDetail } from '../events';
+import {
+  VirtualizedTableEvent,
+  VirtualizedTableEventDetail,
+  VirtualizedTableRefreshEventDetail,
+} from '../events';
 
 import { TableContext } from './table.context';
 import { Props } from './table.types';
@@ -200,6 +204,12 @@ export const TableProvider = <TData extends RowData = RowData>({
       return data;
     },
   });
+
+  const [isManualRefreshing, setIsManualRefreshing] = useState(false);
+  const pendingManualRefetchesRef = useRef(0);
+  const isMountedRef = useRef(true);
+  const refetchRef = useRef(queryResult.refetch);
+  refetchRef.current = queryResult.refetch;
 
   const data = fetchData
     ? (queryResult.data ?? (EMPTY_DATA as TData[]))
@@ -383,6 +393,46 @@ export const TableProvider = <TData extends RowData = RowData>({
     return () => controller.abort();
   }, [enableExpandedRow, id, handleExpandedChange]);
 
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!fetchData) {
+      return;
+    }
+
+    const tableId = Array.isArray(id) ? id.join(',') : String(id);
+    const controller = new AbortController();
+
+    const handleRefresh = (e: Event) => {
+      const { detail } = e as CustomEvent<VirtualizedTableRefreshEventDetail>;
+
+      if (detail.tableId !== undefined && detail.tableId !== tableId) {
+        return;
+      }
+
+      pendingManualRefetchesRef.current += 1;
+      setIsManualRefreshing(true);
+
+      refetchRef.current().finally(() => {
+        pendingManualRefetchesRef.current -= 1;
+
+        if (pendingManualRefetchesRef.current === 0 && isMountedRef.current) {
+          setIsManualRefreshing(false);
+        }
+      });
+    };
+
+    document.addEventListener(VirtualizedTableEvent.REFRESH, handleRefresh, {
+      signal: controller.signal,
+    });
+
+    return () => controller.abort();
+  }, [fetchData, id]);
+
   const hasStaticExpandedContent = useMemo(
     () => data.some((row) => !!(row as RowDataWithMeta).meta?.expandedRow),
     [data],
@@ -561,7 +611,7 @@ export const TableProvider = <TData extends RowData = RowData>({
         sortedData,
         table: table as unknown as Table<RowData>,
         tableFetching: isFetching,
-        tableLoading: isLoading,
+        tableLoading: isLoading || isManualRefreshing,
         tableError,
         headerContent,
         termOfSearch,

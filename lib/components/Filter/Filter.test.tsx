@@ -312,6 +312,99 @@ describe('FilterComponent', () => {
     expect(mockOnApply).toHaveBeenCalledWith([]);
   });
 
+  it('should only reset dropdowns within the matching scope', async () => {
+    const onApplyA = vi.fn();
+    const onApplyB = vi.fn();
+
+    render(
+      <>
+        <Filter resetScope="scope-a">
+          <Filter.BadgeMultiSelect
+            label="Badge A"
+            options={options}
+            onApply={onApplyA}
+          />
+        </Filter>
+        <Filter resetScope="scope-b">
+          <Filter.BadgeMultiSelect
+            label="Badge B"
+            options={options}
+            onApply={onApplyB}
+          />
+        </Filter>
+      </>,
+    );
+
+    act(() => {
+      resetEvent('scope-a');
+    });
+
+    expect(onApplyA).toHaveBeenCalledWith([]);
+    expect(onApplyB).not.toHaveBeenCalled();
+  });
+
+  it('should reset every dropdown when the reset event has no scope', async () => {
+    const onApplyA = vi.fn();
+    const onApplyB = vi.fn();
+
+    render(
+      <>
+        <Filter resetScope="scope-a">
+          <Filter.BadgeMultiSelect
+            label="Badge A"
+            options={options}
+            onApply={onApplyA}
+          />
+        </Filter>
+        <Filter resetScope="scope-b">
+          <Filter.BadgeMultiSelect
+            label="Badge B"
+            options={options}
+            onApply={onApplyB}
+          />
+        </Filter>
+      </>,
+    );
+
+    act(() => {
+      resetEvent();
+    });
+
+    expect(onApplyA).toHaveBeenCalledWith([]);
+    expect(onApplyB).toHaveBeenCalledWith([]);
+  });
+
+  it('should reset only its own Filter root when clicking the reset button', async () => {
+    const onApplyA = vi.fn();
+    const onApplyB = vi.fn();
+    const user = userEvent.setup();
+
+    render(
+      <>
+        <Filter>
+          <Filter.BadgeMultiSelect
+            label="Badge A"
+            options={options}
+            onApply={onApplyA}
+          />
+          <Filter.ResetButton />
+        </Filter>
+        <Filter>
+          <Filter.BadgeMultiSelect
+            label="Badge B"
+            options={options}
+            onApply={onApplyB}
+          />
+        </Filter>
+      </>,
+    );
+
+    await user.click(screen.getByRole('button', { name: /reset/i }));
+
+    expect(onApplyA).toHaveBeenCalledWith([]);
+    expect(onApplyB).not.toHaveBeenCalled();
+  });
+
   it('should select a date and reset the values', async () => {
     const mockOnApply = vi.fn();
 
