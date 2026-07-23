@@ -15,6 +15,7 @@ import {
 } from 'react';
 
 import { Typography } from '@/components/Typography/Typography';
+import { useClickOutside } from '@/hooks';
 import { cn } from '@/utils';
 
 import { Props } from '../PhoneNumberInput.types';
@@ -86,6 +87,12 @@ export const Wrapper: ForwardRefExoticComponent<
       [selectedCountry.prefix, onChangeValue],
     );
 
+    const handleClickOutside = useCallback(() => {
+      handleOpenSelector(false);
+    }, [handleOpenSelector]);
+
+    useClickOutside(wrapperRef, handleClickOutside);
+
     useEffect(() => {
       const controller = new AbortController();
 
@@ -95,17 +102,7 @@ export const Wrapper: ForwardRefExoticComponent<
         }
       };
 
-      const handleClickOutside = (event: MouseEvent) => {
-        if (!wrapperRef.current?.contains(event.target as Node)) {
-          handleOpenSelector(false);
-        }
-      };
-
       document.addEventListener('keydown', handleKeyboard, {
-        signal: controller.signal,
-      });
-
-      document.addEventListener('mousedown', handleClickOutside, {
         signal: controller.signal,
       });
 
@@ -124,7 +121,7 @@ export const Wrapper: ForwardRefExoticComponent<
       return () => {
         controller.abort();
       };
-    }, [handleOpenSelector, wrapperRef]);
+    }, [handleOpenSelector]);
 
     useEffect(() => {
       if (inputRef.current) {

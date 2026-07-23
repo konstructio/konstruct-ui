@@ -7,6 +7,8 @@ import {
   useState,
 } from 'react';
 
+import { useClickOutside } from '@/hooks';
+
 import { filterByValue } from '../../../utils';
 
 import { Option } from '../Autocomplete.types';
@@ -40,6 +42,12 @@ export const useAutocomplete = ({
     };
   }, [inputRef]);
 
+  const handleClickOutside = useCallback(() => {
+    setShowOptions(false);
+  }, []);
+
+  useClickOutside(wrapperRef, handleClickOutside);
+
   useEffect(() => {
     const controller = new AbortController();
 
@@ -50,24 +58,14 @@ export const useAutocomplete = ({
       }
     };
 
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!wrapperRef.current?.contains(event.target as Node)) {
-        setShowOptions(false);
-      }
-    };
-
     document.addEventListener('keydown', handleKeyboard, {
-      signal: controller.signal,
-    });
-
-    document.addEventListener('mousedown', handleClickOutside, {
       signal: controller.signal,
     });
 
     return () => {
       controller.abort();
     };
-  }, [inputRef, wrapperRef]);
+  }, [inputRef]);
 
   useEffect(() => {
     const controller = new AbortController();

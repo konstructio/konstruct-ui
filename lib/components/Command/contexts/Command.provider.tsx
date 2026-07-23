@@ -1,4 +1,4 @@
-import { PropsWithChildren, useCallback } from 'react';
+import { PropsWithChildren, useCallback, useMemo } from 'react';
 
 import { useToggle } from '../../../hooks';
 
@@ -14,15 +14,16 @@ export const CommandProvider = ({ children }: PropsWithChildren) => {
 
   const handleToggle = useCallback(() => toggleState(), [toggleState]);
 
+  const value = useMemo(
+    () => ({
+      isOpen,
+      setOpen: handleOpen,
+      toggleOpen: handleToggle,
+    }),
+    [isOpen, handleOpen, handleToggle],
+  );
+
   return (
-    <CommandContext.Provider
-      value={{
-        isOpen,
-        setOpen: handleOpen,
-        toggleOpen: handleToggle,
-      }}
-    >
-      {children}
-    </CommandContext.Provider>
+    <CommandContext.Provider value={value}>{children}</CommandContext.Provider>
   );
 };

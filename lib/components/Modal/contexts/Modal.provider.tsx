@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useState } from 'react';
+import { ReactNode, useCallback, useMemo, useState } from 'react';
 
 import { useToggle } from '../../../hooks';
 
@@ -11,27 +11,35 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
 
   const handleOpen = useCallback(() => toggleState(true), [toggleState]);
   const handleClose = useCallback(() => toggleState(false), [toggleState]);
-  const setContentAndOpen = (
-    content: string | ReactNode,
-    showCloseButton: boolean = true,
-  ) => {
-    setContent(content);
-    handleOpen();
-    setShouldShowClose(showCloseButton);
-  };
+  const setContentAndOpen = useCallback(
+    (content: string | ReactNode, showCloseButton: boolean = true) => {
+      setContent(content);
+      handleOpen();
+      setShouldShowClose(showCloseButton);
+    },
+    [handleOpen],
+  );
+
+  const value = useMemo(
+    () => ({
+      content,
+      isOpen,
+      shouldShowClose,
+      onClose: handleClose,
+      onOpen: handleOpen,
+      setContentAndOpen,
+    }),
+    [
+      content,
+      isOpen,
+      shouldShowClose,
+      handleClose,
+      handleOpen,
+      setContentAndOpen,
+    ],
+  );
 
   return (
-    <ModalContext.Provider
-      value={{
-        content,
-        isOpen,
-        shouldShowClose,
-        onClose: handleClose,
-        onOpen: handleOpen,
-        setContentAndOpen,
-      }}
-    >
-      {children}
-    </ModalContext.Provider>
+    <ModalContext.Provider value={value}>{children}</ModalContext.Provider>
   );
 };

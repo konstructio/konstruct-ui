@@ -1,5 +1,7 @@
 import { ComponentRef, RefObject, useCallback, useEffect, useRef } from 'react';
 
+import { useClickOutside } from '@/hooks';
+
 import { useSelectContext } from '../contexts';
 import { SelectProps, Option } from '../Select.types';
 
@@ -22,6 +24,12 @@ export const useSelect = ({
   const wrapperInputRef = useRef<ComponentRef<'div'>>(null);
   const { value, setSearchTerm, setCanFilter, toggleOpen } = useSelectContext();
 
+  const handleClickOutside = useCallback(() => {
+    toggleOpen(false);
+  }, [toggleOpen]);
+
+  useClickOutside(wrapperRef, handleClickOutside);
+
   useEffect(() => {
     const controller = new AbortController();
 
@@ -31,17 +39,7 @@ export const useSelect = ({
       }
     };
 
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!wrapperRef.current?.contains(event.target as Node)) {
-        toggleOpen(false);
-      }
-    };
-
     document.addEventListener('keydown', handleKeyboard, {
-      signal: controller.signal,
-    });
-
-    document.addEventListener('mousedown', handleClickOutside, {
       signal: controller.signal,
     });
 

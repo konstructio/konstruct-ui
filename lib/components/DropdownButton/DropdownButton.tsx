@@ -1,6 +1,7 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'react-feather';
 
+import { useClickOutside } from '@/hooks';
 import { cn } from '@/utils';
 
 import { Button } from '../Button/Button';
@@ -41,6 +42,12 @@ export const DropdownButton: FC<Props> = ({
     onClick?.();
   }, []);
 
+  const handleClickOutside = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
+  useClickOutside(wrapperRef, handleClickOutside);
+
   useEffect(() => {
     const controller = new AbortController();
 
@@ -50,17 +57,7 @@ export const DropdownButton: FC<Props> = ({
       }
     };
 
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!wrapperRef.current?.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
     document.addEventListener('keydown', handleKeyboard, {
-      signal: controller.signal,
-    });
-
-    document.addEventListener('mousedown', handleClickOutside, {
       signal: controller.signal,
     });
 
@@ -79,7 +76,7 @@ export const DropdownButton: FC<Props> = ({
     return () => {
       controller.abort();
     };
-  }, [wrapperRef]);
+  }, []);
 
   return (
     <div ref={wrapperRef} className={cn('relative w-full', className)}>

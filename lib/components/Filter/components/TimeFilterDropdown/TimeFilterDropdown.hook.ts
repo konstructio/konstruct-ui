@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useId, useState } from 'react';
+import { useCallback, useId, useState } from 'react';
 
 import { getFormattedTime } from '@/components/TimePicker/utils';
 
 import { useFilterContext } from '@/components/Filter/contexts';
 
-import { FilterEvent, sendOpenFilterEvent } from '../../events';
+import { sendOpenFilterEvent } from '../../events';
+import { useFilterDropdownSync } from '../../hooks';
 
 import {
   TimeFilterDropdownProps,
@@ -15,7 +16,7 @@ export const useTimeFilterDropdown = ({
   onApply,
   format = '24',
 }: Pick<TimeFilterDropdownProps, 'onApply' | 'format'>) => {
-  const { closeOnApply, resetScope } = useFilterContext();
+  const { closeOnApply } = useFilterContext();
   const id = useId();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState<Date>();
@@ -60,79 +61,23 @@ export const useTimeFilterDropdown = ({
 
   const handleClose = useCallback(() => setIsOpen(false), []);
 
-  const handleReset = useCallback(() => {
+  const clearSelection = useCallback(() => {
     setSelectedTime(undefined);
     setAppliedTime(undefined);
     setSelectedPresetLabel(undefined);
     setAppliedPresetLabel(undefined);
     onApply?.();
+  }, [onApply]);
+
+  const handleReset = useCallback(() => {
+    clearSelection();
 
     if (closeOnApply) {
       setIsOpen(false);
     }
-  }, [closeOnApply, onApply]);
+  }, [clearSelection, closeOnApply]);
 
-  useEffect(() => {
-    const controller = new AbortController();
-
-    document.addEventListener(
-      FilterEvent.OPEN,
-      (event: Event) => {
-        const customEvent = event as CustomEvent<string>;
-
-        if (customEvent.detail !== id) {
-          setIsOpen(false);
-        }
-      },
-      {
-        signal: controller.signal,
-      },
-    );
-
-    document.addEventListener(
-      FilterEvent.RESET,
-      (event: Event) => {
-        const { detail } = event as CustomEvent<string | null | undefined>;
-
-        if (detail != null && detail !== resetScope) {
-          return;
-        }
-
-        setSelectedTime(undefined);
-        setAppliedTime(undefined);
-        setSelectedPresetLabel(undefined);
-        setAppliedPresetLabel(undefined);
-        onApply?.();
-      },
-      {
-        signal: controller.signal,
-      },
-    );
-
-    return () => {
-      controller.abort();
-    };
-  }, [id, onApply, resetScope]);
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    document.addEventListener(
-      'visibilitychange',
-      () => {
-        if (document.hidden) {
-          handleClose();
-        }
-      },
-      {
-        signal: controller.signal,
-      },
-    );
-
-    return () => {
-      controller.abort();
-    };
-  }, [handleClose]);
+  useFilterDropdownSync({ id, onClose: handleClose, onReset: clearSelection });
 
   return {
     id,

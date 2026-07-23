@@ -220,13 +220,12 @@ Test files: `ComponentName.test.tsx`
 
 ## Coding Conventions
 
-- **Indentation**: tabs
+- **Indentation**: 2 spaces (Prettier, `useTabs: false`)
 - **Comments**: do not add code comments unless strictly necessary — only to state a non-obvious constraint the code itself can't show. Never add comments that narrate what the next line does or why a change is correct.
 - **Quotes**: single quotes
-- **Line width**: 120 characters
+- **Line width**: 80 characters (Prettier default)
 - **TypeScript**: strict mode (`strict`, `noUnusedLocals`, `noUnusedParameters`)
-- **Imports**: auto-organized by Biome assist
-- **CSS Modules**: enabled in Biome parser alongside Tailwind directives
+- **Imports**: organized manually — external packages first, then `@/` aliases, then relative imports, separated by blank lines
 - **File naming**: components in UpperCamelCase (e.g. `ClusterList.tsx`); services, lib, domain, constants, assets, modules, styles, and utils in kebab-case (e.g. `contact-center.ts`, `http-client.ts`, `node-pool.ts`)
 - **Component types**: define types in a separate file named `{Component}.types.ts` (e.g. `ClusterList.types.ts` alongside `ClusterList.tsx`)
 - **Component props**: type the props interface as `Props`, use `FC<Props>` (e.g. `const MyComponent: FC<Props> = ({ title }) => { ... }`)
