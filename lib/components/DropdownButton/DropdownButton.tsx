@@ -1,123 +1,78 @@
-import { FC, useCallback, useEffect, useRef, useState } from 'react';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { FC } from 'react';
 import { ChevronDown } from 'react-feather';
 
-import { useClickOutside } from '@/hooks';
 import { cn } from '@/utils';
 
 import { Button } from '../Button/Button';
 
-import { Props, Option } from './DropdownButton.types';
+import { Props } from './DropdownButton.types';
 
 /**
  * A button with an attached dropdown menu for selecting actions.
- * Closes automatically on outside click, Escape key, or tab visibility change.
+ * Built on Radix DropdownMenu: closes on outside click or Escape, and
+ * supports full keyboard navigation.
  *
  * @example
  * ```tsx
  * <DropdownButton
+ *   label="Download Invoice as"
  *   options={[
- *     { label: 'Download PDF', onClick: handlePdf },
- *     { label: 'Download CSV', onClick: handleCsv },
+ *     { label: 'PDF', onClick: () => downloadPdf() },
+ *     { label: 'CSV', onClick: () => downloadCsv() },
  *   ]}
- *   buttonClassName="w-64"
  * />
  * ```
- *
- * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-dropdownbutton--docs Storybook}
  */
 export const DropdownButton: FC<Props> = ({
   buttonClassName,
   className,
   itemClassName,
+  label = 'Download Invoice as',
   listClassName,
   options,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const buttonRef = useRef(null);
-  const wrapperRef = useRef<HTMLDivElement>(null);
-
-  const toggleDropdown = useCallback(() => setIsOpen((prev) => !prev), []);
-  const handleOptionClick = useCallback((onClick?: Option['onClick']) => {
-    setIsOpen(false);
-    onClick?.();
-  }, []);
-
-  const handleClickOutside = useCallback(() => {
-    setIsOpen(false);
-  }, []);
-
-  useClickOutside(wrapperRef, handleClickOutside);
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    const handleKeyboard = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyboard, {
-      signal: controller.signal,
-    });
-
-    document.addEventListener(
-      'visibilitychange',
-      () => {
-        if (document.hidden) {
-          setIsOpen(false);
-        }
-      },
-      {
-        signal: controller.signal,
-      },
-    );
-
-    return () => {
-      controller.abort();
-    };
-  }, []);
-
   return (
-    <div ref={wrapperRef} className={cn('relative w-full', className)}>
-      <Button
-        ref={buttonRef}
-        className={cn(
-          'flex gap-2 items-center justify-between w-full',
-          buttonClassName,
-        )}
-        onClick={toggleDropdown}
-      >
-        Download Invoice as
-        <ChevronDown
-          className={cn({
-            'transform rotate-180': isOpen,
-            'transition-transform duration-200': true,
-          })}
-        />
-      </Button>
+    <DropdownMenu.Root modal={false}>
+      <div className={cn('relative w-full', className)}>
+        <DropdownMenu.Trigger asChild>
+          <Button
+            className={cn(
+              'group flex gap-2 items-center justify-between w-full',
+              buttonClassName,
+            )}
+          >
+            {label}
+            <ChevronDown className="transition-transform duration-200 group-data-[state=open]:rotate-180" />
+          </Button>
+        </DropdownMenu.Trigger>
 
-      {isOpen && (
-        <ul
+        <DropdownMenu.Content
+          align="start"
+          sideOffset={4}
+          loop
           className={cn(
-            'absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded shadow-xs animate-in fade-in-0 py-2',
+            'z-10 bg-white border border-gray-200 rounded shadow-xs animate-in fade-in-0 py-2',
             listClassName,
           )}
+          style={{ width: 'var(--radix-dropdown-menu-trigger-width)' }}
         >
           {options.map((option, index) => (
-            <li
+            <DropdownMenu.Item
               key={index}
               className={cn(
-                'hover:bg-gray-50 px-6 py-1.5 hover:cursor-pointer',
+                'hover:bg-gray-50 focus:bg-gray-50 outline-none px-6 py-1.5 hover:cursor-pointer',
                 itemClassName,
               )}
-              onClick={() => handleOptionClick(option.onClick)}
+              onSelect={() => {
+                option.onClick?.();
+              }}
             >
               {option.label}
-            </li>
+            </DropdownMenu.Item>
           ))}
-        </ul>
-      )}
-    </div>
+        </DropdownMenu.Content>
+      </div>
+    </DropdownMenu.Root>
   );
 };

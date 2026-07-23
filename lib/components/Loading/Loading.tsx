@@ -29,6 +29,8 @@ import { loadingVariants } from './Loading.variants';
 const Loading: FC<Props> = ({ className, theme, ...delegated }) => (
   <LoaderCircle
     data-theme={theme}
+    role="status"
+    aria-label="Loading"
     className={cn(
       loadingVariants({
         className,

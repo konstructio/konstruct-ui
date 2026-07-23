@@ -22,16 +22,3 @@ export const listItemVariants = cva([
   'focus:bg-aurora-50',
   'hover:bg-aurora-50',
 ]);
-
-export const buttonVariants = cva([
-  'cursor-pointer',
-  'focus-visible:outline-none',
-  'px-3',
-  'py-1.5',
-  'w-full',
-  'text-left',
-  'focus:bg-aurora-50',
-  'hover:bg-aurora-50',
-  'kubefirst:focus:bg-purple-100',
-  'kubefirst:hover:bg-purple-100',
-]);

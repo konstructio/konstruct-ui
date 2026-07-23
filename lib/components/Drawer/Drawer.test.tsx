@@ -205,4 +205,45 @@ describe('Drawer', () => {
 
     expect(resizeHandle).toBeInTheDocument();
   });
+
+  it('should move focus into the drawer when it opens', async () => {
+    const { user, findButton, findCloseButton } = setup();
+
+    await user.click(await findButton());
+
+    const closeButton = await findCloseButton();
+
+    await waitFor(() => {
+      expect(closeButton).toHaveFocus();
+    });
+  });
+
+  it('should keep focus inside the drawer when tabbing', async () => {
+    const { user, findButton, findCloseButton } = setup();
+
+    await user.click(await findButton());
+
+    const closeButton = await findCloseButton();
+
+    await waitFor(() => {
+      expect(closeButton).toHaveFocus();
+    });
+
+    await user.tab();
+
+    expect(closeButton).toHaveFocus();
+  });
+
+  it('should restore focus to the trigger when the drawer closes', async () => {
+    const { user, findButton, findCloseButton } = setup();
+
+    const trigger = await findButton();
+
+    await user.click(trigger);
+    await user.click(await findCloseButton());
+
+    await waitFor(() => {
+      expect(trigger).toHaveFocus();
+    });
+  });
 });
