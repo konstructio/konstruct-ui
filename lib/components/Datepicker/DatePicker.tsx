@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useState } from 'react';
 import { DayPicker as DatePickerPrimitive } from 'react-day-picker';
 
 import { cn } from '@/utils';
@@ -45,15 +45,12 @@ const DatePicker: FC<Props> = ({
     () => defaultSelected,
   );
 
-  const handleSelect = useCallback(
-    (date?: Date) => {
-      if (date) {
-        setSelected(date);
-        onSelect?.(date);
-      }
-    },
-    [onSelect],
-  );
+  const handleSelect = (date?: Date) => {
+    if (date) {
+      setSelected(date);
+      onSelect?.(date);
+    }
+  };
 
   return (
     <DatePickerPrimitive

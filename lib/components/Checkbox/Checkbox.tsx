@@ -1,5 +1,5 @@
 import { Indicator, Root } from '@radix-ui/react-checkbox';
-import { FC, forwardRef, useCallback, useId } from 'react';
+import { FC, forwardRef, useId } from 'react';
 import { Check } from 'react-feather';
 
 import { useToggle } from '@/hooks';
@@ -53,13 +53,10 @@ const Checkbox: FC<Props> = forwardRef<HTMLButtonElement, Props>(
     const [checked, setChecked] = useToggle(defaultChecked ?? false);
     const defaultId = useId();
 
-    const handleChange = useCallback(
-      (checked: boolean) => {
-        setChecked(checked);
-        onChange?.(checked);
-      },
-      [onChange, setChecked],
-    );
+    const handleChange = (checked: boolean) => {
+      setChecked(checked);
+      onChange?.(checked);
+    };
 
     return (
       <div

@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useCallback } from 'react';
+import { ChangeEvent, FC } from 'react';
 
 import { Input } from '@/components/Input/Input';
 
@@ -17,9 +17,9 @@ export const FlagSelectorWrapper: FC<Props> = ({
 }) => {
   const { onChangeTermOfSearch } = usePhoneNumberContext();
 
-  const onChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     onChangeTermOfSearch(event.target.value);
-  }, []);
+  };
 
   return (
     <div

@@ -75,18 +75,15 @@ export const Wrapper: ForwardRefExoticComponent<
 
     useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
 
-    const onChange = useCallback(
-      (event: ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
+    const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value;
 
-        if (value.startsWith(selectedCountry.prefix)) {
-          onChangeValue(event.target.value);
-        } else {
-          onChangeValue(`${selectedCountry.prefix} `);
-        }
-      },
-      [selectedCountry.prefix, onChangeValue],
-    );
+      if (value.startsWith(selectedCountry.prefix)) {
+        onChangeValue(event.target.value);
+      } else {
+        onChangeValue(`${selectedCountry.prefix} `);
+      }
+    };
 
     const handleClickOutside = useCallback(() => {
       handleOpenSelector(false);

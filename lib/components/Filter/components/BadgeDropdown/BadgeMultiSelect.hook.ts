@@ -28,51 +28,42 @@ export const useBadgeMultiSelect = ({
 
   useFilterDropdownSync({ id, onClose: handleClose, onReset: clearSelection });
 
-  const handleOpenChange = useCallback(
-    (open: boolean) => {
-      if (open) {
-        sendOpenFilterEvent(id);
-        setSelectedOptions((prevOptions) =>
-          prevOptions.filter((option) => option.isApplied),
-        );
-      }
+  const handleOpenChange = (open: boolean) => {
+    if (open) {
+      sendOpenFilterEvent(id);
+      setSelectedOptions((prevOptions) =>
+        prevOptions.filter((option) => option.isApplied),
+      );
+    }
 
-      setIsOpen(open);
-    },
-    [id],
-  );
+    setIsOpen(open);
+  };
 
-  const handleSelectOption = useCallback(
-    (option: Option, checked: boolean) => {
-      if (checked) {
-        setSelectedOptions([
-          ...selectedOptions,
-          { ...option, isApplied: false },
-        ]);
-      } else {
-        setSelectedOptions(
-          selectedOptions.map((o) => {
-            if (o.id === option.id) {
-              return { ...o, isRemoved: true };
-            }
+  const handleSelectOption = (option: Option, checked: boolean) => {
+    if (checked) {
+      setSelectedOptions([...selectedOptions, { ...option, isApplied: false }]);
+    } else {
+      setSelectedOptions(
+        selectedOptions.map((o) => {
+          if (o.id === option.id) {
+            return { ...o, isRemoved: true };
+          }
 
-            return o;
-          }),
-        );
-      }
-    },
-    [setSelectedOptions, selectedOptions],
-  );
+          return o;
+        }),
+      );
+    }
+  };
 
-  const handleResetOptions = useCallback(() => {
+  const handleResetOptions = () => {
     clearSelection();
 
     if (closeOnApply) {
       setIsOpen(false);
     }
-  }, [clearSelection, closeOnApply]);
+  };
 
-  const handleApplyOptions = useCallback(() => {
+  const handleApplyOptions = () => {
     const newOptions = selectedOptions
       ?.filter((option) => !option.isRemoved)
       .map((option) => ({ ...option, isApplied: true }));
@@ -87,7 +78,7 @@ export const useBadgeMultiSelect = ({
     if (closeOnApply) {
       setIsOpen(false);
     }
-  }, [closeOnApply, onApply, selectedOptions, setSelectedOptions]);
+  };
 
   const selectedCount = useMemo(
     () => selectedOptions.filter((option) => option.isApplied),
@@ -103,16 +94,13 @@ export const useBadgeMultiSelect = ({
     [options, selectedOptions],
   );
 
-  const handleSelectAll = useCallback(
-    (allOptions: Option[], checked: boolean) => {
-      if (checked) {
-        setSelectedOptions(
-          allOptions.map((opt) => ({ ...opt, isApplied: false })),
-        );
-      }
-    },
-    [],
-  );
+  const handleSelectAll = (allOptions: Option[], checked: boolean) => {
+    if (checked) {
+      setSelectedOptions(
+        allOptions.map((opt) => ({ ...opt, isApplied: false })),
+      );
+    }
+  };
 
   return {
     isOpen,

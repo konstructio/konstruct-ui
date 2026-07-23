@@ -1,11 +1,4 @@
-import {
-  FC,
-  PropsWithChildren,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { FC, PropsWithChildren, useCallback, useEffect, useState } from 'react';
 
 import { TimePickerProps } from '../TimePicker.types';
 import { getFormattedTime } from '../utils';
@@ -22,7 +15,7 @@ export const TimePickerProvider: FC<
   const [format, setFormat] = useState(defaultFormat);
   const [time, setTime] = useState<Date | undefined>(() => defaultTime);
   const [isTyping, setIsTyping] = useState(false);
-  const isAM = useMemo(() => (time ? time.getHours() < 12 : true), [time]);
+  const isAM = time ? time.getHours() < 12 : true;
 
   const updateTime = useCallback(
     (newTime: Date) => {

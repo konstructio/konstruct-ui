@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useState } from 'react';
 
 import { cn } from '@/utils';
 
@@ -39,13 +39,10 @@ export const RadioCardGroup: FC<Props> = ({
 }) => {
   const [selected, setSelected] = useState<string | undefined>(defaultChecked);
 
-  const handleSelected = useCallback(
-    (value: string) => {
-      setSelected(value);
-      onValueChange?.(value);
-    },
-    [onValueChange],
-  );
+  const handleSelected = (value: string) => {
+    setSelected(value);
+    onValueChange?.(value);
+  };
 
   return (
     <div

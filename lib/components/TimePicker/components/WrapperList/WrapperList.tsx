@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 
 import { cn } from '@/utils';
 
@@ -19,8 +19,8 @@ export const WrapperList: FC<WrapperListProps> = ({
   onClose,
 }) => {
   const { time, format } = useTimePickerContext();
-  const selectedHours = useMemo(() => getHours(time), [time]);
-  const selectedMinutes = useMemo(() => getMinutes(time), [time]);
+  const selectedHours = getHours(time);
+  const selectedMinutes = getMinutes(time);
 
   if (!isOpen) {
     return null;

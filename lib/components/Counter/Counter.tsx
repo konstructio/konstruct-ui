@@ -1,13 +1,6 @@
 'use client';
 import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import {
-  ChangeEvent,
-  FC,
-  forwardRef,
-  useCallback,
-  useId,
-  useState,
-} from 'react';
+import { ChangeEvent, FC, forwardRef, useId, useState } from 'react';
 import { Minus, Plus } from 'react-feather';
 
 import { cn } from '@/utils';
@@ -80,7 +73,7 @@ export const Counter: FC<Props> = forwardRef<HTMLInputElement, Props>(
     const [draft, setDraft] = useState<string | null>(null);
     const displayed = draft ?? String(count);
 
-    const handleDecrement = useCallback(() => {
+    const handleDecrement = () => {
       let newValue: number = 0;
 
       if (min === Infinity) {
@@ -91,9 +84,9 @@ export const Counter: FC<Props> = forwardRef<HTMLInputElement, Props>(
 
       setDraft(null);
       onChange?.({ target: { value: newValue } });
-    }, [count, min, onChange]);
+    };
 
-    const handleIncrement = useCallback(() => {
+    const handleIncrement = () => {
       let newValue: number = 0;
 
       if (max === -Infinity) {
@@ -104,25 +97,22 @@ export const Counter: FC<Props> = forwardRef<HTMLInputElement, Props>(
 
       setDraft(null);
       onChange?.({ target: { value: newValue } });
-    }, [count, max, onChange]);
+    };
 
-    const handleChange = useCallback(
-      (event: ChangeEvent<HTMLInputElement>) => {
-        const raw = event.target.value;
-        setDraft(raw);
-        if (raw === '') {
-          return;
-        }
-        const parsed = Number(raw);
-        if (!Number.isFinite(parsed)) {
-          return;
-        }
-        onChange?.({ target: { value: parsed } });
-      },
-      [onChange],
-    );
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+      const raw = event.target.value;
+      setDraft(raw);
+      if (raw === '') {
+        return;
+      }
+      const parsed = Number(raw);
+      if (!Number.isFinite(parsed)) {
+        return;
+      }
+      onChange?.({ target: { value: parsed } });
+    };
 
-    const handleBlur = useCallback(() => {
+    const handleBlur = () => {
       setDraft(null);
       const lowerBound = min === Infinity ? -Infinity : min;
       const upperBound = max === -Infinity ? Infinity : max;
@@ -130,7 +120,7 @@ export const Counter: FC<Props> = forwardRef<HTMLInputElement, Props>(
       if (clamped !== count) {
         onChange?.({ target: { value: clamped } });
       }
-    }, [count, min, max, onChange]);
+    };
 
     return (
       <div className="flex flex-col gap-2" data-theme={theme}>
