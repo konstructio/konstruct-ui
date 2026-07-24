@@ -197,10 +197,10 @@ describe('Sidebar', () => {
       );
     });
 
-    it('keeps the logo content visible in collapsed mode when hideOnCollapse is false', () => {
+    it('keeps the logo content visible in collapsed mode when showOnCollapse is set', () => {
       const { container } = render(
         <Sidebar mode="collapsed">
-          <Logo hideOnCollapse={false}>
+          <Logo showOnCollapse>
             <span>Logo</span>
             <CollapseTrigger />
           </Logo>

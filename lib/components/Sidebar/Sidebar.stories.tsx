@@ -89,10 +89,10 @@ const meta = {
 const renderSidebarContent = (
   theme: Theme,
   onThemeChange: (next: Theme) => void,
-  hideLogoOnCollapse = true,
+  showLogoOnCollapse = false,
 ) => (
   <>
-    <Logo hideOnCollapse={hideLogoOnCollapse}>
+    <Logo showOnCollapse={showLogoOnCollapse}>
       <a className="flex items-center w-full">
         <img
           className="hidden group-data-[mode=expanded]/sidebar:block w-auto h-auto max-w-full"
@@ -192,7 +192,7 @@ export const CollapsedModeWithVisibleLogo = {
 
     return (
       <SidebarPrimitive theme={theme} mode="collapsed">
-        {renderSidebarContent(theme, setTheme, false)}
+        {renderSidebarContent(theme, setTheme, true)}
       </SidebarPrimitive>
     );
   },

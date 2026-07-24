@@ -137,9 +137,10 @@ aside.konstruct-sidebar[data-mode='collapsed'] {
 }
 
 /*
- * Hidden logo in collapsed mode (`hideOnCollapse`, the default). The logo
- * content hides but a direct-child CollapseTrigger stays visible, and the
- * header keeps vertical padding so the trigger doesn't touch the top edge.
+ * Hidden logo in collapsed mode (the default, unless `showOnCollapse` is
+ * set). The logo content hides but a direct-child CollapseTrigger stays
+ * visible, and the header keeps vertical padding so the trigger doesn't
+ * touch the top edge.
  */
 .konstruct-sidebar[data-mode='collapsed']
   [data-konstruct-sidebar-logo][data-hide-on-collapse]

@@ -26,17 +26,17 @@ export const logoVariants = cva(
   ],
   {
     variants: {
-      hideOnCollapse: {
-        true: [
+      showOnCollapse: {
+        true: null,
+        false: [
           'group-data-[mode=collapsed]/sidebar:[&>*:not([data-konstruct-sidebar-collapse-trigger])]:hidden',
           'group-data-[mode=collapsed]/sidebar:py-5',
           'group-data-[mode=collapsed]/sidebar:mb-0',
         ],
-        false: null,
       },
     },
     defaultVariants: {
-      hideOnCollapse: true,
+      showOnCollapse: false,
     },
   },
 );
