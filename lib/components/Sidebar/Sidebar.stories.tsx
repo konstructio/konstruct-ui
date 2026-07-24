@@ -89,9 +89,10 @@ const meta = {
 const renderSidebarContent = (
   theme: Theme,
   onThemeChange: (next: Theme) => void,
+  hideLogoOnCollapse = true,
 ) => (
   <>
-    <Logo>
+    <Logo hideOnCollapse={hideLogoOnCollapse}>
       <a className="flex items-center w-full">
         <img
           className="hidden group-data-[mode=expanded]/sidebar:block w-auto h-auto max-w-full"
@@ -180,6 +181,18 @@ export const CollapsedMode = {
     return (
       <SidebarPrimitive theme={theme} mode="collapsed">
         {renderSidebarContent(theme, setTheme)}
+      </SidebarPrimitive>
+    );
+  },
+} satisfies Story;
+
+export const CollapsedModeWithVisibleLogo = {
+  render: function CollapsedVisibleLogoStory() {
+    const [theme, setTheme] = useState<Theme>('kubefirst');
+
+    return (
+      <SidebarPrimitive theme={theme} mode="collapsed">
+        {renderSidebarContent(theme, setTheme, false)}
       </SidebarPrimitive>
     );
   },

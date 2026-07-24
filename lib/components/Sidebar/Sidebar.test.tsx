@@ -183,6 +183,42 @@ describe('Sidebar', () => {
       expect(screen.queryByText('Admin')).not.toBeInTheDocument();
     });
 
+    it('hides the logo content but keeps the collapse trigger in collapsed mode by default', () => {
+      const { container } = renderWithGroups('collapsed');
+
+      const logo = container.querySelector('[data-konstruct-sidebar-logo]');
+      const trigger = screen.getByRole('button', {
+        name: /expand navigation/i,
+      });
+
+      expect(logo).toHaveAttribute('data-hide-on-collapse');
+      expect(trigger).toHaveAttribute(
+        'data-konstruct-sidebar-collapse-trigger',
+      );
+    });
+
+    it('keeps the logo content visible in collapsed mode when hideOnCollapse is false', () => {
+      const { container } = render(
+        <Sidebar mode="collapsed">
+          <Logo hideOnCollapse={false}>
+            <span>Logo</span>
+            <CollapseTrigger />
+          </Logo>
+          <Navigation>
+            <NavigationGroup title="Main">
+              <NavigationOption>
+                <Label>Clusters</Label>
+              </NavigationOption>
+            </NavigationGroup>
+          </Navigation>
+        </Sidebar>,
+      );
+
+      const logo = container.querySelector('[data-konstruct-sidebar-logo]');
+
+      expect(logo).not.toHaveAttribute('data-hide-on-collapse');
+    });
+
     it('auto-inserts a separator between groups in collapsed mode', () => {
       const { container } = renderWithGroups('collapsed');
 

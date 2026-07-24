@@ -7,13 +7,14 @@ import { useSidebarContext } from '../../contexts';
 import { Props } from './Logo.types';
 import { logoVariants } from './Logo.variants';
 
-const Logo: FC<Props> = ({ children, className }) => {
+const Logo: FC<Props> = ({ children, className, hideOnCollapse = true }) => {
   const { closeDrawer } = useSidebarContext();
 
   return (
     <header
       data-konstruct-sidebar-logo=""
-      className={cn(logoVariants({ className }))}
+      data-hide-on-collapse={hideOnCollapse ? '' : undefined}
+      className={cn(logoVariants({ hideOnCollapse, className }))}
       onClick={() => closeDrawer()}
     >
       {children}

@@ -1,25 +1,42 @@
 import { cva } from 'class-variance-authority';
 
-export const logoVariants = cva([
-  'group-data-[mode=expanded]/sidebar:px-4',
-  'group-data-[mode=expanded]/sidebar:py-5',
-  'flex',
-  'flex-col',
-  'justify-center',
-  'group-data-[mode=collapsed]/sidebar:items-center',
-  'group-data-[mode=collapsed]/sidebar:[&>a]:justify-center',
-  'group-data-[mode=collapsed]/sidebar:[&>p]:text-center',
-  'group-data-[mode=collapsed]/sidebar:[&>p]:pt-1',
-  'gap-1',
-  'group',
-  'relative',
-  'mb-8',
-  'group-data-[mode=expanded]/sidebar:[&>p]:pl-14',
-  '[&>p]:-mt-2',
-  '[&>img]:pt-3',
-  '[&>*>p]:absolute',
-  '[&>*>p]:bottom-0',
-  '[&>*>p]:-mt-2',
-  '[&>*>img]:pt-3',
-  'cursor-pointer',
-]);
+export const logoVariants = cva(
+  [
+    'group-data-[mode=expanded]/sidebar:px-4',
+    'group-data-[mode=expanded]/sidebar:py-5',
+    'flex',
+    'flex-col',
+    'justify-center',
+    'group-data-[mode=collapsed]/sidebar:items-center',
+    'group-data-[mode=collapsed]/sidebar:[&>a]:justify-center',
+    'group-data-[mode=collapsed]/sidebar:[&>p]:text-center',
+    'group-data-[mode=collapsed]/sidebar:[&>p]:pt-1',
+    'gap-1',
+    'group',
+    'relative',
+    'mb-8',
+    'group-data-[mode=expanded]/sidebar:[&>p]:pl-14',
+    '[&>p]:-mt-2',
+    '[&>img]:pt-3',
+    '[&>*>p]:absolute',
+    '[&>*>p]:bottom-0',
+    '[&>*>p]:-mt-2',
+    '[&>*>img]:pt-3',
+    'cursor-pointer',
+  ],
+  {
+    variants: {
+      hideOnCollapse: {
+        true: [
+          'group-data-[mode=collapsed]/sidebar:[&>*:not([data-konstruct-sidebar-collapse-trigger])]:hidden',
+          'group-data-[mode=collapsed]/sidebar:py-5',
+          'group-data-[mode=collapsed]/sidebar:mb-0',
+        ],
+        false: null,
+      },
+    },
+    defaultVariants: {
+      hideOnCollapse: true,
+    },
+  },
+);

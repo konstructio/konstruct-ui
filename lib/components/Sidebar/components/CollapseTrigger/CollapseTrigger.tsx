@@ -20,6 +20,7 @@ const CollapseTrigger: FC<Props> = ({ className }) => {
   return (
     <button
       type="button"
+      data-konstruct-sidebar-collapse-trigger=""
       aria-label={label}
       aria-expanded={!isCollapsed}
       className={cn(collapseTriggerVariants({ className }))}
