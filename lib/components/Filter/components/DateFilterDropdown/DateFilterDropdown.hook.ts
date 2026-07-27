@@ -11,7 +11,7 @@ export const useDateFilterDropdown = ({
   onApply,
   countryCode = 'US',
 }: Pick<DateFilterDropdownProps, 'onApply' | 'countryCode'>) => {
-  const { closeOnApply } = useFilterContext();
+  const { closeOnApply, resetScope } = useFilterContext();
   const id = useId();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedDay, setSelectedDay] = useState<Date>();
@@ -78,7 +78,13 @@ export const useDateFilterDropdown = ({
 
     document.addEventListener(
       FilterEvent.RESET,
-      () => {
+      (event: Event) => {
+        const { detail } = event as CustomEvent<string | null | undefined>;
+
+        if (detail != null && detail !== resetScope) {
+          return;
+        }
+
         setSelectedDay(undefined);
         setAppliedDay(undefined);
         onApply?.();
@@ -91,7 +97,7 @@ export const useDateFilterDropdown = ({
     return () => {
       controller.abort();
     };
-  }, [id, onApply]);
+  }, [id, onApply, resetScope]);
 
   useEffect(() => {
     const controller = new AbortController();

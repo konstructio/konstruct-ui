@@ -37,11 +37,16 @@ import {
  */
 const Filter: FilterComponentProps = ({
   className,
-  theme = 'civo',
+  theme,
   children,
   closeOnApply = true,
+  resetScope,
 }) => (
-  <FilterProvider closeOnApply={closeOnApply} theme={theme}>
+  <FilterProvider
+    closeOnApply={closeOnApply}
+    resetScope={resetScope}
+    theme={theme}
+  >
     <div className={cn(filterVariants({ className }))} data-theme={theme}>
       {children}
     </div>

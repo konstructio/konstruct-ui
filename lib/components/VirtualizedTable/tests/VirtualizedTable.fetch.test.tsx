@@ -3,7 +3,7 @@ import {
   QueryClientProvider,
   keepPreviousData,
 } from '@tanstack/react-query';
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { VirtualizedTable } from '../VirtualizedTable';
@@ -345,5 +345,115 @@ describe('VirtualizedTable / fetchData integration', () => {
 
     expect(await screen.findByText('No results')).toBeInTheDocument();
     expect(screen.queryByText('Something went wrong')).not.toBeInTheDocument();
+  });
+
+  it('shows the skeleton during a manual refresh and restores the rows when it resolves', async () => {
+    const { fetchData, resolveFetch } = setup();
+
+    await waitFor(() => {
+      expect(fetchData).toHaveBeenCalledTimes(1);
+    });
+    resolveFetch(0, { data: [alpha], totalItemsCount: 1 });
+    await screen.findByText('Alpha');
+
+    act(() => {
+      VirtualizedTable.Events.sendRefreshEvent('fetch-table');
+    });
+
+    await waitFor(() => {
+      expect(fetchData).toHaveBeenCalledTimes(2);
+    });
+    expect(isSkeletonVisible()).toBe(true);
+    expect(screen.queryByText('Alpha')).not.toBeInTheDocument();
+
+    resolveFetch(1, { data: [alpha, beta], totalItemsCount: 2 });
+
+    expect(await screen.findByText('Beta')).toBeInTheDocument();
+    expect(screen.getByText('Alpha')).toBeInTheDocument();
+    expect(isSkeletonVisible()).toBe(false);
+  });
+
+  it('refreshes when the refresh event is sent without a tableId', async () => {
+    const { fetchData, resolveFetch } = setup();
+
+    await waitFor(() => {
+      expect(fetchData).toHaveBeenCalledTimes(1);
+    });
+    resolveFetch(0, { data: [alpha], totalItemsCount: 1 });
+    await screen.findByText('Alpha');
+
+    act(() => {
+      VirtualizedTable.Events.sendRefreshEvent();
+    });
+
+    await waitFor(() => {
+      expect(fetchData).toHaveBeenCalledTimes(2);
+    });
+    expect(isSkeletonVisible()).toBe(true);
+
+    resolveFetch(1, { data: [alpha], totalItemsCount: 1 });
+
+    await waitFor(() => {
+      expect(isSkeletonVisible()).toBe(false);
+    });
+    expect(screen.getByText('Alpha')).toBeInTheDocument();
+  });
+
+  it('ignores refresh events targeting another table', async () => {
+    const { fetchData, resolveFetch } = setup();
+
+    await waitFor(() => {
+      expect(fetchData).toHaveBeenCalledTimes(1);
+    });
+    resolveFetch(0, { data: [alpha], totalItemsCount: 1 });
+    await screen.findByText('Alpha');
+
+    act(() => {
+      VirtualizedTable.Events.sendRefreshEvent('other-table');
+    });
+
+    expect(fetchData).toHaveBeenCalledTimes(1);
+    expect(isSkeletonVisible()).toBe(false);
+    expect(screen.getByText('Alpha')).toBeInTheDocument();
+  });
+
+  it('does nothing on refresh events when only the data prop is provided', async () => {
+    const { fetchData } = setup({ data: [alpha], fetchData: undefined });
+
+    expect(screen.getByText('Alpha')).toBeInTheDocument();
+
+    act(() => {
+      VirtualizedTable.Events.sendRefreshEvent('fetch-table');
+    });
+
+    expect(fetchData).not.toHaveBeenCalled();
+    expect(isSkeletonVisible()).toBe(false);
+    expect(screen.getByText('Alpha')).toBeInTheDocument();
+  });
+
+  it('clears the skeleton when the manual refresh fails and keeps the previous rows', async () => {
+    const { fetchData, resolveFetch, rejectFetch } = setup();
+
+    await waitFor(() => {
+      expect(fetchData).toHaveBeenCalledTimes(1);
+    });
+    resolveFetch(0, { data: [alpha], totalItemsCount: 1 });
+    await screen.findByText('Alpha');
+
+    act(() => {
+      VirtualizedTable.Events.sendRefreshEvent('fetch-table');
+    });
+
+    await waitFor(() => {
+      expect(fetchData).toHaveBeenCalledTimes(2);
+    });
+    expect(isSkeletonVisible()).toBe(true);
+
+    rejectFetch(1, new Error('boom'));
+
+    await waitFor(() => {
+      expect(isSkeletonVisible()).toBe(false);
+    });
+    expect(screen.getByText('Alpha')).toBeInTheDocument();
   });
 });

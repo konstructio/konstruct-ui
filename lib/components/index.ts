@@ -56,9 +56,13 @@ export {
   sendCollapseRowEvent,
   sendToggleRowEvent,
   sendResetFiltersEvent,
+  sendRefreshEvent,
   VirtualizedTableEvent,
 } from './VirtualizedTable/events';
-export type { VirtualizedTableEventDetail } from './VirtualizedTable/events';
+export type {
+  VirtualizedTableEventDetail,
+  VirtualizedTableRefreshEventDetail,
+} from './VirtualizedTable/events';
 export type {
   ColumnDef,
   RowData,

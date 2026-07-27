@@ -17,6 +17,7 @@ import { TableProvider } from './contexts';
 import {
   sendCollapseRowEvent,
   sendExpandRowEvent,
+  sendRefreshEvent,
   sendResetFiltersEvent,
   sendToggleRowEvent,
 } from './events';
@@ -212,6 +213,7 @@ type VirtualizedTableCompound = (<TData extends RowData>(
     sendCollapseRowEvent: (tableId: string, rowId: string) => void;
     sendToggleRowEvent: (tableId: string, rowId: string) => void;
     sendResetFiltersEvent: (tableId: string) => void;
+    sendRefreshEvent: (tableId?: string) => void;
   };
   displayName?: string;
 };
@@ -227,6 +229,7 @@ VirtualizedTable.Events = {
   sendCollapseRowEvent,
   sendToggleRowEvent,
   sendResetFiltersEvent,
+  sendRefreshEvent,
 };
 
 export { TruncateText, VirtualizedTable };

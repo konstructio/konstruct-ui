@@ -4,6 +4,7 @@ import { Check, EyeIcon } from 'lucide-react';
 import { ReactNode, useCallback, useEffect, useId, useState } from 'react';
 
 import { AlertDialog } from '@/components/AlertDialog/AlertDialog';
+import { Button } from '@/components/Button/Button';
 import { Checkbox } from '@/components/Checkbox/Checkbox';
 import { Typography } from '@/components/Typography/Typography';
 
@@ -608,6 +609,58 @@ export const HorizontalScrollWithFilters: Story = {
             filters={args.filters}
             fetchData={getNewData}
             totalItems={totalItemsCount}
+          />
+        </div>
+      </QueryClientProvider>
+    );
+  },
+};
+
+export const ManualRefresh: Story = {
+  render: () => {
+    const id = useId();
+
+    const getNewData = useCallback(
+      async ({
+        page = 1,
+        pageSize = DEFAULT_PAGE_SIZE,
+        termOfSearch = undefined,
+      }: PokemonResponse) => {
+        const result = await getPokemons({ page, pageSize, termOfSearch });
+
+        await new Promise((resolve) => {
+          setTimeout(resolve, 1000);
+        });
+
+        return {
+          data: result.results,
+          totalItemsCount: result.totalItemsCount,
+        };
+      },
+      [],
+    );
+
+    return (
+      <QueryClientProvider client={queryClient}>
+        <div className="flex flex-col gap-4">
+          <div className="flex justify-end">
+            <Button
+              onClick={() => {
+                VirtualizedTableComponent.Events.sendRefreshEvent(id);
+              }}
+            >
+              Refresh
+            </Button>
+          </div>
+
+          <VirtualizedTableComponent<Pokemon>
+            id={id}
+            ariaLabel="Manual refresh table"
+            columns={columns}
+            data={[]}
+            showPagination={true}
+            fetchData={getNewData}
+            totalItems={0}
           />
         </div>
       </QueryClientProvider>

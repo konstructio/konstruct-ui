@@ -28,6 +28,7 @@ export const Filter: FC<Props> = ({
   closeOnApply = true,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const tableId = Array.isArray(id) ? id.join(',') : String(id);
   const {
     termOfSearch,
     multiselectSelected,
@@ -66,7 +67,6 @@ export const Filter: FC<Props> = ({
   };
 
   useEffect(() => {
-    const tableId = Array.isArray(id) ? id.join(',') : String(id);
     const controller = new AbortController();
 
     document.addEventListener(
@@ -78,22 +78,19 @@ export const Filter: FC<Props> = ({
           return;
         }
 
-        // Scoped: clear this table's search term + reset its page to 0.
         onChangeTermOfSearch('');
 
         if (inputRef.current) {
           inputRef.current.value = '';
         }
 
-        // Clear all dropdowns (multiselect/date/dateRange/time) and their
-        // provider state via each dropdown's FilterEvent.RESET listener.
-        resetEvent();
+        resetEvent(tableId);
       },
       { signal: controller.signal },
     );
 
     return () => controller.abort();
-  }, [id, onChangeTermOfSearch]);
+  }, [tableId, onChangeTermOfSearch]);
 
   const handleChangeTermOfSearch = useMemo(
     () =>
@@ -234,6 +231,7 @@ export const Filter: FC<Props> = ({
       <FilterPrimitive
         className="kvt-filter-actions"
         closeOnApply={closeOnApply}
+        resetScope={tableId}
       >
         {resolvedFilters.map(renderFilter)}
 
