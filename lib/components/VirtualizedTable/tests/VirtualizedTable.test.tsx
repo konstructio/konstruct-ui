@@ -1,13 +1,8 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import {
-  act,
-  queryByAttribute,
-  render,
-  screen,
-  within,
-} from '@testing-library/react';
+import { act, queryByAttribute, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
+
+import { renderWithProviders } from '@tests/utils/renderWithProviders';
 
 import { VirtualizedTable } from '../VirtualizedTable';
 import { ColumnDef, Props } from '../VirtualizedTable.types';
@@ -48,20 +43,16 @@ describe('VirtualizedTable', () => {
       ...extraProps,
     } as unknown as Props<Item>;
 
-    const queryClient = new QueryClient();
-
-    const { container } = render(
-      <QueryClientProvider client={queryClient}>
-        {pagination ? (
-          <VirtualizedTable<Item>
-            {...defaultProps}
-            showPagination={true}
-            totalItems={pagination.totalItems}
-          />
-        ) : (
-          <VirtualizedTable<Item> {...defaultProps} />
-        )}
-      </QueryClientProvider>,
+    const { container } = renderWithProviders(
+      pagination ? (
+        <VirtualizedTable<Item>
+          {...defaultProps}
+          showPagination={true}
+          totalItems={pagination.totalItems}
+        />
+      ) : (
+        <VirtualizedTable<Item> {...defaultProps} />
+      ),
     );
 
     const getTable = () => screen.getByRole('table', { name: /test table/i });
@@ -272,10 +263,8 @@ describe('VirtualizedTable', () => {
       { id: 'active', label: 'Active' },
       { id: 'inactive', label: 'Inactive' },
     ];
-    const queryClient = new QueryClient();
-
-    render(
-      <QueryClientProvider client={queryClient}>
+    renderWithProviders(
+      <>
         <VirtualizedTable<Item>
           id="table-a"
           ariaLabel="Table A"
@@ -296,7 +285,7 @@ describe('VirtualizedTable', () => {
             { key: 'status', label: 'Status B', options: filterOptions },
           ]}
         />
-      </QueryClientProvider>,
+      </>,
     );
 
     const triggerA = screen.getByRole('button', { name: /status a/i });

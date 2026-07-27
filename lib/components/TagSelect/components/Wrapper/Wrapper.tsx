@@ -51,6 +51,7 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
         {label ? (
           <div className={cn(labelWrapperClassName)}>
             <label
+              id={`${id}-label`}
               htmlFor={name ?? id}
               className={cn(
                 labelVariants({
@@ -70,6 +71,7 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
           role="combobox"
           onClick={handleOpen}
           aria-expanded={isOpen}
+          aria-labelledby={label ? `${id}-label` : undefined}
         >
           {selectedTags.length === 0 ? (
             <span className="text-base text-inherit select-none">
@@ -99,7 +101,14 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
           />
         </div>
 
-        <input ref={inputRef} type="text" name={name} className="hidden" />
+        <input
+          ref={inputRef}
+          type="text"
+          name={name}
+          className="hidden"
+          tabIndex={-1}
+          aria-hidden="true"
+        />
 
         {isOpen ? <List /> : null}
       </div>

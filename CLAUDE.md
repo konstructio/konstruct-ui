@@ -199,6 +199,11 @@ Uses Vitest + React Testing Library + jest-axe for accessibility testing.
 
 Test files: `ComponentName.test.tsx`
 
+- **Follow the Testing Library philosophy**: query elements the way a real user finds them. Priority: `getByRole` with accessible name first, then `getByLabelText`, then `getByText` for static content. Never use `data-testid`, `container.querySelector`, or class-based queries unless there is genuinely no accessible query — and in that case, treat it as a signal that the component itself is missing semantics (role, label) and fix the component first.
+- Interact through the interactive element (button, link, option), not through wrappers or inner nodes.
+- Use the shared `renderWithProviders` helper from `@tests/utils/renderWithProviders` when a component needs QueryClient or a theme wrapper.
+- Every component test file must include a jest-axe check.
+
 ## Styling Notes
 
 - Uses Tailwind CSS v4

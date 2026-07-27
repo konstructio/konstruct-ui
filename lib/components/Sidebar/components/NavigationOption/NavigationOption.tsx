@@ -52,6 +52,7 @@ const NavigationOption: FC<Props> = ({
   closeDrawerOnClick = true,
   isVisible = true,
   isActive,
+  role,
   tooltip,
   tooltipBgClassName = 'bg-kubefirst-dark-blue-900',
   tooltipArrowClassName = 'fill-kubefirst-dark-blue-900',
@@ -125,12 +126,21 @@ const NavigationOption: FC<Props> = ({
     <NavigationOptionContext.Provider value={contextValue}>
       <li
         {...delegated}
-        role="option"
         data-active={isActive ? 'true' : undefined}
-        onClick={handleClick}
+        onClick={role === 'button' ? undefined : handleClick}
         className={cn(navigationOptionVariants({ className, isActive }))}
       >
-        {body}
+        {role === 'button' ? (
+          <button
+            type="button"
+            onClick={handleClick}
+            className="flex w-full cursor-pointer items-center gap-2"
+          >
+            {body}
+          </button>
+        ) : (
+          body
+        )}
       </li>
     </NavigationOptionContext.Provider>
   );

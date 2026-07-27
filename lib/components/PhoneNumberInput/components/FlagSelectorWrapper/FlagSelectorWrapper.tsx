@@ -46,6 +46,7 @@ export const FlagSelectorWrapper: FC<Props> = ({
         <div className="px-6 py-2.5">
           <Input
             isSearch
+            aria-label="Search country"
             placeholder={showPlaceHolder ? placeholder : undefined}
             onChange={onChange}
           />

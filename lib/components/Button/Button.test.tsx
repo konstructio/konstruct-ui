@@ -1,6 +1,7 @@
 import { HelpIcon } from '@/assets/icons/components';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { axe } from 'jest-axe';
 
 import { Button } from './Button';
 import { ButtonProps } from './Button.types';
@@ -13,13 +14,16 @@ describe('Button', () => {
       ...props,
     } satisfies ButtonProps;
 
-    render(<Button {...defaultProps}></Button>);
+    const { container: component } = render(
+      <Button {...defaultProps}></Button>,
+    );
 
     const user = userEvent.setup();
 
     const button = screen.getByRole('button');
 
     return {
+      component,
       user,
       button,
     };
@@ -69,5 +73,13 @@ describe('Button', () => {
 
     expect(button).toBeDisabled();
     expect(mockOnClick).not.toHaveBeenCalled();
+  });
+
+  it("shouldn't have accessibility violations", async () => {
+    const { component } = setup();
+
+    const results = await axe(component);
+
+    expect(results).toHaveNoViolations();
   });
 });

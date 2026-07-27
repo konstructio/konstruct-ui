@@ -175,20 +175,21 @@ const Input = forwardRef<HTMLInputElement, Props>(
           ) : null}
 
           {type === 'password' && !error ? (
-            <i
+            <button
+              type="button"
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
               className={cn(
                 '-translate-y-1/2',
                 'absolute',
+                'cursor-pointer',
                 'right-3',
                 'text-slate-400',
                 'top-1/2',
               )}
+              onClick={() => setShowPassword(!showPassword)}
             >
-              <EyeIcon
-                className="w-5 h-5 cursor-pointer"
-                onClick={() => setShowPassword(!showPassword)}
-              />
-            </i>
+              <EyeIcon className="w-5 h-5" />
+            </button>
           ) : null}
         </div>
 

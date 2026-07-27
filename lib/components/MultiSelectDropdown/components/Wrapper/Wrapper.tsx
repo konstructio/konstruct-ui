@@ -64,6 +64,7 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
             <Typography
               component="label"
               variant="labelLarge"
+              id={`${id}-label`}
               htmlFor={htmlFor}
               className={cn(
                 labelVariants({
@@ -91,6 +92,7 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
           role="combobox"
           onClick={handleOpen}
           aria-expanded={isOpen}
+          aria-labelledby={label ? `${id}-label` : undefined}
         >
           {selectedOptions.length === 0 ? (
             <span className="text-base text-inherit select-none">
@@ -130,6 +132,8 @@ export const Wrapper: FC<WrapperProps> = forwardRef<
           type="text"
           name={name}
           className="hidden"
+          tabIndex={-1}
+          aria-hidden="true"
           readOnly
         />
 

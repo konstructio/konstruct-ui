@@ -21,8 +21,12 @@ describe('PhoneNumberInput', () => {
       screen.getByRole('textbox', { name: 'Phone Number' });
     const getTrigger = () =>
       screen.getByRole('button', { name: /select country/i });
-    const getSearchInput = () => screen.getByPlaceholderText('Search');
-    const querySearchInput = () => screen.queryByPlaceholderText('Search');
+    const getSearchInput = () => {
+      return screen.getByRole('textbox', { name: 'Search country' });
+    };
+    const querySearchInput = () => {
+      return screen.queryByRole('textbox', { name: 'Search country' });
+    };
 
     return {
       component,
