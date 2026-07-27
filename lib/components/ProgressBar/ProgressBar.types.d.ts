@@ -3,6 +3,8 @@ import { VariantProps } from 'class-variance-authority';
 import { Theme } from '../../domain/theme';
 import { progressBarFillVariants } from './ProgressBar.variants';
 export interface Props extends VariantProps<typeof progressBarFillVariants> {
+    /** Accessible name announced for the progress bar */
+    ariaLabel?: string;
     /** Additional CSS classes for the outer wrapper */
     className?: string;
     /** Custom CSS class for the progress bar fill (e.g., "bg-purple-500") */

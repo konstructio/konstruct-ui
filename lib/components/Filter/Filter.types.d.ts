@@ -49,6 +49,8 @@ export type Props = VariantProps<typeof filterVariants> & PropsWithChildren & {
     theme?: Theme;
     /** Whether to close the filter dropdown automatically when Apply is clicked. Defaults to true. */
     closeOnApply?: boolean;
+    /** Scope for reset events; dropdowns only respond to resets with the same scope. Defaults to a per-instance id. */
+    resetScope?: string;
 };
 /** @deprecated Use Props instead */
 export type FilterProps = Props;

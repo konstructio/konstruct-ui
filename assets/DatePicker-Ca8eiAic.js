@@ -1,0 +1,20 @@
+import{c as e,i as t}from"./preload-helper-CCSz8wUY.js";import{t as n}from"./react-D9T3pWpr.js";import{t as r}from"./jsx-runtime-BPpv9Zq8.js";import{r as i,t as a}from"./utils-Cj3UL0jG.js";import{n as o,t as s}from"./dist-DdVfrpTL.js";import{g as c,t as l,v as u}from"./lucide-react-BBNbICxp.js";import{n as d,r as f,t as p}from"./style-nU3SxRVw.js";var m,h=t((()=>{o(),m=s(`w-fit py-4 px-6`)})),g,_,v,y=t((()=>{g=e(n(),1),d(),i(),h(),l(),p(),_=r(),v=({className:e,showOutsideDays:t=!0,animate:n=!0,arrowClassName:r,monthsClassName:i,defaultSelected:o,onSelect:s,...l})=>{let[d,p]=(0,g.useState)(()=>o);return(0,_.jsx)(f,{className:a(m({className:e})),animate:n,mode:`single`,selected:d,onSelect:e=>{e&&(p(e),s?.(e))},showOutsideDays:t,role:`dialog`,"aria-label":`Datepicker`,classNames:{chevron:a(`cursor-pointer`,`text-slate-500`,`w-5`,`h-5`,`text-slate-500`,`w-4`,`h-4`,`dark:text-metal-200`),day_button:a(`h-7.5`,`aria-selected:opacity-100`,`font-semibold`,`hover:rounded-full`,`cursor-pointer`,`rounded-full`,`w-7.5`),day:`text-center text-sm leading-5`,month_caption:a(`text-slate-700`,`font-semibold`,`text-sm`,`pl-1`,`h-8`,`flex`,`items-center`,`dark:text-white`),months:a(`flex`,`flex-col`,`relative`,`px-5`,`py-4`,`rounded-lg`,`shadow-md`,`px-6`,`py-4`,`w-[307px]`,`justify-center`,`items-center`,`border`,`border-transparent`,`dark:bg-metal-800`,`dark:border-metal-700`,i),month:`flex flex-col gap-4`,nav:a(`absolute`,`right-4`,`top-3.5`,`flex`,`justify-center`,`items-center`,`gap-1`,r),outside:`text-slate-400 dark:text-metal-500`,selected:a(`[&>button]:bg-blue-600`,`[&>button]:text-white`,`[&>button]:hover:bg-blue-700`,`[&>button]:transition-all`,`[&>button]:duration-300`,`[&>button]:rounded-full`,`dark:[&>button]:bg-aurora-500`,`dark:[&>button]:hover:bg-aurora-500`,`dark:[&>button]:text-metal-900`),weekdays:`text-slate-500 dark:text-metal-300`,weeks:a(`text-slate-700`,`[&>tr>td]:border-transparent`,`[&>tr>td]:border-r-[8px]`,`[&>tr>td]:last:border-r-0`,`dark:text-white`),weekday:`font-semibold text-sm uppercase text-sm`,today:`text-blue-600 dark:text-aurora-500 data-[selected=true]:text-white`,month_grid:a(`w-full`,`[&>thead]:table-header-group`,`[&>thead]:relative`,`[&>thead]:after:block`,`[&>thead]:after:content-[" "]`,`[&>thead]:after:h-4`)},components:{Chevron:({className:e,...t})=>t.orientation===`left`?(0,_.jsx)(u,{className:a(e),...t}):(0,_.jsx)(c,{className:a(e),...t})},...l})},v.displayName=`KonstructDatePicker`,v.__docgenInfo={description:`A date picker component built on react-day-picker.
+Allows single date selection with calendar navigation.
+
+@example
+\`\`\`tsx
+// Basic date picker
+<DatePicker
+  defaultSelected={new Date()}
+  onSelect={(date) => console.log(date)}
+/>
+
+// With custom styling
+<DatePicker
+  defaultSelected={startDate}
+  onSelect={setStartDate}
+  monthsClassName="custom-months"
+/>
+\`\`\`
+
+@see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-datepicker--docs Storybook}`,methods:[],displayName:`KonstructDatePicker`,props:{arrowClassName:{required:!1,tsType:{name:`string`},description:`CSS classes for the navigation arrows`},monthsClassName:{required:!1,tsType:{name:`string`},description:`CSS classes for the months container`},timeZone:{required:!1,tsType:{name:`ReturnType`,elements:[{name:`getAllTimezones`}],raw:`ReturnType<typeof getAllTimezones>`},description:`Timezone for date display`},defaultSelected:{required:!1,tsType:{name:`Date`},description:`Initial selected date`},onSelect:{required:!1,tsType:{name:`signature`,type:`function`,raw:`(date: Date) => void`,signature:{arguments:[{type:{name:`Date`},name:`date`}],return:{name:`void`}}},description:`Callback when a date is selected`},showOutsideDays:{defaultValue:{value:`true`,computed:!1},required:!1},animate:{defaultValue:{value:`true`,computed:!1},required:!1}}}}));export{y as n,v as t};

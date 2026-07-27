@@ -4,7 +4,7 @@ import { ClassNames as DrawerClassNames } from '../Drawer/Drawer.types';
 import { Theme } from '../../domain/theme';
 import { SidebarModeProp } from './hooks/useSidebarMode';
 import { wrapperSiderbarVariants } from './Sidebar.variants';
-import { FooterProps, LabelProps, LogoProps, NavigationGroupProps, NavigationOptionProps, NavigationProps, NavigationSeparatorProps } from './components';
+import { CollapseTriggerProps, FooterProps, LabelProps, LogoProps, NavigationGroupProps, NavigationOptionProps, NavigationProps, NavigationSeparatorProps } from './components';
 /**
  * Props for the Sidebar component.
  * A compound component for building application sidebars with navigation.
@@ -77,7 +77,7 @@ export interface Props extends Omit<VariantProps<typeof wrapperSiderbarVariants>
      * the panel's horizontal padding so dividers can span edge-to-edge,
      * raising the root `z-index` past higher-z layers, etc.
      *
-     * The Sidebar already applies sensible defaults internally (root `z-[60]`,
+     * The Sidebar already applies sensible defaults internally (root `z-60`,
      * panel uses `wrapperClassName`, content `gap-0`); user-provided classes
      * are appended via `cn`, so they win on conflicts.
      */
@@ -107,9 +107,9 @@ export interface Props extends Omit<VariantProps<typeof wrapperSiderbarVariants>
      * Inline styles applied to the wrapper `<aside>` (or the drawer panel in
      * drawer mode). Useful for setting CSS custom properties that drive
      * theming via the protection stylesheet (e.g.
-     * `--konstruct-sidebar-hover-bg`, `--konstruct-sidebar-active-bg`),
-     * since inline styles outrank un-layered utilities shipped by federated
-     * remote micro-frontends.
+     * `--konstruct-sidebar-logo-padding-expanded`), since inline styles
+     * outrank un-layered utilities shipped by federated remote
+     * micro-frontends.
      */
     style?: CSSProperties;
 }
@@ -119,6 +119,7 @@ export type SidebarProps = Props;
  * Sidebar compound component type with sub-components.
  */
 export type SidebarChildrenProps = {
+    CollapseTrigger: FC<CollapseTriggerProps>;
     Footer: FC<FooterProps>;
     Label: FC<LabelProps>;
     Logo: FC<LogoProps>;

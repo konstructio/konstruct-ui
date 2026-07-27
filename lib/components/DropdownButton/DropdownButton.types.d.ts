@@ -29,6 +29,8 @@ export type Props = {
     className?: string;
     /** Additional CSS classes for each dropdown item */
     itemClassName?: string;
+    /** Content of the trigger button */
+    label?: string | ReactNode;
     /** Additional CSS classes for the dropdown list */
     listClassName?: string;
     /** Array of options to display in the dropdown */

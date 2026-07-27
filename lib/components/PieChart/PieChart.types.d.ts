@@ -18,7 +18,7 @@ type CSSColor = `var(--${string})` | `rgb(${number}, ${number}, ${number})` | `r
 export type Props = {
     /**
      * Array of hexadecimal colors for the borders of the pie chart segments
-     * @default ['#FFFFFF', '#FFFFFF']
+     * @default [resolveColor('--color-white'), resolveColor('--color-white')]
      */
     borderColors?: HexColor[] | CSSColor[] | (HexColor | CSSColor)[];
     /**
@@ -28,7 +28,7 @@ export type Props = {
     borderWidth?: number;
     /**
      * Array of hexadecimal colors for filling the pie chart segments
-     * @default ['#525252', '#00D492']
+     * @default [resolveColor('--color-neutral-600'), resolveColor('--color-emerald-400')]
      */
     colors?: HexColor[] | CSSColor[] | (HexColor | CSSColor)[];
     /**
@@ -43,7 +43,7 @@ export type Props = {
     redraw?: boolean;
     /**
      * Hexadecimal color for the subtitle text
-     * @default '#6B7280'
+     * @default resolveColor('--color-gray-500')
      */
     subtitleColor?: HexColor;
     /**
@@ -58,7 +58,7 @@ export type Props = {
     subtitleFontWeight?: 'bold' | 'normal';
     /**
      * Hexadecimal color for the title text
-     * @default '#111827'
+     * @default resolveColor('--color-gray-900')
      */
     titleColor?: HexColor;
     /**

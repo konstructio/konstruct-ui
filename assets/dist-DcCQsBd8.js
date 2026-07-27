@@ -1,0 +1,1 @@
+import{c as e,i as t}from"./preload-helper-CCSz8wUY.js";import{t as n}from"./react-D9T3pWpr.js";function r(e){let t=i.useRef(e);return i.useEffect(()=>{t.current=e}),i.useMemo(()=>((...e)=>t.current?.(...e)),[])}var i,a,o,s=t((()=>{i=e(n(),1),a=Object.defineProperty,o=(e,t)=>a(e,`name`,{value:t,configurable:!0}),o(r,`useCallbackRef`)}));export{r as n,s as t};

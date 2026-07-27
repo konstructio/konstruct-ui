@@ -1,1 +1,3 @@
-export declare const logoVariants: (props?: import('class-variance-authority/types').ClassProp | undefined) => string;
+export declare const logoVariants: (props?: ({
+    showOnCollapse?: boolean | null | undefined;
+} & import('class-variance-authority/types').ClassProp) | undefined) => string;
