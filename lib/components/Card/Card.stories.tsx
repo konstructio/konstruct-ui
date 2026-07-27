@@ -19,7 +19,7 @@ export const Card: Story = {
     const Wrapper: FC<Pick<CardProps, 'isActive' | 'canHover' | 'theme'>> = (
       props,
     ) => (
-      <div className="max-w-[350px] flex flex-col gap-2 w-[280px]">
+      <div className="max-w-87.5 flex flex-col gap-2 w-70">
         <CardComponent className="flex flex-col gap-3 p-5" {...props}>
           <header className="text-center">
             <h3 className="text-slate-500 text-2xl dark:text-metal-400">

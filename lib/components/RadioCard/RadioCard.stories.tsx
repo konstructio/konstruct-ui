@@ -14,10 +14,10 @@ const meta = {
 export const RadioCard = {
   args: {
     label: <CivoLogo />,
-    wrapperClassName: 'w-[200px]',
+    wrapperClassName: 'w-50',
   },
   render: (args) => (
-    <div className="w-[350px] flex flex-col gap-4">
+    <div className="w-87.5 flex flex-col gap-4">
       <RadioCardComponent {...args} name="input-name-1" />
       <RadioCardComponent {...args} name="input-name-2" checked={true} />
     </div>

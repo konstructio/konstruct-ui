@@ -38,7 +38,7 @@ export const Table = {
         <TableComponent className="">
           <TableComponent.Head>
             <TableComponent.Row width="100px">
-              <th className="w-[100px]">
+              <th className="w-25">
                 <Typography variant="labelMedium" className="text-slate-500">
                   Name
                 </Typography>

@@ -6,7 +6,7 @@ const Command = forwardRef<
   ComponentPropsWithoutRef<typeof CommandPrimitive>
 >(({ className, children, ...props }, ref) => (
   <CommandPrimitive ref={ref} className={className} {...props}>
-    <div className="w-[500px]">{children}</div>
+    <div className="w-125">{children}</div>
   </CommandPrimitive>
 ));
 

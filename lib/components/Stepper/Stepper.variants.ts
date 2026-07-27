@@ -107,7 +107,7 @@ export const stepIndicatorVariants = cva(
       size: {
         sm: ['w-5', 'h-5', 'text-xs', 'uppercase', 'tracking-wide'],
         md: ['w-[37px]', 'h-[37px]', 'text-sm', 'font-semibold'],
-        lg: ['w-[54px]', 'h-[54px]', 'text-lg', 'font-semibold'],
+        lg: ['w-13.5', 'h-13.5', 'text-lg', 'font-semibold'],
       },
     },
     defaultVariants: {
@@ -237,7 +237,7 @@ export const stepConnectorVariants = cva(
         orientation: 'vertical',
         variant: 'inline',
         size: 'lg',
-        class: ['h-6', 'ml-[26px]', 'my-1'],
+        class: ['h-6', 'ml-6.5', 'my-1'],
       },
       // Vertical stacked connectors by size
       {
@@ -274,7 +274,7 @@ export const horizontalConnectorWrapperVariants = cva(
     variants: {
       variant: {
         inline: ['mt-2.5'],
-        stacked: ['mt-[26px]'],
+        stacked: ['mt-6.5'],
         horizontal: ['mt-0'],
       },
     },

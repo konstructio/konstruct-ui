@@ -103,7 +103,10 @@ const renderSidebarContent = (
           alt="Company logo"
         />
       </a>
-      <Typography variant="labelSmall" className="text-[#ABADC6] lowercase">
+      <Typography
+        variant="labelSmall"
+        className="text-kubefirst-dark-blue-200 lowercase"
+      >
         v1.11.1
       </Typography>
     </Logo>
@@ -151,7 +154,7 @@ const renderSidebarContent = (
     </Navigation>
 
     <Footer>
-      <span className="text-[#81e2b4] flex items-center gap-2 justify-center font-semibold cursor-pointer">
+      <span className="text-mistery flex items-center gap-2 justify-center font-semibold cursor-pointer">
         <Star className="w-5 h-5" />
         <Label>Upgrade to Business</Label>
       </span>

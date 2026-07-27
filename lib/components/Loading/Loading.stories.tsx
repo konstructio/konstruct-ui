@@ -12,10 +12,10 @@ const meta = {
 export const Loading = {
   render: () => (
     <>
-      <div className="w-[350px]">
+      <div className="w-87.5">
         <LoadingComponent theme="kubefirst" />
       </div>
-      <div className="w-[350px]">
+      <div className="w-87.5">
         <LoadingComponent />
       </div>
     </>

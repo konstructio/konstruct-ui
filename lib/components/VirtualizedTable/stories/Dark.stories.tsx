@@ -110,7 +110,7 @@ const columns: ColumnDef<Pokemon>[] = [
     ),
     header: () => <span className="sr-only">Action Buttons</span>,
     meta: {
-      headerClassName: 'w-[92px]',
+      headerClassName: 'w-23',
       className: 'flex justify-center',
     },
   },
@@ -547,7 +547,7 @@ export const ExpandableRowsWithExternalTrigger: Story = {
         ),
         header: () => <span className="sr-only">Select</span>,
         meta: {
-          headerClassName: 'w-[150px]',
+          headerClassName: 'w-37.5',
           className: 'flex justify-center h-12 items-center',
         },
       },
@@ -791,7 +791,7 @@ export const HorizontalScrollWithFilters: Story = {
             ariaLabel="List of pokemons"
             data={data}
             columns={columns}
-            classNameTable="min-w-[1200px]"
+            classNameTable="min-w-300"
             classNameScrollContainer="overflow-x-auto contain-inline-size"
             showPagination={true}
             pageSizes={[5, 10, 20, 30, 50]}

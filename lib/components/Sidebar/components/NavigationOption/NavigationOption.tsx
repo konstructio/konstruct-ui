@@ -104,7 +104,7 @@ const NavigationOption: FC<Props> = ({
             side="right"
             sideOffset={12}
             className={cn(
-              'z-[60] flex w-fit items-center gap-2 rounded px-3 py-2 text-sm shadow-lg whitespace-nowrap',
+              'z-60 flex w-fit items-center gap-2 rounded px-3 py-2 text-sm shadow-lg whitespace-nowrap',
               'animate-in fade-in-0',
               tooltipBgClassName,
               tooltipTextClassName,

@@ -191,7 +191,7 @@ const Wrapper: FC<Props> = ({
           theme={theme}
           classNames={{
             ...drawerClassNames,
-            root: cn('z-[60]', drawerClassNames?.root),
+            root: cn('z-60', drawerClassNames?.root),
             panel: cn(
               wrapperSiderbarVariants({ mode: 'expanded' }),
               'h-full border-r-0',

@@ -9,6 +9,8 @@ import {
 import { FC, useMemo } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 
+import { resolveColor } from '@/utils';
+
 import { Props } from './PieChart.types';
 
 ChartJS.register(ArcElement);
@@ -32,16 +34,19 @@ ChartJS.register(ArcElement);
  */
 export const PieChart: FC<Props> = ({
   values,
-  colors = ['#525252', '#00D492'],
-  borderColors = ['#FFFFFF', '#FFFFFF'],
+  colors = [
+    resolveColor('--color-neutral-600'),
+    resolveColor('--color-emerald-400'),
+  ],
+  borderColors = [resolveColor('--color-white'), resolveColor('--color-white')],
   borderWidth = 0,
   cutoutPercentage = 80,
   title,
   subtitle,
   titleFontSize = 16,
   subtitleFontSize = 14,
-  titleColor = '#111827',
-  subtitleColor = '#6B7280',
+  titleColor = resolveColor('--color-gray-900'),
+  subtitleColor = resolveColor('--color-gray-500'),
   titleFontWeight = 'bold',
   subtitleFontWeight = 'normal',
   redraw = true,

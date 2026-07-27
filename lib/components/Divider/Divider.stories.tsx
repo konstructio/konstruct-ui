@@ -12,10 +12,10 @@ const meta: Meta<typeof DividerComponent> = {
 export const Divider: Story = {
   render: () => (
     <div className="flex w-full flex-col gap-4">
-      <div className="w-[350px] space-y-4">
+      <div className="w-87.5 space-y-4">
         <DividerComponent />
       </div>
-      <div className="w-[600px] space-y-4">
+      <div className="w-150 space-y-4">
         <DividerComponent className="bg-zinc-300" />
       </div>
       <div className="w-full space-y-4">

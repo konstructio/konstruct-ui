@@ -1,10 +1,6 @@
 import { cva } from 'class-variance-authority';
 
-export const listVariants = cva([
-  'max-h-[250px]',
-  'overflow-y-auto',
-  'bg-white',
-]);
+export const listVariants = cva(['max-h-62.5', 'overflow-y-auto', 'bg-white']);
 
 export const emptyListVariants = cva([
   'p-1',

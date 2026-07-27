@@ -42,7 +42,7 @@ export const viewportToastVariants = cva([
   'flex-col',
   'p-[var(--viewport-padding)]',
   'gap-8',
-  'w-[390px]',
+  'w-97.5',
   'max-w-[100vw]',
   'm-0',
   'z-50',

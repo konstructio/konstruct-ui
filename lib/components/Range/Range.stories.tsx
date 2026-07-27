@@ -16,7 +16,7 @@ export const Range: Story = {
     showValue: true,
   },
   render: (args) => (
-    <div className="max-w-[350px]">
+    <div className="max-w-87.5">
       <RangeComponent
         theme="kubefirst"
         label="Range with Kubefirst theme"

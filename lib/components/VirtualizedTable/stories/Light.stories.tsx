@@ -128,7 +128,7 @@ const columns: ColumnDef<Pokemon>[] = [
                   />
                 </div>
               ),
-              wrapperClassName: 'max-w-[384px] gap-4',
+              wrapperClassName: 'max-w-96 gap-4',
               buttonConfirm: {
                 text: 'Got it!',
                 className: 'w-full mt-4',
@@ -149,7 +149,7 @@ const columns: ColumnDef<Pokemon>[] = [
     ),
     header: () => <span className="sr-only">Action Buttons</span>,
     meta: {
-      headerClassName: 'w-[92px]',
+      headerClassName: 'w-23',
       className: 'flex justify-center',
     },
   },
@@ -598,7 +598,7 @@ export const HorizontalScrollWithFilters: Story = {
             ariaLabel="List of pokemons"
             data={data}
             columns={columns}
-            classNameTable="min-w-[1200px]"
+            classNameTable="min-w-300"
             classNameScrollContainer="overflow-x-auto contain-inline-size"
             showPagination={true}
             pageSizes={[5, 10, 20, 30, 50]}

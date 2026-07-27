@@ -28,7 +28,7 @@ export const listVariants = cva(['flex'], {
     variant: {
       default: 'flex gap-6',
       horizontal: '',
-      vertical: 'flex-col min-w-[132px] h-full items-center',
+      vertical: 'flex-col min-w-33 h-full items-center',
     },
   },
   defaultVariants: {
