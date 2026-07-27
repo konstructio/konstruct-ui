@@ -1,5 +1,5 @@
 import { Slot } from '@radix-ui/react-slot';
-import { FC, useCallback, useState } from 'react';
+import { FC, useState } from 'react';
 
 import { cn } from '@/utils';
 
@@ -58,15 +58,12 @@ export const RadioGroup: FC<Props> = ({
   );
   const selected = isControlled ? value : internalSelected;
 
-  const handleSelected = useCallback(
-    (newValue: string) => {
-      if (!isControlled) {
-        setInternalSelected(newValue);
-      }
-      onValueChange?.(newValue);
-    },
-    [isControlled, onValueChange],
-  );
+  const handleSelected = (newValue: string) => {
+    if (!isControlled) {
+      setInternalSelected(newValue);
+    }
+    onValueChange?.(newValue);
+  };
 
   return (
     <Component

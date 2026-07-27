@@ -85,40 +85,31 @@ export const useAutocomplete = ({
     };
   }, [wrapperRef]);
 
-  const handleFilter = useCallback(
-    (value: string) => {
-      if (value.length === 0) {
-        setOptions(options);
-      } else {
-        const optionsParsed = options.map(({ value }) => value);
-        const optionsFiltered = filterByValue(optionsParsed, value).map(
-          (value) => ({ value }),
-        );
+  const handleFilter = (value: string) => {
+    if (value.length === 0) {
+      setOptions(options);
+    } else {
+      const optionsParsed = options.map(({ value }) => value);
+      const optionsFiltered = filterByValue(optionsParsed, value).map(
+        (value) => ({ value }),
+      );
 
-        setOptions(optionsFiltered);
-      }
-    },
-    [options],
-  );
+      setOptions(optionsFiltered);
+    }
+  };
 
-  const handleChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      setValue(event.target.value);
-      handleFilter(event.target.value);
-      onChange?.(event.target.value);
-    },
-    [handleFilter, onChange],
-  );
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+    handleFilter(event.target.value);
+    onChange?.(event.target.value);
+  };
 
-  const handleSelectValue = useCallback(
-    (value: string) => {
-      setValue(value);
-      handleFilter(value);
-      onChange?.(value);
-      setShowOptions(false);
-    },
-    [handleFilter, onChange],
-  );
+  const handleSelectValue = (value: string) => {
+    setValue(value);
+    handleFilter(value);
+    onChange?.(value);
+    setShowOptions(false);
+  };
 
   return {
     inputRef,

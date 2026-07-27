@@ -163,10 +163,10 @@ export const useSelect = ({
     };
   }, [toggleOpen, wrapperRef, setSearchTerm, onBlur, value]);
 
-  const handleOpen = useCallback(() => {
+  const handleOpen = () => {
     toggleOpen(true);
     requestAnimationFrame(() => searchInputRef?.current?.focus());
-  }, [searchInputRef, toggleOpen]);
+  };
 
   return {
     wrapperRef,

@@ -1,11 +1,4 @@
-import {
-  useEffect,
-  useRef,
-  FC,
-  MouseEvent,
-  KeyboardEvent,
-  useCallback,
-} from 'react';
+import { useEffect, useRef, FC, MouseEvent, KeyboardEvent } from 'react';
 
 import { cn } from '@/utils';
 
@@ -63,58 +56,55 @@ const MinutesList: FC<MinutesLitProps> = ({
     }
   }, [minutes, isTyping]);
 
-  const handleSelectMinute = useCallback(
-    (index: number, event: MouseEvent<HTMLButtonElement>) => {
-      onSelectMinute(index);
-      event.currentTarget?.blur();
-    },
-    [onSelectMinute],
-  );
+  const handleSelectMinute = (
+    index: number,
+    event: MouseEvent<HTMLButtonElement>,
+  ) => {
+    onSelectMinute(index);
+    event.currentTarget?.blur();
+  };
 
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent<HTMLButtonElement>, currentIndex: number) => {
-      const buttons = wrapperRef.current?.querySelectorAll('button');
-      if (!buttons) return;
+  const handleKeyDown = (
+    event: KeyboardEvent<HTMLButtonElement>,
+    currentIndex: number,
+  ) => {
+    const buttons = wrapperRef.current?.querySelectorAll('button');
+    if (!buttons) return;
 
-      let nextIndex = currentIndex;
+    let nextIndex = currentIndex;
 
-      if (
-        event.key === 'ArrowDown' ||
-        (event.key === 'Tab' && !event.shiftKey)
-      ) {
-        event.preventDefault();
-        nextIndex = (currentIndex + 1) % 60;
-      } else if (
-        event.key === 'ArrowUp' ||
-        (event.key === 'Tab' && event.shiftKey)
-      ) {
-        event.preventDefault();
-        nextIndex = (currentIndex - 1 + 60) % 60;
-      } else if (event.key === 'Enter') {
-        event.preventDefault();
-        // Select the minute
-        onSelectMinute(currentIndex);
-        // If onClose is provided (24h format), close the list
-        if (onClose) {
-          onClose();
-          return;
-        }
-        // Otherwise move focus to meridian list (AM/PM)
-        const meridianList = document.querySelector('[aria-label="meridian"]');
-        const activeMeridianButton = meridianList?.querySelector(
-          'li[data-active="true"] button',
-        ) as HTMLButtonElement;
-        activeMeridianButton?.focus();
+    if (event.key === 'ArrowDown' || (event.key === 'Tab' && !event.shiftKey)) {
+      event.preventDefault();
+      nextIndex = (currentIndex + 1) % 60;
+    } else if (
+      event.key === 'ArrowUp' ||
+      (event.key === 'Tab' && event.shiftKey)
+    ) {
+      event.preventDefault();
+      nextIndex = (currentIndex - 1 + 60) % 60;
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+      // Select the minute
+      onSelectMinute(currentIndex);
+      // If onClose is provided (24h format), close the list
+      if (onClose) {
+        onClose();
         return;
       }
+      // Otherwise move focus to meridian list (AM/PM)
+      const meridianList = document.querySelector('[aria-label="meridian"]');
+      const activeMeridianButton = meridianList?.querySelector(
+        'li[data-active="true"] button',
+      ) as HTMLButtonElement;
+      activeMeridianButton?.focus();
+      return;
+    }
 
-      if (nextIndex !== currentIndex) {
-        const nextButton = buttons[nextIndex] as HTMLButtonElement;
-        nextButton?.focus();
-      }
-    },
-    [onSelectMinute, onClose],
-  );
+    if (nextIndex !== currentIndex) {
+      const nextButton = buttons[nextIndex] as HTMLButtonElement;
+      nextButton?.focus();
+    }
+  };
 
   return (
     <ul

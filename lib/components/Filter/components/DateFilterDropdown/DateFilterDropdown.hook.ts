@@ -28,25 +28,22 @@ export const useDateFilterDropdown = ({
     [appliedDay, countryCode],
   );
 
-  const handleOpenChange = useCallback(
-    (open: boolean) => {
-      if (open) {
-        sendOpenFilterEvent(id);
-      }
+  const handleOpenChange = (open: boolean) => {
+    if (open) {
+      sendOpenFilterEvent(id);
+    }
 
-      setIsOpen(open);
-    },
-    [id],
-  );
+    setIsOpen(open);
+  };
 
-  const handleApply = useCallback(() => {
+  const handleApply = () => {
     setAppliedDay(selectedDay);
     onApply?.(selectedDay);
 
     if (closeOnApply) {
       setIsOpen(false);
     }
-  }, [closeOnApply, onApply, selectedDay]);
+  };
 
   const handleSelect = useCallback((date: Date) => setSelectedDay(date), []);
   const handleClose = useCallback(() => setIsOpen(false), []);
@@ -57,13 +54,13 @@ export const useDateFilterDropdown = ({
     onApply?.();
   }, [onApply]);
 
-  const handleReset = useCallback(() => {
+  const handleReset = () => {
     clearSelection();
 
     if (closeOnApply) {
       setIsOpen(false);
     }
-  }, [clearSelection, closeOnApply]);
+  };
 
   useFilterDropdownSync({ id, onClose: handleClose, onReset: clearSelection });
 

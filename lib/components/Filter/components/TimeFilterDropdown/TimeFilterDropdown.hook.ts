@@ -28,28 +28,25 @@ export const useTimeFilterDropdown = ({
     appliedPresetLabel ??
     (appliedTime ? getFormattedTime(appliedTime, format) : undefined);
 
-  const handleOpenChange = useCallback(
-    (open: boolean) => {
-      if (open) {
-        sendOpenFilterEvent(id);
-      }
+  const handleOpenChange = (open: boolean) => {
+    if (open) {
+      sendOpenFilterEvent(id);
+    }
 
-      setIsOpen(open);
-    },
-    [id],
-  );
+    setIsOpen(open);
+  };
 
-  const handleSelectPreset = useCallback((preset: TimePreset) => {
+  const handleSelectPreset = (preset: TimePreset) => {
     setSelectedTime(preset.value);
     setSelectedPresetLabel(preset.label);
-  }, []);
+  };
 
   const handleSelectCustom = useCallback((time: Date) => {
     setSelectedTime(time);
     setSelectedPresetLabel(undefined);
   }, []);
 
-  const handleApply = useCallback(() => {
+  const handleApply = () => {
     setAppliedTime(selectedTime);
     setAppliedPresetLabel(selectedPresetLabel);
     onApply?.(selectedTime);
@@ -57,7 +54,7 @@ export const useTimeFilterDropdown = ({
     if (closeOnApply) {
       setIsOpen(false);
     }
-  }, [closeOnApply, onApply, selectedTime, selectedPresetLabel]);
+  };
 
   const handleClose = useCallback(() => setIsOpen(false), []);
 
@@ -69,13 +66,13 @@ export const useTimeFilterDropdown = ({
     onApply?.();
   }, [onApply]);
 
-  const handleReset = useCallback(() => {
+  const handleReset = () => {
     clearSelection();
 
     if (closeOnApply) {
       setIsOpen(false);
     }
-  }, [clearSelection, closeOnApply]);
+  };
 
   useFilterDropdownSync({ id, onClose: handleClose, onReset: clearSelection });
 

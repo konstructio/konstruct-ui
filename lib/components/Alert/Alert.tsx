@@ -1,12 +1,5 @@
 'use client';
-import {
-  ComponentRef,
-  FC,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { ComponentRef, FC, useEffect, useRef, useState } from 'react';
 import { X } from 'react-feather';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
@@ -63,13 +56,13 @@ export const Alert: FC<Props> = ({
   const wrapperRef = useRef<ComponentRef<'div'>>(null);
   const [isVisibleComponent, setIsVisibleComponent] = useState(isVisible);
 
-  const handleCloseClick = useCallback(() => {
+  const handleCloseClick = () => {
     const wrapper = wrapperRef.current;
 
     if (wrapper) {
       wrapper.setAttribute('data-state', 'hidden');
     }
-  }, []);
+  };
 
   useEffect(() => {
     const controller = new AbortController();

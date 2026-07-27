@@ -1,4 +1,4 @@
-import { FC, MouseEvent, KeyboardEvent, useCallback, useRef } from 'react';
+import { FC, MouseEvent, KeyboardEvent, useRef } from 'react';
 
 import { cn } from '@/utils';
 
@@ -16,45 +16,45 @@ const MeridianList: FC<MeridianListProps> = ({
   const wrapperRef = useRef<HTMLUListElement>(null);
   const { format, isAM, onSelectAM, onSelectPM } = useTimePickerContext();
 
-  const handleClick = useCallback(
-    (event: MouseEvent<HTMLButtonElement>, callback: () => void) => {
-      event.currentTarget?.blur();
-      callback();
-    },
-    [],
-  );
+  const handleClick = (
+    event: MouseEvent<HTMLButtonElement>,
+    callback: () => void,
+  ) => {
+    event.currentTarget?.blur();
+    callback();
+  };
 
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent<HTMLButtonElement>, isCurrentlyAM: boolean) => {
-      const buttons = wrapperRef.current?.querySelectorAll('button');
-      if (!buttons) return;
+  const handleKeyDown = (
+    event: KeyboardEvent<HTMLButtonElement>,
+    isCurrentlyAM: boolean,
+  ) => {
+    const buttons = wrapperRef.current?.querySelectorAll('button');
+    if (!buttons) return;
 
-      const isTabForward = event.key === 'Tab' && !event.shiftKey;
-      const isTabBackward = event.key === 'Tab' && event.shiftKey;
-      const isArrow = event.key === 'ArrowDown' || event.key === 'ArrowUp';
+    const isTabForward = event.key === 'Tab' && !event.shiftKey;
+    const isTabBackward = event.key === 'Tab' && event.shiftKey;
+    const isArrow = event.key === 'ArrowDown' || event.key === 'ArrowUp';
 
-      if (isArrow || isTabForward || isTabBackward) {
-        event.preventDefault();
-        // Navigate between AM and PM without selecting
-        if (isCurrentlyAM) {
-          (buttons[1] as HTMLButtonElement)?.focus();
-        } else {
-          (buttons[0] as HTMLButtonElement)?.focus();
-        }
-      } else if (event.key === 'Enter') {
-        event.preventDefault();
-        // Select the current option
-        if (isCurrentlyAM) {
-          onSelectAM();
-        } else {
-          onSelectPM();
-        }
-        // Close the list
-        onClose?.();
+    if (isArrow || isTabForward || isTabBackward) {
+      event.preventDefault();
+      // Navigate between AM and PM without selecting
+      if (isCurrentlyAM) {
+        (buttons[1] as HTMLButtonElement)?.focus();
+      } else {
+        (buttons[0] as HTMLButtonElement)?.focus();
       }
-    },
-    [onSelectAM, onSelectPM, onClose],
-  );
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+      // Select the current option
+      if (isCurrentlyAM) {
+        onSelectAM();
+      } else {
+        onSelectPM();
+      }
+      // Close the list
+      onClose?.();
+    }
+  };
 
   if (format === '24') {
     return null;

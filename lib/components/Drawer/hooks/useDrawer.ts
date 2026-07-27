@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import {
   ANIMATION_DELAY_MS,
@@ -99,49 +99,44 @@ export const useDrawer = ({
   }, [position, minWidth, maxWidth, canResize, cleanupResizeListeners]);
 
   // Handle resize mouse down
-  const handleMouseDown = useCallback(() => {
+  const handleMouseDown = () => {
     isDraggingRef.current = true;
     document.addEventListener('mousemove', handleMouseMoveRef.current);
     document.addEventListener('mouseup', handleMouseUpRef.current);
     document.body.style.cursor = 'col-resize';
     document.body.style.userSelect = 'none';
-  }, []);
+  };
 
   // Handle keyboard resize for accessibility
-  const handleKeyDown = useCallback(
-    (event: React.KeyboardEvent) => {
-      if (!canResize) return;
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (!canResize) return;
 
-      const isIncreaseKey =
-        (position === 'right' && event.key === 'ArrowLeft') ||
-        (position === 'left' && event.key === 'ArrowRight');
-      const isDecreaseKey =
-        (position === 'right' && event.key === 'ArrowRight') ||
-        (position === 'left' && event.key === 'ArrowLeft');
+    const isIncreaseKey =
+      (position === 'right' && event.key === 'ArrowLeft') ||
+      (position === 'left' && event.key === 'ArrowRight');
+    const isDecreaseKey =
+      (position === 'right' && event.key === 'ArrowRight') ||
+      (position === 'left' && event.key === 'ArrowLeft');
 
-      if (isIncreaseKey) {
-        event.preventDefault();
-        setWidth((prev) => Math.min(maxWidth, prev + KEYBOARD_RESIZE_STEP));
-      } else if (isDecreaseKey) {
-        event.preventDefault();
-        setWidth((prev) => Math.max(minWidth, prev - KEYBOARD_RESIZE_STEP));
-      }
-    },
-    [canResize, position, maxWidth, minWidth],
-  );
+    if (isIncreaseKey) {
+      event.preventDefault();
+      setWidth((prev) => Math.min(maxWidth, prev + KEYBOARD_RESIZE_STEP));
+    } else if (isDecreaseKey) {
+      event.preventDefault();
+      setWidth((prev) => Math.max(minWidth, prev - KEYBOARD_RESIZE_STEP));
+    }
+  };
 
   // Cleanup resize listeners on unmount
   useEffect(() => {
     return cleanupResizeListeners;
   }, [cleanupResizeListeners]);
 
-  // Compute translate class based on animation state
-  const translateClass = useMemo(() => {
-    if (isAnimating) {
-      return 'translate-x-0';
-    }
-    return position === 'left' ? '-translate-x-full' : 'translate-x-full';
-  }, [isAnimating, position]);
+  const translateClass = isAnimating
+    ? 'translate-x-0'
+    : position === 'left'
+      ? '-translate-x-full'
+      : 'translate-x-full';
 
   return {
     isAnimating,

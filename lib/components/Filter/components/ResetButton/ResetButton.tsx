@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { FC } from 'react';
 
 import { Button } from '@/components/Button/Button';
 import { cn } from '@/utils';
@@ -16,10 +16,10 @@ export const ResetButton: FC<ResetButtonProps> = ({
 }) => {
   const { resetScope } = useFilterContext();
 
-  const handleClick = useCallback(() => {
+  const handleClick = () => {
     resetEvent(resetScope);
     onClick?.();
-  }, [onClick, resetScope]);
+  };
 
   return (
     <Button

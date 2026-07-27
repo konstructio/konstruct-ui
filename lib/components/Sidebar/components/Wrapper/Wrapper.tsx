@@ -116,25 +116,22 @@ const Wrapper: FC<Props> = ({
     document.removeEventListener('mouseup', handleMouseUp);
   }, [handleMouseMove]);
 
-  const handleMouseDown = useCallback(
-    (event: React.MouseEvent<HTMLDivElement>) => {
-      event.preventDefault();
-      event.stopPropagation();
+  const handleMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
 
-      isResizingRef.current = true;
+    isResizingRef.current = true;
 
-      if (asideRef.current) {
-        asideRef.current.classList.add('transition-none');
-      }
+    if (asideRef.current) {
+      asideRef.current.classList.add('transition-none');
+    }
 
-      document.body.style.userSelect = 'none';
-      document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+    document.body.style.cursor = 'col-resize';
 
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-    },
-    [handleMouseMove, handleMouseUp],
-  );
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  };
 
   useEffect(() => {
     if (resolvedMode !== 'expanded' && asideRef.current) {
@@ -162,9 +159,9 @@ const Wrapper: FC<Props> = ({
     hasAppliedInitialWidthRef.current = true;
   }, [initialWidth, maxWith, minWith, resolvedMode]);
 
-  const handleOpenDrawer = useCallback(() => {
+  const handleOpenDrawer = () => {
     setIsDrawerOpen(true);
-  }, []);
+  };
 
   const handleCloseDrawer = useCallback(() => {
     setIsDrawerOpen(false);

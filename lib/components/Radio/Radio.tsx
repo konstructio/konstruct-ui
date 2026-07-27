@@ -1,4 +1,4 @@
-import { FC, forwardRef, useCallback, useId } from 'react';
+import { FC, forwardRef, useId } from 'react';
 
 import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
@@ -50,13 +50,6 @@ const Radio: FC<Props> = forwardRef<HTMLInputElement, Props>(
     const id = useId();
     const defaultFor = `${id}-${name}`;
 
-    const handleChange = useCallback(
-      (value: string) => {
-        onChange?.(value);
-      },
-      [onChange],
-    );
-
     return (
       <label
         htmlFor={defaultFor}
@@ -77,7 +70,7 @@ const Radio: FC<Props> = forwardRef<HTMLInputElement, Props>(
           checked={checked}
           defaultChecked={defaultChecked}
           className="hidden peer"
-          onChange={() => handleChange(value)}
+          onChange={() => onChange?.(value)}
           disabled={disabled}
         />
 

@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { FC, useCallback, useMemo } from 'react';
+import { FC } from 'react';
 import { DateRange as DayPickerDateRange } from 'react-day-picker';
 
 import { cn } from '@/utils';
@@ -45,22 +45,14 @@ export const TogetherModeCalendar: FC<Props> = ({
     getTransform,
   } = useTogetherCarousel(carouselProps);
 
-  const handleRangeSelect = useCallback(
-    (selectedRange: DayPickerDateRange | undefined) => {
-      if (selectedRange) {
-        onRangeSelect({
-          from: selectedRange.from,
-          to: selectedRange.to,
-        });
-      }
-    },
-    [onRangeSelect],
-  );
-
-  const dayPickerClassNames = useMemo(
-    () => classNames?.dayPicker,
-    [classNames?.dayPicker],
-  );
+  const handleRangeSelect = (selectedRange: DayPickerDateRange | undefined) => {
+    if (selectedRange) {
+      onRangeSelect({
+        from: selectedRange.from,
+        to: selectedRange.to,
+      });
+    }
+  };
 
   return (
     <div className={cn(calendarPanelVariants({ className }), classNames?.root)}>
@@ -134,7 +126,7 @@ export const TogetherModeCalendar: FC<Props> = ({
               showOutsideDays={showOutsideDays}
               classNames={{
                 monthTitle: classNames?.monthTitle,
-                dayPicker: dayPickerClassNames,
+                dayPicker: classNames?.dayPicker,
               }}
             />
           ))}

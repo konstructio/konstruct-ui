@@ -32,17 +32,14 @@ export const useMultiSelectDropdown = () => {
     };
   }, [onOpen]);
 
-  const handleOpen = useCallback(
-    (event: React.MouseEvent<HTMLElement>) => {
-      const target = event.target as HTMLElement | null;
-      const parentWithDataValue = target?.closest('[data-value]');
+  const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
+    const target = event.target as HTMLElement | null;
+    const parentWithDataValue = target?.closest('[data-value]');
 
-      if (!parentWithDataValue) {
-        onOpen(true);
-      }
-    },
-    [onOpen],
-  );
+    if (!parentWithDataValue) {
+      onOpen(true);
+    }
+  };
 
   return {
     wrapperRef,

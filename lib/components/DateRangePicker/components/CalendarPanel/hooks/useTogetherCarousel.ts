@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 
 import { SlideDirection } from '../CalendarPanel.types';
 import { SINGLE_MONTH_WIDTH, GAP_WIDTH, MS_PER_MONTH } from '../constants';
@@ -160,7 +160,7 @@ export const useTogetherCarousel = ({
   }, [isAnimating, animateTransform, animationDuration, slideDirection]);
 
   // Handle navigation
-  const handlePrevMonth = useCallback(() => {
+  const handlePrevMonth = () => {
     if (isAnimating || disabled || !canNavigatePrev) {
       return;
     }
@@ -169,9 +169,9 @@ export const useTogetherCarousel = ({
     setIsAnimating(true);
     setAnimateTransform(false);
     navigatePrevMonth();
-  }, [isAnimating, disabled, canNavigatePrev, navigatePrevMonth]);
+  };
 
-  const handleNextMonth = useCallback(() => {
+  const handleNextMonth = () => {
     if (isAnimating || disabled || !canNavigateNext) {
       return;
     }
@@ -180,10 +180,10 @@ export const useTogetherCarousel = ({
     setIsAnimating(true);
     setAnimateTransform(false);
     navigateNextMonth();
-  }, [isAnimating, disabled, canNavigateNext, navigateNextMonth]);
+  };
 
   // Calculate transform
-  const getTransform = useCallback(() => {
+  const getTransform = () => {
     let offset = baseOffset;
 
     if (isAnimating && animateTransform) {
@@ -195,7 +195,7 @@ export const useTogetherCarousel = ({
     }
 
     return `translateX(${offset}px)`;
-  }, [baseOffset, isAnimating, animateTransform, slideDirection, slideWidth]);
+  };
 
   // Months to render
   const monthsToRender = [

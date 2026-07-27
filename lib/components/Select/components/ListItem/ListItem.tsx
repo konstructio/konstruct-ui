@@ -1,4 +1,4 @@
-import { ComponentRef, FC, KeyboardEvent, useCallback, useRef } from 'react';
+import { ComponentRef, FC, KeyboardEvent, useRef } from 'react';
 
 import { cn } from '@/utils';
 
@@ -41,76 +41,75 @@ export const ListItem: FC<ListItemProps> = ({
     useSelectContext();
   const liRef = useRef<ComponentRef<'li'>>(null);
 
-  const handleClick = useCallback(
-    (option: Option) => {
-      setValue(option.value, inputRef);
-      toggleOpen(false);
-    },
-    [setValue, toggleOpen],
-  );
+  const handleClick = (option: Option) => {
+    setValue(option.value, inputRef);
+    toggleOpen(false);
+  };
 
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent<HTMLLIElement>, option: Option) => {
-      if (event.key === 'Enter') {
-        event.stopPropagation();
-        handleClick(option);
-      }
-    },
-    [handleClick],
-  );
+  const handleKeyDown = (
+    event: KeyboardEvent<HTMLLIElement>,
+    option: Option,
+  ) => {
+    if (event.key === 'Enter') {
+      event.stopPropagation();
+      handleClick(option);
+    }
+  };
 
-  const getLabelValue = useCallback(
-    ({ label, rightComponent, subLabel, rightComponentClassName }: Option) => {
-      if (isEmpty) {
-        return (
-          <Typography
-            variant="body2"
-            className="text-zinc-800 dark:text-metal-50 italic"
-          >
-            {label}
-          </Typography>
-        );
-      }
-
-      if (typeof label !== 'string') {
-        return label;
-      }
-
-      const newValue =
-        highlightSearchEnabled && searchTerm.length > 0
-          ? highlightText(label, searchTerm)
-          : [label];
-
+  const getLabelValue = ({
+    label,
+    rightComponent,
+    subLabel,
+    rightComponentClassName,
+  }: Option) => {
+    if (isEmpty) {
       return (
         <Typography
           variant="body2"
-          className="text-zinc-700 dark:text-metal-50 font-medium"
+          className="text-zinc-800 dark:text-metal-50 italic"
         >
-          {rightComponent ? (
-            <span
-              className={cn('flex gap-2 items-center', rightComponentClassName)}
-            >
-              {newValue} {rightComponent}
-            </span>
-          ) : (
-            newValue
-          )}
-
-          {subLabel ? (
-            <span
-              className={cn(
-                'block font-normal text-sm text-metal-800 dark:text-metal-50',
-                listItemSecondRowClassName,
-              )}
-            >
-              {subLabel}
-            </span>
-          ) : null}
+          {label}
         </Typography>
       );
-    },
-    [highlightSearchEnabled, searchTerm],
-  );
+    }
+
+    if (typeof label !== 'string') {
+      return label;
+    }
+
+    const newValue =
+      highlightSearchEnabled && searchTerm.length > 0
+        ? highlightText(label, searchTerm)
+        : [label];
+
+    return (
+      <Typography
+        variant="body2"
+        className="text-zinc-700 dark:text-metal-50 font-medium"
+      >
+        {rightComponent ? (
+          <span
+            className={cn('flex gap-2 items-center', rightComponentClassName)}
+          >
+            {newValue} {rightComponent}
+          </span>
+        ) : (
+          newValue
+        )}
+
+        {subLabel ? (
+          <span
+            className={cn(
+              'block font-normal text-sm text-metal-800 dark:text-metal-50',
+              listItemSecondRowClassName,
+            )}
+          >
+            {subLabel}
+          </span>
+        ) : null}
+      </Typography>
+    );
+  };
 
   return (
     <li

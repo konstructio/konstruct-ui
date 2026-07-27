@@ -9,14 +9,7 @@ import {
   Viewport,
 } from '@radix-ui/react-toast';
 import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import {
-  FC,
-  isValidElement,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-} from 'react';
+import { FC, isValidElement, useEffect, useRef } from 'react';
 import { X } from 'react-feather';
 
 import {
@@ -77,26 +70,22 @@ export const Toast: FC<Props> = ({
     return () => clearTimeout(timerRef.current);
   }, []);
 
-  const titleResult = useMemo(() => {
-    if (isValidElement(title)) {
-      return <Slot className={titleClassName}>{title}</Slot>;
-    }
+  const titleResult = isValidElement(title) ? (
+    <Slot className={titleClassName}>{title}</Slot>
+  ) : (
+    title
+  );
 
-    return title;
-  }, [title, titleClassName]);
+  const descriptionResult = isValidElement(description) ? (
+    <Slot className={descriptionClassName}>{description}</Slot>
+  ) : (
+    description
+  );
 
-  const descriptionResult = useMemo(() => {
-    if (isValidElement(description)) {
-      return <Slot className={descriptionClassName}>{description}</Slot>;
-    }
-
-    return description;
-  }, [description, descriptionClassName]);
-
-  const handleClick = useCallback(() => {
+  const handleClick = () => {
     setOpen(false);
     timerRef.current = window.setTimeout(() => setOpen(true), 100);
-  }, [setOpen]);
+  };
 
   return (
     <Provider swipeDirection="right" duration={duration}>

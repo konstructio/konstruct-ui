@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { FC, useCallback, useMemo } from 'react';
+import { FC } from 'react';
 import { DateRange as DayPickerDateRange } from 'react-day-picker';
 
 import { cn } from '@/utils';
@@ -61,30 +61,19 @@ export const IndependentModeCalendar: FC<Props> = ({
     getRightTransform,
   } = useIndependentCarousel(carouselProps);
 
-  const handleRangeSelect = useCallback(
-    (selectedRange: DayPickerDateRange | undefined) => {
-      if (selectedRange) {
-        onRangeSelect({
-          from: selectedRange.from,
-          to: selectedRange.to,
-        });
-      }
-    },
-    [onRangeSelect],
-  );
+  const handleRangeSelect = (selectedRange: DayPickerDateRange | undefined) => {
+    if (selectedRange) {
+      onRangeSelect({
+        from: selectedRange.from,
+        to: selectedRange.to,
+      });
+    }
+  };
 
-  const dayPickerClassNames = useMemo(
-    () => classNames?.dayPicker,
-    [classNames?.dayPicker],
-  );
-
-  const monthClassNames = useMemo(
-    () => ({
-      monthTitle: classNames?.monthTitle,
-      dayPicker: dayPickerClassNames,
-    }),
-    [classNames?.monthTitle, dayPickerClassNames],
-  );
+  const monthClassNames = {
+    monthTitle: classNames?.monthTitle,
+    dayPicker: classNames?.dayPicker,
+  };
 
   return (
     <div className={cn(calendarPanelVariants({ className }), classNames?.root)}>

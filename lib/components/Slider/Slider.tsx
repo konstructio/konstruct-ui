@@ -3,7 +3,6 @@ import {
   ComponentRef,
   FC,
   forwardRef,
-  useCallback,
   useEffect,
   useImperativeHandle,
   useRef,
@@ -62,10 +61,9 @@ export const Slider: FC<Props> = forwardRef<ComponentRef<'input'>, Props>(
       }
     }, [value]);
 
-    const handleValueChange = useCallback(
-      (newValue: number[]) => setValue(newValue),
-      [],
-    );
+    const handleValueChange = (newValue: number[]) => {
+      setValue(newValue);
+    };
 
     return (
       <div className="w-full relative flex flex-col gap-3" data-theme={theme}>

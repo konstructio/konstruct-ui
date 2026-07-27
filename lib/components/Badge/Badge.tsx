@@ -1,5 +1,5 @@
 import { X } from 'lucide-react';
-import { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 
 import { LoaderIcon } from '@/assets/icons/components';
 import { cn } from '@/utils';
@@ -55,14 +55,11 @@ export const Badge: FC<Props> = ({
   const badgeRef = useRef<HTMLSpanElement>(null);
   const [isVisible, setIsVisible] = useState<'visible' | 'hidden'>('visible');
 
-  const handleDismiss = useCallback(
-    (e: React.MouseEvent) => {
-      e.stopPropagation();
-      onDismiss?.();
-      setIsVisible('hidden');
-    },
-    [onDismiss],
-  );
+  const handleDismiss = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onDismiss?.();
+    setIsVisible('hidden');
+  };
 
   useEffect(() => {
     if (isVisible !== 'hidden') {

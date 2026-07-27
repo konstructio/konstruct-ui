@@ -47,18 +47,15 @@ export const useDateRangeFilterDropdown = ({
     return formatDate(appliedRange.from);
   }, [appliedRange]);
 
-  const handleOpenChange = useCallback(
-    (open: boolean) => {
-      if (open) {
-        sendOpenFilterEvent(id);
-      }
+  const handleOpenChange = (open: boolean) => {
+    if (open) {
+      sendOpenFilterEvent(id);
+    }
 
-      setIsOpen(open);
-    },
-    [id],
-  );
+    setIsOpen(open);
+  };
 
-  const handleApply = useCallback(() => {
+  const handleApply = () => {
     const rangeWithTime: DateRangeWithTime = {
       from: selectedRange?.from,
       to: selectedRange?.to,
@@ -69,7 +66,7 @@ export const useDateRangeFilterDropdown = ({
     if (closeOnApply) {
       setIsOpen(false);
     }
-  }, [closeOnApply, onApply, selectedRange]);
+  };
 
   const handleRangeChange = useCallback((range: DateRangeWithTime) => {
     setSelectedRange({ from: range.from, to: range.to });
@@ -83,13 +80,13 @@ export const useDateRangeFilterDropdown = ({
     onApply?.();
   }, [onApply]);
 
-  const handleReset = useCallback(() => {
+  const handleReset = () => {
     clearSelection();
 
     if (closeOnApply) {
       setIsOpen(false);
     }
-  }, [clearSelection, closeOnApply]);
+  };
 
   useFilterDropdownSync({ id, onClose: handleClose, onReset: clearSelection });
 

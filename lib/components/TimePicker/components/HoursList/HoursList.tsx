@@ -1,11 +1,4 @@
-import {
-  FC,
-  MouseEvent,
-  KeyboardEvent,
-  useCallback,
-  useEffect,
-  useRef,
-} from 'react';
+import { FC, MouseEvent, KeyboardEvent, useEffect, useRef } from 'react';
 
 import { cn } from '@/utils';
 
@@ -25,54 +18,51 @@ const HoursList: FC<HourListProps> = ({ hours, scrollBehavior }) => {
   const newHours = format === '12' ? (hours >= 12 ? hours - 12 : hours) : hours;
   const maxHours = format === '12' ? 12 : 24;
 
-  const handleSelectHour = useCallback(
-    (event: MouseEvent<HTMLButtonElement>, hour: number) => {
-      event.currentTarget?.blur();
+  const handleSelectHour = (
+    event: MouseEvent<HTMLButtonElement>,
+    hour: number,
+  ) => {
+    event.currentTarget?.blur();
+    onSelectHour(hour);
+  };
+
+  const handleKeyDown = (
+    event: KeyboardEvent<HTMLButtonElement>,
+    currentIndex: number,
+  ) => {
+    const buttons = wrapperRef.current?.querySelectorAll('button');
+    if (!buttons) return;
+
+    let nextIndex = currentIndex;
+
+    if (event.key === 'ArrowDown' || (event.key === 'Tab' && !event.shiftKey)) {
+      event.preventDefault();
+      nextIndex = (currentIndex + 1) % maxHours;
+    } else if (
+      event.key === 'ArrowUp' ||
+      (event.key === 'Tab' && event.shiftKey)
+    ) {
+      event.preventDefault();
+      nextIndex = (currentIndex - 1 + maxHours) % maxHours;
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+      // Select the hour
+      const hour = format === '12' ? currentIndex + 1 : currentIndex;
       onSelectHour(hour);
-    },
-    [onSelectHour],
-  );
+      // Move focus to minutes list
+      const minutesList = document.querySelector('[aria-label="minutes"]');
+      const activeMinuteButton = minutesList?.querySelector(
+        'li[data-active="true"] button',
+      ) as HTMLButtonElement;
+      activeMinuteButton?.focus();
+      return;
+    }
 
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent<HTMLButtonElement>, currentIndex: number) => {
-      const buttons = wrapperRef.current?.querySelectorAll('button');
-      if (!buttons) return;
-
-      let nextIndex = currentIndex;
-
-      if (
-        event.key === 'ArrowDown' ||
-        (event.key === 'Tab' && !event.shiftKey)
-      ) {
-        event.preventDefault();
-        nextIndex = (currentIndex + 1) % maxHours;
-      } else if (
-        event.key === 'ArrowUp' ||
-        (event.key === 'Tab' && event.shiftKey)
-      ) {
-        event.preventDefault();
-        nextIndex = (currentIndex - 1 + maxHours) % maxHours;
-      } else if (event.key === 'Enter') {
-        event.preventDefault();
-        // Select the hour
-        const hour = format === '12' ? currentIndex + 1 : currentIndex;
-        onSelectHour(hour);
-        // Move focus to minutes list
-        const minutesList = document.querySelector('[aria-label="minutes"]');
-        const activeMinuteButton = minutesList?.querySelector(
-          'li[data-active="true"] button',
-        ) as HTMLButtonElement;
-        activeMinuteButton?.focus();
-        return;
-      }
-
-      if (nextIndex !== currentIndex) {
-        const nextButton = buttons[nextIndex] as HTMLButtonElement;
-        nextButton?.focus();
-      }
-    },
-    [format, maxHours, onSelectHour],
-  );
+    if (nextIndex !== currentIndex) {
+      const nextButton = buttons[nextIndex] as HTMLButtonElement;
+      nextButton?.focus();
+    }
+  };
 
   // Scroll on initial mount
   useEffect(() => {

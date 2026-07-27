@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 
 import { SlideDirection } from '../CalendarPanel.types';
 import { SINGLE_MONTH_WIDTH, MS_PER_MONTH } from '../constants';
@@ -236,7 +236,7 @@ export const useIndependentCarousel = ({
   ]);
 
   // Calculate transforms
-  const getLeftTransform = useCallback(() => {
+  const getLeftTransform = () => {
     let offset = -SINGLE_MONTH_WIDTH;
     if (isLeftAnimating && leftAnimateTransform) {
       if (leftSlideDirection === 'left') {
@@ -246,9 +246,9 @@ export const useIndependentCarousel = ({
       }
     }
     return `translateX(${offset}px)`;
-  }, [isLeftAnimating, leftAnimateTransform, leftSlideDirection]);
+  };
 
-  const getRightTransform = useCallback(() => {
+  const getRightTransform = () => {
     let offset = -SINGLE_MONTH_WIDTH;
     if (isRightAnimating && rightAnimateTransform) {
       if (rightSlideDirection === 'left') {
@@ -258,7 +258,7 @@ export const useIndependentCarousel = ({
       }
     }
     return `translateX(${offset}px)`;
-  }, [isRightAnimating, rightAnimateTransform, rightSlideDirection]);
+  };
 
   // Months for carousels
   const leftPrevMonth = getPrevMonth(leftInternalMonth);

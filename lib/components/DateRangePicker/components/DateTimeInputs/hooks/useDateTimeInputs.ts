@@ -47,10 +47,7 @@ export const useDateTimeInputs = ({
     setTime,
   } = useDateRangePicker();
 
-  const restrictions = useMemo(
-    () => ({ blockedDays, blockedMonths, minDate, maxDate }),
-    [blockedDays, blockedMonths, minDate, maxDate],
-  );
+  const restrictions = { blockedDays, blockedMonths, minDate, maxDate };
 
   // Track if inputs are focused (typing mode)
   const isStartTypingRef = useRef(false);
@@ -80,7 +77,7 @@ export const useDateTimeInputs = ({
   }, [range.to]);
 
   // Start date handlers
-  const handleStartDateFocus = useCallback(() => {
+  const handleStartDateFocus = () => {
     isStartTypingRef.current = true;
     setStartDateError(undefined);
     if (range.from) {
@@ -93,82 +90,68 @@ export const useDateTimeInputs = ({
         setStartDateValue(formatDateToString(parsed));
       }
     }
-  }, [range.from, startDateValue]);
+  };
 
-  const handleStartDateChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const rawValue = e.target.value;
-      const formattedValue = autoFormatDateInput(rawValue, startDateValue);
-      setStartDateValue(formattedValue);
-      setStartDateError(undefined);
+  const handleStartDateChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const rawValue = e.target.value;
+    const formattedValue = autoFormatDateInput(rawValue, startDateValue);
+    setStartDateValue(formattedValue);
+    setStartDateError(undefined);
 
-      const parsed = parseDateString(formattedValue);
-      if (parsed) {
-        if (isDateSelectable(parsed, restrictions)) {
-          const endParsed =
-            range.to ||
-            parseDateString(endDateValue) ||
-            parseDisplayDateString(endDateValue);
-          if (endParsed && parsed > endParsed) {
-            return;
-          }
-          setRange({ ...range, from: parsed });
+    const parsed = parseDateString(formattedValue);
+    if (parsed) {
+      if (isDateSelectable(parsed, restrictions)) {
+        const endParsed =
+          range.to ||
+          parseDateString(endDateValue) ||
+          parseDisplayDateString(endDateValue);
+        if (endParsed && parsed > endParsed) {
+          return;
         }
+        setRange({ ...range, from: parsed });
       }
-    },
-    [startDateValue, endDateValue, range, setRange, restrictions],
-  );
+    }
+  };
 
-  const handleStartDateBlur = useCallback(
-    (e: FocusEvent<HTMLInputElement>) => {
-      const value = e.currentTarget.value.trim();
+  const handleStartDateBlur = (e: FocusEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value.trim();
 
-      if (value === '') {
-        isStartTypingRef.current = false;
-        setStartDateError(undefined);
-        setStartDateValue('');
-        setRange({ ...range, from: undefined });
-        return;
-      }
-
-      const parsed = parseDateString(value);
-      if (!parsed) {
-        setStartDateError(errorInvalidDate);
-        return;
-      }
-
-      if (!isDateSelectable(parsed, restrictions)) {
-        setStartDateError(errorDateNotAvailable);
-        return;
-      }
-
-      const endParsed =
-        parseDateString(endDateValue) || parseDisplayDateString(endDateValue);
-      if (endParsed && parsed > endParsed) {
-        setStartDateError(errorStartAfterEnd);
-        isEndTypingRef.current = true;
-        setRange({ from: undefined, to: undefined });
-        return;
-      }
-
+    if (value === '') {
       isStartTypingRef.current = false;
       setStartDateError(undefined);
-      setRange({ ...range, from: parsed });
-      setStartDateValue(formatDateToDisplayString(parsed));
-    },
-    [
-      range,
-      setRange,
-      restrictions,
-      errorInvalidDate,
-      errorDateNotAvailable,
-      errorStartAfterEnd,
-      endDateValue,
-    ],
-  );
+      setStartDateValue('');
+      setRange({ ...range, from: undefined });
+      return;
+    }
+
+    const parsed = parseDateString(value);
+    if (!parsed) {
+      setStartDateError(errorInvalidDate);
+      return;
+    }
+
+    if (!isDateSelectable(parsed, restrictions)) {
+      setStartDateError(errorDateNotAvailable);
+      return;
+    }
+
+    const endParsed =
+      parseDateString(endDateValue) || parseDisplayDateString(endDateValue);
+    if (endParsed && parsed > endParsed) {
+      setStartDateError(errorStartAfterEnd);
+      isEndTypingRef.current = true;
+      setRange({ from: undefined, to: undefined });
+      return;
+    }
+
+    isStartTypingRef.current = false;
+    setStartDateError(undefined);
+    setRange({ ...range, from: parsed });
+    setStartDateValue(formatDateToDisplayString(parsed));
+  };
 
   // End date handlers
-  const handleEndDateFocus = useCallback(() => {
+  const handleEndDateFocus = () => {
     isEndTypingRef.current = true;
     setEndDateError(undefined);
     if (range.to) {
@@ -180,80 +163,65 @@ export const useDateTimeInputs = ({
         setEndDateValue(formatDateToString(parsed));
       }
     }
-  }, [range.to, endDateValue]);
+  };
 
-  const handleEndDateChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const rawValue = e.target.value;
-      const formattedValue = autoFormatDateInput(rawValue, endDateValue);
-      setEndDateValue(formattedValue);
-      setEndDateError(undefined);
+  const handleEndDateChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const rawValue = e.target.value;
+    const formattedValue = autoFormatDateInput(rawValue, endDateValue);
+    setEndDateValue(formattedValue);
+    setEndDateError(undefined);
 
-      const parsed = parseDateString(formattedValue);
-      if (parsed) {
-        if (isDateSelectable(parsed, restrictions)) {
-          const startParsed =
-            range.from ||
-            parseDateString(startDateValue) ||
-            parseDisplayDateString(startDateValue);
-          if (startParsed && parsed < startParsed) {
-            return;
-          }
-          setRange({ ...range, to: parsed });
+    const parsed = parseDateString(formattedValue);
+    if (parsed) {
+      if (isDateSelectable(parsed, restrictions)) {
+        const startParsed =
+          range.from ||
+          parseDateString(startDateValue) ||
+          parseDisplayDateString(startDateValue);
+        if (startParsed && parsed < startParsed) {
+          return;
         }
+        setRange({ ...range, to: parsed });
       }
-    },
-    [endDateValue, startDateValue, range, setRange, restrictions],
-  );
+    }
+  };
 
-  const handleEndDateBlur = useCallback(
-    (e: FocusEvent<HTMLInputElement>) => {
-      const value = e.currentTarget.value.trim();
+  const handleEndDateBlur = (e: FocusEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value.trim();
 
-      if (value === '') {
-        isEndTypingRef.current = false;
-        setEndDateError(undefined);
-        setEndDateValue('');
-        setRange({ ...range, to: undefined });
-        return;
-      }
-
-      const parsed = parseDateString(value);
-      if (!parsed) {
-        setEndDateError(errorInvalidDate);
-        return;
-      }
-
-      if (!isDateSelectable(parsed, restrictions)) {
-        setEndDateError(errorDateNotAvailable);
-        return;
-      }
-
-      const startParsed =
-        parseDateString(startDateValue) ||
-        parseDisplayDateString(startDateValue);
-      if (startParsed && parsed < startParsed) {
-        setEndDateError(errorEndBeforeStart);
-        isStartTypingRef.current = true;
-        setRange({ from: undefined, to: undefined });
-        return;
-      }
-
+    if (value === '') {
       isEndTypingRef.current = false;
       setEndDateError(undefined);
-      setRange({ ...range, to: parsed });
-      setEndDateValue(formatDateToDisplayString(parsed));
-    },
-    [
-      range,
-      setRange,
-      restrictions,
-      errorInvalidDate,
-      errorDateNotAvailable,
-      errorEndBeforeStart,
-      startDateValue,
-    ],
-  );
+      setEndDateValue('');
+      setRange({ ...range, to: undefined });
+      return;
+    }
+
+    const parsed = parseDateString(value);
+    if (!parsed) {
+      setEndDateError(errorInvalidDate);
+      return;
+    }
+
+    if (!isDateSelectable(parsed, restrictions)) {
+      setEndDateError(errorDateNotAvailable);
+      return;
+    }
+
+    const startParsed =
+      parseDateString(startDateValue) || parseDisplayDateString(startDateValue);
+    if (startParsed && parsed < startParsed) {
+      setEndDateError(errorEndBeforeStart);
+      isStartTypingRef.current = true;
+      setRange({ from: undefined, to: undefined });
+      return;
+    }
+
+    isEndTypingRef.current = false;
+    setEndDateError(undefined);
+    setRange({ ...range, to: parsed });
+    setEndDateValue(formatDateToDisplayString(parsed));
+  };
 
   // Time handlers
   const handleStartTimeChange = useCallback(
