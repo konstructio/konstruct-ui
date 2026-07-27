@@ -226,7 +226,7 @@ Test files: `ComponentName.test.tsx`
 ## Coding Conventions
 
 - **Indentation**: 2 spaces (Prettier, `useTabs: false`)
-- **Comments**: do not add code comments unless strictly necessary — only to state a non-obvious constraint the code itself can't show. Never add comments that narrate what the next line does or why a change is correct.
+- **Comments**: do not add code comments unless strictly necessary — only to state a non-obvious constraint the code itself can't show. Never add comments that narrate what the next line does or why a change is correct. Rationale for a change (why a selector moved, why a class is prefixed, what regression it fixes) belongs in the commit message or PR description, never in the source. Default to zero new comments; if you catch yourself explaining a decision, delete the comment and put it in the commit body. This applies to CSS and stylesheet files too.
 - **Quotes**: single quotes
 - **Line width**: 80 characters (Prettier default)
 - **TypeScript**: strict mode (`strict`, `noUnusedLocals`, `noUnusedParameters`)
