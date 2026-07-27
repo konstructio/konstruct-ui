@@ -11,6 +11,7 @@ import {
 } from 'react';
 
 import { Typography } from '@/components/Typography/Typography';
+import { useClickOutside } from '@/hooks';
 import { cn } from '@/utils';
 
 import { useTimePickerContext } from '../../contexts';
@@ -184,6 +185,12 @@ export const Wrapper: FC<WrapperProps> = ({
     [format, inputValue, setTimeDirectly, setIsTyping],
   );
 
+  const handleClickOutside = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
+  useClickOutside(wrapperRef, handleClickOutside);
+
   useEffect(() => {
     const controller = new AbortController();
 
@@ -192,16 +199,6 @@ export const Wrapper: FC<WrapperProps> = ({
         setIsOpen(false);
       }
     };
-
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!wrapperRef.current?.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside, {
-      signal: controller.signal,
-    });
 
     document.addEventListener('keydown', handleKeyboard, {
       signal: controller.signal,

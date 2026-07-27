@@ -28,39 +28,33 @@ npm install @konstructio/ui
 
 ---
 
-### Step 2: Install Tailwind CSS
+### Step 2: Install Tailwind CSS v4
 
-If you don't already have Tailwind CSS installed, follow the official installation guide from the [Tailwind CSS documentation](https://tailwindcss.com/docs/installation). Ensure that Tailwind is properly configured in your project.
+Tailwind CSS v4 is a peer dependency. If you don't already have it installed, follow the official [Tailwind CSS installation guide](https://tailwindcss.com/docs/installation).
 
 ---
 
-### Step 3: Import and Configure the Plugin
+### Step 3: Import the theme styles
 
-To use the components provided by `@konstructio/ui`, you need to import the plugin and add it to your Tailwind CSS configuration file.
+In your global CSS file, import Tailwind and the library theme, plus the brand theme you need:
 
-Modify your Tailwind configuration file (usually `tailwind.config.js` or `tailwind.config.ts`) as follows:
-
-```ts
-import { konstructPlugin } from '@konstructio/ui';
-
-const config: Config = {
-  plugins: [konstructPlugin],
-};
+```css
+@import 'tailwindcss';
+@import '@konstructio/ui/ui/theme.css';
+@import '@konstructio/ui/ui/utilities.css';
+@import '@konstructio/ui/ui/civo-theme.css'; /* or kubefirst-theme.css */
 ```
 
+Component styles are bundled with the components and injected automatically — no extra CSS import is needed.
+
 ---
 
-### Step 4: Include `@konstructio/ui` in Tailwind Content
+### Step 4: Include `@konstructio/ui` in Tailwind's source detection
 
-To ensure Tailwind parses the components from `@konstructio/ui`, add its path to the `content` array in your Tailwind configuration file:
+So Tailwind generates the utility classes used by the components, add the package to your global CSS with `@source` (the path is relative to your CSS file):
 
-```ts
-const config: Config = {
-  content: [
-    // Other content paths
-    './node_modules/@konstructio/ui/dist/**/*.{js,ts,jsx,tsx}',
-  ],
-};
+```css
+@source '../node_modules/@konstructio/ui/dist';
 ```
 
 ## Final Steps

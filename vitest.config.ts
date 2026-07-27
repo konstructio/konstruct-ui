@@ -18,7 +18,8 @@ export default defineConfig({
     coverage: {
       include: ['lib'],
       exclude: [
-        'lib/plugins/**',
+        'lib/assets/**',
+        'lib/icons.ts',
         'lib/**/*.stories.*',
         'lib/**/*/index.*',
         'lib/**/*.test.*',

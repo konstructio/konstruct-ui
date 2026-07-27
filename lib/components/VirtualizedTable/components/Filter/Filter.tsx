@@ -13,6 +13,7 @@ import {
   VirtualizedTableEventDetail,
 } from '../../events';
 import { FilterConfig } from '../../VirtualizedTable.types';
+import { getTableId } from '../../utils';
 
 import { Option, Props } from './Filter.types';
 
@@ -28,7 +29,7 @@ export const Filter: FC<Props> = ({
   closeOnApply = true,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const tableId = Array.isArray(id) ? id.join(',') : String(id);
+  const tableId = getTableId(id);
   const {
     termOfSearch,
     multiselectSelected,

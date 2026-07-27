@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useId, useMemo, useState } from 'react';
+import { useCallback, useId, useMemo, useState } from 'react';
 
 import { useFilterContext } from '@/components/Filter/contexts';
-import { FilterEvent, sendOpenFilterEvent } from '@/components/Filter/events';
+import { sendOpenFilterEvent } from '@/components/Filter/events';
+import { useFilterDropdownSync } from '@/components/Filter/hooks';
 import { Option } from '@/components/Filter/Filter.types';
 
 import {
@@ -13,49 +14,19 @@ export const useBadgeMultiSelect = ({
   onApply,
   options = [],
 }: Pick<BadgeMultiSelectProps, 'onApply' | 'options'>) => {
-  const { closeOnApply, resetScope } = useFilterContext();
+  const { closeOnApply } = useFilterContext();
   const id = useId();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptions[]>([]);
 
-  useEffect(() => {
-    const controller = new AbortController();
+  const handleClose = useCallback(() => setIsOpen(false), []);
 
-    document.addEventListener(
-      FilterEvent.OPEN,
-      (event: Event) => {
-        const customEvent = event as CustomEvent<string>;
+  const clearSelection = useCallback(() => {
+    setSelectedOptions([]);
+    onApply?.([]);
+  }, [onApply]);
 
-        if (customEvent.detail !== id) {
-          setIsOpen(false);
-        }
-      },
-      {
-        signal: controller.signal,
-      },
-    );
-
-    document.addEventListener(
-      FilterEvent.RESET,
-      (event: Event) => {
-        const { detail } = event as CustomEvent<string | null | undefined>;
-
-        if (detail != null && detail !== resetScope) {
-          return;
-        }
-
-        setSelectedOptions([]);
-        onApply?.([]);
-      },
-      {
-        signal: controller.signal,
-      },
-    );
-
-    return () => {
-      controller.abort();
-    };
-  }, [id, onApply, resetScope]);
+  useFilterDropdownSync({ id, onClose: handleClose, onReset: clearSelection });
 
   const handleOpenChange = useCallback(
     (open: boolean) => {
@@ -70,8 +41,6 @@ export const useBadgeMultiSelect = ({
     },
     [id],
   );
-
-  const handleClose = useCallback(() => setIsOpen(false), []);
 
   const handleSelectOption = useCallback(
     (option: Option, checked: boolean) => {
@@ -96,13 +65,12 @@ export const useBadgeMultiSelect = ({
   );
 
   const handleResetOptions = useCallback(() => {
-    setSelectedOptions([]);
-    onApply?.([]);
+    clearSelection();
 
     if (closeOnApply) {
       setIsOpen(false);
     }
-  }, [closeOnApply, onApply]);
+  }, [clearSelection, closeOnApply]);
 
   const handleApplyOptions = useCallback(() => {
     const newOptions = selectedOptions
@@ -145,26 +113,6 @@ export const useBadgeMultiSelect = ({
     },
     [],
   );
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    document.addEventListener(
-      'visibilitychange',
-      () => {
-        if (document.hidden) {
-          handleClose();
-        }
-      },
-      {
-        signal: controller.signal,
-      },
-    );
-
-    return () => {
-      controller.abort();
-    };
-  }, [handleClose]);
 
   return {
     isOpen,

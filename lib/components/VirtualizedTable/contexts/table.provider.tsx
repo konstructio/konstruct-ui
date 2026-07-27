@@ -24,6 +24,7 @@ import { cn } from '@/utils';
 
 import { RowData, RowDataWithMeta } from '../VirtualizedTable.types';
 import { DEFAULT_PAGE_SIZE } from '../constants';
+import { getTableId } from '../utils';
 
 import {
   VirtualizedTableEvent,
@@ -312,7 +313,7 @@ export const TableProvider = <TData extends RowData = RowData>({
   useEffect(() => {
     if (!enableExpandedRow) return;
 
-    const tableId = Array.isArray(id) ? id.join(',') : String(id);
+    const tableId = getTableId(id);
     const controller = new AbortController();
 
     const handleExpand = (e: Event) => {
@@ -404,7 +405,7 @@ export const TableProvider = <TData extends RowData = RowData>({
       return;
     }
 
-    const tableId = Array.isArray(id) ? id.join(',') : String(id);
+    const tableId = getTableId(id);
     const controller = new AbortController();
 
     const handleRefresh = (e: Event) => {

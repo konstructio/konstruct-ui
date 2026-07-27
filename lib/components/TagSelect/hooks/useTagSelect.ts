@@ -1,10 +1,18 @@
 import { ComponentRef, useCallback, useEffect, useRef } from 'react';
 
+import { useClickOutside } from '@/hooks';
+
 import { useTagSelect as useTagSelectContext } from '../contexts';
 
 export const useTagSelect = () => {
   const wrapperRef = useRef<ComponentRef<'div'>>(null);
   const { onOpen } = useTagSelectContext();
+
+  const handleClickOutside = useCallback(() => {
+    onOpen(false);
+  }, [onOpen]);
+
+  useClickOutside(wrapperRef, handleClickOutside);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -15,24 +23,14 @@ export const useTagSelect = () => {
       }
     };
 
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!wrapperRef.current?.contains(event.target as Node)) {
-        onOpen(false);
-      }
-    };
-
     document.addEventListener('keydown', handleKeyboard, {
-      signal: controller.signal,
-    });
-
-    document.addEventListener('mousedown', handleClickOutside, {
       signal: controller.signal,
     });
 
     return () => {
       controller.abort();
     };
-  }, [onOpen, wrapperRef]);
+  }, [onOpen]);
 
   const handleOpen = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
