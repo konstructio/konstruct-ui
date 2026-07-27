@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.105](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.105) (2026-07-27)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.104...0.1.2-alpha.105)
+
+**Merged pull requests:**
+
+- 🐛 fix: stop the Select reopening when a Drawer or Modal returns focus [\#686](https://github.com/konstructio/konstruct-ui/pull/686) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.104](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.104) (2026-07-27)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.103...0.1.2-alpha.104)
