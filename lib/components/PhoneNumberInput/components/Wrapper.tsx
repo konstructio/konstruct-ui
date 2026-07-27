@@ -7,6 +7,7 @@ import {
   forwardRef,
   ForwardRefExoticComponent,
   RefAttributes,
+  RefObject,
   useCallback,
   useEffect,
   useId,
@@ -67,7 +68,7 @@ export const Wrapper: ForwardRefExoticComponent<
     } = usePhoneNumberContext();
     const hasError = typeof error === 'string' && error.length >= 0;
 
-    const inputRef = useMask({
+    const inputRef: RefObject<ComponentRef<'input'> | null> = useMask({
       mask: getPhoneMask(selectedCountry),
       replacement: { _: /\d/ },
     });
@@ -129,6 +130,17 @@ export const Wrapper: ForwardRefExoticComponent<
       }
     }, [selectedCountry.code]);
 
+    const setInputRef = useCallback(
+      (node: ComponentRef<'input'> | null) => {
+        if (node === null) {
+          inputRef.current?.blur();
+        }
+
+        inputRef.current = node;
+      },
+      [inputRef],
+    );
+
     return (
       <div className="w-full flex flex-col gap-2">
         {label ? (
@@ -164,7 +176,7 @@ export const Wrapper: ForwardRefExoticComponent<
 
             <input
               id={label ? id : undefined}
-              ref={inputRef}
+              ref={setInputRef}
               name={name}
               autoComplete="off"
               className={cn(
