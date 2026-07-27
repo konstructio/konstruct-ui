@@ -100,6 +100,26 @@ describe('PhoneNumberInput', () => {
     expect(querySearchInput()).not.toBeInTheDocument();
   });
 
+  it('should not leave timers running when unmounted while focused', () => {
+    vi.useFakeTimers();
+
+    try {
+      const { unmount } = render(<PhoneNumberInput {...defaultProps} />);
+
+      screen.getByRole('textbox', { name: 'Phone Number' }).focus();
+      vi.advanceTimersByTime(50);
+
+      expect(vi.getTimerCount()).toBeGreaterThan(0);
+
+      unmount();
+      vi.advanceTimersByTime(50);
+
+      expect(vi.getTimerCount()).toBe(0);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it("should doesn't have violations", async () => {
     const { component } = setup();
 
