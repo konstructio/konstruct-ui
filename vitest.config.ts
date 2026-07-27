@@ -29,6 +29,12 @@ export default defineConfig({
         'lib/styles.ts',
         'lib/vite-env.d.ts',
       ],
+      thresholds: {
+        statements: 63,
+        branches: 56,
+        functions: 60,
+        lines: 64,
+      },
     },
   },
   resolve: {
