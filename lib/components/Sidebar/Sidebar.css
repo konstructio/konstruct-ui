@@ -137,6 +137,26 @@ aside.konstruct-sidebar[data-mode='collapsed'] {
 }
 
 /*
+ * Hidden logo in collapsed mode (the default, unless `showOnCollapse` is
+ * set). The logo content hides but a direct-child CollapseTrigger stays
+ * visible, and the header keeps vertical padding so the trigger doesn't
+ * touch the top edge.
+ */
+.konstruct-sidebar[data-mode='collapsed']
+  [data-konstruct-sidebar-logo][data-hide-on-collapse]
+  > *:not([data-konstruct-sidebar-collapse-trigger]) {
+  display: none;
+}
+.konstruct-sidebar[data-mode='collapsed']
+  [data-konstruct-sidebar-logo][data-hide-on-collapse] {
+  margin-bottom: 0;
+  padding: var(
+    --konstruct-sidebar-logo-padding-collapsed,
+    var(--konstruct-sidebar-logo-padding, 1.25rem 0)
+  );
+}
+
+/*
  * Auto-inserted separator between consecutive NavigationGroups.
  * Mirrors the Tailwind variant (`h-px w-full bg-white/20 my-3`) as plain
  * CSS so it survives un-layered overrides from MFE bundles.

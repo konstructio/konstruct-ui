@@ -13,6 +13,7 @@ import { Theme } from '@/domain/theme';
 
 import { Typography } from '../Typography/Typography';
 import {
+  CollapseTrigger,
   Footer,
   Label,
   Logo,
@@ -88,9 +89,10 @@ const meta = {
 const renderSidebarContent = (
   theme: Theme,
   onThemeChange: (next: Theme) => void,
+  showLogoOnCollapse = false,
 ) => (
   <>
-    <Logo>
+    <Logo showOnCollapse={showLogoOnCollapse}>
       <a className="flex items-center w-full">
         <img
           className="hidden group-data-[mode=expanded]/sidebar:block w-auto h-auto max-w-full"
@@ -109,6 +111,7 @@ const renderSidebarContent = (
       >
         v1.11.1
       </Typography>
+      <CollapseTrigger className="group-data-[mode=expanded]/sidebar:absolute group-data-[mode=expanded]/sidebar:right-4 group-data-[mode=expanded]/sidebar:top-5" />
     </Logo>
 
     <Navigation className="mt-4 group-data-[mode=expanded]/sidebar:mt-0">
@@ -181,6 +184,18 @@ export const CollapsedMode = {
     return (
       <SidebarPrimitive theme={theme} mode="collapsed">
         {renderSidebarContent(theme, setTheme)}
+      </SidebarPrimitive>
+    );
+  },
+} satisfies Story;
+
+export const CollapsedModeWithVisibleLogo = {
+  render: function CollapsedVisibleLogoStory() {
+    const [theme, setTheme] = useState<Theme>('kubefirst');
+
+    return (
+      <SidebarPrimitive theme={theme} mode="collapsed">
+        {renderSidebarContent(theme, setTheme, true)}
       </SidebarPrimitive>
     );
   },

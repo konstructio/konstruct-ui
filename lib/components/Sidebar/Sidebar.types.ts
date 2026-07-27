@@ -7,6 +7,7 @@ import { Theme } from '@/domain/theme';
 import { SidebarModeProp } from './hooks/useSidebarMode';
 import { wrapperSiderbarVariants } from './Sidebar.variants';
 import {
+  CollapseTriggerProps,
   FooterProps,
   LabelProps,
   LogoProps,
@@ -135,6 +136,7 @@ export type SidebarProps = Props;
  * Sidebar compound component type with sub-components.
  */
 export type SidebarChildrenProps = {
+  CollapseTrigger: FC<CollapseTriggerProps>;
   Footer: FC<FooterProps>;
   Label: FC<LabelProps>;
   Logo: FC<LogoProps>;
