@@ -14,6 +14,8 @@ export const FlagContent: FC = () => {
   return (
     <button
       type="button"
+      aria-label={`Select country, ${selectedCountry.name}`}
+      aria-expanded={isOpenSelector}
       className="flex items-center gap-2 cursor-pointer"
       onClick={() => handleOpenSelector(!isOpenSelector)}
     >

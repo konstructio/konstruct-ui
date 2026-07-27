@@ -134,7 +134,7 @@ export const Wrapper: ForwardRefExoticComponent<
         {label ? (
           <div className={cn(labelWrapperClassName)}>
             <label
-              id={id}
+              htmlFor={id}
               className={labelVariants({ className: labelClassName })}
               onClick={() => !disabled && inputRef.current?.focus()}
             >
