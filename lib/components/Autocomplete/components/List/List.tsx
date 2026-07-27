@@ -5,7 +5,6 @@ import { useNavigationUlList } from '../../hooks';
 
 import { Props } from './List.types';
 import {
-  buttonVariants,
   emptyListVariants,
   listItemVariants,
   listVariants,
@@ -44,17 +43,15 @@ export const List: FC<Props> = ({
         <li
           key={value}
           role="option"
+          aria-selected={false}
           tabIndex={0}
-          className={cn(listItemVariants())}
+          className={cn(
+            listItemVariants(),
+            'cursor-pointer px-3 py-1.5 w-full text-left',
+          )}
+          onClick={() => onClick(value)}
         >
-          <button
-            type="button"
-            role="button"
-            className={cn(buttonVariants())}
-            onClick={() => onClick(value)}
-          >
-            {value}
-          </button>
+          {value}
         </li>
       ))}
     </ul>

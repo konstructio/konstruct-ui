@@ -1,3 +1,4 @@
+import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import type { FC } from 'react';
 
 import { cn } from '@/utils';
@@ -9,6 +10,7 @@ import {
 } from './ProgressBar.variants';
 
 export const ProgressBar: FC<Props> = ({
+  ariaLabel,
   className,
   fillClassName,
   leftContent,
@@ -39,7 +41,14 @@ export const ProgressBar: FC<Props> = ({
         </div>
       )}
 
-      <div className={progressBarTrackVariants({ className: trackClassName })}>
+      <div
+        className={progressBarTrackVariants({ className: trackClassName })}
+        role="progressbar"
+        aria-label={ariaLabel}
+        aria-valuenow={clampedPercent}
+        aria-valuemin={0}
+        aria-valuemax={100}
+      >
         <div
           className={progressBarFillVariants({
             status: fillClassName ? null : status,
@@ -47,6 +56,7 @@ export const ProgressBar: FC<Props> = ({
           })}
           style={{ width: `${clampedPercent}%` }}
         />
+        {status && <VisuallyHidden>{status}</VisuallyHidden>}
       </div>
     </div>
   );

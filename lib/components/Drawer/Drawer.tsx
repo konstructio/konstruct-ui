@@ -3,6 +3,7 @@ import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { FC, useId, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { X as Close } from 'react-feather';
+import FocusLock from 'react-focus-lock';
 import { RemoveScroll } from 'react-remove-scroll';
 
 import { cn } from '@/utils';
@@ -123,54 +124,56 @@ const Drawer: FC<Props> & {
           />
 
           {/* Drawer panel */}
-          <div
-            className={cn(
-              drawerVariants({ position }),
-              translateClass,
-              classNames?.panel,
-              className,
-            )}
-            style={{ width: canResize ? width : defaultWidth }}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby={headerId}
-          >
-            {/* Resize handle */}
-            {canResize && (
-              <button
-                type="button"
-                aria-label="Resize drawer"
-                className={cn(
-                  resizeHandleVariants({ position }),
-                  classNames?.resizeHandle,
-                )}
-                onMouseDown={handleMouseDown}
-                onKeyDown={handleKeyDown}
-              />
-            )}
-
-            {/* Close button */}
-            {showCloseButton && (
-              <button
-                className={cn(buttonCloseVariants(), classNames?.closeButton)}
-                onClick={onClose}
-                type="button"
-              >
-                <Close size={20} />
-                <VisuallyHidden>Dismiss drawer</VisuallyHidden>
-              </button>
-            )}
-
-            {/* Content */}
+          <FocusLock returnFocus className="contents">
             <div
               className={cn(
-                'flex flex-1 flex-col h-full overflow-hidden',
-                classNames?.content,
+                drawerVariants({ position }),
+                translateClass,
+                classNames?.panel,
+                className,
               )}
+              style={{ width: canResize ? width : defaultWidth }}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={headerId}
             >
-              {children}
+              {/* Resize handle */}
+              {canResize && (
+                <button
+                  type="button"
+                  aria-label="Resize drawer"
+                  className={cn(
+                    resizeHandleVariants({ position }),
+                    classNames?.resizeHandle,
+                  )}
+                  onMouseDown={handleMouseDown}
+                  onKeyDown={handleKeyDown}
+                />
+              )}
+
+              {/* Close button */}
+              {showCloseButton && (
+                <button
+                  className={cn(buttonCloseVariants(), classNames?.closeButton)}
+                  onClick={onClose}
+                  type="button"
+                >
+                  <Close size={20} />
+                  <VisuallyHidden>Dismiss drawer</VisuallyHidden>
+                </button>
+              )}
+
+              {/* Content */}
+              <div
+                className={cn(
+                  'flex flex-1 flex-col h-full overflow-hidden',
+                  classNames?.content,
+                )}
+              >
+                {children}
+              </div>
             </div>
-          </div>
+          </FocusLock>
         </div>
       </RemoveScroll>
     </DrawerContext.Provider>

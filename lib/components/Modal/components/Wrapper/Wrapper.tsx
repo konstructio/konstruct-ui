@@ -2,6 +2,7 @@ import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { motion } from 'motion/react';
 import { Children, FC, isValidElement } from 'react';
 import { X as Close } from 'react-feather';
+import FocusLock from 'react-focus-lock';
 import { RemoveScroll } from 'react-remove-scroll';
 
 import { Modal } from '@/components/Modal/Modal';
@@ -56,37 +57,39 @@ export const Wrapper: FC<Props> = ({
           role="presentation"
         />
 
-        <motion.div
-          className={cn(
-            modalVariants({
-              className,
-            }),
-          )}
-          role="dialog"
-          aria-modal="true"
-          layout="size"
-          transition={transition ?? { duration: 0.25, ease: 'easeInOut' }}
-        >
-          {header}
+        <FocusLock returnFocus className="contents">
+          <motion.div
+            className={cn(
+              modalVariants({
+                className,
+              }),
+            )}
+            role="dialog"
+            aria-modal="true"
+            layout="size"
+            transition={transition ?? { duration: 0.25, ease: 'easeInOut' }}
+          >
+            {header}
 
-          {showCloseButton && (
-            <button
-              className={cn(
-                buttonCloseVariants({
-                  className: buttonCloseClassName,
-                }),
-              )}
-              onClick={onClose}
-            >
-              <Close />
-              <VisuallyHidden>Dismiss modal</VisuallyHidden>
-            </button>
-          )}
+            {showCloseButton && (
+              <button
+                className={cn(
+                  buttonCloseVariants({
+                    className: buttonCloseClassName,
+                  }),
+                )}
+                onClick={onClose}
+              >
+                <Close />
+                <VisuallyHidden>Dismiss modal</VisuallyHidden>
+              </button>
+            )}
 
-          {body ?? others}
+            {body ?? others}
 
-          {footer}
-        </motion.div>
+            {footer}
+          </motion.div>
+        </FocusLock>
       </div>
     </RemoveScroll>
   );

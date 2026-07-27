@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { useState } from 'react';
@@ -146,5 +146,46 @@ describe('Modal', () => {
     const modal = await screen.findByRole('dialog');
 
     expect(themeContainer).toContainElement(modal);
+  });
+
+  it('should move focus into the modal when it opens', async () => {
+    const { user, getButton, getCloseButton } = setup();
+
+    await user.click(await getButton());
+
+    const closeButton = await getCloseButton();
+
+    await waitFor(() => {
+      expect(closeButton).toHaveFocus();
+    });
+  });
+
+  it('should keep focus inside the modal when tabbing', async () => {
+    const { user, getButton, getCloseButton } = setup();
+
+    await user.click(await getButton());
+
+    const closeButton = await getCloseButton();
+
+    await waitFor(() => {
+      expect(closeButton).toHaveFocus();
+    });
+
+    await user.tab();
+
+    expect(closeButton).toHaveFocus();
+  });
+
+  it('should restore focus to the trigger when the modal closes', async () => {
+    const { user, getButton, getCloseButton } = setup();
+
+    const trigger = await getButton();
+
+    await user.click(trigger);
+    await user.click(await getCloseButton());
+
+    await waitFor(() => {
+      expect(trigger).toHaveFocus();
+    });
   });
 });

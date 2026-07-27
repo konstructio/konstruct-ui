@@ -72,9 +72,9 @@ export const useNavigationUlList = ({
             break;
           }
 
-          case 'Enter': {
-            const button = items[index.current].querySelector('button');
-            button?.click();
+          case 'Enter':
+          case ' ': {
+            items[index.current].click();
 
             break;
           }
