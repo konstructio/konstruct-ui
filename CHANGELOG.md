@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.1.2-alpha.104](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.104) (2026-07-27)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.103...0.1.2-alpha.104)
+
+**Merged pull requests:**
+
+- 🐛 fix: let consumers retheme Sidebar options through className [\#685](https://github.com/konstructio/konstruct-ui/pull/685) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add Sidebar collapse trigger and logo visibility options [\#679](https://github.com/konstructio/konstruct-ui/pull/679) ([jairoFernandez](https://github.com/jairoFernandez))
+- ♻️ refactor: remove useCallback/useMemo that provide no real benefit [\#678](https://github.com/konstructio/konstruct-ui/pull/678) ([futjesus](https://github.com/futjesus))
+- ✅ test: shared render helper, axe backfill and role-based queries [\#677](https://github.com/konstructio/konstruct-ui/pull/677) ([futjesus](https://github.com/futjesus))
+- ⬆️ chore: update dependencies to latest compatible versions [\#676](https://github.com/konstructio/konstruct-ui/pull/676) ([futjesus](https://github.com/futjesus))
+- 💄 refactor: replace arbitrary Tailwind values with scale and theme tokens [\#675](https://github.com/konstructio/konstruct-ui/pull/675) ([futjesus](https://github.com/futjesus))
+- ✨ feat: focus the search input when opening a searchable Select [\#674](https://github.com/konstructio/konstruct-ui/pull/674) ([futjesus](https://github.com/futjesus))
+- ✅ test: add tests for PhoneNumberInput, Input and Command [\#673](https://github.com/konstructio/konstruct-ui/pull/673) ([futjesus](https://github.com/futjesus))
+- ♿️ fix: trap focus in Modal and Drawer and fix menu semantics [\#672](https://github.com/konstructio/konstruct-ui/pull/672) ([futjesus](https://github.com/futjesus))
+- 👷 ci: add lint, types and coverage gates to PR workflow [\#671](https://github.com/konstructio/konstruct-ui/pull/671) ([futjesus](https://github.com/futjesus))
+- 🐛 fix: quick wins from repo audit [\#670](https://github.com/konstructio/konstruct-ui/pull/670) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add scoped refresh event with loading state to VirtualizedTable [\#669](https://github.com/konstructio/konstruct-ui/pull/669) ([futjesus](https://github.com/futjesus))
+- 🐛 fix: keep loading Badge mounted when its spinner animation ends [\#668](https://github.com/konstructio/konstruct-ui/pull/668) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.103](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.103) (2026-07-21)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.102...0.1.2-alpha.103)
