@@ -1,9 +1,10 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import userEvent, { UserEvent } from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { FC, FormEvent, PropsWithChildren, useState } from 'react';
 
 import { Button } from '@/components/Button/Button';
+import { Drawer } from '@/components/Drawer/Drawer';
 import { Modal } from '@/components/Modal/Modal';
 
 import { Select } from './Select';
@@ -218,6 +219,73 @@ describe('Select', () => {
       expect(screen.getByRole('textbox')).toHaveAttribute('tabindex', '-1');
     });
 
+    it('should not expand the combobox just by focusing it', async () => {
+      const { user, findComboBox } = setup();
+
+      const comboBox = await findComboBox();
+
+      await user.tab();
+
+      expect(comboBox).toHaveFocus();
+      expect(comboBox).toHaveAttribute('aria-expanded', 'false');
+      expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    });
+
+    it.each(['{ArrowDown}', '{Enter}', ' '])(
+      'should open the list when pressing %s on the focused combobox',
+      async (key) => {
+        const { user, findComboBox } = setup();
+
+        const comboBox = await findComboBox();
+
+        await user.tab();
+        await user.keyboard(key);
+
+        expect(comboBox).toHaveAttribute('aria-expanded', 'true');
+        expect(screen.getByRole('listbox')).toBeInTheDocument();
+      },
+    );
+
+    it('should move the focus to the first option on the second ArrowDown', async () => {
+      const { user, findComboBox } = setup();
+
+      const comboBox = await findComboBox();
+
+      await user.tab();
+      await user.keyboard('{ArrowDown}');
+      await user.keyboard('{ArrowDown}');
+
+      expect(comboBox).toHaveAttribute('aria-expanded', 'true');
+      expect(screen.getAllByRole('option').at(0)).toHaveFocus();
+    });
+
+    it('should close the list when pressing Enter again on the combobox', async () => {
+      const { user, findComboBox } = setup();
+
+      const comboBox = await findComboBox();
+
+      await user.tab();
+      await user.keyboard('{Enter}');
+      await user.keyboard('{Enter}');
+
+      expect(comboBox).toHaveAttribute('aria-expanded', 'false');
+      expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    });
+
+    it('should allow typing spaces in the search input of a searchable select', async () => {
+      const { user, findComboBox } = setup({ searchable: true });
+
+      const comboBox = await findComboBox();
+
+      await user.click(comboBox);
+      await waitFor(() => {
+        expect(screen.getByRole('textbox')).toHaveFocus();
+      });
+      await user.keyboard('a b');
+
+      expect(screen.getByRole('textbox')).toHaveValue('a b');
+    });
+
     it('should render the labelAction next to the label', () => {
       setup({
         labelAction: <button type="button">Action</button>,
@@ -371,6 +439,44 @@ describe('Select', () => {
           name: defaultProps.name,
         },
       });
+    });
+  });
+
+  describe('select inside a drawer', () => {
+    const DrawerWrapper: FC<PropsWithChildren> = ({ children }) => {
+      const [isOpen, setIsOpen] = useState(false);
+
+      return (
+        <>
+          <Button onClick={() => setIsOpen(true)}>Open Drawer</Button>
+          <Drawer isOpen={isOpen} onClose={() => setIsOpen(false)}>
+            <Drawer.Body>{children}</Drawer.Body>
+          </Drawer>
+        </>
+      );
+    };
+
+    const openDrawer = async (user: UserEvent) => {
+      await user.click(
+        await screen.findByRole('button', { name: /open drawer/i }),
+      );
+    };
+
+    it('should stay closed after selecting an option when the drawer returns focus to the combobox', async () => {
+      const { user, findComboBox } = setup({}, DrawerWrapper);
+
+      await openDrawer(user);
+
+      const comboBox = await findComboBox();
+      await user.click(comboBox);
+
+      await user.click(screen.getByText(defaultProps.options[0].label));
+
+      await waitFor(() => {
+        expect(comboBox).toHaveFocus();
+      });
+      expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+      expect(comboBox).toHaveAttribute('aria-expanded', 'false');
     });
   });
 });
