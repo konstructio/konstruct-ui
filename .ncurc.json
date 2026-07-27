@@ -1,3 +1,3 @@
 {
-	"reject": ["eslint", "typescript"]
+	"reject": ["eslint", "typescript", "@vitejs/plugin-react"]
 }
