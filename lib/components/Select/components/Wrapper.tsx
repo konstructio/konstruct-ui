@@ -4,6 +4,7 @@ import {
   ComponentRef,
   forwardRef,
   ForwardRefExoticComponent,
+  KeyboardEvent,
   RefAttributes,
   useEffect,
   useId,
@@ -93,10 +94,8 @@ export const Wrapper: ForwardRefExoticComponent<
     }, [options, value]);
 
     const { wrapperRef, wrapperInputRef, handleOpen } = useSelect({
-      ulRef,
       inputRef,
       searchInputRef,
-      disabled,
       internalValue,
       onBlur,
     });
@@ -113,6 +112,34 @@ export const Wrapper: ForwardRefExoticComponent<
       }
 
       handleOpen();
+    };
+
+    const handleKeyDown = (event: KeyboardEvent<ComponentRef<'div'>>) => {
+      if (disabled) {
+        return;
+      }
+
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+
+        if (!isOpen) {
+          handleOpen();
+
+          return;
+        }
+
+        ulRef.current?.querySelector('li')?.focus();
+
+        return;
+      }
+
+      if (
+        event.target === event.currentTarget &&
+        (event.key === 'Enter' || event.key === ' ')
+      ) {
+        event.preventDefault();
+        handleToggleOpen();
+      }
     };
 
     const htmlFor = name ? `${id}-${name}` : id;
@@ -187,6 +214,7 @@ export const Wrapper: ForwardRefExoticComponent<
           )}
           role="combobox"
           onClick={handleToggleOpen}
+          onKeyDown={handleKeyDown}
           aria-expanded={isOpen}
           tabIndex={isWrapperInputFocusable.current}
           aria-labelledby={htmlFor}

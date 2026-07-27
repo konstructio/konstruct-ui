@@ -6,19 +6,15 @@ import { useSelectContext } from '../contexts';
 import { SelectProps, Option } from '../Select.types';
 
 type UseSelectParams = {
-  ulRef: RefObject<ComponentRef<'ul'> | null>;
   inputRef?: RefObject<ComponentRef<'input'> | null>;
   searchInputRef?: RefObject<ComponentRef<'input'> | null>;
-  disabled: boolean;
   internalValue?: Option;
   onBlur?: SelectProps['onBlur'];
 };
 
 export const useSelect = ({
-  ulRef,
   inputRef,
   searchInputRef,
-  disabled,
   internalValue,
   onBlur,
 }: UseSelectParams) => {
@@ -57,42 +53,10 @@ export const useSelect = ({
       },
     );
 
-    wrapperInputRef.current?.addEventListener(
-      'focusin',
-      (event: FocusEvent) => {
-        if (!disabled && (event.target as Element)?.matches(':focus-visible')) {
-          toggleOpen(true);
-        }
-      },
-      { signal: controller.signal },
-    );
-
     return () => {
       controller.abort();
     };
   }, [toggleOpen, wrapperRef]);
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    wrapperInputRef.current?.addEventListener(
-      'keydown',
-      (event: KeyboardEvent) => {
-        if (event.key === 'ArrowDown') {
-          const firstItem = ulRef.current?.querySelector('li');
-
-          if (firstItem) {
-            firstItem.focus();
-          }
-        }
-      },
-      { signal: controller.signal },
-    );
-
-    return () => {
-      controller.abort();
-    };
-  }, [wrapperInputRef, ulRef]);
 
   useEffect(() => {
     const controller = new AbortController();
