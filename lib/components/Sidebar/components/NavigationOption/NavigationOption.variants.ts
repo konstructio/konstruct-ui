@@ -17,12 +17,11 @@ export const navigationOptionVariants = cva(
     'cursor-pointer',
     'flex',
     'font-normal',
-    'font-normal',
     'gap-4',
     'rounded',
+    'shrink-0',
     'group-data-[mode=collapsed]/sidebar:justify-center',
     'group-data-[mode=collapsed]/sidebar:[&>a]:justify-center',
-    'text-black',
     'w-full',
     'text-kubefirst-dark-blue-300',
     'hover:text-white',
@@ -40,7 +39,10 @@ export const navigationOptionVariants = cva(
     compoundVariants: [
       {
         isActive: true,
-        class: ['text-white', 'bg-kubefirst-dark-blue-800'],
+        class: [
+          'data-[active=true]:text-white',
+          'data-[active=true]:bg-kubefirst-dark-blue-800',
+        ],
       },
     ],
   },

@@ -122,9 +122,9 @@ export interface Props
    * Inline styles applied to the wrapper `<aside>` (or the drawer panel in
    * drawer mode). Useful for setting CSS custom properties that drive
    * theming via the protection stylesheet (e.g.
-   * `--konstruct-sidebar-hover-bg`, `--konstruct-sidebar-active-bg`),
-   * since inline styles outrank un-layered utilities shipped by federated
-   * remote micro-frontends.
+   * `--konstruct-sidebar-logo-padding-expanded`), since inline styles
+   * outrank un-layered utilities shipped by federated remote
+   * micro-frontends.
    */
   style?: CSSProperties;
 }

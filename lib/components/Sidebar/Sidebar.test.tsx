@@ -123,6 +123,43 @@ describe('Sidebar', () => {
     expect(mockOnClick).toHaveBeenCalledTimes(1);
   });
 
+  it('should let a consumer className override the default active and hover colors', async () => {
+    const { getLink } = setup({
+      options: (
+        <NavigationOption
+          isActive
+          className="hover:bg-metal-800 data-[active=true]:bg-metal-800"
+        >
+          <a href="/option-1">Option 1</a>
+        </NavigationOption>
+      ),
+    });
+
+    const option = (await getLink(/option 1/i)).closest('li');
+
+    expect(option).toHaveClass('data-[active=true]:bg-metal-800');
+    expect(option).toHaveClass('hover:bg-metal-800');
+    expect(option).not.toHaveClass(
+      'data-[active=true]:bg-kubefirst-dark-blue-800',
+    );
+    expect(option).not.toHaveClass('hover:bg-kubefirst-dark-blue-800');
+  });
+
+  it('should apply the default active color when no override is passed', async () => {
+    const { getLink } = setup({
+      options: (
+        <NavigationOption isActive>
+          <a href="/option-1">Option 1</a>
+        </NavigationOption>
+      ),
+    });
+
+    const option = (await getLink(/option 1/i)).closest('li');
+
+    expect(option).toHaveClass('data-[active=true]:bg-kubefirst-dark-blue-800');
+    expect(option).toHaveClass('hover:bg-kubefirst-dark-blue-800');
+  });
+
   it("shouldn't have accessibility violations", async () => {
     const { component } = setup({
       options: (
