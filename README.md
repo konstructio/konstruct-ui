@@ -1,62 +1,149 @@
-> 🚧🚨 **Work in Progress** 🚨🚧
->
-> ⚠️ This library is currently under construction. Features may change and documentation is incomplete. ⚠️
+# @konstructio/ui
 
-# Konstruct React Component Library
+[![npm version](https://img.shields.io/npm/v/@konstructio/ui.svg)](https://www.npmjs.com/package/@konstructio/ui)
+[![license](https://img.shields.io/npm/l/@konstructio/ui.svg)](./LICENSE.md)
+[![Storybook](https://img.shields.io/badge/docs-storybook-ff4785.svg)](https://konstructio.github.io/konstruct-ui)
 
-This repository contains a set of reusable and customizable React components built for **Konstruct**'s infrastructure and Kubernetes products. These components aim to streamline the development process, ensuring consistency and high-quality UI for **Kubefirst**, **Colony**, and other future projects.
+A React component library for [Konstruct](https://konstruct.io) infrastructure products (Kubefirst, Colony) and the Civo dashboard. Built with React, TypeScript, Tailwind CSS v4, and Radix UI primitives.
 
-## Features:
+> **Note**: This library is in active development (alpha). APIs may change between releases.
 
-- **Reusable**: Designed to be used across different projects, reducing development time and effort.
-- **Customizable**: Easily adjustable to fit specific needs or branding requirements.
-- **Responsive**: Optimized for all screen sizes, ensuring a seamless experience on both desktop and mobile.
-- **Accessible**: Built with accessibility in mind, following best practices to ensure compatibility with all users.
-- **Tailwind CSS Integration**: Seamlessly integrated with Tailwind CSS for rapid UI development and easy theming.
+## Features
 
-## **Installation Guide**
+- **40+ components** — forms, tables, modals, charts, navigation, and more
+- **Accessible** — built on Radix UI primitives, tested with jest-axe
+- **Themeable** — light, dark, and brand themes switchable at runtime
+- **Tree-shakeable** — ESM build with component-level code splitting
+- **Broad React support** — compatible with React 16.8+, 17, 18, and 19
 
-Follow these steps to integrate `@konstructio/ui` into your project:
+## Requirements
 
-### Step 1: Install the Library
+| Peer dependency         | Version                    |
+| ----------------------- | -------------------------- |
+| `react` / `react-dom`   | `^16.8 \|\| ^17 \|\| ^18 \|\| ^19` |
+| `tailwindcss`           | `^4`                       |
+| `@tanstack/react-query` | `^5.90`                    |
+| `react-router-dom`      | `^7`                       |
 
-Run the following command to install the package:
+## Installation
 
 ```bash
 npm install @konstructio/ui
 ```
 
----
+## Setup
 
-### Step 2: Install Tailwind CSS v4
+### 1. Import the styles
 
-Tailwind CSS v4 is a peer dependency. If you don't already have it installed, follow the official [Tailwind CSS installation guide](https://tailwindcss.com/docs/installation).
-
----
-
-### Step 3: Import the theme styles
-
-In your global CSS file, import Tailwind and the library theme, plus the brand theme you need:
+In your global CSS file, import Tailwind, the library theme, and the brand theme you need:
 
 ```css
 @import 'tailwindcss';
+
 @import '@konstructio/ui/ui/theme.css';
-@import '@konstructio/ui/ui/utilities.css';
 @import '@konstructio/ui/ui/civo-theme.css'; /* or kubefirst-theme.css */
+@import '@konstructio/ui/ui/utilities.css';
 ```
 
 Component styles are bundled with the components and injected automatically — no extra CSS import is needed.
 
----
+### 2. Register the package with Tailwind
 
-### Step 4: Include `@konstructio/ui` in Tailwind's source detection
-
-So Tailwind generates the utility classes used by the components, add the package to your global CSS with `@source` (the path is relative to your CSS file):
+Add the package to Tailwind's source detection so it generates the utility classes used by the components. The path is relative to your CSS file:
 
 ```css
 @source '../node_modules/@konstructio/ui/dist';
 ```
 
-## Final Steps
+### 3. Wrap your app in the theme provider
 
-After completing the above steps, you can now use `@konstructio/ui` components in your project. Restart your development server to apply the changes.
+```tsx
+import { ThemeProvider } from '@konstructio/ui';
+
+const App = () => {
+  return (
+    <ThemeProvider theme="light">
+      <YourApp />
+    </ThemeProvider>
+  );
+};
+```
+
+## Usage
+
+```tsx
+import { Alert, Button, Input, Modal, Typography } from '@konstructio/ui';
+
+const Example = () => {
+  return (
+    <form>
+      <Typography variant="h3">Create instance</Typography>
+      <Input label="Hostname" isRequired helperText="Must be unique" />
+      <Button variant="primary" type="submit">
+        Create
+      </Button>
+    </form>
+  );
+};
+```
+
+Icons ship as a separate entry point:
+
+```tsx
+import { AlertOutlineIcon, InfoCircleIcon } from '@konstructio/ui/icons';
+```
+
+Utilities such as the `cn` class-merging helper are exported from the root:
+
+```tsx
+import { cn } from '@konstructio/ui';
+
+<div className={cn('flex items-center', isActive && 'bg-primary')} />;
+```
+
+## Theming
+
+Four themes are available: `light` (default styling), `dark`, `kubefirst`, and `kubefirst-dark`. The active theme is applied through the `data-theme` attribute on `<body>` and persisted in a cookie.
+
+Switch themes at runtime with the `useTheme` hook:
+
+```tsx
+import { useTheme } from '@konstructio/ui';
+
+const { theme, setTheme } = useTheme();
+setTheme('dark');
+```
+
+Alternatively, set `data-theme` directly on the document root — useful when the theme is controlled by a host application, such as a micro-frontend shell:
+
+```html
+<html data-theme="dark"></html>
+```
+
+## Components
+
+| Category     | Components                                                                                                                                                                                                                                       |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Forms        | Input, TextArea, Select, Checkbox, Switch, Radio, RadioGroup, RadioCard, Counter, Datepicker, TimePicker, PhoneNumberInput, Range, Slider, Autocomplete, Filter, TagSelect, MultiSelectDropdown, ImageUpload                                       |
+| UI           | Button, Badge, Card, Alert, AlertDialog, Modal, Breadcrumb, Divider, Tag, Tooltip, Toast, Tabs, Typography                                                                                                                                         |
+| Data display | Table, VirtualizedTable, PieChart, ProgressBar, Loading, Spinner                                                                                                                                                                                   |
+| Layout       | Sidebar                                                                                                                                                                                                                                            |
+| Other        | DropdownButton, Command                                                                                                                                                                                                                            |
+
+Full documentation with live examples is available in the [Storybook](https://konstructio.github.io/konstruct-ui).
+
+## Development
+
+```bash
+npm install && npm run setup   # install dependencies and rebuild trusted packages
+npm run storybook              # dev server on http://localhost:6006
+npm run test                   # run tests with coverage
+npm run lint                   # lint
+npm run check:types            # type check
+npm run build                  # production build
+npm run ci                     # full CI pipeline
+```
+
+## License
+
+[MIT](./LICENSE.md)
