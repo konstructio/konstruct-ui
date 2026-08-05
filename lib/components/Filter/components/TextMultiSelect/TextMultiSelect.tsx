@@ -67,8 +67,8 @@ export const TextMultiSelect: FC<TextMultiSelectProps> = ({
           {showSelectAll && (
             <div className="flex gap-4">
               <Checkbox
-                key={`select-all-${isAllSelected}`}
-                defaultChecked={isAllSelected}
+                checked={isAllSelected}
+                aria-label={selectAllLabel}
                 onChange={(checked) => handleSelectAll(options, checked)}
               />
               <span className="text-sm text-slate-700 dark:text-metal-200 whitespace-nowrap">
@@ -77,15 +77,15 @@ export const TextMultiSelect: FC<TextMultiSelectProps> = ({
             </div>
           )}
           {options.map((option) => {
-            const isSelected = !!selectedOptions.find(
-              (status) => status.id === option.id,
+            const isSelected = selectedOptions.some(
+              (selected) => selected.id === option.id && !selected.isRemoved,
             );
 
             return (
               <div key={option.id} className="flex gap-4">
                 <Checkbox
-                  key={`${option.id}-${isSelected}`}
-                  defaultChecked={isSelected}
+                  checked={isSelected}
+                  aria-label={option.label}
                   data-label={option.id}
                   onChange={(checked) => handleSelectOption(option, checked)}
                 />

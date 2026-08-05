@@ -78,6 +78,53 @@ describe('Checkbox', () => {
     expect(checkbox).toBeDisabled();
   });
 
+  describe('Controlled', () => {
+    it('should render checked when the checked prop is true', async () => {
+      const { getCheckbox } = setup({ checked: true });
+
+      const checkbox = await getCheckbox();
+
+      expect(checkbox).toBeChecked();
+    });
+
+    it('should render unchecked when the checked prop is false', async () => {
+      const { getCheckbox } = setup({ checked: false });
+
+      const checkbox = await getCheckbox();
+
+      expect(checkbox).not.toBeChecked();
+    });
+
+    it('should call onChange without changing the visual state until the prop changes', async () => {
+      const onChange = vi.fn();
+      const { rerender } = render(
+        <Checkbox {...defaultProps} checked={false} onChange={onChange} />,
+      );
+      const user = userEvent.setup();
+
+      const checkbox = await screen.findByRole('checkbox');
+      await user.click(checkbox);
+
+      expect(onChange).toHaveBeenCalledWith(true);
+      expect(checkbox).not.toBeChecked();
+
+      rerender(
+        <Checkbox {...defaultProps} checked={true} onChange={onChange} />,
+      );
+
+      expect(checkbox).toBeChecked();
+    });
+
+    it('should keep the uncontrolled behavior when the checked prop is omitted', async () => {
+      const { user, getCheckbox } = setup();
+
+      const checkbox = await getCheckbox();
+      await user.click(checkbox);
+
+      expect(checkbox).toBeChecked();
+    });
+  });
+
   describe('Form', () => {
     const mockSubmit = vi.fn();
 

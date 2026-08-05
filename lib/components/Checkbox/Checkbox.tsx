@@ -20,7 +20,7 @@ import { checkboxVariants, labelVariants } from './Checkbox.variants';
  * // Controlled checkbox
  * <Checkbox
  *   label="Subscribe to newsletter"
- *   defaultChecked={subscribed}
+ *   checked={subscribed}
  *   onChange={(checked) => setSubscribed(checked)}
  * />
  *
@@ -34,6 +34,7 @@ const Checkbox: FC<Props> = forwardRef<HTMLButtonElement, Props>(
   (
     {
       ariaLabelledBy,
+      checked: checkedProp,
       className,
       defaultChecked,
       disabled,
@@ -50,12 +51,19 @@ const Checkbox: FC<Props> = forwardRef<HTMLButtonElement, Props>(
     },
     ref,
   ) => {
-    const [checked, setChecked] = useToggle(defaultChecked ?? false);
+    const [internalChecked, setInternalChecked] = useToggle(
+      defaultChecked ?? false,
+    );
+    const isControlled = checkedProp !== undefined;
+    const checked = isControlled ? checkedProp : internalChecked;
     const defaultId = useId();
 
-    const handleChange = (checked: boolean) => {
-      setChecked(checked);
-      onChange?.(checked);
+    const handleChange = (newChecked: boolean) => {
+      if (!isControlled) {
+        setInternalChecked(newChecked);
+      }
+
+      onChange?.(newChecked);
     };
 
     return (

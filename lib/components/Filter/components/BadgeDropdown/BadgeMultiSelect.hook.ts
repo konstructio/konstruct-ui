@@ -32,7 +32,9 @@ export const useBadgeMultiSelect = ({
     if (open) {
       sendOpenFilterEvent(id);
       setSelectedOptions((prevOptions) =>
-        prevOptions.filter((option) => option.isApplied),
+        prevOptions
+          .filter((option) => option.isApplied)
+          .map((option) => ({ ...option, isRemoved: false })),
       );
     }
 
@@ -41,10 +43,24 @@ export const useBadgeMultiSelect = ({
 
   const handleSelectOption = (option: Option, checked: boolean) => {
     if (checked) {
-      setSelectedOptions([...selectedOptions, { ...option, isApplied: false }]);
+      setSelectedOptions((prevOptions) => {
+        const exists = prevOptions.some((o) => o.id === option.id);
+
+        if (exists) {
+          return prevOptions.map((o) => {
+            if (o.id === option.id) {
+              return { ...o, isRemoved: false };
+            }
+
+            return o;
+          });
+        }
+
+        return [...prevOptions, { ...option, isApplied: false }];
+      });
     } else {
-      setSelectedOptions(
-        selectedOptions.map((o) => {
+      setSelectedOptions((prevOptions) =>
+        prevOptions.map((o) => {
           if (o.id === option.id) {
             return { ...o, isRemoved: true };
           }
@@ -65,7 +81,7 @@ export const useBadgeMultiSelect = ({
 
   const handleApplyOptions = () => {
     const newOptions = selectedOptions
-      ?.filter((option) => !option.isRemoved)
+      .filter((option) => !option.isRemoved)
       .map((option) => ({ ...option, isApplied: true }));
 
     setSelectedOptions(newOptions);
@@ -96,8 +112,20 @@ export const useBadgeMultiSelect = ({
 
   const handleSelectAll = (allOptions: Option[], checked: boolean) => {
     if (checked) {
-      setSelectedOptions(
-        allOptions.map((opt) => ({ ...opt, isApplied: false })),
+      setSelectedOptions((prevOptions) =>
+        allOptions.map((opt) => {
+          const existing = prevOptions.find((o) => o.id === opt.id);
+
+          if (existing) {
+            return { ...existing, isRemoved: false };
+          }
+
+          return { ...opt, isApplied: false };
+        }),
+      );
+    } else {
+      setSelectedOptions((prevOptions) =>
+        prevOptions.map((o) => ({ ...o, isRemoved: true })),
       );
     }
   };
