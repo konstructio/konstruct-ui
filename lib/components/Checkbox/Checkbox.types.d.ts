@@ -12,9 +12,10 @@ import { checkboxVariants } from './Checkbox.variants';
  * <Checkbox label="Disabled option" disabled />
  * ```
  */
-export interface Props extends Omit<CheckboxPropsPrimitive, 'onChange'>, Omit<VariantProps<typeof checkboxVariants>, 'checked'> {
+export interface Props extends Omit<CheckboxPropsPrimitive, 'onChange' | 'checked'>, Omit<VariantProps<typeof checkboxVariants>, 'checked'> {
     /** ID of element that labels the checkbox for accessibility */
     ariaLabelledBy?: string;
+    checked?: boolean;
     /** Additional CSS classes */
     className?: string;
     /** Initial checked state */

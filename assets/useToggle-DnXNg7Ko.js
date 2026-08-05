@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-C0FnF6B9.js";import{t}from"./react-C21x__mS.js";var n,r;function i(){return(i=e((()=>{n=t(),r=(e=!1)=>{let[t,r]=(0,n.useState)(e);return[t,(0,n.useCallback)(e=>r(e??!t),[t])]}})))()}export{r as n,i as t};

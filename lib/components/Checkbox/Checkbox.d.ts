@@ -12,7 +12,7 @@ import { Props } from './Checkbox.types';
  * // Controlled checkbox
  * <Checkbox
  *   label="Subscribe to newsletter"
- *   defaultChecked={subscribed}
+ *   checked={subscribed}
  *   onChange={(checked) => setSubscribed(checked)}
  * />
  *
