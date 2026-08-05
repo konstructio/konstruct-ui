@@ -39,8 +39,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'lib'),
-      '@tests': path.resolve(__dirname, 'tests'),
+      '@': path.resolve(import.meta.dirname, 'lib'),
+      '@tests': path.resolve(import.meta.dirname, 'tests'),
     },
   },
 });

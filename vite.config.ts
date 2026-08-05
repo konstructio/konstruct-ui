@@ -32,7 +32,7 @@ export default defineConfig({
   build: {
     copyPublicDir: false,
     lib: {
-      entry: resolve(__dirname, 'lib/index.ts'),
+      entry: resolve(import.meta.dirname, 'lib/index.ts'),
       formats: ['es'],
     },
     minify: 'esbuild',
@@ -52,7 +52,9 @@ export default defineConfig({
       },
       plugins: [
         alias({
-          entries: [{ find: '@', replacement: resolve(__dirname, 'lib') }],
+          entries: [
+            { find: '@', replacement: resolve(import.meta.dirname, 'lib') },
+          ],
         }),
       ],
       input: Object.fromEntries(
