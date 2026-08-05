@@ -56,6 +56,7 @@ export const Switch: FC<Props> = forwardRef<HTMLInputElement, Props>(
       theme,
       thumbClassName,
       value,
+      variant,
       onChange,
     },
     ref,
@@ -88,7 +89,7 @@ export const Switch: FC<Props> = forwardRef<HTMLInputElement, Props>(
           defaultChecked={defaultChecked}
           checked={value}
           onCheckedChange={(e) => onChange?.(e)}
-          className={cn(switchVariants({ className }))}
+          className={cn(switchVariants({ variant, className }))}
           aria-label={label}
           disabled={disabled}
         >

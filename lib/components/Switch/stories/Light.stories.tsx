@@ -37,6 +37,14 @@ export const Light = {
         />
 
         <SwitchComponent
+          label="Civo theme (black)"
+          {...args}
+          value={value.switch3}
+          onChange={(event) => handleChange('switch3', event)}
+          variant="black"
+        />
+
+        <SwitchComponent
           label="Civo theme"
           {...args}
           value={true}
