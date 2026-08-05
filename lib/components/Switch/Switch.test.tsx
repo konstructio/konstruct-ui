@@ -43,6 +43,30 @@ describe('Switch', () => {
     expect(results).toHaveNoViolations();
   });
 
+  it('should render the aurora track by default', async () => {
+    const { getSwitch } = setup();
+
+    const switchComponent = await getSwitch();
+
+    expect(switchComponent).toHaveClass('bg-aurora-500');
+  });
+
+  it('should render the black track when the black variant is used', async () => {
+    const { getSwitch } = setup({ variant: 'black' });
+
+    const switchComponent = await getSwitch();
+
+    expect(switchComponent).toHaveClass('bg-black');
+  });
+
+  it("should doesn't have violations with the black variant", async () => {
+    const { component } = setup({ variant: 'black' });
+
+    const results = await axe(component);
+
+    expect(results).toHaveNoViolations();
+  });
+
   it('should activate the switch when the user has been clicked on it', async () => {
     const handleSubmit = vitest.fn();
 

@@ -1,31 +1,46 @@
 import { cva } from 'class-variance-authority';
 
-export const switchVariants = cva([
-  'w-10',
-  'h-5',
-  'flex',
-  'items-center',
-  'rounded-full',
-  'shadow',
-  'focus:shadow-md',
-  'data-[state=unchecked]:bg-gray-300',
-  'dark:data-[state=unchecked]:bg-metal-600',
-  'transition-all',
-  'delay-10',
-  'duration-250',
-  'cursor-pointer',
-  'bg-aurora-500',
-  'kubefirst:bg-kubefirst-primary',
-  '[&+label,&+span]:cursor-pointer',
-  'disabled:[&+label,&+span,&]:cursor-not-allowed',
-  'disabled:bg-gray-200',
-  'disabled:data-[state=unchecked]:[&>span]:bg-white',
-  'disabled:data-[state=unchecked]:bg-gray-200',
-  'dark:disabled:bg-metal-700',
-  'dark:disabled:data-[state=unchecked]:[&>span]:bg-metal-600',
-  'dark:disabled:data-[state=unchecked]:bg-metal-700',
-  'dark:disabled:[&>span]:bg-metal-600',
-]);
+export const switchVariants = cva(
+  [
+    'w-10',
+    'h-5',
+    'flex',
+    'items-center',
+    'rounded-full',
+    'shadow',
+    'focus:shadow-md',
+    'data-[state=unchecked]:bg-gray-300',
+    'dark:data-[state=unchecked]:bg-metal-600',
+    'transition-all',
+    'delay-10',
+    'duration-250',
+    'cursor-pointer',
+    '[&+label,&+span]:cursor-pointer',
+    'disabled:[&+label,&+span,&]:cursor-not-allowed',
+    'disabled:bg-gray-200',
+    'disabled:data-[state=unchecked]:[&>span]:bg-white',
+    'disabled:data-[state=unchecked]:bg-gray-200',
+    'dark:disabled:bg-metal-700',
+    'dark:disabled:data-[state=unchecked]:[&>span]:bg-metal-600',
+    'dark:disabled:data-[state=unchecked]:bg-metal-700',
+    'dark:disabled:[&>span]:bg-metal-600',
+  ],
+  {
+    variants: {
+      variant: {
+        default: ['bg-aurora-500', 'kubefirst:bg-kubefirst-primary'],
+        black: [
+          'bg-black',
+          'dark:bg-aurora-500',
+          'kubefirst:bg-kubefirst-primary',
+        ],
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
+  },
+);
 
 export const thumbVariants = cva([
   'block',
@@ -37,8 +52,8 @@ export const thumbVariants = cva([
   'rounded-full',
   'shadow-md',
   'transition-all',
-  'translate-x-1',
-  'data-[state=checked]:translate-x-5',
+  'translate-x-0.5',
+  'data-[state=checked]:translate-x-5.5',
   'delay-10',
   'duration-300',
 ]);
