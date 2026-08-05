@@ -173,8 +173,10 @@ npm run ci             # Full CI pipeline
 
 ## Dependency Updates
 
-- **Always update dependencies with `npm-check-updates`** (the same tool behind `npm run deps:update`). Non-interactive usage: `npx npm-check-updates --format group -u`, then `npm install` and `npm run setup`. Never bump versions by editing `package.json` manually or with `npm install <pkg>@latest`.
+- **Always update dependencies with `npm run deps:update`, minus `--interactive`** — i.e. run `npx npm-check-updates --format group -u`, then `npm install` and `npm run setup`. Never run the interactive variant (it can't be driven non-interactively), and never bump versions by editing `package.json` manually or with `npm install <pkg>@latest`.
 - **Respect `.ncurc.json`**: packages listed in its `reject` array are known to break the toolchain and must NOT be updated. If a new package turns out to be incompatible at its latest version, add it to `reject` instead of pinning workarounds.
+- **Keep `peerDependencies` in sync**: after an update, any bumped package that is also listed in `peerDependencies` must have its range updated there too, so the published contract matches the versions actually built and tested against.
+- **Regenerate the lockfile from scratch**: `rm -rf node_modules package-lock.json && npm install && npm run setup`. Plain `npm install` over an existing tree prunes the top-level `@emnapi/*` entries (they exist only for the `*-wasm32-wasi` optional bindings macOS never installs), which breaks `npm ci` on the Linux runners. Verify with `docker run --rm --platform linux/amd64 -v "$PWD/package.json:/app/package.json:ro" -v "$PWD/package-lock.json:/app/package-lock.json:ro" -v "$PWD/.npmrc:/app/.npmrc:ro" -w /app node:24 npm ci` — a passing macOS `npm ci` proves nothing.
 - **Verify after every update**: run `npm run lint`, `npm run check:types`, and `npm run ci` (prettier + tests + build). If a major update fails verification and can't be fixed trivially, revert it and add it to `.ncurc.json`.
 
 ## Import Examples
