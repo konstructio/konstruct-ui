@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.2-alpha.106](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.106) (2026-08-05)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.105...0.1.2-alpha.106)
+
+**Merged pull requests:**
+
+- ✨ feat: add black variant to Switch and align thumb with Figma [\#694](https://github.com/konstructio/konstruct-ui/pull/694) ([futjesus](https://github.com/futjesus))
+- 🐛 fix: select all re-selects items after deselection in Filter multiselects [\#693](https://github.com/konstructio/konstruct-ui/pull/693) ([futjesus](https://github.com/futjesus))
+- ⬆️ chore: update dependencies to latest stable [\#692](https://github.com/konstructio/konstruct-ui/pull/692) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.105](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.105) (2026-07-27)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.104...0.1.2-alpha.105)
