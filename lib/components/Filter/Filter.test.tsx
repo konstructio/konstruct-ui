@@ -405,6 +405,147 @@ describe('FilterComponent', () => {
     expect(onApplyB).not.toHaveBeenCalled();
   });
 
+  describe('Select All', () => {
+    const getCheckbox = async (name: string) => {
+      return screen.findByRole('checkbox', { name });
+    };
+
+    it('should check every option when checking the select all checkbox', async () => {
+      const { user, getBadgeButton } = setup();
+
+      await user.click(await getBadgeButton('Badge'));
+      await user.click(await getCheckbox('All'));
+
+      expect(await getCheckbox('Creating')).toBeChecked();
+      expect(await getCheckbox('Ready')).toBeChecked();
+    });
+
+    it('should re-check every option when checking select all after unchecking an option', async () => {
+      const { user, getBadgeButton } = setup();
+
+      await user.click(await getBadgeButton('Badge'));
+      await user.click(await getCheckbox('All'));
+      await user.click(await getCheckbox('Creating'));
+
+      expect(await getCheckbox('Creating')).not.toBeChecked();
+      expect(await getCheckbox('All')).not.toBeChecked();
+
+      await user.click(await getCheckbox('All'));
+
+      expect(await getCheckbox('Creating')).toBeChecked();
+      expect(await getCheckbox('Ready')).toBeChecked();
+    });
+
+    it('should uncheck every option when unchecking the select all checkbox', async () => {
+      const { user, getBadgeButton } = setup();
+
+      await user.click(await getBadgeButton('Badge'));
+      await user.click(await getCheckbox('All'));
+      await user.click(await getCheckbox('All'));
+
+      expect(await getCheckbox('Creating')).not.toBeChecked();
+      expect(await getCheckbox('Ready')).not.toBeChecked();
+    });
+
+    it('should uncheck the select all checkbox when unchecking an option', async () => {
+      const { user, getBadgeButton } = setup();
+
+      await user.click(await getBadgeButton('Badge'));
+      await user.click(await getCheckbox('All'));
+
+      expect(await getCheckbox('All')).toBeChecked();
+
+      await user.click(await getCheckbox('Ready'));
+
+      expect(await getCheckbox('All')).not.toBeChecked();
+    });
+
+    it('should apply every option after select all and none after unchecking it', async () => {
+      const mockOnApply = vi.fn();
+      const { user, getBadgeButton, getApplyButton } = setup({
+        onApplyBadge: mockOnApply,
+      });
+
+      await user.click(await getBadgeButton('Badge'));
+      await user.click(await getCheckbox('All'));
+      await user.click(await getApplyButton());
+
+      expect(mockOnApply).toHaveBeenCalledWith([
+        { id: 'creating', label: 'Creating', variant: 'warning' },
+        { id: 'ready', label: 'Ready', variant: 'success' },
+      ]);
+
+      await user.click(await getBadgeButton('Badge'));
+      await user.click(await getCheckbox('All'));
+      await user.click(await getApplyButton());
+
+      expect(mockOnApply).toHaveBeenLastCalledWith([]);
+    });
+
+    it('should keep the applied count while editing until apply', async () => {
+      const mockOnApply = vi.fn();
+      const { user, getBadgeButton, getApplyButton } = setup({
+        onApplyBadge: mockOnApply,
+      });
+
+      await user.click(await getBadgeButton('Badge'));
+      await user.click(await getCheckbox('All'));
+      await user.click(await getApplyButton());
+
+      const badgeButton = await getBadgeButton('Badge');
+
+      expect(badgeButton).toHaveTextContent('2');
+
+      await user.click(badgeButton);
+      await user.click(await getCheckbox('All'));
+
+      expect(badgeButton).toHaveTextContent('2');
+
+      await user.click(await getApplyButton());
+
+      expect(badgeButton).not.toHaveTextContent('2');
+    });
+
+    it('should not apply duplicated options after re-checking an unchecked option', async () => {
+      const mockOnApply = vi.fn();
+      const { user, getBadgeButton, getApplyButton } = setup({
+        onApplyBadge: mockOnApply,
+      });
+
+      await user.click(await getBadgeButton('Badge'));
+      await user.click(await getCheckbox('All'));
+      await user.click(await getCheckbox('Creating'));
+      await user.click(await getCheckbox('Creating'));
+      await user.click(await getApplyButton());
+
+      expect(mockOnApply).toHaveBeenCalledWith([
+        { id: 'creating', label: 'Creating', variant: 'warning' },
+        { id: 'ready', label: 'Ready', variant: 'success' },
+      ]);
+    });
+
+    it('should show applied options as checked after abandoning staged changes', async () => {
+      const mockOnApply = vi.fn();
+      const { user, getBadgeButton, getApplyButton } = setup({
+        onApplyBadge: mockOnApply,
+      });
+
+      await user.click(await getBadgeButton('Badge'));
+      await user.click(await getCheckbox('Creating'));
+      await user.click(await getApplyButton());
+
+      await user.click(await getBadgeButton('Badge'));
+      await user.click(await getCheckbox('Creating'));
+
+      expect(await getCheckbox('Creating')).not.toBeChecked();
+
+      await user.click(document.body);
+      await user.click(await getBadgeButton('Badge'));
+
+      expect(await getCheckbox('Creating')).toBeChecked();
+    });
+  });
+
   it('should select a date and reset the values', async () => {
     const mockOnApply = vi.fn();
 
