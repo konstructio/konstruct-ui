@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { FC, useMemo } from 'react';
 
-import { cn } from '@/utils';
+import { cn, composeIds } from '@/utils';
 
 import { Props } from './ButtonGroup.types';
 import {
@@ -89,6 +89,16 @@ export const ButtonGroup: FC<Props> = ({
     onValueChange,
   });
 
+  const labelId = `${id}-label`;
+  const errorId = `${id}-error`;
+  const helperTextId = `${id}-helper-text`;
+  const hasError = typeof error === 'string' && error.length > 0;
+  const hasHelperText = !hasError && !!helperText;
+  const describedBy = composeIds(
+    hasError && errorId,
+    hasHelperText && helperTextId,
+  );
+
   const numOptions = options.length;
   const selectedIndex = useMemo(
     () => options.findIndex((o) => o.value === selected),
@@ -103,7 +113,7 @@ export const ButtonGroup: FC<Props> = ({
       {label && (
         <ButtonGroupLabel
           className={labelClassName}
-          htmlFor={id}
+          id={labelId}
           isRequired={isRequired}
           label={label}
           requiredClassName={requiredClassName}
@@ -113,7 +123,10 @@ export const ButtonGroup: FC<Props> = ({
       <div
         ref={groupRef}
         role="radiogroup"
-        aria-labelledby={label ? id : undefined}
+        aria-labelledby={label ? labelId : undefined}
+        aria-invalid={hasError || undefined}
+        aria-describedby={describedBy}
+        aria-required={isRequired || undefined}
         className={cn(buttonGroupVariants({ disabled }), className)}
       >
         {selectedIndex >= 0 && (
@@ -169,8 +182,10 @@ export const ButtonGroup: FC<Props> = ({
       <ButtonGroupMessage
         error={error}
         errorClassName={errorClassName}
+        errorId={errorId}
         helperText={helperText}
         helperTextClassName={helperTextClassName}
+        helperTextId={helperTextId}
       />
     </div>
   );

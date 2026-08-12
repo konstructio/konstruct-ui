@@ -7,13 +7,21 @@ import { Typography } from '../../../Typography/Typography';
 import { Props } from './ButtonGroupMessage.types';
 
 export const ButtonGroupMessage: FC<Props> = memo(
-  ({ error, errorClassName, helperText, helperTextClassName }) => {
+  ({
+    error,
+    errorClassName,
+    errorId,
+    helperText,
+    helperTextClassName,
+    helperTextId,
+  }) => {
     const hasError = typeof error === 'string' && error.length > 0;
 
     if (hasError) {
       return (
         <Typography
           component="span"
+          id={errorId}
           className={cn(
             'text-xs',
             'tracking-normal',
@@ -30,6 +38,7 @@ export const ButtonGroupMessage: FC<Props> = memo(
       return (
         <Typography
           component="span"
+          id={helperTextId}
           variant="body1"
           className={cn(
             'text-xs',

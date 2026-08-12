@@ -17,7 +17,7 @@ import {
 
 import { Typography } from '@/components/Typography/Typography';
 import { useClickOutside } from '@/hooks';
-import { cn } from '@/utils';
+import { cn, composeIds } from '@/utils';
 
 import { Props } from '../PhoneNumberInput.types';
 import {
@@ -41,6 +41,7 @@ export const Wrapper: ForwardRefExoticComponent<
       error,
       helperText,
       helperTextClassName,
+      id,
       isRequired,
       label,
       labelClassName,
@@ -52,12 +53,15 @@ export const Wrapper: ForwardRefExoticComponent<
       showNameOnSearch = true,
       wrapperClassName,
       showPlaceHolder,
+      onChange: onChangeProp,
       ...delegated
     },
     ref,
   ) => {
     const generatedId = useId();
-    const id = name ?? generatedId;
+    const controlId = id ?? generatedId;
+    const errorId = `${controlId}-error`;
+    const helperTextId = `${controlId}-helper-text`;
     const wrapperRef = useRef<ComponentRef<'div'>>(null);
     const {
       isOpenSelector,
@@ -66,7 +70,12 @@ export const Wrapper: ForwardRefExoticComponent<
       onChangeValue,
       handleOpenSelector,
     } = usePhoneNumberContext();
-    const hasError = typeof error === 'string' && error.length >= 0;
+    const hasError = typeof error === 'string' && error.length > 0;
+    const hasHelperText = !hasError && !!helperText;
+    const describedBy = composeIds(
+      hasError && errorId,
+      hasHelperText && helperTextId,
+    );
 
     const inputRef: RefObject<ComponentRef<'input'> | null> = useMask({
       mask: getPhoneMask(selectedCountry),
@@ -83,6 +92,8 @@ export const Wrapper: ForwardRefExoticComponent<
       } else {
         onChangeValue(`${selectedCountry.prefix} `);
       }
+
+      onChangeProp?.(event);
     };
 
     const handleClickOutside = useCallback(() => {
@@ -143,7 +154,7 @@ export const Wrapper: ForwardRefExoticComponent<
         {label ? (
           <div className={cn(labelWrapperClassName)}>
             <label
-              htmlFor={id}
+              htmlFor={controlId}
               className={labelVariants({ className: labelClassName })}
               onClick={() => !disabled && inputRef.current?.focus()}
             >
@@ -151,6 +162,7 @@ export const Wrapper: ForwardRefExoticComponent<
               {isRequired && (
                 <Typography
                   component="span"
+                  aria-hidden="true"
                   className="text-red-600 dark:text-red-500 ml-1"
                 >
                   *
@@ -172,7 +184,8 @@ export const Wrapper: ForwardRefExoticComponent<
             <FlagContent />
 
             <input
-              id={label ? id : undefined}
+              {...delegated}
+              id={controlId}
               ref={setInputRef}
               name={name}
               autoComplete="off"
@@ -192,7 +205,9 @@ export const Wrapper: ForwardRefExoticComponent<
               value={value}
               onChange={onChange}
               disabled={disabled}
-              {...delegated}
+              aria-invalid={hasError || undefined}
+              aria-describedby={describedBy}
+              aria-required={isRequired || undefined}
             />
           </div>
 
@@ -207,18 +222,20 @@ export const Wrapper: ForwardRefExoticComponent<
           )}
         </div>
 
-        {error ? (
+        {hasError ? (
           <Typography
             component="span"
+            id={errorId}
             className="text-xs text-red-700 dark:text-red-500"
           >
             {error}
           </Typography>
         ) : null}
 
-        {!error && helperText ? (
+        {hasHelperText ? (
           <Typography
             component="span"
+            id={helperTextId}
             className={cn(
               'text-xs kubefirst-dark:text-slate-200',
               helperTextClassName,

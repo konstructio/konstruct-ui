@@ -25,6 +25,7 @@ export const MultiSelectDropdownProvider: FC<
   name,
   isLoading,
   noOptionsText,
+  loadingText,
 }) => {
   const inputRef = useRef<ComponentRef<'input'>>(null);
   const [isOpen, setIsOpen] = useToggle(false);
@@ -203,6 +204,7 @@ export const MultiSelectDropdownProvider: FC<
         onOpen: handleOpen,
         isLoading,
         noOptionsText,
+        loadingText,
       }}
     >
       {children}

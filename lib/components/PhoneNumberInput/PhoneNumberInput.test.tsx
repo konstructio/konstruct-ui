@@ -80,6 +80,34 @@ describe('PhoneNumberInput', () => {
     expect(onChange).toHaveBeenCalled();
   });
 
+  it('should expose the required state without polluting the accessible name', () => {
+    setup({ isRequired: true });
+
+    const input = screen.getByRole('textbox', { name: 'Phone Number' });
+
+    expect(input).toHaveAttribute('aria-required', 'true');
+  });
+
+  it('should describe the input with its error message', () => {
+    const { getInput } = setup({ error: 'Invalid number' });
+
+    expect(getInput()).toHaveAttribute('aria-invalid', 'true');
+    expect(getInput()).toHaveAccessibleDescription('Invalid number');
+  });
+
+  it('should describe the input with its helper text', () => {
+    const { getInput } = setup({ helperText: 'Include the area code' });
+
+    expect(getInput()).not.toHaveAttribute('aria-invalid');
+    expect(getInput()).toHaveAccessibleDescription('Include the area code');
+  });
+
+  it('should not treat an empty error string as an error', () => {
+    const { getInput } = setup({ error: '' });
+
+    expect(getInput()).not.toHaveAttribute('aria-invalid');
+  });
+
   it('should close the country selector when pressing Escape', async () => {
     const { user, getTrigger, getSearchInput, querySearchInput } = setup();
 

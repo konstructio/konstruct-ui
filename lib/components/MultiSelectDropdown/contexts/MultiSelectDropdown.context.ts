@@ -18,6 +18,7 @@ const initialState: State = {
   },
   isLoading: false,
   noOptionsText: undefined,
+  loadingText: undefined,
 };
 
 export const MultiSelectDropdownContext = createContext<State>(initialState);

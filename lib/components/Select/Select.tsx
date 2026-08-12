@@ -1,6 +1,6 @@
-import { ComponentRef, FC, forwardRef, useMemo } from 'react';
+import { ComponentRef, FC, forwardRef, useId, useMemo } from 'react';
 
-import { cn } from '@/utils';
+import { cn, composeIds } from '@/utils';
 
 import { Wrapper } from './components';
 import { SelectProvider } from './contexts';
@@ -49,6 +49,7 @@ export const Select: FC<Props> = forwardRef<ComponentRef<'input'>, Props>(
       helperText,
       helperTextClassName,
       highlightSearch,
+      id,
       mainWrapperClassName,
       name,
       value,
@@ -59,6 +60,17 @@ export const Select: FC<Props> = forwardRef<ComponentRef<'input'>, Props>(
     },
     ref,
   ) => {
+    const generatedId = useId();
+    const fieldId = id ?? (name ? `${generatedId}-${name}` : generatedId);
+    const errorId = `${fieldId}-error`;
+    const helperTextId = `${fieldId}-helper-text`;
+    const hasError = typeof error === 'string' && error.length > 0;
+    const hasHelperText = !hasError && !!helperText;
+    const describedBy = composeIds(
+      hasError && errorId,
+      hasHelperText && helperTextId,
+    );
+
     const flatOptions = useMemo((): Option[] => {
       if (!options.length) {
         return [];
@@ -80,7 +92,9 @@ export const Select: FC<Props> = forwardRef<ComponentRef<'input'>, Props>(
       >
         <div className={cn('relative w-full', mainWrapperClassName)}>
           <Wrapper
+            describedBy={describedBy}
             error={error}
+            fieldId={fieldId}
             name={name}
             ref={ref}
             onBlur={onBlur}
@@ -88,8 +102,9 @@ export const Select: FC<Props> = forwardRef<ComponentRef<'input'>, Props>(
             {...delegated}
           />
 
-          {error ? (
+          {hasError ? (
             <span
+              id={errorId}
               className={cn(
                 'text-xs text-red-700 dark:text-red-400',
                 errorClassName,
@@ -99,8 +114,9 @@ export const Select: FC<Props> = forwardRef<ComponentRef<'input'>, Props>(
             </span>
           ) : null}
 
-          {!error && helperText ? (
+          {hasHelperText ? (
             <span
+              id={helperTextId}
               className={cn(
                 'text-xs text-slate-600 dark:text-slate-200',
                 helperTextClassName,

@@ -10,7 +10,7 @@ import { ListProps } from './List.types';
 import { listVariants } from './List.variants';
 
 export const List: FC<ListProps> = ({ theme }) => {
-  const { options, selectedOptions, isLoading, noOptionsText } =
+  const { options, selectedOptions, isLoading, noOptionsText, loadingText } =
     useMultiSelectDropdown();
 
   return (
@@ -18,7 +18,7 @@ export const List: FC<ListProps> = ({ theme }) => {
       {isLoading ? (
         <Item
           key="loading"
-          option={{ id: 'loading', label: 'Loading...' }}
+          option={{ id: 'loading', label: loadingText ?? 'Loading...' }}
           className="select-none pointer-events-none"
           isSelected={false}
         />

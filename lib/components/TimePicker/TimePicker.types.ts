@@ -30,8 +30,12 @@ export type Props = VariantProps<typeof timePickerVariants> & {
   time?: Date;
   /** Form field name */
   name?: string;
+  /** Id of the rendered control, for consumer-owned labels */
+  id?: string;
   /** Label displayed above the picker */
   label?: string;
+  /** Accessible name, when the visible label is rendered by the consumer */
+  ariaLabel?: string;
   /** Whether the field is required */
   isRequired?: boolean;
   /** Additional CSS classes for the wrapper */

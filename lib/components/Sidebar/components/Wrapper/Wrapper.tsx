@@ -37,6 +37,7 @@ const Wrapper: FC<Props> = ({
   style,
   theme,
   triggerClassName,
+  openNavigationLabel,
   wrapperClassName,
 }) => {
   const resolvedMode = useSidebarMode(
@@ -198,6 +199,7 @@ const Wrapper: FC<Props> = ({
           isOpen={isDrawerOpen}
           onClick={handleOpenDrawer}
           className={triggerClassName}
+          openNavigationLabel={openNavigationLabel}
         />
         <Drawer
           isOpen={isDrawerOpen}

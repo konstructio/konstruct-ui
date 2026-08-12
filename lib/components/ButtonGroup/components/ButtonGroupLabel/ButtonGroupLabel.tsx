@@ -7,11 +7,11 @@ import { Typography } from '../../../Typography/Typography';
 import { Props } from './ButtonGroupLabel.types';
 
 export const ButtonGroupLabel: FC<Props> = memo(
-  ({ className, htmlFor, isRequired, label, requiredClassName }) => (
+  ({ className, id, isRequired, label, requiredClassName }) => (
     <Typography
-      component="label"
+      component="span"
       variant="labelLarge"
-      htmlFor={htmlFor}
+      id={id}
       className={cn(
         'cursor-pointer',
         'flex',
@@ -26,6 +26,7 @@ export const ButtonGroupLabel: FC<Props> = memo(
       {isRequired && (
         <Typography
           component="span"
+          aria-hidden="true"
           className={cn(
             'text-red-600',
             'dark:text-red-500',

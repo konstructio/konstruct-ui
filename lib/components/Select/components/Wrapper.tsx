@@ -7,7 +7,6 @@ import {
   KeyboardEvent,
   RefAttributes,
   useEffect,
-  useId,
   useImperativeHandle,
   useMemo,
   useRef,
@@ -31,11 +30,15 @@ import { List } from './List/List';
 export const Wrapper: ForwardRefExoticComponent<
   Omit<SelectProps, 'options'> & {
     groupedOptions: SelectProps['options'];
+    fieldId: string;
+    describedBy?: string;
   } & RefAttributes<ComponentRef<'input'>>
 > = forwardRef<
   ComponentRef<'input'>,
   Omit<SelectProps, 'helperText' | 'options'> & {
     groupedOptions: SelectProps['options'];
+    fieldId: string;
+    describedBy?: string;
   }
 >(
   (
@@ -43,6 +46,8 @@ export const Wrapper: ForwardRefExoticComponent<
       additionalOptions,
       className,
       defaultValue,
+      describedBy,
+      fieldId,
       disabled = false,
       error,
       groupedOptions,
@@ -51,6 +56,7 @@ export const Wrapper: ForwardRefExoticComponent<
       isInfiniteScrollEnabled = false,
       isLoading,
       isRequired,
+      loadingText,
       label,
       labelAction,
       labelClassName,
@@ -73,7 +79,9 @@ export const Wrapper: ForwardRefExoticComponent<
     },
     ref,
   ) => {
-    const id = useId();
+    const labelId = `${fieldId}-label`;
+    const controlId = `${fieldId}-control`;
+    const listboxId = `${fieldId}-listbox`;
     const inputRef = useRef<ComponentRef<'input'>>(null);
     const searchInputRef = useRef<ComponentRef<'input'>>(null);
     const ulRef = useRef<ComponentRef<'ul'>>(null);
@@ -128,7 +136,9 @@ export const Wrapper: ForwardRefExoticComponent<
           return;
         }
 
-        ulRef.current?.querySelector('li')?.focus();
+        ulRef.current
+          ?.querySelector<HTMLLIElement>('li:not([data-action="true"])')
+          ?.focus();
 
         return;
       }
@@ -141,8 +151,6 @@ export const Wrapper: ForwardRefExoticComponent<
         handleToggleOpen();
       }
     };
-
-    const htmlFor = name ? `${id}-${name}` : id;
 
     useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
 
@@ -192,14 +200,19 @@ export const Wrapper: ForwardRefExoticComponent<
             )}
           >
             <label
-              id={htmlFor}
+              id={labelId}
               className={cn(labelVariants({ className: labelClassName }))}
-              htmlFor={htmlFor}
+              htmlFor={controlId}
               onClick={() => !disabled && handleOpen()}
             >
               {label}
               {isRequired && (
-                <span className="text-red-600 dark:text-red-500 ml-1">*</span>
+                <span
+                  aria-hidden="true"
+                  className="text-red-600 dark:text-red-500 ml-1"
+                >
+                  *
+                </span>
               )}
             </label>
             {labelAction}
@@ -208,7 +221,7 @@ export const Wrapper: ForwardRefExoticComponent<
 
         <div
           ref={wrapperInputRef}
-          id={htmlFor}
+          id={controlId}
           className={cn(
             selectVariants({ className, hasError: !!error, disabled }),
           )}
@@ -217,7 +230,14 @@ export const Wrapper: ForwardRefExoticComponent<
           onKeyDown={handleKeyDown}
           aria-expanded={isOpen}
           tabIndex={isWrapperInputFocusable.current}
-          aria-labelledby={htmlFor}
+          aria-labelledby={label ? labelId : undefined}
+          aria-label={label ? undefined : placeholder}
+          aria-haspopup="listbox"
+          aria-controls={isOpen ? listboxId : undefined}
+          aria-invalid={!!error || undefined}
+          aria-describedby={describedBy}
+          aria-required={isRequired || undefined}
+          aria-disabled={disabled || undefined}
         >
           <div className="flex gap-2.5 items-center flex-1">
             {internalValue?.leftIcon && !showSearchIcon && (
@@ -260,8 +280,10 @@ export const Wrapper: ForwardRefExoticComponent<
                     handleOpen();
                   }
                 }}
-                aria-label={label || placeholder}
-                aria-labelledby={htmlFor}
+                aria-labelledby={label ? labelId : undefined}
+                aria-label={label ? undefined : placeholder}
+                aria-invalid={!!error || undefined}
+                aria-describedby={describedBy}
                 required={isRequired}
                 autoComplete="off"
                 autoCapitalize="words"
@@ -329,6 +351,8 @@ export const Wrapper: ForwardRefExoticComponent<
         {isOpen && (
           <List
             ref={ulRef}
+            id={listboxId}
+            labelledBy={label ? labelId : undefined}
             additionalOptions={additionalOptions}
             className={listClassName}
             groupedOptions={groupedOptions}
@@ -343,6 +367,7 @@ export const Wrapper: ForwardRefExoticComponent<
             isInfiniteScrollEnabled={isInfiniteScrollEnabled}
             onFetchMoreOptions={onFetchMoreOptions}
             noOptionsText={noOptionsText}
+            loadingText={loadingText}
             visibleItems={visibleItems}
           />
         )}

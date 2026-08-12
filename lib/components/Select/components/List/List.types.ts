@@ -7,6 +7,8 @@ export type ListProps = Pick<
   'name' | 'options' | 'theme' | 'additionalOptions'
 > & {
   className?: string;
+  id?: string;
+  labelledBy?: string;
   groupedOptions: SelectProps['options'];
   inputRef?: RefObject<ComponentRef<'input'> | null>;
   isLoading: boolean;
@@ -17,5 +19,6 @@ export type ListProps = Pick<
   isInfiniteScrollEnabled: SelectProps['isInfiniteScrollEnabled'];
   onFetchMoreOptions?: SelectProps['onFetchMoreOptions'];
   noOptionsText?: SelectProps['noOptionsText'];
+  loadingText?: SelectProps['loadingText'];
   visibleItems?: number;
 };
