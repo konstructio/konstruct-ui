@@ -19,6 +19,18 @@ export const TextArea: Story = {
         {...args}
         label="This is a textarea with Kubefirst theme"
       />
+      <TextAreaComponent
+        {...args}
+        label="This is a required textarea"
+        isRequired
+        helperText="This is a helper text."
+      />
+      <TextAreaComponent
+        {...args}
+        label="This is a textarea with an error"
+        isRequired
+        error="This is an error."
+      />
     </div>
   ),
 };

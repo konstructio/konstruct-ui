@@ -56,7 +56,8 @@ const Checkbox: FC<Props> = forwardRef<HTMLButtonElement, Props>(
     );
     const isControlled = checkedProp !== undefined;
     const checked = isControlled ? checkedProp : internalChecked;
-    const defaultId = useId();
+    const generatedId = useId();
+    const controlId = id ?? generatedId;
 
     const handleChange = (newChecked: boolean) => {
       if (!isControlled) {
@@ -72,7 +73,7 @@ const Checkbox: FC<Props> = forwardRef<HTMLButtonElement, Props>(
         data-theme={theme}
       >
         <Root
-          id={id ?? defaultId}
+          id={controlId}
           checked={checked}
           ref={ref}
           name={name}
@@ -96,7 +97,7 @@ const Checkbox: FC<Props> = forwardRef<HTMLButtonElement, Props>(
 
         {label ? (
           <label
-            htmlFor={name ?? id}
+            htmlFor={controlId}
             className={cn(
               labelVariants({
                 className: labelClassName,
@@ -105,7 +106,6 @@ const Checkbox: FC<Props> = forwardRef<HTMLButtonElement, Props>(
                 'cursor-not-allowed': disabled,
               },
             )}
-            onClick={() => !disabled && handleChange(!checked)}
           >
             {label}
           </label>
