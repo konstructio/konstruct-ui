@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { CardProps } from './Card.types';
@@ -33,6 +33,36 @@ describe('Test for Card component', () => {
     const { component } = setup();
 
     const results = await axe(component);
+
+    expect(results).toHaveNoViolations();
+  });
+
+  it('should render as a div by default', () => {
+    setup();
+
+    expect(screen.queryByRole('article')).not.toBeInTheDocument();
+  });
+
+  it('should render as the element passed in component', () => {
+    render(
+      <Card component="article" aria-labelledby="account-name">
+        <h3 id="account-name">Production</h3>
+      </Card>,
+    );
+
+    expect(
+      screen.getByRole('article', { name: 'Production' }),
+    ).toBeInTheDocument();
+  });
+
+  it("shouldn't have violations when rendered as a named article", async () => {
+    const { container } = render(
+      <Card component="article" aria-label="Production">
+        Body
+      </Card>,
+    );
+
+    const results = await axe(container);
 
     expect(results).toHaveNoViolations();
   });

@@ -31,32 +31,44 @@ import { Props } from './Card.types';
  */
 const Card: FC<Props> = forwardRef<HTMLDivElement, Props>(
   (
-    { className, theme, isActive, canHover, wrapperClassName, ...props },
+    {
+      className,
+      component = 'div',
+      theme,
+      isActive,
+      canHover,
+      wrapperClassName,
+      ...props
+    },
     ref,
-  ) => (
-    <div
-      data-theme={theme}
-      className={cn(
-        cardBaseVariants({
-          canHover,
-          className: wrapperClassName,
-          isActive,
-        }),
-      )}
-    >
+  ) => {
+    const Component = component as 'div';
+
+    return (
       <div
-        ref={ref}
+        data-theme={theme}
         className={cn(
-          cardVariants({
-            className,
-            isActive,
+          cardBaseVariants({
             canHover,
+            className: wrapperClassName,
+            isActive,
           }),
         )}
-        {...props}
-      />
-    </div>
-  ),
+      >
+        <Component
+          ref={ref}
+          className={cn(
+            cardVariants({
+              className,
+              isActive,
+              canHover,
+            }),
+          )}
+          {...props}
+        />
+      </div>
+    );
+  },
 );
 
 Card.displayName = 'Card';
