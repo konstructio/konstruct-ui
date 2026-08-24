@@ -22,14 +22,22 @@ import { tagVariants } from './Tag.variants';
 export const Tag: FC<Props> = ({
   label,
   color,
+  component = 'div',
   rightIcon,
   leftIcon,
   className,
   'data-value': dataValue,
-}) => (
-  <div className={cn(tagVariants({ color, className }))} data-value={dataValue}>
-    {leftIcon ? <Slot className="text-inherit">{leftIcon}</Slot> : null}
-    <span className="text-inherit">{label}</span>
-    {rightIcon ? <Slot className="text-inherit">{rightIcon}</Slot> : null}
-  </div>
-);
+}) => {
+  const Component = component as 'div';
+
+  return (
+    <Component
+      className={cn(tagVariants({ color, className }))}
+      data-value={dataValue}
+    >
+      {leftIcon ? <Slot className="text-inherit">{leftIcon}</Slot> : null}
+      <span className="text-inherit">{label}</span>
+      {rightIcon ? <Slot className="text-inherit">{rightIcon}</Slot> : null}
+    </Component>
+  );
+};

@@ -1,7 +1,8 @@
-import { FC, HTMLAttributes } from 'react';
+import { FC } from 'react';
 
 import { cn } from '@/utils';
 
+import { Props } from './Divider.types';
 import { dividerVariants } from './Divider.variants';
 
 /**
@@ -18,10 +19,13 @@ import { dividerVariants } from './Divider.variants';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-divider--docs Storybook}
  */
-const Divider: FC<HTMLAttributes<HTMLDivElement>> = ({
-  className,
-  ...delegated
-}) => <div className={cn(dividerVariants({ className }))} {...delegated} />;
+const Divider: FC<Props> = ({ className, component = 'div', ...delegated }) => {
+  const Component = component as 'div';
+
+  return (
+    <Component className={cn(dividerVariants({ className }))} {...delegated} />
+  );
+};
 
 Divider.displayName = 'Divider';
 
