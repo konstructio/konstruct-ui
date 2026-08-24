@@ -1,5 +1,6 @@
 import { FC, forwardRef, useId } from 'react';
 
+import { WarningIcon } from '@/assets/icons/components';
 import { cn, composeIds } from '@/utils';
 
 import { Props } from './TextArea.types';
@@ -43,6 +44,7 @@ export const TextArea: FC<Props> = forwardRef<HTMLTextAreaElement, Props>(
       helperTextClassName,
       id,
       initialValue,
+      isExpandable = false,
       isRequired = false,
       label,
       labelClassName,
@@ -70,9 +72,14 @@ export const TextArea: FC<Props> = forwardRef<HTMLTextAreaElement, Props>(
     );
 
     return (
-      <div className="flex flex-col gap-2" data-theme={theme}>
+      <div className="flex flex-col gap-2 w-full relative" data-theme={theme}>
         {label ? (
-          <div className={cn(labelWrapperClassName)}>
+          <div
+            className={cn(
+              'flex items-center justify-between',
+              labelWrapperClassName,
+            )}
+          >
             <Typography
               component="label"
               variant="labelLarge"
@@ -105,28 +112,45 @@ export const TextArea: FC<Props> = forwardRef<HTMLTextAreaElement, Props>(
           </div>
         ) : null}
 
-        <textarea
-          {...props}
-          id={controlId}
-          ref={ref}
-          name={name}
-          data-error={hasError}
-          aria-invalid={hasError || undefined}
-          aria-describedby={describedBy}
-          aria-required={isRequired || undefined}
-          className={cn(
-            textAreaVariants({
-              className,
-              variant: hasError ? 'error' : (variant ?? 'default'),
-            }),
-          )}
-          rows={rows}
-          placeholder={placeholder}
-          value={value}
-          defaultValue={
-            isControlled ? undefined : (defaultValue ?? initialValue)
-          }
-        />
+        <div className="relative">
+          <textarea
+            {...props}
+            id={controlId}
+            ref={ref}
+            name={name}
+            data-error={hasError}
+            aria-invalid={hasError || undefined}
+            aria-describedby={describedBy}
+            aria-required={isRequired || undefined}
+            className={cn(
+              textAreaVariants({
+                className,
+                isExpandable,
+                variant: hasError ? 'error' : (variant ?? 'default'),
+              }),
+            )}
+            rows={rows}
+            placeholder={placeholder}
+            value={value}
+            defaultValue={
+              isControlled ? undefined : (defaultValue ?? initialValue)
+            }
+          />
+
+          {hasError ? (
+            <i
+              className={cn(
+                'absolute',
+                'right-3',
+                'top-2.5',
+                'text-red-700',
+                'dark:text-red-500',
+              )}
+            >
+              <WarningIcon className="w-5 h-5" />
+            </i>
+          ) : null}
+        </div>
 
         {hasError ? (
           <Typography

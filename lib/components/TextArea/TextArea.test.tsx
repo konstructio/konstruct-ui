@@ -146,4 +146,14 @@ describe('TextArea', () => {
 
     expect(results).toHaveNoViolations();
   });
+
+  it("shouldn't have accessibility violations in the error state", async () => {
+    const { container } = render(
+      <TextArea label="Bio" isRequired error="Bio is required" />,
+    );
+
+    const results = await axe(container);
+
+    expect(results).toHaveNoViolations();
+  });
 });
