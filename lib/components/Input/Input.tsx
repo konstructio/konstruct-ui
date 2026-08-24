@@ -2,7 +2,7 @@ import { forwardRef, useId, useRef, useState } from 'react';
 import { Eye, EyeOff } from 'react-feather';
 
 import { SearchIcon, WarningIcon } from '@/assets/icons/components';
-import { cn } from '@/utils';
+import { cn, composeIds } from '@/utils';
 
 import { Props } from './Input.types';
 import { inputVariants } from './Input.variants';
@@ -47,6 +47,8 @@ const Input = forwardRef<HTMLInputElement, Props>(
       error,
       helperText,
       helperTextClassName,
+      hidePasswordLabel = 'Hide password',
+      id,
       isRequired = false,
       isSearch = false,
       label,
@@ -54,13 +56,17 @@ const Input = forwardRef<HTMLInputElement, Props>(
       labelClassName,
       labelWrapperClassName,
       name,
+      showPasswordLabel = 'Show password',
       theme,
       type = 'text',
       ...delegated
     },
     ref,
   ) => {
-    const id = useId();
+    const generatedId = useId();
+    const controlId = id ?? generatedId;
+    const errorId = `${controlId}-error`;
+    const helperTextId = `${controlId}-helper-text`;
     const isDefaultTypePassword = useRef(type === 'password');
 
     const [showPassword, setShowPassword] = useState(() => {
@@ -71,7 +77,13 @@ const Input = forwardRef<HTMLInputElement, Props>(
       return true;
     });
 
-    const hasError = typeof error === 'string' && error.length >= 0;
+    const hasError = typeof error === 'string' && error.length > 0;
+    const hasPasswordToggle = type === 'password';
+    const hasHelperText = !hasError && !!helperText;
+    const describedBy = composeIds(
+      hasError && errorId,
+      hasHelperText && helperTextId,
+    );
     const EyeIcon = showPassword ? Eye : EyeOff;
 
     return (
@@ -86,7 +98,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
             <Typography
               component="label"
               variant="labelLarge"
-              htmlFor={id}
+              htmlFor={controlId}
               className={cn(
                 'cursor-pointer',
                 'flex',
@@ -100,6 +112,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
               {isRequired && (
                 <Typography
                   component="span"
+                  aria-hidden="true"
                   className={cn(
                     'text-red-600',
                     'dark:text-red-500',
@@ -135,7 +148,8 @@ const Input = forwardRef<HTMLInputElement, Props>(
           ) : null}
 
           <input
-            id={label ? id : undefined}
+            {...delegated}
+            id={controlId}
             ref={ref}
             name={name}
             type={
@@ -146,17 +160,20 @@ const Input = forwardRef<HTMLInputElement, Props>(
                 : 'password'
             }
             data-error={hasError}
+            aria-invalid={hasError || undefined}
+            aria-describedby={describedBy}
+            aria-required={isRequired || undefined}
             className={cn(
               inputVariants({
                 className,
                 variant: hasError ? 'error' : 'default',
               }),
               {
-                'pr-10': type === 'password' || hasError,
+                'pr-10': hasPasswordToggle || hasError,
+                'pr-16': hasPasswordToggle && hasError,
                 'pl-8': isSearch,
               },
             )}
-            {...delegated}
           />
 
           {hasError ? (
@@ -164,20 +181,20 @@ const Input = forwardRef<HTMLInputElement, Props>(
               className={cn(
                 '-translate-y-1/2',
                 'absolute',
-                'right-3',
                 'text-red-700',
                 'top-1/2',
                 'dark:text-red-500',
+                hasPasswordToggle ? 'right-10' : 'right-3',
               )}
             >
               <WarningIcon className="w-5 h-5" />
             </i>
           ) : null}
 
-          {type === 'password' && !error ? (
+          {hasPasswordToggle ? (
             <button
               type="button"
-              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              aria-label={showPassword ? hidePasswordLabel : showPasswordLabel}
               className={cn(
                 '-translate-y-1/2',
                 'absolute',
@@ -193,9 +210,10 @@ const Input = forwardRef<HTMLInputElement, Props>(
           ) : null}
         </div>
 
-        {error ? (
+        {hasError ? (
           <Typography
             component="span"
+            id={errorId}
             className={cn(
               'text-xs',
               'tracking-normal',
@@ -207,9 +225,10 @@ const Input = forwardRef<HTMLInputElement, Props>(
           </Typography>
         ) : null}
 
-        {!error && helperText ? (
+        {hasHelperText ? (
           <Typography
             component="span"
+            id={helperTextId}
             variant="body1"
             className={cn(
               'text-xs',

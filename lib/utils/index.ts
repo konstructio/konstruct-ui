@@ -22,3 +22,11 @@ export const resolveColor = (cssVar: string): string => {
       .trim() || cssVar
   );
 };
+
+export const composeIds = (
+  ...ids: (string | false | null | undefined)[]
+): string | undefined => {
+  const resolved = ids.filter(Boolean).join(' ');
+
+  return resolved.length > 0 ? resolved : undefined;
+};

@@ -25,6 +25,10 @@ export interface Props
   helperText?: string;
   /** Additional CSS classes for the helper text */
   helperTextClassName?: string;
+  /** Accessible label for the password toggle while the password is visible */
+  hidePasswordLabel?: string;
+  /** Accessible label for the password toggle while the password is hidden */
+  showPasswordLabel?: string;
   /** Show required indicator (*) next to label */
   isRequired?: boolean;
   /** Show search icon inside the input */

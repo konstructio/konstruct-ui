@@ -36,6 +36,7 @@ export const Dark = {
       />
       <InputComponent {...args} />
       <InputComponent {...args} type="password" />
+      <InputComponent {...args} type="password" error="This is an error." />
       <InputComponent
         {...args}
         helperText="This is a helper text."
