@@ -1,4 +1,5 @@
-import { FC, HTMLAttributes } from '../../../node_modules/react';
+import { FC } from '../../../node_modules/react';
+import { Props } from './Divider.types';
 /**
  * A horizontal divider/separator line.
  *
@@ -13,5 +14,5 @@ import { FC, HTMLAttributes } from '../../../node_modules/react';
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-divider--docs Storybook}
  */
-declare const Divider: FC<HTMLAttributes<HTMLDivElement>>;
+declare const Divider: FC<Props>;
 export { Divider };

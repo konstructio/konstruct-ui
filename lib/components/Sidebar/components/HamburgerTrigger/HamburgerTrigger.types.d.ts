@@ -1,5 +1,7 @@
 export interface Props {
     isOpen: boolean;
+    /** Accessible label for the navigation trigger */
+    openNavigationLabel?: string;
     onClick: VoidFunction;
     className?: string;
 }

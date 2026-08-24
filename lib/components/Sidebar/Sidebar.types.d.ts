@@ -69,6 +69,8 @@ export interface Props extends Omit<VariantProps<typeof wrapperSiderbarVariants>
     separatorClassName?: string;
     /** Additional CSS classes for the hamburger trigger button rendered in drawer mode */
     triggerClassName?: string;
+    /** Accessible label for the mobile navigation trigger */
+    openNavigationLabel?: string;
     /**
      * Per-slot class overrides for the underlying `Drawer` rendered in
      * `drawer` mode. Mirrors `Drawer`'s `classNames` shape: `root`, `overlay`,

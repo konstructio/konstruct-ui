@@ -15,6 +15,7 @@ import { cardVariants } from './Card.variants';
 export interface Props extends HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardVariants>, PropsWithChildren {
     /** Enable hover effect */
     canHover?: boolean;
+    component?: 'div' | 'article' | 'section' | 'aside' | 'li';
     /** Show active/selected state */
     isActive?: boolean;
     /** Theme override for this component */

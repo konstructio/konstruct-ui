@@ -9,6 +9,7 @@ export type Props = {
     labelDate?: string;
     labelTime?: string;
     ariaLabelDate?: string;
+    ariaLabelTime?: string;
     onDateChange: (e: ChangeEvent<HTMLInputElement>) => void;
     onDateFocus: () => void;
     onDateBlur: (e: FocusEvent<HTMLInputElement>) => void;

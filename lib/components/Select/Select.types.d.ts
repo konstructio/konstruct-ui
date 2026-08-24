@@ -111,6 +111,8 @@ export type Props = VariantProps<typeof selectVariants> & Omit<InputHTMLAttribut
     listItemSecondRowClassName?: string;
     mainWrapperClassName?: string;
     noOptionsText?: string;
+    /** Text shown in the list while options are loading */
+    loadingText?: string;
     visibleItems?: number;
     options: Option[] | OptionGroup[];
     searchable?: boolean;

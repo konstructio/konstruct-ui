@@ -2,6 +2,8 @@ import { ComponentRef, RefObject } from '../../../../../node_modules/react';
 import { Props as SelectProps } from '../../Select.types';
 export type ListProps = Pick<SelectProps, 'name' | 'options' | 'theme' | 'additionalOptions'> & {
     className?: string;
+    id?: string;
+    labelledBy?: string;
     groupedOptions: SelectProps['options'];
     inputRef?: RefObject<ComponentRef<'input'> | null>;
     isLoading: boolean;
@@ -12,5 +14,6 @@ export type ListProps = Pick<SelectProps, 'name' | 'options' | 'theme' | 'additi
     isInfiniteScrollEnabled: SelectProps['isInfiniteScrollEnabled'];
     onFetchMoreOptions?: SelectProps['onFetchMoreOptions'];
     noOptionsText?: SelectProps['noOptionsText'];
+    loadingText?: SelectProps['loadingText'];
     visibleItems?: number;
 };

@@ -17,6 +17,12 @@ import { Props } from './TextArea.types';
  *   value={comments}
  *   onChange={(e) => setComments(e.target.value)}
  * />
+ *
+ * // Required textarea with validation state
+ * <TextArea label="Bio" isRequired error="Bio is required" />
+ *
+ * // Textarea with helper text
+ * <TextArea label="Bio" helperText="Max 200 characters" />
  * ```
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-textarea--docs Storybook}

@@ -1,0 +1,25 @@
+import{n as e}from"./rolldown-runtime-C0FnF6B9.js";import{t}from"./react-C21x__mS.js";import{t as n}from"./jsx-runtime-BdxMnOeJ.js";import{n as r,t as i}from"./Warning-CI1c_Ho-.js";import{i as a,n as o,t as s}from"./utils-0TJZseot.js";import{n as c,t as l}from"./dist-qtULYLvt.js";import{n as u,t as d}from"./Typography-Dr4qxqZo.js";var f;function p(){return(p=e((()=>{c(),f=l(`bg-white,border,border-gray-300,caret-text-slate-800,disabled:cursor-not-allowed,disabled:text-slate-500,flex,focus-visible:border-transparent,focus-visible:outline-none,focus-visible:ring-1,px-2.5,py-2,rounded,text-slate-800,text-sm,transition-all,w-full,disabled:bg-gray-50,placeholder:text-slate-400,data-[error=false]:dark:focus:ring-aurora-500,data-[error=false]:focus:ring-aurora-500,dark:bg-metal-800,dark:border-metal-700,dark:caret-text-metal-50,dark:disabled:bg-metal-900,dark:disabled:placeholder:text-metal-400,dark:disabled:text-metal-400,dark:placeholder:text-metal-300,dark:text-slate-50`.split(`,`),{variants:{variant:{default:``,error:[`pr-8`,`border-red-600`,`focus-visible:border-red-600`,`focus-visible:ring-transparent`,`dark:border-red-500`]},isExpandable:{true:`resize-y`,false:`resize-none`}},defaultVariants:{variant:`default`,isExpandable:!1}})})))()}var m,h,g;function _(){return(_=e((()=>{m=t(),r(),a(),p(),u(),h=n(),g=(0,m.forwardRef)(({className:e,defaultValue:t,error:n,helperText:r,helperTextClassName:a,id:c,initialValue:l,isExpandable:u=!1,isRequired:p=!1,label:g,labelClassName:_,labelWrapperClassName:v,name:y,placeholder:b,rows:x=3,theme:S,value:C,variant:w,...T},E)=>{let D=(0,m.useId)(),O=c??D,k=`${O}-error`,A=`${O}-helper-text`,j=C!==void 0,M=typeof n==`string`&&n.length>0,N=!M&&!!r,P=o(M&&k,N&&A);return(0,h.jsxs)(`div`,{className:`flex flex-col gap-2 w-full relative`,"data-theme":S,children:[g?(0,h.jsx)(`div`,{className:s(`flex items-center justify-between`,v),children:(0,h.jsxs)(d,{component:`label`,variant:`labelLarge`,htmlFor:O,className:s(`cursor-pointer`,`flex`,`gap-1`,`text-sm`,`font-medium`,_),children:[g,` `,p&&(0,h.jsx)(d,{component:`span`,"aria-hidden":`true`,className:s(`text-red-600`,`dark:text-red-500`,`text-xs`,`mt-0.5`),children:`*`})]})}):null,(0,h.jsxs)(`div`,{className:`relative`,children:[(0,h.jsx)(`textarea`,{...T,id:O,ref:E,name:y,"data-error":M,"aria-invalid":M||void 0,"aria-describedby":P,"aria-required":p||void 0,className:s(f({className:e,isExpandable:u,variant:M?`error`:w??`default`})),rows:x,placeholder:b,value:C,defaultValue:j?void 0:t??l}),M?(0,h.jsx)(`i`,{className:s(`absolute`,`right-3`,`top-2.5`,`text-red-700`,`dark:text-red-500`),children:(0,h.jsx)(i,{className:`w-5 h-5`})}):null]}),M?(0,h.jsx)(d,{component:`span`,id:k,className:s(`text-xs`,`tracking-normal`,`text-red-700`,`dark:text-red-400`),children:n}):null,N?(0,h.jsx)(d,{component:`span`,id:A,variant:`body1`,className:s(`text-xs`,`text-slate-600`,`dark:text-slate-200`,`select-none`,`tracking-normal`,a),children:r}):null]})}),g.__docgenInfo={description:`A multiline text input component with optional label.
+
+@example
+\`\`\`tsx
+// Basic textarea
+<TextArea label="Description" placeholder="Enter description..." />
+
+// Textarea with more rows
+<TextArea label="Notes" rows={5} />
+
+// Controlled textarea
+<TextArea
+  label="Comments"
+  value={comments}
+  onChange={(e) => setComments(e.target.value)}
+/>
+
+// Required textarea with validation state
+<TextArea label="Bio" isRequired error="Bio is required" />
+
+// Textarea with helper text
+<TextArea label="Bio" helperText="Max 200 characters" />
+\`\`\`
+
+@see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-textarea--docs Storybook}`,methods:[],displayName:`TextArea`,props:{rows:{required:!1,tsType:{name:`number`},description:`Number of visible text rows (default: 3)`,defaultValue:{value:`3`,computed:!1}},error:{required:!1,tsType:{name:`string`},description:`Error message to display below the textarea`},helperText:{required:!1,tsType:{name:`string`},description:`Helper text displayed below the textarea when no error`},helperTextClassName:{required:!1,tsType:{name:`string`},description:`Additional CSS classes for the helper text`},isRequired:{required:!1,tsType:{name:`boolean`},description:`Show required indicator (*) next to label`,defaultValue:{value:`false`,computed:!1}},label:{required:!1,tsType:{name:`union`,raw:`string | ReactNode`,elements:[{name:`string`},{name:`ReactNode`}]},description:`Label displayed above the textarea`},labelClassName:{required:!1,tsType:{name:`string`},description:`Additional CSS classes for the label`},labelWrapperClassName:{required:!1,tsType:{name:`string`},description:`Additional CSS classes for the label wrapper`},name:{required:!1,tsType:{name:`string`},description:`Form field name`},initialValue:{required:!1,tsType:{name:`string`},description:`Initial/default value`},theme:{required:!1,tsType:{name:`Theme`},description:`Theme override for this component`},isExpandable:{defaultValue:{value:`false`,computed:!1},required:!1}},composes:[`TextareaHTMLAttributes`,`VariantProps`]}})))()}export{_ as n,g as t};

@@ -26,6 +26,7 @@ export type Props = {
     leftIcon?: ReactNode;
     /** Additional CSS classes */
     className?: string;
+    component?: 'div' | 'li' | 'span';
     /** Data attribute for the tag value */
     'data-value'?: string;
     /** Whether the tag is in a selected state */

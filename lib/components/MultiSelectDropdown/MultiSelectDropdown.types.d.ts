@@ -60,6 +60,8 @@ export interface Props extends VariantProps<typeof multiSelectDropdownVariants>,
     name?: string;
     /** Text shown when no options match the search */
     noOptionsText?: string;
+    /** Text shown in the list while options are loading */
+    loadingText?: string;
     /** Available options to select from */
     options: MultiSelectDropdownOption[];
     /** Placeholder text when no selection */
