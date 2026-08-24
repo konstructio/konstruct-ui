@@ -22,6 +22,8 @@ import { WrapperList } from '../WrapperList/WrapperList';
 import { WrapperProps } from './Wrapper.types';
 
 export const Wrapper: FC<WrapperProps> = ({
+  ariaLabel,
+  id: idProp,
   name,
   label,
   isRequired,
@@ -43,7 +45,10 @@ export const Wrapper: FC<WrapperProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const { format, formattedTime, setTimeDirectly, setIsTyping } =
     useTimePickerContext();
-  const labelId = name ?? `time-${id}`;
+  const controlId = idProp ?? `time-${id}`;
+  const labelId = `${controlId}-label`;
+  const listboxId = `${controlId}-listbox`;
+  const errorId = `${controlId}-error`;
 
   const [inputValue, setInputValue] = useState(formattedTime);
   const [internalError, setInternalError] = useState<string | undefined>();
@@ -217,13 +222,15 @@ export const Wrapper: FC<WrapperProps> = ({
         <Typography
           component="label"
           variant="labelLarge"
-          htmlFor={labelId}
+          id={labelId}
+          htmlFor={controlId}
           className="font-medium"
         >
           {label}{' '}
           {isRequired && (
             <Typography
               component="span"
+              aria-hidden="true"
               className="text-red-600 dark:text-red-500 text-sm font-normal"
             >
               *
@@ -233,32 +240,43 @@ export const Wrapper: FC<WrapperProps> = ({
       ) : null}
 
       <div className="relative">
-        {mode === 'select' ? (
-          <button
-            aria-label={labelId}
-            aria-haspopup="listbox"
-            aria-expanded="true"
-            aria-controls="time-options"
-            className={cn(
-              timePickerVariants({ className }),
-              disabled && 'opacity-50 cursor-not-allowed',
-            )}
-            data-open={isOpen}
-            onClick={handleOpen}
-            disabled={disabled}
-          >
-            {formattedTime}
-            <ChevronDownIcon
-              className="w-4 h-4 transition-all text-gray-400 data-[open=true]:rotate-180"
+        <div className="flex flex-col gap-1">
+          {mode === 'select' ? (
+            <button
+              type="button"
+              id={controlId}
+              aria-label={ariaLabel}
+              aria-labelledby={!ariaLabel && label ? labelId : undefined}
+              aria-haspopup="listbox"
+              aria-expanded={isOpen}
+              aria-controls={isOpen && showList ? listboxId : undefined}
+              aria-invalid={!!displayError || undefined}
+              aria-describedby={displayError ? errorId : undefined}
+              aria-required={isRequired || undefined}
+              className={cn(
+                timePickerVariants({ className }),
+                disabled && 'opacity-50 cursor-not-allowed',
+              )}
               data-open={isOpen}
-            />
-          </button>
-        ) : (
-          <div className="flex flex-col gap-1">
+              onClick={handleOpen}
+              disabled={disabled}
+            >
+              {formattedTime}
+              <ChevronDownIcon
+                className="w-4 h-4 transition-all text-gray-400 data-[open=true]:rotate-180"
+                data-open={isOpen}
+              />
+            </button>
+          ) : (
             <input
               ref={inputRef}
               type="text"
-              aria-label={labelId}
+              id={controlId}
+              aria-label={ariaLabel}
+              aria-labelledby={!ariaLabel && label ? labelId : undefined}
+              aria-invalid={!!displayError || undefined}
+              aria-describedby={displayError ? errorId : undefined}
+              aria-required={isRequired || undefined}
               value={inputValue}
               onChange={handleInputChange}
               onFocus={handleInputFocus}
@@ -298,19 +316,22 @@ export const Wrapper: FC<WrapperProps> = ({
                 },
               )}
             />
-            {displayError && (
-              <Typography
-                component="span"
-                className="text-red-600 dark:text-red-500 text-xs"
-              >
-                {displayError}
-              </Typography>
-            )}
-          </div>
-        )}
+          )}
+
+          {displayError && (
+            <Typography
+              component="span"
+              id={errorId}
+              className="text-red-600 dark:text-red-500 text-xs"
+            >
+              {displayError}
+            </Typography>
+          )}
+        </div>
 
         {showList && (
           <WrapperList
+            id={listboxId}
             isOpen={isOpen}
             scrollBehavior={scrollBehavior}
             listClassName={listClassName}
@@ -323,7 +344,7 @@ export const Wrapper: FC<WrapperProps> = ({
 
       <input
         type="hidden"
-        name={labelId}
+        name={name}
         value={formattedTime}
         className="hidden"
       />

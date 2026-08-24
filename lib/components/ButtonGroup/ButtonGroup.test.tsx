@@ -71,6 +71,48 @@ describe('ButtonGroup', () => {
     expect(label).toBeInTheDocument();
   });
 
+  it('should expose the label as the accessible name of the group', async () => {
+    setup({ label: 'Instance type' });
+
+    expect(
+      await screen.findByRole('radiogroup', { name: 'Instance type' }),
+    ).toBeInTheDocument();
+  });
+
+  it('should describe the group with its error message', async () => {
+    const { findRadioGroup } = setup({
+      label: 'Instance type',
+      error: 'Pick one',
+      isRequired: true,
+    });
+
+    const group = await findRadioGroup();
+
+    expect(group).toHaveAttribute('aria-invalid', 'true');
+    expect(group).toHaveAttribute('aria-required', 'true');
+    expect(group).toHaveAccessibleDescription('Pick one');
+  });
+
+  it('should describe the group with its helper text', async () => {
+    const { findRadioGroup } = setup({
+      label: 'Instance type',
+      helperText: 'Balanced compute',
+    });
+
+    const group = await findRadioGroup();
+
+    expect(group).not.toHaveAttribute('aria-invalid');
+    expect(group).toHaveAccessibleDescription('Balanced compute');
+  });
+
+  it('should keep the required marker out of the accessible name', async () => {
+    setup({ label: 'Instance type', isRequired: true });
+
+    expect(
+      await screen.findByRole('radiogroup', { name: 'Instance type' }),
+    ).toBeInTheDocument();
+  });
+
   it('should render required indicator when isRequired is true', async () => {
     const { findByText } = setup({ label: 'Required field', isRequired: true });
 

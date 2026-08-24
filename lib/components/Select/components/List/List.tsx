@@ -3,7 +3,6 @@ import {
   ComponentRef,
   forwardRef,
   ForwardRefExoticComponent,
-  Fragment,
   RefAttributes,
   useEffect,
   useImperativeHandle,
@@ -34,9 +33,12 @@ export const List: ForwardRefExoticComponent<
       additionalOptions,
       className,
       groupedOptions,
+      id,
       inputRef,
       isLoading,
       itemClassName,
+      labelledBy,
+      loadingText,
       name,
       searchable = false,
       listItemSecondRowClassName,
@@ -190,8 +192,10 @@ export const List: ForwardRefExoticComponent<
     return (
       <ul
         ref={ulRef}
+        id={id}
         title={name}
         role="listbox"
+        aria-labelledby={labelledBy}
         className={cn(listVariants({ className }))}
         style={listStyle}
         data-state={isOpen ? 'open' : 'closed'}
@@ -201,8 +205,8 @@ export const List: ForwardRefExoticComponent<
             className={cn('select-none', itemClassName)}
             isClickable={false}
             inputRef={inputRef}
-            value="Loading..."
-            label="Loading..."
+            value={loadingText ?? 'Loading...'}
+            label={loadingText ?? 'Loading...'}
             listItemSecondRowClassName={listItemSecondRowClassName}
           />
         ) : isEmpty ? (
@@ -217,27 +221,29 @@ export const List: ForwardRefExoticComponent<
           />
         ) : isGrouped ? (
           filteredGroups.map((group) => (
-            <Fragment key={group.groupLabel}>
-              <li
-                role="presentation"
-                aria-hidden="true"
-                data-action="true"
-                className={cn(listGroupLabelVariants())}
-              >
-                {group.groupLabel}
-              </li>
+            <li key={group.groupLabel} role="presentation" data-action="true">
+              <ul role="group" aria-label={group.groupLabel}>
+                <li
+                  role="presentation"
+                  aria-hidden="true"
+                  data-action="true"
+                  className={cn(listGroupLabelVariants())}
+                >
+                  {group.groupLabel}
+                </li>
 
-              {group.options.map((option) => (
-                <ListItem
-                  key={option.value}
-                  className={cn('select-none', itemClassName)}
-                  isClickable
-                  inputRef={inputRef}
-                  listItemSecondRowClassName={listItemSecondRowClassName}
-                  {...option}
-                />
-              ))}
-            </Fragment>
+                {group.options.map((option) => (
+                  <ListItem
+                    key={option.value}
+                    className={cn('select-none', itemClassName)}
+                    isClickable
+                    inputRef={inputRef}
+                    listItemSecondRowClassName={listItemSecondRowClassName}
+                    {...option}
+                  />
+                ))}
+              </ul>
+            </li>
           ))
         ) : (
           uniqueFilteredOptions.map((option) => (
@@ -255,7 +261,8 @@ export const List: ForwardRefExoticComponent<
         {isInfiniteScrollEnabled && canContinueFetching && (
           <li
             ref={loadingRef}
-            role="option"
+            role="presentation"
+            aria-hidden="true"
             data-action="true"
             className="flex items-center justify-center py-3"
             onClick={(e) => e.stopPropagation()}

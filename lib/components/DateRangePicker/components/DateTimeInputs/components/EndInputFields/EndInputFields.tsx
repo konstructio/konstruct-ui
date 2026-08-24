@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useId } from 'react';
 
 import { cn } from '@/utils';
 
@@ -24,66 +24,77 @@ export const EndInputFields: FC<Props> = ({
   labelDate = 'End date',
   labelTime = 'Time',
   ariaLabelDate = 'End date',
+  ariaLabelTime = 'End time',
   onDateChange,
   onDateFocus,
   onDateBlur,
   onTimeChange,
   classNames,
-}) => (
-  <div
-    className={cn(
-      dateTimeGroupVariants(),
-      !showTime && 'w-auto flex-1',
-      classNames?.group,
-    )}
-  >
+}) => {
+  const id = useId();
+  const timeControlId = `${id}-time`;
+
+  return (
     <div
       className={cn(
-        dateInputWrapperVariants(),
-        !showTime && 'w-full flex-1',
-        classNames?.dateWrapper,
+        dateTimeGroupVariants(),
+        !showTime && 'w-auto flex-1',
+        classNames?.group,
       )}
     >
-      <Typography
-        component="label"
-        className={cn(inputLabelVariants(), classNames?.label)}
+      <div
+        className={cn(
+          dateInputWrapperVariants(),
+          !showTime && 'w-full flex-1',
+          classNames?.dateWrapper,
+        )}
       >
-        {labelDate}
-      </Typography>
-
-      <Input
-        value={dateValue}
-        onChange={onDateChange}
-        onFocus={onDateFocus}
-        onBlur={onDateBlur}
-        error={error}
-        disabled={disabled}
-        className={cn(classNames?.input)}
-        aria-label={ariaLabelDate}
-      />
-    </div>
-
-    {showTime && (
-      <div className={cn(timeInputWrapperVariants(), classNames?.timeWrapper)}>
         <Typography
           component="label"
           className={cn(inputLabelVariants(), classNames?.label)}
         >
-          {labelTime}
+          {labelDate}
         </Typography>
 
-        <TimePicker
-          mode="input"
-          showList
-          format={timeFormat}
-          time={timeValue}
-          onChange={onTimeChange}
+        <Input
+          value={dateValue}
+          onChange={onDateChange}
+          onFocus={onDateFocus}
+          onBlur={onDateBlur}
+          error={error}
           disabled={disabled}
-          name="end time"
+          className={cn(classNames?.input)}
+          aria-label={ariaLabelDate}
         />
       </div>
-    )}
-  </div>
-);
+
+      {showTime && (
+        <div
+          className={cn(timeInputWrapperVariants(), classNames?.timeWrapper)}
+        >
+          <Typography
+            component="label"
+            htmlFor={timeControlId}
+            className={cn(inputLabelVariants(), classNames?.label)}
+          >
+            {labelTime}
+          </Typography>
+
+          <TimePicker
+            mode="input"
+            showList
+            format={timeFormat}
+            time={timeValue}
+            onChange={onTimeChange}
+            disabled={disabled}
+            ariaLabel={ariaLabelTime}
+            id={timeControlId}
+            name="end time"
+          />
+        </div>
+      )}
+    </div>
+  );
+};
 
 EndInputFields.displayName = 'EndInputFields';

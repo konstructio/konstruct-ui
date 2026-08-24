@@ -7,17 +7,22 @@ import { cn } from '@/utils';
 import { Props } from './HamburgerTrigger.types';
 import { hamburgerTriggerVariants } from './HamburgerTrigger.variants';
 
-const HamburgerTrigger: FC<Props> = ({ isOpen, onClick, className }) => (
+const HamburgerTrigger: FC<Props> = ({
+  isOpen,
+  onClick,
+  className,
+  openNavigationLabel = 'Open navigation',
+}) => (
   <button
     type="button"
-    aria-label="Open navigation"
+    aria-label={openNavigationLabel}
     aria-expanded={isOpen}
     aria-haspopup="menu"
     className={cn(hamburgerTriggerVariants({ className }))}
     onClick={onClick}
   >
     <Menu size={20} aria-hidden="true" />
-    <VisuallyHidden>Open navigation</VisuallyHidden>
+    <VisuallyHidden>{openNavigationLabel}</VisuallyHidden>
   </button>
 );
 

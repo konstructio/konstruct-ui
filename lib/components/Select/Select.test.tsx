@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent, { UserEvent } from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { FC, FormEvent, PropsWithChildren, useState } from 'react';
@@ -80,6 +80,117 @@ describe('Select', () => {
       const results = await axe(component);
 
       expect(results).toHaveNoViolations();
+    });
+
+    it('should expose the label as the accessible name of the combobox', async () => {
+      setup();
+
+      expect(
+        await screen.findByRole('combobox', { name: 'Select' }),
+      ).toBeInTheDocument();
+    });
+
+    it('should not emit duplicated ids', async () => {
+      const { component } = setup({ isRequired: true, error: 'Required' });
+
+      const ids = [...component.querySelectorAll('[id]')].map(
+        (element) => element.id,
+      );
+
+      expect(ids).toHaveLength(new Set(ids).size);
+    });
+
+    it('should point the label at the combobox instead of itself', async () => {
+      const { component } = setup();
+
+      const label = component.querySelector('label');
+      const comboBox = await screen.findByRole('combobox');
+
+      expect(label?.getAttribute('for')).toBe(comboBox.id);
+      expect(label?.getAttribute('for')).not.toBe(label?.id);
+    });
+
+    it('should fall back to the placeholder when there is no label', async () => {
+      setup({ label: undefined, placeholder: 'Pick a region' });
+
+      expect(
+        await screen.findByRole('combobox', { name: 'Pick a region' }),
+      ).toBeInTheDocument();
+    });
+
+    it('should describe the combobox with its error message', async () => {
+      setup({ error: 'Required', isRequired: true });
+
+      const comboBox = await screen.findByRole('combobox');
+
+      expect(comboBox).toHaveAttribute('aria-invalid', 'true');
+      expect(comboBox).toHaveAttribute('aria-required', 'true');
+      expect(comboBox).toHaveAccessibleDescription('Required');
+    });
+
+    it('should describe the combobox with its helper text', async () => {
+      setup({ helperText: 'Pick the closest region' });
+
+      const comboBox = await screen.findByRole('combobox');
+
+      expect(comboBox).not.toHaveAttribute('aria-invalid');
+      expect(comboBox).toHaveAccessibleDescription('Pick the closest region');
+    });
+
+    it('should reference the listbox it controls while open', async () => {
+      const { user, findComboBox } = setup();
+
+      const comboBox = await findComboBox();
+
+      expect(comboBox).toHaveAttribute('aria-haspopup', 'listbox');
+      expect(comboBox).not.toHaveAttribute('aria-controls');
+
+      await user.click(comboBox);
+
+      const listbox = await screen.findByRole('listbox');
+
+      expect(comboBox).toHaveAttribute('aria-controls', listbox.id);
+    });
+
+    it('should expose grouped options as named groups', async () => {
+      const { user, findComboBox } = setup({
+        options: [
+          {
+            groupLabel: 'Europe',
+            options: [{ label: 'Ireland', value: 'ie' }],
+          },
+          {
+            groupLabel: 'Americas',
+            options: [{ label: 'Canada', value: 'ca' }],
+          },
+        ],
+      });
+
+      await user.click(await findComboBox());
+
+      expect(
+        await screen.findByRole('group', { name: 'Europe' }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole('group', { name: 'Americas' }),
+      ).toBeInTheDocument();
+
+      const europe = screen.getByRole('group', { name: 'Europe' });
+
+      expect(
+        within(europe).getByRole('option', { name: /Ireland/ }),
+      ).toBeInTheDocument();
+    });
+
+    it('should allow overriding the loading text', async () => {
+      const { user, findComboBox } = setup({
+        isLoading: true,
+        loadingText: 'Cargando...',
+      });
+
+      await user.click(await findComboBox());
+
+      expect(screen.getByText('Cargando...')).toBeInTheDocument();
     });
 
     it('should render the options correctly', async () => {

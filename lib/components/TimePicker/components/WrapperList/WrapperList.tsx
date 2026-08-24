@@ -11,6 +11,7 @@ import { MinutesList } from '../MinutesList/MinutesList';
 import { WrapperListProps } from './WrapperList.types';
 
 export const WrapperList: FC<WrapperListProps> = ({
+  id,
   isOpen,
   scrollBehavior,
   listClassName,
@@ -28,6 +29,7 @@ export const WrapperList: FC<WrapperListProps> = ({
 
   return (
     <div
+      id={id}
       role="group"
       className={cn(
         'flex',

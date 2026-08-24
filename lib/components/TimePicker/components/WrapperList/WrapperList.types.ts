@@ -1,6 +1,7 @@
 import { Props as TimePickerProps } from '../../TimePicker.types';
 
 export type WrapperListProps = {
+  id?: string;
   isOpen: boolean;
   scrollBehavior?: TimePickerProps['scrollBehavior'];
   listClassName?: TimePickerProps['listClassName'];

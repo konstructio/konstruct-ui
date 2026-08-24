@@ -55,6 +55,7 @@ const ImageUpload = ({
   maxSize = 5 * 1024 * 1024,
 }: Props) => {
   const id = useId();
+  const messageId = `${id}-message`;
   const fileInputRef = useRef<HTMLInputElement>(null);
   const uploadTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [internalStatus, setInternalStatus] = useState(status);
@@ -178,7 +179,10 @@ const ImageUpload = ({
           >
             {label}
             {isRequired && (
-              <span className="text-red-600 dark:text-red-500 text-xs mt-0.5">
+              <span
+                aria-hidden="true"
+                className="text-red-600 dark:text-red-500 text-xs mt-0.5"
+              >
                 *
               </span>
             )}
@@ -308,6 +312,7 @@ const ImageUpload = ({
         <div className="flex w-full gap-2">
           <div className="flex-1 min-w-0">
             <p
+              id={messageId}
               className={cn(
                 helperTextVariants({
                   status: currentStatus,
@@ -335,7 +340,10 @@ const ImageUpload = ({
         accept={accept}
         onChange={handleFileChange}
         className="hidden"
-        aria-label={typeof label === 'string' ? label : 'File upload'}
+        aria-label={label ? undefined : 'File upload'}
+        aria-invalid={hasError || undefined}
+        aria-describedby={displayHelperText ? messageId : undefined}
+        aria-required={isRequired || undefined}
       />
     </div>
   );

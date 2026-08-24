@@ -7,6 +7,7 @@ export type State = {
   isLoading?: boolean;
   isOpen: boolean;
   noOptionsText?: string;
+  loadingText?: string;
   options: MultiSelectDropdownOption[];
   selectedOptions: MultiSelectDropdownOption[];
   onSelectOption: (option: MultiSelectDropdownOption) => void;
@@ -20,6 +21,7 @@ export type MultiSelectDropdownProviderProps = PropsWithChildren & {
   multiselect?: boolean;
   name?: string;
   noOptionsText?: string;
+  loadingText?: string;
   value?: MultiSelectDropdownOption[];
   onChange?: (params: {
     target: { value: MultiSelectDropdownOption[]; name: string };

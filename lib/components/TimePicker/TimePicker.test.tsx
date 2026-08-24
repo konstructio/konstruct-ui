@@ -9,6 +9,7 @@ import { Props } from './TimePicker.types';
 describe('TimePicker', () => {
   const setup = (props?: Partial<Props>, wrapper?: FC<PropsWithChildren>) => {
     const defaultProps = {
+      label: 'Start time',
       name: 'time-picker-name',
     } satisfies Props;
 
@@ -21,13 +22,13 @@ describe('TimePicker', () => {
 
     const user = userEvent.setup();
 
+    const accessibleName = props?.label ?? defaultProps.label;
+
     const getButton = async () =>
-      screen.findByRole('button', { name: props?.name ?? defaultProps.name });
+      screen.findByRole('button', { name: accessibleName });
 
     const handleOpenTimePicker = async () => {
-      const button = screen.getByRole('button', {
-        name: props?.name ?? defaultProps.name,
-      });
+      const button = screen.getByRole('button', { name: accessibleName });
       await user.click(button);
     };
 
@@ -114,6 +115,42 @@ describe('TimePicker', () => {
     const results = await axe(component);
 
     expect(results).toHaveNoViolations();
+  });
+
+  it('should expose the label as the accessible name, not the form name', async () => {
+    const { getButton } = setup();
+
+    expect(await getButton()).toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: 'time-picker-name' }),
+    ).not.toBeInTheDocument();
+  });
+
+  it('should reflect the expanded state of the trigger', async () => {
+    const { getButton, handleOpenTimePicker } = setup();
+
+    expect(await getButton()).toHaveAttribute('aria-expanded', 'false');
+    expect(await getButton()).not.toHaveAttribute('aria-controls');
+
+    await handleOpenTimePicker();
+
+    expect(await getButton()).toHaveAttribute('aria-expanded', 'true');
+    expect(await getButton()).toHaveAttribute('aria-controls');
+  });
+
+  it('should describe the trigger with its error message', async () => {
+    const { getButton } = setup({ error: 'Pick a time' });
+
+    const button = await getButton();
+
+    expect(button).toHaveAttribute('aria-invalid', 'true');
+    expect(button).toHaveAccessibleDescription('Pick a time');
+  });
+
+  it('should expose the required state on the trigger', async () => {
+    const { getButton } = setup({ isRequired: true });
+
+    expect(await getButton()).toHaveAttribute('aria-required', 'true');
   });
 
   it('should open time picker when button is clicked', async () => {
@@ -330,6 +367,7 @@ describe('TimePicker', () => {
   describe('Input Mode with List', () => {
     const setup = (props?: Partial<Props>) => {
       const defaultProps = {
+        label: 'Start time',
         name: 'time-input',
         mode: 'input' as const,
         showList: true,
@@ -342,7 +380,9 @@ describe('TimePicker', () => {
       const user = userEvent.setup();
 
       const getInput = () =>
-        screen.getByRole('textbox', { name: props?.name ?? defaultProps.name });
+        screen.getByRole('textbox', {
+          name: props?.label ?? defaultProps.label,
+        });
 
       const getHoursList = () =>
         screen.queryByRole('listbox', { name: 'hours' });
@@ -561,6 +601,7 @@ describe('TimePicker', () => {
   describe('Input Mode without List', () => {
     const setup = (props?: Partial<Props>) => {
       const defaultProps = {
+        label: 'Start time',
         name: 'time-input-no-list',
         mode: 'input' as const,
         showList: false,
@@ -573,7 +614,9 @@ describe('TimePicker', () => {
       const user = userEvent.setup();
 
       const getInput = () =>
-        screen.getByRole('textbox', { name: props?.name ?? defaultProps.name });
+        screen.getByRole('textbox', {
+          name: props?.label ?? defaultProps.label,
+        });
 
       return {
         component,
@@ -688,6 +731,7 @@ describe('TimePicker', () => {
 
       const { container } = render(
         <TimePicker
+          label="Start time"
           name="time-form"
           mode="input"
           showList={false}
@@ -697,7 +741,7 @@ describe('TimePicker', () => {
       );
 
       const user = userEvent.setup();
-      const input = screen.getByRole('textbox', { name: 'time-form' });
+      const input = screen.getByRole('textbox', { name: 'Start time' });
 
       await user.clear(input);
       await user.type(input, '16:45');
