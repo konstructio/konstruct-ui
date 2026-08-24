@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.2-alpha.107](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.107) (2026-08-24)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.106...0.1.2-alpha.107)
+
+**Merged pull requests:**
+
+- ✨ feat: add component prop to Card, Tag and Divider for semantic elements [\#704](https://github.com/konstructio/konstruct-ui/pull/704) ([futjesus](https://github.com/futjesus))
+- ⬆️ chore: update dependencies to latest stable [\#703](https://github.com/konstructio/konstruct-ui/pull/703) ([futjesus](https://github.com/futjesus))
+- 🐛 fix: accessible names, error state and listbox semantics for composite controls [\#702](https://github.com/konstructio/konstruct-ui/pull/702) ([CristhianF7](https://github.com/CristhianF7))
+- 🐛 fix: accessible names, error state and value handling for text fields [\#701](https://github.com/konstructio/konstruct-ui/pull/701) ([CristhianF7](https://github.com/CristhianF7))
+- 📝 docs: rewrite README with real-world installation and usage guide [\#695](https://github.com/konstructio/konstruct-ui/pull/695) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.106](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.106) (2026-08-05)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.105...0.1.2-alpha.106)
