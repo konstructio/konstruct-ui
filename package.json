@@ -91,7 +91,7 @@
     "@radix-ui/react-tooltip": "^1.2.16",
     "@radix-ui/react-visually-hidden": "^1.2.11",
     "@react-input/mask": "^2.0.4",
-    "@tanstack/react-table": "^8.21.3",
+    "@tanstack/react-table": "^9.2.3",
     "@tanstack/react-virtual": "^3.14.10",
     "chart.js": "^4.5.1",
     "class-variance-authority": "^0.7.1",
