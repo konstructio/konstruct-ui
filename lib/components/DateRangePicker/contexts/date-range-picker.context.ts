@@ -1,11 +1,40 @@
 import { createContext } from 'react';
 
+/**
+ * Id of a preset. The five built-ins are listed for autocompletion; any string is
+ * accepted so consumers can supply their own options through the `presets` prop.
+ */
 export type DateRangePreset =
-  'today' | 'current-month' | 'custom' | 'last-7-days' | 'last-2-weeks';
+  | 'today'
+  | 'current-month'
+  | 'custom'
+  | 'last-7-days'
+  | 'last-2-weeks'
+  // `string & {}` accepts any id while keeping autocompletion for the built-ins.
+  | (string & NonNullable<unknown>);
 
 export type DateRange = {
   from?: Date;
   to?: Date;
+};
+
+/**
+ * A selectable entry in the preset panel. The option owns both its label and the
+ * window it stands for, so a consumer can express windows the library does not
+ * ship — `resolve` receives `now`, which is what makes a rolling window
+ * ("the past 7×24 hours") expressible rather than only a calendar bucket.
+ *
+ * `custom` is a reserved id: returning an empty range marks the option as the
+ * manual-selection entry, and picking a day in the calendar switches the panel
+ * back to it.
+ */
+export type DateRangePresetOption = {
+  /** Stable id; doubles as the radio value. */
+  value: DateRangePreset;
+  /** Text shown in the preset panel. */
+  label: string;
+  /** The window this option stands for, resolved when it is selected. */
+  resolve: (now: Date) => DateRange;
 };
 
 export type TimeRange = {
@@ -27,6 +56,8 @@ export type DateRangePickerContextValue = {
   time: TimeRange;
   /** Current active preset */
   preset: DateRangePreset;
+  /** The preset options on offer, built-ins unless overridden */
+  presets: DateRangePresetOption[];
   /** Currently displayed months [left, right] */
   displayedMonths: [Date, Date];
   /** Time format */

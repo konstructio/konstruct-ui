@@ -3,6 +3,7 @@ export type {
   BlockedMonth,
   DateRange,
   DateRangePreset,
+  DateRangePresetOption,
   DateRangeWithTime,
   TimeRange,
 } from './date-range-picker.context';

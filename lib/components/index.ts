@@ -14,6 +14,7 @@ export type {
   DateRangePickerProps,
   DateRange,
   DateRangePreset,
+  DateRangePresetOption,
   DateRangeWithTime,
   TimeRange,
 } from './DateRangePicker/DateRangePicker.types';

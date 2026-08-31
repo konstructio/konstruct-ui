@@ -1,5 +1,6 @@
 import {
   DateRange,
+  DateRangePresetOption,
   DateRangeWithTime,
 } from '@/components/DateRangePicker/DateRangePicker.types';
 
@@ -14,6 +15,8 @@ export type DateRangeFilterDropdownProps = {
   timeFormat?: '12' | '24';
   /** Whether to show preset options (default: true) */
   showPresets?: boolean;
+  /** Replaces the built-in preset options; see `DateRangePicker`'s `presets`. */
+  presets?: DateRangePresetOption[];
   /** Callback when the date range is applied */
   onApply?: (range?: DateRangeWithTime) => void;
   /** Callback when the date range changes */

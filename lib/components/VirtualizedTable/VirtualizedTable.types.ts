@@ -10,6 +10,7 @@ import { ReactNode } from 'react';
 import { Props as ButtonProps } from '@/components/Button/Button.types';
 import {
   DateRange,
+  DateRangePresetOption,
   DateRangeWithTime,
 } from '@/components/DateRangePicker/DateRangePicker.types';
 import { TimePreset } from '@/components/Filter/components/TimeFilterDropdown/TimeFilterDropdown.types';
@@ -99,6 +100,8 @@ export type DateRangeFilterConfig = FilterConfigBase & {
   timeFormat?: '12' | '24';
   /** Whether to show preset options (default: true) */
   showPresets?: boolean;
+  /** Replaces the built-in preset options; see `DateRangePicker`'s `presets`. */
+  presets?: DateRangePresetOption[];
   /** Initial date range */
   defaultRange?: DateRange;
   /** Minimum selectable date */

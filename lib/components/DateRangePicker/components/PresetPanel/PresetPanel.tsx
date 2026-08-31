@@ -6,7 +6,6 @@ import { RadioGroup } from '@/components/RadioGroup/RadioGroup';
 import { Typography } from '@/components/Typography/Typography';
 import { useDateRangePicker } from '../../contexts';
 import { DateRangePreset } from '../../DateRangePicker.types';
-import { PRESET_OPTIONS } from '../../utils';
 
 import { PresetPanelProps } from './PresetPanel.types';
 import {
@@ -32,7 +31,7 @@ export const PresetPanel: FC<PresetPanelProps> = ({
   presetLabels,
   classNames,
 }) => {
-  const { preset, setPreset, disabled } = useDateRangePicker();
+  const { preset, presets, setPreset, disabled } = useDateRangePicker();
 
   const handlePresetChange = useCallback(
     (value: string) => {
@@ -43,7 +42,9 @@ export const PresetPanel: FC<PresetPanelProps> = ({
 
   const radioOptions = useMemo(
     () =>
-      PRESET_OPTIONS.map((option) => {
+      presets.map((option) => {
+        // `presetLabels` only knows the built-in ids; an option supplied through
+        // `presets` carries its own label and needs no mapping.
         const labelKey = PRESET_LABEL_MAP[option.value];
         const customLabel = labelKey && presetLabels?.[labelKey];
 
@@ -53,7 +54,7 @@ export const PresetPanel: FC<PresetPanelProps> = ({
           disabled,
         };
       }),
-    [disabled, presetLabels],
+    [presets, disabled, presetLabels],
   );
 
   return (

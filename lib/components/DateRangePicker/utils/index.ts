@@ -1,6 +1,7 @@
 export { calculatePresetRange } from './presets';
 export { PRESET_OPTIONS } from '../constants';
 export type { PresetOption } from '../constants';
+export type { DateRangePresetOption } from '../contexts/date-range-picker.context';
 export {
   autoFormatDateInput,
   combineDateAndTime,

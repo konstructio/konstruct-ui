@@ -1,48 +1,20 @@
-import { DateRange, DateRangePreset } from '../DateRangePicker.types';
+import { PRESET_OPTIONS } from '../constants/presets';
+import {
+  DateRange,
+  DateRangePreset,
+  DateRangePresetOption,
+} from '../contexts/date-range-picker.context';
 
 /**
- * Calculates the date range for a given preset.
+ * Calculates the date range for a given preset by asking the option itself.
+ *
+ * Looks the id up in `presets` (the built-ins unless the caller passes its own
+ * list), so an unknown id — including `custom` — resolves to an empty range and
+ * leaves the selection to the calendar.
  */
-export const calculatePresetRange = (preset: DateRangePreset): DateRange => {
-  const now = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-  switch (preset) {
-    case 'today':
-      return {
-        from: today,
-        to: today,
-      };
-
-    case 'current-month': {
-      const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-      const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-      return {
-        from: firstDayOfMonth,
-        to: lastDayOfMonth,
-      };
-    }
-
-    case 'last-7-days': {
-      const sevenDaysAgo = new Date(today);
-      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
-      return {
-        from: sevenDaysAgo,
-        to: today,
-      };
-    }
-
-    case 'last-2-weeks': {
-      const twoWeeksAgo = new Date(today);
-      twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 13);
-      return {
-        from: twoWeeksAgo,
-        to: today,
-      };
-    }
-
-    case 'custom':
-    default:
-      return {};
-  }
-};
+export const calculatePresetRange = (
+  preset: DateRangePreset,
+  presets: DateRangePresetOption[] = PRESET_OPTIONS,
+  now: Date = new Date(),
+): DateRange =>
+  presets.find(({ value }) => value === preset)?.resolve(now) ?? {};

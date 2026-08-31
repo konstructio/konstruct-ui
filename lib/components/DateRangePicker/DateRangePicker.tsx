@@ -77,6 +77,7 @@ const DateRangePicker: FC<Props> = ({
   errorDateNotAvailable,
   // PresetPanel props
   showPresets = true,
+  presets,
   labelTimePeriod,
   ariaLabelTimePeriod,
   presetLabels,
@@ -90,6 +91,7 @@ const DateRangePicker: FC<Props> = ({
     defaultRange={defaultRange}
     defaultTime={defaultTime}
     defaultPreset={defaultPreset}
+    presets={presets}
     timeFormat={timeFormat}
     showTime={showTime}
     name={name}

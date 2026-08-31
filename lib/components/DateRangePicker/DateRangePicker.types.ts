@@ -15,11 +15,18 @@ import { dateRangePickerVariants } from './DateRangePicker.variants';
 import {
   DateRange,
   DateRangePreset,
+  DateRangePresetOption,
   DateRangeWithTime,
   TimeRange,
 } from './contexts';
 
-export type { DateRange, DateRangePreset, DateRangeWithTime, TimeRange };
+export type {
+  DateRange,
+  DateRangePreset,
+  DateRangePresetOption,
+  DateRangeWithTime,
+  TimeRange,
+};
 export type {
   CalendarPanelClassNames,
   DateTimeInputsClassNames,
@@ -123,6 +130,28 @@ export type Props = VariantProps<typeof dateRangePickerVariants> & {
   // PresetPanel props
   /** Whether to show the preset panel (default: true) */
   showPresets?: boolean;
+  /**
+   * Replaces the built-in preset options. Each option carries its own label and a
+   * `resolve(now)` returning the window it stands for, which is what allows
+   * rolling windows ("the past 7×24 hours") rather than only calendar buckets.
+   *
+   * An option whose `resolve` returns an empty range is the manual-selection
+   * entry; `custom` is the reserved id the calendar switches back to when a day
+   * is picked, so include it in the list to keep that entry visible. Order in the
+   * array is the order rendered.
+   *
+   * @example
+   * ```tsx
+   * <DateRangePicker
+   *   presets={[
+   *     { value: 'last-24-hours', label: 'Last 24 hours',
+   *       resolve: (now) => ({ from: new Date(now.getTime() - 864e5), to: now }) },
+   *     { value: 'custom', label: 'Custom range', resolve: () => ({}) },
+   *   ]}
+   * />
+   * ```
+   */
+  presets?: DateRangePresetOption[];
   /** Label for the time period section (default: 'Time period') */
   labelTimePeriod?: string;
   /** Aria label for the time period section (default: 'Time period options') */

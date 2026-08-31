@@ -66,4 +66,48 @@ export const Corousel: Story = {
   ),
 };
 
+export const RollingPresets: Story = {
+  parameters: {
+    theme: 'dark',
+  },
+  render: () => {
+    const DAY_MS = 24 * 60 * 60 * 1000;
+
+    return (
+      <DateRangePicker
+        showTime={false}
+        defaultPreset="last-7-days"
+        presets={[
+          {
+            value: 'last-24-hours',
+            label: 'Last 24 hours',
+            resolve: (now) => ({
+              from: new Date(now.getTime() - DAY_MS),
+              to: now,
+            }),
+          },
+          {
+            value: 'last-7-days',
+            label: 'Last 7 days',
+            resolve: (now) => ({
+              from: new Date(now.getTime() - 7 * DAY_MS),
+              to: now,
+            }),
+          },
+          {
+            value: 'last-30-days',
+            label: 'Last 30 days',
+            resolve: (now) => ({
+              from: new Date(now.getTime() - 30 * DAY_MS),
+              to: now,
+            }),
+          },
+          { value: 'custom', label: 'Custom range', resolve: () => ({}) },
+        ]}
+        onRangeChange={(range) => console.log('Range changed:', range)}
+      />
+    );
+  },
+};
+
 export default meta;

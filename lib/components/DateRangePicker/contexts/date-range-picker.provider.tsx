@@ -4,8 +4,10 @@ import {
   BlockedMonth,
   DateRange,
   DateRangePreset,
+  DateRangePresetOption,
   TimeRange,
 } from './date-range-picker.context';
+import { PRESET_OPTIONS } from '../constants/presets';
 import { calculatePresetRange } from '../utils/presets';
 import {
   canNavigateToPrevMonth,
@@ -18,6 +20,7 @@ interface DateRangePickerProviderProps {
   defaultRange?: DateRange;
   defaultTime?: TimeRange;
   defaultPreset?: DateRangePreset;
+  presets?: DateRangePresetOption[];
   timeFormat?: '12' | '24';
   showTime?: boolean;
   name?: string;
@@ -39,6 +42,7 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
   defaultRange,
   defaultTime,
   defaultPreset = 'custom',
+  presets = PRESET_OPTIONS,
   timeFormat = '24',
   showTime = true,
   name,
@@ -56,8 +60,7 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
 }) => {
   const [range, setRangeState] = useState<DateRange>(() => {
     if (defaultRange) return defaultRange;
-    if (defaultPreset !== 'custom') return calculatePresetRange(defaultPreset);
-    return {};
+    return calculatePresetRange(defaultPreset, presets);
   });
 
   const [time, setTimeState] = useState<TimeRange>(() => {
@@ -68,12 +71,9 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
 
   const [displayedMonths, setDisplayedMonths] = useState<[Date, Date]>(() => {
     // Compute the initial range to determine which month to show
-    let initialRange: DateRange = {};
-    if (defaultRange) {
-      initialRange = defaultRange;
-    } else if (defaultPreset !== 'custom') {
-      initialRange = calculatePresetRange(defaultPreset);
-    }
+    const initialRange: DateRange = defaultRange
+      ? defaultRange
+      : calculatePresetRange(defaultPreset, presets);
 
     // Navigate to the month of the initial range, or current month if none
     const referenceDate = initialRange?.from ?? initialRange?.to ?? new Date();
@@ -111,14 +111,19 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
   const setPreset = useCallback(
     (newPreset: DateRangePreset) => {
       setPresetState(newPreset);
-      if (newPreset !== 'custom') {
-        const presetRange = calculatePresetRange(newPreset);
-        setRangeState(presetRange);
-        onRangeChange?.({ ...presetRange, ...time });
-        onDateChange?.(presetRange);
-      }
+
+      const presetRange = calculatePresetRange(newPreset, presets);
+
+      // An option that resolves to nothing is a manual-selection entry ('custom'
+      // by default): keep whatever the calendar already holds instead of wiping
+      // it, and do not report a range change that did not happen.
+      if (!presetRange.from && !presetRange.to) return;
+
+      setRangeState(presetRange);
+      onRangeChange?.({ ...presetRange, ...time });
+      onDateChange?.(presetRange);
     },
-    [time, onRangeChange, onDateChange],
+    [presets, time, onRangeChange, onDateChange],
   );
 
   const canNavigatePrev = useMemo(
@@ -268,6 +273,7 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
     <DateRangePickerContext.Provider
       value={{
         ...dynamicValue,
+        presets,
         timeFormat,
         showTime,
         name,

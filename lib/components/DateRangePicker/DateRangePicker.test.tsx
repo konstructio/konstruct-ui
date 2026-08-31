@@ -797,4 +797,132 @@ describe('DateRangePicker', () => {
       expect(errorMessage).not.toBeInTheDocument();
     });
   });
+
+  describe('Custom Presets', () => {
+    const DAY_MS = 24 * 60 * 60 * 1000;
+
+    // The point of the prop: windows relative to `now`, which the built-in
+    // day-granular options cannot express.
+    const rollingPresets = [
+      {
+        value: 'last-24-hours',
+        label: 'Last 24 hours',
+        resolve: (now: Date) => ({
+          from: new Date(now.getTime() - DAY_MS),
+          to: now,
+        }),
+      },
+      {
+        value: 'last-30-days',
+        label: 'Last 30 days',
+        resolve: (now: Date) => ({
+          from: new Date(now.getTime() - 30 * DAY_MS),
+          to: now,
+        }),
+      },
+      { value: 'custom', label: 'Custom range', resolve: () => ({}) },
+    ];
+
+    it('should render the supplied options instead of the built-in ones', async () => {
+      const { getPresetOption } = setup({ presets: rollingPresets });
+
+      expect(await getPresetOption('Last 24 hours')).toBeInTheDocument();
+      expect(await getPresetOption('Last 30 days')).toBeInTheDocument();
+      expect(await getPresetOption('Custom range')).toBeInTheDocument();
+
+      expect(screen.queryByText('Current month')).not.toBeInTheDocument();
+      expect(screen.queryByText('Last 2 weeks')).not.toBeInTheDocument();
+      expect(screen.queryByText('Today')).not.toBeInTheDocument();
+    });
+
+    it('should render the options in the order they are given', async () => {
+      const { getAllPresetRadios } = setup({ presets: rollingPresets });
+
+      const radios = await getAllPresetRadios();
+
+      expect(radios.map((radio) => radio.getAttribute('value'))).toEqual([
+        'last-24-hours',
+        'last-30-days',
+        'custom',
+      ]);
+    });
+
+    it('should resolve the selected option through its own resolve', async () => {
+      const onRangeChange = vi.fn();
+      const { selectPreset } = setup({
+        presets: rollingPresets,
+        onRangeChange,
+      });
+
+      await selectPreset('Last 24 hours');
+
+      await waitFor(() => expect(onRangeChange).toHaveBeenCalled());
+
+      const { from, to } = onRangeChange.mock.calls[0][0];
+
+      expect(to.getTime() - from.getTime()).toBe(DAY_MS);
+    });
+
+    it('should pass the current time to resolve, so windows can roll', async () => {
+      const resolve = vi.fn((_now: Date) => ({
+        from: new Date(0),
+        to: new Date(0),
+      }));
+      const before = Date.now();
+      const { selectPreset } = setup({
+        presets: [{ value: 'rolling', label: 'Rolling', resolve }],
+      });
+
+      await selectPreset('Rolling');
+
+      await waitFor(() => expect(resolve).toHaveBeenCalled());
+
+      const [now] = resolve.mock.calls[0];
+
+      expect(now).toBeInstanceOf(Date);
+      expect(now.getTime()).toBeGreaterThanOrEqual(before);
+    });
+
+    it('should treat an option resolving to an empty range as manual selection', async () => {
+      const onRangeChange = vi.fn();
+      const { selectPreset, getPresetRadio } = setup({
+        presets: rollingPresets,
+        onRangeChange,
+      });
+
+      await selectPreset('Custom range');
+
+      expect(await getPresetRadio(/custom range/i)).toBeChecked();
+      // Selecting it must not report a range: there is none to report yet.
+      expect(onRangeChange).not.toHaveBeenCalled();
+    });
+
+    it('should resolve defaultPreset against the supplied options', async () => {
+      const { getStartDateInput, getEndDateInput, getPresetRadio } = setup({
+        presets: rollingPresets,
+        defaultPreset: 'last-30-days',
+      });
+
+      expect(await getPresetRadio(/last 30 days/i)).toBeChecked();
+      expect(await getStartDateInput()).not.toHaveValue('');
+      expect(await getEndDateInput()).not.toHaveValue('');
+    });
+
+    it('should keep the built-in windows when presets is omitted', async () => {
+      const onRangeChange = vi.fn();
+      const { selectPreset } = setup({ onRangeChange });
+
+      await selectPreset('Last 7 days');
+
+      await waitFor(() => expect(onRangeChange).toHaveBeenCalled());
+
+      const { from, to } = onRangeChange.mock.calls[0][0];
+
+      // Seven whole days ending today, midnight to midnight — day-granular, as
+      // before the resolvers moved out of the switch.
+      expect(to.getTime() - from.getTime()).toBe(6 * DAY_MS);
+      expect(to.getHours()).toBe(0);
+      expect(to.getMinutes()).toBe(0);
+    });
+  });
 });

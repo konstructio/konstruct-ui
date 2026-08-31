@@ -173,6 +173,7 @@ export const Filter: FC<Props> = ({
           showTime={filterConfig.showTime}
           timeFormat={filterConfig.timeFormat}
           showPresets={filterConfig.showPresets}
+          presets={filterConfig.presets}
           defaultRange={filterConfig.defaultRange}
           minDate={filterConfig.minDate}
           maxDate={filterConfig.maxDate}
