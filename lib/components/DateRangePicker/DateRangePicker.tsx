@@ -86,6 +86,7 @@ const DateRangePicker: FC<Props> = ({
   // Callbacks
   onRangeChange,
   onDateChange,
+  onPresetChange,
 }) => (
   <DateRangePickerProvider
     defaultRange={defaultRange}
@@ -106,6 +107,7 @@ const DateRangePicker: FC<Props> = ({
     navigationMode={navigationMode}
     onRangeChange={onRangeChange}
     onDateChange={onDateChange}
+    onPresetChange={onPresetChange}
   >
     <div className="flex flex-col gap-2" data-theme={theme}>
       {label ? (

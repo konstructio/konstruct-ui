@@ -110,6 +110,12 @@ export type DateRangeFilterConfig = FilterConfigBase & {
   maxDate?: Date;
   /** Country code for locale formatting (default: 'US') */
   countryCode?: string;
+  /** Label for the apply button (default: 'Apply') */
+  labelApply?: string;
+  /** Label for the reset button (default: 'Reset') */
+  labelReset?: string;
+  /** Apply as soon as a preset is selected (default: false) */
+  applyOnPresetSelect?: boolean;
   /** Callback when the date range changes */
   onRangeChange?: (range: DateRangeWithTime) => void;
 };

@@ -35,6 +35,7 @@ interface DateRangePickerProviderProps {
   navigationMode?: 'together' | 'independent';
   onRangeChange?: (range: DateRange & TimeRange) => void;
   onDateChange?: (range: DateRange) => void;
+  onPresetChange?: (preset: DateRangePreset, range: DateRange) => void;
 }
 
 export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
@@ -57,6 +58,7 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
   navigationMode = 'together',
   onRangeChange,
   onDateChange,
+  onPresetChange,
 }) => {
   const [range, setRangeState] = useState<DateRange>(() => {
     if (defaultRange) return defaultRange;
@@ -114,6 +116,11 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
 
       const presetRange = calculatePresetRange(newPreset, presets);
 
+      // Fires for every preset, including a manual-selection entry, so a consumer
+      // can tell "the user chose a preset" from "the user clicked a day" —
+      // `onRangeChange` alone cannot distinguish them.
+      onPresetChange?.(newPreset, presetRange);
+
       // An option that resolves to nothing is a manual-selection entry ('custom'
       // by default): keep whatever the calendar already holds instead of wiping
       // it, and do not report a range change that did not happen.
@@ -123,7 +130,7 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
       onRangeChange?.({ ...presetRange, ...time });
       onDateChange?.(presetRange);
     },
-    [presets, time, onRangeChange, onDateChange],
+    [presets, time, onRangeChange, onDateChange, onPresetChange],
   );
 
   const canNavigatePrev = useMemo(

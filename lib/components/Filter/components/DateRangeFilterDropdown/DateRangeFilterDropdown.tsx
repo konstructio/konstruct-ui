@@ -26,17 +26,27 @@ export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
   minDate,
   maxDate,
   countryCode = 'US',
+  labelApply = 'Apply',
+  labelReset = 'Reset',
+  applyOnPresetSelect = false,
   onApply,
 }) => {
   const {
     appliedRange,
+    canApply,
     isOpen,
     selectedRange,
     handleApply,
     handleOpenChange,
+    handlePresetChange,
     handleRangeChange,
     handleReset,
-  } = useDateRangeFilterDropdown({ defaultRange, onApply, countryCode });
+  } = useDateRangeFilterDropdown({
+    defaultRange,
+    onApply,
+    countryCode,
+    applyOnPresetSelect,
+  });
 
   return (
     <FilterDropdown
@@ -67,6 +77,7 @@ export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
         minDate={minDate}
         maxDate={maxDate}
         onRangeChange={handleRangeChange}
+        onPresetChange={handlePresetChange}
         classNames={{
           container: 'shadow-none',
         }}
@@ -83,11 +94,11 @@ export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
         )}
       >
         <Button variant="secondary" appearance="compact" onClick={handleReset}>
-          Reset
+          {labelReset}
         </Button>
 
-        <Button appearance="compact" onClick={handleApply}>
-          Apply
+        <Button appearance="compact" disabled={!canApply} onClick={handleApply}>
+          {labelApply}
         </Button>
       </div>
     </FilterDropdown>

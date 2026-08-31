@@ -178,6 +178,9 @@ export const Filter: FC<Props> = ({
           minDate={filterConfig.minDate}
           maxDate={filterConfig.maxDate}
           countryCode={filterConfig.countryCode}
+          labelApply={filterConfig.labelApply}
+          labelReset={filterConfig.labelReset}
+          applyOnPresetSelect={filterConfig.applyOnPresetSelect}
           onApply={(range) => {
             onSelectDateRangeFilter(key, range);
           }}

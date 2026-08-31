@@ -17,9 +17,10 @@ export const useDateRangeFilterDropdown = ({
   defaultRange,
   onApply,
   countryCode = 'US',
+  applyOnPresetSelect = false,
 }: Pick<
   DateRangeFilterDropdownProps,
-  'defaultRange' | 'onApply' | 'countryCode'
+  'defaultRange' | 'onApply' | 'countryCode' | 'applyOnPresetSelect'
 >) => {
   const { closeOnApply } = useFilterContext();
   const id = useId();
@@ -55,18 +56,38 @@ export const useDateRangeFilterDropdown = ({
     setIsOpen(open);
   };
 
-  const handleApply = () => {
-    const rangeWithTime: DateRangeWithTime = {
-      from: selectedRange?.from,
-      to: selectedRange?.to,
-    };
-    setAppliedRange(rangeWithTime);
-    onApply?.(rangeWithTime);
+  const applyRange = useCallback(
+    (range: DateRange | undefined) => {
+      const rangeWithTime: DateRangeWithTime = {
+        from: range?.from,
+        to: range?.to,
+      };
+      setAppliedRange(rangeWithTime);
+      onApply?.(rangeWithTime);
 
-    if (closeOnApply) {
-      setIsOpen(false);
-    }
-  };
+      if (closeOnApply) {
+        setIsOpen(false);
+      }
+    },
+    [closeOnApply, onApply],
+  );
+
+  const handleApply = () => applyRange(selectedRange);
+
+  /** Nothing chosen yet: applying would send an empty range, which filters nothing. */
+  const canApply = Boolean(selectedRange?.from || selectedRange?.to);
+
+  const handlePresetChange = useCallback(
+    (_preset: string, range: DateRange) => {
+      // A manual-selection entry resolves to nothing — that is the user asking for
+      // the calendar, not asking to filter, so there is nothing to apply yet.
+      if (!applyOnPresetSelect || (!range.from && !range.to)) return;
+
+      setSelectedRange(range);
+      applyRange(range);
+    },
+    [applyOnPresetSelect, applyRange],
+  );
 
   const handleRangeChange = useCallback((range: DateRangeWithTime) => {
     setSelectedRange({ from: range.from, to: range.to });
@@ -93,10 +114,12 @@ export const useDateRangeFilterDropdown = ({
   return {
     id,
     appliedRange: appliedRangeFormatted,
+    canApply,
     isOpen,
     selectedRange,
     handleApply,
     handleOpenChange,
+    handlePresetChange,
     handleRangeChange,
     handleReset,
   };

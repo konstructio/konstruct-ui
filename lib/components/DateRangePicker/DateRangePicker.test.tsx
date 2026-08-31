@@ -925,4 +925,51 @@ describe('DateRangePicker', () => {
       expect(to.getMinutes()).toBe(0);
     });
   });
+
+  describe('onPresetChange', () => {
+    it('should report the preset and the window it resolved to', async () => {
+      const onPresetChange = vi.fn();
+      const { selectPreset } = setup({ onPresetChange });
+
+      await selectPreset('Today');
+
+      await waitFor(() => expect(onPresetChange).toHaveBeenCalled());
+
+      const [preset, range] = onPresetChange.mock.calls[0];
+
+      expect(preset).toBe('today');
+      expect(range.from).toBeInstanceOf(Date);
+      expect(range.to).toBeInstanceOf(Date);
+    });
+
+    it('should fire for a manual-selection entry with an empty range', async () => {
+      const onPresetChange = vi.fn();
+      // Start on another preset: 'custom' is the default, and a radio that is
+      // already checked reports no change.
+      const { selectPreset } = setup({
+        onPresetChange,
+        defaultPreset: 'today',
+      });
+
+      // 'Custom' resolves to nothing; the callback still fires so a consumer can
+      // tell "a preset was chosen" from "a day was clicked".
+      await selectPreset('Custom');
+
+      await waitFor(() => expect(onPresetChange).toHaveBeenCalled());
+
+      const [preset, range] = onPresetChange.mock.calls[0];
+
+      expect(preset).toBe('custom');
+      expect(range).toEqual({});
+    });
+
+    it('should not fire when a day is picked in the calendar', async () => {
+      const onPresetChange = vi.fn();
+      const { clickDay } = setup({ onPresetChange });
+
+      await clickDay('15');
+
+      expect(onPresetChange).not.toHaveBeenCalled();
+    });
+  });
 });

@@ -57,6 +57,12 @@ export type Props = VariantProps<typeof dateRangePickerVariants> & {
   onRangeChange?: (range: DateRangeWithTime) => void;
   /** Callback when the date changes (start or end date, without time) */
   onDateChange?: (range: DateRange) => void;
+  /**
+   * Callback when a preset is selected, with the window it resolved to (empty for
+   * a manual-selection entry). Distinguishes choosing a preset from picking a day,
+   * which `onRangeChange` cannot.
+   */
+  onPresetChange?: (preset: DateRangePreset, range: DateRange) => void;
   /** Time format: '12' for 12-hour or '24' for 24-hour */
   timeFormat?: '12' | '24';
   /** Whether to show time inputs (default: true) */
