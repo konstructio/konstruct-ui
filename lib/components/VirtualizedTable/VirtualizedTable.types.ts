@@ -114,9 +114,15 @@ export type DateRangeFilterConfig = FilterConfigBase & {
   countryCode?: string;
   /** Title of the preset panel (default: 'Time period') */
   labelTimePeriod?: string;
+  /** Label for the start date field (default: 'From') */
+  labelStartDate?: string;
+  /** Label for the end date field (default: 'To') */
+  labelEndDate?: string;
+  /** Marks the From/To fields with a required indicator (default: true) */
+  requiredDates?: boolean;
   /** Label for the apply button (default: 'Apply') */
   labelApply?: string;
-  /** Label for the reset button (default: 'Reset') */
+  /** Label for the reset button (default: 'Clear') */
   labelReset?: string;
   /** Apply as soon as a preset is selected (default: false) */
   applyOnPresetSelect?: boolean;

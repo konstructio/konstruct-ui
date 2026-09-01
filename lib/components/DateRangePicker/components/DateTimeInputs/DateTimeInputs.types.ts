@@ -21,6 +21,8 @@ export type DateTimeInputsProps = {
   labelEndDate?: string;
   /** Label for time inputs (default: 'Time') */
   labelTime?: string;
+  /** Marks both date fields as required */
+  requiredDates?: boolean;
   /** Aria label for start date input (default: 'Start date') */
   ariaLabelStartDate?: string;
   /** Aria label for end date input (default: 'End date') */

@@ -177,6 +177,11 @@ export type Props = VariantProps<typeof dateRangePickerVariants> & {
 
   // Customizable class names for styling
   /** Custom class names for different parts of the component */
+  /**
+   * Marks the From/To fields with a required indicator. Decorative only — the
+   * fields carry no `aria-required`, since a range needs one date, not both.
+   */
+  requiredDates?: boolean;
   classNames?: DateRangePickerClassNames;
 };
 

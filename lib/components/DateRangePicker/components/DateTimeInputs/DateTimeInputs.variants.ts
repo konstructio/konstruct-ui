@@ -30,3 +30,9 @@ export const inputLabelVariants = cva([
   'dark:text-metal-400',
   'leading-5',
 ]);
+
+/**
+ * Marks the date fields as required. It is decorative: the range needs *a* date,
+ * not both, so the inputs are deliberately left without `aria-required`.
+ */
+export const inputRequiredMarkVariants = cva(['ml-1', 'text-red-500']);

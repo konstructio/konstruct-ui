@@ -28,8 +28,13 @@ export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
   maxDate,
   countryCode = 'US',
   labelTimePeriod,
+  // The design system labels these fields From / To inside a filter, and calls
+  // the reset action Clear.
+  labelStartDate = 'From',
+  labelEndDate = 'To',
+  requiredDates = true,
   labelApply = 'Apply',
-  labelReset = 'Reset',
+  labelReset = 'Clear',
   applyOnPresetSelect = false,
   onApply,
 }) => {
@@ -78,6 +83,9 @@ export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
         presets={presets}
         revealCalendarOnCustom={revealCalendarOnCustom}
         labelTimePeriod={labelTimePeriod}
+        labelStartDate={labelStartDate}
+        labelEndDate={labelEndDate}
+        requiredDates={requiredDates}
         minDate={minDate}
         maxDate={maxDate}
         onRangeChange={handleRangeChange}

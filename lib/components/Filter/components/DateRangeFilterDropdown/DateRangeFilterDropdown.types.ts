@@ -34,6 +34,12 @@ export type DateRangeFilterDropdownProps = {
   /** Title of the preset panel (default: 'Time period') */
   labelTimePeriod?: string;
   /** Label for the apply button (default: 'Apply') */
+  /** Label for the start date field (default: 'From') */
+  labelStartDate?: string;
+  /** Label for the end date field (default: 'To') */
+  labelEndDate?: string;
+  /** Marks the From/To fields with a required indicator (default: true) */
+  requiredDates?: boolean;
   labelApply?: string;
   /** Label for the reset button (default: 'Reset') */
   labelReset?: string;

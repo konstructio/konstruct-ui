@@ -144,8 +144,7 @@ export const CreatedDateRange: Story = {
           <FilterComponent.DateRangeFilterDropdown
             label="Created"
             labelTimePeriod="Created"
-            labelApply="Apply"
-            labelReset="Clear"
+            revealCalendarOnCustom
             applyOnPresetSelect
             showTime={false}
             maxDate={new Date()}

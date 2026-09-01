@@ -9,6 +9,7 @@ import {
   dateInputWrapperVariants,
   dateTimeGroupVariants,
   inputLabelVariants,
+  inputRequiredMarkVariants,
   timeInputWrapperVariants,
 } from '../../DateTimeInputs.variants';
 
@@ -23,6 +24,7 @@ export const StartInputFields: FC<Props> = ({
   timeFormat = '24',
   labelDate = 'Start date',
   labelTime = 'Time',
+  required = false,
   ariaLabelDate = 'Start date',
   ariaLabelTime = 'Start time',
   onDateChange,
@@ -54,6 +56,11 @@ export const StartInputFields: FC<Props> = ({
           className={cn(inputLabelVariants(), classNames?.label)}
         >
           {labelDate}
+          {required && (
+            <span aria-hidden className={cn(inputRequiredMarkVariants())}>
+              *
+            </span>
+          )}
         </Typography>
 
         <Input
