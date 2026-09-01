@@ -972,4 +972,68 @@ describe('DateRangePicker', () => {
       expect(onPresetChange).not.toHaveBeenCalled();
     });
   });
+
+  describe('revealCalendarOnCustom', () => {
+    it('should keep the calendar visible by default', async () => {
+      const { getCalendar, getStartDateInput } = setup({
+        defaultPreset: 'last-7-days',
+      });
+
+      expect(await getCalendar()).toBeInTheDocument();
+      expect(await getStartDateInput()).toBeInTheDocument();
+    });
+
+    it('should hide the inputs and calendar while a resolving preset is active', async () => {
+      setup({ revealCalendarOnCustom: true, defaultPreset: 'last-7-days' });
+
+      expect(
+        screen.queryByRole('application', {
+          name: /date range picker calendar/i,
+        }),
+      ).not.toBeInTheDocument();
+      expect(screen.queryByLabelText(/^start date$/i)).not.toBeInTheDocument();
+    });
+
+    it('should reveal them when the manual-selection preset is chosen', async () => {
+      const { selectPreset, getCalendar, getStartDateInput } = setup({
+        revealCalendarOnCustom: true,
+        defaultPreset: 'last-7-days',
+      });
+
+      await selectPreset('Custom');
+
+      expect(await getCalendar()).toBeInTheDocument();
+      expect(await getStartDateInput()).toBeInTheDocument();
+    });
+
+    it('should hide them again when a resolving preset is chosen back', async () => {
+      const { selectPreset, getCalendar } = setup({
+        revealCalendarOnCustom: true,
+        defaultPreset: 'last-7-days',
+      });
+
+      await selectPreset('Custom');
+      expect(await getCalendar()).toBeInTheDocument();
+
+      await selectPreset('Today');
+
+      await waitFor(() =>
+        expect(
+          screen.queryByRole('application', {
+            name: /date range picker calendar/i,
+          }),
+        ).not.toBeInTheDocument(),
+      );
+    });
+
+    it('should keep the presets visible while the calendar is hidden', async () => {
+      const { getPresetOption } = setup({
+        revealCalendarOnCustom: true,
+        defaultPreset: 'last-7-days',
+      });
+
+      expect(await getPresetOption('Last 7 days')).toBeInTheDocument();
+      expect(await getPresetOption('Custom')).toBeInTheDocument();
+    });
+  });
 });

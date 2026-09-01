@@ -1,11 +1,12 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { cn } from '@/utils';
 
 import { Typography } from '@/components/Typography/Typography';
 import { CalendarPanel, DateTimeInputs, PresetPanel } from './components';
-import { DateRangePickerProvider } from './contexts';
+import { DateRangePickerProvider, useDateRangePicker } from './contexts';
 import { Props } from './DateRangePicker.types';
+import { calculatePresetRange } from './utils';
 import {
   dateRangePickerVariants,
   rightPanelVariants,
@@ -38,6 +39,33 @@ import {
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-daterangepicker--docs Storybook}
  */
+/**
+ * Wraps the inputs + calendar so `revealCalendarOnCustom` can hide them from
+ * inside the provider: whether the active preset is the manual-selection entry
+ * is only knowable from context.
+ */
+const RightPanel: FC<{
+  reveal: boolean;
+  children: ReactNode;
+  className?: string;
+}> = ({ reveal, children, className }) => {
+  const { preset, presets } = useDateRangePicker();
+
+  if (reveal) {
+    const range = calculatePresetRange(preset, presets);
+
+    // A preset that resolves to a window speaks for itself; only the
+    // manual-selection entry needs the calendar.
+    if (range.from || range.to) {
+      return null;
+    }
+  }
+
+  return <div className={className}>{children}</div>;
+};
+
+RightPanel.displayName = 'DateRangePickerRightPanel';
+
 const DateRangePicker: FC<Props> = ({
   animationDuration = 500,
   className,
@@ -78,6 +106,7 @@ const DateRangePicker: FC<Props> = ({
   // PresetPanel props
   showPresets = true,
   presets,
+  revealCalendarOnCustom = false,
   labelTimePeriod,
   ariaLabelTimePeriod,
   presetLabels,
@@ -159,7 +188,10 @@ const DateRangePicker: FC<Props> = ({
           />
         )}
 
-        <div className={cn(rightPanelVariants(), classNames?.rightPanel)}>
+        <RightPanel
+          reveal={revealCalendarOnCustom}
+          className={cn(rightPanelVariants(), classNames?.rightPanel)}
+        >
           <DateTimeInputs
             labelStartDate={labelStartDate}
             labelEndDate={labelEndDate}
@@ -180,7 +212,7 @@ const DateRangePicker: FC<Props> = ({
             ariaLabelNextMonthEnd={ariaLabelNextMonthEnd}
             classNames={classNames?.calendarPanel}
           />
-        </div>
+        </RightPanel>
       </div>
     </div>
   </DateRangePickerProvider>

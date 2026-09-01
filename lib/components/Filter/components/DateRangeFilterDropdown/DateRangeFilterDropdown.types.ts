@@ -17,6 +17,8 @@ export type DateRangeFilterDropdownProps = {
   showPresets?: boolean;
   /** Replaces the built-in preset options; see `DateRangePicker`'s `presets`. */
   presets?: DateRangePresetOption[];
+  /** Reveal the calendar only on the manual-selection preset (default: false). */
+  revealCalendarOnCustom?: boolean;
   /** Callback when the date range is applied */
   onApply?: (range?: DateRangeWithTime) => void;
   /** Callback when the date range changes */
@@ -29,6 +31,8 @@ export type DateRangeFilterDropdownProps = {
   maxDate?: Date;
   /** Country code for locale formatting (default: 'US') */
   countryCode?: string;
+  /** Title of the preset panel (default: 'Time period') */
+  labelTimePeriod?: string;
   /** Label for the apply button (default: 'Apply') */
   labelApply?: string;
   /** Label for the reset button (default: 'Reset') */

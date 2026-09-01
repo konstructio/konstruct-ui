@@ -158,6 +158,16 @@ export type Props = VariantProps<typeof dateRangePickerVariants> & {
    * ```
    */
   presets?: DateRangePresetOption[];
+  /**
+   * Render the date inputs and calendar only while the manual-selection preset is
+   * active — the entry whose `resolve` returns an empty range, `custom` by
+   * default (default: false, panels always visible).
+   *
+   * Presets become one-click shortcuts and the calendar is revealed on demand.
+   * Pair it with a `defaultPreset` that resolves to a window, otherwise the
+   * picker opens on `custom` — the library default — and starts expanded.
+   */
+  revealCalendarOnCustom?: boolean;
   /** Label for the time period section (default: 'Time period') */
   labelTimePeriod?: string;
   /** Aria label for the time period section (default: 'Time period options') */

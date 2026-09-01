@@ -22,10 +22,12 @@ export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
   timeFormat = '24',
   showPresets = true,
   presets,
+  revealCalendarOnCustom = false,
   defaultRange,
   minDate,
   maxDate,
   countryCode = 'US',
+  labelTimePeriod,
   labelApply = 'Apply',
   labelReset = 'Reset',
   applyOnPresetSelect = false,
@@ -74,6 +76,8 @@ export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
         timeFormat={timeFormat}
         showPresets={showPresets}
         presets={presets}
+        revealCalendarOnCustom={revealCalendarOnCustom}
+        labelTimePeriod={labelTimePeriod}
         minDate={minDate}
         maxDate={maxDate}
         onRangeChange={handleRangeChange}
