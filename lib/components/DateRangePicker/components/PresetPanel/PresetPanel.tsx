@@ -1,5 +1,6 @@
 import { FC, useCallback, useMemo } from 'react';
 
+import { ArrowRightIcon, CheckIcon } from '@/assets/icons/components';
 import { cn } from '@/utils';
 
 import { RadioGroup } from '@/components/RadioGroup/RadioGroup';
@@ -9,7 +10,10 @@ import { DateRangePreset } from '../../DateRangePicker.types';
 
 import { PresetPanelProps } from './PresetPanel.types';
 import {
+  presetOptionLabelVariants,
+  presetOptionVariants,
   presetPanelVariants,
+  presetSeparatorVariants,
   presetTitleVariants,
 } from './PresetPanel.variants';
 
@@ -40,22 +44,69 @@ export const PresetPanel: FC<PresetPanelProps> = ({
     [setPreset],
   );
 
-  const radioOptions = useMemo(
-    () =>
-      presets.map((option) => {
-        // `presetLabels` only knows the built-in ids; an option supplied through
-        // `presets` carries its own label and needs no mapping.
-        const labelKey = PRESET_LABEL_MAP[option.value];
-        const customLabel = labelKey && presetLabels?.[labelKey];
+  const radioOptions = useMemo(() => {
+    // An option that resolves to no window is a manual-selection entry ('custom'
+    // among the built-ins). It opens the calendar rather than standing for a
+    // window of its own, so it is marked with a chevron; the design also rules it
+    // off from the rolling presets it follows, which only applies when it closes
+    // the list — the built-in set keeps 'custom' mid-list, where there is nothing
+    // to separate.
+    const now = new Date();
+    const lastIndex = presets.length - 1;
+    const lastRange = lastIndex >= 0 ? presets[lastIndex].resolve(now) : {};
+    const separatorIndex =
+      presets.length > 1 && !lastRange.from && !lastRange.to ? lastIndex : -1;
 
-        return {
-          value: option.value,
-          label: customLabel || option.label,
-          disabled,
-        };
-      }),
-    [presets, disabled, presetLabels],
-  );
+    return presets.map((option, index) => {
+      // `presetLabels` only knows the built-in ids; an option supplied through
+      // `presets` carries its own label and needs no mapping.
+      const labelKey = PRESET_LABEL_MAP[option.value];
+      const customLabel = labelKey && presetLabels?.[labelKey];
+      const isManualEntry = index === separatorIndex;
+
+      return {
+        value: option.value,
+        label: (
+          <>
+            {customLabel || option.label}
+            {isManualEntry ? (
+              <ArrowRightIcon
+                size={20}
+                aria-hidden
+                className="shrink-0 text-slate-400 dark:text-metal-400"
+              />
+            ) : (
+              option.value === preset && (
+                <CheckIcon
+                  size={20}
+                  aria-hidden
+                  className="shrink-0 text-aurora-500"
+                />
+              )
+            )}
+          </>
+        ),
+        disabled,
+        // The radio control itself is not drawn: the row shows selection with a
+        // trailing check instead. The input stays in place for semantics.
+        className: 'hidden',
+        labelTextClassName: cn(presetOptionLabelVariants()),
+        wrapperClassName: cn(
+          presetOptionVariants({ disabled }),
+          classNames?.option,
+          isManualEntry && presetSeparatorVariants(),
+          isManualEntry && classNames?.separator,
+        ),
+      };
+    });
+  }, [
+    presets,
+    preset,
+    disabled,
+    presetLabels,
+    classNames?.option,
+    classNames?.separator,
+  ]);
 
   return (
     <div className={cn(presetPanelVariants({ className }), classNames?.root)}>
@@ -73,14 +124,7 @@ export const PresetPanel: FC<PresetPanelProps> = ({
         value={preset}
         onValueChange={handlePresetChange}
         direction="col"
-        wrapperClassName={cn('gap-4 pl-2', classNames?.radioGroup)}
-        className={cn(
-          'text-sm',
-          'text-zinc-700',
-          'dark:text-zinc-300',
-          '[&_span]:text-zinc-700',
-          'dark:[&_span]:text-zinc-300',
-        )}
+        wrapperClassName={cn('gap-1', classNames?.radioGroup)}
       />
     </div>
   );

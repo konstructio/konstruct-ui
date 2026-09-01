@@ -99,6 +99,7 @@ const DateRangePicker: FC<Props> = ({
   labelStartDate,
   labelEndDate,
   labelTime,
+  requiredDates,
   ariaLabelStartDate,
   ariaLabelEndDate,
   errorInvalidDate,
@@ -173,7 +174,6 @@ const DateRangePicker: FC<Props> = ({
       <div
         className={cn(
           dateRangePickerVariants({ className }),
-          'gap-4',
           classNames?.container,
         )}
         role="group"
@@ -196,6 +196,7 @@ const DateRangePicker: FC<Props> = ({
             labelStartDate={labelStartDate}
             labelEndDate={labelEndDate}
             labelTime={labelTime}
+            requiredDates={requiredDates}
             ariaLabelStartDate={ariaLabelStartDate}
             ariaLabelEndDate={ariaLabelEndDate}
             errorInvalidDate={errorInvalidDate}

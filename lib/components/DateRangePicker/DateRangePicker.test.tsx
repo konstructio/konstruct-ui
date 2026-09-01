@@ -1036,4 +1036,169 @@ describe('DateRangePicker', () => {
       expect(await getPresetOption('Custom')).toBeInTheDocument();
     });
   });
+
+  describe('Preset separator', () => {
+    const wrapperOf = (radio: HTMLElement) => radio.closest('label');
+
+    const rolling = (value: string, label: string, days: number) => ({
+      value,
+      label,
+      resolve: (now: Date) => ({
+        from: new Date(now.getTime() - days * 24 * 60 * 60 * 1000),
+        to: now,
+      }),
+    });
+
+    const manual = {
+      value: 'custom',
+      label: 'Custom range',
+      resolve: () => ({}),
+    };
+
+    it('should rule off a trailing manual-selection option from the presets above it', async () => {
+      const { getAllPresetRadios } = setup({
+        presets: [rolling('last-24-hours', 'Last 24 hours', 1), manual],
+      });
+
+      const [rollingRadio, manualRadio] = await getAllPresetRadios();
+
+      expect(wrapperOf(manualRadio)?.className).toContain('before:h-px');
+      expect(wrapperOf(rollingRadio)?.className).not.toContain('before:h-px');
+    });
+
+    it('should not rule off a manual-selection option that sits mid-list', async () => {
+      const { getAllPresetRadios } = setup({
+        presets: [
+          rolling('last-24-hours', 'Last 24 hours', 1),
+          manual,
+          rolling('last-30-days', 'Last 30 days', 30),
+        ],
+      });
+
+      const radios = await getAllPresetRadios();
+
+      radios.forEach((radio) => {
+        expect(wrapperOf(radio)?.className).not.toContain('before:h-px');
+      });
+    });
+
+    it('should leave the built-in options unruled, since `custom` is not last there', async () => {
+      const { getAllPresetRadios } = setup();
+
+      const radios = await getAllPresetRadios();
+
+      expect(radios).toHaveLength(5);
+      radios.forEach((radio) => {
+        expect(wrapperOf(radio)?.className).not.toContain('before:h-px');
+      });
+    });
+
+    it('should not rule off a lone option', async () => {
+      const { getAllPresetRadios } = setup({ presets: [manual] });
+
+      const [only] = await getAllPresetRadios();
+
+      expect(wrapperOf(only)?.className).not.toContain('before:h-px');
+    });
+
+    it('should let the consumer restyle the rule through classNames', async () => {
+      const { getAllPresetRadios } = setup({
+        presets: [rolling('last-24-hours', 'Last 24 hours', 1), manual],
+        classNames: { presetPanel: { separator: 'border-dashed' } },
+      });
+
+      const [, manualRadio] = await getAllPresetRadios();
+
+      expect(wrapperOf(manualRadio)?.className).toContain('border-dashed');
+    });
+  });
+
+  describe('Row indicators', () => {
+    const rowOf = (radio: HTMLElement) => radio.closest('label') as HTMLElement;
+    const iconsIn = (radio: HTMLElement) =>
+      rowOf(radio).querySelectorAll('svg').length;
+
+    const rolling = (value: string, label: string, days: number) => ({
+      value,
+      label,
+      resolve: (now: Date) => ({
+        from: new Date(now.getTime() - days * 24 * 60 * 60 * 1000),
+        to: now,
+      }),
+    });
+
+    const manual = {
+      value: 'custom',
+      label: 'Custom range',
+      resolve: () => ({}),
+    };
+
+    it('should hide the radio control, since selection reads as a trailing check', async () => {
+      const { getAllPresetRadios } = setup();
+
+      const radios = await getAllPresetRadios();
+
+      radios.forEach((radio) => {
+        // The dot Radio draws sits next to its input; the row hides it.
+        expect(radio.nextElementSibling?.className).toContain('hidden');
+      });
+    });
+
+    it('should mark only the selected option', async () => {
+      const presets = [
+        rolling('last-24-hours', 'Last 24 hours', 1),
+        rolling('last-30-days', 'Last 30 days', 30),
+      ];
+      const { getAllPresetRadios } = setup({
+        presets,
+        defaultPreset: 'last-24-hours',
+      });
+
+      const [selected, other] = await getAllPresetRadios();
+
+      expect(iconsIn(selected)).toBe(1);
+      expect(iconsIn(other)).toBe(0);
+    });
+
+    it('should move the mark when another option is picked', async () => {
+      const presets = [
+        rolling('last-24-hours', 'Last 24 hours', 1),
+        rolling('last-30-days', 'Last 30 days', 30),
+      ];
+      const { getAllPresetRadios, user } = setup({
+        presets,
+        defaultPreset: 'last-24-hours',
+      });
+
+      const [first, second] = await getAllPresetRadios();
+      await user.click(second);
+
+      expect(iconsIn(first)).toBe(0);
+      expect(iconsIn(second)).toBe(1);
+    });
+
+    it('should point a trailing manual-selection option at the calendar', async () => {
+      const { getAllPresetRadios } = setup({
+        presets: [rolling('last-24-hours', 'Last 24 hours', 1), manual],
+        defaultPreset: 'last-24-hours',
+      });
+
+      const [, manualRadio] = await getAllPresetRadios();
+
+      // The chevron stands in for the check on this row, selected or not.
+      expect(iconsIn(manualRadio)).toBe(1);
+    });
+
+    it('should keep the chevron on the manual option while it is selected', async () => {
+      const { getAllPresetRadios } = setup({
+        presets: [rolling('last-24-hours', 'Last 24 hours', 1), manual],
+        defaultPreset: 'custom',
+      });
+
+      const [rollingRadio, manualRadio] = await getAllPresetRadios();
+
+      expect(iconsIn(manualRadio)).toBe(1);
+      expect(iconsIn(rollingRadio)).toBe(0);
+    });
+  });
 });
