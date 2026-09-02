@@ -187,4 +187,71 @@ export const CreatedDateRange: Story = {
   },
 };
 
+/**
+ * The same filter without `applyOnPresetSelect`, where every choice is confirmed
+ * by hand. Picking a preset leaves a pending selection on the bare list — the
+ * calendar stays shut, since the preset resolves to a window — so apply has to
+ * be reachable there or the choice could never be committed.
+ */
+export const CreatedDateRangeExplicitApply: Story = {
+  parameters: {
+    theme: 'dark',
+  },
+  render: function CreatedDateRangeExplicitApplyStory() {
+    const DAY_MS = 24 * 60 * 60 * 1000;
+    const [applied, setApplied] = useState<DateRangeWithTime | undefined>();
+
+    const rolling = (days: number) => (now: Date) => ({
+      from: new Date(now.getTime() - days * DAY_MS),
+      to: now,
+    });
+
+    return (
+      <div className="flex flex-col gap-6 p-10">
+        <FilterComponent>
+          <FilterComponent.DateRangeFilterDropdown
+            label="Created"
+            labelTimePeriod="Created"
+            revealCalendarOnCustom
+            showTime={false}
+            maxDate={new Date()}
+            presets={[
+              {
+                value: 'last-24-hours',
+                label: 'Last 24 hours',
+                resolve: rolling(1),
+              },
+              {
+                value: 'last-7-days',
+                label: 'Last 7 days',
+                resolve: rolling(7),
+              },
+              {
+                value: 'last-30-days',
+                label: 'Last 30 days',
+                resolve: rolling(30),
+              },
+              { value: 'custom', label: 'Custom range', resolve: () => ({}) },
+            ]}
+            onApply={setApplied}
+          />
+        </FilterComponent>
+
+        <pre className="text-xs text-zinc-500 dark:text-zinc-400">
+          {applied
+            ? JSON.stringify(
+                {
+                  from: applied.from?.toISOString(),
+                  to: applied.to?.toISOString(),
+                },
+                null,
+                2,
+              )
+            : 'no filter applied'}
+        </pre>
+      </div>
+    );
+  },
+};
+
 export default meta;
