@@ -1,19 +1,30 @@
 import { ChevronDownIcon } from 'lucide-react';
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 
 import { Badge } from '@/components/Badge/Badge';
 import { Button } from '@/components/Button/Button';
 import { DateRangePicker } from '@/components/DateRangePicker/DateRangePicker';
+import { DateRange } from '@/components/DateRangePicker/DateRangePicker.types';
+import { useFilterContext } from '@/components/Filter/contexts';
 import {
   filterButtonIconVariants,
   filterButtonVariants,
 } from '@/components/Filter/Filter.variants';
+import { useFilterDropdownSync } from '@/components/Filter/hooks';
 import { cn } from '@/utils';
 
 import { FilterDropdown } from '../FilterDropdown/FilterDropdown';
 
-import { useCustomDateRangeFilterDropdown } from './CustomDateRangeFilterDropdown.hook';
 import { CustomDateRangeFilterDropdownProps } from './CustomDateRangeFilterDropdown.types';
+import {
+  useAppliedDateRange,
+  useCalendarVisibility,
+  useDateRangeSelection,
+  useFilterDropdownOpenState,
+  useFormattedDateRange,
+  usePendingDateRange,
+  useResetKey,
+} from './hooks';
 
 export const CustomDateRangeFilterDropdown: FC<
   CustomDateRangeFilterDropdownProps
@@ -38,29 +49,74 @@ export const CustomDateRangeFilterDropdown: FC<
   applyOnPresetSelect = false,
   onApply,
 }) => {
-  const {
-    appliedRange,
-    canApply,
-    hasPendingSelection,
-    isOpen,
-    resetKey,
-    selectedRange,
-    showsCalendar,
-    handleApply,
-    handleOpenChange,
-    handlePresetChange,
-    handleRangeChange,
-    handleReset,
-  } = useCustomDateRangeFilterDropdown({
-    defaultRange,
+  const { closeOnApply } = useFilterContext();
+  const { id, isOpen, close, handleOpenChange } = useFilterDropdownOpenState();
+  const { selectedRange, selectRange, handleRangeChange, clearSelectedRange } =
+    useDateRangeSelection({ defaultRange });
+  const { appliedRange, applyRange, clearAppliedRange } = useAppliedDateRange({
     onApply,
-    countryCode,
-    applyOnPresetSelect,
   });
+  const appliedRangeLabel = useFormattedDateRange({
+    range: appliedRange,
+    countryCode,
+  });
+  const { canApply, hasPendingSelection } = usePendingDateRange({
+    selectedRange,
+    appliedRange,
+  });
+  const { showsCalendar, revealCalendarFor, hideCalendar } =
+    useCalendarVisibility({ defaultRange });
+  const [resetKey, bumpResetKey] = useResetKey();
+
+  const closeIfNeeded = useCallback(() => {
+    if (closeOnApply) {
+      close();
+    }
+  }, [close, closeOnApply]);
+
+  const handleApply = () => {
+    applyRange(selectedRange);
+    closeIfNeeded();
+  };
+
+  const handlePresetChange = useCallback(
+    (_preset: string, range: DateRange) => {
+      const opensCalendar = revealCalendarFor(range);
+
+      if (!applyOnPresetSelect || opensCalendar) {
+        return;
+      }
+
+      selectRange(range);
+      applyRange(range);
+      closeIfNeeded();
+    },
+    [
+      applyOnPresetSelect,
+      applyRange,
+      closeIfNeeded,
+      revealCalendarFor,
+      selectRange,
+    ],
+  );
+
+  const clearSelection = useCallback(() => {
+    clearSelectedRange();
+    clearAppliedRange();
+    hideCalendar();
+    bumpResetKey();
+  }, [bumpResetKey, clearAppliedRange, clearSelectedRange, hideCalendar]);
+
+  const handleReset = () => {
+    clearSelection();
+    closeIfNeeded();
+  };
+
+  useFilterDropdownSync({ id, onClose: close, onReset: clearSelection });
 
   const showsCalendarActions = !revealCalendarOnCustom || showsCalendar;
   const showsApply = showsCalendarActions || hasPendingSelection;
-  const showsActions = showsApply || Boolean(appliedRange);
+  const showsActions = showsApply || Boolean(appliedRangeLabel);
 
   return (
     <FilterDropdown
@@ -72,7 +128,7 @@ export const CustomDateRangeFilterDropdown: FC<
       trigger={
         <>
           {label}
-          {appliedRange && <Badge label={appliedRange} />}
+          {appliedRangeLabel && <Badge label={appliedRangeLabel} />}
           <ChevronDownIcon
             className={cn(filterButtonIconVariants(), {
               'rotate-180 text-blue-600 dark:text-aurora-500': isOpen,
