@@ -79,16 +79,16 @@ export const presetOptionLabelVariants = cva([
  *
  * It is drawn as a pseudo-element rather than a border so it can run full-bleed
  * across the panel — the insets cancel the panel's `px-2.5` — while the row's own
- * hover fill stays inset. Keep the two in step.
+ * hover fill stays inset. It sits in the row's top margin so the fill never
+ * touches it. Keep the two in step.
  */
 export const presetSeparatorVariants = cva([
-  'mt-2',
-  'pt-4',
+  'mt-4',
   "before:content-['']",
   'before:absolute',
   'before:-left-2.5',
   'before:-right-2.5',
-  'before:top-0',
+  'before:-top-2.5',
   'before:h-px',
   'before:bg-slate-200',
   'dark:before:bg-metal-700',
