@@ -57,6 +57,10 @@ export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
     applyOnPresetSelect,
   });
 
+  // There is a selection to act on: either the calendar is up, or it is always
+  // up because progressive disclosure is off.
+  const showsActions = !revealCalendarOnCustom || showsCalendar;
+
   return (
     <FilterDropdown
       isOpen={isOpen}
@@ -102,12 +106,16 @@ export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
       />
 
       {/*
-        The actions belong to the custom range: a preset applies the moment it is
-        picked, so on the bare preset list there is nothing to apply and the
-        design shows no buttons there. Without progressive disclosure the
-        calendar is always up, and so are they.
+        Apply belongs to the custom range: a preset applies the moment it is
+        picked, so on the bare preset list there is nothing left to apply and the
+        design draws no button there. Without progressive disclosure the calendar
+        is always up, and so is Apply.
+
+        Clear is not in the same position. Once a filter is on, the bare preset
+        list is where the user comes back to take it off, so it stays reachable
+        there rather than sending them to the table's own reset.
       */}
-      {(!revealCalendarOnCustom || showsCalendar) && (
+      {(showsActions || Boolean(appliedRange)) && (
         <div
           className={cn(
             'flex',
@@ -126,13 +134,15 @@ export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
             {labelReset}
           </Button>
 
-          <Button
-            appearance="compact"
-            disabled={!canApply}
-            onClick={handleApply}
-          >
-            {labelApply}
-          </Button>
+          {showsActions && (
+            <Button
+              appearance="compact"
+              disabled={!canApply}
+              onClick={handleApply}
+            >
+              {labelApply}
+            </Button>
+          )}
         </div>
       )}
     </FilterDropdown>

@@ -627,6 +627,31 @@ describe('FilterComponent', () => {
       return { user, open, pick, queryApply, queryClear };
     };
 
+    it('should offer clear alone once a filter is applied', async () => {
+      const { open, pick, queryApply, queryClear } = setupRange();
+
+      await open();
+      await pick('Last 7 days');
+      await open();
+
+      // The preset already applied itself, so there is nothing to apply — but
+      // there is now something to clear.
+      expect(queryClear()).toBeInTheDocument();
+      expect(queryApply()).not.toBeInTheDocument();
+    });
+
+    it('should drop clear again once the filter is cleared', async () => {
+      const { user, open, pick, queryClear } = setupRange();
+
+      await open();
+      await pick('Last 7 days');
+      await open();
+      await user.click(queryClear() as HTMLElement);
+      await open();
+
+      expect(queryClear()).not.toBeInTheDocument();
+    });
+
     it('should not offer the actions on the bare preset list', async () => {
       const { open, queryApply, queryClear } = setupRange();
 
