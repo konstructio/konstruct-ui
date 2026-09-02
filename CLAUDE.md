@@ -236,6 +236,7 @@ Test files: `ComponentName.test.tsx`
 - **File naming**: components in UpperCamelCase (e.g. `ClusterList.tsx`); services, lib, domain, constants, assets, modules, styles, and utils in kebab-case (e.g. `contact-center.ts`, `http-client.ts`, `node-pool.ts`)
 - **Component types**: define types in a separate file named `{Component}.types.ts` (e.g. `ClusterList.types.ts` alongside `ClusterList.tsx`)
 - **Component props**: type the props interface as `Props`, use `FC<Props>` (e.g. `const MyComponent: FC<Props> = ({ title }) => { ... }`)
+- **Props ordering**: inside a `Props` type, list data properties first in alphabetical order, then callbacks/methods (`onX`, `renderX`, any function-typed prop) at the end, also in alphabetical order
 - **Arrow functions**: always use block body with braces (e.g. `(x) => { return x + 1; }`, not `(x) => x + 1`). Exception: when returning an object literal, use parenthesized body (e.g. `() => ({ key: value })`, not `() => { return { key: value }; }`). This applies to all arrow functions including callbacks, event handlers, and component definitions.
 - **Early returns**: always wrap in braces, never inline (e.g. `if (!x) { return null; }`, not `if (!x) return null;`)
 - **Class names**: use the `cn()` utility (from `@konstructio/ui`) when composing class names with variables or conditionals (e.g. `className={cn('flex', isActive && 'bg-blue-500')}`). Plain static strings don't need `cn()` (e.g. `className="flex items-center"` is fine).
