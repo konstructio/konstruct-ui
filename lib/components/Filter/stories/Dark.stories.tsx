@@ -141,7 +141,7 @@ export const CreatedDateRange: Story = {
     return (
       <div className="flex flex-col gap-6 p-10">
         <FilterComponent>
-          <FilterComponent.DateRangeFilterDropdown
+          <FilterComponent.CustomDateRangeFilterDropdown
             label="Created"
             labelTimePeriod="Created"
             revealCalendarOnCustom
@@ -209,7 +209,7 @@ export const CreatedDateRangeExplicitApply: Story = {
     return (
       <div className="flex flex-col gap-6 p-10">
         <FilterComponent>
-          <FilterComponent.DateRangeFilterDropdown
+          <FilterComponent.CustomDateRangeFilterDropdown
             label="Created"
             labelTimePeriod="Created"
             revealCalendarOnCustom

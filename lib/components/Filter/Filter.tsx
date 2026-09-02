@@ -6,6 +6,7 @@ import { FilterComponentProps } from './Filter.types';
 import { filterVariants } from './Filter.variants';
 import {
   BadgeMultiSelect,
+  CustomDateRangeFilterDropdown,
   DateFilterDropdown,
   DateRangeFilterDropdown,
   ResetButton,
@@ -58,6 +59,7 @@ Filter.BadgeMultiSelect = BadgeMultiSelect;
 Filter.TextMultiSelect = TextMultiSelect;
 Filter.DateFilterDropdown = DateFilterDropdown;
 Filter.DateRangeFilterDropdown = DateRangeFilterDropdown;
+Filter.CustomDateRangeFilterDropdown = CustomDateRangeFilterDropdown;
 Filter.TimeFilterDropdown = TimeFilterDropdown;
 Filter.ResetButton = ResetButton;
 
@@ -67,5 +69,6 @@ export {
   TextMultiSelect,
   DateFilterDropdown,
   DateRangeFilterDropdown,
+  CustomDateRangeFilterDropdown,
   TimeFilterDropdown,
 };

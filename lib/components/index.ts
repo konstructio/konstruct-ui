@@ -73,6 +73,7 @@ export type {
   TextMultiSelectFilterConfig,
   DateFilterConfig,
   DateRangeFilterConfig,
+  CustomDateRangeFilterConfig,
   TimeFilterConfig,
 } from './VirtualizedTable/VirtualizedTable.types';
 export type {

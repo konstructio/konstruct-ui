@@ -585,7 +585,7 @@ describe('FilterComponent', () => {
     expect(mockOnApply).toHaveBeenCalledWith();
   });
 
-  describe('DateRangeFilterDropdown actions', () => {
+  describe('CustomDateRangeFilterDropdown actions', () => {
     const DAY_MS = 24 * 60 * 60 * 1000;
 
     const presets = [
@@ -603,7 +603,7 @@ describe('FilterComponent', () => {
     const setupRange = (props = {}) => {
       render(
         <Filter>
-          <Filter.DateRangeFilterDropdown
+          <Filter.CustomDateRangeFilterDropdown
             label="Created"
             presets={presets}
             revealCalendarOnCustom

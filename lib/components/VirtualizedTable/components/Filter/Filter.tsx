@@ -173,6 +173,27 @@ export const Filter: FC<Props> = ({
           showTime={filterConfig.showTime}
           timeFormat={filterConfig.timeFormat}
           showPresets={filterConfig.showPresets}
+          defaultRange={filterConfig.defaultRange}
+          minDate={filterConfig.minDate}
+          maxDate={filterConfig.maxDate}
+          countryCode={filterConfig.countryCode}
+          onApply={(range) => {
+            onSelectDateRangeFilter(key, range);
+          }}
+          onRangeChange={filterConfig.onRangeChange}
+        />
+      );
+    }
+
+    if (filterConfig.type === 'customDateRange') {
+      return (
+        <FilterPrimitive.CustomDateRangeFilterDropdown
+          key={key}
+          label={label}
+          position={position}
+          showTime={filterConfig.showTime}
+          timeFormat={filterConfig.timeFormat}
+          showPresets={filterConfig.showPresets}
           presets={filterConfig.presets}
           revealCalendarOnCustom={filterConfig.revealCalendarOnCustom}
           defaultRange={filterConfig.defaultRange}

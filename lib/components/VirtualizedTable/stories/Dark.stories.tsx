@@ -828,7 +828,7 @@ export const HorizontalScrollWithFilters: Story = {
 export default meta;
 
 /**
- * The "Created" filter from the Product Design System: a `dateRange` filter
+ * The "Created" filter from the Product Design System: a `customDateRange` filter
  * rendered in the table's own filter row, rather than a separate control above
  * it. Three rolling presets plus a custom range that opens the calendar, applied
  * as soon as a preset is picked.
@@ -938,7 +938,7 @@ export const CreatedDateRangeFilter: Story = {
           filters={[
             {
               key: 'created',
-              type: 'dateRange',
+              type: 'customDateRange',
               label: 'Created',
               labelTimePeriod: 'Created',
               revealCalendarOnCustom: true,

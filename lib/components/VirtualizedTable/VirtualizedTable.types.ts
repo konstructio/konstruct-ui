@@ -100,6 +100,29 @@ export type DateRangeFilterConfig = FilterConfigBase & {
   timeFormat?: '12' | '24';
   /** Whether to show preset options (default: true) */
   showPresets?: boolean;
+  /** Initial date range */
+  defaultRange?: DateRange;
+  /** Minimum selectable date */
+  minDate?: Date;
+  /** Maximum selectable date */
+  maxDate?: Date;
+  /** Country code for locale formatting (default: 'US') */
+  countryCode?: string;
+  /** Callback when the date range changes */
+  onRangeChange?: (range: DateRangeWithTime) => void;
+};
+
+/**
+ * Configuration for a date range filter with custom presets.
+ */
+export type CustomDateRangeFilterConfig = FilterConfigBase & {
+  type: 'customDateRange';
+  /** Whether to show time inputs (default: false) */
+  showTime?: boolean;
+  /** Time format: '12' for 12-hour or '24' for 24-hour */
+  timeFormat?: '12' | '24';
+  /** Whether to show preset options (default: true) */
+  showPresets?: boolean;
   /** Replaces the built-in preset options; see `DateRangePicker`'s `presets`. */
   presets?: DateRangePresetOption[];
   /** Reveal the calendar only on the manual-selection preset (default: false). */
@@ -164,6 +187,7 @@ export type FilterConfig =
   | TextMultiSelectFilterConfig
   | DateFilterConfig
   | DateRangeFilterConfig
+  | CustomDateRangeFilterConfig
   | ActionFilterConfig
   | TimeFilterConfig;
 
