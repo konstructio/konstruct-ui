@@ -997,6 +997,7 @@ describe('DateRangePicker', () => {
     it('should reveal them when the manual-selection preset is chosen', async () => {
       const { selectPreset, getCalendar, getStartDateInput } = setup({
         revealCalendarOnCustom: true,
+        animationDuration: 0,
         defaultPreset: 'last-7-days',
       });
 
@@ -1009,6 +1010,7 @@ describe('DateRangePicker', () => {
     it('should hide them again when a resolving preset is chosen back', async () => {
       const { selectPreset, getCalendar } = setup({
         revealCalendarOnCustom: true,
+        animationDuration: 0,
         defaultPreset: 'last-7-days',
       });
 
@@ -1030,6 +1032,7 @@ describe('DateRangePicker', () => {
       const onPresetChange = vi.fn();
       const { selectPreset, getCalendar } = setup({
         revealCalendarOnCustom: true,
+        animationDuration: 0,
         defaultPreset: null,
         presets: [
           {
@@ -1065,6 +1068,7 @@ describe('DateRangePicker', () => {
     it('should expand the calendar again after it was collapsed', async () => {
       const { selectPreset, getCalendar } = setup({
         revealCalendarOnCustom: true,
+        animationDuration: 0,
         defaultPreset: null,
         presets: [
           {
@@ -1099,6 +1103,7 @@ describe('DateRangePicker', () => {
     it('should keep the presets visible while the calendar is hidden', async () => {
       const { getPresetOption } = setup({
         revealCalendarOnCustom: true,
+        animationDuration: 0,
         defaultPreset: 'last-7-days',
       });
 
