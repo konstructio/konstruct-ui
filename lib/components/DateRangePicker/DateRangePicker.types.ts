@@ -1,4 +1,5 @@
 import { VariantProps } from 'class-variance-authority';
+import { ReactNode } from 'react';
 
 import { Theme } from '@/domain/theme';
 
@@ -162,6 +163,7 @@ export type Props = VariantProps<typeof dateRangePickerVariants> & {
    * ```
    */
   presets?: DateRangePresetOption[];
+  footer?: ReactNode;
   /**
    * Render the date inputs and calendar only while the manual-selection preset is
    * active — the entry whose `resolve` returns an empty range, `custom` by

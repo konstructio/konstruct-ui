@@ -84,6 +84,7 @@ const DateRangePicker: FC<Props> = ({
   // PresetPanel props
   showPresets = true,
   presets,
+  footer,
   revealCalendarOnCustom = false,
   labelTimePeriod,
   ariaLabelTimePeriod,
@@ -190,6 +191,7 @@ const DateRangePicker: FC<Props> = ({
             ariaLabelNextMonthEnd={ariaLabelNextMonthEnd}
             classNames={classNames?.calendarPanel}
           />
+          {footer}
         </RightPanel>
       </div>
     </div>
