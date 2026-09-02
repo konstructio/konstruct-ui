@@ -10,6 +10,7 @@ import { DateRangePreset } from '../../DateRangePicker.types';
 
 import { PresetPanelProps } from './PresetPanel.types';
 import {
+  presetChevronVariants,
   presetOptionLabelVariants,
   presetOptionVariants,
   presetPanelVariants,
@@ -35,7 +36,8 @@ export const PresetPanel: FC<PresetPanelProps> = ({
   presetLabels,
   classNames,
 }) => {
-  const { preset, presets, setPreset, disabled } = useDateRangePicker();
+  const { preset, presets, setPreset, disabled, revealCalendarOnCustom } =
+    useDateRangePicker();
 
   const handlePresetChange = useCallback(
     (value: string) => {
@@ -63,6 +65,8 @@ export const PresetPanel: FC<PresetPanelProps> = ({
       const labelKey = PRESET_LABEL_MAP[option.value];
       const customLabel = labelKey && presetLabels?.[labelKey];
       const isManualEntry = index === separatorIndex;
+      const isExpanded =
+        revealCalendarOnCustom && isManualEntry && option.value === preset;
 
       return {
         value: option.value,
@@ -73,7 +77,7 @@ export const PresetPanel: FC<PresetPanelProps> = ({
               <ArrowRightIcon
                 size={20}
                 aria-hidden
-                className="shrink-0 text-slate-400 dark:text-metal-400"
+                className={cn(presetChevronVariants({ expanded: isExpanded }))}
               />
             ) : (
               option.value === preset && (
@@ -91,8 +95,13 @@ export const PresetPanel: FC<PresetPanelProps> = ({
         // trailing check instead. The input stays in place for semantics.
         className: 'hidden',
         labelTextClassName: cn(presetOptionLabelVariants()),
+        onClick: isExpanded
+          ? () => {
+              setPreset(null);
+            }
+          : undefined,
         wrapperClassName: cn(
-          presetOptionVariants({ disabled }),
+          presetOptionVariants({ disabled, active: isExpanded }),
           classNames?.option,
           isManualEntry && presetSeparatorVariants(),
           isManualEntry && classNames?.separator,
@@ -104,6 +113,8 @@ export const PresetPanel: FC<PresetPanelProps> = ({
     preset,
     disabled,
     presetLabels,
+    revealCalendarOnCustom,
+    setPreset,
     classNames?.option,
     classNames?.separator,
   ]);
@@ -121,7 +132,7 @@ export const PresetPanel: FC<PresetPanelProps> = ({
       <RadioGroup
         name="date-range-preset"
         options={radioOptions}
-        value={preset ?? undefined}
+        value={preset}
         onValueChange={handlePresetChange}
         direction="col"
         wrapperClassName={cn('gap-1', classNames?.radioGroup)}

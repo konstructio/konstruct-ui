@@ -34,9 +34,10 @@ interface DateRangePickerProviderProps {
   hideDisabledNavigation?: boolean;
   showOutsideDays?: boolean;
   navigationMode?: 'together' | 'independent';
+  revealCalendarOnCustom?: boolean;
   onRangeChange?: (range: DateRange & TimeRange) => void;
   onDateChange?: (range: DateRange) => void;
-  onPresetChange?: (preset: DateRangePreset, range: DateRange) => void;
+  onPresetChange?: (preset: DateRangePreset | null, range: DateRange) => void;
 }
 
 export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
@@ -57,6 +58,7 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
   hideDisabledNavigation = false,
   showOutsideDays = false,
   navigationMode = 'together',
+  revealCalendarOnCustom = false,
   onRangeChange,
   onDateChange,
   onPresetChange,
@@ -105,7 +107,7 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
   );
 
   const setPreset = useCallback(
-    (newPreset: DateRangePreset) => {
+    (newPreset: DateRangePreset | null) => {
       setPresetState(newPreset);
 
       const presetRange = calculatePresetRange(newPreset, presets);
@@ -285,6 +287,7 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
         minDate,
         maxDate,
         hideDisabledNavigation,
+        revealCalendarOnCustom,
         showOutsideDays,
         navigationMode,
       }}

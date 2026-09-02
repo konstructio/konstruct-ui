@@ -88,6 +88,8 @@ export type DateRangePickerContextValue = {
   showOutsideDays: boolean;
   /** Navigation mode: 'together' or 'independent' */
   navigationMode: 'together' | 'independent';
+  /** Whether the inputs and calendar only show for the manual-selection preset */
+  revealCalendarOnCustom: boolean;
   /** Whether left month can navigate to previous (independent mode) */
   canLeftNavigatePrev: boolean;
   /** Whether left month can navigate to next (independent mode) */
@@ -100,8 +102,8 @@ export type DateRangePickerContextValue = {
   setRange: (range: DateRange) => void;
   /** Set the time range */
   setTime: (time: TimeRange) => void;
-  /** Set the preset */
-  setPreset: (preset: DateRangePreset) => void;
+  /** Set the preset, or `null` to leave nothing selected */
+  setPreset: (preset: DateRangePreset | null) => void;
   /** Navigate to previous month (together mode) */
   navigatePrevMonth: () => void;
   /** Navigate to next month (together mode) */

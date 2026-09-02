@@ -1026,6 +1026,76 @@ describe('DateRangePicker', () => {
       );
     });
 
+    it('should collapse the calendar when the open manual option is chosen again', async () => {
+      const onPresetChange = vi.fn();
+      const { selectPreset, getCalendar } = setup({
+        revealCalendarOnCustom: true,
+        defaultPreset: null,
+        presets: [
+          {
+            value: 'last-24-hours',
+            label: 'Last 24 hours',
+            resolve: (now: Date) => {
+              return {
+                from: new Date(now.getTime() - 24 * 60 * 60 * 1000),
+                to: now,
+              };
+            },
+          },
+          { value: 'custom', label: 'Custom range', resolve: () => ({}) },
+        ],
+        onPresetChange,
+      });
+
+      await selectPreset('Custom range');
+      expect(await getCalendar()).toBeInTheDocument();
+
+      await selectPreset('Custom range');
+
+      await waitFor(() => {
+        expect(
+          screen.queryByRole('application', {
+            name: /date range picker calendar/i,
+          }),
+        ).not.toBeInTheDocument();
+      });
+      expect(onPresetChange).toHaveBeenLastCalledWith(null, {});
+    });
+
+    it('should expand the calendar again after it was collapsed', async () => {
+      const { selectPreset, getCalendar } = setup({
+        revealCalendarOnCustom: true,
+        defaultPreset: null,
+        presets: [
+          {
+            value: 'last-24-hours',
+            label: 'Last 24 hours',
+            resolve: (now: Date) => {
+              return {
+                from: new Date(now.getTime() - 24 * 60 * 60 * 1000),
+                to: now,
+              };
+            },
+          },
+          { value: 'custom', label: 'Custom range', resolve: () => ({}) },
+        ],
+      });
+
+      await selectPreset('Custom range');
+      await selectPreset('Custom range');
+      await waitFor(() => {
+        expect(
+          screen.queryByRole('application', {
+            name: /date range picker calendar/i,
+          }),
+        ).not.toBeInTheDocument();
+      });
+
+      await selectPreset('Custom range');
+
+      expect(await getCalendar()).toBeInTheDocument();
+    });
+
     it('should keep the presets visible while the calendar is hidden', async () => {
       const { getPresetOption } = setup({
         revealCalendarOnCustom: true,
@@ -1132,6 +1202,29 @@ describe('DateRangePicker', () => {
       label: 'Custom range',
       resolve: () => ({}),
     };
+
+    it('should keep the open manual option highlighted and turn its chevron', async () => {
+      const { getAllPresetRadios, selectPreset } = setup({
+        presets: [rolling('last-24-hours', 'Last 24 hours', 1), manual],
+        defaultPreset: null,
+        revealCalendarOnCustom: true,
+      });
+
+      const [, manualRadio] = await getAllPresetRadios();
+      const activeFill = /(^|\s)bg-slate-100(\s|$)/;
+      const chevronOf = () => {
+        return rowOf(manualRadio).querySelector('svg')?.getAttribute('class');
+      };
+
+      expect(rowOf(manualRadio).className).not.toMatch(activeFill);
+      expect(chevronOf()).not.toContain('rotate-180');
+
+      await selectPreset('Custom range');
+
+      expect(rowOf(manualRadio).className).toMatch(activeFill);
+      expect(chevronOf()).toContain('rotate-180');
+      expect(chevronOf()).toContain('text-aurora-500');
+    });
 
     it('should hide the radio control, since selection reads as a trailing check', async () => {
       const { getAllPresetRadios } = setup();

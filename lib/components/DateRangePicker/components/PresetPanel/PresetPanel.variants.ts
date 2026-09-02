@@ -45,6 +45,7 @@ export const presetTitleVariants = cva([
  */
 export const presetOptionVariants = cva(
   [
+    'group',
     'relative',
     'flex',
     'w-full',
@@ -60,8 +61,29 @@ export const presetOptionVariants = cva(
         true: [],
         false: ['hover:bg-slate-100', 'dark:hover:bg-metal-600/40'],
       },
+      active: {
+        true: ['bg-slate-100', 'dark:bg-metal-600/40'],
+        false: [],
+      },
     },
-    defaultVariants: { disabled: false },
+    defaultVariants: { disabled: false, active: false },
+  },
+);
+
+export const presetChevronVariants = cva(
+  ['shrink-0', 'transition-transform', 'duration-300'],
+  {
+    variants: {
+      expanded: {
+        true: ['rotate-180', 'text-aurora-500'],
+        false: [
+          'text-slate-400',
+          'dark:text-metal-400',
+          'group-hover:text-aurora-500',
+        ],
+      },
+    },
+    defaultVariants: { expanded: false },
   },
 );
 

@@ -66,7 +66,7 @@ export type Props = VariantProps<typeof dateRangePickerVariants> & {
    * a manual-selection entry). Distinguishes choosing a preset from picking a day,
    * which `onRangeChange` cannot.
    */
-  onPresetChange?: (preset: DateRangePreset, range: DateRange) => void;
+  onPresetChange?: (preset: DateRangePreset | null, range: DateRange) => void;
   /** Time format: '12' for 12-hour or '24' for 24-hour */
   timeFormat?: '12' | '24';
   /** Whether to show time inputs (default: true) */

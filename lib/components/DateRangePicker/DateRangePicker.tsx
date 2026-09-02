@@ -1,12 +1,16 @@
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 
 import { cn } from '@/utils';
 
 import { Typography } from '@/components/Typography/Typography';
-import { CalendarPanel, DateTimeInputs, PresetPanel } from './components';
-import { DateRangePickerProvider, useDateRangePicker } from './contexts';
+import {
+  CalendarPanel,
+  DateTimeInputs,
+  PresetPanel,
+  RightPanel,
+} from './components';
+import { DateRangePickerProvider } from './contexts';
 import { Props } from './DateRangePicker.types';
-import { calculatePresetRange } from './utils';
 import {
   dateRangePickerVariants,
   rightPanelVariants,
@@ -39,34 +43,6 @@ import {
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-daterangepicker--docs Storybook}
  */
-/**
- * Wraps the inputs + calendar so `revealCalendarOnCustom` can hide them from
- * inside the provider: whether the active preset is the manual-selection entry
- * is only knowable from context.
- */
-const RightPanel: FC<{
-  reveal: boolean;
-  children: ReactNode;
-  className?: string;
-}> = ({ reveal, children, className }) => {
-  const { preset, presets } = useDateRangePicker();
-
-  if (reveal) {
-    const range = calculatePresetRange(preset, presets);
-
-    // A preset that resolves to a window speaks for itself, and no selection at
-    // all means no filter yet; only the manual-selection entry needs the
-    // calendar.
-    if (preset === null || range.from || range.to) {
-      return null;
-    }
-  }
-
-  return <div className={className}>{children}</div>;
-};
-
-RightPanel.displayName = 'DateRangePickerRightPanel';
-
 const DateRangePicker: FC<Props> = ({
   animationDuration = 500,
   className,
@@ -136,6 +112,7 @@ const DateRangePicker: FC<Props> = ({
     hideDisabledNavigation={hideDisabledNavigation}
     showOutsideDays={showOutsideDays}
     navigationMode={navigationMode}
+    revealCalendarOnCustom={revealCalendarOnCustom}
     onRangeChange={onRangeChange}
     onDateChange={onDateChange}
     onPresetChange={onPresetChange}
@@ -190,7 +167,6 @@ const DateRangePicker: FC<Props> = ({
         )}
 
         <RightPanel
-          reveal={revealCalendarOnCustom}
           className={cn(rightPanelVariants(), classNames?.rightPanel)}
         >
           <DateTimeInputs
