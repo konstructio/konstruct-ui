@@ -15,7 +15,7 @@ import { cn } from '@/utils';
 
 import { FilterDropdown } from '../FilterDropdown/FilterDropdown';
 
-import { CustomDateRangeFilterDropdownProps } from './CustomDateRangeFilterDropdown.types';
+import { Props } from './CustomDateRangeFilterDropdown.types';
 import {
   useAppliedDateRange,
   useCalendarVisibility,
@@ -26,9 +26,7 @@ import {
   useResetKey,
 } from './hooks';
 
-export const CustomDateRangeFilterDropdown: FC<
-  CustomDateRangeFilterDropdownProps
-> = ({
+export const CustomDateRangeFilterDropdown: FC<Props> = ({
   label,
   position = 'left',
   showTime = false,

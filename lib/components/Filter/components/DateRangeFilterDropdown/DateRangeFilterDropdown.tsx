@@ -13,9 +13,9 @@ import { cn } from '@/utils';
 import { FilterDropdown } from '../FilterDropdown/FilterDropdown';
 
 import { useDateRangeFilterDropdown } from './DateRangeFilterDropdown.hook';
-import { DateRangeFilterDropdownProps } from './DateRangeFilterDropdown.types';
+import { Props } from './DateRangeFilterDropdown.types';
 
-export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
+export const DateRangeFilterDropdown: FC<Props> = ({
   label,
   position = 'left',
   showTime = false,

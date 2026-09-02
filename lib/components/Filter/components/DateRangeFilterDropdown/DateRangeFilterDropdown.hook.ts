@@ -11,16 +11,13 @@ import { sendOpenFilterEvent } from '../../events';
 import { useFilterDropdownSync } from '../../hooks';
 import { getLocale } from '../../utils';
 
-import { DateRangeFilterDropdownProps } from './DateRangeFilterDropdown.types';
+import { Props } from './DateRangeFilterDropdown.types';
 
 export const useDateRangeFilterDropdown = ({
   defaultRange,
   onApply,
   countryCode = 'US',
-}: Pick<
-  DateRangeFilterDropdownProps,
-  'defaultRange' | 'onApply' | 'countryCode'
->) => {
+}: Pick<Props, 'defaultRange' | 'onApply' | 'countryCode'>) => {
   const { closeOnApply } = useFilterContext();
   const id = useId();
   const [isOpen, setIsOpen] = useState(false);

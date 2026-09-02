@@ -4,9 +4,9 @@ import { FC } from 'react';
 import { useFilterContext } from '@/components/Filter/contexts';
 import { cn } from '@/utils';
 
-import { FilterDropdownProps } from './FilterDropdown.types';
+import { Props } from './FilterDropdown.types';
 
-export const FilterDropdown: FC<FilterDropdownProps> = ({
+export const FilterDropdown: FC<Props> = ({
   isOpen,
   trigger,
   triggerClassName,

@@ -5,7 +5,7 @@ export type SelectedOptions = Option & {
   isRemoved?: boolean;
 };
 
-export type BadgeMultiSelectProps = {
+export type Props = {
   label: string;
   options: Option[];
   position?: 'left' | 'right';

@@ -3,7 +3,7 @@ import {
   DateRangeWithTime,
 } from '@/components/DateRangePicker/DateRangePicker.types';
 
-export type DateRangeFilterDropdownProps = {
+export type Props = {
   /** Label for the filter button */
   label: string;
   /** Position of the dropdown relative to the button */
