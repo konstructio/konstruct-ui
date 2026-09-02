@@ -41,6 +41,7 @@ export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
   const {
     appliedRange,
     canApply,
+    hasPendingSelection,
     isOpen,
     resetKey,
     selectedRange,
@@ -57,9 +58,13 @@ export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
     applyOnPresetSelect,
   });
 
-  // There is a selection to act on: either the calendar is up, or it is always
-  // up because progressive disclosure is off.
-  const showsActions = !revealCalendarOnCustom || showsCalendar;
+  // The calendar is up, or it is always up because progressive disclosure is off.
+  const showsCalendarActions = !revealCalendarOnCustom || showsCalendar;
+
+  // Apply follows the work it would commit, not the calendar. A preset that does
+  // not apply itself leaves a pending selection on the bare list, and without
+  // this that choice could never reach the table.
+  const showsApply = showsCalendarActions || hasPendingSelection;
 
   return (
     <FilterDropdown
@@ -106,16 +111,17 @@ export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
       />
 
       {/*
-        Apply belongs to the custom range: a preset applies the moment it is
-        picked, so on the bare preset list there is nothing left to apply and the
-        design draws no button there. Without progressive disclosure the calendar
-        is always up, and so is Apply.
+        Each button follows what it would act on rather than the calendar.
 
-        Clear is not in the same position. Once a filter is on, the bare preset
-        list is where the user comes back to take it off, so it stays reachable
-        there rather than sending them to the table's own reset.
+        Apply appears while there is something to commit — the calendar is open,
+        or a preset left a selection it did not apply itself. On the bare list
+        after a preset applied on its own there is nothing left to do, and the
+        design draws no button there.
+
+        Clear appears while there is something applied to take off, which is what
+        the user comes back to the preset list for.
       */}
-      {(showsActions || Boolean(appliedRange)) && (
+      {(showsApply || Boolean(appliedRange)) && (
         <div
           className={cn(
             'flex',
@@ -134,7 +140,7 @@ export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
             {labelReset}
           </Button>
 
-          {showsActions && (
+          {showsApply && (
             <Button
               appearance="compact"
               disabled={!canApply}

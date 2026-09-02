@@ -83,6 +83,25 @@ export const useDateRangeFilterDropdown = ({
   /** Nothing chosen yet: applying would send an empty range, which filters nothing. */
   const canApply = Boolean(selectedRange?.from || selectedRange?.to);
 
+  /**
+   * A choice the user has made that has not reached the table yet.
+   *
+   * This is what apply acts on, and it is not the same as `canApply`: once a
+   * preset has applied itself the selection is still there, but it is already
+   * the applied one and there is nothing left to do with it.
+   */
+  const hasPendingSelection = useMemo(() => {
+    if (!canApply) return false;
+
+    const sameInstant = (a?: Date, b?: Date) =>
+      (a?.getTime() ?? null) === (b?.getTime() ?? null);
+
+    return (
+      !sameInstant(selectedRange?.from, appliedRange?.from) ||
+      !sameInstant(selectedRange?.to, appliedRange?.to)
+    );
+  }, [canApply, selectedRange, appliedRange]);
+
   const handlePresetChange = useCallback(
     (_preset: string, range: DateRange) => {
       // A manual-selection entry resolves to nothing — that is the user asking
@@ -126,6 +145,7 @@ export const useDateRangeFilterDropdown = ({
     id,
     appliedRange: appliedRangeFormatted,
     canApply,
+    hasPendingSelection,
     isOpen,
     resetKey,
     showsCalendar,

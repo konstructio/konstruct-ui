@@ -681,6 +681,36 @@ describe('FilterComponent', () => {
       expect(queryApply()).not.toBeInTheDocument();
     });
 
+    it('should offer apply for a preset that does not apply itself', async () => {
+      const { open, pick, queryApply } = setupRange({
+        applyOnPresetSelect: false,
+      });
+
+      await open();
+      await pick('Last 7 days');
+
+      // The preset filled the selection but applied nothing, and it resolves to
+      // a window so the calendar stays closed. Without apply here the choice
+      // could never reach the table.
+      expect(queryApply()).toBeInTheDocument();
+      expect(queryApply()).toBeEnabled();
+    });
+
+    it('should apply that selection when the button is pressed', async () => {
+      const onApply = vi.fn();
+      const { user, open, pick, queryApply } = setupRange({
+        applyOnPresetSelect: false,
+        onApply,
+      });
+
+      await open();
+      await pick('Last 7 days');
+      await user.click(queryApply() as HTMLElement);
+
+      expect(onApply).toHaveBeenCalledTimes(1);
+      expect(onApply.mock.lastCall?.[0]?.from).toBeInstanceOf(Date);
+    });
+
     it('should always offer them when the calendar is always up', async () => {
       const { open, queryApply, queryClear } = setupRange({
         revealCalendarOnCustom: false,
