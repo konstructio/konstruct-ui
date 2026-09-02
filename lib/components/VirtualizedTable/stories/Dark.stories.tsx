@@ -1,9 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { EyeIcon } from 'lucide-react';
-import { ReactNode, useCallback, useEffect, useId, useState } from 'react';
+import {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useState,
+} from 'react';
 
-import { DateRangeWithTime } from '@/components/DateRangePicker/DateRangePicker.types';
 import { Button } from '@/components/Button/Button';
 import { Typography } from '@/components/Typography/Typography';
 
@@ -27,6 +33,15 @@ const meta: Meta<typeof VirtualizedTableComponent> = {
 };
 
 const queryClient = new QueryClient();
+
+type PokemonWithCreated = Pokemon & { created: Date };
+
+/** Midnight today, shared by the synthetic creation dates and the filter's cap. */
+const startOfToday = (() => {
+  const now = new Date();
+
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+})();
 
 const columns: ColumnDef<Pokemon>[] = [
   {
@@ -817,30 +832,79 @@ export default meta;
  * rendered in the table's own filter row, rather than a separate control above
  * it. Three rolling presets plus a custom range that opens the calendar, applied
  * as soon as a preset is picked.
+ *
+ * The table reloads through `fetchData`, which receives the applied window under
+ * the filter's key, so picking a preset visibly narrows the rows.
  */
 export const CreatedDateRangeFilter: Story = {
   render: () => {
     const id = useId();
-    const [applied, setApplied] = useState<DateRangeWithTime | undefined>();
-    const [{ data }, setData] = useState<{
-      data: Pokemon[];
-      totalItemsCount: number;
-    }>({ data: [], totalItemsCount: 0 });
+    const DAY_MS = 24 * 60 * 60 * 1000;
 
-    useEffect(() => {
-      const init = async () => {
-        const result = await getPokemons({
+    // The pokemon fixture carries no creation date, so the story gives each row
+    // one — spread deterministically over the last seven weeks, so the same id
+    // always lands on the same day and the presets have something to cut.
+    const createdOf = useCallback(
+      (pokemonId: number) =>
+        new Date(startOfToday.getTime() - (pokemonId % 49) * DAY_MS),
+      [DAY_MS],
+    );
+
+    const columnsWithCreated: ColumnDef<PokemonWithCreated>[] = useMemo(
+      () => [
+        ...(columns as ColumnDef<PokemonWithCreated>[]).filter(
+          (column) => column.id !== 'actions',
+        ),
+        {
+          header: 'Created',
+          accessorKey: 'created',
+          cell: ({ row }) =>
+            row.original.created.toLocaleDateString('en-GB', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+            }),
+        },
+      ],
+      [],
+    );
+
+    const fetchData = useCallback(
+      async (params: Record<string, unknown>) => {
+        const { page = 1, pageSize = DEFAULT_PAGE_SIZE, termOfSearch } = params;
+        const created = params.created as
+          { from?: string; to?: string } | undefined;
+
+        const { results } = await getPokemons({
           page: 1,
-          pageSize: DEFAULT_PAGE_SIZE,
+          pageSize: 1000,
+          termOfSearch: termOfSearch as string | undefined,
         });
-        setData({
-          data: result.results,
-          totalItemsCount: result.totalItemsCount,
-        });
-      };
 
-      init();
-    }, []);
+        let rows: PokemonWithCreated[] = results.map((pokemon) => ({
+          ...pokemon,
+          created: createdOf(pokemon.id),
+        }));
+
+        if (created?.from) {
+          const from = new Date(created.from);
+          rows = rows.filter((row) => row.created >= from);
+        }
+
+        if (created?.to) {
+          const to = new Date(created.to);
+          rows = rows.filter((row) => row.created <= to);
+        }
+
+        const start = (Number(page) - 1) * Number(pageSize);
+
+        return {
+          data: rows.slice(start, start + Number(pageSize)),
+          totalItemsCount: rows.length,
+        };
+      },
+      [createdOf],
+    );
 
     useEffect(() => {
       document.body.setAttribute('data-theme', 'dark');
@@ -852,72 +916,61 @@ export const CreatedDateRangeFilter: Story = {
       };
     }, []);
 
-    const DAY_MS = 24 * 60 * 60 * 1000;
     // Rolling windows, relative to now — not calendar buckets.
     const rolling = (days: number) => (now: Date) => ({
       from: new Date(now.getTime() - days * DAY_MS),
       to: now,
     });
 
-    if (data.length === 0) {
-      return <div>Loading...</div>;
-    }
-
     return (
       <QueryClientProvider client={queryClient}>
-        <div className="flex flex-col gap-4">
-          <VirtualizedTableComponent<Pokemon>
-            id={id}
-            data={data}
-            columns={columns}
-            showPagination={false}
-            showFilter
-            showResetButton
-            ariaLabel="List of pokemons"
-            filters={[
-              {
-                key: 'created',
-                type: 'dateRange',
-                label: 'Created',
-                labelTimePeriod: 'Created',
-                revealCalendarOnCustom: true,
-                applyOnPresetSelect: true,
-                showTime: false,
-                // A creation date cannot meaningfully be in the future.
-                maxDate: new Date(),
-                presets: [
-                  {
-                    value: 'last-24-hours',
-                    label: 'Last 24 hours',
-                    resolve: rolling(1),
-                  },
-                  {
-                    value: 'last-7-days',
-                    label: 'Last 7 days',
-                    resolve: rolling(7),
-                  },
-                  {
-                    value: 'last-30-days',
-                    label: 'Last 30 days',
-                    resolve: rolling(30),
-                  },
-                  {
-                    value: 'custom',
-                    label: 'Custom range',
-                    resolve: () => ({}),
-                  },
-                ],
-                onRangeChange: setApplied,
-              },
-            ]}
-          />
-
-          <pre className="text-xs text-zinc-400">
-            {applied?.from
-              ? JSON.stringify(applied, null, 2)
-              : 'no filter applied'}
-          </pre>
-        </div>
+        <VirtualizedTableComponent<PokemonWithCreated>
+          id={id}
+          data={[]}
+          columns={columnsWithCreated}
+          fetchData={fetchData}
+          showPagination
+          totalItems={0}
+          pageSizes={[10, 20, 50]}
+          showFilter
+          showResetButton
+          ariaLabel="List of pokemons"
+          filters={[
+            {
+              key: 'created',
+              type: 'dateRange',
+              label: 'Created',
+              labelTimePeriod: 'Created',
+              revealCalendarOnCustom: true,
+              applyOnPresetSelect: true,
+              showTime: false,
+              // A creation date cannot meaningfully be in the future.
+              maxDate: startOfToday,
+              presets: [
+                {
+                  value: 'last-24-hours',
+                  label: 'Last 24 hours',
+                  resolve: rolling(1),
+                },
+                {
+                  value: 'last-7-days',
+                  label: 'Last 7 days',
+                  resolve: rolling(7),
+                },
+                {
+                  value: 'last-30-days',
+                  label: 'Last 30 days',
+                  resolve: rolling(30),
+                },
+                {
+                  value: 'custom',
+                  label: 'Custom range',
+                  resolve: () => ({}),
+                },
+              ],
+            },
+          ]}
+        />
       </QueryClientProvider>
     );
   },
