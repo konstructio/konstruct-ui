@@ -42,6 +42,7 @@ export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
     appliedRange,
     canApply,
     isOpen,
+    resetKey,
     selectedRange,
     handleApply,
     handleOpenChange,
@@ -76,7 +77,11 @@ export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
       onOpenChange={handleOpenChange}
     >
       <DateRangePicker
+        key={resetKey}
         defaultRange={selectedRange}
+        // No selection means no filter: the dropdown opens on the preset list
+        // with nothing checked until the user picks something.
+        defaultPreset={selectedRange ? undefined : null}
         showTime={showTime}
         timeFormat={timeFormat}
         showPresets={showPresets}

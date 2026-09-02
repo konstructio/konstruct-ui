@@ -13,7 +13,7 @@ import {
  * leaves the selection to the calendar.
  */
 export const calculatePresetRange = (
-  preset: DateRangePreset,
+  preset: DateRangePreset | null,
   presets: DateRangePresetOption[] = PRESET_OPTIONS,
   now: Date = new Date(),
 ): DateRange =>

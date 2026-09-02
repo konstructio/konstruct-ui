@@ -54,8 +54,8 @@ export type DateRangePickerContextValue = {
   range: DateRange;
   /** Current time values */
   time: TimeRange;
-  /** Current active preset */
-  preset: DateRangePreset;
+  /** Current active preset, or `null` when nothing is selected */
+  preset: DateRangePreset | null;
   /** The preset options on offer, built-ins unless overridden */
   presets: DateRangePresetOption[];
   /** Currently displayed months [left, right] */

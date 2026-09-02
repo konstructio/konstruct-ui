@@ -52,7 +52,11 @@ export type Props = VariantProps<typeof dateRangePickerVariants> & {
   /** Initial time range */
   defaultTime?: TimeRange;
   /** Initially selected preset (default: 'custom') */
-  defaultPreset?: DateRangePreset;
+  /**
+   * Initially selected preset. `null` opens with nothing selected, which pairs
+   * with `revealCalendarOnCustom` to show only the preset list.
+   */
+  defaultPreset?: DateRangePreset | null;
   /** Callback when the range changes (includes time) */
   onRangeChange?: (range: DateRangeWithTime) => void;
   /** Callback when the date changes (start or end date, without time) */

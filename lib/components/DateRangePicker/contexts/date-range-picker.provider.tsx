@@ -19,7 +19,7 @@ interface DateRangePickerProviderProps {
   children: ReactNode;
   defaultRange?: DateRange;
   defaultTime?: TimeRange;
-  defaultPreset?: DateRangePreset;
+  defaultPreset?: DateRangePreset | null;
   presets?: DateRangePresetOption[];
   timeFormat?: '12' | '24';
   showTime?: boolean;
@@ -69,7 +69,9 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
     return defaultTime ?? {};
   });
 
-  const [preset, setPresetState] = useState<DateRangePreset>(defaultPreset);
+  const [preset, setPresetState] = useState<DateRangePreset | null>(
+    defaultPreset,
+  );
 
   const [displayedMonths, setDisplayedMonths] = useState<[Date, Date]>(() => {
     // Compute the initial range to determine which month to show

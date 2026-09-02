@@ -17,8 +17,6 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({
   ariaLabelEndDate = 'End date',
   errorInvalidDate = 'Invalid date',
   errorDateNotAvailable = 'Date is not available',
-  errorStartAfterEnd = 'Start date must be before end date',
-  errorEndBeforeStart = 'End date must be after start date',
   classNames,
 }) => {
   const {
@@ -44,8 +42,6 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({
   } = useDateTimeInputs({
     errorInvalidDate,
     errorDateNotAvailable,
-    errorStartAfterEnd,
-    errorEndBeforeStart,
   });
 
   return (

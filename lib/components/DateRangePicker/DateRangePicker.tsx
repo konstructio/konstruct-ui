@@ -54,9 +54,10 @@ const RightPanel: FC<{
   if (reveal) {
     const range = calculatePresetRange(preset, presets);
 
-    // A preset that resolves to a window speaks for itself; only the
-    // manual-selection entry needs the calendar.
-    if (range.from || range.to) {
+    // A preset that resolves to a window speaks for itself, and no selection at
+    // all means no filter yet; only the manual-selection entry needs the
+    // calendar.
+    if (preset === null || range.from || range.to) {
       return null;
     }
   }

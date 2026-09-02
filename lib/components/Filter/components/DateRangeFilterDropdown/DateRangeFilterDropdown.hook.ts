@@ -31,6 +31,9 @@ export const useDateRangeFilterDropdown = ({
   const [appliedRange, setAppliedRange] = useState<
     DateRangeWithTime | undefined
   >();
+  // The picker seeds itself from `defaultRange` on mount only, so clearing has
+  // to remount it; otherwise the calendar keeps showing the discarded range.
+  const [resetKey, setResetKey] = useState(0);
 
   const appliedRangeFormatted = useMemo(() => {
     if (!appliedRange?.from) return undefined;
@@ -98,6 +101,7 @@ export const useDateRangeFilterDropdown = ({
   const clearSelection = useCallback(() => {
     setSelectedRange(undefined);
     setAppliedRange(undefined);
+    setResetKey((key) => key + 1);
     onApply?.();
   }, [onApply]);
 
@@ -116,6 +120,7 @@ export const useDateRangeFilterDropdown = ({
     appliedRange: appliedRangeFormatted,
     canApply,
     isOpen,
+    resetKey,
     selectedRange,
     handleApply,
     handleOpenChange,

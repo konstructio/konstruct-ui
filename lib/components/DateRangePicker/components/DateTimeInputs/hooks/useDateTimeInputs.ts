@@ -22,15 +22,11 @@ import {
 type UseDateTimeInputsProps = {
   errorInvalidDate: string;
   errorDateNotAvailable: string;
-  errorStartAfterEnd: string;
-  errorEndBeforeStart: string;
 };
 
 export const useDateTimeInputs = ({
   errorInvalidDate,
   errorDateNotAvailable,
-  errorStartAfterEnd,
-  errorEndBeforeStart,
 }: UseDateTimeInputsProps) => {
   const {
     range,
@@ -138,9 +134,16 @@ export const useDateTimeInputs = ({
     const endParsed =
       parseDateString(endDateValue) || parseDisplayDateString(endDateValue);
     if (endParsed && parsed > endParsed) {
-      setStartDateError(errorStartAfterEnd);
-      isEndTypingRef.current = true;
-      setRange({ from: undefined, to: undefined });
+      // An inverted pair is the same window entered backwards, so the two are
+      // swapped rather than rejected — discarding both dates loses work the
+      // user has already done.
+      isStartTypingRef.current = false;
+      isEndTypingRef.current = false;
+      setStartDateError(undefined);
+      setEndDateError(undefined);
+      setRange({ ...range, from: endParsed, to: parsed });
+      setStartDateValue(formatDateToDisplayString(endParsed));
+      setEndDateValue(formatDateToDisplayString(parsed));
       return;
     }
 
@@ -211,9 +214,14 @@ export const useDateTimeInputs = ({
     const startParsed =
       parseDateString(startDateValue) || parseDisplayDateString(startDateValue);
     if (startParsed && parsed < startParsed) {
-      setEndDateError(errorEndBeforeStart);
-      isStartTypingRef.current = true;
-      setRange({ from: undefined, to: undefined });
+      // Same as above, from the other field.
+      isStartTypingRef.current = false;
+      isEndTypingRef.current = false;
+      setStartDateError(undefined);
+      setEndDateError(undefined);
+      setRange({ ...range, from: parsed, to: startParsed });
+      setStartDateValue(formatDateToDisplayString(parsed));
+      setEndDateValue(formatDateToDisplayString(startParsed));
       return;
     }
 

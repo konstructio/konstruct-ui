@@ -1201,4 +1201,110 @@ describe('DateRangePicker', () => {
       expect(iconsIn(rollingRadio)).toBe(0);
     });
   });
+
+  describe('Inverted ranges', () => {
+    // The pair is reconciled when a field is committed, so each entry is
+    // followed by a blur. Asserting on the emitted range keeps this independent
+    // of which format a focused field happens to be showing.
+    const setupInverted = () => {
+      const onRangeChange = vi.fn();
+      const api = setup({ onRangeChange });
+      return { ...api, onRangeChange };
+    };
+
+    const lastRange = (onRangeChange: ReturnType<typeof vi.fn>) =>
+      onRangeChange.mock.lastCall?.[0];
+
+    const dayOf = (date?: Date) => date?.getDate();
+
+    it('should swap the pair when the start is typed after the end', async () => {
+      const { typeEndDate, typeStartDate, user, onRangeChange } =
+        setupInverted();
+
+      await typeEndDate('08/20/2026');
+      await typeStartDate('08/25/2026');
+      await user.tab();
+
+      const range = lastRange(onRangeChange);
+      expect(dayOf(range?.from)).toBe(20);
+      expect(dayOf(range?.to)).toBe(25);
+    });
+
+    it('should swap the pair when the end is typed before the start', async () => {
+      const { typeStartDate, typeEndDate, user, onRangeChange } =
+        setupInverted();
+
+      await typeStartDate('08/20/2026');
+      await typeEndDate('08/05/2026');
+      await user.tab();
+
+      const range = lastRange(onRangeChange);
+      expect(dayOf(range?.from)).toBe(5);
+      expect(dayOf(range?.to)).toBe(20);
+    });
+
+    it('should keep both dates rather than discarding them', async () => {
+      const { typeEndDate, typeStartDate, user, onRangeChange } =
+        setupInverted();
+
+      await typeEndDate('08/20/2026');
+      await typeStartDate('08/25/2026');
+      await user.tab();
+
+      const range = lastRange(onRangeChange);
+      expect(range?.from).toBeInstanceOf(Date);
+      expect(range?.to).toBeInstanceOf(Date);
+    });
+
+    it('should not report an ordering error', async () => {
+      const { typeEndDate, typeStartDate, user } = setupInverted();
+
+      await typeEndDate('08/20/2026');
+      await typeStartDate('08/25/2026');
+      await user.tab();
+
+      expect(screen.queryByText(/must be before/i)).not.toBeInTheDocument();
+      expect(screen.queryByText(/must be after/i)).not.toBeInTheDocument();
+    });
+  });
+
+  describe('No selection', () => {
+    it('should leave every preset unchecked when defaultPreset is null', async () => {
+      const { getAllPresetRadios } = setup({ defaultPreset: null });
+
+      const radios = await getAllPresetRadios();
+
+      radios.forEach((radio) => {
+        expect(radio).not.toBeChecked();
+      });
+    });
+
+    it('should hide the calendar until something is picked', async () => {
+      setup({ defaultPreset: null, revealCalendarOnCustom: true });
+
+      expect(
+        screen.queryByRole('application', {
+          name: /date range picker calendar/i,
+        }),
+      ).not.toBeInTheDocument();
+      expect(screen.queryByLabelText(/^start date$/i)).not.toBeInTheDocument();
+    });
+
+    it('should reveal the calendar once the manual option is chosen', async () => {
+      const { selectPreset, getCalendar } = setup({
+        defaultPreset: null,
+        revealCalendarOnCustom: true,
+      });
+
+      await selectPreset('Custom');
+
+      expect(await getCalendar()).toBeInTheDocument();
+    });
+
+    it('should still show the calendar with no selection when disclosure is off', async () => {
+      const { getCalendar } = setup({ defaultPreset: null });
+
+      expect(await getCalendar()).toBeInTheDocument();
+    });
+  });
 });
