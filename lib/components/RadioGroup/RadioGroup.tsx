@@ -56,7 +56,7 @@ export const RadioGroup: FC<Props> = ({
   const [internalSelected, setInternalSelected] = useState<string | undefined>(
     () => defaultChecked,
   );
-  const selected = isControlled ? value : internalSelected;
+  const selected = isControlled ? (value ?? undefined) : internalSelected;
 
   const handleSelected = (newValue: string) => {
     if (!isControlled) {
