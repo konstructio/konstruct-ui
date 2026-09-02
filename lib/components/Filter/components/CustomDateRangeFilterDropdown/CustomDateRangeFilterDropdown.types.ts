@@ -5,6 +5,7 @@ import {
 } from '@/components/DateRangePicker/DateRangePicker.types';
 
 export type Props = {
+  animationDuration?: number;
   /** Apply as soon as a preset is selected (default: false) */
   applyOnPresetSelect?: boolean;
   /** Country code for locale formatting (default: 'US') */

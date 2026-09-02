@@ -1,4 +1,11 @@
-import { act, queryByAttribute, render, screen } from '@testing-library/react';
+import {
+  act,
+  queryByAttribute,
+  render,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
@@ -608,6 +615,7 @@ describe('FilterComponent', () => {
             presets={presets}
             revealCalendarOnCustom
             applyOnPresetSelect
+            animationDuration={0}
             {...props}
           />
         </Filter>,
@@ -669,6 +677,99 @@ describe('FilterComponent', () => {
 
       expect(queryApply()).toBeInTheDocument();
       expect(queryClear()).toBeInTheDocument();
+    });
+
+    it('should hide them again when the custom range is collapsed', async () => {
+      const { open, pick, queryApply, queryClear } = setupRange();
+
+      await open();
+      await pick('Custom range');
+      expect(queryApply()).toBeInTheDocument();
+
+      await pick('Custom range');
+
+      await waitFor(() => {
+        expect(queryApply()).not.toBeInTheDocument();
+      });
+      expect(queryClear()).not.toBeInTheDocument();
+    });
+
+    it('should offer them again when the custom range is expanded once more', async () => {
+      const { open, pick, queryApply, queryClear } = setupRange();
+
+      await open();
+      await pick('Custom range');
+      await pick('Custom range');
+      await waitFor(() => {
+        expect(queryApply()).not.toBeInTheDocument();
+      });
+
+      await pick('Custom range');
+
+      expect(queryApply()).toBeInTheDocument();
+      expect(queryClear()).toBeInTheDocument();
+    });
+
+    it('should tuck pending dates away with the collapsed custom range', async () => {
+      const { user, open, pick, queryApply } = setupRange({
+        applyOnPresetSelect: false,
+      });
+
+      await open();
+      await pick('Custom range');
+
+      const cells = await screen.findAllByRole('gridcell');
+      const day = cells
+        .map((cell) => {
+          return within(cell).queryByRole('button');
+        })
+        .find((button) => {
+          return button && !button.hasAttribute('disabled');
+        }) as HTMLElement;
+      await user.click(day);
+      expect(queryApply()).toBeEnabled();
+
+      await pick('Custom range');
+
+      await waitFor(() => {
+        expect(queryApply()).not.toBeInTheDocument();
+      });
+
+      await pick('Custom range');
+
+      expect(
+        await screen.findByRole('button', { name: /apply/i }),
+      ).toBeEnabled();
+    });
+
+    it('should only empty the inputs when clear is pressed inside the calendar', async () => {
+      const { user, open, pick, queryApply, queryClear } = setupRange({
+        applyOnPresetSelect: false,
+      });
+
+      await open();
+      await pick('Custom range');
+
+      const cells = await screen.findAllByRole('gridcell');
+      const day = cells
+        .map((cell) => {
+          return within(cell).queryByRole('button');
+        })
+        .find((button) => {
+          return button && !button.hasAttribute('disabled');
+        }) as HTMLElement;
+      await user.click(day);
+      expect(screen.getByLabelText(/^start date$/i)).not.toHaveValue('');
+
+      await user.click(queryClear() as HTMLElement);
+
+      expect(screen.getByLabelText(/^start date$/i)).toHaveValue('');
+      expect(
+        screen.getByRole('application', {
+          name: /date range picker calendar/i,
+        }),
+      ).toBeInTheDocument();
+      expect(queryApply()).toBeDisabled();
     });
 
     it('should keep them hidden after a preset applies on its own', async () => {
