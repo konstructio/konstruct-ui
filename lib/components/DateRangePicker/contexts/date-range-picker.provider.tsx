@@ -8,6 +8,7 @@ import {
   TimeRange,
 } from './date-range-picker.context';
 import { PRESET_OPTIONS } from '../constants/presets';
+import { getDisplayedMonths } from '../utils/displayed-months';
 import { calculatePresetRange } from '../utils/presets';
 import {
   canNavigateToPrevMonth,
@@ -81,17 +82,8 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
 
     // Navigate to the month of the initial range, or current month if none
     const referenceDate = initialRange?.from ?? initialRange?.to ?? new Date();
-    const leftMonth = new Date(
-      referenceDate.getFullYear(),
-      referenceDate.getMonth(),
-      1,
-    );
-    const rightMonth = new Date(
-      referenceDate.getFullYear(),
-      referenceDate.getMonth() + 1,
-      1,
-    );
-    return [leftMonth, rightMonth];
+
+    return getDisplayedMonths(referenceDate, maxDate);
   });
 
   const setRange = useCallback(

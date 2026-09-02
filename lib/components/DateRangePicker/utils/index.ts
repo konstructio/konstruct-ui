@@ -1,4 +1,5 @@
 export { calculatePresetRange } from './presets';
+export { getDisplayedMonths } from './displayed-months';
 export { PRESET_OPTIONS } from '../constants';
 export type { PresetOption } from '../constants';
 export type { DateRangePresetOption } from '../contexts/date-range-picker.context';
