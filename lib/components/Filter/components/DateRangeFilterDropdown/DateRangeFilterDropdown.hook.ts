@@ -34,6 +34,9 @@ export const useDateRangeFilterDropdown = ({
   // The picker seeds itself from `defaultRange` on mount only, so clearing has
   // to remount it; otherwise the calendar keeps showing the discarded range.
   const [resetKey, setResetKey] = useState(0);
+  // Whether the picker is currently showing its calendar. A range handed in up
+  // front opens on the manual-selection preset, so it starts revealed.
+  const [showsCalendar, setShowsCalendar] = useState(Boolean(defaultRange));
 
   const appliedRangeFormatted = useMemo(() => {
     if (!appliedRange?.from) return undefined;
@@ -82,9 +85,12 @@ export const useDateRangeFilterDropdown = ({
 
   const handlePresetChange = useCallback(
     (_preset: string, range: DateRange) => {
-      // A manual-selection entry resolves to nothing — that is the user asking for
-      // the calendar, not asking to filter, so there is nothing to apply yet.
-      if (!applyOnPresetSelect || (!range.from && !range.to)) return;
+      // A manual-selection entry resolves to nothing — that is the user asking
+      // for the calendar, not asking to filter, so there is nothing to apply yet.
+      const opensCalendar = !range.from && !range.to;
+      setShowsCalendar(opensCalendar);
+
+      if (!applyOnPresetSelect || opensCalendar) return;
 
       setSelectedRange(range);
       applyRange(range);
@@ -101,6 +107,7 @@ export const useDateRangeFilterDropdown = ({
   const clearSelection = useCallback(() => {
     setSelectedRange(undefined);
     setAppliedRange(undefined);
+    setShowsCalendar(false);
     setResetKey((key) => key + 1);
     onApply?.();
   }, [onApply]);
@@ -121,6 +128,7 @@ export const useDateRangeFilterDropdown = ({
     canApply,
     isOpen,
     resetKey,
+    showsCalendar,
     selectedRange,
     handleApply,
     handleOpenChange,

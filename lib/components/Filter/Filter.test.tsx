@@ -584,4 +584,96 @@ describe('FilterComponent', () => {
 
     expect(mockOnApply).toHaveBeenCalledWith();
   });
+
+  describe('DateRangeFilterDropdown actions', () => {
+    const DAY_MS = 24 * 60 * 60 * 1000;
+
+    const presets = [
+      {
+        value: 'last-7-days',
+        label: 'Last 7 days',
+        resolve: (now: Date) => ({
+          from: new Date(now.getTime() - 7 * DAY_MS),
+          to: now,
+        }),
+      },
+      { value: 'custom', label: 'Custom range', resolve: () => ({}) },
+    ];
+
+    const setupRange = (props = {}) => {
+      render(
+        <Filter>
+          <Filter.DateRangeFilterDropdown
+            label="Created"
+            presets={presets}
+            revealCalendarOnCustom
+            applyOnPresetSelect
+            {...props}
+          />
+        </Filter>,
+      );
+
+      const user = userEvent.setup();
+
+      const open = async () =>
+        user.click(await screen.findByRole('button', { name: /created/i }));
+
+      const pick = async (label: string) =>
+        user.click(await screen.findByText(label));
+
+      const queryApply = () => screen.queryByRole('button', { name: /apply/i });
+      const queryClear = () => screen.queryByRole('button', { name: /clear/i });
+
+      return { user, open, pick, queryApply, queryClear };
+    };
+
+    it('should not offer the actions on the bare preset list', async () => {
+      const { open, queryApply, queryClear } = setupRange();
+
+      await open();
+
+      expect(queryApply()).not.toBeInTheDocument();
+      expect(queryClear()).not.toBeInTheDocument();
+    });
+
+    it('should offer them once the custom range is chosen', async () => {
+      const { open, pick, queryApply, queryClear } = setupRange();
+
+      await open();
+      await pick('Custom range');
+
+      expect(queryApply()).toBeInTheDocument();
+      expect(queryClear()).toBeInTheDocument();
+    });
+
+    it('should keep them hidden after a preset applies on its own', async () => {
+      const { open, pick, queryApply } = setupRange();
+
+      await open();
+      await pick('Last 7 days');
+      await open();
+
+      expect(queryApply()).not.toBeInTheDocument();
+    });
+
+    it('should always offer them when the calendar is always up', async () => {
+      const { open, queryApply, queryClear } = setupRange({
+        revealCalendarOnCustom: false,
+      });
+
+      await open();
+
+      expect(queryApply()).toBeInTheDocument();
+      expect(queryClear()).toBeInTheDocument();
+    });
+
+    it('should leave apply disabled until a date is chosen', async () => {
+      const { open, pick, queryApply } = setupRange();
+
+      await open();
+      await pick('Custom range');
+
+      expect(queryApply()).toBeDisabled();
+    });
+  });
 });

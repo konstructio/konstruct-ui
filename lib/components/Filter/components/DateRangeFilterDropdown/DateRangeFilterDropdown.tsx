@@ -44,6 +44,7 @@ export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
     isOpen,
     resetKey,
     selectedRange,
+    showsCalendar,
     handleApply,
     handleOpenChange,
     handlePresetChange,
@@ -100,24 +101,40 @@ export const DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps> = ({
         }}
       />
 
-      <div
-        className={cn(
-          'flex',
-          'justify-end',
-          'items-center',
-          'gap-4',
-          'p-4',
-          'pt-0',
-        )}
-      >
-        <Button variant="secondary" appearance="compact" onClick={handleReset}>
-          {labelReset}
-        </Button>
+      {/*
+        The actions belong to the custom range: a preset applies the moment it is
+        picked, so on the bare preset list there is nothing to apply and the
+        design shows no buttons there. Without progressive disclosure the
+        calendar is always up, and so are they.
+      */}
+      {(!revealCalendarOnCustom || showsCalendar) && (
+        <div
+          className={cn(
+            'flex',
+            'justify-end',
+            'items-center',
+            'gap-4',
+            'p-4',
+            'pt-0',
+          )}
+        >
+          <Button
+            variant="secondary"
+            appearance="compact"
+            onClick={handleReset}
+          >
+            {labelReset}
+          </Button>
 
-        <Button appearance="compact" disabled={!canApply} onClick={handleApply}>
-          {labelApply}
-        </Button>
-      </div>
+          <Button
+            appearance="compact"
+            disabled={!canApply}
+            onClick={handleApply}
+          >
+            {labelApply}
+          </Button>
+        </div>
+      )}
     </FilterDropdown>
   );
 };
