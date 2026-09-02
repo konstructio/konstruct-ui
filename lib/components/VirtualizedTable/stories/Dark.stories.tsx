@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { EyeIcon } from 'lucide-react';
 import { ReactNode, useCallback, useEffect, useId, useState } from 'react';
 
+import { DateRangeWithTime } from '@/components/DateRangePicker/DateRangePicker.types';
 import { Button } from '@/components/Button/Button';
 import { Typography } from '@/components/Typography/Typography';
 
@@ -810,3 +811,114 @@ export const HorizontalScrollWithFilters: Story = {
 };
 
 export default meta;
+
+/**
+ * The "Created" filter from the Product Design System: a `dateRange` filter
+ * rendered in the table's own filter row, rather than a separate control above
+ * it. Three rolling presets plus a custom range that opens the calendar, applied
+ * as soon as a preset is picked.
+ */
+export const CreatedDateRangeFilter: Story = {
+  render: () => {
+    const id = useId();
+    const [applied, setApplied] = useState<DateRangeWithTime | undefined>();
+    const [{ data }, setData] = useState<{
+      data: Pokemon[];
+      totalItemsCount: number;
+    }>({ data: [], totalItemsCount: 0 });
+
+    useEffect(() => {
+      const init = async () => {
+        const result = await getPokemons({
+          page: 1,
+          pageSize: DEFAULT_PAGE_SIZE,
+        });
+        setData({
+          data: result.results,
+          totalItemsCount: result.totalItemsCount,
+        });
+      };
+
+      init();
+    }, []);
+
+    useEffect(() => {
+      document.body.setAttribute('data-theme', 'dark');
+      document.body.classList.add('bg-metal-900');
+
+      return () => {
+        document.body.removeAttribute('data-theme');
+        document.body.classList.remove('bg-metal-900');
+      };
+    }, []);
+
+    const DAY_MS = 24 * 60 * 60 * 1000;
+    // Rolling windows, relative to now — not calendar buckets.
+    const rolling = (days: number) => (now: Date) => ({
+      from: new Date(now.getTime() - days * DAY_MS),
+      to: now,
+    });
+
+    if (data.length === 0) {
+      return <div>Loading...</div>;
+    }
+
+    return (
+      <QueryClientProvider client={queryClient}>
+        <div className="flex flex-col gap-4">
+          <VirtualizedTableComponent<Pokemon>
+            id={id}
+            data={data}
+            columns={columns}
+            showPagination={false}
+            showFilter
+            showResetButton
+            ariaLabel="List of pokemons"
+            filters={[
+              {
+                key: 'created',
+                type: 'dateRange',
+                label: 'Created',
+                labelTimePeriod: 'Created',
+                revealCalendarOnCustom: true,
+                applyOnPresetSelect: true,
+                showTime: false,
+                // A creation date cannot meaningfully be in the future.
+                maxDate: new Date(),
+                presets: [
+                  {
+                    value: 'last-24-hours',
+                    label: 'Last 24 hours',
+                    resolve: rolling(1),
+                  },
+                  {
+                    value: 'last-7-days',
+                    label: 'Last 7 days',
+                    resolve: rolling(7),
+                  },
+                  {
+                    value: 'last-30-days',
+                    label: 'Last 30 days',
+                    resolve: rolling(30),
+                  },
+                  {
+                    value: 'custom',
+                    label: 'Custom range',
+                    resolve: () => ({}),
+                  },
+                ],
+                onRangeChange: setApplied,
+              },
+            ]}
+          />
+
+          <pre className="text-xs text-zinc-400">
+            {applied?.from
+              ? JSON.stringify(applied, null, 2)
+              : 'no filter applied'}
+          </pre>
+        </div>
+      </QueryClientProvider>
+    );
+  },
+};
