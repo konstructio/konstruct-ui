@@ -48,6 +48,7 @@ export * from './Table/Table';
 export * from './Tabs/Tabs';
 export * from './Tag/Tag';
 export * from './TagSelect/TagSelect';
+export * from './TagsInput/TagsInput';
 export * from './TextArea/TextArea';
 export * from './TimePicker/TimePicker';
 export * from './Toast/Toast';
