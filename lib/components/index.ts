@@ -10,6 +10,7 @@ export * from './Button/Button';
 export * from './ButtonGroup/ButtonGroup';
 export * from './Card/Card';
 export * from './Checkbox/Checkbox';
+export * from './CheckboxCard/CheckboxCard';
 export * from './Collapse/Collapse';
 export * from './CopyButton/CopyButton';
 export * from './ConfirmDialog/ConfirmDialog';
