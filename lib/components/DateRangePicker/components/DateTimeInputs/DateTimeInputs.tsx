@@ -10,6 +10,7 @@ import { dateTimeInputsVariants } from './DateTimeInputs.variants';
 import { useDateTimeInputs } from './hooks';
 
 export const DateTimeInputs: FC<DateTimeInputsProps> = ({
+  autoComplete,
   className,
   labelStartDate = 'Start date',
   labelEndDate = 'End date',
@@ -63,6 +64,7 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({
       )}
     >
       <StartInputFields
+        autoComplete={autoComplete}
         dateValue={startDateValue}
         timeValue={time.startTime}
         error={startDateError}
@@ -81,6 +83,7 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({
       />
 
       <EndInputFields
+        autoComplete={autoComplete}
         dateValue={endDateValue}
         timeValue={time.endTime}
         error={endDateError}

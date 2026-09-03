@@ -1,5 +1,5 @@
 import { VariantProps } from 'class-variance-authority';
-import { ReactNode } from 'react';
+import { InputHTMLAttributes, ReactNode } from 'react';
 
 import { Theme } from '@/domain/theme';
 
@@ -50,6 +50,12 @@ export type {
  * ```
  */
 export type Props = VariantProps<typeof dateRangePickerVariants> & {
+  /**
+   * Browser autofill for the From/To date fields (default: 'off'). The default
+   * keeps the browser's saved-value dropdown from covering the calendar; set it
+   * when the picker sits in a form where autofill is wanted.
+   */
+  autoComplete?: InputHTMLAttributes<HTMLInputElement>['autoComplete'];
   /** Initial date range */
   defaultRange?: DateRange;
   /** Initial time range */
