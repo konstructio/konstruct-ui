@@ -35,6 +35,10 @@ export const navigationOptionVariants = cva(
         true: '',
         false: '',
       },
+      hasBadge: {
+        true: ['[&>a]:flex-1', '[&>a]:min-w-0'],
+        false: '',
+      },
     },
     compoundVariants: [
       {

@@ -39,6 +39,7 @@ const Wrapper: FC<Props> = ({
   triggerClassName,
   openNavigationLabel,
   wrapperClassName,
+  onModeChange,
 }) => {
   const resolvedMode = useSidebarMode(
     mode,
@@ -62,6 +63,21 @@ const Wrapper: FC<Props> = ({
   const asideRef = useRef<ComponentRef<'aside'>>(null);
   const isResizingRef = useRef(false);
   const hasAppliedInitialWidthRef = useRef(false);
+  const onModeChangeRef = useRef(onModeChange);
+  const previousResolvedModeRef = useRef(resolvedMode);
+
+  useEffect(() => {
+    onModeChangeRef.current = onModeChange;
+  }, [onModeChange]);
+
+  useEffect(() => {
+    if (previousResolvedModeRef.current === resolvedMode) {
+      return;
+    }
+
+    previousResolvedModeRef.current = resolvedMode;
+    onModeChangeRef.current?.(resolvedMode, 'viewport');
+  }, [resolvedMode]);
 
   useEffect(() => {
     if (resolvedMode !== 'drawer') {
@@ -180,12 +196,12 @@ const Wrapper: FC<Props> = ({
   }, []);
 
   const handleToggleMode = useCallback(() => {
-    setModeOverride((current) => {
-      const base = current ?? resolvedMode;
+    const base = modeOverride ?? resolvedMode;
+    const next = base === 'collapsed' ? 'expanded' : 'collapsed';
 
-      return base === 'collapsed' ? 'expanded' : 'collapsed';
-    });
-  }, [resolvedMode]);
+    setModeOverride(next);
+    onModeChangeRef.current?.(next, 'user');
+  }, [modeOverride, resolvedMode]);
 
   if (resolvedMode === 'drawer') {
     const drawerWidth =
