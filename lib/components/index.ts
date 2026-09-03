@@ -40,6 +40,7 @@ export * from './RadioGroup/RadioGroup';
 export * from './Range/Range';
 export * from './Select/Select';
 export * from './Sidebar/Sidebar';
+export * from './Skeleton/Skeleton';
 export * from './Slider/Slider';
 export * from './Spinner/Spinner';
 export * from './Stepper/Stepper';
