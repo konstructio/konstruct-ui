@@ -1,4 +1,4 @@
-export type DateFilterDropdownProps = {
+export type Props = {
     label: string;
     position?: 'left' | 'right';
     onApply?: (date?: Date) => void;

@@ -1,11 +1,12 @@
 import { VariantProps } from 'class-variance-authority';
+import { ReactNode } from '../../../node_modules/react';
 import { Theme } from '../../domain/theme';
 import { CalendarPanelClassNames, DayPickerClassNames } from './components/CalendarPanel/CalendarPanel.types';
 import { DateTimeInputsClassNames } from './components/DateTimeInputs/DateTimeInputs.types';
 import { PresetLabels, PresetPanelClassNames } from './components/PresetPanel/PresetPanel.types';
 import { dateRangePickerVariants } from './DateRangePicker.variants';
-import { DateRange, DateRangePreset, DateRangeWithTime, TimeRange } from './contexts';
-export type { DateRange, DateRangePreset, DateRangeWithTime, TimeRange };
+import { DateDisplayFormat, DateRange, DateRangePreset, DateRangePresetOption, DateRangeWithTime, TimeRange } from './contexts';
+export type { DateDisplayFormat, DateRange, DateRangePreset, DateRangePresetOption, DateRangeWithTime, TimeRange, };
 export type { CalendarPanelClassNames, DateTimeInputsClassNames, DayPickerClassNames, PresetLabels, PresetPanelClassNames, };
 /**
  * Props for the DateRangePicker component.
@@ -24,11 +25,21 @@ export type Props = VariantProps<typeof dateRangePickerVariants> & {
     /** Initial time range */
     defaultTime?: TimeRange;
     /** Initially selected preset (default: 'custom') */
-    defaultPreset?: DateRangePreset;
+    /**
+     * Initially selected preset. `null` opens with nothing selected, which pairs
+     * with `revealCalendarOnCustom` to show only the preset list.
+     */
+    defaultPreset?: DateRangePreset | null;
     /** Callback when the range changes (includes time) */
     onRangeChange?: (range: DateRangeWithTime) => void;
     /** Callback when the date changes (start or end date, without time) */
     onDateChange?: (range: DateRange) => void;
+    /**
+     * Callback when a preset is selected, with the window it resolved to (empty for
+     * a manual-selection entry). Distinguishes choosing a preset from picking a day,
+     * which `onRangeChange` cannot.
+     */
+    onPresetChange?: (preset: DateRangePreset | null, range: DateRange) => void;
     /** Time format: '12' for 12-hour or '24' for 24-hour */
     timeFormat?: '12' | '24';
     /** Whether to show time inputs (default: true) */
@@ -71,6 +82,8 @@ export type Props = VariantProps<typeof dateRangePickerVariants> & {
      * - 'together': Both months navigate together (prev/next moves both by one month)
      */
     navigationMode?: 'independent' | 'together';
+    numberOfMonths?: 1 | 2;
+    dateDisplayFormat?: DateDisplayFormat;
     /** Aria label for the calendar container (default: 'Date range picker calendar') */
     ariaLabelCalendar?: string;
     /** Aria label for previous month button in together mode (default: 'Previous month') */
@@ -101,6 +114,39 @@ export type Props = VariantProps<typeof dateRangePickerVariants> & {
     errorDateNotAvailable?: string;
     /** Whether to show the preset panel (default: true) */
     showPresets?: boolean;
+    /**
+     * Replaces the built-in preset options. Each option carries its own label and a
+     * `resolve(now)` returning the window it stands for, which is what allows
+     * rolling windows ("the past 7×24 hours") rather than only calendar buckets.
+     *
+     * An option whose `resolve` returns an empty range is the manual-selection
+     * entry; `custom` is the reserved id the calendar switches back to when a day
+     * is picked, so include it in the list to keep that entry visible. Order in the
+     * array is the order rendered.
+     *
+     * @example
+     * ```tsx
+     * <DateRangePicker
+     *   presets={[
+     *     { value: 'last-24-hours', label: 'Last 24 hours',
+     *       resolve: (now) => ({ from: new Date(now.getTime() - 864e5), to: now }) },
+     *     { value: 'custom', label: 'Custom range', resolve: () => ({}) },
+     *   ]}
+     * />
+     * ```
+     */
+    presets?: DateRangePresetOption[];
+    footer?: ReactNode;
+    /**
+     * Render the date inputs and calendar only while the manual-selection preset is
+     * active — the entry whose `resolve` returns an empty range, `custom` by
+     * default (default: false, panels always visible).
+     *
+     * Presets become one-click shortcuts and the calendar is revealed on demand.
+     * Pair it with a `defaultPreset` that resolves to a window, otherwise the
+     * picker opens on `custom` — the library default — and starts expanded.
+     */
+    revealCalendarOnCustom?: boolean;
     /** Label for the time period section (default: 'Time period') */
     labelTimePeriod?: string;
     /** Aria label for the time period section (default: 'Time period options') */
@@ -108,6 +154,11 @@ export type Props = VariantProps<typeof dateRangePickerVariants> & {
     /** Custom labels for preset options */
     presetLabels?: PresetLabels;
     /** Custom class names for different parts of the component */
+    /**
+     * Marks the From/To fields with a required indicator. Decorative only — the
+     * fields carry no `aria-required`, since a range needs one date, not both.
+     */
+    requiredDates?: boolean;
     classNames?: DateRangePickerClassNames;
 };
 /** @deprecated Use Props instead */

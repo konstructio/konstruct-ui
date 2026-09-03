@@ -35,8 +35,8 @@ export interface Props {
     options: Omit<RadioProps, 'name' | 'checked' | 'defaultChecked'>[];
     /** Theme override for this component */
     theme?: Theme;
-    /** Currently selected value (controlled mode) */
-    value?: string;
+    /** Currently selected value (controlled mode); `null` selects nothing */
+    value?: string | null;
     /** CSS classes for the wrapper */
     wrapperClassName?: string;
     /** Callback when selection changes */

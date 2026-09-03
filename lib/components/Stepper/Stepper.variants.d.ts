@@ -13,25 +13,25 @@ export declare const stepVariants: (props?: ({
     clickable?: boolean | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
 export declare const stepIndicatorVariants: (props?: ({
-    status?: "error" | "completed" | "active" | "pending" | null | undefined;
+    status?: "error" | "active" | "completed" | "pending" | null | undefined;
     size?: "sm" | "md" | "lg" | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
 export declare const stepContentVariants: (props?: ({
     variant?: "inline" | "horizontal" | "stacked" | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
 export declare const stepLabelVariants: (props?: ({
-    status?: "error" | "completed" | "active" | "pending" | null | undefined;
+    status?: "error" | "active" | "completed" | "pending" | null | undefined;
     size?: "sm" | "md" | "lg" | null | undefined;
     variant?: "inline" | "horizontal" | "stacked" | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
 export declare const stepDescriptionVariants: (props?: ({
-    status?: "error" | "completed" | "active" | "pending" | null | undefined;
+    status?: "error" | "active" | "completed" | "pending" | null | undefined;
     size?: "sm" | "md" | "lg" | null | undefined;
     variant?: "inline" | "horizontal" | "stacked" | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
 export declare const stepConnectorVariants: (props?: ({
     orientation?: "horizontal" | "vertical" | null | undefined;
-    status?: "error" | "completed" | "active" | "pending" | null | undefined;
+    status?: "error" | "active" | "completed" | "pending" | null | undefined;
     size?: "sm" | "md" | "lg" | null | undefined;
     variant?: "inline" | "horizontal" | "stacked" | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;

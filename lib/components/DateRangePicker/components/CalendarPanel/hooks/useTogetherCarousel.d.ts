@@ -5,10 +5,11 @@ export type UseTogetherCarouselProps = {
     canNavigatePrev: boolean;
     canNavigateNext: boolean;
     navigationMode: 'together' | 'independent';
+    numberOfMonths?: 1 | 2;
     navigatePrevMonth: () => void;
     navigateNextMonth: () => void;
 };
-export declare const useTogetherCarousel: ({ displayedMonths, animationDuration, disabled, canNavigatePrev, canNavigateNext, navigationMode, navigatePrevMonth, navigateNextMonth, }: UseTogetherCarouselProps) => {
+export declare const useTogetherCarousel: ({ displayedMonths, animationDuration, disabled, canNavigatePrev, canNavigateNext, navigationMode, numberOfMonths, navigatePrevMonth, navigateNextMonth, }: UseTogetherCarouselProps) => {
     carouselRef: import('../../../../../../node_modules/react').RefObject<HTMLDivElement | null>;
     isAnimating: boolean;
     enableTransition: boolean;

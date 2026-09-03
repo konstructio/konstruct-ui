@@ -3,6 +3,7 @@ import { VariantProps } from 'class-variance-authority';
 import { ReactNode } from '../../../node_modules/react';
 import { Props as ButtonProps } from '../Button/Button.types';
 import { DateRange, DateRangeWithTime } from '../DateRangePicker/DateRangePicker.types';
+import { Props as CustomDateRangeFilterDropdownProps } from '../Filter/components/CustomDateRangeFilterDropdown/CustomDateRangeFilterDropdown.types';
 import { TimePreset } from '../Filter/components/TimeFilterDropdown/TimeFilterDropdown.types';
 import { virtualizeTableVariants } from './VirtualizedTable.variants';
 import { Option } from './components/Filter/Filter.types';
@@ -87,6 +88,12 @@ export type DateRangeFilterConfig = FilterConfigBase & {
     onRangeChange?: (range: DateRangeWithTime) => void;
 };
 /**
+ * Configuration for a date range filter with custom presets.
+ */
+export type CustomDateRangeFilterConfig = FilterConfigBase & {
+    type: 'customDateRange';
+} & Omit<CustomDateRangeFilterDropdownProps, 'label' | 'position' | 'onApply'>;
+/**
  * Configuration for an action button rendered inline with filters.
  */
 export type ActionFilterConfig = {
@@ -113,7 +120,7 @@ export type TimeFilterConfig = FilterConfigBase & {
 /**
  * Union of all supported filter configurations.
  */
-export type FilterConfig = BadgeMultiSelectFilterConfig | TextMultiSelectFilterConfig | DateFilterConfig | DateRangeFilterConfig | ActionFilterConfig | TimeFilterConfig;
+export type FilterConfig = BadgeMultiSelectFilterConfig | TextMultiSelectFilterConfig | DateFilterConfig | DateRangeFilterConfig | CustomDateRangeFilterConfig | ActionFilterConfig | TimeFilterConfig;
 /**
  * @deprecated Use FilterConfig instead
  */

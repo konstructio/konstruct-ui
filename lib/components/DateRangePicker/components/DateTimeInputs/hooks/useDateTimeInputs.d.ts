@@ -2,15 +2,13 @@ import { ChangeEvent, FocusEvent } from '../../../../../../node_modules/react';
 type UseDateTimeInputsProps = {
     errorInvalidDate: string;
     errorDateNotAvailable: string;
-    errorStartAfterEnd: string;
-    errorEndBeforeStart: string;
 };
-export declare const useDateTimeInputs: ({ errorInvalidDate, errorDateNotAvailable, errorStartAfterEnd, errorEndBeforeStart, }: UseDateTimeInputsProps) => {
+export declare const useDateTimeInputs: ({ errorInvalidDate, errorDateNotAvailable, }: UseDateTimeInputsProps) => {
     timeFormat: "24" | "12";
     showTime: boolean;
     name: string | undefined;
     disabled: boolean;
-    time: import('../../../DateRangePicker.types').TimeRange;
+    time: import('../../../contexts').TimeRange;
     startDateValue: string;
     startDateError: string | undefined;
     handleStartDateFocus: () => void;

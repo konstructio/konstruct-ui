@@ -20,6 +20,8 @@ export type DateTimeInputsProps = {
     labelEndDate?: string;
     /** Label for time inputs (default: 'Time') */
     labelTime?: string;
+    /** Marks both date fields as required */
+    requiredDates?: boolean;
     /** Aria label for start date input (default: 'Start date') */
     ariaLabelStartDate?: string;
     /** Aria label for end date input (default: 'End date') */
@@ -28,10 +30,6 @@ export type DateTimeInputsProps = {
     errorInvalidDate?: string;
     /** Error message for unavailable date (default: 'Date is not available') */
     errorDateNotAvailable?: string;
-    /** Error message when start date is after end date (default: 'Start date must be before end date') */
-    errorStartAfterEnd?: string;
-    /** Error message when end date is before start date (default: 'End date must be after start date') */
-    errorEndBeforeStart?: string;
     /** Custom class names for styling */
     classNames?: DateTimeInputsClassNames;
 };

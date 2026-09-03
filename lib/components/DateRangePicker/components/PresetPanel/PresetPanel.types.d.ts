@@ -17,6 +17,10 @@ export type PresetPanelClassNames = {
     title?: string;
     /** RadioGroup wrapper */
     radioGroup?: string;
+    /** Each option row */
+    option?: string;
+    /** Rule drawn above a trailing manual-selection option ('Custom range') */
+    separator?: string;
 };
 export type PresetPanelProps = {
     className?: string;

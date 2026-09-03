@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactNode } from '../../../../../node_modules/react';
-export type FilterDropdownProps = PropsWithChildren & {
+export type Props = PropsWithChildren & {
     isOpen: boolean;
     trigger: ReactNode;
     triggerClassName?: string;

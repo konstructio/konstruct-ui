@@ -1,3 +1,3 @@
 import { FC } from '../../../../../node_modules/react';
-import { TextMultiSelectProps } from './TextMultiSelect.types';
-export declare const TextMultiSelect: FC<TextMultiSelectProps>;
+import { Props } from './TextMultiSelect.types';
+export declare const TextMultiSelect: FC<Props>;
