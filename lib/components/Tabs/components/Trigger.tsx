@@ -7,14 +7,22 @@ import { cn } from '@/utils';
 import { TriggerProps } from '../Tabs.types';
 import { triggerVariants } from '../Tabs.variants';
 
+const getVariant = (isActive?: boolean) => {
+  if (isActive === undefined) {
+    return 'auto';
+  }
+
+  return isActive ? 'active' : 'inactive';
+};
+
 const Trigger: FC<TriggerProps> = ({ tab, label, isActive, className }) => (
-  <Tabs.Trigger value={tab}>
+  <Tabs.Trigger value={tab} className="group/tab">
     <Typography
       variant="body2"
       component="span"
       className={cn(
         triggerVariants({
-          variant: isActive ? 'active' : 'inactive',
+          variant: getVariant(isActive),
           className,
         }),
       )}

@@ -70,6 +70,15 @@ export const triggerVariants = cva(
           'dark:text-metal-100',
         ],
         inactive: ['text-slate-500', 'font-semibold', 'dark:text-metal-400'],
+        auto: [
+          'text-slate-500',
+          'font-semibold',
+          'dark:text-metal-400',
+          'group-data-[state=active]/tab:text-zinc-700',
+          'group-data-[state=active]/tab:after:scale-y-100',
+          'group-data-[state=active]/tab:hover:after:scale-y-140',
+          'dark:group-data-[state=active]/tab:text-metal-100',
+        ],
       },
     },
     defaultVariants: {
