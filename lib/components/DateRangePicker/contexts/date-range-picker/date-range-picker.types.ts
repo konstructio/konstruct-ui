@@ -1,0 +1,35 @@
+import { PropsWithChildren } from 'react';
+
+import {
+  BlockedMonth,
+  DateDisplayFormat,
+  DateRange,
+  DateRangePreset,
+  DateRangePresetOption,
+  TimeRange,
+} from './date-range-picker.context';
+
+export type Props = PropsWithChildren<{
+  animationDuration?: number;
+  blockedDays?: Date[];
+  blockedMonths?: BlockedMonth[];
+  dateDisplayFormat?: DateDisplayFormat;
+  defaultPreset?: DateRangePreset | null;
+  defaultRange?: DateRange;
+  defaultTime?: TimeRange;
+  disabled?: boolean;
+  hideDisabledNavigation?: boolean;
+  maxDate?: Date;
+  minDate?: Date;
+  name?: string;
+  navigationMode?: 'together' | 'independent';
+  numberOfMonths?: 1 | 2;
+  presets?: DateRangePresetOption[];
+  revealCalendarOnCustom?: boolean;
+  showOutsideDays?: boolean;
+  showTime?: boolean;
+  timeFormat?: '12' | '24';
+  onDateChange?: (range: DateRange) => void;
+  onPresetChange?: (preset: DateRangePreset | null, range: DateRange) => void;
+  onRangeChange?: (range: DateRange & TimeRange) => void;
+}>;

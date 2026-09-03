@@ -12,10 +12,10 @@ import { cn } from '@/utils';
 
 import { FilterDropdown } from '../FilterDropdown/FilterDropdown';
 
-import { useDateFilterDropdown } from './DateFilterDropdown.hook';
-import { DateFilterDropdownProps } from './DateFilterDropdown.types';
+import { useDateFilterDropdown } from './hooks';
+import { Props } from './DateFilterDropdown.types';
 
-export const DateFilterDropdown: FC<DateFilterDropdownProps> = ({
+export const DateFilterDropdown: FC<Props> = ({
   label,
   position = 'left',
   countryCode = 'US',

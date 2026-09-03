@@ -16,6 +16,7 @@ export type UseTogetherCarouselProps = {
   canNavigatePrev: boolean;
   canNavigateNext: boolean;
   navigationMode: 'together' | 'independent';
+  numberOfMonths?: 1 | 2;
   navigatePrevMonth: () => void;
   navigateNextMonth: () => void;
 };
@@ -27,6 +28,7 @@ export const useTogetherCarousel = ({
   canNavigatePrev,
   canNavigateNext,
   navigationMode,
+  numberOfMonths = 2,
   navigatePrevMonth,
   navigateNextMonth,
 }: UseTogetherCarouselProps) => {
@@ -63,7 +65,8 @@ export const useTogetherCarousel = ({
       monthsToConsider = [leftMonth, rightMonth];
     }
 
-    const maxWeeks = Math.max(...monthsToConsider.map(getWeeksInMonth));
+    const visibleMonths = monthsToConsider.slice(0, numberOfMonths);
+    const maxWeeks = Math.max(...visibleMonths.map(getWeeksInMonth));
     return calculateCalendarHeight(maxWeeks);
   }, [
     isAnimating,
@@ -72,6 +75,7 @@ export const useTogetherCarousel = ({
     rightMonth,
     next1Month,
     prev1Month,
+    numberOfMonths,
   ]);
 
   // Total width for 6 months

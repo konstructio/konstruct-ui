@@ -44,6 +44,7 @@ const Radio: FC<Props> = forwardRef<HTMLInputElement, Props>(
       value,
       wrapperClassName,
       onChange,
+      onClick,
     },
     ref,
   ) => {
@@ -71,6 +72,7 @@ const Radio: FC<Props> = forwardRef<HTMLInputElement, Props>(
           defaultChecked={defaultChecked}
           className="hidden peer"
           onChange={() => onChange?.(value)}
+          onClick={onClick}
           disabled={disabled}
         />
 

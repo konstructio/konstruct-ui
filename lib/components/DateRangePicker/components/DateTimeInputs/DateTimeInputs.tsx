@@ -2,6 +2,8 @@ import { FC } from 'react';
 
 import { cn } from '@/utils';
 
+import { useDateRangePicker } from '../../contexts';
+
 import { EndInputFields, StartInputFields } from './components';
 import { DateTimeInputsProps } from './DateTimeInputs.types';
 import { dateTimeInputsVariants } from './DateTimeInputs.variants';
@@ -12,14 +14,14 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({
   labelStartDate = 'Start date',
   labelEndDate = 'End date',
   labelTime = 'Time',
+  requiredDates = false,
   ariaLabelStartDate = 'Start date',
   ariaLabelEndDate = 'End date',
   errorInvalidDate = 'Invalid date',
   errorDateNotAvailable = 'Date is not available',
-  errorStartAfterEnd = 'Start date must be before end date',
-  errorEndBeforeStart = 'End date must be after start date',
   classNames,
 }) => {
+  const { numberOfMonths } = useDateRangePicker();
   const {
     timeFormat,
     showTime,
@@ -43,13 +45,22 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({
   } = useDateTimeInputs({
     errorInvalidDate,
     errorDateNotAvailable,
-    errorStartAfterEnd,
-    errorEndBeforeStart,
   });
+
+  const getLayout = () => {
+    if (numberOfMonths === 2) {
+      return 'row';
+    }
+
+    return showTime ? 'stacked' : 'compact';
+  };
 
   return (
     <div
-      className={cn(dateTimeInputsVariants({ className }), classNames?.root)}
+      className={cn(
+        dateTimeInputsVariants({ layout: getLayout(), className }),
+        classNames?.root,
+      )}
     >
       <StartInputFields
         dateValue={startDateValue}
@@ -60,6 +71,7 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({
         timeFormat={timeFormat}
         labelDate={labelStartDate}
         labelTime={labelTime}
+        required={requiredDates}
         ariaLabelDate={ariaLabelStartDate}
         onDateChange={handleStartDateChange}
         onDateFocus={handleStartDateFocus}
@@ -77,6 +89,7 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({
         timeFormat={timeFormat}
         labelDate={labelEndDate}
         labelTime={labelTime}
+        required={requiredDates}
         ariaLabelDate={ariaLabelEndDate}
         onDateChange={handleEndDateChange}
         onDateFocus={handleEndDateFocus}

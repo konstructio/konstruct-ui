@@ -2,16 +2,16 @@ import { useCallback, useId, useMemo, useState } from 'react';
 
 import { useFilterContext } from '@/components/Filter/contexts';
 
-import { sendOpenFilterEvent } from '../../events';
-import { useFilterDropdownSync } from '../../hooks';
-import { getLocale } from '../../utils';
+import { sendOpenFilterEvent } from '../../../../events';
+import { useFilterDropdownSync } from '../../../../hooks';
+import { getLocale } from '../../../../utils';
 
-import { DateFilterDropdownProps } from './DateFilterDropdown.types';
+import { Props } from '../../DateFilterDropdown.types';
 
 export const useDateFilterDropdown = ({
   onApply,
   countryCode = 'US',
-}: Pick<DateFilterDropdownProps, 'onApply' | 'countryCode'>) => {
+}: Pick<Props, 'onApply' | 'countryCode'>) => {
   const { closeOnApply } = useFilterContext();
   const id = useId();
   const [isOpen, setIsOpen] = useState(false);

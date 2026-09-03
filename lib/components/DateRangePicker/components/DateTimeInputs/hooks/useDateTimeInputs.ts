@@ -22,15 +22,11 @@ import {
 type UseDateTimeInputsProps = {
   errorInvalidDate: string;
   errorDateNotAvailable: string;
-  errorStartAfterEnd: string;
-  errorEndBeforeStart: string;
 };
 
 export const useDateTimeInputs = ({
   errorInvalidDate,
   errorDateNotAvailable,
-  errorStartAfterEnd,
-  errorEndBeforeStart,
 }: UseDateTimeInputsProps) => {
   const {
     range,
@@ -41,6 +37,7 @@ export const useDateTimeInputs = ({
     disabled,
     blockedDays,
     blockedMonths,
+    dateDisplayFormat,
     minDate,
     maxDate,
     setRange,
@@ -48,16 +45,20 @@ export const useDateTimeInputs = ({
   } = useDateRangePicker();
 
   const restrictions = { blockedDays, blockedMonths, minDate, maxDate };
+  const formatDisplay =
+    dateDisplayFormat === 'numeric'
+      ? formatDateToString
+      : formatDateToDisplayString;
 
   // Track if inputs are focused (typing mode)
   const isStartTypingRef = useRef(false);
   const isEndTypingRef = useRef(false);
 
   const [startDateValue, setStartDateValue] = useState(() =>
-    formatDateToDisplayString(range.from),
+    formatDisplay(range.from),
   );
   const [endDateValue, setEndDateValue] = useState(() =>
-    formatDateToDisplayString(range.to),
+    formatDisplay(range.to),
   );
 
   const [startDateError, setStartDateError] = useState<string | undefined>();
@@ -66,13 +67,13 @@ export const useDateTimeInputs = ({
   // Sync external range changes to input values (only when not typing)
   useEffect(() => {
     if (!isStartTypingRef.current) {
-      setStartDateValue(formatDateToDisplayString(range.from));
+      setStartDateValue(formatDisplay(range.from));
     }
   }, [range.from]);
 
   useEffect(() => {
     if (!isEndTypingRef.current) {
-      setEndDateValue(formatDateToDisplayString(range.to));
+      setEndDateValue(formatDisplay(range.to));
     }
   }, [range.to]);
 
@@ -138,16 +139,23 @@ export const useDateTimeInputs = ({
     const endParsed =
       parseDateString(endDateValue) || parseDisplayDateString(endDateValue);
     if (endParsed && parsed > endParsed) {
-      setStartDateError(errorStartAfterEnd);
-      isEndTypingRef.current = true;
-      setRange({ from: undefined, to: undefined });
+      // An inverted pair is the same window entered backwards, so the two are
+      // swapped rather than rejected — discarding both dates loses work the
+      // user has already done.
+      isStartTypingRef.current = false;
+      isEndTypingRef.current = false;
+      setStartDateError(undefined);
+      setEndDateError(undefined);
+      setRange({ ...range, from: endParsed, to: parsed });
+      setStartDateValue(formatDisplay(endParsed));
+      setEndDateValue(formatDisplay(parsed));
       return;
     }
 
     isStartTypingRef.current = false;
     setStartDateError(undefined);
     setRange({ ...range, from: parsed });
-    setStartDateValue(formatDateToDisplayString(parsed));
+    setStartDateValue(formatDisplay(parsed));
   };
 
   // End date handlers
@@ -211,16 +219,21 @@ export const useDateTimeInputs = ({
     const startParsed =
       parseDateString(startDateValue) || parseDisplayDateString(startDateValue);
     if (startParsed && parsed < startParsed) {
-      setEndDateError(errorEndBeforeStart);
-      isStartTypingRef.current = true;
-      setRange({ from: undefined, to: undefined });
+      // Same as above, from the other field.
+      isStartTypingRef.current = false;
+      isEndTypingRef.current = false;
+      setStartDateError(undefined);
+      setEndDateError(undefined);
+      setRange({ ...range, from: parsed, to: startParsed });
+      setStartDateValue(formatDisplay(parsed));
+      setEndDateValue(formatDisplay(startParsed));
       return;
     }
 
     isEndTypingRef.current = false;
     setEndDateError(undefined);
     setRange({ ...range, to: parsed });
-    setEndDateValue(formatDateToDisplayString(parsed));
+    setEndDateValue(formatDisplay(parsed));
   };
 
   // Time handlers

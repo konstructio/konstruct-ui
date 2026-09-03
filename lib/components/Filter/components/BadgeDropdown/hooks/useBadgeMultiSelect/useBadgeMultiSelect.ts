@@ -5,15 +5,12 @@ import { sendOpenFilterEvent } from '@/components/Filter/events';
 import { useFilterDropdownSync } from '@/components/Filter/hooks';
 import { Option } from '@/components/Filter/Filter.types';
 
-import {
-  BadgeMultiSelectProps,
-  SelectedOptions,
-} from './BadgeMultiSelect.types';
+import { Props, SelectedOptions } from '../../BadgeMultiSelect.types';
 
 export const useBadgeMultiSelect = ({
   onApply,
   options = [],
-}: Pick<BadgeMultiSelectProps, 'onApply' | 'options'>) => {
+}: Pick<Props, 'onApply' | 'options'>) => {
   const { closeOnApply } = useFilterContext();
   const id = useId();
   const [isOpen, setIsOpen] = useState(false);

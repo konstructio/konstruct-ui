@@ -1,7 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { EyeIcon } from 'lucide-react';
-import { ReactNode, useCallback, useEffect, useId, useState } from 'react';
+import {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useState,
+} from 'react';
 
 import { Button } from '@/components/Button/Button';
 import { Typography } from '@/components/Typography/Typography';
@@ -26,6 +33,19 @@ const meta: Meta<typeof VirtualizedTableComponent> = {
 };
 
 const queryClient = new QueryClient();
+
+type DateField = 'created' | 'updated' | 'expires' | 'deleted';
+
+type PokemonWithDates = Pokemon & Record<DateField, Date>;
+
+const DATE_FIELDS: DateField[] = ['created', 'updated', 'expires', 'deleted'];
+
+/** Midnight today, shared by the synthetic dates and the filters' caps. */
+const startOfToday = (() => {
+  const now = new Date();
+
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+})();
 
 const columns: ColumnDef<Pokemon>[] = [
   {
@@ -810,3 +830,174 @@ export const HorizontalScrollWithFilters: Story = {
 };
 
 export default meta;
+
+/**
+ * The date range filters from the Product Design System rendered in the table's
+ * own filter row, one per synthetic date column, each in a different shape:
+ * "Created" on a single-month calendar with each applied end in its own badge,
+ * "Updated" with presets only, "Expires" with its own rolling windows confirmed
+ * by hand, and "Deleted" moving both months as a pair with numeric inputs.
+ *
+ * The table reloads through `fetchData`, which receives every applied window
+ * under its filter's key, so picking a preset visibly narrows the rows.
+ */
+export const CreatedDateRangeFilter: Story = {
+  render: () => {
+    const id = useId();
+    const DAY_MS = 24 * 60 * 60 * 1000;
+
+    // The pokemon fixture carries no dates, so the story gives each row four —
+    // spread deterministically over different spans, so the same id always
+    // lands on the same days and every preset has something to cut.
+    const datesOf = useCallback(
+      (pokemonId: number): Record<DateField, Date> => {
+        const daysAgo = (span: number, salt: number) =>
+          new Date(
+            startOfToday.getTime() - ((pokemonId * salt) % span) * DAY_MS,
+          );
+
+        return {
+          created: daysAgo(49, 1),
+          updated: daysAgo(13, 3),
+          expires: daysAgo(120, 7),
+          deleted: daysAgo(400, 11),
+        };
+      },
+      [DAY_MS],
+    );
+
+    const columnsWithDates: ColumnDef<PokemonWithDates>[] = useMemo(
+      () => [
+        ...(columns as ColumnDef<PokemonWithDates>[]).filter(
+          (column) => column.id !== 'actions',
+        ),
+        ...DATE_FIELDS.map<ColumnDef<PokemonWithDates>>((field) => ({
+          header: `${field.charAt(0).toUpperCase()}${field.slice(1)}`,
+          accessorKey: field,
+          cell: ({ row }) =>
+            row.original[field].toLocaleDateString('en-GB', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+            }),
+        })),
+      ],
+      [],
+    );
+
+    const fetchData = useCallback(
+      async (params: Record<string, unknown>) => {
+        const { page = 1, pageSize = DEFAULT_PAGE_SIZE, termOfSearch } = params;
+
+        const { results } = await getPokemons({
+          page: 1,
+          pageSize: 1000,
+          termOfSearch: termOfSearch as string | undefined,
+        });
+
+        let rows: PokemonWithDates[] = results.map((pokemon) => ({
+          ...pokemon,
+          ...datesOf(pokemon.id),
+        }));
+
+        DATE_FIELDS.forEach((field) => {
+          const window = params[field] as
+            { from?: string; to?: string } | undefined;
+
+          if (window?.from) {
+            const from = new Date(window.from);
+            rows = rows.filter((row) => row[field] >= from);
+          }
+
+          if (window?.to) {
+            const to = new Date(window.to);
+            rows = rows.filter((row) => row[field] <= to);
+          }
+        });
+
+        const start = (Number(page) - 1) * Number(pageSize);
+
+        return {
+          data: rows.slice(start, start + Number(pageSize)),
+          totalItemsCount: rows.length,
+        };
+      },
+      [datesOf],
+    );
+
+    useEffect(() => {
+      document.body.setAttribute('data-theme', 'dark');
+      document.body.classList.add('bg-metal-900');
+
+      return () => {
+        document.body.removeAttribute('data-theme');
+        document.body.classList.remove('bg-metal-900');
+      };
+    }, []);
+
+    return (
+      <QueryClientProvider client={queryClient}>
+        <VirtualizedTableComponent<PokemonWithDates>
+          id={id}
+          data={[]}
+          columns={columnsWithDates}
+          fetchData={fetchData}
+          showPagination
+          totalItems={0}
+          pageSizes={[10, 20, 50]}
+          showFilter
+          showResetButton
+          ariaLabel="List of pokemons"
+          filters={[
+            {
+              key: 'created',
+              type: 'customDateRange',
+              label: 'Created',
+              labelTimePeriod: 'Created',
+              revealCalendarOnCustom: true,
+              applyOnPresetSelect: true,
+              numberOfMonths: 1,
+              showOutsideDays: true,
+              appliedRangeDisplay: 'split',
+              maxDate: startOfToday,
+            },
+            {
+              key: 'updated',
+              type: 'customDateRange',
+              label: 'Updated',
+              labelTimePeriod: 'Updated',
+              revealCalendarOnCustom: true,
+              applyOnPresetSelect: true,
+              showCustomRange: false,
+            },
+            {
+              key: 'expires',
+              type: 'customDateRange',
+              label: 'Expires',
+              labelTimePeriod: 'Expires',
+              revealCalendarOnCustom: true,
+              labelCustomRange: 'Pick dates',
+              rollingPresets: [
+                { label: 'Past hour', duration: '1h' },
+                { label: 'Past day', duration: '1day' },
+                { label: 'Past week', duration: '7days' },
+                { label: 'Past quarter', duration: '3months' },
+                { label: 'Past year', duration: '1year' },
+              ],
+            },
+            {
+              key: 'deleted',
+              type: 'customDateRange',
+              label: 'Deleted',
+              labelTimePeriod: 'Deleted',
+              revealCalendarOnCustom: true,
+              applyOnPresetSelect: true,
+              navigationMode: 'together',
+              dateDisplayFormat: 'numeric',
+            },
+          ]}
+        />
+      </QueryClientProvider>
+    );
+  },
+};

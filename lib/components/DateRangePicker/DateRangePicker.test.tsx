@@ -556,6 +556,113 @@ describe('DateRangePicker', () => {
     });
   });
 
+  describe('Single month', () => {
+    it('should share one pair of navigation buttons even in independent mode', async () => {
+      const { getPrevMonthButton, getNextMonthButton } = setup({
+        numberOfMonths: 1,
+        navigationMode: 'independent',
+      });
+
+      expect(await getPrevMonthButton()).toBeInTheDocument();
+      expect(await getNextMonthButton()).toBeInTheDocument();
+      expect(
+        screen.queryByRole('button', {
+          name: /previous month for start date/i,
+        }),
+      ).not.toBeInTheDocument();
+    });
+
+    it('should let the shown month advance up to maxDate', async () => {
+      const { getNextMonthButton } = setup({
+        numberOfMonths: 1,
+        defaultRange: { from: new Date(2026, 8, 1) },
+        maxDate: new Date(2026, 9, 15),
+      });
+
+      // September is on screen and October still holds selectable days, so the
+      // step forward has to stay open; a two-month reading would already see
+      // October and lock it.
+      expect(await getNextMonthButton()).toBeEnabled();
+    });
+
+    it('should lock the step forward once the shown month reaches maxDate', async () => {
+      const { getNextMonthButton } = setup({
+        numberOfMonths: 1,
+        defaultRange: { from: new Date(2026, 8, 1) },
+        maxDate: new Date(2026, 8, 15),
+      });
+
+      expect(await getNextMonthButton()).toBeDisabled();
+    });
+
+    it('should open on the reference month rather than the one before it', async () => {
+      const { getNextMonthButton } = setup({
+        numberOfMonths: 1,
+        defaultRange: { from: new Date(2026, 8, 1) },
+        maxDate: new Date(2026, 8, 1),
+      });
+
+      // Capped on its own first day, September is the last reachable month.
+      // Opening on August, as the two-month pair would, leaves a step forward.
+      expect(await getNextMonthButton()).toBeDisabled();
+    });
+
+    it('should navigate to the next month', async () => {
+      const { navigateToNextMonth, getMonthTitles } = setup({
+        numberOfMonths: 1,
+        animationDuration: 0,
+      });
+
+      const [initialTitle] = await getMonthTitles();
+      const initialMonth = initialTitle.textContent;
+
+      await navigateToNextMonth();
+
+      await waitFor(async () => {
+        const [updatedTitle] = await getMonthTitles();
+        expect(updatedTitle.textContent).not.toBe(initialMonth);
+      });
+    });
+  });
+
+  describe('dateDisplayFormat', () => {
+    const defaultRange = {
+      from: new Date(2026, 8, 3),
+      to: new Date(2026, 8, 20),
+    };
+
+    it('should spell the date out by default', async () => {
+      const { getStartDateInput, getEndDateInput } = setup({ defaultRange });
+
+      expect(await getStartDateInput()).toHaveValue('3 September 2026');
+      expect(await getEndDateInput()).toHaveValue('20 September 2026');
+    });
+
+    it('should show the date numerically when asked', async () => {
+      const { getStartDateInput, getEndDateInput } = setup({
+        defaultRange,
+        dateDisplayFormat: 'numeric',
+      });
+
+      expect(await getStartDateInput()).toHaveValue('09/03/2026');
+      expect(await getEndDateInput()).toHaveValue('09/20/2026');
+    });
+
+    it('should keep the numeric reading after the field is left', async () => {
+      const { user, getStartDateInput } = setup({
+        defaultRange,
+        dateDisplayFormat: 'numeric',
+      });
+
+      const input = await getStartDateInput();
+
+      await user.click(input);
+      await user.tab();
+
+      expect(input).toHaveValue('09/03/2026');
+    });
+  });
+
   describe('Date Restrictions - minDate', () => {
     it('should disable navigation to previous month when at minDate', async () => {
       const today = new Date();
@@ -795,6 +902,655 @@ describe('DateRangePicker', () => {
       const errorMessage = queryErrorMessage(/invalid date/i);
 
       expect(errorMessage).not.toBeInTheDocument();
+    });
+  });
+
+  describe('Custom Presets', () => {
+    const DAY_MS = 24 * 60 * 60 * 1000;
+
+    // The point of the prop: windows relative to `now`, which the built-in
+    // day-granular options cannot express.
+    const rollingPresets = [
+      {
+        value: 'last-24-hours',
+        label: 'Last 24 hours',
+        resolve: (now: Date) => ({
+          from: new Date(now.getTime() - DAY_MS),
+          to: now,
+        }),
+      },
+      {
+        value: 'last-30-days',
+        label: 'Last 30 days',
+        resolve: (now: Date) => ({
+          from: new Date(now.getTime() - 30 * DAY_MS),
+          to: now,
+        }),
+      },
+      { value: 'custom', label: 'Custom range', resolve: () => ({}) },
+    ];
+
+    it('should render the supplied options instead of the built-in ones', async () => {
+      const { getPresetOption } = setup({ presets: rollingPresets });
+
+      expect(await getPresetOption('Last 24 hours')).toBeInTheDocument();
+      expect(await getPresetOption('Last 30 days')).toBeInTheDocument();
+      expect(await getPresetOption('Custom range')).toBeInTheDocument();
+
+      expect(screen.queryByText('Current month')).not.toBeInTheDocument();
+      expect(screen.queryByText('Last 2 weeks')).not.toBeInTheDocument();
+      expect(screen.queryByText('Today')).not.toBeInTheDocument();
+    });
+
+    it('should render the options in the order they are given', async () => {
+      const { getAllPresetRadios } = setup({ presets: rollingPresets });
+
+      const radios = await getAllPresetRadios();
+
+      expect(radios.map((radio) => radio.getAttribute('value'))).toEqual([
+        'last-24-hours',
+        'last-30-days',
+        'custom',
+      ]);
+    });
+
+    it('should resolve the selected option through its own resolve', async () => {
+      const onRangeChange = vi.fn();
+      const { selectPreset } = setup({
+        presets: rollingPresets,
+        onRangeChange,
+      });
+
+      await selectPreset('Last 24 hours');
+
+      await waitFor(() => expect(onRangeChange).toHaveBeenCalled());
+
+      const { from, to } = onRangeChange.mock.calls[0][0];
+
+      expect(to.getTime() - from.getTime()).toBe(DAY_MS);
+    });
+
+    it('should pass the current time to resolve, so windows can roll', async () => {
+      const resolve = vi.fn((_now: Date) => ({
+        from: new Date(0),
+        to: new Date(0),
+      }));
+      const before = Date.now();
+      const { selectPreset } = setup({
+        presets: [{ value: 'rolling', label: 'Rolling', resolve }],
+      });
+
+      await selectPreset('Rolling');
+
+      await waitFor(() => expect(resolve).toHaveBeenCalled());
+
+      const [now] = resolve.mock.calls[0];
+
+      expect(now).toBeInstanceOf(Date);
+      expect(now.getTime()).toBeGreaterThanOrEqual(before);
+    });
+
+    it('should treat an option resolving to an empty range as manual selection', async () => {
+      const onRangeChange = vi.fn();
+      const { selectPreset, getPresetRadio } = setup({
+        presets: rollingPresets,
+        onRangeChange,
+      });
+
+      await selectPreset('Custom range');
+
+      expect(await getPresetRadio(/custom range/i)).toBeChecked();
+      // Selecting it must not report a range: there is none to report yet.
+      expect(onRangeChange).not.toHaveBeenCalled();
+    });
+
+    it('should resolve defaultPreset against the supplied options', async () => {
+      const { getStartDateInput, getEndDateInput, getPresetRadio } = setup({
+        presets: rollingPresets,
+        defaultPreset: 'last-30-days',
+      });
+
+      expect(await getPresetRadio(/last 30 days/i)).toBeChecked();
+      expect(await getStartDateInput()).not.toHaveValue('');
+      expect(await getEndDateInput()).not.toHaveValue('');
+    });
+
+    it('should keep the built-in windows when presets is omitted', async () => {
+      const onRangeChange = vi.fn();
+      const { selectPreset } = setup({ onRangeChange });
+
+      await selectPreset('Last 7 days');
+
+      await waitFor(() => expect(onRangeChange).toHaveBeenCalled());
+
+      const { from, to } = onRangeChange.mock.calls[0][0];
+
+      // Seven whole days ending today, midnight to midnight — day-granular, as
+      // before the resolvers moved out of the switch.
+      expect(to.getTime() - from.getTime()).toBe(6 * DAY_MS);
+      expect(to.getHours()).toBe(0);
+      expect(to.getMinutes()).toBe(0);
+    });
+  });
+
+  describe('onPresetChange', () => {
+    it('should report the preset and the window it resolved to', async () => {
+      const onPresetChange = vi.fn();
+      const { selectPreset } = setup({ onPresetChange });
+
+      await selectPreset('Today');
+
+      await waitFor(() => expect(onPresetChange).toHaveBeenCalled());
+
+      const [preset, range] = onPresetChange.mock.calls[0];
+
+      expect(preset).toBe('today');
+      expect(range.from).toBeInstanceOf(Date);
+      expect(range.to).toBeInstanceOf(Date);
+    });
+
+    it('should fire for a manual-selection entry with an empty range', async () => {
+      const onPresetChange = vi.fn();
+      // Start on another preset: 'custom' is the default, and a radio that is
+      // already checked reports no change.
+      const { selectPreset } = setup({
+        onPresetChange,
+        defaultPreset: 'today',
+      });
+
+      // 'Custom' resolves to nothing; the callback still fires so a consumer can
+      // tell "a preset was chosen" from "a day was clicked".
+      await selectPreset('Custom');
+
+      await waitFor(() => expect(onPresetChange).toHaveBeenCalled());
+
+      const [preset, range] = onPresetChange.mock.calls[0];
+
+      expect(preset).toBe('custom');
+      expect(range).toEqual({});
+    });
+
+    it('should not fire when a day is picked in the calendar', async () => {
+      const onPresetChange = vi.fn();
+      const { clickDay } = setup({ onPresetChange });
+
+      await clickDay('15');
+
+      expect(onPresetChange).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('revealCalendarOnCustom', () => {
+    it('should keep the calendar visible by default', async () => {
+      const { getCalendar, getStartDateInput } = setup({
+        defaultPreset: 'last-7-days',
+      });
+
+      expect(await getCalendar()).toBeInTheDocument();
+      expect(await getStartDateInput()).toBeInTheDocument();
+    });
+
+    it('should hide the inputs and calendar while a resolving preset is active', async () => {
+      setup({ revealCalendarOnCustom: true, defaultPreset: 'last-7-days' });
+
+      expect(
+        screen.queryByRole('application', {
+          name: /date range picker calendar/i,
+        }),
+      ).not.toBeInTheDocument();
+      expect(screen.queryByLabelText(/^start date$/i)).not.toBeInTheDocument();
+    });
+
+    it('should reveal them when the manual-selection preset is chosen', async () => {
+      const { selectPreset, getCalendar, getStartDateInput } = setup({
+        revealCalendarOnCustom: true,
+        animationDuration: 0,
+        defaultPreset: 'last-7-days',
+      });
+
+      await selectPreset('Custom');
+
+      expect(await getCalendar()).toBeInTheDocument();
+      expect(await getStartDateInput()).toBeInTheDocument();
+    });
+
+    it('should hide them again when a resolving preset is chosen back', async () => {
+      const { selectPreset, getCalendar } = setup({
+        revealCalendarOnCustom: true,
+        animationDuration: 0,
+        defaultPreset: 'last-7-days',
+      });
+
+      await selectPreset('Custom');
+      expect(await getCalendar()).toBeInTheDocument();
+
+      await selectPreset('Today');
+
+      await waitFor(() =>
+        expect(
+          screen.queryByRole('application', {
+            name: /date range picker calendar/i,
+          }),
+        ).not.toBeInTheDocument(),
+      );
+    });
+
+    it('should collapse the calendar when the open manual option is chosen again', async () => {
+      const onPresetChange = vi.fn();
+      const { selectPreset, getCalendar } = setup({
+        revealCalendarOnCustom: true,
+        animationDuration: 0,
+        defaultPreset: null,
+        presets: [
+          {
+            value: 'last-24-hours',
+            label: 'Last 24 hours',
+            resolve: (now: Date) => {
+              return {
+                from: new Date(now.getTime() - 24 * 60 * 60 * 1000),
+                to: now,
+              };
+            },
+          },
+          { value: 'custom', label: 'Custom range', resolve: () => ({}) },
+        ],
+        onPresetChange,
+      });
+
+      await selectPreset('Custom range');
+      expect(await getCalendar()).toBeInTheDocument();
+
+      await selectPreset('Custom range');
+
+      await waitFor(() => {
+        expect(
+          screen.queryByRole('application', {
+            name: /date range picker calendar/i,
+          }),
+        ).not.toBeInTheDocument();
+      });
+      expect(onPresetChange).toHaveBeenLastCalledWith(null, {});
+    });
+
+    it('should expand the calendar again after it was collapsed', async () => {
+      const { selectPreset, getCalendar } = setup({
+        revealCalendarOnCustom: true,
+        animationDuration: 0,
+        defaultPreset: null,
+        presets: [
+          {
+            value: 'last-24-hours',
+            label: 'Last 24 hours',
+            resolve: (now: Date) => {
+              return {
+                from: new Date(now.getTime() - 24 * 60 * 60 * 1000),
+                to: now,
+              };
+            },
+          },
+          { value: 'custom', label: 'Custom range', resolve: () => ({}) },
+        ],
+      });
+
+      await selectPreset('Custom range');
+      await selectPreset('Custom range');
+      await waitFor(() => {
+        expect(
+          screen.queryByRole('application', {
+            name: /date range picker calendar/i,
+          }),
+        ).not.toBeInTheDocument();
+      });
+
+      await selectPreset('Custom range');
+
+      expect(await getCalendar()).toBeInTheDocument();
+    });
+
+    it('should keep the presets visible while the calendar is hidden', async () => {
+      const { getPresetOption } = setup({
+        revealCalendarOnCustom: true,
+        animationDuration: 0,
+        defaultPreset: 'last-7-days',
+      });
+
+      expect(await getPresetOption('Last 7 days')).toBeInTheDocument();
+      expect(await getPresetOption('Custom')).toBeInTheDocument();
+    });
+  });
+
+  describe('Preset separator', () => {
+    const wrapperOf = (radio: HTMLElement) => radio.closest('label');
+
+    const rolling = (value: string, label: string, days: number) => ({
+      value,
+      label,
+      resolve: (now: Date) => ({
+        from: new Date(now.getTime() - days * 24 * 60 * 60 * 1000),
+        to: now,
+      }),
+    });
+
+    const manual = {
+      value: 'custom',
+      label: 'Custom range',
+      resolve: () => ({}),
+    };
+
+    it('should rule off a trailing manual-selection option from the presets above it', async () => {
+      const { getAllPresetRadios } = setup({
+        presets: [rolling('last-24-hours', 'Last 24 hours', 1), manual],
+      });
+
+      const [rollingRadio, manualRadio] = await getAllPresetRadios();
+
+      expect(wrapperOf(manualRadio)?.className).toContain('before:h-px');
+      expect(wrapperOf(rollingRadio)?.className).not.toContain('before:h-px');
+    });
+
+    it('should not rule off a manual-selection option that sits mid-list', async () => {
+      const { getAllPresetRadios } = setup({
+        presets: [
+          rolling('last-24-hours', 'Last 24 hours', 1),
+          manual,
+          rolling('last-30-days', 'Last 30 days', 30),
+        ],
+      });
+
+      const radios = await getAllPresetRadios();
+
+      radios.forEach((radio) => {
+        expect(wrapperOf(radio)?.className).not.toContain('before:h-px');
+      });
+    });
+
+    it('should leave the built-in options unruled, since `custom` is not last there', async () => {
+      const { getAllPresetRadios } = setup();
+
+      const radios = await getAllPresetRadios();
+
+      expect(radios).toHaveLength(5);
+      radios.forEach((radio) => {
+        expect(wrapperOf(radio)?.className).not.toContain('before:h-px');
+      });
+    });
+
+    it('should not rule off a lone option', async () => {
+      const { getAllPresetRadios } = setup({ presets: [manual] });
+
+      const [only] = await getAllPresetRadios();
+
+      expect(wrapperOf(only)?.className).not.toContain('before:h-px');
+    });
+
+    it('should let the consumer restyle the rule through classNames', async () => {
+      const { getAllPresetRadios } = setup({
+        presets: [rolling('last-24-hours', 'Last 24 hours', 1), manual],
+        classNames: { presetPanel: { separator: 'border-dashed' } },
+      });
+
+      const [, manualRadio] = await getAllPresetRadios();
+
+      expect(wrapperOf(manualRadio)?.className).toContain('border-dashed');
+    });
+  });
+
+  describe('Preset panel rule', () => {
+    const getPanel = async () => {
+      const title = await screen.findByText('Time period');
+
+      return title.parentElement as HTMLElement;
+    };
+
+    it('should draw the rule beside the presets while the calendar is up', async () => {
+      setup();
+
+      expect((await getPanel()).className).toContain('border-slate-200');
+    });
+
+    it('should drop the rule while the calendar is tucked away', async () => {
+      setup({ revealCalendarOnCustom: true, defaultPreset: 'last-7-days' });
+
+      const panel = await getPanel();
+
+      expect(panel.className).toContain('border-transparent');
+      expect(panel.className).not.toContain('border-slate-200');
+    });
+
+    it('should draw it again once the calendar is revealed', async () => {
+      const { selectPreset } = setup({
+        revealCalendarOnCustom: true,
+        animationDuration: 0,
+        defaultPreset: 'last-7-days',
+      });
+
+      await selectPreset('Custom');
+
+      expect((await getPanel()).className).toContain('border-slate-200');
+    });
+
+    it('should fade the rule over the same span as the panel fold', async () => {
+      setup({ animationDuration: 250 });
+
+      expect((await getPanel()).style.transitionDuration).toBe('250ms');
+    });
+  });
+
+  describe('Row indicators', () => {
+    const rowOf = (radio: HTMLElement) => radio.closest('label') as HTMLElement;
+    const iconsIn = (radio: HTMLElement) =>
+      rowOf(radio).querySelectorAll('svg').length;
+
+    const rolling = (value: string, label: string, days: number) => ({
+      value,
+      label,
+      resolve: (now: Date) => ({
+        from: new Date(now.getTime() - days * 24 * 60 * 60 * 1000),
+        to: now,
+      }),
+    });
+
+    const manual = {
+      value: 'custom',
+      label: 'Custom range',
+      resolve: () => ({}),
+    };
+
+    it('should keep the open manual option highlighted and turn its chevron', async () => {
+      const { getAllPresetRadios, selectPreset } = setup({
+        presets: [rolling('last-24-hours', 'Last 24 hours', 1), manual],
+        defaultPreset: null,
+        revealCalendarOnCustom: true,
+      });
+
+      const [, manualRadio] = await getAllPresetRadios();
+      const activeFill = /(^|\s)bg-slate-100(\s|$)/;
+      const chevronOf = () => {
+        return rowOf(manualRadio).querySelector('svg')?.getAttribute('class');
+      };
+
+      expect(rowOf(manualRadio).className).not.toMatch(activeFill);
+      expect(chevronOf()).not.toContain('rotate-180');
+
+      await selectPreset('Custom range');
+
+      expect(rowOf(manualRadio).className).toMatch(activeFill);
+      expect(chevronOf()).toContain('rotate-180');
+      expect(chevronOf()).toContain('text-aurora-500');
+    });
+
+    it('should hide the radio control, since selection reads as a trailing check', async () => {
+      const { getAllPresetRadios } = setup();
+
+      const radios = await getAllPresetRadios();
+
+      radios.forEach((radio) => {
+        // The dot Radio draws sits next to its input; the row hides it.
+        expect(radio.nextElementSibling?.className).toContain('hidden');
+      });
+    });
+
+    it('should mark only the selected option', async () => {
+      const presets = [
+        rolling('last-24-hours', 'Last 24 hours', 1),
+        rolling('last-30-days', 'Last 30 days', 30),
+      ];
+      const { getAllPresetRadios } = setup({
+        presets,
+        defaultPreset: 'last-24-hours',
+      });
+
+      const [selected, other] = await getAllPresetRadios();
+
+      expect(iconsIn(selected)).toBe(1);
+      expect(iconsIn(other)).toBe(0);
+    });
+
+    it('should move the mark when another option is picked', async () => {
+      const presets = [
+        rolling('last-24-hours', 'Last 24 hours', 1),
+        rolling('last-30-days', 'Last 30 days', 30),
+      ];
+      const { getAllPresetRadios, user } = setup({
+        presets,
+        defaultPreset: 'last-24-hours',
+      });
+
+      const [first, second] = await getAllPresetRadios();
+      await user.click(second);
+
+      expect(iconsIn(first)).toBe(0);
+      expect(iconsIn(second)).toBe(1);
+    });
+
+    it('should point a trailing manual-selection option at the calendar', async () => {
+      const { getAllPresetRadios } = setup({
+        presets: [rolling('last-24-hours', 'Last 24 hours', 1), manual],
+        defaultPreset: 'last-24-hours',
+      });
+
+      const [, manualRadio] = await getAllPresetRadios();
+
+      // The chevron stands in for the check on this row, selected or not.
+      expect(iconsIn(manualRadio)).toBe(1);
+    });
+
+    it('should keep the chevron on the manual option while it is selected', async () => {
+      const { getAllPresetRadios } = setup({
+        presets: [rolling('last-24-hours', 'Last 24 hours', 1), manual],
+        defaultPreset: 'custom',
+      });
+
+      const [rollingRadio, manualRadio] = await getAllPresetRadios();
+
+      expect(iconsIn(manualRadio)).toBe(1);
+      expect(iconsIn(rollingRadio)).toBe(0);
+    });
+  });
+
+  describe('Inverted ranges', () => {
+    // The pair is reconciled when a field is committed, so each entry is
+    // followed by a blur. Asserting on the emitted range keeps this independent
+    // of which format a focused field happens to be showing.
+    const setupInverted = () => {
+      const onRangeChange = vi.fn();
+      const api = setup({ onRangeChange });
+      return { ...api, onRangeChange };
+    };
+
+    const lastRange = (onRangeChange: ReturnType<typeof vi.fn>) =>
+      onRangeChange.mock.lastCall?.[0];
+
+    const dayOf = (date?: Date) => date?.getDate();
+
+    it('should swap the pair when the start is typed after the end', async () => {
+      const { typeEndDate, typeStartDate, user, onRangeChange } =
+        setupInverted();
+
+      await typeEndDate('08/20/2026');
+      await typeStartDate('08/25/2026');
+      await user.tab();
+
+      const range = lastRange(onRangeChange);
+      expect(dayOf(range?.from)).toBe(20);
+      expect(dayOf(range?.to)).toBe(25);
+    });
+
+    it('should swap the pair when the end is typed before the start', async () => {
+      const { typeStartDate, typeEndDate, user, onRangeChange } =
+        setupInverted();
+
+      await typeStartDate('08/20/2026');
+      await typeEndDate('08/05/2026');
+      await user.tab();
+
+      const range = lastRange(onRangeChange);
+      expect(dayOf(range?.from)).toBe(5);
+      expect(dayOf(range?.to)).toBe(20);
+    });
+
+    it('should keep both dates rather than discarding them', async () => {
+      const { typeEndDate, typeStartDate, user, onRangeChange } =
+        setupInverted();
+
+      await typeEndDate('08/20/2026');
+      await typeStartDate('08/25/2026');
+      await user.tab();
+
+      const range = lastRange(onRangeChange);
+      expect(range?.from).toBeInstanceOf(Date);
+      expect(range?.to).toBeInstanceOf(Date);
+    });
+
+    it('should not report an ordering error', async () => {
+      const { typeEndDate, typeStartDate, user } = setupInverted();
+
+      await typeEndDate('08/20/2026');
+      await typeStartDate('08/25/2026');
+      await user.tab();
+
+      expect(screen.queryByText(/must be before/i)).not.toBeInTheDocument();
+      expect(screen.queryByText(/must be after/i)).not.toBeInTheDocument();
+    });
+  });
+
+  describe('No selection', () => {
+    it('should leave every preset unchecked when defaultPreset is null', async () => {
+      const { getAllPresetRadios } = setup({ defaultPreset: null });
+
+      const radios = await getAllPresetRadios();
+
+      radios.forEach((radio) => {
+        expect(radio).not.toBeChecked();
+      });
+    });
+
+    it('should hide the calendar until something is picked', async () => {
+      setup({ defaultPreset: null, revealCalendarOnCustom: true });
+
+      expect(
+        screen.queryByRole('application', {
+          name: /date range picker calendar/i,
+        }),
+      ).not.toBeInTheDocument();
+      expect(screen.queryByLabelText(/^start date$/i)).not.toBeInTheDocument();
+    });
+
+    it('should reveal the calendar once the manual option is chosen', async () => {
+      const { selectPreset, getCalendar } = setup({
+        defaultPreset: null,
+        revealCalendarOnCustom: true,
+      });
+
+      await selectPreset('Custom');
+
+      expect(await getCalendar()).toBeInTheDocument();
+    });
+
+    it('should still show the calendar with no selection when disclosure is off', async () => {
+      const { getCalendar } = setup({ defaultPreset: null });
+
+      expect(await getCalendar()).toBeInTheDocument();
     });
   });
 });

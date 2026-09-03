@@ -2,7 +2,9 @@
  * Combines a date and time into an ISO string.
  */
 export const combineDateAndTime = (date?: Date, time?: Date): string => {
-  if (!date) return '';
+  if (!date) {
+    return '';
+  }
 
   const result = new Date(date);
 
@@ -70,11 +72,15 @@ export const isValidTimeString = (
   timeString: string,
   format: '12' | '24' = '24',
 ): boolean => {
-  if (!timeString) return true; // Empty is valid (optional)
+  if (!timeString) {
+    return true;
+  }
 
   const [hours, minutes] = timeString.split(':').map(Number);
 
-  if (isNaN(hours) || isNaN(minutes)) return false;
+  if (isNaN(hours) || isNaN(minutes)) {
+    return false;
+  }
 
   if (format === '24') {
     return hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59;
@@ -121,7 +127,9 @@ export const formatTimeToString = (
   date: Date | undefined,
   format: '12' | '24' = '24',
 ): string => {
-  if (!date) return '';
+  if (!date) {
+    return '';
+  }
 
   const hours = date.getHours();
   const minutes = date.getMinutes();
@@ -140,7 +148,9 @@ export const formatTimeToString = (
  * Formats a Date object to a readable date string like "6 February 2025".
  */
 export const formatDateToDisplayString = (date: Date | undefined): string => {
-  if (!date) return '';
+  if (!date) {
+    return '';
+  }
 
   const day = date.getDate();
   const month = MONTH_NAMES[date.getMonth()];
@@ -153,7 +163,9 @@ export const formatDateToDisplayString = (date: Date | undefined): string => {
  * Formats a Date object to a date string in MM/DD/YYYY format.
  */
 export const formatDateToString = (date: Date | undefined): string => {
-  if (!date) return '';
+  if (!date) {
+    return '';
+  }
 
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
   const day = date.getDate().toString().padStart(2, '0');
@@ -168,11 +180,15 @@ export const formatDateToString = (date: Date | undefined): string => {
 export const parseDisplayDateString = (
   dateString: string,
 ): Date | undefined => {
-  if (!dateString) return undefined;
+  if (!dateString) {
+    return undefined;
+  }
 
   // Try to parse "6 February 2025" format
   const parts = dateString.trim().split(' ');
-  if (parts.length !== 3) return undefined;
+  if (parts.length !== 3) {
+    return undefined;
+  }
 
   const [dayStr, monthStr, yearStr] = parts;
   const day = parseInt(dayStr, 10);
@@ -181,10 +197,17 @@ export const parseDisplayDateString = (
     (m) => m.toLowerCase() === monthStr.toLowerCase(),
   );
 
-  if (isNaN(day) || isNaN(year) || monthIndex === -1) return undefined;
+  if (isNaN(day) || isNaN(year) || monthIndex === -1) {
+    return undefined;
+  }
 
-  if (day < 1 || day > 31) return undefined;
-  if (year < 1900 || year > 2100) return undefined;
+  if (day < 1 || day > 31) {
+    return undefined;
+  }
+
+  if (year < 1900 || year > 2100) {
+    return undefined;
+  }
 
   const date = new Date(year, monthIndex, day);
 
@@ -204,17 +227,31 @@ export const parseDisplayDateString = (
  * Parses a date string in MM/DD/YYYY format to a Date object.
  */
 export const parseDateString = (dateString: string): Date | undefined => {
-  if (!dateString) return undefined;
+  if (!dateString) {
+    return undefined;
+  }
 
   const parts = dateString.split('/');
-  if (parts.length !== 3) return undefined;
+  if (parts.length !== 3) {
+    return undefined;
+  }
 
   const [month, day, year] = parts.map(Number);
-  if (isNaN(month) || isNaN(day) || isNaN(year)) return undefined;
+  if (isNaN(month) || isNaN(day) || isNaN(year)) {
+    return undefined;
+  }
 
-  if (month < 1 || month > 12) return undefined;
-  if (day < 1 || day > 31) return undefined;
-  if (year < 1900 || year > 2100) return undefined;
+  if (month < 1 || month > 12) {
+    return undefined;
+  }
+
+  if (day < 1 || day > 31) {
+    return undefined;
+  }
+
+  if (year < 1900 || year > 2100) {
+    return undefined;
+  }
 
   const date = new Date(year, month - 1, day);
 

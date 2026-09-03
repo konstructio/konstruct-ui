@@ -1,6 +1,6 @@
 import { Option } from '../../Filter.types';
 
-export type TextMultiSelectProps = {
+export type Props = {
   label: string;
   options: Option[];
   position?: 'left' | 'right';

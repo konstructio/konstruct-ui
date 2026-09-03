@@ -12,10 +12,10 @@ import { cn } from '@/utils';
 
 import { FilterDropdown } from '../FilterDropdown/FilterDropdown';
 
-import { useTimeFilterDropdown } from './TimeFilterDropdown.hook';
-import { TimeFilterDropdownProps } from './TimeFilterDropdown.types';
+import { useTimeFilterDropdown } from './hooks';
+import { Props } from './TimeFilterDropdown.types';
 
-export const TimeFilterDropdown: FC<TimeFilterDropdownProps> = ({
+export const TimeFilterDropdown: FC<Props> = ({
   label,
   position = 'left',
   format = '24',

@@ -14,6 +14,7 @@ export type {
   DateRangePickerProps,
   DateRange,
   DateRangePreset,
+  DateRangePresetOption,
   DateRangeWithTime,
   TimeRange,
 } from './DateRangePicker/DateRangePicker.types';
@@ -72,6 +73,7 @@ export type {
   TextMultiSelectFilterConfig,
   DateFilterConfig,
   DateRangeFilterConfig,
+  CustomDateRangeFilterConfig,
   TimeFilterConfig,
 } from './VirtualizedTable/VirtualizedTable.types';
 export type {

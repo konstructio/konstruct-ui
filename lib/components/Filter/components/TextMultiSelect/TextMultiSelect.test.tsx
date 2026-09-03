@@ -5,7 +5,7 @@ import { axe } from 'jest-axe';
 import { Filter } from '../../Filter';
 import { Option } from '../../Filter.types';
 
-import { TextMultiSelectProps } from './TextMultiSelect.types';
+import { Props } from './TextMultiSelect.types';
 
 const options: Option[] = [
   {
@@ -19,7 +19,7 @@ const options: Option[] = [
 ];
 
 describe('TextMultiSelect', () => {
-  const setup = (props?: Partial<TextMultiSelectProps>) => {
+  const setup = (props?: Partial<Props>) => {
     const { container: component } = render(
       <Filter>
         <Filter.TextMultiSelect label="OS" options={options} {...props} />

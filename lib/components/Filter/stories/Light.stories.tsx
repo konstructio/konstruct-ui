@@ -117,4 +117,196 @@ export const Light: Story = {
   },
 };
 
+/**
+ * The "Created" filter from the Product Design System (Figma node 206-366):
+ * the built-in rolling presets plus a custom range, applied as soon as a preset
+ * is picked, with the design's Clear / Apply wording.
+ */
+export const CreatedDateRange: Story = {
+  parameters: {
+    theme: 'light',
+  },
+  render: function CreatedDateRangeStory() {
+    const [applied, setApplied] = useState<DateRangeWithTime | undefined>();
+
+    return (
+      <div className="flex flex-col gap-6 p-10">
+        <FilterComponent>
+          <FilterComponent.CustomDateRangeFilterDropdown
+            label="Created"
+            labelTimePeriod="Created"
+            revealCalendarOnCustom
+            applyOnPresetSelect
+            maxDate={new Date()}
+            onApply={setApplied}
+          />
+        </FilterComponent>
+
+        <pre className="text-xs text-zinc-500 dark:text-zinc-400">
+          {applied
+            ? JSON.stringify(
+                {
+                  from: applied.from?.toISOString(),
+                  to: applied.to?.toISOString(),
+                },
+                null,
+                2,
+              )
+            : 'no filter applied'}
+        </pre>
+      </div>
+    );
+  },
+};
+
+/**
+ * The trigger with a range already applied, as the Product Design System draws
+ * it (Figma node 1564-10782): each end of the range in its own tag, joined by
+ * "to". `defaultRange` counts as applied, so the tags show before anything is
+ * picked.
+ */
+export const CreatedDateRangeSplitBadge: Story = {
+  parameters: {
+    theme: 'light',
+  },
+  render: function CreatedDateRangeSplitBadgeStory() {
+    const [applied, setApplied] = useState<DateRangeWithTime | undefined>({
+      from: new Date(2026, 6, 6),
+      to: new Date(2026, 7, 4),
+    });
+
+    return (
+      <div className="flex flex-col gap-6 p-10">
+        <FilterComponent>
+          <FilterComponent.CustomDateRangeFilterDropdown
+            label="Created"
+            labelTimePeriod="Created"
+            revealCalendarOnCustom
+            applyOnPresetSelect
+            appliedRangeDisplay="split"
+            defaultRange={{
+              from: new Date(2026, 6, 6),
+              to: new Date(2026, 7, 4),
+            }}
+            onApply={setApplied}
+          />
+        </FilterComponent>
+
+        <pre className="text-xs text-zinc-500 dark:text-zinc-400">
+          {applied
+            ? JSON.stringify(
+                {
+                  from: applied.from?.toISOString(),
+                  to: applied.to?.toISOString(),
+                },
+                null,
+                2,
+              )
+            : 'no filter applied'}
+        </pre>
+      </div>
+    );
+  },
+};
+
+/**
+ * Every shape the date range filter can take, side by side: the built-in
+ * presets on a single-month calendar as the Product Design System draws it
+ * (Figma node 2473-2654) with each applied end in its own badge, a presets-only filter with no custom range, one
+ * confirmed by hand with its own rolling windows, and one whose two months move as a
+ * pair and whose inputs read numerically.
+ */
+export const DateRangeVariations: Story = {
+  parameters: {
+    theme: 'light',
+  },
+  render: function DateRangeVariationsStory() {
+    const [applied, setApplied] = useState<
+      Record<string, DateRangeWithTime | undefined>
+    >({});
+
+    const applyFor = (key: string) => {
+      return (range?: DateRangeWithTime) => {
+        setApplied((current) => ({ ...current, [key]: range }));
+      };
+    };
+
+    const hasApplied = Object.values(applied).some(Boolean);
+
+    return (
+      <div className="flex flex-col gap-6 p-10">
+        <FilterComponent>
+          <FilterComponent.CustomDateRangeFilterDropdown
+            label="Created"
+            labelTimePeriod="Created"
+            revealCalendarOnCustom
+            applyOnPresetSelect
+            numberOfMonths={1}
+            showOutsideDays
+            appliedRangeDisplay="split"
+            maxDate={new Date()}
+            onApply={applyFor('created')}
+          />
+
+          <FilterComponent.CustomDateRangeFilterDropdown
+            label="Updated"
+            labelTimePeriod="Updated"
+            revealCalendarOnCustom
+            applyOnPresetSelect
+            showCustomRange={false}
+            onApply={applyFor('updated')}
+          />
+
+          <FilterComponent.CustomDateRangeFilterDropdown
+            label="Expires"
+            labelTimePeriod="Expires"
+            revealCalendarOnCustom
+            rollingPresets={[
+              { label: 'Past hour', duration: '1h' },
+              { label: 'Past day', duration: '1day' },
+              { label: 'Past week', duration: '7days' },
+              { label: 'Past quarter', duration: '3months' },
+              { label: 'Past year', duration: '1year' },
+            ]}
+            labelCustomRange="Pick dates"
+            onApply={applyFor('expires')}
+          />
+
+          <FilterComponent.CustomDateRangeFilterDropdown
+            label="Deleted"
+            labelTimePeriod="Deleted"
+            revealCalendarOnCustom
+            applyOnPresetSelect
+            navigationMode="together"
+            dateDisplayFormat="numeric"
+            onApply={applyFor('deleted')}
+          />
+
+          <FilterComponent.ResetButton disabled={!hasApplied} />
+        </FilterComponent>
+
+        <pre className="text-xs text-zinc-500 dark:text-zinc-400">
+          {hasApplied
+            ? JSON.stringify(
+                Object.fromEntries(
+                  Object.entries(applied).map(([key, range]) => [
+                    key,
+                    range
+                      ? {
+                          from: range.from?.toISOString(),
+                          to: range.to?.toISOString(),
+                        }
+                      : undefined,
+                  ]),
+                ),
+                null,
+                2,
+              )
+            : 'no filter applied'}
+        </pre>
+      </div>
+    );
+  },
+};
+
 export default meta;

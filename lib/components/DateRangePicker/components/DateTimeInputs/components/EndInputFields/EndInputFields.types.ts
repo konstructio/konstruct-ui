@@ -9,6 +9,8 @@ export type Props = {
   timeFormat?: '12' | '24';
   labelDate?: string;
   labelTime?: string;
+  /** Shows the required mark beside the date label */
+  required?: boolean;
   ariaLabelDate?: string;
   ariaLabelTime?: string;
   onDateChange: (e: ChangeEvent<HTMLInputElement>) => void;

@@ -12,6 +12,7 @@ import {
   DateRange,
   DateRangeWithTime,
 } from '@/components/DateRangePicker/DateRangePicker.types';
+import { Props as CustomDateRangeFilterDropdownProps } from '@/components/Filter/components/CustomDateRangeFilterDropdown/CustomDateRangeFilterDropdown.types';
 import { TimePreset } from '@/components/Filter/components/TimeFilterDropdown/TimeFilterDropdown.types';
 
 import { virtualizeTableVariants } from './VirtualizedTable.variants';
@@ -112,6 +113,13 @@ export type DateRangeFilterConfig = FilterConfigBase & {
 };
 
 /**
+ * Configuration for a date range filter with custom presets.
+ */
+export type CustomDateRangeFilterConfig = FilterConfigBase & {
+  type: 'customDateRange';
+} & Omit<CustomDateRangeFilterDropdownProps, 'label' | 'position' | 'onApply'>;
+
+/**
  * Configuration for an action button rendered inline with filters.
  */
 export type ActionFilterConfig = {
@@ -145,6 +153,7 @@ export type FilterConfig =
   | TextMultiSelectFilterConfig
   | DateFilterConfig
   | DateRangeFilterConfig
+  | CustomDateRangeFilterConfig
   | ActionFilterConfig
   | TimeFilterConfig;
 

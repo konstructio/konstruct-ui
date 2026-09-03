@@ -3,7 +3,7 @@ export type TimePreset = {
   value: Date;
 };
 
-export type TimeFilterDropdownProps = {
+export type Props = {
   label: string;
   position?: 'left' | 'right';
   format?: '12' | '24';

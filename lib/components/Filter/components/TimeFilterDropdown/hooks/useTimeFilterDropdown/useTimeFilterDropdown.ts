@@ -4,18 +4,15 @@ import { getFormattedTime } from '@/components/TimePicker/utils';
 
 import { useFilterContext } from '@/components/Filter/contexts';
 
-import { sendOpenFilterEvent } from '../../events';
-import { useFilterDropdownSync } from '../../hooks';
+import { sendOpenFilterEvent } from '../../../../events';
+import { useFilterDropdownSync } from '../../../../hooks';
 
-import {
-  TimeFilterDropdownProps,
-  TimePreset,
-} from './TimeFilterDropdown.types';
+import { Props, TimePreset } from '../../TimeFilterDropdown.types';
 
 export const useTimeFilterDropdown = ({
   onApply,
   format = '24',
-}: Pick<TimeFilterDropdownProps, 'onApply' | 'format'>) => {
+}: Pick<Props, 'onApply' | 'format'>) => {
   const { closeOnApply } = useFilterContext();
   const id = useId();
   const [isOpen, setIsOpen] = useState(false);

@@ -185,6 +185,21 @@ export const Filter: FC<Props> = ({
       );
     }
 
+    if (filterConfig.type === 'customDateRange') {
+      const { key: _key, type: _type, ...dropdownProps } = filterConfig;
+
+      return (
+        <FilterPrimitive.CustomDateRangeFilterDropdown
+          key={key}
+          {...dropdownProps}
+          position={position}
+          onApply={(range) => {
+            onSelectDateRangeFilter(key, range);
+          }}
+        />
+      );
+    }
+
     if (filterConfig.type === 'time') {
       return (
         <FilterPrimitive.TimeFilterDropdown

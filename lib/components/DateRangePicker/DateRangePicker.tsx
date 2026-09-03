@@ -3,7 +3,12 @@ import { FC } from 'react';
 import { cn } from '@/utils';
 
 import { Typography } from '@/components/Typography/Typography';
-import { CalendarPanel, DateTimeInputs, PresetPanel } from './components';
+import {
+  CalendarPanel,
+  DateTimeInputs,
+  PresetPanel,
+  RightPanel,
+} from './components';
 import { DateRangePickerProvider } from './contexts';
 import { Props } from './DateRangePicker.types';
 import {
@@ -59,6 +64,8 @@ const DateRangePicker: FC<Props> = ({
   hideDisabledNavigation,
   showOutsideDays,
   navigationMode = 'independent',
+  numberOfMonths = 2,
+  dateDisplayFormat = 'long',
   // CalendarPanel props
   ariaLabelCalendar,
   ariaLabelPrevMonth,
@@ -71,12 +78,16 @@ const DateRangePicker: FC<Props> = ({
   labelStartDate,
   labelEndDate,
   labelTime,
+  requiredDates,
   ariaLabelStartDate,
   ariaLabelEndDate,
   errorInvalidDate,
   errorDateNotAvailable,
   // PresetPanel props
   showPresets = true,
+  presets,
+  footer,
+  revealCalendarOnCustom = false,
   labelTimePeriod,
   ariaLabelTimePeriod,
   presetLabels,
@@ -85,11 +96,13 @@ const DateRangePicker: FC<Props> = ({
   // Callbacks
   onRangeChange,
   onDateChange,
+  onPresetChange,
 }) => (
   <DateRangePickerProvider
     defaultRange={defaultRange}
     defaultTime={defaultTime}
     defaultPreset={defaultPreset}
+    presets={presets}
     timeFormat={timeFormat}
     showTime={showTime}
     name={name}
@@ -102,8 +115,12 @@ const DateRangePicker: FC<Props> = ({
     hideDisabledNavigation={hideDisabledNavigation}
     showOutsideDays={showOutsideDays}
     navigationMode={navigationMode}
+    numberOfMonths={numberOfMonths}
+    dateDisplayFormat={dateDisplayFormat}
+    revealCalendarOnCustom={revealCalendarOnCustom}
     onRangeChange={onRangeChange}
     onDateChange={onDateChange}
+    onPresetChange={onPresetChange}
   >
     <div className="flex flex-col gap-2" data-theme={theme}>
       {label ? (
@@ -140,7 +157,6 @@ const DateRangePicker: FC<Props> = ({
       <div
         className={cn(
           dateRangePickerVariants({ className }),
-          'gap-4',
           classNames?.container,
         )}
         role="group"
@@ -155,11 +171,14 @@ const DateRangePicker: FC<Props> = ({
           />
         )}
 
-        <div className={cn(rightPanelVariants(), classNames?.rightPanel)}>
+        <RightPanel
+          className={cn(rightPanelVariants(), classNames?.rightPanel)}
+        >
           <DateTimeInputs
             labelStartDate={labelStartDate}
             labelEndDate={labelEndDate}
             labelTime={labelTime}
+            requiredDates={requiredDates}
             ariaLabelStartDate={ariaLabelStartDate}
             ariaLabelEndDate={ariaLabelEndDate}
             errorInvalidDate={errorInvalidDate}
@@ -176,7 +195,8 @@ const DateRangePicker: FC<Props> = ({
             ariaLabelNextMonthEnd={ariaLabelNextMonthEnd}
             classNames={classNames?.calendarPanel}
           />
-        </div>
+          {footer}
+        </RightPanel>
       </div>
     </div>
   </DateRangePickerProvider>

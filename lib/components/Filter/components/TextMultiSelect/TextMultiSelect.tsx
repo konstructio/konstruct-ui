@@ -10,12 +10,12 @@ import {
 } from '@/components/Filter/Filter.variants';
 import { cn } from '@/utils';
 
-import { useBadgeMultiSelect } from '../BadgeDropdown/BadgeMultiSelect.hook';
+import { useBadgeMultiSelect } from '../BadgeDropdown/hooks';
 import { FilterDropdown } from '../FilterDropdown/FilterDropdown';
 
-import { TextMultiSelectProps } from './TextMultiSelect.types';
+import { Props } from './TextMultiSelect.types';
 
-export const TextMultiSelect: FC<TextMultiSelectProps> = ({
+export const TextMultiSelect: FC<Props> = ({
   options,
   label,
   position = 'left',

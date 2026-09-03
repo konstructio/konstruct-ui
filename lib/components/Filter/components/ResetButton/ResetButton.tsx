@@ -6,9 +6,9 @@ import { cn } from '@/utils';
 import { useFilterContext } from '../../contexts';
 import { resetEvent } from '../../events';
 
-import { ResetButtonProps } from './ResetButton.types';
+import { Props } from './ResetButton.types';
 
-export const ResetButton: FC<ResetButtonProps> = ({
+export const ResetButton: FC<Props> = ({
   disabled,
   className,
   onClick,

@@ -8,6 +8,7 @@ import { Props as BadgeProps } from '../Badge/Badge.types';
 import { filterVariants } from './Filter.variants';
 import {
   BadgeMultiSelectProps,
+  CustomDateRangeFilterDropdownProps,
   DateFilterDropdownProps,
   DateRangeFilterDropdownProps,
   ResetButtonProps,
@@ -77,6 +78,7 @@ export type FilterComponentProps = FC<Props> & {
   TextMultiSelect: FC<TextMultiSelectProps>;
   DateFilterDropdown: FC<DateFilterDropdownProps>;
   DateRangeFilterDropdown: FC<DateRangeFilterDropdownProps>;
+  CustomDateRangeFilterDropdown: FC<CustomDateRangeFilterDropdownProps>;
   TimeFilterDropdown: FC<TimeFilterDropdownProps>;
   ResetButton: FC<ResetButtonProps>;
 };
