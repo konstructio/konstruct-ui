@@ -13,6 +13,7 @@ import { Params } from './use-menu-interactions.types';
 export const useMenuInteractions = ({
   isOpen,
   menuRef,
+  openOnHover,
   triggerRef,
   setIsOpen,
 }: Params) => {
@@ -20,6 +21,7 @@ export const useMenuInteractions = ({
     undefined,
   );
   const pointerTypeRef = useRef<string | null>(null);
+  const isHoverSuppressedRef = useRef(false);
 
   const openMenu = useCallback(() => {
     clearTimeout(closeTimeoutRef.current);
@@ -31,6 +33,11 @@ export const useMenuInteractions = ({
     setIsOpen(false);
   }, [setIsOpen]);
 
+  const selectAndClose = useCallback(() => {
+    isHoverSuppressedRef.current = true;
+    closeMenu();
+  }, [closeMenu]);
+
   const scheduleClose = useCallback(() => {
     clearTimeout(closeTimeoutRef.current);
     closeTimeoutRef.current = setTimeout(() => {
@@ -40,21 +47,33 @@ export const useMenuInteractions = ({
 
   const handlePointerEnter = useCallback(
     (event: PointerEvent<HTMLElement>) => {
-      if (event.pointerType !== 'touch') {
-        openMenu();
+      if (
+        !openOnHover ||
+        isHoverSuppressedRef.current ||
+        event.pointerType === 'touch'
+      ) {
+        return;
       }
+
+      openMenu();
     },
-    [openMenu],
+    [openMenu, openOnHover],
   );
 
   const handlePointerLeave = useCallback(
     (event: PointerEvent<HTMLElement>) => {
-      if (event.pointerType !== 'touch') {
-        scheduleClose();
+      if (!openOnHover || event.pointerType === 'touch') {
+        return;
       }
+
+      scheduleClose();
     },
-    [scheduleClose],
+    [openOnHover, scheduleClose],
   );
+
+  const handleButtonPointerLeave = useCallback(() => {
+    isHoverSuppressedRef.current = false;
+  }, []);
 
   const handleTriggerPointerDown = useCallback(
     (event: PointerEvent<HTMLElement>) => {
@@ -66,9 +85,10 @@ export const useMenuInteractions = ({
   const handleTriggerClick = useCallback(() => {
     const pointerType = pointerTypeRef.current;
     pointerTypeRef.current = null;
+    isHoverSuppressedRef.current = false;
     clearTimeout(closeTimeoutRef.current);
 
-    if (pointerType && pointerType !== 'touch') {
+    if (openOnHover && pointerType && pointerType !== 'touch') {
       setIsOpen(true);
 
       return;
@@ -77,7 +97,7 @@ export const useMenuInteractions = ({
     setIsOpen((previous) => {
       return !previous;
     });
-  }, [setIsOpen]);
+  }, [openOnHover, setIsOpen]);
 
   useEffect(() => {
     return () => {
@@ -162,6 +182,8 @@ export const useMenuInteractions = ({
     handlePointerLeave,
     handleTriggerClick,
     handleTriggerPointerDown,
+    handleButtonPointerLeave,
     openMenu,
+    selectAndClose,
   };
 };
