@@ -5,6 +5,7 @@ import {
   ActivityIcon,
   AddChartIcon,
   AlertOutlineIcon,
+  AllSetCheckIcon,
   ApiKeyIcon,
   AppRepoIcon,
   AppsIcon,
@@ -42,6 +43,7 @@ import {
   DatacenterIcon,
   DeleteIcon,
   DeployIcon,
+  DetachIcon,
   DnsIcon,
   DocsIcon,
   DollarSignIcon,
@@ -84,6 +86,7 @@ import {
   OrgSettingsIcon,
   PagesStackIcon,
   PageviewIcon,
+  PauseIcon,
   PeopleIcon,
   PhotoLibraryIcon,
   PipelineIcon,
@@ -99,11 +102,13 @@ import {
   ScatterPlotIcon,
   SearchIcon,
   ServerIcon,
+  SpendStatementIcon,
   SshKeyIcon,
   StartIcon,
   TabNewIcon,
   TeamMembersIcon,
   TeamsIcon,
+  UpdatedIcon,
   UploadIcon,
   VolumeIcon,
   WarningIcon,
@@ -121,6 +126,7 @@ const iconEntries: IconEntry[] = [
   { name: 'ActivityIcon', component: ActivityIcon },
   { name: 'AddChartIcon', component: AddChartIcon },
   { name: 'AlertOutlineIcon', component: AlertOutlineIcon },
+  { name: 'AllSetCheckIcon', component: AllSetCheckIcon },
   { name: 'ApiKeyIcon', component: ApiKeyIcon },
   { name: 'AppRepoIcon', component: AppRepoIcon },
   { name: 'AppsIcon', component: AppsIcon },
@@ -134,7 +140,10 @@ const iconEntries: IconEntry[] = [
   { name: 'BillingIcon', component: BillingIcon },
   { name: 'BookOpenIcon', component: BookOpenIcon },
   { name: 'CalendarMonthIcon', component: CalendarMonthIcon },
-  { name: 'CheckboxMarkedCircleOutlineIcon', component: CheckboxMarkedCircleOutlineIcon },
+  {
+    name: 'CheckboxMarkedCircleOutlineIcon',
+    component: CheckboxMarkedCircleOutlineIcon,
+  },
   { name: 'CheckCircleFilledIcon', component: CheckCircleFilledIcon },
   { name: 'CheckCircleOutlineIcon', component: CheckCircleOutlineIcon },
   { name: 'CheckIcon', component: CheckIcon },
@@ -158,6 +167,7 @@ const iconEntries: IconEntry[] = [
   { name: 'DatacenterIcon', component: DatacenterIcon },
   { name: 'DeleteIcon', component: DeleteIcon },
   { name: 'DeployIcon', component: DeployIcon },
+  { name: 'DetachIcon', component: DetachIcon },
   { name: 'DnsIcon', component: DnsIcon },
   { name: 'DocsIcon', component: DocsIcon },
   { name: 'DollarSignIcon', component: DollarSignIcon },
@@ -200,6 +210,7 @@ const iconEntries: IconEntry[] = [
   { name: 'OrgSettingsIcon', component: OrgSettingsIcon },
   { name: 'PagesStackIcon', component: PagesStackIcon },
   { name: 'PageviewIcon', component: PageviewIcon },
+  { name: 'PauseIcon', component: PauseIcon },
   { name: 'PeopleIcon', component: PeopleIcon },
   { name: 'PhotoLibraryIcon', component: PhotoLibraryIcon },
   { name: 'PipelineIcon', component: PipelineIcon },
@@ -215,11 +226,13 @@ const iconEntries: IconEntry[] = [
   { name: 'ScatterPlotIcon', component: ScatterPlotIcon },
   { name: 'SearchIcon', component: SearchIcon },
   { name: 'ServerIcon', component: ServerIcon },
+  { name: 'SpendStatementIcon', component: SpendStatementIcon },
   { name: 'SshKeyIcon', component: SshKeyIcon },
   { name: 'StartIcon', component: StartIcon },
   { name: 'TabNewIcon', component: TabNewIcon },
   { name: 'TeamMembersIcon', component: TeamMembersIcon },
   { name: 'TeamsIcon', component: TeamsIcon },
+  { name: 'UpdatedIcon', component: UpdatedIcon },
   { name: 'UploadIcon', component: UploadIcon },
   { name: 'VolumeIcon', component: VolumeIcon },
   { name: 'WarningIcon', component: WarningIcon },
@@ -246,7 +259,9 @@ export const IconsGallery: FC = () => {
   return (
     <div className="min-h-screen p-8 bg-white">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold mb-2 text-metal-900">Icons Gallery</h1>
+        <h1 className="text-3xl font-bold mb-2 text-metal-900">
+          Icons Gallery
+        </h1>
 
         <p className="mb-6 text-metal-600">
           Click on any icon to copy the import code. {iconEntries.length} icons
