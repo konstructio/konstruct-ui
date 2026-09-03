@@ -7,11 +7,11 @@ import {
 
 import { useFilterContext } from '@/components/Filter/contexts';
 
-import { sendOpenFilterEvent } from '../../events';
-import { useFilterDropdownSync } from '../../hooks';
-import { getLocale } from '../../utils';
+import { sendOpenFilterEvent } from '../../../../events';
+import { useFilterDropdownSync } from '../../../../hooks';
+import { getLocale } from '../../../../utils';
 
-import { Props } from './DateRangeFilterDropdown.types';
+import { Props } from '../../DateRangeFilterDropdown.types';
 
 export const useDateRangeFilterDropdown = ({
   defaultRange,
@@ -29,7 +29,9 @@ export const useDateRangeFilterDropdown = ({
   >();
 
   const appliedRangeFormatted = useMemo(() => {
-    if (!appliedRange?.from) return undefined;
+    if (!appliedRange?.from) {
+      return undefined;
+    }
 
     const formatDate = (date: Date) =>
       date.toLocaleDateString(getLocale(countryCode), {

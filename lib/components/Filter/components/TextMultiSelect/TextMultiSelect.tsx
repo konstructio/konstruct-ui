@@ -10,7 +10,7 @@ import {
 } from '@/components/Filter/Filter.variants';
 import { cn } from '@/utils';
 
-import { useBadgeMultiSelect } from '../BadgeDropdown/BadgeMultiSelect.hook';
+import { useBadgeMultiSelect } from '../BadgeDropdown/hooks';
 import { FilterDropdown } from '../FilterDropdown/FilterDropdown';
 
 import { Props } from './TextMultiSelect.types';

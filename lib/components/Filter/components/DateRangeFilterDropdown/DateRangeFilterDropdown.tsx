@@ -12,7 +12,7 @@ import { cn } from '@/utils';
 
 import { FilterDropdown } from '../FilterDropdown/FilterDropdown';
 
-import { useDateRangeFilterDropdown } from './DateRangeFilterDropdown.hook';
+import { useDateRangeFilterDropdown } from './hooks';
 import { Props } from './DateRangeFilterDropdown.types';
 
 export const DateRangeFilterDropdown: FC<Props> = ({

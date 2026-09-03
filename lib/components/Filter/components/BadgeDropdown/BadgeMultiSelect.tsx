@@ -12,7 +12,7 @@ import { cn } from '@/utils';
 
 import { FilterDropdown } from '../FilterDropdown/FilterDropdown';
 
-import { useBadgeMultiSelect } from './BadgeMultiSelect.hook';
+import { useBadgeMultiSelect } from './hooks';
 import { Props } from './BadgeMultiSelect.types';
 
 export const BadgeMultiSelect: FC<Props> = ({

@@ -4,10 +4,10 @@ import { getFormattedTime } from '@/components/TimePicker/utils';
 
 import { useFilterContext } from '@/components/Filter/contexts';
 
-import { sendOpenFilterEvent } from '../../events';
-import { useFilterDropdownSync } from '../../hooks';
+import { sendOpenFilterEvent } from '../../../../events';
+import { useFilterDropdownSync } from '../../../../hooks';
 
-import { Props, TimePreset } from './TimeFilterDropdown.types';
+import { Props, TimePreset } from '../../TimeFilterDropdown.types';
 
 export const useTimeFilterDropdown = ({
   onApply,

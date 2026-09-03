@@ -5,7 +5,7 @@ import { sendOpenFilterEvent } from '@/components/Filter/events';
 import { useFilterDropdownSync } from '@/components/Filter/hooks';
 import { Option } from '@/components/Filter/Filter.types';
 
-import { Props, SelectedOptions } from './BadgeMultiSelect.types';
+import { Props, SelectedOptions } from '../../BadgeMultiSelect.types';
 
 export const useBadgeMultiSelect = ({
   onApply,
