@@ -29,6 +29,8 @@ export * from './Input/Input';
 export * from './LineChart/LineChart';
 export * from './Loading/Loading';
 export * from './Modal/Modal';
+export * from './OtpInput/OtpInput';
+export * from './PasswordRules/PasswordRules';
 export * from './MultiSelectDropdown/MultiSelectDropdown';
 export * from './PhoneNumberInput/PhoneNumberInput';
 export * from './PieChart/PieChart';
