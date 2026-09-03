@@ -10,9 +10,9 @@ import { ReactNode } from 'react';
 import { Props as ButtonProps } from '@/components/Button/Button.types';
 import {
   DateRange,
-  DateRangePresetOption,
   DateRangeWithTime,
 } from '@/components/DateRangePicker/DateRangePicker.types';
+import { Props as CustomDateRangeFilterDropdownProps } from '@/components/Filter/components/CustomDateRangeFilterDropdown/CustomDateRangeFilterDropdown.types';
 import { TimePreset } from '@/components/Filter/components/TimeFilterDropdown/TimeFilterDropdown.types';
 
 import { virtualizeTableVariants } from './VirtualizedTable.variants';
@@ -117,41 +117,7 @@ export type DateRangeFilterConfig = FilterConfigBase & {
  */
 export type CustomDateRangeFilterConfig = FilterConfigBase & {
   type: 'customDateRange';
-  /** Whether to show time inputs (default: false) */
-  showTime?: boolean;
-  /** Time format: '12' for 12-hour or '24' for 24-hour */
-  timeFormat?: '12' | '24';
-  /** Whether to show preset options (default: true) */
-  showPresets?: boolean;
-  /** Replaces the built-in preset options; see `DateRangePicker`'s `presets`. */
-  presets?: DateRangePresetOption[];
-  /** Reveal the calendar only on the manual-selection preset (default: false). */
-  revealCalendarOnCustom?: boolean;
-  /** Initial date range */
-  defaultRange?: DateRange;
-  /** Minimum selectable date */
-  minDate?: Date;
-  /** Maximum selectable date */
-  maxDate?: Date;
-  /** Country code for locale formatting (default: 'US') */
-  countryCode?: string;
-  /** Title of the preset panel (default: 'Time period') */
-  labelTimePeriod?: string;
-  /** Label for the start date field (default: 'From') */
-  labelStartDate?: string;
-  /** Label for the end date field (default: 'To') */
-  labelEndDate?: string;
-  /** Marks the From/To fields with a required indicator (default: true) */
-  requiredDates?: boolean;
-  /** Label for the apply button (default: 'Apply') */
-  labelApply?: string;
-  /** Label for the reset button (default: 'Clear') */
-  labelReset?: string;
-  /** Apply as soon as a preset is selected (default: false) */
-  applyOnPresetSelect?: boolean;
-  /** Callback when the date range changes */
-  onRangeChange?: (range: DateRangeWithTime) => void;
-};
+} & Omit<CustomDateRangeFilterDropdownProps, 'label' | 'position' | 'onApply'>;
 
 /**
  * Configuration for an action button rendered inline with filters.

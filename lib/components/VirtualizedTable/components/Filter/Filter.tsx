@@ -186,31 +186,16 @@ export const Filter: FC<Props> = ({
     }
 
     if (filterConfig.type === 'customDateRange') {
+      const { key: _key, type: _type, ...dropdownProps } = filterConfig;
+
       return (
         <FilterPrimitive.CustomDateRangeFilterDropdown
           key={key}
-          label={label}
+          {...dropdownProps}
           position={position}
-          showTime={filterConfig.showTime}
-          timeFormat={filterConfig.timeFormat}
-          showPresets={filterConfig.showPresets}
-          presets={filterConfig.presets}
-          revealCalendarOnCustom={filterConfig.revealCalendarOnCustom}
-          defaultRange={filterConfig.defaultRange}
-          minDate={filterConfig.minDate}
-          maxDate={filterConfig.maxDate}
-          countryCode={filterConfig.countryCode}
-          labelTimePeriod={filterConfig.labelTimePeriod}
-          labelStartDate={filterConfig.labelStartDate}
-          labelEndDate={filterConfig.labelEndDate}
-          requiredDates={filterConfig.requiredDates}
-          labelApply={filterConfig.labelApply}
-          labelReset={filterConfig.labelReset}
-          applyOnPresetSelect={filterConfig.applyOnPresetSelect}
           onApply={(range) => {
             onSelectDateRangeFilter(key, range);
           }}
-          onRangeChange={filterConfig.onRangeChange}
         />
       );
     }

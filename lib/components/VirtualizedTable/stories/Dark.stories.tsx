@@ -34,9 +34,13 @@ const meta: Meta<typeof VirtualizedTableComponent> = {
 
 const queryClient = new QueryClient();
 
-type PokemonWithCreated = Pokemon & { created: Date };
+type DateField = 'created' | 'updated' | 'expires' | 'deleted';
 
-/** Midnight today, shared by the synthetic creation dates and the filter's cap. */
+type PokemonWithDates = Pokemon & Record<DateField, Date>;
+
+const DATE_FIELDS: DateField[] = ['created', 'updated', 'expires', 'deleted'];
+
+/** Midnight today, shared by the synthetic dates and the filters' caps. */
 const startOfToday = (() => {
   const now = new Date();
 
@@ -828,43 +832,55 @@ export const HorizontalScrollWithFilters: Story = {
 export default meta;
 
 /**
- * The "Created" filter from the Product Design System: a `customDateRange` filter
- * rendered in the table's own filter row, rather than a separate control above
- * it. Three rolling presets plus a custom range that opens the calendar, applied
- * as soon as a preset is picked.
+ * The date range filters from the Product Design System rendered in the table's
+ * own filter row, one per synthetic date column, each in a different shape:
+ * "Created" on a single-month calendar with each applied end in its own badge,
+ * "Updated" with presets only, "Expires" with its own rolling windows confirmed
+ * by hand, and "Deleted" moving both months as a pair with numeric inputs.
  *
- * The table reloads through `fetchData`, which receives the applied window under
- * the filter's key, so picking a preset visibly narrows the rows.
+ * The table reloads through `fetchData`, which receives every applied window
+ * under its filter's key, so picking a preset visibly narrows the rows.
  */
 export const CreatedDateRangeFilter: Story = {
   render: () => {
     const id = useId();
     const DAY_MS = 24 * 60 * 60 * 1000;
 
-    // The pokemon fixture carries no creation date, so the story gives each row
-    // one — spread deterministically over the last seven weeks, so the same id
-    // always lands on the same day and the presets have something to cut.
-    const createdOf = useCallback(
-      (pokemonId: number) =>
-        new Date(startOfToday.getTime() - (pokemonId % 49) * DAY_MS),
+    // The pokemon fixture carries no dates, so the story gives each row four —
+    // spread deterministically over different spans, so the same id always
+    // lands on the same days and every preset has something to cut.
+    const datesOf = useCallback(
+      (pokemonId: number): Record<DateField, Date> => {
+        const daysAgo = (span: number, salt: number) =>
+          new Date(
+            startOfToday.getTime() - ((pokemonId * salt) % span) * DAY_MS,
+          );
+
+        return {
+          created: daysAgo(49, 1),
+          updated: daysAgo(13, 3),
+          expires: daysAgo(120, 7),
+          deleted: daysAgo(400, 11),
+        };
+      },
       [DAY_MS],
     );
 
-    const columnsWithCreated: ColumnDef<PokemonWithCreated>[] = useMemo(
+    const columnsWithDates: ColumnDef<PokemonWithDates>[] = useMemo(
       () => [
-        ...(columns as ColumnDef<PokemonWithCreated>[]).filter(
+        ...(columns as ColumnDef<PokemonWithDates>[]).filter(
           (column) => column.id !== 'actions',
         ),
-        {
-          header: 'Created',
-          accessorKey: 'created',
+        ...DATE_FIELDS.map<ColumnDef<PokemonWithDates>>((field) => ({
+          header: `${field.charAt(0).toUpperCase()}${field.slice(1)}`,
+          accessorKey: field,
           cell: ({ row }) =>
-            row.original.created.toLocaleDateString('en-GB', {
+            row.original[field].toLocaleDateString('en-GB', {
               day: 'numeric',
               month: 'short',
               year: 'numeric',
             }),
-        },
+        })),
       ],
       [],
     );
@@ -872,8 +888,6 @@ export const CreatedDateRangeFilter: Story = {
     const fetchData = useCallback(
       async (params: Record<string, unknown>) => {
         const { page = 1, pageSize = DEFAULT_PAGE_SIZE, termOfSearch } = params;
-        const created = params.created as
-          { from?: string; to?: string } | undefined;
 
         const { results } = await getPokemons({
           page: 1,
@@ -881,20 +895,25 @@ export const CreatedDateRangeFilter: Story = {
           termOfSearch: termOfSearch as string | undefined,
         });
 
-        let rows: PokemonWithCreated[] = results.map((pokemon) => ({
+        let rows: PokemonWithDates[] = results.map((pokemon) => ({
           ...pokemon,
-          created: createdOf(pokemon.id),
+          ...datesOf(pokemon.id),
         }));
 
-        if (created?.from) {
-          const from = new Date(created.from);
-          rows = rows.filter((row) => row.created >= from);
-        }
+        DATE_FIELDS.forEach((field) => {
+          const window = params[field] as
+            { from?: string; to?: string } | undefined;
 
-        if (created?.to) {
-          const to = new Date(created.to);
-          rows = rows.filter((row) => row.created <= to);
-        }
+          if (window?.from) {
+            const from = new Date(window.from);
+            rows = rows.filter((row) => row[field] >= from);
+          }
+
+          if (window?.to) {
+            const to = new Date(window.to);
+            rows = rows.filter((row) => row[field] <= to);
+          }
+        });
 
         const start = (Number(page) - 1) * Number(pageSize);
 
@@ -903,7 +922,7 @@ export const CreatedDateRangeFilter: Story = {
           totalItemsCount: rows.length,
         };
       },
-      [createdOf],
+      [datesOf],
     );
 
     useEffect(() => {
@@ -916,18 +935,12 @@ export const CreatedDateRangeFilter: Story = {
       };
     }, []);
 
-    // Rolling windows, relative to now — not calendar buckets.
-    const rolling = (days: number) => (now: Date) => ({
-      from: new Date(now.getTime() - days * DAY_MS),
-      to: now,
-    });
-
     return (
       <QueryClientProvider client={queryClient}>
-        <VirtualizedTableComponent<PokemonWithCreated>
+        <VirtualizedTableComponent<PokemonWithDates>
           id={id}
           data={[]}
-          columns={columnsWithCreated}
+          columns={columnsWithDates}
           fetchData={fetchData}
           showPagination
           totalItems={0}
@@ -943,31 +956,44 @@ export const CreatedDateRangeFilter: Story = {
               labelTimePeriod: 'Created',
               revealCalendarOnCustom: true,
               applyOnPresetSelect: true,
-              showTime: false,
-              // A creation date cannot meaningfully be in the future.
+              numberOfMonths: 1,
+              showOutsideDays: true,
+              appliedRangeDisplay: 'split',
               maxDate: startOfToday,
-              presets: [
-                {
-                  value: 'last-24-hours',
-                  label: 'Last 24 hours',
-                  resolve: rolling(1),
-                },
-                {
-                  value: 'last-7-days',
-                  label: 'Last 7 days',
-                  resolve: rolling(7),
-                },
-                {
-                  value: 'last-30-days',
-                  label: 'Last 30 days',
-                  resolve: rolling(30),
-                },
-                {
-                  value: 'custom',
-                  label: 'Custom range',
-                  resolve: () => ({}),
-                },
+            },
+            {
+              key: 'updated',
+              type: 'customDateRange',
+              label: 'Updated',
+              labelTimePeriod: 'Updated',
+              revealCalendarOnCustom: true,
+              applyOnPresetSelect: true,
+              showCustomRange: false,
+            },
+            {
+              key: 'expires',
+              type: 'customDateRange',
+              label: 'Expires',
+              labelTimePeriod: 'Expires',
+              revealCalendarOnCustom: true,
+              labelCustomRange: 'Pick dates',
+              rollingPresets: [
+                { label: 'Past hour', duration: '1h' },
+                { label: 'Past day', duration: '1day' },
+                { label: 'Past week', duration: '7days' },
+                { label: 'Past quarter', duration: '3months' },
+                { label: 'Past year', duration: '1year' },
               ],
+            },
+            {
+              key: 'deleted',
+              type: 'customDateRange',
+              label: 'Deleted',
+              labelTimePeriod: 'Deleted',
+              revealCalendarOnCustom: true,
+              applyOnPresetSelect: true,
+              navigationMode: 'together',
+              dateDisplayFormat: 'numeric',
             },
           ]}
         />
