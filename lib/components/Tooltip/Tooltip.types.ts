@@ -23,6 +23,16 @@ export interface Props {
   content: ReactNode | string;
   /** The trigger element */
   children: ReactNode;
+  /** Render an invisible trigger over the children instead of wrapping them, for fields that cannot be wrapped or are disabled */
+  asOverlay?: boolean;
+  /** Keep the children as they are and never open the tooltip */
+  disabled?: boolean;
+  /** Position and size of the overlay trigger (defaults to `inset-0`) */
+  overlayClassName?: string;
+  /** Accessible name of the overlay trigger; defaults to `content` when it is a string */
+  overlayLabel?: string;
+  /** Additional className for the relative wrapper used in overlay mode */
+  wrapperClassName?: string;
   /** Tooltip position relative to trigger */
   side?: 'top' | 'bottom' | 'left' | 'right';
   /** Distance from trigger in px */
