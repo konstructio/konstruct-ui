@@ -1,16 +1,23 @@
 import { RefObject, useEffect } from 'react';
 
+type Target = RefObject<HTMLElement | null> | undefined;
+
 export const useClickOutside = (
-  ref: RefObject<HTMLElement | null>,
+  refs: Target | Target[],
   onClickOutside: () => void,
 ) => {
   useEffect(() => {
     const controller = new AbortController();
+    const targets = Array.isArray(refs) ? refs : [refs];
 
     document.addEventListener(
       'mousedown',
       (event) => {
-        if (!ref.current?.contains(event.target as Node)) {
+        const isInside = targets.some((ref) => {
+          return ref?.current?.contains(event.target as Node);
+        });
+
+        if (!isInside) {
           onClickOutside();
         }
       },
@@ -20,5 +27,5 @@ export const useClickOutside = (
     return () => {
       controller.abort();
     };
-  }, [ref, onClickOutside]);
+  }, [refs, onClickOutside]);
 };

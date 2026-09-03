@@ -34,6 +34,30 @@ describe('useClickOutside', () => {
     expect(onClickOutside).not.toHaveBeenCalled();
   });
 
+  it('treats every ref in an array as inside', () => {
+    const inside = document.createElement('div');
+    const portaled = document.createElement('div');
+    const outside = document.createElement('div');
+    document.body.append(inside, portaled, outside);
+
+    const onClickOutside = vi.fn();
+    renderHook(() => {
+      useClickOutside(
+        [{ current: inside }, { current: portaled }, undefined],
+        onClickOutside,
+      );
+    });
+
+    fireEvent.mouseDown(portaled);
+    fireEvent.mouseDown(inside);
+
+    expect(onClickOutside).not.toHaveBeenCalled();
+
+    fireEvent.mouseDown(outside);
+
+    expect(onClickOutside).toHaveBeenCalledTimes(1);
+  });
+
   it('stops listening after unmount', () => {
     const { outside, onClickOutside, unmount } = setup();
 

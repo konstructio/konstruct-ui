@@ -3,6 +3,7 @@ import { Plus } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/Button/Button';
+import { Drawer } from '@/components/Drawer/Drawer';
 import { Modal } from '@/components/Modal/Modal';
 
 import { getPokemons } from '../../../../mocks';
@@ -245,6 +246,54 @@ export const selectInModal = {
             </div>
           </Modal.Body>
         </Modal>
+      </div>
+    );
+  },
+} satisfies Story;
+
+export const selectInDrawerPortal = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`isPortal` renders the options in a portal positioned with Radix Popover, so the list is never clipped by `overflow` containers such as drawers, modals or table cells. `onValueChange` receives the selected value directly, without the event wrapper.',
+      },
+    },
+  },
+  render: function selectInDrawerPortalStory() {
+    const [isOpen, setIsOpen] = useState(false);
+    const [value, setValue] = useState<string>();
+
+    return (
+      <div>
+        <Button onClick={() => setIsOpen(true)}>Open Drawer with select</Button>
+
+        <Drawer isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <Drawer.Body>
+            <div className="p-6">
+              <SelectComponent
+                isPortal
+                label="Choose your distribution"
+                options={[
+                  {
+                    label: 'Talos',
+                    value: 'talos',
+                    leftIcon: <img src="./talos.svg" alt="Talos Logo" />,
+                  },
+                  {
+                    label: 'K3S',
+                    value: 'k3s',
+                    leftIcon: <img src="./k3s.svg" alt="K3S Logo" />,
+                  },
+                ]}
+                placeholder="Select an option..."
+                value={value}
+                onValueChange={setValue}
+                name="drawer-select"
+              />
+            </div>
+          </Drawer.Body>
+        </Drawer>
       </div>
     );
   },
