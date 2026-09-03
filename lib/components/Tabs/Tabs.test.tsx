@@ -92,4 +92,101 @@ describe('Tabs', () => {
 
     expect(results).toHaveNoViolations();
   });
+
+  describe('Trigger without isActive', () => {
+    it('derives the active styles from the tabs state', async () => {
+      render(
+        <Tabs defaultValue="tab1">
+          <Tabs.List orientation="horizontal">
+            <Tabs.Trigger tab="tab1" label="Tab 1" />
+            <Tabs.Trigger tab="tab2" label="Tab 2" />
+          </Tabs.List>
+          <Tabs.Content value="tab1">Content 1</Tabs.Content>
+          <Tabs.Content value="tab2">Content 2</Tabs.Content>
+        </Tabs>,
+      );
+
+      const firstTab = screen.getByRole('tab', { name: 'Tab 1' });
+      const secondTab = screen.getByRole('tab', { name: 'Tab 2' });
+
+      expect(firstTab).toHaveAttribute('data-state', 'active');
+      expect(screen.getByText('Tab 2')).toHaveClass(
+        'group-data-[state=active]/tab:after:scale-y-100',
+      );
+
+      await userEvent.click(secondTab);
+
+      expect(secondTab).toHaveAttribute('data-state', 'active');
+      expect(firstTab).toHaveAttribute('data-state', 'inactive');
+      expect(screen.getByText('Content 2')).toBeInTheDocument();
+    });
+  });
+
+  describe('with items', () => {
+    const items = [
+      { value: 'overview', label: 'Overview', content: 'Overview content' },
+      { value: 'settings', label: 'Settings', content: 'Settings content' },
+      { value: 'billing', label: 'Billing', content: 'Billing content' },
+    ];
+
+    it('renders the list, triggers and contents and starts on the first item', async () => {
+      const onValueChange = vi.fn();
+
+      render(<Tabs items={items} onValueChange={onValueChange} />);
+
+      expect(screen.getAllByRole('tab')).toHaveLength(3);
+      expect(screen.getByText('Overview content')).toBeInTheDocument();
+
+      await userEvent.click(screen.getByRole('tab', { name: 'Settings' }));
+
+      expect(onValueChange).toHaveBeenCalledWith('settings');
+      expect(screen.getByText('Settings content')).toBeInTheDocument();
+      expect(screen.queryByText('Overview content')).not.toBeInTheDocument();
+    });
+
+    it('respects defaultValue', () => {
+      render(<Tabs items={items} defaultValue="billing" />);
+
+      expect(screen.getByText('Billing content')).toBeInTheDocument();
+    });
+
+    it('falls back to the first item when the active one disappears', async () => {
+      const { rerender } = render(<Tabs items={items} />);
+
+      await userEvent.click(screen.getByRole('tab', { name: 'Billing' }));
+
+      expect(screen.getByText('Billing content')).toBeInTheDocument();
+
+      rerender(<Tabs items={items.slice(0, 2)} />);
+
+      expect(screen.getByText('Overview content')).toBeInTheDocument();
+      expect(
+        screen.queryByRole('tab', { name: 'Billing' }),
+      ).not.toBeInTheDocument();
+    });
+
+    it('stays controlled when value is provided', async () => {
+      const onValueChange = vi.fn();
+
+      render(
+        <Tabs items={items} value="settings" onValueChange={onValueChange} />,
+      );
+
+      expect(screen.getByText('Settings content')).toBeInTheDocument();
+
+      await userEvent.click(screen.getByRole('tab', { name: 'Billing' }));
+
+      expect(onValueChange).toHaveBeenCalledWith('billing');
+      expect(screen.getByText('Settings content')).toBeInTheDocument();
+      expect(screen.queryByText('Billing content')).not.toBeInTheDocument();
+    });
+
+    it("shouldn't have accessibility violations", async () => {
+      const { container } = render(<Tabs items={items} />);
+
+      const results = await axe(container);
+
+      expect(results).toHaveNoViolations();
+    });
+  });
 });
