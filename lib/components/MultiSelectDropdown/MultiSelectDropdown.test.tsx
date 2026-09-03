@@ -202,4 +202,65 @@ describe('MultiSelectDropdown', () => {
 
     expect(results).toHaveNoViolations();
   });
+  describe('error, helper text and disabled', () => {
+    it('should describe the combobox with the error and hide the helper text', async () => {
+      const { findMultiSelectDropdown } = setup({
+        error: 'Pick at least one instance',
+        helperText: 'Instances in the selected region',
+      });
+
+      const combobox = await findMultiSelectDropdown();
+      const error = screen.getByText('Pick at least one instance');
+
+      expect(combobox).toHaveAttribute('aria-invalid', 'true');
+      expect(combobox).toHaveAttribute('aria-describedby', error.id);
+      expect(
+        screen.queryByText('Instances in the selected region'),
+      ).not.toBeInTheDocument();
+    });
+
+    it('should describe the combobox with the helper text', async () => {
+      const { findMultiSelectDropdown } = setup({
+        helperText: 'Instances in the selected region',
+      });
+
+      const combobox = await findMultiSelectDropdown();
+      const helper = screen.getByText('Instances in the selected region');
+
+      expect(combobox).toHaveAttribute('aria-describedby', helper.id);
+      expect(combobox).not.toHaveAttribute('aria-invalid');
+    });
+
+    it('should not open nor remove selections when disabled', async () => {
+      const onChange = vi.fn();
+      const { user, findMultiSelectDropdown } = setup({
+        disabled: true,
+        label: 'Instances',
+        value: [options[0]],
+        onChange,
+      });
+
+      const combobox = await findMultiSelectDropdown();
+
+      expect(combobox).toHaveAttribute('aria-disabled', 'true');
+
+      await user.click(combobox);
+      await user.click(screen.getByText('Instances'));
+
+      expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+      expect(screen.getByText(options[0].label)).toBeInTheDocument();
+      expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it("shouldn't have accessibility violations with an error", async () => {
+      const { component } = setup({
+        label: 'Instances',
+        error: 'Pick at least one instance',
+      });
+
+      const results = await axe(component);
+
+      expect(results).toHaveNoViolations();
+    });
+  });
 });
