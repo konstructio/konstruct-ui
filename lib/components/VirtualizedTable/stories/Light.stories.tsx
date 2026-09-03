@@ -518,15 +518,38 @@ export const ErrorState: Story = {
           fetchData={fetchWithError}
           queryOptions={{ retry: false }}
           errorState={(error) => (
-            <div className="flex flex-col items-center gap-2 py-12">
-              <Typography variant="body2" className="font-medium">
-                Something went wrong
-              </Typography>
-              <Typography variant="body3" className="text-gray-500">
-                {error.message}
-              </Typography>
-            </div>
+            <VirtualizedTableComponent.ErrorState
+              title="Pokemons could not be loaded"
+              description={error.message}
+            />
           )}
+        />
+      </QueryClientProvider>
+    );
+  },
+};
+
+export const EmptyResults: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`VirtualizedTable.EmptyResults` is the filtered-to-nothing state. It reads the table id from context and sends the reset-filters event by itself, so no wiring is needed; pass `onResetFilters` to take over. Use `VirtualizedTable.EmptyState` for the "nothing created yet" case (title, description, image, action) and `VirtualizedTable.ErrorState` for fetch failures, which sends the refresh event for the table by default.',
+      },
+    },
+  },
+  render: () => {
+    const id = useId();
+
+    return (
+      <QueryClientProvider client={queryClient}>
+        <VirtualizedTableComponent<Pokemon>
+          {...args}
+          id={id}
+          data={[]}
+          totalItems={0}
+          columns={columns}
+          emptyState={<VirtualizedTableComponent.EmptyResults />}
         />
       </QueryClientProvider>
     );

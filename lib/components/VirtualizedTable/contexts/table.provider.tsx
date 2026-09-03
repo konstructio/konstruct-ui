@@ -611,6 +611,7 @@ export const TableProvider = <TData extends RowData = RowData>({
         pageSize,
         sortedData,
         table: table as unknown as Table<RowData>,
+        tableId: getTableId(id),
         tableFetching: isFetching,
         tableLoading: isLoading || isManualRefreshing,
         tableError,
