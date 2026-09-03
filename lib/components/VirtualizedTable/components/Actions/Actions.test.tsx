@@ -363,6 +363,22 @@ describe('Actions', () => {
       expect(menu).toHaveStyle({ top: '234px', left: '585px' });
     });
 
+    it('should snap the menu to whole pixels for a fractional trigger rect', async () => {
+      mockLayout({
+        innerHeight: 1000,
+        menuHeight: 100,
+        menuWidth: 215,
+        triggerRect: { top: 200.5, bottom: 230.5, right: 800.5 },
+      });
+
+      const { user, trigger, getMenu } = setup();
+
+      await user.click(trigger);
+      const menu = await getMenu();
+
+      expect(menu).toHaveStyle({ top: '235px', left: '586px' });
+    });
+
     it('should flip the menu above the trigger when it does not fit below', async () => {
       mockLayout({
         innerHeight: 300,

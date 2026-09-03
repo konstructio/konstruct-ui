@@ -100,8 +100,13 @@ export const useMenuInteractions = ({
       ? rect.bottom + MENU_GAP_PX
       : rect.top - MENU_GAP_PX - menu.offsetHeight;
 
-    menu.style.top = `${Math.max(top, MENU_GAP_PX)}px`;
-    menu.style.left = `${Math.max(rect.right - menu.offsetWidth, MENU_GAP_PX)}px`;
+    // Rounded to whole pixels. A trigger sitting on a half pixel (table layouts
+    // routinely do) would otherwise place the menu at x.5, and the text inside it
+    // is rasterized on the compositing layer the enter animation's transform
+    // creates, then again against the page grid once that transform is gone —
+    // two different roundings of the same glyphs, read as a 1px jump on open.
+    menu.style.top = `${Math.round(Math.max(top, MENU_GAP_PX))}px`;
+    menu.style.left = `${Math.round(Math.max(rect.right - menu.offsetWidth, MENU_GAP_PX))}px`;
   }, [menuRef, triggerRef]);
 
   useLayoutEffect(() => {
