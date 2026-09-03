@@ -82,4 +82,32 @@ describe('Button', () => {
 
     expect(results).toHaveNoViolations();
   });
+  describe('asChild', () => {
+    it('should render a disabled link as inert and aria-disabled', async () => {
+      const user = userEvent.setup();
+
+      render(
+        <Button asChild disabled>
+          <a href="#billing">Manage billing</a>
+        </Button>,
+      );
+
+      const link = screen.getByRole('link', { name: 'Manage billing' });
+
+      expect(link).toHaveAttribute('aria-disabled', 'true');
+      expect(link).toHaveAttribute('tabindex', '-1');
+      expect(link).not.toHaveAttribute('disabled');
+      expect(link).toHaveClass('pointer-events-none');
+
+      await user.tab();
+
+      expect(link).not.toHaveFocus();
+    });
+  });
+
+  it('should render the pill shape', () => {
+    const { button } = setup({ shape: 'pill' });
+
+    expect(button).toHaveClass('rounded-full', 'px-6');
+  });
 });

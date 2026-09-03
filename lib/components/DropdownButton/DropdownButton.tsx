@@ -2,6 +2,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { FC } from 'react';
 import { ChevronDown } from 'react-feather';
 
+import { LoaderIcon } from '@/assets/icons/components';
 import { cn } from '@/utils';
 
 import { Button } from '../Button/Button';
@@ -25,25 +26,39 @@ import { Props } from './DropdownButton.types';
  * ```
  */
 export const DropdownButton: FC<Props> = ({
+  appearance,
   buttonClassName,
   className,
+  disabled = false,
+  isLoading = false,
   itemClassName,
   label = 'Download Invoice as',
   listClassName,
   options,
+  variant,
+  version,
 }) => {
   return (
     <DropdownMenu.Root modal={false}>
       <div className={cn('relative w-full', className)}>
-        <DropdownMenu.Trigger asChild>
+        <DropdownMenu.Trigger asChild disabled={disabled || isLoading}>
           <Button
+            appearance={appearance}
+            variant={variant}
+            version={version}
+            disabled={disabled || isLoading}
+            aria-busy={isLoading || undefined}
             className={cn(
               'group flex gap-2 items-center justify-between w-full',
               buttonClassName,
             )}
           >
             {label}
-            <ChevronDown className="transition-transform duration-200 group-data-[state=open]:rotate-180" />
+            {isLoading ? (
+              <LoaderIcon size={16} className="animate-spin shrink-0" />
+            ) : (
+              <ChevronDown className="transition-transform duration-200 group-data-[state=open]:rotate-180" />
+            )}
           </Button>
         </DropdownMenu.Trigger>
 

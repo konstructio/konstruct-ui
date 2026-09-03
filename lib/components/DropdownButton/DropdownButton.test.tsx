@@ -75,4 +75,54 @@ describe('DropdownButton', () => {
 
     expect(results).toHaveNoViolations();
   });
+  describe('disabled and loading', () => {
+    it('should not open the menu while disabled', async () => {
+      const user = userEvent.setup();
+
+      render(
+        <DropdownButton
+          label="Download as"
+          disabled
+          options={[{ label: 'PDF', onClick: vi.fn() }]}
+        />,
+      );
+
+      const trigger = screen.getByRole('button', { name: /download as/i });
+
+      expect(trigger).toBeDisabled();
+
+      await user.click(trigger);
+
+      expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+    });
+
+    it('should disable the trigger and announce it as busy while loading', () => {
+      render(
+        <DropdownButton
+          label="Download as"
+          isLoading
+          options={[{ label: 'PDF', onClick: vi.fn() }]}
+        />,
+      );
+
+      const trigger = screen.getByRole('button', { name: /download as/i });
+
+      expect(trigger).toBeDisabled();
+      expect(trigger).toHaveAttribute('aria-busy', 'true');
+    });
+
+    it('should forward the button variant to the trigger', () => {
+      render(
+        <DropdownButton
+          label="Download as"
+          variant="link"
+          options={[{ label: 'PDF', onClick: vi.fn() }]}
+        />,
+      );
+
+      expect(screen.getByRole('button', { name: /download as/i })).toHaveClass(
+        'bg-transparent',
+      );
+    });
+  });
 });

@@ -97,4 +97,46 @@ describe('Alert', () => {
       expect(alert.querySelector('svg')).toBeInTheDocument();
     },
   );
+  describe('action and icon', () => {
+    it('should render the action next to the content', async () => {
+      const onAction = vi.fn();
+      const { user } = setup({
+        type: 'warning',
+        title: 'Add a payment method',
+        action: (
+          <button type="button" onClick={onAction}>
+            Add card
+          </button>
+        ),
+      });
+
+      await user.click(screen.getByRole('button', { name: 'Add card' }));
+
+      expect(onAction).toHaveBeenCalledTimes(1);
+    });
+
+    it('should render a custom icon instead of the type icon', () => {
+      setup({
+        type: 'info',
+        icon: <img alt="Credit card" src="card.svg" />,
+      });
+
+      expect(
+        screen.getByRole('img', { name: 'Credit card' }),
+      ).toBeInTheDocument();
+    });
+
+    it("shouldn't have accessibility violations with an action", async () => {
+      const { component } = setup({
+        type: 'warning',
+        title: 'Add a payment method',
+        description: 'Your trial ends in 3 days.',
+        action: <button type="button">Add card</button>,
+      });
+
+      const results = await axe(component);
+
+      expect(results).toHaveNoViolations();
+    });
+  });
 });

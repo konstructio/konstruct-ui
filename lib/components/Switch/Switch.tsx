@@ -6,8 +6,10 @@ import {
   useId,
   useImperativeHandle,
   useRef,
+  useState,
 } from 'react';
 
+import { LoaderIcon } from '@/assets/icons/components';
 import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
 
@@ -49,7 +51,9 @@ export const Switch: FC<Props> = forwardRef<HTMLInputElement, Props>(
       disabled = false,
       helperText,
       helperTextClassName,
+      isLoading = false,
       label,
+      labels,
       labelClassName,
       labelWrapperClassName,
       name,
@@ -64,6 +68,10 @@ export const Switch: FC<Props> = forwardRef<HTMLInputElement, Props>(
     const inputRef = useRef<HTMLInputElement>(null);
     const id = useId();
     const componentId = name ? `${id}-${name}` : id;
+    const [isChecked, setIsChecked] = useState(
+      value ?? defaultChecked ?? false,
+    );
+    const resolvedLabel = labels ? (isChecked ? labels.on : labels.off) : label;
 
     useImperativeHandle(ref, () => inputRef.current!, [inputRef]);
 
@@ -71,7 +79,16 @@ export const Switch: FC<Props> = forwardRef<HTMLInputElement, Props>(
       if (inputRef.current) {
         inputRef.current.value = `${value}`;
       }
+
+      if (value !== undefined) {
+        setIsChecked(value);
+      }
     }, [value]);
+
+    const handleCheckedChange = (checked: boolean) => {
+      setIsChecked(checked);
+      onChange?.(checked);
+    };
 
     return (
       <div
@@ -88,10 +105,11 @@ export const Switch: FC<Props> = forwardRef<HTMLInputElement, Props>(
           id={componentId}
           defaultChecked={defaultChecked}
           checked={value}
-          onCheckedChange={(e) => onChange?.(e)}
+          onCheckedChange={handleCheckedChange}
           className={cn(switchVariants({ variant, className }))}
-          aria-label={label}
-          disabled={disabled}
+          aria-label={resolvedLabel}
+          aria-busy={isLoading || undefined}
+          disabled={disabled || isLoading}
         >
           <Thumb
             className={thumbVariants({
@@ -100,7 +118,15 @@ export const Switch: FC<Props> = forwardRef<HTMLInputElement, Props>(
           />
         </Root>
 
-        {label ? (
+        {isLoading ? (
+          <LoaderIcon
+            size={16}
+            aria-hidden="true"
+            className="animate-spin shrink-0 self-center text-metal-400"
+          />
+        ) : null}
+
+        {resolvedLabel ? (
           <Typography
             component="label"
             className={cn(
@@ -114,7 +140,7 @@ export const Switch: FC<Props> = forwardRef<HTMLInputElement, Props>(
             htmlFor={componentId}
             style={{ paddingRight: 15 }}
           >
-            {label}
+            {resolvedLabel}
             {helperText ? (
               <Typography
                 component="span"

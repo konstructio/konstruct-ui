@@ -65,6 +65,7 @@ export const buttonVariants = cva(
       },
       shape: {
         circle: ['rounded-full', 'p-1'],
+        pill: ['rounded-full', 'px-6'],
       },
       version: {
         default: '',

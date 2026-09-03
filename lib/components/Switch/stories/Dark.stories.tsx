@@ -75,4 +75,40 @@ export const Dark = {
   },
 } satisfies Story;
 
+export const StateLabelsAndLoading = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`labels` renders a different label for each state, and `isLoading` disables the switch and shows a spinner while the change is pending. Settings composed both around the switch before.',
+      },
+    },
+  },
+  render: function StateLabelsAndLoadingStory() {
+    const [enabled, setEnabled] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleChange = (next: boolean) => {
+      setIsLoading(true);
+      setTimeout(() => {
+        setEnabled(next);
+        setIsLoading(false);
+      }, 1200);
+    };
+
+    return (
+      <div className="flex flex-col gap-5">
+        <SwitchComponent
+          labels={{ on: 'Webhook enabled', off: 'Webhook disabled' }}
+          value={enabled}
+          isLoading={isLoading}
+          onChange={handleChange}
+        />
+
+        <SwitchComponent label="Saving…" value isLoading />
+      </div>
+    );
+  },
+} satisfies Story;
+
 export default meta;

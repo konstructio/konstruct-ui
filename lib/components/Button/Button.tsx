@@ -52,6 +52,10 @@ const Button: FC<Props> = forwardRef<ComponentRef<'button'>, Props>(
     ref,
   ) => {
     const Comp = asChild ? Slot : 'button';
+    const disabledProps =
+      asChild && disabled
+        ? { 'aria-disabled': true, tabIndex: -1 }
+        : { disabled };
 
     return (
       <Comp
@@ -67,8 +71,9 @@ const Button: FC<Props> = forwardRef<ComponentRef<'button'>, Props>(
             variant,
             version,
           }),
+          asChild && disabled && 'pointer-events-none',
         )}
-        disabled={disabled}
+        {...disabledProps}
         {...delegated}
       />
     );
