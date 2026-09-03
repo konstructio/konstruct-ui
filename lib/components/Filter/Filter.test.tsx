@@ -9,6 +9,8 @@ import {
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
+import { DateRangeWithTime } from '../DateRangePicker/DateRangePicker.types';
+
 import { Filter } from './Filter';
 import { Option } from './Filter.types';
 import { BadgeMultiSelectProps, DateFilterDropdownProps } from './components';
@@ -76,6 +78,21 @@ const formatDateWithOrdinal = (date: Date) => {
   const suffix = getOrdinal(day);
 
   return `${weekday}, ${month} ${day}${suffix}, ${year}`;
+};
+
+const pickDay = async (
+  user: ReturnType<typeof userEvent.setup>,
+  day: string,
+) => {
+  const calendar = await screen.findByRole('application', {
+    name: /date range picker calendar/i,
+  });
+  const cells = await within(calendar).findAllByRole('gridcell');
+  const cell = cells.find((candidate) => {
+    return within(candidate).queryByRole('button')?.textContent === day;
+  });
+
+  await user.click(within(cell as HTMLElement).getByRole('button'));
 };
 
 type FilterTestProps = {
@@ -830,6 +847,518 @@ describe('FilterComponent', () => {
       await pick('Custom range');
 
       expect(queryApply()).toBeDisabled();
+    });
+
+    it('should enable apply once a preset changes the selection', async () => {
+      const { open, pick, queryApply } = setupRange({
+        revealCalendarOnCustom: false,
+        applyOnPresetSelect: false,
+      });
+
+      await open();
+      expect(queryApply()).toBeDisabled();
+
+      await pick('Last 7 days');
+
+      expect(queryApply()).toBeEnabled();
+    });
+
+    it('should disable apply again while the selection matches what was applied', async () => {
+      const { user, open, pick, queryApply } = setupRange({
+        revealCalendarOnCustom: false,
+        applyOnPresetSelect: false,
+      });
+
+      await open();
+      await pick('Last 7 days');
+      await user.click(queryApply() as HTMLElement);
+      await open();
+
+      expect(queryApply()).toBeDisabled();
+    });
+  });
+
+  describe('CustomDateRangeFilterDropdown selected preset', () => {
+    const setupSelected = (props = {}) => {
+      render(
+        <Filter>
+          <Filter.CustomDateRangeFilterDropdown
+            label="Created"
+            revealCalendarOnCustom
+            applyOnPresetSelect
+            animationDuration={0}
+            {...props}
+          />
+        </Filter>,
+      );
+
+      const user = userEvent.setup();
+
+      const open = async () =>
+        user.click(await screen.findByRole('button', { name: /created/i }));
+
+      const pick = async (label: string) =>
+        user.click(await screen.findByText(label));
+
+      const getRadio = (name: RegExp) => screen.findByRole('radio', { name });
+
+      return { user, open, pick, getRadio };
+    };
+
+    it('should keep the applied preset marked when reopened', async () => {
+      const { open, pick, getRadio } = setupSelected();
+
+      await open();
+      await pick('Last 30 days');
+      await open();
+
+      expect(await getRadio(/last 30 days/i)).toBeChecked();
+    });
+
+    it('should discard a pending preset when closed without applying', async () => {
+      const { user, open, pick } = setupSelected({
+        applyOnPresetSelect: false,
+      });
+
+      await open();
+      await pick('Last 7 days');
+      await user.keyboard('{Escape}');
+      await open();
+
+      const radios = await screen.findAllByRole('radio');
+
+      radios.forEach((radio) => {
+        expect(radio).not.toBeChecked();
+      });
+      expect(
+        screen.queryByRole('button', { name: /apply/i }),
+      ).not.toBeInTheDocument();
+    });
+
+    it('should fall back to the applied preset when closed mid-change', async () => {
+      const { user, open, pick, getRadio } = setupSelected({
+        applyOnPresetSelect: false,
+      });
+
+      await open();
+      await pick('Last 30 days');
+      await user.click(screen.getByRole('button', { name: /apply/i }));
+      await open();
+      await pick('Last 7 days');
+      await user.keyboard('{Escape}');
+      await open();
+
+      expect(await getRadio(/last 30 days/i)).toBeChecked();
+      expect(await getRadio(/last 7 days/i)).not.toBeChecked();
+    });
+
+    it('should mark the preset even when the calendar is always up', async () => {
+      const { open, pick, getRadio } = setupSelected({
+        revealCalendarOnCustom: false,
+      });
+
+      await open();
+      await pick('Last 7 days');
+      await open();
+
+      expect(await getRadio(/last 7 days/i)).toBeChecked();
+    });
+
+    it('should leave every preset unmarked after clearing', async () => {
+      const { user, open, pick } = setupSelected();
+
+      await open();
+      await pick('Last 30 days');
+      await open();
+      await user.click(screen.getByRole('button', { name: /clear/i }));
+      await open();
+
+      const radios = await screen.findAllByRole('radio');
+
+      radios.forEach((radio) => {
+        expect(radio).not.toBeChecked();
+      });
+    });
+
+    it('should fold the custom range back when closed without applying', async () => {
+      const { user, open, pick } = setupSelected();
+
+      await open();
+      await pick('Custom range');
+      await user.keyboard('{Escape}');
+      await open();
+
+      expect(await screen.findByText('Last 24 hours')).toBeInTheDocument();
+      expect(screen.queryByLabelText(/^start date$/i)).not.toBeInTheDocument();
+      expect(
+        await screen.findByRole('radio', { name: /custom range/i }),
+      ).not.toBeChecked();
+    });
+
+    it('should drop a picked day when closed without applying', async () => {
+      const { user, open, pick } = setupSelected();
+
+      await open();
+      await pick('Last 7 days');
+      await open();
+      await pick('Custom range');
+      await pickDay(user, '15');
+      await user.keyboard('{Escape}');
+      await open();
+
+      expect(
+        await screen.findByRole('radio', { name: /last 7 days/i }),
+      ).toBeChecked();
+      expect(screen.queryByLabelText(/^start date$/i)).not.toBeInTheDocument();
+    });
+
+    it('should span the whole day when a single day is picked', async () => {
+      const onApply = vi.fn();
+      const { user, open, pick } = setupSelected({ onApply });
+
+      await open();
+      await pick('Custom range');
+      await pickDay(user, '15');
+      await user.click(screen.getByRole('button', { name: /apply/i }));
+
+      const [{ from, to }] = onApply.mock.lastCall as [
+        Required<DateRangeWithTime>,
+      ];
+
+      expect([from.getHours(), from.getMinutes(), from.getSeconds()]).toEqual([
+        0, 0, 0,
+      ]);
+      expect([to.getHours(), to.getMinutes(), to.getSeconds()]).toEqual([
+        23, 59, 59,
+      ]);
+      expect(to.getDate()).toBe(from.getDate());
+    });
+
+    it('should leave a preset window untouched', async () => {
+      const onApply = vi.fn();
+      const { open, pick } = setupSelected({ onApply });
+
+      await open();
+      await pick('Last 24 hours');
+
+      const [{ from, to }] = onApply.mock.lastCall as [
+        Required<DateRangeWithTime>,
+      ];
+
+      expect(to.getTime() - from.getTime()).toBe(24 * 60 * 60 * 1000);
+    });
+
+    it('should keep an applied custom range open when reopened', async () => {
+      const { user, open, pick } = setupSelected();
+
+      await open();
+      await pick('Custom range');
+      await pickDay(user, '15');
+      await user.click(screen.getByRole('button', { name: /apply/i }));
+      await open();
+
+      expect(await screen.findByLabelText(/^start date$/i)).toBeInTheDocument();
+      expect(
+        await screen.findByRole('radio', { name: /custom range/i }),
+      ).toBeChecked();
+      expect(screen.getByRole('button', { name: /apply/i })).toBeDisabled();
+    });
+  });
+
+  describe('CustomDateRangeFilterDropdown presets', () => {
+    const setupPresets = (props = {}) => {
+      render(
+        <Filter>
+          <Filter.CustomDateRangeFilterDropdown
+            label="Created"
+            revealCalendarOnCustom
+            applyOnPresetSelect
+            animationDuration={0}
+            {...props}
+          />
+        </Filter>,
+      );
+
+      const user = userEvent.setup();
+
+      const open = async () =>
+        user.click(await screen.findByRole('button', { name: /created/i }));
+
+      const pick = async (label: string) =>
+        user.click(await screen.findByText(label));
+
+      const getOptions = () => screen.findAllByRole('radio');
+
+      return { user, open, pick, getOptions };
+    };
+
+    it('should offer the built-in presets when none are supplied', async () => {
+      const { open } = setupPresets();
+
+      await open();
+
+      expect(await screen.findByText('Last 24 hours')).toBeInTheDocument();
+      expect(screen.getByText('Last 7 days')).toBeInTheDocument();
+      expect(screen.getByText('Last 30 days')).toBeInTheDocument();
+      expect(screen.getByText('Custom range')).toBeInTheDocument();
+    });
+
+    it('should take the rolling windows from props', async () => {
+      const { open, getOptions } = setupPresets({
+        rollingPresets: [
+          { label: 'Past hour', duration: '1h' },
+          { label: 'Past day', duration: '1day' },
+          { label: 'Past week', duration: '7days' },
+          { label: 'Past quarter', duration: '90d' },
+        ],
+        labelCustomRange: 'Pick dates',
+      });
+
+      await open();
+
+      expect(await getOptions()).toHaveLength(5);
+      expect(screen.getByText('Past hour')).toBeInTheDocument();
+      expect(screen.getByText('Past quarter')).toBeInTheDocument();
+      expect(screen.getByText('Pick dates')).toBeInTheDocument();
+      expect(screen.queryByText('Last 24 hours')).not.toBeInTheDocument();
+    });
+
+    it('should roll a supplied window back by its duration', async () => {
+      const onApply = vi.fn();
+      const { open, pick } = setupPresets({
+        onApply,
+        rollingPresets: [
+          { label: 'Past hour', duration: '1h' },
+          { label: 'Past quarter', duration: '90d' },
+        ],
+      });
+
+      await open();
+      await pick('Past hour');
+
+      const [{ from, to }] = onApply.mock.lastCall as [
+        Required<DateRangeWithTime>,
+      ];
+
+      expect(to.getTime() - from.getTime()).toBe(60 * 60 * 1000);
+    });
+
+    it('should keep a supplied window marked by its derived id when reopened', async () => {
+      const { open, pick } = setupPresets({
+        rollingPresets: [{ label: 'Past quarter', duration: '90d' }],
+      });
+
+      await open();
+      await pick('Past quarter');
+      await open();
+
+      expect(
+        await screen.findByRole('radio', { name: /past quarter/i }),
+      ).toBeChecked();
+    });
+
+    it('should resolve a built-in preset to a rolling window', async () => {
+      const onApply = vi.fn();
+      const { open, pick } = setupPresets({ onApply });
+
+      await open();
+      await pick('Last 24 hours');
+
+      const [{ from, to }] = onApply.mock.lastCall as [
+        Required<DateRangeWithTime>,
+      ];
+
+      expect(to.getTime() - from.getTime()).toBe(24 * 60 * 60 * 1000);
+    });
+
+    it('should leave the custom range out when it is switched off', async () => {
+      const { open, getOptions } = setupPresets({ showCustomRange: false });
+
+      await open();
+
+      expect(await getOptions()).toHaveLength(3);
+      expect(screen.queryByText('Custom range')).not.toBeInTheDocument();
+    });
+
+    it('should never show the calendar without a custom range', async () => {
+      const { open } = setupPresets({
+        showCustomRange: false,
+        revealCalendarOnCustom: false,
+      });
+
+      await open();
+
+      expect(await screen.findByText('Last 24 hours')).toBeInTheDocument();
+      expect(screen.queryByLabelText(/^start date$/i)).not.toBeInTheDocument();
+    });
+
+    it('should drop a supplied manual-selection entry as well', async () => {
+      const { open, getOptions } = setupPresets({
+        showCustomRange: false,
+        presets: [
+          {
+            value: 'today',
+            label: 'Today',
+            resolve: (now: Date) => ({ from: now, to: now }),
+          },
+          { value: 'custom', label: 'Choose', resolve: () => ({}) },
+        ],
+      });
+
+      await open();
+
+      expect(await getOptions()).toHaveLength(1);
+      expect(screen.queryByText('Choose')).not.toBeInTheDocument();
+    });
+
+    it('should show a single month with shared navigation when asked', async () => {
+      const { open, pick } = setupPresets({ numberOfMonths: 1 });
+
+      await open();
+      await pick('Custom range');
+
+      expect(
+        await screen.findByRole('button', { name: /^previous month$/i }),
+      ).toBeInTheDocument();
+      expect(
+        screen.queryByRole('button', {
+          name: /previous month for start date/i,
+        }),
+      ).not.toBeInTheDocument();
+    });
+
+    it('should move both months as a pair when asked', async () => {
+      const { open, pick } = setupPresets({ navigationMode: 'together' });
+
+      await open();
+      await pick('Custom range');
+
+      expect(
+        await screen.findByRole('button', { name: /^previous month$/i }),
+      ).toBeInTheDocument();
+      expect(
+        screen.queryByRole('button', {
+          name: /previous month for start date/i,
+        }),
+      ).not.toBeInTheDocument();
+    });
+
+    it('should read the dates numerically when asked', async () => {
+      const { open } = setupPresets({
+        dateDisplayFormat: 'numeric',
+        defaultRange: { from: new Date(2026, 8, 3), to: new Date(2026, 8, 20) },
+      });
+
+      await open();
+
+      expect(await screen.findByLabelText(/^start date$/i)).toHaveValue(
+        '09/03/2026',
+      );
+    });
+
+    it('should show two months with their own navigation by default', async () => {
+      const { open, pick } = setupPresets();
+
+      await open();
+      await pick('Custom range');
+
+      expect(
+        await screen.findByRole('button', {
+          name: /previous month for start date/i,
+        }),
+      ).toBeInTheDocument();
+    });
+  });
+
+  describe('CustomDateRangeFilterDropdown applied badge', () => {
+    const setupBadge = (props = {}) => {
+      render(
+        <Filter>
+          <Filter.CustomDateRangeFilterDropdown
+            label="Created"
+            revealCalendarOnCustom
+            animationDuration={0}
+            {...props}
+          />
+        </Filter>,
+      );
+
+      const user = userEvent.setup();
+      const getTrigger = () =>
+        screen.findByRole('button', { name: /created/i });
+
+      const applyCustom = async () => {
+        await user.click(await getTrigger());
+        await user.click(await screen.findByText('Custom range'));
+        await pickDay(user, '15');
+        await user.click(screen.getByRole('button', { name: /apply/i }));
+      };
+
+      return { user, getTrigger, applyCustom };
+    };
+
+    it('should show one badge with both ends by default', async () => {
+      const { getTrigger, applyCustom } = setupBadge();
+
+      await applyCustom();
+
+      const trigger = await getTrigger();
+
+      expect(
+        within(trigger).getByText(
+          /^[A-Z][a-z]{2} \d{1,2} - [A-Z][a-z]{2} \d{1,2}$/,
+        ),
+      ).toBeInTheDocument();
+      expect(within(trigger).queryByText('to')).not.toBeInTheDocument();
+    });
+
+    it('should show each end in its own badge when split', async () => {
+      const { getTrigger, applyCustom } = setupBadge({
+        appliedRangeDisplay: 'split',
+      });
+
+      await applyCustom();
+
+      const trigger = await getTrigger();
+
+      expect(
+        within(trigger).getAllByText(/^\d{1,2} [A-Z][a-z]{2} \d{4}$/),
+      ).toHaveLength(2);
+      expect(within(trigger).getByText('to')).toBeInTheDocument();
+    });
+
+    it('should show a default range as applied before anything is picked', async () => {
+      const { getTrigger } = setupBadge({
+        appliedRangeDisplay: 'split',
+        defaultRange: { from: new Date(2026, 6, 6), to: new Date(2026, 7, 4) },
+      });
+
+      const trigger = await getTrigger();
+
+      expect(within(trigger).getByText('6 Jul 2026')).toBeInTheDocument();
+      expect(within(trigger).getByText('to')).toBeInTheDocument();
+      expect(within(trigger).getByText('4 Aug 2026')).toBeInTheDocument();
+    });
+
+    it('should not offer apply for a default range until it changes', async () => {
+      const { user, getTrigger } = setupBadge({
+        defaultRange: { from: new Date(2026, 6, 6), to: new Date(2026, 7, 4) },
+      });
+
+      await user.click(await getTrigger());
+
+      expect(screen.getByRole('button', { name: /apply/i })).toBeDisabled();
+    });
+
+    it('should take the word between the ends from props', async () => {
+      const { getTrigger, applyCustom } = setupBadge({
+        appliedRangeDisplay: 'split',
+        labelRangeSeparator: 'until',
+      });
+
+      await applyCustom();
+
+      expect(within(await getTrigger()).getByText('until')).toBeInTheDocument();
     });
   });
 });

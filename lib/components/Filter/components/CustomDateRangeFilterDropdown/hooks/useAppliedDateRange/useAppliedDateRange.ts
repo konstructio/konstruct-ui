@@ -7,10 +7,10 @@ import {
 
 import { Props } from './useAppliedDateRange.types';
 
-export const useAppliedDateRange = ({ onApply }: Props) => {
+export const useAppliedDateRange = ({ defaultRange, onApply }: Props) => {
   const [appliedRange, setAppliedRange] = useState<
     DateRangeWithTime | undefined
-  >();
+  >(defaultRange);
 
   const applyRange = useCallback(
     (range: DateRange | undefined) => {

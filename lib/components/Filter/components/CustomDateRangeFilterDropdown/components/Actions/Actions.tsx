@@ -12,7 +12,6 @@ export const Actions: FC = () => {
   const {
     animationDuration,
     appliedRangeLabel,
-    canApply,
     hasPendingSelection,
     isCollapsed,
     labelApply,
@@ -88,7 +87,7 @@ export const Actions: FC = () => {
                 >
                   <Button
                     appearance="compact"
-                    disabled={!canApply}
+                    disabled={!hasPendingSelection}
                     onClick={onApply}
                   >
                     {labelApply}

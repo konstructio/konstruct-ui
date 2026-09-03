@@ -26,11 +26,17 @@ export const useCalendarVisibility = ({ defaultRange }: Props) => {
     setIsCollapsed(true);
   }, []);
 
+  const restoreCalendar = useCallback((shows: boolean) => {
+    setShowsCalendar(shows);
+    setIsCollapsed(false);
+  }, []);
+
   return {
     isCollapsed,
     showsCalendar,
     collapseCalendar,
     hideCalendar,
+    restoreCalendar,
     revealCalendarFor,
   };
 };

@@ -8,16 +8,21 @@ import { PanelActions } from '../PanelActions/PanelActions';
 export const Picker: FC = () => {
   const {
     animationDuration,
+    dateDisplayFormat,
     labelEndDate,
     labelStartDate,
     labelTimePeriod,
     maxDate,
     minDate,
+    navigationMode,
+    numberOfMonths,
     presets,
     requiredDates,
     resetKey,
     revealCalendarOnCustom,
+    selectedPreset,
     selectedRange,
+    showOutsideDays,
     showPresets,
     showsCalendar,
     showTime,
@@ -29,12 +34,16 @@ export const Picker: FC = () => {
   const keepsCustomPreset = revealCalendarOnCustom
     ? showsCalendar
     : Boolean(selectedRange);
-  const defaultPreset = keepsCustomPreset ? 'custom' : null;
+  const defaultPreset = selectedPreset ?? (keepsCustomPreset ? 'custom' : null);
 
   return (
     <DateRangePicker
       key={resetKey}
       animationDuration={animationDuration}
+      dateDisplayFormat={dateDisplayFormat}
+      navigationMode={navigationMode}
+      numberOfMonths={numberOfMonths}
+      showOutsideDays={showOutsideDays}
       defaultRange={selectedRange}
       defaultPreset={defaultPreset}
       showTime={showTime}

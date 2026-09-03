@@ -4,7 +4,10 @@ export type {
   SelectedOptions,
 } from './BadgeDropdown/BadgeMultiSelect.types';
 export * from './CustomDateRangeFilterDropdown/CustomDateRangeFilterDropdown';
-export type { Props as CustomDateRangeFilterDropdownProps } from './CustomDateRangeFilterDropdown/CustomDateRangeFilterDropdown.types';
+export type {
+  Props as CustomDateRangeFilterDropdownProps,
+  RollingPreset,
+} from './CustomDateRangeFilterDropdown/CustomDateRangeFilterDropdown.types';
 export * from './DateFilterDropdown/DateFilterDropdown';
 export type { Props as DateFilterDropdownProps } from './DateFilterDropdown/DateFilterDropdown.types';
 export * from './DateRangeFilterDropdown/DateRangeFilterDropdown';

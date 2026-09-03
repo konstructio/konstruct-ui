@@ -5,7 +5,7 @@ import { Button } from '@/components/Button/Button';
 import { useCustomDateRangeFilterDropdown } from '../../contexts';
 
 export const PanelActions: FC = () => {
-  const { canApply, labelApply, labelReset, onApply, onClear } =
+  const { hasPendingSelection, labelApply, labelReset, onApply, onClear } =
     useCustomDateRangeFilterDropdown();
 
   return (
@@ -13,7 +13,11 @@ export const PanelActions: FC = () => {
       <Button variant="secondary" appearance="compact" onClick={onClear}>
         {labelReset}
       </Button>
-      <Button appearance="compact" disabled={!canApply} onClick={onApply}>
+      <Button
+        appearance="compact"
+        disabled={!hasPendingSelection}
+        onClick={onApply}
+      >
         {labelApply}
       </Button>
     </div>
