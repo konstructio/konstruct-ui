@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { cn } from '@/utils';
 
 import { useDateRangePicker } from '../../contexts';
-import { calculatePresetRange } from '../../utils';
+import { hidesRightPanel } from '../../utils';
 
 import { Props } from './RightPanel.types';
 
@@ -20,22 +20,11 @@ export const RightPanel: FC<Props> = ({ children, className }) => {
   const { animationDuration, preset, presets, revealCalendarOnCustom } =
     useDateRangePicker();
 
-  const isHidden = () => {
-    if (!revealCalendarOnCustom) {
-      return false;
-    }
-
-    const range = calculatePresetRange(preset, presets);
-
-    // A preset that resolves to a window speaks for itself, and no selection at
-    // all means no filter yet; only the manual-selection entry needs the
-    // calendar.
-    return preset === null || Boolean(range.from) || Boolean(range.to);
-  };
+  const isHidden = hidesRightPanel(preset, presets, revealCalendarOnCustom);
 
   return (
     <AnimatePresence initial={false}>
-      {!isHidden() && (
+      {!isHidden && (
         <motion.div
           key="right-panel"
           className="overflow-hidden"

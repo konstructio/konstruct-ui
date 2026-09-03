@@ -4,6 +4,7 @@ import { useDateRangePicker } from '../../contexts';
 import { createDisabledMatcher } from '../../utils';
 import { CalendarPanelProps } from './CalendarPanel.types';
 import { IndependentModeCalendar, TogetherModeCalendar } from './components';
+import { SINGLE_MONTH_WIDTH } from './constants';
 
 import 'react-day-picker/style.css';
 import './CalendarPanel.css';
@@ -36,6 +37,7 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
     maxDate,
     minDate,
     navigationMode,
+    numberOfMonths,
     range,
     showOutsideDays,
     navigateLeftNext,
@@ -62,7 +64,9 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
     setRange(selectedRange);
   };
 
-  if (navigationMode === 'independent') {
+  const isSingleMonth = numberOfMonths === 1;
+
+  if (navigationMode === 'independent' && !isSingleMonth) {
     return (
       <IndependentModeCalendar
         className={className}
@@ -99,7 +103,7 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
   return (
     <TogetherModeCalendar
       className={className}
-      calendarWidth={calendarWidth}
+      calendarWidth={isSingleMonth ? SINGLE_MONTH_WIDTH : calendarWidth}
       ariaLabelCalendar={ariaLabelCalendar}
       ariaLabelPrevMonth={ariaLabelPrevMonth}
       ariaLabelNextMonth={ariaLabelNextMonth}
@@ -118,7 +122,8 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
         disabled,
         canNavigatePrev,
         canNavigateNext,
-        navigationMode,
+        navigationMode: 'together',
+        numberOfMonths,
         navigatePrevMonth,
         navigateNextMonth,
       }}

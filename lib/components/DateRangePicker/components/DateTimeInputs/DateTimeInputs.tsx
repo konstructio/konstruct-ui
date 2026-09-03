@@ -2,6 +2,8 @@ import { FC } from 'react';
 
 import { cn } from '@/utils';
 
+import { useDateRangePicker } from '../../contexts';
+
 import { EndInputFields, StartInputFields } from './components';
 import { DateTimeInputsProps } from './DateTimeInputs.types';
 import { dateTimeInputsVariants } from './DateTimeInputs.variants';
@@ -19,6 +21,7 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({
   errorDateNotAvailable = 'Date is not available',
   classNames,
 }) => {
+  const { numberOfMonths } = useDateRangePicker();
   const {
     timeFormat,
     showTime,
@@ -44,9 +47,20 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({
     errorDateNotAvailable,
   });
 
+  const getLayout = () => {
+    if (numberOfMonths === 2) {
+      return 'row';
+    }
+
+    return showTime ? 'stacked' : 'compact';
+  };
+
   return (
     <div
-      className={cn(dateTimeInputsVariants({ className }), classNames?.root)}
+      className={cn(
+        dateTimeInputsVariants({ layout: getLayout(), className }),
+        classNames?.root,
+      )}
     >
       <StartInputFields
         dateValue={startDateValue}

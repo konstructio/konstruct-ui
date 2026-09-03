@@ -5,20 +5,30 @@ import { cva } from 'class-variance-authority';
  * by a fill — it shares the surface behind it. Its own padding stands in for the
  * padding the picker no longer applies.
  */
-export const presetPanelVariants = cva([
-  'flex',
-  'flex-col',
-  'gap-2.5',
-  'pt-4',
-  'pb-3.5',
-  'px-2.5',
-  'border-r',
-  'border-slate-200',
-  'dark:border-metal-700',
-  // The design fixes the column at 206px rather than letting it size to its
-  // longest label, so the calendar beside it does not shift between preset sets.
-  'w-[206px]',
-]);
+export const presetPanelVariants = cva(
+  [
+    'flex',
+    'flex-col',
+    'gap-2.5',
+    'pt-4',
+    'pb-3.5',
+    'px-2.5',
+    'border-r',
+    'transition-colors',
+    // The design fixes the column at 206px rather than letting it size to its
+    // longest label, so the calendar beside it does not shift between preset sets.
+    'w-[206px]',
+  ],
+  {
+    variants: {
+      divided: {
+        true: ['border-slate-200', 'dark:border-metal-700'],
+        false: ['border-transparent'],
+      },
+    },
+    defaultVariants: { divided: true },
+  },
+);
 
 /**
  * The title sits on the same left edge as the option labels below it, so its

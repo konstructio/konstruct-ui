@@ -51,4 +51,38 @@ describe('getDisplayedMonths', () => {
 
     expect(monthsOf(pair)).toEqual(['2026-11', '2027-0']);
   });
+
+  describe('single month', () => {
+    it('should open on the reference month itself', () => {
+      const [left] = getDisplayedMonths(new Date(2026, 7, 10), undefined, 1);
+
+      expect(`${left.getFullYear()}-${left.getMonth()}`).toBe('2026-7');
+    });
+
+    it('should still hand back the following month as the pair', () => {
+      expect(
+        monthsOf(getDisplayedMonths(new Date(2026, 7, 10), undefined, 1)),
+      ).toEqual(['2026-7', '2026-8']);
+    });
+
+    it('should not step back when the reference month is capped mid-month', () => {
+      const [left] = getDisplayedMonths(
+        new Date(2026, 8, 1),
+        new Date(2026, 8, 15),
+        1,
+      );
+
+      expect(left.getMonth()).toBe(8);
+    });
+
+    it('should step back when the reference month lies wholly past maxDate', () => {
+      const [left] = getDisplayedMonths(
+        new Date(2026, 9, 1),
+        new Date(2026, 8, 15),
+        1,
+      );
+
+      expect(left.getMonth()).toBe(8);
+    });
+  });
 });

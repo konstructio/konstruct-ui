@@ -14,6 +14,7 @@ import {
 } from './components/PresetPanel/PresetPanel.types';
 import { dateRangePickerVariants } from './DateRangePicker.variants';
 import {
+  DateDisplayFormat,
   DateRange,
   DateRangePreset,
   DateRangePresetOption,
@@ -22,6 +23,7 @@ import {
 } from './contexts';
 
 export type {
+  DateDisplayFormat,
   DateRange,
   DateRangePreset,
   DateRangePresetOption,
@@ -107,6 +109,8 @@ export type Props = VariantProps<typeof dateRangePickerVariants> & {
    * - 'together': Both months navigate together (prev/next moves both by one month)
    */
   navigationMode?: 'independent' | 'together';
+  numberOfMonths?: 1 | 2;
+  dateDisplayFormat?: DateDisplayFormat;
   /** Aria label for the calendar container (default: 'Date range picker calendar') */
   ariaLabelCalendar?: string;
   /** Aria label for previous month button in together mode (default: 'Previous month') */

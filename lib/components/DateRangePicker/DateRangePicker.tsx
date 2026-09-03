@@ -64,6 +64,8 @@ const DateRangePicker: FC<Props> = ({
   hideDisabledNavigation,
   showOutsideDays,
   navigationMode = 'independent',
+  numberOfMonths = 2,
+  dateDisplayFormat = 'long',
   // CalendarPanel props
   ariaLabelCalendar,
   ariaLabelPrevMonth,
@@ -113,6 +115,8 @@ const DateRangePicker: FC<Props> = ({
     hideDisabledNavigation={hideDisabledNavigation}
     showOutsideDays={showOutsideDays}
     navigationMode={navigationMode}
+    numberOfMonths={numberOfMonths}
+    dateDisplayFormat={dateDisplayFormat}
     revealCalendarOnCustom={revealCalendarOnCustom}
     onRangeChange={onRangeChange}
     onDateChange={onDateChange}

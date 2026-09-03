@@ -556,6 +556,113 @@ describe('DateRangePicker', () => {
     });
   });
 
+  describe('Single month', () => {
+    it('should share one pair of navigation buttons even in independent mode', async () => {
+      const { getPrevMonthButton, getNextMonthButton } = setup({
+        numberOfMonths: 1,
+        navigationMode: 'independent',
+      });
+
+      expect(await getPrevMonthButton()).toBeInTheDocument();
+      expect(await getNextMonthButton()).toBeInTheDocument();
+      expect(
+        screen.queryByRole('button', {
+          name: /previous month for start date/i,
+        }),
+      ).not.toBeInTheDocument();
+    });
+
+    it('should let the shown month advance up to maxDate', async () => {
+      const { getNextMonthButton } = setup({
+        numberOfMonths: 1,
+        defaultRange: { from: new Date(2026, 8, 1) },
+        maxDate: new Date(2026, 9, 15),
+      });
+
+      // September is on screen and October still holds selectable days, so the
+      // step forward has to stay open; a two-month reading would already see
+      // October and lock it.
+      expect(await getNextMonthButton()).toBeEnabled();
+    });
+
+    it('should lock the step forward once the shown month reaches maxDate', async () => {
+      const { getNextMonthButton } = setup({
+        numberOfMonths: 1,
+        defaultRange: { from: new Date(2026, 8, 1) },
+        maxDate: new Date(2026, 8, 15),
+      });
+
+      expect(await getNextMonthButton()).toBeDisabled();
+    });
+
+    it('should open on the reference month rather than the one before it', async () => {
+      const { getNextMonthButton } = setup({
+        numberOfMonths: 1,
+        defaultRange: { from: new Date(2026, 8, 1) },
+        maxDate: new Date(2026, 8, 1),
+      });
+
+      // Capped on its own first day, September is the last reachable month.
+      // Opening on August, as the two-month pair would, leaves a step forward.
+      expect(await getNextMonthButton()).toBeDisabled();
+    });
+
+    it('should navigate to the next month', async () => {
+      const { navigateToNextMonth, getMonthTitles } = setup({
+        numberOfMonths: 1,
+        animationDuration: 0,
+      });
+
+      const [initialTitle] = await getMonthTitles();
+      const initialMonth = initialTitle.textContent;
+
+      await navigateToNextMonth();
+
+      await waitFor(async () => {
+        const [updatedTitle] = await getMonthTitles();
+        expect(updatedTitle.textContent).not.toBe(initialMonth);
+      });
+    });
+  });
+
+  describe('dateDisplayFormat', () => {
+    const defaultRange = {
+      from: new Date(2026, 8, 3),
+      to: new Date(2026, 8, 20),
+    };
+
+    it('should spell the date out by default', async () => {
+      const { getStartDateInput, getEndDateInput } = setup({ defaultRange });
+
+      expect(await getStartDateInput()).toHaveValue('3 September 2026');
+      expect(await getEndDateInput()).toHaveValue('20 September 2026');
+    });
+
+    it('should show the date numerically when asked', async () => {
+      const { getStartDateInput, getEndDateInput } = setup({
+        defaultRange,
+        dateDisplayFormat: 'numeric',
+      });
+
+      expect(await getStartDateInput()).toHaveValue('09/03/2026');
+      expect(await getEndDateInput()).toHaveValue('09/20/2026');
+    });
+
+    it('should keep the numeric reading after the field is left', async () => {
+      const { user, getStartDateInput } = setup({
+        defaultRange,
+        dateDisplayFormat: 'numeric',
+      });
+
+      const input = await getStartDateInput();
+
+      await user.click(input);
+      await user.tab();
+
+      expect(input).toHaveValue('09/03/2026');
+    });
+  });
+
   describe('Date Restrictions - minDate', () => {
     it('should disable navigation to previous month when at minDate', async () => {
       const today = new Date();
@@ -1185,6 +1292,47 @@ describe('DateRangePicker', () => {
       const [, manualRadio] = await getAllPresetRadios();
 
       expect(wrapperOf(manualRadio)?.className).toContain('border-dashed');
+    });
+  });
+
+  describe('Preset panel rule', () => {
+    const getPanel = async () => {
+      const title = await screen.findByText('Time period');
+
+      return title.parentElement as HTMLElement;
+    };
+
+    it('should draw the rule beside the presets while the calendar is up', async () => {
+      setup();
+
+      expect((await getPanel()).className).toContain('border-slate-200');
+    });
+
+    it('should drop the rule while the calendar is tucked away', async () => {
+      setup({ revealCalendarOnCustom: true, defaultPreset: 'last-7-days' });
+
+      const panel = await getPanel();
+
+      expect(panel.className).toContain('border-transparent');
+      expect(panel.className).not.toContain('border-slate-200');
+    });
+
+    it('should draw it again once the calendar is revealed', async () => {
+      const { selectPreset } = setup({
+        revealCalendarOnCustom: true,
+        animationDuration: 0,
+        defaultPreset: 'last-7-days',
+      });
+
+      await selectPreset('Custom');
+
+      expect((await getPanel()).className).toContain('border-slate-200');
+    });
+
+    it('should fade the rule over the same span as the panel fold', async () => {
+      setup({ animationDuration: 250 });
+
+      expect((await getPanel()).style.transitionDuration).toBe('250ms');
     });
   });
 

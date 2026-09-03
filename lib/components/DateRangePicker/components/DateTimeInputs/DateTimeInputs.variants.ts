@@ -1,6 +1,15 @@
 import { cva } from 'class-variance-authority';
 
-export const dateTimeInputsVariants = cva(['flex', 'gap-8', 'w-full', 'px-1']);
+export const dateTimeInputsVariants = cva(['flex'], {
+  variants: {
+    layout: {
+      row: ['gap-8', 'w-full', 'px-1'],
+      compact: ['gap-2', 'w-66.5', 'px-3'],
+      stacked: ['flex-col', 'gap-4', 'w-66.5'],
+    },
+  },
+  defaultVariants: { layout: 'row' },
+});
 
 export const dateTimeGroupVariants = cva([
   'flex',

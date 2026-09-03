@@ -152,4 +152,35 @@ export const RevealOnCustom: Story = {
   },
 };
 
+export const SingleMonth: Story = {
+  parameters: {
+    theme: 'dark',
+  },
+  render: () => (
+    <DateRangePicker
+      numberOfMonths={1}
+      showTime={false}
+      showOutsideDays
+      onRangeChange={(range) => console.log('Range changed:', range)}
+    />
+  ),
+};
+
+export const NumericDates: Story = {
+  parameters: {
+    theme: 'dark',
+  },
+  render: () => (
+    <DateRangePicker
+      dateDisplayFormat="numeric"
+      showTime={false}
+      defaultRange={{
+        from: new Date(new Date().getFullYear(), new Date().getMonth(), 10),
+        to: new Date(new Date().getFullYear(), new Date().getMonth(), 20),
+      }}
+      onRangeChange={(range) => console.log('Range changed:', range)}
+    />
+  ),
+};
+
 export default meta;

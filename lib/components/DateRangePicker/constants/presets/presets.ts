@@ -1,14 +1,4 @@
-import {
-  DateRange,
-  DateRangePreset,
-  DateRangePresetOption,
-} from '../contexts/date-range-picker.context';
-
-/** @deprecated Use `DateRangePresetOption`, which also carries the option's `resolve`. */
-export type PresetOption = {
-  value: DateRangePreset;
-  label: string;
-};
+import { DateRange, DateRangePresetOption } from '../../contexts';
 
 /** Midnight of the day `now` falls on. */
 const startOfDay = (now: Date): Date =>

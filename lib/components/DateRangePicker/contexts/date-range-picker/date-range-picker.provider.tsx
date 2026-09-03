@@ -1,46 +1,22 @@
-import { FC, ReactNode, useCallback, useMemo, useState } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
+
+import { PRESET_OPTIONS } from '../../constants';
+import {
+  calculatePresetRange,
+  canNavigateToNextMonth,
+  canNavigateToPrevMonth,
+  getDisplayedMonths,
+} from '../../utils';
 
 import {
-  BlockedMonth,
   DateRange,
   DateRangePreset,
-  DateRangePresetOption,
+  DateRangePickerContext,
   TimeRange,
 } from './date-range-picker.context';
-import { PRESET_OPTIONS } from '../constants/presets';
-import { getDisplayedMonths } from '../utils/displayed-months';
-import { calculatePresetRange } from '../utils/presets';
-import {
-  canNavigateToPrevMonth,
-  canNavigateToNextMonth,
-} from '../utils/disabled-dates';
-import { DateRangePickerContext } from './date-range-picker.context';
+import { Props } from './date-range-picker.types';
 
-interface DateRangePickerProviderProps {
-  children: ReactNode;
-  defaultRange?: DateRange;
-  defaultTime?: TimeRange;
-  defaultPreset?: DateRangePreset | null;
-  presets?: DateRangePresetOption[];
-  timeFormat?: '12' | '24';
-  showTime?: boolean;
-  name?: string;
-  disabled?: boolean;
-  animationDuration?: number;
-  blockedDays?: Date[];
-  blockedMonths?: BlockedMonth[];
-  minDate?: Date;
-  maxDate?: Date;
-  hideDisabledNavigation?: boolean;
-  showOutsideDays?: boolean;
-  navigationMode?: 'together' | 'independent';
-  revealCalendarOnCustom?: boolean;
-  onRangeChange?: (range: DateRange & TimeRange) => void;
-  onDateChange?: (range: DateRange) => void;
-  onPresetChange?: (preset: DateRangePreset | null, range: DateRange) => void;
-}
-
-export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
+export const DateRangePickerProvider: FC<Props> = ({
   children,
   defaultRange,
   defaultTime,
@@ -58,13 +34,17 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
   hideDisabledNavigation = false,
   showOutsideDays = false,
   navigationMode = 'together',
+  numberOfMonths = 2,
+  dateDisplayFormat = 'long',
   revealCalendarOnCustom = false,
   onRangeChange,
   onDateChange,
   onPresetChange,
 }) => {
   const [range, setRangeState] = useState<DateRange>(() => {
-    if (defaultRange) return defaultRange;
+    if (defaultRange) {
+      return defaultRange;
+    }
     return calculatePresetRange(defaultPreset, presets);
   });
 
@@ -85,8 +65,10 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
     // Navigate to the month of the initial range, or current month if none
     const referenceDate = initialRange?.from ?? initialRange?.to ?? new Date();
 
-    return getDisplayedMonths(referenceDate, maxDate);
+    return getDisplayedMonths(referenceDate, maxDate, numberOfMonths);
   });
+
+  const lastVisibleMonth = displayedMonths[numberOfMonths - 1];
 
   const setRange = useCallback(
     (newRange: DateRange) => {
@@ -120,7 +102,9 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
       // An option that resolves to nothing is a manual-selection entry ('custom'
       // by default): keep whatever the calendar already holds instead of wiping
       // it, and do not report a range change that did not happen.
-      if (!presetRange.from && !presetRange.to) return;
+      if (!presetRange.from && !presetRange.to) {
+        return;
+      }
 
       setRangeState(presetRange);
       onRangeChange?.({ ...presetRange, ...time });
@@ -135,12 +119,14 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
   );
 
   const canNavigateNext = useMemo(
-    () => canNavigateToNextMonth(displayedMonths[1], maxDate),
-    [displayedMonths, maxDate],
+    () => canNavigateToNextMonth(lastVisibleMonth, maxDate),
+    [lastVisibleMonth, maxDate],
   );
 
   const navigatePrevMonth = useCallback(() => {
-    if (!canNavigatePrev) return;
+    if (!canNavigatePrev) {
+      return;
+    }
     setDisplayedMonths(([left, right]) => {
       const newLeft = new Date(left.getFullYear(), left.getMonth() - 1, 1);
       const newRight = new Date(right.getFullYear(), right.getMonth() - 1, 1);
@@ -149,7 +135,9 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
   }, [canNavigatePrev]);
 
   const navigateNextMonth = useCallback(() => {
-    if (!canNavigateNext) return;
+    if (!canNavigateNext) {
+      return;
+    }
     setDisplayedMonths(([left, right]) => {
       const newLeft = new Date(left.getFullYear(), left.getMonth() + 1, 1);
       const newRight = new Date(right.getFullYear(), right.getMonth() + 1, 1);
@@ -195,7 +183,9 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
 
   // Independent navigation functions
   const navigateLeftPrev = useCallback(() => {
-    if (!canLeftNavigatePrev) return;
+    if (!canLeftNavigatePrev) {
+      return;
+    }
     setDisplayedMonths(([left, right]) => {
       const newLeft = new Date(left.getFullYear(), left.getMonth() - 1, 1);
       return [newLeft, right];
@@ -203,7 +193,9 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
   }, [canLeftNavigatePrev]);
 
   const navigateLeftNext = useCallback(() => {
-    if (!canLeftNavigateNext) return;
+    if (!canLeftNavigateNext) {
+      return;
+    }
     setDisplayedMonths(([left, right]) => {
       const newLeft = new Date(left.getFullYear(), left.getMonth() + 1, 1);
       return [newLeft, right];
@@ -211,7 +203,9 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
   }, [canLeftNavigateNext]);
 
   const navigateRightPrev = useCallback(() => {
-    if (!canRightNavigatePrev) return;
+    if (!canRightNavigatePrev) {
+      return;
+    }
     setDisplayedMonths(([left, right]) => {
       const newRight = new Date(right.getFullYear(), right.getMonth() - 1, 1);
       return [left, newRight];
@@ -219,7 +213,9 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
   }, [canRightNavigatePrev]);
 
   const navigateRightNext = useCallback(() => {
-    if (!canRightNavigateNext) return;
+    if (!canRightNavigateNext) {
+      return;
+    }
     setDisplayedMonths(([left, right]) => {
       const newRight = new Date(right.getFullYear(), right.getMonth() + 1, 1);
       return [left, newRight];
@@ -290,6 +286,8 @@ export const DateRangePickerProvider: FC<DateRangePickerProviderProps> = ({
         revealCalendarOnCustom,
         showOutsideDays,
         navigationMode,
+        numberOfMonths,
+        dateDisplayFormat,
       }}
     >
       {children}

@@ -1,9 +1,9 @@
-import { PRESET_OPTIONS } from '../constants/presets';
+import { PRESET_OPTIONS } from '../../constants';
 import {
   DateRange,
   DateRangePreset,
   DateRangePresetOption,
-} from '../contexts/date-range-picker.context';
+} from '../../contexts';
 
 /**
  * Calculates the date range for a given preset by asking the option itself.

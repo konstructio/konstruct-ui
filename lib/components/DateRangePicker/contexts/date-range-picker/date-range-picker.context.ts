@@ -44,6 +44,8 @@ export type TimeRange = {
 
 export type DateRangeWithTime = DateRange & TimeRange;
 
+export type DateDisplayFormat = 'long' | 'numeric';
+
 export type BlockedMonth = {
   year: number;
   month: number;
@@ -88,6 +90,8 @@ export type DateRangePickerContextValue = {
   showOutsideDays: boolean;
   /** Navigation mode: 'together' or 'independent' */
   navigationMode: 'together' | 'independent';
+  numberOfMonths: 1 | 2;
+  dateDisplayFormat: DateDisplayFormat;
   /** Whether the inputs and calendar only show for the manual-selection preset */
   revealCalendarOnCustom: boolean;
   /** Whether left month can navigate to previous (independent mode) */

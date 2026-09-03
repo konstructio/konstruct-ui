@@ -1,11 +1,6 @@
-import { BlockedMonth } from '../contexts';
+import { BlockedMonth } from '../../contexts';
 
-export type DateRestrictions = {
-  blockedDays: Date[];
-  blockedMonths: BlockedMonth[];
-  minDate?: Date;
-  maxDate?: Date;
-};
+import { DateRestrictions } from './disabled-dates.types';
 
 /**
  * Normalizes a date to midnight for comparison (ignoring time).
@@ -45,7 +40,9 @@ const isInBlockedMonth = (
  * Checks if a date is before the minimum date.
  */
 const isBeforeMinDate = (date: Date, minDate?: Date): boolean => {
-  if (!minDate) return false;
+  if (!minDate) {
+    return false;
+  }
   return normalizeDate(date) < normalizeDate(minDate);
 };
 
@@ -53,7 +50,9 @@ const isBeforeMinDate = (date: Date, minDate?: Date): boolean => {
  * Checks if a date is after the maximum date.
  */
 const isAfterMaxDate = (date: Date, maxDate?: Date): boolean => {
-  if (!maxDate) return false;
+  if (!maxDate) {
+    return false;
+  }
   return normalizeDate(date) > normalizeDate(maxDate);
 };
 
@@ -66,10 +65,18 @@ export const isDateSelectable = (
 ): boolean => {
   const { blockedDays, blockedMonths, minDate, maxDate } = restrictions;
 
-  if (isBlockedDay(date, blockedDays)) return false;
-  if (isInBlockedMonth(date, blockedMonths)) return false;
-  if (isBeforeMinDate(date, minDate)) return false;
-  if (isAfterMaxDate(date, maxDate)) return false;
+  if (isBlockedDay(date, blockedDays)) {
+    return false;
+  }
+  if (isInBlockedMonth(date, blockedMonths)) {
+    return false;
+  }
+  if (isBeforeMinDate(date, minDate)) {
+    return false;
+  }
+  if (isAfterMaxDate(date, maxDate)) {
+    return false;
+  }
 
   return true;
 };
@@ -104,7 +111,9 @@ export const canNavigateToPrevMonth = (
   currentLeftMonth: Date,
   minDate?: Date,
 ): boolean => {
-  if (!minDate) return true;
+  if (!minDate) {
+    return true;
+  }
 
   // The previous month's last day
   const prevMonth = new Date(
@@ -130,7 +139,9 @@ export const canNavigateToNextMonth = (
   currentRightMonth: Date,
   maxDate?: Date,
 ): boolean => {
-  if (!maxDate) return true;
+  if (!maxDate) {
+    return true;
+  }
 
   // The next month's first day
   const nextMonth = new Date(

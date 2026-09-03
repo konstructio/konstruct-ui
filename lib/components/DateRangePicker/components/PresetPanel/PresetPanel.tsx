@@ -7,6 +7,7 @@ import { RadioGroup } from '@/components/RadioGroup/RadioGroup';
 import { Typography } from '@/components/Typography/Typography';
 import { useDateRangePicker } from '../../contexts';
 import { DateRangePreset } from '../../DateRangePicker.types';
+import { hidesRightPanel } from '../../utils';
 
 import { PresetPanelProps } from './PresetPanel.types';
 import {
@@ -36,8 +37,16 @@ export const PresetPanel: FC<PresetPanelProps> = ({
   presetLabels,
   classNames,
 }) => {
-  const { preset, presets, setPreset, disabled, revealCalendarOnCustom } =
-    useDateRangePicker();
+  const {
+    animationDuration,
+    preset,
+    presets,
+    setPreset,
+    disabled,
+    revealCalendarOnCustom,
+  } = useDateRangePicker();
+
+  const divided = !hidesRightPanel(preset, presets, revealCalendarOnCustom);
 
   const handlePresetChange = useCallback(
     (value: string) => {
@@ -120,7 +129,13 @@ export const PresetPanel: FC<PresetPanelProps> = ({
   ]);
 
   return (
-    <div className={cn(presetPanelVariants({ className }), classNames?.root)}>
+    <div
+      className={cn(
+        presetPanelVariants({ className, divided }),
+        classNames?.root,
+      )}
+      style={{ transitionDuration: `${animationDuration}ms` }}
+    >
       <Typography
         component="span"
         className={cn(presetTitleVariants(), classNames?.title)}
