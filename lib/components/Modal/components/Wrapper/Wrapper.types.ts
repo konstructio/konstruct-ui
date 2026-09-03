@@ -8,6 +8,8 @@ import { modalVariants } from './Wrapper.variants';
 
 export type Props = PropsWithChildren &
   VariantProps<typeof modalVariants> & {
+    ariaLabel?: string;
+    ariaLabelledBy?: string;
     buttonCloseClassName?: string;
     className?: string;
     containerClassName?: string;

@@ -13,6 +13,8 @@ import { Props } from './Wrapper.types';
 import { buttonCloseVariants, modalVariants } from './Wrapper.variants';
 
 export const Wrapper: FC<Props> = ({
+  ariaLabel,
+  ariaLabelledBy,
   buttonCloseClassName,
   children,
   className,
@@ -66,6 +68,8 @@ export const Wrapper: FC<Props> = ({
             )}
             role="dialog"
             aria-modal="true"
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledBy}
             layout="size"
             transition={transition ?? { duration: 0.25, ease: 'easeInOut' }}
           >

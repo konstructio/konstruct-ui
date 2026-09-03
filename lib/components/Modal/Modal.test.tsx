@@ -188,4 +188,31 @@ describe('Modal', () => {
       expect(trigger).toHaveFocus();
     });
   });
+  describe('accessible name', () => {
+    it('should name the dialog with ariaLabel', () => {
+      render(
+        <Modal isOpen ariaLabel="Cluster settings">
+          <Modal.Body>Content</Modal.Body>
+        </Modal>,
+      );
+
+      expect(
+        screen.getByRole('dialog', { name: 'Cluster settings' }),
+      ).toBeInTheDocument();
+    });
+
+    it('should name the dialog with ariaLabelledBy', () => {
+      render(
+        <Modal isOpen ariaLabelledBy="modal-title">
+          <Modal.Header>
+            <h2 id="modal-title">Delete cluster</h2>
+          </Modal.Header>
+        </Modal>,
+      );
+
+      expect(
+        screen.getByRole('dialog', { name: 'Delete cluster' }),
+      ).toBeInTheDocument();
+    });
+  });
 });
