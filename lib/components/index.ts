@@ -2,6 +2,7 @@ export * from './Alert/Alert';
 export * from './AlertDialog/AlertDialog';
 export * from './Autocomplete/Autocomplete';
 export * from './Badge/Badge';
+export * from './BadgeGroup/BadgeGroup';
 export * from './Breadcrumb/Breadcrumb';
 export * from './Button/Button';
 export * from './ButtonGroup/ButtonGroup';
