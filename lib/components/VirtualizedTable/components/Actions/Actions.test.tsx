@@ -108,12 +108,150 @@ describe('Actions', () => {
     expect(panel.className).not.toContain('top-full');
   });
 
+  it('should expose a disabled action as aria-disabled and ignore its clicks', async () => {
+    const onDelete = vi.fn();
+    const user = userEvent.setup();
+
+    render(
+      <Actions
+        {...buildProps([
+          { label: 'Delete', disabled: true, onClick: onDelete },
+        ])}
+      />,
+    );
+
+    const action = screen.getByRole('button', { name: 'Delete' });
+
+    expect(action).toHaveAttribute('aria-disabled', 'true');
+
+    await user.click(action);
+
+    expect(onDelete).not.toHaveBeenCalled();
+  });
+
+  it('should explain a disabled action with a tooltip', async () => {
+    const onDelete = vi.fn();
+    const user = userEvent.setup();
+
+    render(
+      <Actions
+        {...buildProps([
+          {
+            label: 'Delete',
+            disabledReason: 'This volume is attached',
+            onClick: onDelete,
+          },
+        ])}
+      />,
+    );
+
+    const action = screen.getByRole('button', { name: 'Delete' });
+
+    expect(action).toHaveAttribute('aria-disabled', 'true');
+
+    await user.hover(action);
+
+    expect(await screen.findByRole('tooltip')).toHaveTextContent(
+      'This volume is attached',
+    );
+
+    await user.click(action);
+
+    expect(onDelete).not.toHaveBeenCalled();
+  });
+
+  it('should stop revealing the panel on hover after an action is selected until the pointer leaves', async () => {
+    const onEdit = vi.fn();
+    const user = userEvent.setup();
+
+    const { container } = render(
+      <Actions {...buildProps([{ label: 'Edit', onClick: onEdit }])} />,
+    );
+
+    const root = container.querySelector('.group') as HTMLElement;
+    const panel = container.querySelector('.absolute') as HTMLElement;
+
+    expect(panel.className).toContain('group-hover:visible');
+
+    await user.click(screen.getByRole('button', { name: 'Edit' }));
+
+    expect(onEdit).toHaveBeenCalledWith(row);
+    expect(panel.className).not.toContain('group-hover:visible');
+
+    fireEvent.mouseLeave(root);
+
+    expect(panel.className).toContain('group-hover:visible');
+  });
+
+  describe('with openOnHover disabled', () => {
+    it('should toggle the panel on click instead of hover', async () => {
+      const user = userEvent.setup();
+
+      const { container } = render(
+        <div>
+          <span>outside</span>
+          <Actions
+            {...buildProps([{ label: 'Edit', onClick: vi.fn() }], {
+              openOnHover: false,
+            })}
+          />
+        </div>,
+      );
+
+      const trigger = screen.getByRole('button', { name: /show actions/i });
+      const panel = container.querySelector('.absolute') as HTMLElement;
+
+      expect(trigger).toHaveAttribute('aria-expanded', 'false');
+      expect(panel.className).not.toContain('group-hover:visible');
+      expect(panel.className).toContain('invisible');
+
+      await user.click(trigger);
+
+      expect(trigger).toHaveAttribute('aria-expanded', 'true');
+      expect(panel.className).toContain('visible');
+      expect(panel.className).not.toContain('invisible');
+
+      await user.click(screen.getByText('outside'));
+
+      expect(trigger).toHaveAttribute('aria-expanded', 'false');
+      expect(panel.className).toContain('invisible');
+    });
+
+    it('should close the panel after selecting an action or pressing Escape', async () => {
+      const onEdit = vi.fn();
+      const user = userEvent.setup();
+
+      const { container } = render(
+        <Actions
+          {...buildProps([{ label: 'Edit', onClick: onEdit }], {
+            openOnHover: false,
+          })}
+        />,
+      );
+
+      const trigger = screen.getByRole('button', { name: /show actions/i });
+      const panel = container.querySelector('.absolute') as HTMLElement;
+
+      await user.click(trigger);
+      await user.click(screen.getByRole('button', { name: 'Edit' }));
+
+      expect(onEdit).toHaveBeenCalledWith(row);
+      expect(panel.className).toContain('invisible');
+
+      await user.click(trigger);
+      expect(panel.className).not.toContain('invisible');
+
+      await user.keyboard('{Escape}');
+      expect(panel.className).toContain('invisible');
+    });
+  });
+
   it("shouldn't have accessibility violations", async () => {
     const { container } = render(
       <Actions
         {...buildProps([
           { label: 'Edit', onClick: vi.fn() },
-          { label: 'Delete', onClick: vi.fn() },
+          { label: 'Delete', disabledReason: 'In use', onClick: vi.fn() },
         ])}
       />,
     );
@@ -124,7 +262,20 @@ describe('Actions', () => {
   });
 
   describe('with isPortal', () => {
-    const setup = (overrides: Partial<Props<Row>> = {}) => {
+    const defaultActions = (onEdit: () => void, onDelete: () => void) => {
+      return [
+        { label: 'Edit', onClick: onEdit },
+        { label: 'Delete', onClick: onDelete },
+      ] satisfies Action<Row>[];
+    };
+
+    const setup = (
+      overrides: Partial<Props<Row>> = {},
+      buildActions: (
+        onEdit: () => void,
+        onDelete: () => void,
+      ) => Action<Row>[] = defaultActions,
+    ) => {
       const onEdit = vi.fn();
       const onDelete = vi.fn();
 
@@ -135,13 +286,10 @@ describe('Actions', () => {
               <td>{row.name}</td>
               <td>
                 <Actions
-                  {...buildProps(
-                    [
-                      { label: 'Edit', onClick: onEdit },
-                      { label: 'Delete', onClick: onDelete },
-                    ],
-                    { isPortal: true, ...overrides },
-                  )}
+                  {...buildProps(buildActions(onEdit, onDelete), {
+                    isPortal: true,
+                    ...overrides,
+                  })}
                 />
               </td>
             </tr>
@@ -181,9 +329,11 @@ describe('Actions', () => {
       );
     };
 
+    const originalInnerHeight = window.innerHeight;
+
     afterEach(() => {
       vi.restoreAllMocks();
-      vi.unstubAllGlobals();
+      vi.stubGlobal('innerHeight', originalInnerHeight);
     });
 
     it('should keep the menu closed until the trigger is used', () => {
@@ -405,8 +555,93 @@ describe('Actions', () => {
       expect(trigger).toHaveAttribute('aria-expanded', 'true');
     });
 
+    it('should keep a disabled item focusable but inert, and keep the menu open', async () => {
+      const { user, trigger, onDelete, getMenu } = setup(
+        {},
+        (onEdit, onDelete) => {
+          return [
+            { label: 'Edit', onClick: onEdit },
+            {
+              label: 'Delete',
+              disabledReason: 'This volume is attached',
+              onClick: onDelete,
+            },
+          ];
+        },
+      );
+
+      trigger.focus();
+      await user.keyboard('{ArrowUp}');
+
+      const remove = within(await getMenu()).getByRole('menuitem', {
+        name: 'Delete',
+      });
+
+      expect(remove).toHaveFocus();
+      expect(remove).toHaveAttribute('aria-disabled', 'true');
+
+      await user.keyboard('{Enter}');
+
+      expect(onDelete).not.toHaveBeenCalled();
+      expect(screen.getByRole('menu')).toBeInTheDocument();
+
+      await user.hover(remove);
+
+      expect(await screen.findByRole('tooltip')).toHaveTextContent(
+        'This volume is attached',
+      );
+    });
+
+    it('should not reopen on hover right after selecting an action', async () => {
+      const { user, trigger, onEdit, getMenu } = setup();
+
+      await user.hover(trigger);
+      await user.click(
+        within(await getMenu()).getByRole('menuitem', { name: 'Edit' }),
+      );
+
+      expect(onEdit).toHaveBeenCalledWith(row);
+      expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+
+      await user.hover(trigger);
+
+      expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+
+      await user.unhover(trigger);
+      await user.hover(trigger);
+
+      expect(await getMenu()).toBeInTheDocument();
+    });
+
+    describe('with openOnHover disabled', () => {
+      it('should ignore hover and toggle on mouse clicks', async () => {
+        const { user, trigger, getMenu } = setup({ openOnHover: false });
+
+        await user.hover(trigger);
+
+        expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+
+        await user.click(trigger);
+        expect(await getMenu()).toBeInTheDocument();
+
+        await user.unhover(trigger);
+        await new Promise((resolve) => {
+          setTimeout(resolve, CLOSE_DELAY_MS * 2);
+        });
+        expect(screen.getByRole('menu')).toBeInTheDocument();
+
+        await user.click(trigger);
+        expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+      });
+    });
+
     it("shouldn't have accessibility violations while open", async () => {
-      const { user, trigger, getMenu } = setup();
+      const { user, trigger, getMenu } = setup({}, (onEdit, onDelete) => {
+        return [
+          { label: 'Edit', onClick: onEdit },
+          { label: 'Delete', disabledReason: 'In use', onClick: onDelete },
+        ];
+      });
 
       await user.click(trigger);
       await getMenu();

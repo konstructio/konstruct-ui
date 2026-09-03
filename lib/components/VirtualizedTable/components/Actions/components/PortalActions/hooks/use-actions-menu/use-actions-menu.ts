@@ -11,7 +11,9 @@ import { useMenuInteractions } from '../use-menu-interactions/use-menu-interacti
 import { useMenuKeyboardNavigation } from '../use-menu-keyboard-navigation/use-menu-keyboard-navigation';
 import { useRowHighlight } from '../use-row-highlight/use-row-highlight';
 
-export const useActionsMenu = () => {
+import { Params } from './use-actions-menu.types';
+
+export const useActionsMenu = ({ openOnHover }: Params) => {
   const [isOpen, setIsOpenState] = useState(false);
   const [hasOpened, setHasOpened] = useState(false);
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -30,8 +32,16 @@ export const useActionsMenu = () => {
     handlePointerLeave,
     handleTriggerClick,
     handleTriggerPointerDown,
+    handleButtonPointerLeave,
     openMenu,
-  } = useMenuInteractions({ isOpen, menuRef, triggerRef, setIsOpen });
+    selectAndClose,
+  } = useMenuInteractions({
+    isOpen,
+    menuRef,
+    openOnHover,
+    triggerRef,
+    setIsOpen,
+  });
 
   const { handleMenuKeyDown, handleTriggerKeyDown } = useMenuKeyboardNavigation(
     { buttonRef, isOpen, menuRef, closeMenu, openMenu },
@@ -53,5 +63,7 @@ export const useActionsMenu = () => {
     handleTriggerClick,
     handleTriggerKeyDown,
     handleTriggerPointerDown,
+    handleButtonPointerLeave,
+    selectAndClose,
   };
 };
