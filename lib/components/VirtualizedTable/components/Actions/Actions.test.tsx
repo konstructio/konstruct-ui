@@ -124,9 +124,47 @@ describe('Actions', () => {
 
     expect(action).toHaveAttribute('aria-disabled', 'true');
 
+    await user.hover(action);
     await user.click(action);
 
     expect(onDelete).not.toHaveBeenCalled();
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+  });
+
+  it('should position the disabled reason tooltip on the requested side', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <Actions
+        {...buildProps(
+          [
+            {
+              label: 'Delete',
+              disabledReason: 'In use',
+              disabledReasonSide: 'bottom',
+              onClick: vi.fn(),
+            },
+            { label: 'Detach', disabledReason: 'Busy', onClick: vi.fn() },
+          ],
+          { disabledReasonSide: 'right' },
+        )}
+      />,
+    );
+
+    await user.hover(screen.getByRole('button', { name: 'Delete' }));
+
+    expect(
+      (await screen.findByRole('tooltip')).closest('[data-side]'),
+    ).toHaveAttribute('data-side', 'bottom');
+
+    await user.unhover(screen.getByRole('button', { name: 'Delete' }));
+    await user.hover(screen.getByRole('button', { name: 'Detach' }));
+
+    expect(
+      (await screen.findByRole('tooltip', { name: 'Busy' })).closest(
+        '[data-side]',
+      ),
+    ).toHaveAttribute('data-side', 'right');
   });
 
   it('should explain a disabled action with a tooltip', async () => {

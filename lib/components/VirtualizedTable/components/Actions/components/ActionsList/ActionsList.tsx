@@ -13,6 +13,7 @@ import { Props } from './ActionsList.types';
 export const ActionsList = <TData extends RowData>({
   actions,
   className,
+  disabledReasonSide = 'left',
   isMenu = false,
   rowData,
   onSelect,
@@ -28,6 +29,7 @@ export const ActionsList = <TData extends RowData>({
           componentProps,
           disabled = false,
           disabledReason,
+          disabledReasonSide: itemDisabledReasonSide = disabledReasonSide,
           onClick,
         },
         index,
@@ -64,7 +66,7 @@ export const ActionsList = <TData extends RowData>({
         return (
           <Tooltip
             key={key}
-            side="left"
+            side={itemDisabledReasonSide}
             className="z-50 max-w-40 text-center"
             content={disabledReason}
           >

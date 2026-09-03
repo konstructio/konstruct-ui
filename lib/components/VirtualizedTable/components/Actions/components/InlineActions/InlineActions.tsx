@@ -11,6 +11,7 @@ import { ITEM_HEIGHT, LIST_PADDING } from './constants';
 
 export const InlineActions = <TData extends RowData>({
   actions,
+  disabledReasonSide,
   openOnHover = true,
   wrapperClassName,
   triggerButtonClassName,
@@ -150,6 +151,7 @@ export const InlineActions = <TData extends RowData>({
       >
         <ActionsList
           actions={actions}
+          disabledReasonSide={disabledReasonSide}
           className={wrapperContentActionsClassName}
           rowData={delegated.row.original}
           onSelect={handleSelect}

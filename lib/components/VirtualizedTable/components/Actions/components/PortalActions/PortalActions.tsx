@@ -11,6 +11,7 @@ import { useActionsMenu } from './hooks';
 
 export const PortalActions = <TData extends RowData>({
   actions,
+  disabledReasonSide,
   openOnHover = true,
   wrapperClassName,
   triggerButtonClassName,
@@ -71,6 +72,7 @@ export const PortalActions = <TData extends RowData>({
           >
             <ActionsList
               actions={actions}
+              disabledReasonSide={disabledReasonSide}
               className={cn(
                 'animate-in fade-in-0',
                 wrapperContentActionsClassName,
