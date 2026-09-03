@@ -1,5 +1,7 @@
-import { ChangeEvent, FocusEvent } from '../../../../../../../node_modules/react';
+import { ChangeEvent, FocusEvent, InputHTMLAttributes } from '../../../../../../../node_modules/react';
 export type Props = {
+    /** Browser autofill for the start date field (default: 'off') */
+    autoComplete?: InputHTMLAttributes<HTMLInputElement>['autoComplete'];
     dateValue: string;
     timeValue?: Date;
     error?: string;

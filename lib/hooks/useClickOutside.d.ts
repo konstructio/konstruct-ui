@@ -1,2 +1,4 @@
 import { RefObject } from '../../node_modules/react';
-export declare const useClickOutside: (ref: RefObject<HTMLElement | null>, onClickOutside: () => void) => void;
+type Target = RefObject<HTMLElement | null> | undefined;
+export declare const useClickOutside: (refs: Target | Target[], onClickOutside: () => void) => void;
+export {};

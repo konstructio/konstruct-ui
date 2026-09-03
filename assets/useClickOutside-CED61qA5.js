@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-C0FnF6B9.js";import{t}from"./react-C21x__mS.js";var n,r;function i(){return(i=e((()=>{n=t(),r=(e,t)=>{(0,n.useEffect)(()=>{let n=new AbortController,r=Array.isArray(e)?e:[e];return document.addEventListener(`mousedown`,e=>{r.some(t=>t?.current?.contains(e.target))||t()},{signal:n.signal}),()=>{n.abort()}},[e,t])}})))()}export{r as n,i as t};

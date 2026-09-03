@@ -1,3 +1,4 @@
+import { InputHTMLAttributes } from '../../../../../node_modules/react';
 export type DateTimeInputsClassNames = {
     /** Root container */
     root?: string;
@@ -13,6 +14,8 @@ export type DateTimeInputsClassNames = {
     input?: string;
 };
 export type DateTimeInputsProps = {
+    /** Browser autofill for both date fields (default: 'off') */
+    autoComplete?: InputHTMLAttributes<HTMLInputElement>['autoComplete'];
     className?: string;
     /** Label for start date input (default: 'Start date') */
     labelStartDate?: string;

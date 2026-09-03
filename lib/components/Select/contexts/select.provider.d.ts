@@ -7,4 +7,5 @@ export declare const SelectProvider: FC<PropsWithChildren & {
     options: Option[];
     onChange?: SelectProps['onChange'];
     onBlur?: SelectProps['onBlur'];
+    onValueChange?: SelectProps['onValueChange'];
 }>;
