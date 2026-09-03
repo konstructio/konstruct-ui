@@ -72,6 +72,7 @@ export const StartInputFields: FC<Props> = ({
           disabled={disabled}
           className={cn(classNames?.input)}
           aria-label={ariaLabelDate}
+          autoComplete="off"
         />
       </div>
 

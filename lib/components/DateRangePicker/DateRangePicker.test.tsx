@@ -326,6 +326,13 @@ describe('DateRangePicker', () => {
       expect(await getEndDateInput()).toBeInTheDocument();
     });
 
+    it('should keep the browser autofill off the date inputs', async () => {
+      const { getStartDateInput, getEndDateInput } = setup();
+
+      expect(await getStartDateInput()).toHaveAttribute('autocomplete', 'off');
+      expect(await getEndDateInput()).toHaveAttribute('autocomplete', 'off');
+    });
+
     it('should render time inputs by default', async () => {
       const { getStartTimeInput, getEndTimeInput } = setup();
 
