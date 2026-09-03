@@ -169,6 +169,8 @@ export const Body = <TData extends RowData = RowData>({
                       'dark:border-metal-700',
                       'dark:first:border-l',
                       'dark:last:border-r',
+                      '[tr[data-actions-open]_&]:bg-zinc-100',
+                      'dark:[tr[data-actions-open]_&]:bg-metal-800',
                       {
                         'group-hover/row:bg-zinc-100 dark:group-hover/row:bg-metal-800':
                           enableHoverRow,

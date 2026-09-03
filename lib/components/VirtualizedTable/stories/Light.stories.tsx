@@ -30,7 +30,7 @@ const meta: Meta<typeof VirtualizedTableComponent> = {
 
 const queryClient = new QueryClient();
 
-const columns: ColumnDef<Pokemon>[] = [
+const getColumns = (isPortal = false): ColumnDef<Pokemon>[] => [
   {
     header: 'Id',
     accessorKey: 'id',
@@ -89,6 +89,7 @@ const columns: ColumnDef<Pokemon>[] = [
     cell: (props) => (
       <VirtualizedTableComponent.Actions
         {...props}
+        isPortal={isPortal}
         actions={[
           {
             component: AlertDialog,
@@ -154,6 +155,8 @@ const columns: ColumnDef<Pokemon>[] = [
     },
   },
 ];
+
+const columns = getColumns();
 
 const args = {
   showFilter: true,
@@ -535,7 +538,7 @@ export const HorizontalScrollWithFilters: Story = {
     docs: {
       description: {
         story:
-          'The scroll container (classNameScrollContainer) wraps the table and the pagination bar so both scroll together; the filter row stays fixed to the container width. Filter dropdowns always render in a portal, and the page-size dropdown does so automatically when classNameScrollContainer is set, so the overflow container never clips them.',
+          'The scroll container (classNameScrollContainer) wraps the table and the pagination bar so both scroll together; the filter row stays fixed to the container width. Filter dropdowns always render in a portal, and the page-size dropdown does so automatically when classNameScrollContainer is set, so the overflow container never clips them. Row actions opt in with `isPortal` so the menu floats above the scroll container instead of being clipped by it.',
       },
     },
   },
@@ -597,7 +600,7 @@ export const HorizontalScrollWithFilters: Story = {
             id={id}
             ariaLabel="List of pokemons"
             data={data}
-            columns={columns}
+            columns={getColumns(true)}
             classNameTable="min-w-300"
             classNameScrollContainer="overflow-x-auto contain-inline-size"
             showPagination={true}

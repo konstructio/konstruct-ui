@@ -1,5 +1,5 @@
 import { CellContext } from '@tanstack/react-table';
-import { FC, ReactNode } from 'react';
+import { ElementType, ReactNode } from 'react';
 
 import { RowData } from '../../VirtualizedTable.types';
 
@@ -9,7 +9,7 @@ export type Action<TData> = {
   onClick: (rowData: TData) => void;
 } & (
   | {
-      component: FC;
+      component: ElementType;
       label?: string | ReactNode;
       componentProps?: Record<string, unknown>;
     }
@@ -23,6 +23,7 @@ export type Action<TData> = {
 export type Props<TData extends RowData> = CellContext<TData, unknown> & {
   actions: Action<TData>[];
   iconTriggerButtonClassName?: string;
+  isPortal?: boolean;
   triggerButtonClassName?: string;
   wrapperActionsClassName?: string;
   wrapperClassName?: string;
