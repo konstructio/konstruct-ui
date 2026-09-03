@@ -63,6 +63,7 @@ ComponentName/
 - **Button** - Primary, secondary, tertiary, danger, link variants
 - **Badge** - Status badges
 - **Card** - Container card
+- **CopyButton** - Copy-to-clipboard icon button with tooltip feedback
 - **Alert** - Alert messages
 - **AlertDialog** - Confirmation dialogs
 - **Modal** - Modal dialogs

@@ -122,13 +122,13 @@ Alternatively, set `data-theme` directly on the document root — useful when th
 
 ## Components
 
-| Category     | Components                                                                                                                                                                                                                                       |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Forms        | Input, TextArea, Select, Checkbox, Switch, Radio, RadioGroup, RadioCard, Counter, Datepicker, TimePicker, PhoneNumberInput, Range, Slider, Autocomplete, Filter, TagSelect, MultiSelectDropdown, ImageUpload                                       |
-| UI           | Button, Badge, Card, Alert, AlertDialog, Modal, Breadcrumb, Divider, Tag, Tooltip, Toast, Tabs, Typography                                                                                                                                         |
-| Data display | Table, VirtualizedTable, PieChart, ProgressBar, Loading, Spinner                                                                                                                                                                                   |
-| Layout       | Sidebar                                                                                                                                                                                                                                            |
-| Other        | DropdownButton, Command                                                                                                                                                                                                                            |
+| Category     | Components                                                                                                                                                                                                   |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Forms        | Input, TextArea, Select, Checkbox, Switch, Radio, RadioGroup, RadioCard, Counter, Datepicker, TimePicker, PhoneNumberInput, Range, Slider, Autocomplete, Filter, TagSelect, MultiSelectDropdown, ImageUpload |
+| UI           | Button, Badge, Card, CopyButton, Alert, AlertDialog, Modal, Breadcrumb, Divider, Tag, Tooltip, Toast, Tabs, Typography                                                                                       |
+| Data display | Table, VirtualizedTable, PieChart, ProgressBar, Loading, Spinner                                                                                                                                             |
+| Layout       | Sidebar                                                                                                                                                                                                      |
+| Other        | DropdownButton, Command                                                                                                                                                                                      |
 
 Full documentation with live examples is available in the [Storybook](https://konstructio.github.io/konstruct-ui).
 

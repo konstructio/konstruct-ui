@@ -7,6 +7,8 @@ export * from './Button/Button';
 export * from './ButtonGroup/ButtonGroup';
 export * from './Card/Card';
 export * from './Checkbox/Checkbox';
+export * from './CopyButton/CopyButton';
+export type { Props as CopyButtonProps } from './CopyButton/CopyButton.types';
 export * from './Counter/Counter';
 export * from './Datepicker/DatePicker';
 export * from './DateRangePicker/DateRangePicker';
