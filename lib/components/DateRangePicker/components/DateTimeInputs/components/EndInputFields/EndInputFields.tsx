@@ -16,6 +16,7 @@ import {
 import { Props } from './EndInputFields.types';
 
 export const EndInputFields: FC<Props> = ({
+  autoComplete = 'off',
   dateValue,
   timeValue,
   error,
@@ -72,7 +73,7 @@ export const EndInputFields: FC<Props> = ({
           disabled={disabled}
           className={cn(classNames?.input)}
           aria-label={ariaLabelDate}
-          autoComplete="off"
+          autoComplete={autoComplete}
         />
       </div>
 

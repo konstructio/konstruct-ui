@@ -1,6 +1,8 @@
-import { ChangeEvent, FocusEvent } from 'react';
+import { ChangeEvent, FocusEvent, InputHTMLAttributes } from 'react';
 
 export type Props = {
+  /** Browser autofill for the end date field (default: 'off') */
+  autoComplete?: InputHTMLAttributes<HTMLInputElement>['autoComplete'];
   dateValue: string;
   timeValue?: Date;
   error?: string;

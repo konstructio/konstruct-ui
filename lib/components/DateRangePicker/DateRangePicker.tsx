@@ -75,6 +75,7 @@ const DateRangePicker: FC<Props> = ({
   ariaLabelPrevMonthEnd,
   ariaLabelNextMonthEnd,
   // DateTimeInputs props
+  autoComplete,
   labelStartDate,
   labelEndDate,
   labelTime,
@@ -175,6 +176,7 @@ const DateRangePicker: FC<Props> = ({
           className={cn(rightPanelVariants(), classNames?.rightPanel)}
         >
           <DateTimeInputs
+            autoComplete={autoComplete}
             labelStartDate={labelStartDate}
             labelEndDate={labelEndDate}
             labelTime={labelTime}
