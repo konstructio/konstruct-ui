@@ -440,4 +440,124 @@ describe('Sidebar', () => {
       expect(screen.getByRole('dialog')).toBeInTheDocument();
     });
   });
+  describe('mode change callbacks', () => {
+    it('should report user toggles through onModeChange and CollapseTrigger onToggle', async () => {
+      const onModeChange = vitest.fn();
+      const onToggle = vitest.fn();
+      const user = userEvent.setup();
+
+      render(
+        <Sidebar mode="expanded" onModeChange={onModeChange}>
+          <Logo>
+            Header
+            <CollapseTrigger onToggle={onToggle} />
+          </Logo>
+          <Navigation>
+            <NavigationGroup>
+              <NavigationOption>
+                <Label>Clusters</Label>
+              </NavigationOption>
+            </NavigationGroup>
+          </Navigation>
+        </Sidebar>,
+      );
+
+      await user.click(
+        screen.getByRole('button', { name: 'Collapse navigation' }),
+      );
+
+      expect(onModeChange).toHaveBeenCalledWith('collapsed', 'user');
+      expect(onToggle).toHaveBeenCalledWith('collapsed');
+
+      await user.click(
+        screen.getByRole('button', { name: 'Expand navigation' }),
+      );
+
+      expect(onModeChange).toHaveBeenLastCalledWith('expanded', 'user');
+      expect(onToggle).toHaveBeenLastCalledWith('expanded');
+    });
+
+    it('should report viewport-driven changes with the viewport source', () => {
+      const onModeChange = vitest.fn();
+
+      const { rerender } = render(
+        <Sidebar mode="expanded" onModeChange={onModeChange}>
+          <Logo>Header</Logo>
+        </Sidebar>,
+      );
+
+      expect(onModeChange).not.toHaveBeenCalled();
+
+      rerender(
+        <Sidebar mode="collapsed" onModeChange={onModeChange}>
+          <Logo>Header</Logo>
+        </Sidebar>,
+      );
+
+      expect(onModeChange).toHaveBeenCalledWith('collapsed', 'viewport');
+    });
+  });
+
+  describe('badge and onIntent', () => {
+    it('should render the badge at the end of the option', () => {
+      setup({
+        options: (
+          <NavigationOption badge={<span>New</span>}>
+            <a href="#clusters">Clusters</a>
+          </NavigationOption>
+        ),
+      });
+
+      expect(screen.getByText('New')).toBeInTheDocument();
+    });
+
+    it('should fire onIntent after hovering for the intent delay and cancel when leaving early', async () => {
+      const onIntent = vitest.fn();
+      const { user, getLink } = setup({
+        options: (
+          <NavigationOption onIntent={onIntent} intentDelay={30}>
+            <a href="#clusters">Clusters</a>
+          </NavigationOption>
+        ),
+      });
+
+      const link = await getLink(/clusters/);
+
+      await user.hover(link);
+      await user.unhover(link);
+      await new Promise((resolve) => {
+        setTimeout(resolve, 60);
+      });
+
+      expect(onIntent).not.toHaveBeenCalled();
+
+      await user.hover(link);
+
+      await waitFor(() => {
+        expect(onIntent).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    it('should fire onIntent immediately on focus and pointer down', async () => {
+      const onIntent = vitest.fn();
+      const { user, getLink } = setup({
+        options: (
+          <NavigationOption onIntent={onIntent}>
+            <a href="#clusters">Clusters</a>
+          </NavigationOption>
+        ),
+      });
+
+      const link = await getLink(/clusters/);
+
+      await user.tab();
+
+      expect(link).toHaveFocus();
+      expect(onIntent).toHaveBeenCalledTimes(1);
+
+      await user.pointer({ keys: '[MouseLeft>]', target: link });
+
+      expect(onIntent).toHaveBeenCalledTimes(2);
+    });
+  });
 });
