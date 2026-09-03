@@ -3,13 +3,15 @@ import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { ChangeEvent, FC, forwardRef, useId, useState } from 'react';
 import { Minus, Plus } from 'react-feather';
 
-import { cn } from '@/utils';
+import { cn, composeIds } from '@/utils';
 
 import { Props } from './Counter.types';
 import {
   buttonVariants,
-  labelVariants,
   counterVariants,
+  fieldVariants,
+  labelVariants,
+  unitVariants,
 } from './Counter.variants';
 import { Typography } from '../Typography/Typography';
 
@@ -35,11 +37,14 @@ import { Typography } from '../Typography/Typography';
  *   onChange={({ target }) => setNodes(target.value)}
  * />
  *
- * // Disabled increment/decrement
+ * // Stepping by 500 GB with a unit, price and helper text
  * <Counter
- *   value={5}
- *   canIncrement={value < max}
- *   canDecrement={value > min}
+ *   label="Size"
+ *   value={size}
+ *   step={500}
+ *   unit="GB"
+ *   labelAction={<span>$12.00/mo</span>}
+ *   helperText="Increments of 500 GB"
  *   onChange={handleChange}
  * />
  * ```
@@ -53,21 +58,41 @@ export const Counter: FC<Props> = forwardRef<HTMLInputElement, Props>(
       canIncrement = true,
       className,
       decrementButtonClassName,
+      decrementLabel = 'Decrement',
+      disabled = false,
       editable = false,
+      error,
+      errorClassName,
+      fullWidth = false,
+      helperText,
+      helperTextClassName,
       incrementButtonClassName,
+      incrementLabel = 'Increment',
       isRequired,
       label,
+      labelAction,
       labelWrapperClassName,
       max = -Infinity,
       min = Infinity,
       name,
+      step = 1,
       theme,
+      unit,
       value,
       onChange,
     },
     ref,
   ) => {
     const id = useId();
+    const inputId = name ?? id;
+    const errorId = `${id}-error`;
+    const helperTextId = `${id}-helper-text`;
+    const hasError = typeof error === 'string' && error.length > 0;
+    const hasHelperText = !hasError && !!helperText;
+    const describedBy = composeIds(
+      hasError && errorId,
+      hasHelperText && helperTextId,
+    );
 
     const count = value ?? 0;
     const [draft, setDraft] = useState<string | null>(null);
@@ -77,9 +102,9 @@ export const Counter: FC<Props> = forwardRef<HTMLInputElement, Props>(
       let newValue: number = 0;
 
       if (min === Infinity) {
-        newValue = count - 1;
+        newValue = count - step;
       } else {
-        newValue = Math.max(min, count - 1);
+        newValue = Math.max(min, count - step);
       }
 
       setDraft(null);
@@ -90,9 +115,9 @@ export const Counter: FC<Props> = forwardRef<HTMLInputElement, Props>(
       let newValue: number = 0;
 
       if (max === -Infinity) {
-        newValue = count + 1;
+        newValue = count + step;
       } else {
-        newValue = Math.min(max, count + 1);
+        newValue = Math.min(max, count + step);
       }
 
       setDraft(null);
@@ -123,20 +148,32 @@ export const Counter: FC<Props> = forwardRef<HTMLInputElement, Props>(
     };
 
     return (
-      <div className="flex flex-col gap-2" data-theme={theme}>
-        {label ? (
-          <div className={cn(labelWrapperClassName)}>
-            <Typography
-              component="label"
-              htmlFor={name ?? id}
-              variant="labelLarge"
-              className={cn(labelVariants())}
-            >
-              {label}{' '}
-              {isRequired && (
-                <span className="text-red-600 dark:text-red-500">*</span>
-              )}
-            </Typography>
+      <div
+        className={cn('flex flex-col gap-2', fullWidth && 'w-full')}
+        data-theme={theme}
+      >
+        {label || labelAction ? (
+          <div
+            className={cn(
+              'flex items-center justify-between',
+              labelWrapperClassName,
+            )}
+          >
+            {label ? (
+              <Typography
+                component="label"
+                htmlFor={inputId}
+                variant="labelLarge"
+                className={cn(labelVariants())}
+              >
+                {label}{' '}
+                {isRequired && (
+                  <span className="text-red-600 dark:text-red-500">*</span>
+                )}
+              </Typography>
+            ) : null}
+
+            {labelAction}
           </div>
         ) : null}
 
@@ -147,26 +184,36 @@ export const Counter: FC<Props> = forwardRef<HTMLInputElement, Props>(
             className={cn(
               buttonVariants({
                 button: 'rigth',
+                hasError,
                 className: decrementButtonClassName,
               }),
             )}
-            disabled={!canDecrement}
+            disabled={disabled || !canDecrement}
           >
             <Minus className="w-4 h-4" />
-            <VisuallyHidden>Decrement</VisuallyHidden>
+            <VisuallyHidden>{decrementLabel}</VisuallyHidden>
           </button>
 
-          <input
-            ref={ref}
-            type="number"
-            value={editable ? displayed : count}
-            name={name}
-            className={cn(counterVariants({ className }))}
-            {...(editable
-              ? { onChange: handleChange, onBlur: handleBlur }
-              : { readOnly: true })}
-            aria-label={typeof label === 'string' ? label : 'number input'}
-          />
+          <div className={cn(fieldVariants({ fullWidth, hasError, disabled }))}>
+            <input
+              ref={ref}
+              id={inputId}
+              type="number"
+              value={editable ? displayed : count}
+              name={name}
+              disabled={disabled}
+              className={cn(counterVariants({ fullWidth, className }))}
+              {...(editable
+                ? { onChange: handleChange, onBlur: handleBlur }
+                : { readOnly: true })}
+              aria-label={typeof label === 'string' ? label : 'number input'}
+              aria-invalid={hasError || undefined}
+              aria-describedby={describedBy}
+              aria-required={isRequired || undefined}
+            />
+
+            {unit ? <span className={cn(unitVariants())}>{unit}</span> : null}
+          </div>
 
           <button
             type="button"
@@ -174,15 +221,42 @@ export const Counter: FC<Props> = forwardRef<HTMLInputElement, Props>(
             className={cn(
               buttonVariants({
                 button: 'left',
+                hasError,
                 className: incrementButtonClassName,
               }),
             )}
-            disabled={!canIncrement}
+            disabled={disabled || !canIncrement}
           >
             <Plus className="w-4 h-4" />
-            <VisuallyHidden>Increment</VisuallyHidden>
+            <VisuallyHidden>{incrementLabel}</VisuallyHidden>
           </button>
         </div>
+
+        {hasError ? (
+          <Typography
+            component="span"
+            id={errorId}
+            className={cn(
+              'text-xs tracking-normal text-red-700 dark:text-red-400',
+              errorClassName,
+            )}
+          >
+            {error}
+          </Typography>
+        ) : null}
+
+        {hasHelperText ? (
+          <Typography
+            component="span"
+            id={helperTextId}
+            className={cn(
+              'text-xs text-slate-600 dark:text-slate-200',
+              helperTextClassName,
+            )}
+          >
+            {helperText}
+          </Typography>
+        ) : null}
       </div>
     );
   },
