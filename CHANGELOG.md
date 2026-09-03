@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.2-alpha.109](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.109) (2026-09-03)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.108...0.1.2-alpha.109)
+
+**Merged pull requests:**
+
+- 🐛 fix: date inputs autofill off by default and a whole-pixel actions menu [\#735](https://github.com/konstructio/konstruct-ui/pull/735) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add isPortal and onValueChange to Select [\#718](https://github.com/konstructio/konstruct-ui/pull/718) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.108](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.108) (2026-09-03)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.107...0.1.2-alpha.108)
