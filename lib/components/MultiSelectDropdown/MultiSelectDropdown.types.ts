@@ -52,6 +52,16 @@ export interface Props
       InputHTMLAttributes<HTMLInputElement>,
       'value' | 'onChange' | 'onBlur'
     > {
+  /** Disable opening the list and removing selections */
+  disabled?: boolean;
+  /** Error message displayed below the dropdown */
+  error?: string;
+  /** Additional CSS classes for the error message */
+  errorClassName?: string;
+  /** Helper text displayed below the dropdown when there is no error */
+  helperText?: string;
+  /** Additional CSS classes for the helper text */
+  helperTextClassName?: string;
   /** Whether the dropdown is in a loading state */
   isLoading?: boolean;
   /** Whether the field is required */
