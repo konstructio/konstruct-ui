@@ -56,6 +56,7 @@ export const Select: FC<Props> = forwardRef<ComponentRef<'input'>, Props>(
       options,
       onChange,
       onBlur,
+      onValueChange,
       ...delegated
     },
     ref,
@@ -89,6 +90,7 @@ export const Select: FC<Props> = forwardRef<ComponentRef<'input'>, Props>(
         options={flatOptions}
         onBlur={onBlur}
         onChange={onChange}
+        onValueChange={onValueChange}
       >
         <div className={cn('relative w-full', mainWrapperClassName)}>
           <Wrapper

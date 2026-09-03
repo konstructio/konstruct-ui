@@ -1,7 +1,9 @@
+import { Anchor, Content, Portal, Root } from '@radix-ui/react-popover';
 import { ChevronUp, Search } from 'lucide-react';
 import {
   ChangeEvent,
   ComponentRef,
+  FocusEvent,
   forwardRef,
   ForwardRefExoticComponent,
   KeyboardEvent,
@@ -55,6 +57,7 @@ export const Wrapper: ForwardRefExoticComponent<
       inputClassName,
       isInfiniteScrollEnabled = false,
       isLoading,
+      isPortal = false,
       isRequired,
       loadingText,
       label,
@@ -67,6 +70,7 @@ export const Wrapper: ForwardRefExoticComponent<
       name,
       noOptionsText,
       placeholder,
+      portalClassName,
       searchable = false,
       showSearchIcon,
       theme,
@@ -101,12 +105,19 @@ export const Wrapper: ForwardRefExoticComponent<
       return options.find(({ value: optionValue }) => optionValue === value);
     }, [options, value]);
 
-    const { wrapperRef, wrapperInputRef, handleOpen } = useSelect({
+    const { isInside, wrapperRef, wrapperInputRef, handleOpen } = useSelect({
       inputRef,
       searchInputRef,
       internalValue,
+      listRef: ulRef,
       onBlur,
     });
+
+    const handlePortalBlur = (event: FocusEvent<HTMLDivElement>) => {
+      if (!isInside(event.relatedTarget)) {
+        toggleOpen(false);
+      }
+    };
 
     const handleToggleOpen = () => {
       if (disabled) {
@@ -186,6 +197,30 @@ export const Wrapper: ForwardRefExoticComponent<
       }
     };
 
+    const list = (
+      <List
+        ref={ulRef}
+        id={listboxId}
+        labelledBy={label ? labelId : undefined}
+        additionalOptions={additionalOptions}
+        className={cn(isPortal && 'static top-auto mt-0', listClassName)}
+        groupedOptions={groupedOptions}
+        itemClassName={listItemClassName}
+        name={name}
+        wrapperInputRef={wrapperInputRef}
+        inputRef={inputRef}
+        options={options}
+        isLoading={!!isLoading}
+        searchable={searchable}
+        listItemSecondRowClassName={listItemSecondRowClassName}
+        isInfiniteScrollEnabled={isInfiniteScrollEnabled}
+        onFetchMoreOptions={onFetchMoreOptions}
+        noOptionsText={noOptionsText}
+        loadingText={loadingText}
+        visibleItems={visibleItems}
+      />
+    );
+
     return (
       <div
         ref={wrapperRef}
@@ -219,158 +254,168 @@ export const Wrapper: ForwardRefExoticComponent<
           </div>
         ) : null}
 
-        <div
-          ref={wrapperInputRef}
-          id={controlId}
-          className={cn(
-            selectVariants({ className, hasError: !!error, disabled }),
-          )}
-          role="combobox"
-          onClick={handleToggleOpen}
-          onKeyDown={handleKeyDown}
-          aria-expanded={isOpen}
-          tabIndex={isWrapperInputFocusable.current}
-          aria-labelledby={label ? labelId : undefined}
-          aria-label={label ? undefined : placeholder}
-          aria-haspopup="listbox"
-          aria-controls={isOpen ? listboxId : undefined}
-          aria-invalid={!!error || undefined}
-          aria-describedby={describedBy}
-          aria-required={isRequired || undefined}
-          aria-disabled={disabled || undefined}
-        >
-          <div className="flex gap-2.5 items-center flex-1">
-            {internalValue?.leftIcon && !showSearchIcon && (
-              <span className="w-4 h-4 flex justify-center items-center dark:text-metal-50">
-                {internalValue.leftIcon}
-              </span>
-            )}
-
-            {showSearchIcon && (
-              <Search
-                className={cn(
-                  'w-4',
-                  'h-4',
-                  'text-zinc-500',
-                  'select-none',
-                  'transition-colors',
-                  'duration-300',
-                  'dark:text-metal-300',
-                  'dark:group-focus-within:text-metal-50',
+        <Root open={isPortal && isOpen}>
+          <Anchor asChild>
+            <div
+              ref={wrapperInputRef}
+              id={controlId}
+              className={cn(
+                selectVariants({ className, hasError: !!error, disabled }),
+              )}
+              role="combobox"
+              onClick={handleToggleOpen}
+              onKeyDown={handleKeyDown}
+              aria-expanded={isOpen}
+              tabIndex={isWrapperInputFocusable.current}
+              aria-labelledby={label ? labelId : undefined}
+              aria-label={label ? undefined : placeholder}
+              aria-haspopup="listbox"
+              aria-controls={isOpen ? listboxId : undefined}
+              aria-invalid={!!error || undefined}
+              aria-describedby={describedBy}
+              aria-required={isRequired || undefined}
+              aria-disabled={disabled || undefined}
+            >
+              <div className="flex gap-2.5 items-center flex-1">
+                {internalValue?.leftIcon && !showSearchIcon && (
+                  <span className="w-4 h-4 flex justify-center items-center dark:text-metal-50">
+                    {internalValue.leftIcon}
+                  </span>
                 )}
-              />
-            )}
 
-            {searchable ? (
-              <input
-                ref={searchInputRef}
-                type="text"
-                value={
-                  isOpen ? searchTerm : (internalValue?.label ?? value ?? '')
-                }
-                onChange={handleInputChange}
-                placeholder={placeholder}
-                className={cn(inputVariants({ className: inputClassName }), {
-                  'text-red-700 placeholder:text-red-700': !!error,
-                })}
-                onClick={(e) => {
-                  e.stopPropagation();
-
-                  if (!disabled) {
-                    handleOpen();
-                  }
-                }}
-                aria-labelledby={label ? labelId : undefined}
-                aria-label={label ? undefined : placeholder}
-                aria-invalid={!!error || undefined}
-                aria-describedby={describedBy}
-                required={isRequired}
-                autoComplete="off"
-                autoCapitalize="words"
-                disabled={disabled}
-                tabIndex={-1}
-                {...delegated}
-              />
-            ) : (
-              <Typography
-                variant="body2"
-                className={cn(
-                  'flex-1 text-zinc-400 text-sm dark:text-metal-400 flex gap-2 items-center',
-                  {
-                    'text-red-700': !!error,
-                    'select-none': !internalValue,
-                    'text-metal-800 dark:text-metal-50': internalValue,
-                    'text-metal-400/50 dark:text-metal-50/50': disabled,
-                  },
-                  internalValue?.wrapperClassNameOnSelectedValue,
+                {showSearchIcon && (
+                  <Search
+                    className={cn(
+                      'w-4',
+                      'h-4',
+                      'text-zinc-500',
+                      'select-none',
+                      'transition-colors',
+                      'duration-300',
+                      'dark:text-metal-300',
+                      'dark:group-focus-within:text-metal-50',
+                    )}
+                  />
                 )}
-              >
-                {internalValue?.label || placeholder}{' '}
-                {internalValue?.showRightComponentOnselectedValue
-                  ? internalValue?.rightComponent
-                  : null}
-              </Typography>
-            )}
-          </div>
 
-          {isLoading ? (
-            <LoaderIcon
-              size={16}
-              className="text-metal-400 animate-spin select-none"
-            />
-          ) : (
-            !showSearchIcon && (
-              <ChevronUp
-                data-state={isOpen ? 'open' : 'closed'}
-                className={cn(
-                  'w-4 h-4 text-zinc-500 transition-all duration-100 data-[state=open]:rotate-0 data-[state=closed]:rotate-180 select-none dark:group-focus-within:text-metal-50',
-                  iconClassName,
-                  {
-                    'text-red-700': !!error,
-                    'text-metal-400/50 dark:group-focus-within:text-zinc-500':
-                      disabled,
-                  },
+                {searchable ? (
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    value={
+                      isOpen
+                        ? searchTerm
+                        : (internalValue?.label ?? value ?? '')
+                    }
+                    onChange={handleInputChange}
+                    placeholder={placeholder}
+                    className={cn(
+                      inputVariants({ className: inputClassName }),
+                      {
+                        'text-red-700 placeholder:text-red-700': !!error,
+                      },
+                    )}
+                    onClick={(e) => {
+                      e.stopPropagation();
+
+                      if (!disabled) {
+                        handleOpen();
+                      }
+                    }}
+                    aria-labelledby={label ? labelId : undefined}
+                    aria-label={label ? undefined : placeholder}
+                    aria-invalid={!!error || undefined}
+                    aria-describedby={describedBy}
+                    required={isRequired}
+                    autoComplete="off"
+                    autoCapitalize="words"
+                    disabled={disabled}
+                    tabIndex={-1}
+                    {...delegated}
+                  />
+                ) : (
+                  <Typography
+                    variant="body2"
+                    className={cn(
+                      'flex-1 text-zinc-400 text-sm dark:text-metal-400 flex gap-2 items-center',
+                      {
+                        'text-red-700': !!error,
+                        'select-none': !internalValue,
+                        'text-metal-800 dark:text-metal-50': internalValue,
+                        'text-metal-400/50 dark:text-metal-50/50': disabled,
+                      },
+                      internalValue?.wrapperClassNameOnSelectedValue,
+                    )}
+                  >
+                    {internalValue?.label || placeholder}{' '}
+                    {internalValue?.showRightComponentOnselectedValue
+                      ? internalValue?.rightComponent
+                      : null}
+                  </Typography>
                 )}
-              />
-            )
-          )}
-        </div>
+              </div>
 
-        <input
-          ref={inputRef}
-          type="text"
-          name={name}
-          className="hidden"
-          aria-hidden="true"
-          required={isRequired}
-          inert
-          defaultValue={internalValue?.value ?? value ?? undefined}
-          {...delegated}
-        />
+              {isLoading ? (
+                <LoaderIcon
+                  size={16}
+                  className="text-metal-400 animate-spin select-none"
+                />
+              ) : (
+                !showSearchIcon && (
+                  <ChevronUp
+                    data-state={isOpen ? 'open' : 'closed'}
+                    className={cn(
+                      'w-4 h-4 text-zinc-500 transition-all duration-100 data-[state=open]:rotate-0 data-[state=closed]:rotate-180 select-none dark:group-focus-within:text-metal-50',
+                      iconClassName,
+                      {
+                        'text-red-700': !!error,
+                        'text-metal-400/50 dark:group-focus-within:text-zinc-500':
+                          disabled,
+                      },
+                    )}
+                  />
+                )
+              )}
+            </div>
+          </Anchor>
 
-        {isOpen && (
-          <List
-            ref={ulRef}
-            id={listboxId}
-            labelledBy={label ? labelId : undefined}
-            additionalOptions={additionalOptions}
-            className={listClassName}
-            groupedOptions={groupedOptions}
-            itemClassName={listItemClassName}
+          <input
+            ref={inputRef}
+            type="text"
             name={name}
-            wrapperInputRef={wrapperInputRef}
-            inputRef={inputRef}
-            options={options}
-            isLoading={!!isLoading}
-            searchable={searchable}
-            listItemSecondRowClassName={listItemSecondRowClassName}
-            isInfiniteScrollEnabled={isInfiniteScrollEnabled}
-            onFetchMoreOptions={onFetchMoreOptions}
-            noOptionsText={noOptionsText}
-            loadingText={loadingText}
-            visibleItems={visibleItems}
+            className="hidden"
+            aria-hidden="true"
+            required={isRequired}
+            inert
+            defaultValue={internalValue?.value ?? value ?? undefined}
+            {...delegated}
           />
-        )}
+
+          {isOpen && !isPortal && list}
+
+          {isPortal && (
+            <Portal>
+              <Content
+                role="presentation"
+                align="start"
+                sideOffset={4}
+                className={cn(
+                  'z-50 w-(--radix-popover-trigger-width)',
+                  portalClassName,
+                )}
+                onOpenAutoFocus={(event) => {
+                  event.preventDefault();
+                }}
+                onCloseAutoFocus={(event) => {
+                  event.preventDefault();
+                }}
+                onBlur={handlePortalBlur}
+              >
+                {list}
+              </Content>
+            </Portal>
+          )}
+        </Root>
       </div>
     );
   },

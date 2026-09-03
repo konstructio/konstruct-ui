@@ -114,6 +114,7 @@ export type Props = VariantProps<typeof selectVariants> &
     iconClassName?: string;
     inputClassName?: string;
     isLoading?: boolean;
+    isPortal?: boolean;
     isRequired?: boolean;
     label?: string;
     labelAction?: ReactNode;
@@ -128,6 +129,7 @@ export type Props = VariantProps<typeof selectVariants> &
     loadingText?: string;
     visibleItems?: number;
     options: Option[] | OptionGroup[];
+    portalClassName?: string;
     searchable?: boolean;
     showSearchIcon?: boolean;
     theme?: Theme;
@@ -136,6 +138,7 @@ export type Props = VariantProps<typeof selectVariants> &
     onBlur?: VoidFunction;
     onChange?: OnChangeFn;
     onSearchChange?: (searchTerm: string) => void;
+    onValueChange?: (value: string) => void;
   } & (
     | {
         isInfiniteScrollEnabled: true;

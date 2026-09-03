@@ -1,4 +1,11 @@
-import { ComponentRef, RefObject, useCallback, useEffect, useRef } from 'react';
+import {
+  ComponentRef,
+  RefObject,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 
 import { useClickOutside } from '@/hooks';
 
@@ -9,6 +16,7 @@ type UseSelectParams = {
   inputRef?: RefObject<ComponentRef<'input'> | null>;
   searchInputRef?: RefObject<ComponentRef<'input'> | null>;
   internalValue?: Option;
+  listRef?: RefObject<HTMLElement | null>;
   onBlur?: SelectProps['onBlur'];
 };
 
@@ -16,17 +24,35 @@ export const useSelect = ({
   inputRef,
   searchInputRef,
   internalValue,
+  listRef,
   onBlur,
 }: UseSelectParams) => {
   const wrapperRef = useRef<ComponentRef<'div'>>(null);
   const wrapperInputRef = useRef<ComponentRef<'div'>>(null);
   const { value, setSearchTerm, setCanFilter, toggleOpen } = useSelectContext();
 
+  const outsideRefs = useMemo(() => {
+    return [wrapperRef, listRef];
+  }, [listRef]);
+
+  const isInside = useCallback(
+    (node: Node | null) => {
+      if (!node) {
+        return false;
+      }
+
+      return outsideRefs.some((ref) => {
+        return ref?.current?.contains(node);
+      });
+    },
+    [outsideRefs],
+  );
+
   const handleClickOutside = useCallback(() => {
     toggleOpen(false);
   }, [toggleOpen]);
 
-  useClickOutside(wrapperRef, handleClickOutside);
+  useClickOutside(outsideRefs, handleClickOutside);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -89,7 +115,7 @@ export const useSelect = ({
     wrapperRef.current?.addEventListener(
       'focusout',
       (event) => {
-        if (!wrapperRef.current?.contains(event.relatedTarget as Node)) {
+        if (!isInside(event.relatedTarget as Node)) {
           toggleOpen(false);
         }
       },
@@ -115,7 +141,7 @@ export const useSelect = ({
     wrapperRef.current?.addEventListener('focusout', (event) => {
       const newFocusElement = event.relatedTarget as Node;
 
-      if (!newFocusElement || !wrapperRef.current?.contains(newFocusElement)) {
+      if (!isInside(newFocusElement)) {
         if (!inputRef?.current?.value) {
           onBlur?.();
         }
@@ -133,6 +159,7 @@ export const useSelect = ({
   };
 
   return {
+    isInside,
     wrapperRef,
     wrapperInputRef,
     handleOpen,

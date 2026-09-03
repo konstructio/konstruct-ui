@@ -26,6 +26,7 @@ export const SelectProvider: FC<
     options: Option[];
     onChange?: SelectProps['onChange'];
     onBlur?: SelectProps['onBlur'];
+    onValueChange?: SelectProps['onValueChange'];
   }
 > = ({
   children,
@@ -35,6 +36,7 @@ export const SelectProvider: FC<
   options: defaultOptions,
   onChange,
   onBlur,
+  onValueChange,
 }) => {
   const [options, setOptions] = useState<Option[]>(defaultOptions);
   const highlightSearchEnabled = useRef(highlightSearch);
@@ -60,13 +62,14 @@ export const SelectProvider: FC<
       setCanContinueFetching(true);
       setPage(DEFAULT_INIT_PAGE);
       onChange?.({ target: { value, name: name ?? '' } });
+      onValueChange?.(value);
       onBlur?.();
 
       timeoutRef.current = setTimeout(() => {
         setIsTyping(false);
       }, DELAY_TYPING);
     },
-    [onChange, name, onBlur],
+    [onChange, onValueChange, name, onBlur],
   );
 
   const handleToggle = useCallback(

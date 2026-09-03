@@ -553,6 +553,135 @@ describe('Select', () => {
     });
   });
 
+  describe('onValueChange', () => {
+    it('should receive the selected value directly', async () => {
+      const onValueChange = vitest.fn();
+      const { user, findComboBox } = setup({ onValueChange });
+
+      await user.click(await findComboBox());
+      await user.click(screen.getByRole('option', { name: 'Option 2' }));
+
+      expect(onValueChange).toHaveBeenCalledWith('option-2');
+    });
+  });
+
+  describe('with isPortal', () => {
+    it('should render the list outside the select and keep selection working', async () => {
+      const onChange = vitest.fn();
+      const onValueChange = vitest.fn();
+      const { component, user, findComboBox } = setup({
+        isPortal: true,
+        onChange,
+        onValueChange,
+      });
+
+      const comboBox = await findComboBox();
+      await user.click(comboBox);
+
+      const listbox = await screen.findByRole('listbox');
+
+      expect(component.contains(listbox)).toBe(false);
+      expect(comboBox).toHaveAttribute('aria-expanded', 'true');
+      expect(comboBox).toHaveAttribute('aria-controls', listbox.id);
+
+      await user.click(
+        within(listbox).getByRole('option', { name: 'Option 2' }),
+      );
+
+      expect(onChange).toHaveBeenCalledWith({
+        target: { value: 'option-2', name: defaultProps.name },
+      });
+      expect(onValueChange).toHaveBeenCalledWith('option-2');
+      expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+      expect(comboBox).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    it('should navigate the portaled list with the keyboard', async () => {
+      const onValueChange = vitest.fn();
+      const { user, findComboBox } = setup({
+        isPortal: true,
+        onValueChange,
+      });
+
+      const comboBox = await findComboBox();
+
+      await user.tab();
+      await user.keyboard('{ArrowDown}');
+      await screen.findByRole('listbox');
+      await user.keyboard('{ArrowDown}');
+
+      expect(screen.getByRole('option', { name: 'Option 1' })).toHaveFocus();
+      expect(comboBox).toHaveAttribute('aria-expanded', 'true');
+
+      await user.keyboard('{ArrowDown}');
+
+      expect(screen.getByRole('option', { name: 'Option 2' })).toHaveFocus();
+
+      await user.keyboard('{Enter}');
+
+      expect(onValueChange).toHaveBeenCalledWith('option-2');
+      expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    });
+
+    it('should close the portaled list when clicking outside or pressing Escape', async () => {
+      const { user, findComboBox } = setup({ isPortal: true });
+
+      const comboBox = await findComboBox();
+
+      await user.click(comboBox);
+      await screen.findByRole('listbox');
+      await user.click(document.body);
+
+      expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+
+      await user.click(comboBox);
+      await screen.findByRole('listbox');
+      await user.keyboard('{Escape}');
+
+      expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    });
+
+    it('should work inside a modal', async () => {
+      const OpenModalWrapper: FC<PropsWithChildren> = ({ children }) => {
+        const [isOpen, setIsOpen] = useState(true);
+
+        return (
+          <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+            <Modal.Body>{children}</Modal.Body>
+          </Modal>
+        );
+      };
+      const onValueChange = vitest.fn();
+      const { user, findComboBox } = setup(
+        { isPortal: true, onValueChange },
+        OpenModalWrapper,
+      );
+
+      await user.click(await findComboBox());
+      await user.click(
+        within(await screen.findByRole('listbox')).getByRole('option', {
+          name: 'Option 3',
+        }),
+      );
+
+      expect(onValueChange).toHaveBeenCalledWith('option-3');
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    it("shouldn't have accessibility violations while open", async () => {
+      const { user, findComboBox } = setup({ isPortal: true });
+
+      await user.click(await findComboBox());
+      await screen.findByRole('listbox');
+
+      const results = await axe(document.body, {
+        rules: { region: { enabled: false } },
+      });
+
+      expect(results).toHaveNoViolations();
+    });
+  });
+
   describe('select inside a drawer', () => {
     const DrawerWrapper: FC<PropsWithChildren> = ({ children }) => {
       const [isOpen, setIsOpen] = useState(false);
