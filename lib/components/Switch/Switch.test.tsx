@@ -139,4 +139,59 @@ describe('Switch', () => {
 
     expect(handleSubmit).toHaveBeenCalledWith({ switch: 'false' });
   });
+  describe('labels and isLoading', () => {
+    it('should show the label of the current state and switch it on toggle', async () => {
+      const { user, getSwitch } = setup({
+        label: undefined,
+        labels: { on: 'Enabled', off: 'Disabled' },
+        defaultChecked: false,
+      });
+
+      const switchComponent = await getSwitch();
+
+      expect(screen.getByText('Disabled')).toBeInTheDocument();
+      expect(switchComponent).toHaveAccessibleName('Disabled');
+
+      await user.click(switchComponent);
+
+      expect(screen.getByText('Enabled')).toBeInTheDocument();
+      expect(switchComponent).toHaveAccessibleName('Enabled');
+    });
+
+    it('should follow the controlled value when using labels', async () => {
+      const { getSwitch } = setup({
+        label: undefined,
+        labels: { on: 'Enabled', off: 'Disabled' },
+        value: true,
+      });
+
+      expect(await getSwitch()).toHaveAccessibleName('Enabled');
+    });
+
+    it('should disable the switch and announce it as busy while loading', async () => {
+      const onChange = vi.fn();
+      const { user, getSwitch } = setup({ isLoading: true, onChange });
+
+      const switchComponent = await getSwitch();
+
+      expect(switchComponent).toBeDisabled();
+      expect(switchComponent).toHaveAttribute('aria-busy', 'true');
+
+      await user.click(switchComponent);
+
+      expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it("shouldn't have accessibility violations with labels and loading", async () => {
+      const { component } = setup({
+        label: undefined,
+        labels: { on: 'Enabled', off: 'Disabled' },
+        isLoading: true,
+      });
+
+      const results = await axe(component);
+
+      expect(results).toHaveNoViolations();
+    });
+  });
 });

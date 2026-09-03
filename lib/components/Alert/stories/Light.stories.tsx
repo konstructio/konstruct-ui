@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
+import { BillingIcon } from '@/assets/icons/components';
+import { Button } from '@/components/Button/Button';
+
 import { Alert as AlertComponent } from '../Alert';
 
 type Story = StoryObj<typeof AlertComponent>;
@@ -54,6 +57,39 @@ export const Light: Story = {
         type="info"
         title="Information"
         description="If you think this is incorrect, please contact your Konstruct administrators."
+        showCloseButton
+      />
+    </div>
+  ),
+};
+
+export const WithAction: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`action` renders a call to action at the right end of the alert and `icon` replaces the icon derived from `type`. Billing built an AlertBanner from scratch to get this layout.',
+      },
+    },
+  },
+  render: () => (
+    <div className="flex flex-col gap-3 w-150">
+      <AlertComponent
+        type="warning"
+        title="Add a payment method"
+        description="Your trial ends in 3 days. Add a card to keep your resources running."
+        action={
+          <Button variant="tertiary" appearance="compact">
+            Add card
+          </Button>
+        }
+      />
+      <AlertComponent
+        type="info"
+        title="Billing address updated"
+        icon={
+          <BillingIcon className="size-6 text-blue-800 dark:text-blue-300" />
+        }
         showCloseButton
       />
     </div>

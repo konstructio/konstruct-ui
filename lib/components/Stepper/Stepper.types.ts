@@ -66,6 +66,8 @@ export type Props = VariantProps<typeof stepperVariants> & {
   clickable?: boolean;
   /** Index of the current active step (0-based). When provided, step statuses are auto-calculated. */
   currentStep?: number;
+  /** Stretch the stepper to its container, distributing horizontal steps evenly */
+  fullWidth?: boolean;
   /** Custom icons for step statuses */
   icons?: StepperIcons;
   /** Show connector lines between steps */

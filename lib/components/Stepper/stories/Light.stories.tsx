@@ -110,3 +110,54 @@ export const Clickable: Story = {
     />
   ),
 };
+
+export const HorizontalFullWidth: Story = {
+  name: 'Light - Horizontal full width',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`fullWidth` stretches the stepper to its container and gives every horizontal step the same width, which dashboard-manager and billing reproduced with `classNames` overrides.',
+      },
+    },
+  },
+  render: () => (
+    <StepperComponent
+      steps={horizontalSteps}
+      variant="horizontal"
+      size="md"
+      fullWidth
+    />
+  ),
+};
+
+export const HorizontalFullWidthWithDescriptions: Story = {
+  name: 'Light - Horizontal full width (descriptions)',
+  render: () => (
+    <StepperComponent
+      steps={[
+        {
+          id: 1,
+          label: 'Account',
+          description: 'Your details',
+          status: 'completed',
+        },
+        {
+          id: 2,
+          label: 'Company',
+          description: 'Billing entity',
+          status: 'active',
+        },
+        {
+          id: 3,
+          label: 'Payment',
+          description: 'Card on file',
+          status: 'pending',
+        },
+      ]}
+      variant="horizontal"
+      size="md"
+      fullWidth
+    />
+  ),
+};
