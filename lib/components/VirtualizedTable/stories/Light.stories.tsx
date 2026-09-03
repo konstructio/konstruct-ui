@@ -44,6 +44,7 @@ const getColumns = (isPortal = false): ColumnDef<Pokemon>[] => [
     cell: (props) => (
       <VirtualizedTableComponent.TruncateText
         {...props}
+        copyable
         value={`${props.getValue().charAt(0).toUpperCase()}${props
           .getValue()
           .slice(1)}`}
