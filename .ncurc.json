@@ -2,7 +2,6 @@
 	"reject": [
 		"eslint",
 		"typescript",
-		"@vitejs/plugin-react",
 		"@tanstack/react-table"
 	]
 }
