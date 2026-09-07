@@ -1,7 +1,22 @@
-import clm from 'country-locale-map';
+type LocaleMap = typeof import('country-locale-map');
+
+const DEFAULT_LOCALE = 'en-US';
+
+let localeMap: LocaleMap | undefined;
+let localeMapRequest: Promise<void> | undefined;
+
+export const loadLocaleMap = (): Promise<void> => {
+  if (!localeMapRequest) {
+    localeMapRequest = import('country-locale-map').then((module) => {
+      localeMap = module.default;
+    });
+  }
+
+  return localeMapRequest;
+};
 
 export const getLocale = (countryCode: string = 'US'): string => {
-  const country = clm.getCountryByAlpha2(countryCode);
+  const country = localeMap?.getCountryByAlpha2(countryCode);
 
-  return country?.default_locale?.replace('_', '-') ?? 'en-US';
+  return country?.default_locale?.replace('_', '-') ?? DEFAULT_LOCALE;
 };

@@ -30,8 +30,12 @@ const data: Item[] = [
   { id: '3', name: 'Gamma', status: 'active' },
 ];
 
+beforeAll(async () => {
+  await import('../components/VirtualizedTableContent/VirtualizedTableContent');
+});
+
 describe('VirtualizedTable', () => {
-  const setup = (
+  const setup = async (
     pagination?: { totalItems: number },
     extraProps?: Record<string, unknown>,
   ) => {
@@ -55,6 +59,8 @@ describe('VirtualizedTable', () => {
       ),
     );
 
+    await screen.findByRole('table', { name: /test table/i });
+
     const getTable = () => screen.getByRole('table', { name: /test table/i });
     const getWrapperBody = () => getTable().parentElement as HTMLElement;
     const getLastCell = () => {
@@ -73,30 +79,30 @@ describe('VirtualizedTable', () => {
     };
   };
 
-  it('should render the component', () => {
-    const { getTable } = setup();
+  it('should render the component', async () => {
+    const { getTable } = await setup();
 
     expect(getTable()).toBeInTheDocument();
   });
 
-  it('should render the rows', () => {
-    setup();
+  it('should render the rows', async () => {
+    await setup();
 
     expect(screen.getByText('Alpha')).toBeInTheDocument();
     expect(screen.getByText('Beta')).toBeInTheDocument();
     expect(screen.getByText('Gamma')).toBeInTheDocument();
   });
 
-  it('should close the bottom borders when pagination is disabled', () => {
-    const { getWrapperBody, getLastCell, queryPaginationBar } = setup();
+  it('should close the bottom borders when pagination is disabled', async () => {
+    const { getWrapperBody, getLastCell, queryPaginationBar } = await setup();
 
     expect(queryPaginationBar()).not.toBeInTheDocument();
     expect(getWrapperBody()).toHaveClass('rounded-lg');
     expect(getLastCell()).toHaveClass('rounded-br-lg');
   });
 
-  it('should close the bottom borders when pagination is enabled but the bar is hidden for few items', () => {
-    const { getWrapperBody, getLastCell, queryPaginationBar } = setup({
+  it('should close the bottom borders when pagination is enabled but the bar is hidden for few items', async () => {
+    const { getWrapperBody, getLastCell, queryPaginationBar } = await setup({
       totalItems: data.length,
     });
 
@@ -105,8 +111,8 @@ describe('VirtualizedTable', () => {
     expect(getLastCell()).toHaveClass('rounded-br-lg');
   });
 
-  it('should let the pagination bar close the bottom borders when it is visible', () => {
-    const { getWrapperBody, getLastCell, queryPaginationBar } = setup({
+  it('should let the pagination bar close the bottom borders when it is visible', async () => {
+    const { getWrapperBody, getLastCell, queryPaginationBar } = await setup({
       totalItems: 25,
     });
 
@@ -116,15 +122,15 @@ describe('VirtualizedTable', () => {
   });
 
   it("should doesn't have violations", async () => {
-    const { component } = setup();
+    const { component } = await setup();
 
     const results = await axe(component);
 
     expect(results).toHaveNoViolations();
   });
 
-  it('should render the headerContent band above the column headers with the top corners', () => {
-    setup(undefined, { headerContent: <span>Monthly usage</span> });
+  it('should render the headerContent band above the column headers with the top corners', async () => {
+    await setup(undefined, { headerContent: <span>Monthly usage</span> });
 
     const bandCell = document.querySelector(
       'thead tr[data-header-content] th',
@@ -137,8 +143,8 @@ describe('VirtualizedTable', () => {
     expect(bandCell).toHaveClass('rounded-tr-lg');
   });
 
-  it('should remove the top corners from the column headers when the band is present', () => {
-    setup(undefined, { headerContent: <span>Monthly usage</span> });
+  it('should remove the top corners from the column headers when the band is present', async () => {
+    await setup(undefined, { headerContent: <span>Monthly usage</span> });
 
     const columnHeaders = screen.getAllByRole('columnheader').filter((th) => {
       return !th.closest('[data-header-content]');
@@ -151,8 +157,8 @@ describe('VirtualizedTable', () => {
     });
   });
 
-  it('should keep the top corners on the column headers without the band', () => {
-    setup();
+  it('should keep the top corners on the column headers without the band', async () => {
+    await setup();
 
     const columnHeaders = screen.getAllByRole('columnheader');
 
@@ -162,8 +168,8 @@ describe('VirtualizedTable', () => {
     });
   });
 
-  it('should render the band together with the empty state', () => {
-    setup(undefined, {
+  it('should render the band together with the empty state', async () => {
+    await setup(undefined, {
       data: [],
       headerContent: <span>Monthly usage</span>,
       emptyState: <span>No results</span>,
@@ -173,8 +179,8 @@ describe('VirtualizedTable', () => {
     expect(screen.getByText('No results')).toBeInTheDocument();
   });
 
-  it('should not reassign the expand-column corner when the band is present', () => {
-    setup(undefined, {
+  it('should not reassign the expand-column corner when the band is present', async () => {
+    await setup(undefined, {
       headerContent: <span>Monthly usage</span>,
       enableExpandedRow: true,
       renderExpandedRow: () => {
@@ -191,8 +197,8 @@ describe('VirtualizedTable', () => {
     ).toBe(false);
   });
 
-  it('should reassign the expand-column corner without the band', () => {
-    setup(undefined, {
+  it('should reassign the expand-column corner without the band', async () => {
+    await setup(undefined, {
       enableExpandedRow: true,
       renderExpandedRow: () => {
         return <span>expanded</span>;
@@ -211,7 +217,7 @@ describe('VirtualizedTable', () => {
   it('should change the page size from the pagination dropdown', async () => {
     const user = userEvent.setup();
 
-    setup({ totalItems: 25 });
+    await setup({ totalItems: 25 });
 
     await user.click(screen.getByRole('button', { name: /rows per page/i }));
     await user.click(screen.getByRole('option', { name: '20' }));
@@ -224,7 +230,7 @@ describe('VirtualizedTable', () => {
   it('should open the page-size dropdown in the fixed direction from dropdownPaginationDirection', async () => {
     const user = userEvent.setup();
 
-    setup({ totalItems: 25 }, { dropdownPaginationDirection: 'up' });
+    await setup({ totalItems: 25 }, { dropdownPaginationDirection: 'up' });
 
     await user.click(screen.getByRole('button', { name: /rows per page/i }));
 
@@ -233,8 +239,8 @@ describe('VirtualizedTable', () => {
     ).toHaveAttribute('data-side', 'top');
   });
 
-  it('should wrap the table and pagination in the scroll container, leaving the filter outside', () => {
-    setup(
+  it('should wrap the table and pagination in the scroll container, leaving the filter outside', async () => {
+    await setup(
       { totalItems: 25 },
       {
         classNameScrollContainer: 'overflow-x-auto',

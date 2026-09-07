@@ -1,5 +1,5 @@
 import { VariantProps } from 'class-variance-authority';
-import { getAllTimezones } from 'countries-and-timezones';
+import type { getAllTimezones } from 'countries-and-timezones';
 import type { DayPickerProps as DayPickerPrimitiveProps } from 'react-day-picker';
 
 import { datePickerVariants } from './DatePicker.variants';

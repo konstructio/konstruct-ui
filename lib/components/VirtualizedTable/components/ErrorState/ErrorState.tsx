@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { AlertOutlineIcon } from '@/assets/icons/components';
 import { Button } from '@/components/Button/Button';
 
-import { useTableContext } from '../../contexts';
+import { useTableContext } from '../../contexts/table.hook';
 import { sendRefreshEvent } from '../../events';
 import { EmptyState } from '../EmptyState/EmptyState';
 

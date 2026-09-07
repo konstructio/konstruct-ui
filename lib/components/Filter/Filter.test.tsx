@@ -100,6 +100,11 @@ type FilterTestProps = {
   onApplyDate?: DateFilterDropdownProps['onApply'];
 };
 
+beforeAll(async () => {
+  await import('@/components/Datepicker/components/DatePickerContent/DatePickerContent');
+  await import('@/components/DateRangePicker/components/CalendarPanel/components/CalendarMonth/components/CalendarMonthContent/CalendarMonthContent');
+});
+
 describe('FilterComponent', () => {
   const setup = ({ onApplyBadge, onApplyDate }: FilterTestProps = {}) => {
     const { container: component } = render(
@@ -140,11 +145,9 @@ describe('FilterComponent', () => {
     };
 
     const getDateButtonByLabel = async (date: string) => {
-      return queryByAttribute(
-        'aria-label',
-        document.body,
-        new RegExp(date, 'i'),
-      );
+      const [button] = await screen.findAllByLabelText(new RegExp(date, 'i'));
+
+      return button;
     };
 
     return {
@@ -280,7 +283,7 @@ describe('FilterComponent', () => {
       formatDateWithOrdinal(new Date()),
     );
 
-    await user.click(dateButtonByLabel!);
+    await user.click(dateButtonByLabel);
 
     const applyButton = await getApplyButton();
 
@@ -591,7 +594,7 @@ describe('FilterComponent', () => {
       formatDateWithOrdinal(new Date()),
     );
 
-    await user.click(dateButtonByLabel!);
+    await user.click(dateButtonByLabel);
 
     const applyButton = await getApplyButton();
 

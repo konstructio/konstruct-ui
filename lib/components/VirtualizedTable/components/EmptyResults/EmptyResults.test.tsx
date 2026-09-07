@@ -16,7 +16,7 @@ type Item = { id: string; name: string };
 
 const columns: ColumnDef<Item>[] = [{ header: 'Name', accessorKey: 'name' }];
 
-const setup = (
+const setup = async (
   props: ComponentProps<typeof VirtualizedTable.EmptyResults> = {},
 ) => {
   const user = userEvent.setup();
@@ -42,12 +42,17 @@ const setup = (
     />,
   );
 
+  await screen.findByRole('heading', {
+    level: 2,
+    name: typeof props.title === 'string' ? props.title : 'No results',
+  });
+
   return { ...utils, user, onResetFiltersEvent };
 };
 
 describe('EmptyResults', () => {
-  it('should render the default copy inside the table', () => {
-    setup();
+  it('should render the default copy inside the table', async () => {
+    await setup();
 
     expect(
       screen.getByRole('heading', { level: 2, name: 'No results' }),
@@ -61,7 +66,7 @@ describe('EmptyResults', () => {
   });
 
   it('should send the reset filters event for its own table', async () => {
-    const { user, onResetFiltersEvent } = setup();
+    const { user, onResetFiltersEvent } = await setup();
 
     await user.click(screen.getByRole('button', { name: 'Reset filters' }));
 
@@ -72,7 +77,7 @@ describe('EmptyResults', () => {
 
   it('should call onResetFilters instead of sending the event when provided', async () => {
     const onResetFilters = vi.fn();
-    const { user, onResetFiltersEvent } = setup({ onResetFilters });
+    const { user, onResetFiltersEvent } = await setup({ onResetFilters });
 
     await user.click(screen.getByRole('button', { name: 'Reset filters' }));
 
@@ -80,8 +85,8 @@ describe('EmptyResults', () => {
     expect(onResetFiltersEvent).not.toHaveBeenCalled();
   });
 
-  it('should allow overriding the copy and the image', () => {
-    setup({
+  it('should allow overriding the copy and the image', async () => {
+    await setup({
       title: 'Nothing matches',
       description: 'Try a broader search.',
       resetLabel: 'Clear',
@@ -97,7 +102,7 @@ describe('EmptyResults', () => {
   });
 
   it("shouldn't have accessibility violations", async () => {
-    const { container } = setup();
+    const { container } = await setup();
 
     const results = await axe(container);
 

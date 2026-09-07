@@ -21,6 +21,10 @@ const months = [
   'December',
 ];
 
+beforeAll(async () => {
+  await import('./components/DatePickerContent/DatePickerContent');
+});
+
 describe('DatePicker', () => {
   // Use a fixed date to avoid month overflow issues (e.g., Jan 31 -> Feb 31 rolls to March)
   const currentMonth = new Date(2026, 0, 15); // January 15, 2026

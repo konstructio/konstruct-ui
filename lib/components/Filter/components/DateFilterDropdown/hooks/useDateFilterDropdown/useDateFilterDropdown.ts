@@ -3,8 +3,7 @@ import { useCallback, useId, useMemo, useState } from 'react';
 import { useFilterContext } from '@/components/Filter/contexts';
 
 import { sendOpenFilterEvent } from '../../../../events';
-import { useFilterDropdownSync } from '../../../../hooks';
-import { getLocale } from '../../../../utils';
+import { useFilterDropdownSync, useLocale } from '../../../../hooks';
 
 import { Props } from '../../DateFilterDropdown.types';
 
@@ -17,15 +16,16 @@ export const useDateFilterDropdown = ({
   const [isOpen, setIsOpen] = useState(false);
   const [selectedDay, setSelectedDay] = useState<Date>();
   const [appliedDay, setAppliedDay] = useState<Date>();
+  const locale = useLocale(countryCode);
 
   const appliedDayFormatted = useMemo(
     () =>
-      appliedDay?.toLocaleDateString(getLocale(countryCode), {
+      appliedDay?.toLocaleDateString(locale, {
         day: 'numeric',
         month: 'short',
         year: 'numeric',
       }),
-    [appliedDay, countryCode],
+    [appliedDay, locale],
   );
 
   const handleOpenChange = (open: boolean) => {
