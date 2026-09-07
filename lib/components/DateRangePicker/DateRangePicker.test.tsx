@@ -6,6 +6,10 @@ import { FC, PropsWithChildren } from 'react';
 import { DateRangePicker } from './DateRangePicker';
 import type { DateRangePickerProps } from './DateRangePicker.types';
 
+beforeAll(async () => {
+  await import('./components/CalendarPanel/components/CalendarMonth/components/CalendarMonthContent/CalendarMonthContent');
+});
+
 describe('DateRangePicker', () => {
   const defaultProps = {
     onRangeChange: vi.fn(),
