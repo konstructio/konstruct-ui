@@ -125,6 +125,13 @@ const columns: ColumnDef<Pokemon>[] = [
               console.log(`Viewing details for ${JSON.stringify(row)}`);
             },
           },
+          {
+            label: 'Delete',
+            disabledReason: 'This Pokémon is in use and cannot be deleted',
+            onClick: (row) => {
+              console.log(`Deleting ${JSON.stringify(row)}`);
+            },
+          },
         ]}
       />
     ),
