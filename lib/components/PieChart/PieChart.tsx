@@ -1,19 +1,12 @@
-import {
-  ArcElement,
-  ChartData,
-  Chart as ChartJS,
-  ChartOptions,
-  InteractionMode,
-  Plugin,
-} from 'chart.js';
-import { FC, useMemo } from 'react';
-import { Doughnut } from 'react-chartjs-2';
-
-import { resolveColor } from '@/utils';
+import { FC, lazy, Suspense } from 'react';
 
 import { Props } from './PieChart.types';
 
-ChartJS.register(ArcElement);
+const PieChartContent = lazy(() =>
+  import('./components/PieChartContent/PieChartContent').then((module) => ({
+    default: module.PieChartContent,
+  })),
+);
 
 /**
  * A doughnut/pie chart component for data visualization.
@@ -32,114 +25,8 @@ ChartJS.register(ArcElement);
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-piechart--docs Storybook}
  */
-export const PieChart: FC<Props> = ({
-  values,
-  colors = [
-    resolveColor('--color-neutral-600'),
-    resolveColor('--color-emerald-400'),
-  ],
-  borderColors = [resolveColor('--color-white'), resolveColor('--color-white')],
-  borderWidth = 0,
-  cutoutPercentage = 80,
-  title,
-  subtitle,
-  titleFontSize = 16,
-  subtitleFontSize = 14,
-  titleColor = resolveColor('--color-gray-900'),
-  subtitleColor = resolveColor('--color-gray-500'),
-  titleFontWeight = 'bold',
-  subtitleFontWeight = 'normal',
-  redraw = true,
-}) => {
-  const data = useMemo(
-    () =>
-      ({
-        datasets: [
-          {
-            data: values,
-            backgroundColor: colors,
-            borderWidth,
-            borderColor: borderColors,
-          },
-        ],
-      }) satisfies ChartData<'doughnut'>,
-    [borderColors, borderWidth, colors, values],
-  );
-
-  const options = useMemo(
-    () =>
-      ({
-        plugins: {
-          legend: {
-            display: false,
-          },
-        },
-        cutout: `${cutoutPercentage}%`,
-        hover: { mode: null as unknown as InteractionMode },
-      }) satisfies ChartOptions<'doughnut'>,
-    [cutoutPercentage],
-  );
-
-  const plugins = useMemo(() => {
-    const plugins: Plugin<'doughnut'>[] = [];
-
-    if (title) {
-      plugins.push({
-        id: 'titleCenter',
-        beforeDraw(chart) {
-          const ctx = chart.ctx;
-          const width = chart.width;
-          const height = chart.height;
-
-          ctx.restore();
-
-          ctx.font = `${titleFontWeight} ${titleFontSize}px sans-serif`;
-          ctx.fillStyle = titleColor;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText(
-            title,
-            width / 2,
-            height / 2 - (subtitle ? titleFontSize / 2 : 0),
-          );
-
-          ctx.save();
-        },
-      });
-    }
-
-    if (subtitle) {
-      plugins.push({
-        id: 'subtitleCenter',
-        beforeDraw(chart) {
-          const ctx = chart.ctx;
-          const width = chart.width;
-          const height = chart.height;
-
-          ctx.restore();
-
-          ctx.font = `${subtitleFontWeight} ${subtitleFontSize}px sans-serif`;
-          ctx.fillStyle = subtitleColor;
-          ctx.fillText(subtitle, width / 2, height / 2 + subtitleFontSize / 2);
-
-          ctx.save();
-        },
-      });
-    }
-
-    return plugins;
-  }, [
-    subtitle,
-    subtitleColor,
-    subtitleFontSize,
-    subtitleFontWeight,
-    title,
-    titleColor,
-    titleFontSize,
-    titleFontWeight,
-  ]);
-
-  return (
-    <Doughnut data={data} options={options} plugins={plugins} redraw={redraw} />
-  );
-};
+export const PieChart: FC<Props> = (props) => (
+  <Suspense fallback={<div className="w-full h-full" aria-busy="true" />}>
+    <PieChartContent {...props} />
+  </Suspense>
+);

@@ -1,8 +1,65 @@
-import { ComponentRef, FC, forwardRef } from 'react';
+import { ComponentRef, FC, forwardRef, lazy, Suspense } from 'react';
+
+import { Typography } from '@/components/Typography/Typography';
+import { cn } from '@/utils';
 
 import { Props } from './PhoneNumberInput.types';
-import { Wrapper } from './components';
-import { PhoneNumberProvider } from './contexts';
+import {
+  labelVariants,
+  phoneNumberInputVariants,
+} from './PhoneNumberInput.variants';
+
+const PhoneNumberInputContent = lazy(() =>
+  import('./components/PhoneNumberInputContent').then((module) => ({
+    default: module.PhoneNumberInputContent,
+  })),
+);
+
+const PhoneNumberInputFallback: FC<Props> = ({
+  error,
+  isRequired,
+  label,
+  labelClassName,
+  labelWrapperClassName,
+  wrapperClassName,
+}) => {
+  const hasError = typeof error === 'string' && error.length > 0;
+
+  return (
+    <div className="w-full flex flex-col gap-2" aria-busy="true">
+      {label ? (
+        <div className={cn(labelWrapperClassName)}>
+          <Typography
+            component="span"
+            className={labelVariants({ className: labelClassName })}
+          >
+            {label}
+            {isRequired && (
+              <Typography
+                component="span"
+                aria-hidden="true"
+                className="text-red-600 dark:text-red-500 ml-1"
+              >
+                *
+              </Typography>
+            )}
+          </Typography>
+        </div>
+      ) : null}
+
+      <div
+        className={phoneNumberInputVariants({
+          className: wrapperClassName,
+          variant: hasError ? 'error' : 'default',
+        })}
+      >
+        <div className="p-2 flex items-center gap-2.5">
+          <div className="h-6 w-full" />
+        </div>
+      </div>
+    </div>
+  );
+};
 
 /**
  * A phone number input with country code selector and automatic formatting.
@@ -25,8 +82,8 @@ import { PhoneNumberProvider } from './contexts';
 export const PhoneNumberInput: FC<Props> = forwardRef<
   ComponentRef<'input'>,
   Props
->(({ defaultCountryCode = 'US', ...delegated }, ref) => (
-  <PhoneNumberProvider defaultCountryCode={defaultCountryCode}>
-    <Wrapper ref={ref} {...delegated} />
-  </PhoneNumberProvider>
+>((props, ref) => (
+  <Suspense fallback={<PhoneNumberInputFallback {...props} />}>
+    <PhoneNumberInputContent ref={ref} {...props} />
+  </Suspense>
 ));

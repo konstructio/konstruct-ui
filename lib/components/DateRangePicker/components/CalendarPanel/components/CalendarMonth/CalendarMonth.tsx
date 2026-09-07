@@ -1,40 +1,32 @@
-import { FC, useMemo } from 'react';
-import { DayPicker } from 'react-day-picker';
+import { FC, lazy, Suspense } from 'react';
 
 import { cn } from '@/utils';
 
 import { calendarMonthTitleVariants } from '../../CalendarPanel.variants';
 import {
   SINGLE_MONTH_WIDTH,
-  createDayPickerClassNames,
+  WEEKDAY_HEADER_HEIGHT,
+  WEEK_ROW_HEIGHT,
   getMonthName,
 } from '../../constants';
+import { getWeeksInMonth } from '../../utils';
 
 import { Props } from './CalendarMonth.types';
+
+const CalendarMonthContent = lazy(() =>
+  import('./components/CalendarMonthContent/CalendarMonthContent').then(
+    (module) => ({ default: module.CalendarMonthContent }),
+  ),
+);
 
 const getMonthLabel = (date: Date) =>
   `${getMonthName(date.getMonth())} ${date.getFullYear()}`;
 
-export const CalendarMonth: FC<Props> = ({
-  month,
-  range,
-  onRangeSelect,
-  disabled,
-  disabledMatcher,
-  showOutsideDays,
-  classNames,
-}) => {
-  const dayPickerClassNames = useMemo(
-    () => createDayPickerClassNames(classNames?.dayPicker),
-    [classNames?.dayPicker],
-  );
+export const CalendarMonth: FC<Props> = (props) => {
+  const { month, classNames } = props;
 
   return (
-    <div
-      key={`${month.getFullYear()}-${month.getMonth()}`}
-      style={{ width: SINGLE_MONTH_WIDTH }}
-    >
-      {/* Month Header */}
+    <div style={{ width: SINGLE_MONTH_WIDTH }}>
       <div className="flex items-center justify-center mb-8 h-6">
         <span
           className={cn(
@@ -47,19 +39,20 @@ export const CalendarMonth: FC<Props> = ({
         </span>
       </div>
 
-      {/* Calendar */}
-      <DayPicker
-        mode="range"
-        selected={{ from: range.from, to: range.to }}
-        onSelect={onRangeSelect}
-        month={month}
-        numberOfMonths={1}
-        disabled={disabledMatcher || disabled}
-        hideNavigation
-        animate={false}
-        showOutsideDays={showOutsideDays}
-        classNames={dayPickerClassNames}
-      />
+      <Suspense
+        fallback={
+          <div
+            aria-busy="true"
+            style={{
+              minHeight:
+                WEEKDAY_HEADER_HEIGHT +
+                getWeeksInMonth(month) * WEEK_ROW_HEIGHT,
+            }}
+          />
+        }
+      >
+        <CalendarMonthContent {...props} />
+      </Suspense>
     </div>
   );
 };
