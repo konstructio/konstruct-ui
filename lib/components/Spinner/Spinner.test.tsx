@@ -89,4 +89,51 @@ describe('Spinner', () => {
 
     expect(icon).toHaveClass('w-60', 'h-60');
   });
+
+  describe('animation phase lock', () => {
+    const originalGetAnimations = HTMLElement.prototype.getAnimations;
+
+    const stubAnimations = (startTimes: Array<number | null>) => {
+      const animations = startTimes.map((startTime) => ({
+        startTime,
+      })) as unknown as Animation[];
+
+      HTMLElement.prototype.getAnimations = vi.fn(() => animations);
+
+      return animations;
+    };
+
+    afterEach(() => {
+      if (originalGetAnimations) {
+        HTMLElement.prototype.getAnimations = originalGetAnimations;
+      } else {
+        delete (HTMLElement.prototype as Partial<HTMLElement>).getAnimations;
+      }
+    });
+
+    it('should give every animation of a spinner the same start time', () => {
+      const animations = stubAnimations([null, null]);
+
+      setup();
+
+      expect(typeof animations[0].startTime).toBe('number');
+      expect(animations[1].startTime).toBe(animations[0].startTime);
+    });
+
+    it('should make later spinners adopt the start time of the first one', () => {
+      const first = stubAnimations([null]);
+      setup();
+
+      const second = stubAnimations([9999]);
+      setup();
+
+      expect(second[0].startTime).toBe(first[0].startTime);
+    });
+
+    it('should render when getAnimations is not supported', () => {
+      delete (HTMLElement.prototype as Partial<HTMLElement>).getAnimations;
+
+      expect(() => setup()).not.toThrow();
+    });
+  });
 });
