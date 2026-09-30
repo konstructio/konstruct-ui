@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.2-alpha.110](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.110) (2026-09-30)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.109...0.1.2-alpha.110)
+
+**Merged pull requests:**
+
+- ✨ feat\(toast\): stacked toast queue with a built-in store, provider-less usage and dark mode [\#749](https://github.com/konstructio/konstruct-ui/pull/749) ([futjesus](https://github.com/futjesus))
+- ✨ feat\(spinner\): phase-lock every spinner to one shared animation start [\#748](https://github.com/konstructio/konstruct-ui/pull/748) ([futjesus](https://github.com/futjesus))
+- ⬆️ chore: update dependencies [\#741](https://github.com/konstructio/konstruct-ui/pull/741) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.109](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.109) (2026-09-03)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.108...0.1.2-alpha.109)
