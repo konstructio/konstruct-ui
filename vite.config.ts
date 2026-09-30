@@ -4,14 +4,54 @@ import react from '@vitejs/plugin-react';
 import { glob } from 'glob';
 import { extname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 import dts from 'vite-plugin-dts';
 import { libInjectCss } from 'vite-plugin-lib-inject-css';
 import svgr from 'vite-plugin-svgr';
 
+const CLIENT_DIRECTIVE = /^\s*(['"])use client\1/;
+const SOURCE_MODULE = /\.[cm]?[jt]sx?$/;
+
+// Rolldown keeps a module-level 'use client' only on entry chunks. A component
+// shared by several entries (the root barrel and its own entry) is split into a
+// common chunk that the barrel imports directly, so the directive never reaches
+// consumers that render it from a React Server Component. Re-stamp it on every
+// chunk whose lib modules all declared it; mixed chunks stay untouched so plain
+// utilities never turn into client references.
+const preserveClientDirective = (): Plugin => {
+  const clientModules = new Set<string>();
+
+  return {
+    name: 'preserve-client-directive',
+    enforce: 'pre',
+    transform(code, id) {
+      if (id.includes('/lib/') && CLIENT_DIRECTIVE.test(code)) {
+        clientModules.add(id);
+      }
+
+      return null;
+    },
+    renderChunk(code, chunk) {
+      const libModules = chunk.moduleIds.filter(
+        (id) => id.includes('/lib/') && SOURCE_MODULE.test(id),
+      );
+      const isClientChunk =
+        libModules.length > 0 &&
+        libModules.every((id) => clientModules.has(id));
+
+      if (!isClientChunk || CLIENT_DIRECTIVE.test(code)) {
+        return null;
+      }
+
+      return { code: `'use client';\n${code}`, map: null };
+    },
+  };
+};
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    preserveClientDirective(),
     react(),
     svgr({
       include: '**/*.svg',
