@@ -7,6 +7,7 @@ import { DEFAULT_PAGE_SIZE } from '../constants';
 export type ContextType<TData extends RowData = RowData> = {
   sortedData: ColumnSort[];
   table: Table<TData>;
+  tableId: string;
   pageSize: number;
   tableFetching?: boolean;
   tableLoading?: boolean;
@@ -47,6 +48,7 @@ export type ContextType<TData extends RowData = RowData> = {
 export const TableContext = createContext<ContextType<RowData>>({
   sortedData: [],
   table: {} as Table<RowData>,
+  tableId: '',
   tableFetching: false,
   tableLoading: false,
   tableError: null,
