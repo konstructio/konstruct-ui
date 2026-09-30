@@ -1,1 +1,1 @@
-export declare const DotPaginate: () => import("react").JSX.Element;
+export declare const DotPaginate: () => import('../../../../../node_modules/react').JSX.Element;

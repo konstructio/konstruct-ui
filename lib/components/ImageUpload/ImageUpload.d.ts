@@ -19,7 +19,7 @@ import { Props } from './ImageUpload.types';
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-imageupload--docs Storybook}
  */
 declare const ImageUpload: {
-    ({ className, error, fileName, fileSize, fileUrl, helperText, isRequired, label, labelClassName, labelWrapperClassName, name, onChange, onRemove, status, theme, uploadButtonText, accept, maxSize, }: Props): import("react").JSX.Element;
+    ({ className, error, fileName, fileSize, fileUrl, helperText, isRequired, label, labelClassName, labelWrapperClassName, name, onChange, onRemove, status, theme, uploadButtonText, accept, maxSize, }: Props): import('../../../node_modules/react').JSX.Element;
     displayName: string;
 };
 export { ImageUpload };
