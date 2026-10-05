@@ -1,16 +1,16 @@
 import { useMemo } from 'react';
 
-import { getLocale } from '../../../../utils';
+import { useLocale } from '../../../../hooks';
 
 import { Props } from './useFormattedDateRange.types';
 
 export const useFormattedDateRange = ({ range, countryCode = 'US' }: Props) => {
+  const locale = useLocale(countryCode);
+
   return useMemo(() => {
     if (!range?.from) {
       return { appliedRangeLabel: undefined, appliedRangeEnds: undefined };
     }
-
-    const locale = getLocale(countryCode);
 
     const formatShort = (date: Date) => {
       return date.toLocaleDateString(locale, {
@@ -35,5 +35,5 @@ export const useFormattedDateRange = ({ range, countryCode = 'US' }: Props) => {
     };
 
     return { appliedRangeLabel, appliedRangeEnds };
-  }, [range, countryCode]);
+  }, [range, locale]);
 };

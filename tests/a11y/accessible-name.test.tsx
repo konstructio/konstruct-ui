@@ -96,11 +96,16 @@ describe('accessible name', () => {
       ['label and name', { name: 'field-name' }],
       ['label and id', { id: 'field-id' }],
       ['label, name and id', { name: 'field-name', id: 'field-id' }],
-    ])('should expose its label as accessible name with %s', (_, extra) => {
-      render(renderCase({ label: LABEL, ...extra }));
+    ])(
+      'should expose its label as accessible name with %s',
+      async (_, extra) => {
+        render(renderCase({ label: LABEL, ...extra }));
 
-      expect(screen.getByRole(role, { name: LABEL })).toBeInTheDocument();
-    });
+        expect(
+          await screen.findByRole(role, { name: LABEL }),
+        ).toBeInTheDocument();
+      },
+    );
   });
 
   describe('ImageUpload', () => {
