@@ -44,6 +44,7 @@ import { computeStackLayout } from './utils';
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/in-review-toast-light--docs Storybook}
  */
 export const Toast: FC<Props> = ({
+  autoWidth = false,
   className,
   closeLabel = 'Close toast',
   container,
@@ -98,6 +99,7 @@ export const Toast: FC<Props> = ({
           {ordered.map((toast, index) => (
             <ToastCard
               key={toast.id}
+              autoWidth={autoWidth}
               closeLabel={closeLabel}
               expanded={isExpanded}
               frontHeight={frontHeight}

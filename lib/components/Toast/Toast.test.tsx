@@ -286,6 +286,22 @@ describe('Toast', () => {
     ).not.toBeInTheDocument();
   });
 
+  it('should cap each toast at the region width by default', () => {
+    setup({ toasts: [item('a')] });
+
+    expect(screen.getByRole('listitem')).toHaveClass('max-w-full');
+    expect(screen.getByRole('listitem')).not.toHaveClass('w-max');
+  });
+
+  it('should size each toast to its content when autoWidth is set', () => {
+    setup({ autoWidth: true, toasts: [item('a')] });
+
+    expect(screen.getByRole('listitem')).toHaveClass(
+      'w-max',
+      'max-w-[calc(100vw-3rem)]',
+    );
+  });
+
   it("should doesn't have violations", async () => {
     setup({
       toasts: [

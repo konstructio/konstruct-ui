@@ -53,4 +53,19 @@ export const Dark: Story = {
   ),
 };
 
+export const AutoWidth: Story = {
+  args: {
+    autoWidth: true,
+  },
+  parameters: {
+    theme: 'dark',
+  },
+  render: (args) => (
+    <ToastProvider>
+      <Publishers />
+      <ToastComponent {...args} />
+    </ToastProvider>
+  ),
+};
+
 export default meta;

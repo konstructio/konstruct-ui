@@ -37,6 +37,11 @@ export type ToastHeights = Record<string, number>;
  * ```
  */
 export type Props = {
+  /**
+   * Size each toast to its content, growing leftwards up to the viewport
+   * width, instead of the region's fixed width (default: false)
+   */
+  autoWidth?: boolean;
   /** Additional CSS classes for the fixed region */
   className?: string;
   /** Accessible name of every close button (default: 'Close toast') */
