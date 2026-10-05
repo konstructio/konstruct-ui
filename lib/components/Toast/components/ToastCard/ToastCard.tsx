@@ -26,6 +26,7 @@ import {
 import { Props } from './ToastCard.types';
 
 export const ToastCard: FC<Props> = ({
+  autoWidth,
   closeLabel,
   expanded,
   frontHeight,
@@ -95,7 +96,8 @@ export const ToastCard: FC<Props> = ({
   return (
     <motion.li
       className={cn(
-        'absolute right-0 bottom-0 max-w-full origin-bottom will-change-transform',
+        'absolute right-0 bottom-0 origin-bottom will-change-transform',
+        autoWidth ? 'w-max max-w-[calc(100vw-3rem)]' : 'max-w-full',
         toastFrameVariants({ type }),
       )}
       style={{ zIndex: isPresent ? total - index : 0 }}
