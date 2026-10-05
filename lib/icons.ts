@@ -65,6 +65,7 @@ export {
   HomeIcon,
   IdIcon,
   InfoCircleIcon,
+  InformationFilledIcon,
   InformationOutlineIcon,
   InventoryIcon,
   InvoiceListIcon,

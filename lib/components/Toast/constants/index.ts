@@ -1,7 +1,7 @@
 import {
   CheckCircleFilledIcon,
   ErrorIcon,
-  InformationOutlineIcon,
+  InformationFilledIcon,
   WarningTriangleIcon,
 } from '@/assets/icons/components';
 
@@ -43,5 +43,5 @@ export const TOAST_ICONS: Record<ToastType, typeof ErrorIcon> = {
   success: CheckCircleFilledIcon,
   error: ErrorIcon,
   warning: WarningTriangleIcon,
-  info: InformationOutlineIcon,
+  info: InformationFilledIcon,
 };

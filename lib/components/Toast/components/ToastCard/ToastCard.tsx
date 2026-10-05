@@ -121,7 +121,7 @@ export const ToastCard: FC<Props> = ({
         role="status"
         aria-live="polite"
         aria-atomic="true"
-        className={cn(toastVariants({ type }))}
+        className={toastVariants()}
       >
         <div className="flex items-center gap-8">
           <div className="flex min-w-0 flex-1 items-center gap-2">
