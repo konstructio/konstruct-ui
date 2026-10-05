@@ -1,5 +1,6 @@
 import { ToastItem } from '../../Toast.types';
 export type Props = {
+    autoWidth: boolean;
     closeLabel: string;
     expanded: boolean;
     frontHeight: number;

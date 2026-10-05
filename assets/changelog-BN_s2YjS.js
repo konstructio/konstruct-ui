@@ -1,5 +1,13 @@
 import{n as e}from"./rolldown-runtime-C0FnF6B9.js";import{A as t,a as n,j as r,o as i,s as a}from"./blocks-CxOU81X1.js";import{t as o}from"./jsx-runtime-BdxMnOeJ.js";var s;function c(){return(c=e((()=>{s=`# Changelog
 
+## [0.1.2-alpha.112](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.112) (2026-10-05)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.111...0.1.2-alpha.112)
+
+**Merged pull requests:**
+
+- ✨ feat\\(toast\\): add an optional autoWidth prop to size toasts to their content [\\#753](https://github.com/konstructio/konstruct-ui/pull/753) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.111](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.111) (2026-10-05)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.110...0.1.2-alpha.111)
