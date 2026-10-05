@@ -63,6 +63,7 @@ export { Home2Icon } from './Home2';
 export { HomeIcon } from './Home';
 export { IdIcon } from './Id';
 export { InfoCircleIcon } from './InfoCircle';
+export { InformationFilledIcon } from './InformationFilled';
 export { InformationOutlineIcon } from './InformationOutline';
 export { InventoryIcon } from './Inventory';
 export { InvoiceListIcon } from './InvoiceList';
