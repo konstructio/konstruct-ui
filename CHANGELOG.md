@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.2-alpha.111](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.111) (2026-10-05)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.110...0.1.2-alpha.111)
+
+**Merged pull requests:**
+
+- 🐛 fix\(toast\): keep stacked toasts filled, filled info icon and dependency update [\#752](https://github.com/konstructio/konstruct-ui/pull/752) ([futjesus](https://github.com/futjesus))
+- ➖ chore: drop the unused @radix-ui/react-toast dependency [\#750](https://github.com/konstructio/konstruct-ui/pull/750) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.110](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.110) (2026-09-30)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.109...0.1.2-alpha.110)
