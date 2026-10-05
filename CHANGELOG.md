@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.112](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.112) (2026-10-05)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.111...0.1.2-alpha.112)
+
+**Merged pull requests:**
+
+- ✨ feat\(toast\): add an optional autoWidth prop to size toasts to their content [\#753](https://github.com/konstructio/konstruct-ui/pull/753) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.111](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.111) (2026-10-05)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.110...0.1.2-alpha.111)
