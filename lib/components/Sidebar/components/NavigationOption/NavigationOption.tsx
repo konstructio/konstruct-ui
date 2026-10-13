@@ -13,7 +13,9 @@ import {
   ReactElement,
   ReactNode,
   useCallback,
+  useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 
@@ -46,14 +48,19 @@ const toSingleTriggerChild = (children: ReactNode): ReactElement => {
   );
 };
 
+const DEFAULT_INTENT_DELAY_MS = 80;
+
 const NavigationOption: FC<Props> = ({
+  badge,
   children,
   className,
   closeDrawerOnClick = true,
+  intentDelay = DEFAULT_INTENT_DELAY_MS,
   isVisible = true,
   isActive,
   role,
   tooltip,
+  onIntent,
   tooltipBgClassName = 'bg-kubefirst-dark-blue-900',
   tooltipArrowClassName = 'fill-kubefirst-dark-blue-900',
   tooltipTextClassName = 'text-white',
@@ -64,6 +71,32 @@ const NavigationOption: FC<Props> = ({
   const isHoverExpandable = isCollapsed && expandOnHover;
 
   const [registeredContent, setRegisteredContent] = useState<ReactNode>(null);
+  const intentTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  );
+
+  const cancelIntent = useCallback(() => {
+    clearTimeout(intentTimerRef.current);
+    intentTimerRef.current = undefined;
+  }, []);
+
+  const fireIntent = useCallback(() => {
+    cancelIntent();
+    onIntent?.();
+  }, [cancelIntent, onIntent]);
+
+  const scheduleIntent = useCallback(() => {
+    if (!onIntent) {
+      return;
+    }
+
+    cancelIntent();
+    intentTimerRef.current = setTimeout(fireIntent, intentDelay);
+  }, [cancelIntent, fireIntent, intentDelay, onIntent]);
+
+  useEffect(() => {
+    return cancelIntent;
+  }, [cancelIntent]);
 
   const registerTooltipContent = useCallback((content: ReactNode) => {
     setRegisteredContent(content);
@@ -95,6 +128,20 @@ const NavigationOption: FC<Props> = ({
 
   const tooltipContent = tooltip ?? registeredContent;
   const renderTooltip = isHoverExpandable && Boolean(tooltipContent);
+  const intentHandlers = onIntent
+    ? {
+        onPointerEnter: scheduleIntent,
+        onPointerLeave: cancelIntent,
+        onPointerDown: fireIntent,
+        onTouchStart: fireIntent,
+        onFocus: fireIntent,
+      }
+    : {};
+  const badgeContent = badge ? (
+    <span className="ml-auto flex shrink-0 items-center group-data-[mode=collapsed]/sidebar:hidden">
+      {badge}
+    </span>
+  ) : null;
 
   const body = renderTooltip ? (
     <Provider delayDuration={0}>
@@ -126,9 +173,16 @@ const NavigationOption: FC<Props> = ({
     <NavigationOptionContext.Provider value={contextValue}>
       <li
         {...delegated}
+        {...intentHandlers}
         data-active={isActive ? 'true' : undefined}
         onClick={role === 'button' ? undefined : handleClick}
-        className={cn(navigationOptionVariants({ className, isActive }))}
+        className={cn(
+          navigationOptionVariants({
+            className,
+            isActive,
+            hasBadge: !!badge,
+          }),
+        )}
       >
         {role === 'button' ? (
           <button
@@ -137,9 +191,13 @@ const NavigationOption: FC<Props> = ({
             className="flex w-full cursor-pointer items-center gap-2"
           >
             {body}
+            {badgeContent}
           </button>
         ) : (
-          body
+          <>
+            {body}
+            {badgeContent}
+          </>
         )}
       </li>
     </NavigationOptionContext.Provider>

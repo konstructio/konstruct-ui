@@ -4,6 +4,7 @@ import { CSSProperties, FC, PropsWithChildren } from 'react';
 import { ClassNames as DrawerClassNames } from '@/components/Drawer/Drawer.types';
 import { Theme } from '@/domain/theme';
 
+import { SidebarMode } from './contexts';
 import { SidebarModeProp } from './hooks/useSidebarMode';
 import { wrapperSiderbarVariants } from './Sidebar.variants';
 import {
@@ -129,7 +130,11 @@ export interface Props
    * micro-frontends.
    */
   style?: CSSProperties;
+  /** Fired when the effective mode changes, because the user toggled it or the viewport crossed a breakpoint */
+  onModeChange?: (mode: SidebarMode, source: SidebarModeChangeSource) => void;
 }
+
+export type SidebarModeChangeSource = 'user' | 'viewport';
 
 /** @deprecated Use Props instead */
 export type SidebarProps = Props;

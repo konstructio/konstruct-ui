@@ -11,6 +11,7 @@ import {
 } from '@/assets/icons/components';
 import { Theme } from '@/domain/theme';
 
+import { Badge } from '../Badge/Badge';
 import { Typography } from '../Typography/Typography';
 import {
   CollapseTrigger,
@@ -140,6 +141,8 @@ const renderSidebarContent = (
           role="button"
           onClick={() => onThemeChange('light')}
           isActive={theme === 'light'}
+          badge={<Badge variant="info" label="New" />}
+          onIntent={() => console.log('prefetch billing')}
         >
           <a>
             <ReceiptLongIcon className="w-6 h-6 shrink-0" />

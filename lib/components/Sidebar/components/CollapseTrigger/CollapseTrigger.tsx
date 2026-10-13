@@ -8,7 +8,7 @@ import { useSidebarContext } from '../../contexts';
 import { Props } from './CollapseTrigger.types';
 import { collapseTriggerVariants } from './CollapseTrigger.variants';
 
-const CollapseTrigger: FC<Props> = ({ className }) => {
+const CollapseTrigger: FC<Props> = ({ className, onToggle }) => {
   const { isCollapsed, canToggle, toggleMode } = useSidebarContext();
 
   if (!canToggle) {
@@ -27,6 +27,7 @@ const CollapseTrigger: FC<Props> = ({ className }) => {
       onClick={(event) => {
         event.stopPropagation();
         toggleMode();
+        onToggle?.(isCollapsed ? 'expanded' : 'collapsed');
       }}
     >
       {isCollapsed ? (
