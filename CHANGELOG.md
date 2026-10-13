@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.117](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.117) (2026-10-13)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.116...0.1.2-alpha.117)
+
+**Merged pull requests:**
+
+- ✨ feat\(modal\): add autoFocus to Modal and ConfirmDialog [\#765](https://github.com/konstructio/konstruct-ui/pull/765) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.116](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.116) (2026-10-13)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.115...0.1.2-alpha.116)
