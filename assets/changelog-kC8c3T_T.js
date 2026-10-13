@@ -1,5 +1,14 @@
 import{n as e}from"./rolldown-runtime-C0FnF6B9.js";import{a as t,o as n,s as r}from"./blocks-CSHu6RUM.js";import{t as i}from"./jsx-runtime-BdxMnOeJ.js";import{i as a,r as o}from"./react-BOKIvUzN.js";var s;function c(){return(c=e((()=>{s=`# Changelog
 
+## [0.1.2-alpha.114](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.114) (2026-10-13)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.113...0.1.2-alpha.114)
+
+**Merged pull requests:**
+
+- ♿️ fix\\(radio\\): keep the native input reachable with the keyboard [\\#762](https://github.com/konstructio/konstruct-ui/pull/762) ([futjesus](https://github.com/futjesus))
+- 🐛 fix\\(breadcrumb\\): render the collapsed steps menu when maxVisibleItems is set [\\#761](https://github.com/konstructio/konstruct-ui/pull/761) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.113](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.113) (2026-10-13)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.112...0.1.2-alpha.113)
