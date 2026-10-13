@@ -31,6 +31,7 @@ import { Props } from './ConfirmDialog.types';
  * ```
  */
 const ConfirmDialog: FC<Props> = ({
+  autoFocus,
   cancelLabel = 'Cancel',
   children,
   className,
@@ -103,6 +104,7 @@ const ConfirmDialog: FC<Props> = ({
     <Modal
       isOpen={isOpen}
       theme={theme}
+      autoFocus={autoFocus}
       showCloseButton={false}
       ariaLabelledBy={titleId}
       containerClassName={containerClassName}

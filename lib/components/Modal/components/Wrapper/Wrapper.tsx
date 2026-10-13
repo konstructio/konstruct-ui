@@ -15,6 +15,7 @@ import { buttonCloseVariants, modalVariants } from './Wrapper.variants';
 export const Wrapper: FC<Props> = ({
   ariaLabel,
   ariaLabelledBy,
+  autoFocus = true,
   buttonCloseClassName,
   children,
   className,
@@ -59,7 +60,7 @@ export const Wrapper: FC<Props> = ({
           role="presentation"
         />
 
-        <FocusLock returnFocus className="contents">
+        <FocusLock returnFocus autoFocus={autoFocus} className="contents">
           <motion.div
             className={cn(
               modalVariants({
