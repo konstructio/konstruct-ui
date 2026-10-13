@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.115](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.115) (2026-10-13)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.114...0.1.2-alpha.115)
+
+**Merged pull requests:**
+
+- 🐛 fix\(table\): keep the preloaded rows seeded when the first render does not commit [\#763](https://github.com/konstructio/konstruct-ui/pull/763) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.114](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.114) (2026-10-13)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.113...0.1.2-alpha.114)
