@@ -154,7 +154,7 @@ export const TableProvider = <TData extends RowData = RowData>({
     ...restQueryOptions
   } = queryOptions;
   const lastFetchMetaRef = useRef<{ totalItemsCount?: number }>({});
-  const hasSeededInitialDataRef = useRef(false);
+  const hasCommittedRef = useRef(false);
 
   const queryResult = useQuery<TData[]>({
     refetchOnMount: false,
@@ -176,11 +176,9 @@ export const TableProvider = <TData extends RowData = RowData>({
     // Seed only the first cache entry: seeding every key with [] keeps the
     // query in 'success' from the start and isLoading permanently false.
     initialData: () => {
-      if (hasSeededInitialDataRef.current || defaultData.length === 0) {
+      if (hasCommittedRef.current || defaultData.length === 0) {
         return undefined;
       }
-
-      hasSeededInitialDataRef.current = true;
 
       return defaultData;
     },
@@ -205,6 +203,10 @@ export const TableProvider = <TData extends RowData = RowData>({
       return data;
     },
   });
+
+  useEffect(() => {
+    hasCommittedRef.current = true;
+  }, []);
 
   const [isManualRefreshing, setIsManualRefreshing] = useState(false);
   const pendingManualRefetchesRef = useRef(0);

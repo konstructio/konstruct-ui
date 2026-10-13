@@ -455,4 +455,24 @@ describe('VirtualizedTable / fetchData integration', () => {
     });
     expect(screen.getByText('Alpha')).toBeInTheDocument();
   });
+
+  it('keeps the preloaded rows without fetching on mount when the cache is not retained', async () => {
+    const { user, fetchData, getSearchInput } = await setup({
+      data: [alpha],
+      queryOptions: { gcTime: 0 },
+    });
+
+    expect(await screen.findByText('Alpha')).toBeInTheDocument();
+    expect(fetchData).not.toHaveBeenCalled();
+
+    await user.type(getSearchInput(), 'beta');
+
+    await waitFor(() => {
+      expect(fetchData).toHaveBeenCalledTimes(1);
+    });
+    expect(fetchData).toHaveBeenLastCalledWith(
+      expect.objectContaining({ termOfSearch: 'beta' }),
+      expect.anything(),
+    );
+  });
 });
