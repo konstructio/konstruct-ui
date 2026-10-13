@@ -112,4 +112,63 @@ export const Light: Story = {
   },
 };
 
+export const DeclarativeItems: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`items` renders the list, triggers and contents from an array. Uncontrolled by default: the first item is selected and, if the active item disappears (for example after changing a region), the selection falls back to the first one. `Tabs.Trigger` no longer needs `isActive`; it derives the active styles from the tabs state.',
+      },
+    },
+  },
+  render: function DeclarativeItemsStory() {
+    const [showBilling, setShowBilling] = useState(true);
+    const items = [
+      {
+        value: 'account',
+        label: 'Account',
+        content: <p className="mt-6">Account settings</p>,
+      },
+      {
+        value: 'security',
+        label: 'Security',
+        content: <p className="mt-6">Security settings</p>,
+      },
+      ...(showBilling
+        ? [
+            {
+              value: 'billing',
+              label: 'Billing',
+              content: <p className="mt-6">Billing settings</p>,
+            },
+          ]
+        : []),
+    ];
+
+    return (
+      <div className="flex flex-col gap-6">
+        <label className="flex items-center gap-2 text-sm">
+          <input
+            type="checkbox"
+            checked={showBilling}
+            onChange={(event) => {
+              setShowBilling(event.target.checked);
+            }}
+          />
+          Show the Billing tab
+        </label>
+
+        <TabsComponent
+          items={items}
+          orientation="horizontal"
+          listClassName="gap-6"
+          onValueChange={(value) => {
+            console.log('value', value);
+          }}
+        />
+      </div>
+    );
+  },
+};
+
 export default meta;

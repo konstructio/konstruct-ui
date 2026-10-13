@@ -1,7 +1,7 @@
 import * as ReactTabs from '@radix-ui/react-tabs';
 
 import { VariantProps } from 'class-variance-authority';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
 import { triggerVariants } from './Tabs.variants';
 import { Theme } from '@/domain/theme';
 
@@ -20,7 +20,19 @@ import { Theme } from '@/domain/theme';
  * </Tabs>
  * ```
  */
+export type TabItem = {
+  content: ReactNode;
+  contentClassName?: string;
+  label: string;
+  triggerClassName?: string;
+  value: string;
+};
+
 export interface Props extends ReactTabs.TabsProps, PropsWithChildren {
+  /** Declarative tabs: renders the list, triggers and contents; falls back to the first item when the active one disappears */
+  items?: TabItem[];
+  /** Additional className for the generated Tabs.List when using `items` */
+  listClassName?: string;
   /** Theme override for this component */
   theme?: Theme;
 }
@@ -39,8 +51,8 @@ export interface TriggerProps
   tab: string;
   /** Display label for the tab */
   label: string;
-  /** Whether this tab is active */
-  isActive: boolean;
+  /** Whether this tab is active; derived from the Tabs state when omitted */
+  isActive?: boolean;
 }
 
 /**
