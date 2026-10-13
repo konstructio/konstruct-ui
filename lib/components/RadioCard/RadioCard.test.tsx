@@ -100,4 +100,59 @@ describe('RadioCard', () => {
       }),
     );
   });
+  describe('tag, content and hideIndicator', () => {
+    it('should render the tag next to the label', () => {
+      setup({ label: 'Existing network', tag: 'Recommended' });
+
+      expect(screen.getByText('Existing network')).toBeInTheDocument();
+      expect(screen.getByText('Recommended')).toBeInTheDocument();
+    });
+
+    it('should hide the radio indicator', async () => {
+      const { getRadio } = setup({ label: 'Option', hideIndicator: true });
+
+      const radio = await getRadio();
+
+      expect(radio.nextElementSibling).toHaveClass('hidden');
+    });
+
+    it('should render the content with the checked state and keep it interactive', async () => {
+      const onChange = vi.fn();
+      const onContentClick = vi.fn();
+      const { user } = setup({
+        label: 'Existing network',
+        checked: true,
+        onChange,
+        content: (checked) => (
+          <button type="button" onClick={onContentClick}>
+            {checked ? 'Pick a network' : 'Select this option first'}
+          </button>
+        ),
+      });
+
+      await user.click(screen.getByRole('button', { name: 'Pick a network' }));
+
+      expect(onContentClick).toHaveBeenCalledTimes(1);
+      expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it('should render static content below the label', () => {
+      setup({ label: 'Option', content: <p>Extra details</p> });
+
+      expect(screen.getByText('Extra details')).toBeInTheDocument();
+    });
+
+    it("shouldn't have accessibility violations with tag and content", async () => {
+      const { component } = setup({
+        label: 'Existing network',
+        tag: 'Recommended',
+        hideIndicator: true,
+        content: <p>Extra details</p>,
+      });
+
+      const results = await axe(component);
+
+      expect(results).toHaveNoViolations();
+    });
+  });
 });
