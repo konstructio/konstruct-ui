@@ -277,4 +277,75 @@ describe('Breadcrumb', () => {
 
     expect(results).toHaveNoViolations();
   });
+  it('should collapse the middle steps into an accessible menu when there are more steps than maxVisibleItems', async () => {
+    const steps = [
+      { label: 'Root', to: '/root' },
+      { label: 'Level 1', to: '/root/level-1' },
+      { label: 'Level 2', to: '/root/level-1/level-2' },
+      { label: 'Level 3', to: '/root/level-1/level-2/level-3' },
+      { label: 'Current', isActive: true },
+    ] satisfies Props['steps'];
+    const { user } = setup({ steps, maxVisibleItems: 3 });
+
+    expect(screen.getByRole('link', { name: 'Root' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Level 3' })).toBeInTheDocument();
+    expect(screen.getByText('Current')).toBeInTheDocument();
+    expect(
+      screen.queryByRole('link', { name: 'Level 1' }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('link', { name: 'Level 2' }),
+    ).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Show hidden steps' }));
+
+    expect(
+      await screen.findByRole('menuitem', { name: 'Level 1' }),
+    ).toHaveAttribute('href', '/root/level-1');
+    expect(screen.getByRole('menuitem', { name: 'Level 2' })).toHaveAttribute(
+      'href',
+      '/root/level-1/level-2',
+    );
+  });
+
+  it('should not collapse when the steps fit within maxVisibleItems', () => {
+    const steps = [
+      { label: 'Root', to: '/root' },
+      { label: 'Level 1', to: '/root/level-1' },
+      { label: 'Current', isActive: true },
+    ] satisfies Props['steps'];
+    setup({ steps, maxVisibleItems: 3 });
+
+    expect(screen.getByRole('link', { name: 'Level 1' })).toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: 'Show hidden steps' }),
+    ).not.toBeInTheDocument();
+  });
+
+  it('should use a custom accessible label for the collapsed steps trigger', () => {
+    const steps = [
+      { label: 'Root', to: '/root' },
+      { label: 'Level 1', to: '/root/level-1' },
+      { label: 'Current', isActive: true },
+    ] satisfies Props['steps'];
+    setup({ steps, maxVisibleItems: 2, collapsedLabel: 'More folders' });
+
+    expect(
+      screen.getByRole('button', { name: 'More folders' }),
+    ).toBeInTheDocument();
+  });
+
+  it('should not have accessibility violations when collapsed', async () => {
+    const steps = [
+      { label: 'Root', to: '/root' },
+      { label: 'Level 1', to: '/root/level-1' },
+      { label: 'Level 2', to: '/root/level-1/level-2' },
+      { label: 'Current', isActive: true },
+    ] satisfies Props['steps'];
+    const { component } = setup({ steps, maxVisibleItems: 2 });
+
+    const results = await axe(component);
+
+    expect(results).toHaveNoViolations();
+  });
 });
