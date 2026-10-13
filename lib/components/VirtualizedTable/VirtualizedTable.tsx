@@ -1,6 +1,6 @@
 import { JSX, lazy, Suspense } from 'react';
 
-import { cn } from '@/utils';
+import { cn, isClient } from '@/utils';
 
 import { Props, RowData } from './VirtualizedTable.types';
 import { Actions } from './components/Actions/Actions';
@@ -17,10 +17,34 @@ import {
   sendToggleRowEvent,
 } from './events';
 
+type ContentModule =
+  typeof import('./components/VirtualizedTableContent/VirtualizedTableContent');
+
+let contentRequest: Promise<ContentModule> | undefined;
+
+const loadContent = (): Promise<ContentModule> => {
+  if (!contentRequest) {
+    contentRequest =
+      import('./components/VirtualizedTableContent/VirtualizedTableContent').catch(
+        (error: unknown) => {
+          contentRequest = undefined;
+
+          throw error;
+        },
+      );
+  }
+
+  return contentRequest;
+};
+
+if (isClient) {
+  loadContent().catch(() => undefined);
+}
+
 const VirtualizedTableContent = lazy(() =>
-  import('./components/VirtualizedTableContent/VirtualizedTableContent').then(
-    (module) => ({ default: module.VirtualizedTableContent }),
-  ),
+  loadContent().then((module) => ({
+    default: module.VirtualizedTableContent,
+  })),
 ) as unknown as <TData extends RowData>(props: Props<TData>) => JSX.Element;
 
 /**
