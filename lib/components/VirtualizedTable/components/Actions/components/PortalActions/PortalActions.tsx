@@ -11,6 +11,8 @@ import { useActionsMenu } from './hooks';
 
 export const PortalActions = <TData extends RowData>({
   actions,
+  disabledReasonSide,
+  openOnHover = true,
   wrapperClassName,
   triggerButtonClassName,
   iconTriggerButtonClassName,
@@ -25,14 +27,15 @@ export const PortalActions = <TData extends RowData>({
     menuId,
     menuRef,
     triggerRef,
-    closeMenu,
     handleMenuKeyDown,
     handlePointerEnter,
     handlePointerLeave,
     handleTriggerClick,
     handleTriggerKeyDown,
     handleTriggerPointerDown,
-  } = useActionsMenu();
+    handleButtonPointerLeave,
+    selectAndClose,
+  } = useActionsMenu({ openOnHover });
 
   return (
     <div
@@ -52,6 +55,7 @@ export const PortalActions = <TData extends RowData>({
         isOpen={isOpen}
         onClick={handleTriggerClick}
         onPointerDown={handleTriggerPointerDown}
+        onPointerLeave={handleButtonPointerLeave}
       />
 
       {hasOpened &&
@@ -68,13 +72,14 @@ export const PortalActions = <TData extends RowData>({
           >
             <ActionsList
               actions={actions}
+              disabledReasonSide={disabledReasonSide}
               className={cn(
                 'animate-in fade-in-0',
                 wrapperContentActionsClassName,
               )}
               isMenu
               rowData={delegated.row.original}
-              onSelect={closeMenu}
+              onSelect={selectAndClose}
             />
           </div>,
           document.body,

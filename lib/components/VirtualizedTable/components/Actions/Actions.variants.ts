@@ -38,23 +38,43 @@ export const actionsPanelVariants = cva([
   'dark:border-metal-700',
 ]);
 
-export const actionsItemVariants = cva([
-  'w-full',
-  'text-slate-800',
-  'cursor-pointer',
-  'p-0',
-  'h-9',
-  'flex',
-  'gap-2',
-  'text-sm',
-  'font-normal',
-  'justify-start',
-  'rounded-none',
-  'px-6',
-  'hover:bg-gray-50',
-  'hover:text-slate-800',
-  'hover:no-underline',
-  'focus:no-underline',
-  'dark:hover:bg-metal-700',
-  'dark:focus:bg-metal-700',
-]);
+export const actionsItemVariants = cva(
+  [
+    'w-full',
+    'text-slate-800',
+    'cursor-pointer',
+    'p-0',
+    'h-9',
+    'flex',
+    'gap-2',
+    'text-sm',
+    'font-normal',
+    'justify-start',
+    'rounded-none',
+    'px-6',
+    'hover:bg-gray-50',
+    'hover:text-slate-800',
+    'hover:no-underline',
+    'focus:no-underline',
+    'dark:hover:bg-metal-700',
+    'dark:focus:bg-metal-700',
+  ],
+  {
+    variants: {
+      isDisabled: {
+        true: [
+          'cursor-not-allowed',
+          'text-slate-400',
+          'hover:bg-transparent',
+          'hover:text-slate-400',
+          'dark:text-metal-500',
+          'dark:hover:bg-transparent',
+        ],
+        false: [],
+      },
+    },
+    defaultVariants: {
+      isDisabled: false,
+    },
+  },
+);
