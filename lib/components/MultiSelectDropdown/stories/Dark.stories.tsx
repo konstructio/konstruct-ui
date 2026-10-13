@@ -49,4 +49,38 @@ export const Dark = {
   ),
 } satisfies Story;
 
+export const WithMessagesAndDisabled = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`error` and `helperText` describe the combobox the same way `Input` does, and `disabled` blocks opening and removing selections. vpc styled these states from outside with `**:[[role=combobox]]:` selectors before.',
+      },
+    },
+  },
+  render: (args) => (
+    <div className="max-w-75 flex flex-col gap-6">
+      <MultiSelectDropdownComponent
+        {...args}
+        label="With helper text"
+        helperText="Instances in the selected region"
+      />
+
+      <MultiSelectDropdownComponent
+        {...args}
+        label="With error"
+        error="Pick at least one instance"
+      />
+
+      <MultiSelectDropdownComponent
+        {...args}
+        label="Disabled"
+        disabled
+        value={[args.options[0]]}
+        helperText="Select a region first"
+      />
+    </div>
+  ),
+} satisfies Story;
+
 export default meta;
