@@ -8,7 +8,7 @@ import {
   breadcrumbVariants,
   breadcrumbWrapperVariants,
 } from './Breadcrumb.variants';
-import { BackButton, Item } from './components';
+import { BackButton, CollapsedSteps, Item } from './components';
 
 /**
  * A breadcrumb navigation component showing the current location in a hierarchy.
@@ -49,12 +49,23 @@ export const Breadcrumb: FC<Props> = ({
   'aria-label': ariaLabel = 'breadcrumb',
   backButton,
   className,
+  collapsedLabel = 'Show hidden steps',
+  maxVisibleItems,
   steps,
   theme,
   wrapperClassName,
   ...delegated
 }) => {
   const id = useId();
+  const shouldCollapse =
+    maxVisibleItems !== undefined &&
+    maxVisibleItems >= 2 &&
+    steps.length > maxVisibleItems;
+  const tailStart = steps.length - (maxVisibleItems ?? 0) + 1;
+  const hiddenSteps = shouldCollapse ? steps.slice(1, tailStart) : [];
+  const visibleSteps = shouldCollapse
+    ? [steps[0], ...steps.slice(tailStart)]
+    : steps;
 
   return (
     <nav
@@ -69,18 +80,28 @@ export const Breadcrumb: FC<Props> = ({
       {backButton && <BackButton {...backButton} theme={theme} />}
 
       <ol className={cn(breadcrumbVariants({ className }))} {...delegated}>
-        {steps.map(({ label, ...delegated }, index) => (
+        {visibleSteps.map(({ label, ...delegated }, index) => (
           <Fragment key={`${id}-${label}`}>
             <Item
               {...delegated}
               label={label}
-              isLast={index === steps.length - 1}
+              isLast={index === visibleSteps.length - 1}
             />
 
-            {index !== steps.length - 1 && (
+            {index !== visibleSteps.length - 1 && (
               <li aria-hidden="true" className="flex items-center">
                 <ChevronRight className="text-gray-400 w-5 h-5" />
               </li>
+            )}
+
+            {index === 0 && hiddenSteps.length > 0 && (
+              <>
+                <CollapsedSteps label={collapsedLabel} steps={hiddenSteps} />
+
+                <li aria-hidden="true" className="flex items-center">
+                  <ChevronRight className="text-gray-400 w-5 h-5" />
+                </li>
+              </>
             )}
           </Fragment>
         ))}

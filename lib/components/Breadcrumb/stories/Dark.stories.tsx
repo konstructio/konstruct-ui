@@ -80,3 +80,19 @@ export const WithStepIcons: Story = {
 };
 
 export default meta;
+
+export const Collapsed: Story = {
+  args: {
+    ...Dark.args,
+    maxVisibleItems: 3,
+    steps: [
+      { label: 'Buckets', to: '#' },
+      { label: 'assets', to: '#' },
+      { label: '2026', to: '#' },
+      { label: 'october', to: '#' },
+      { label: 'reports', to: '#' },
+      { label: 'summary.pdf', isActive: true },
+    ],
+  },
+  render: Dark.render,
+};
