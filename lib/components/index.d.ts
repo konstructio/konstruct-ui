@@ -65,6 +65,8 @@ export type { ToastActions, ToastStore, ToastStoreOptions, ToastStoreState, } fr
 export * from './Tooltip/Tooltip';
 export * from './Typography/Typography';
 export * from './VirtualizedTable/VirtualizedTable';
+export * from './VirtualizedTable/hooks';
+export { preloadVirtualizedTable } from './VirtualizedTable/utils/load-content';
 export { sendExpandRowEvent, sendCollapseRowEvent, sendToggleRowEvent, sendResetFiltersEvent, sendRefreshEvent, VirtualizedTableEvent, } from './VirtualizedTable/events';
 export type { VirtualizedTableEventDetail, VirtualizedTableRefreshEventDetail, } from './VirtualizedTable/events';
 export type { ColumnDef, RowData, FilterConfig, ActionFilterConfig, BadgeMultiSelectFilterConfig, TextMultiSelectFilterConfig, DateFilterConfig, DateRangeFilterConfig, CustomDateRangeFilterConfig, TimeFilterConfig, } from './VirtualizedTable/VirtualizedTable.types';

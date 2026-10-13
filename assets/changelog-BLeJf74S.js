@@ -1,5 +1,13 @@
 import{n as e}from"./rolldown-runtime-C0FnF6B9.js";import{a as t,o as n,s as r}from"./blocks-CSHu6RUM.js";import{t as i}from"./jsx-runtime-BdxMnOeJ.js";import{i as a,r as o}from"./react-BOKIvUzN.js";var s;function c(){return(c=e((()=>{s=`# Changelog
 
+## [0.1.2-alpha.116](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.116) (2026-10-13)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.115...0.1.2-alpha.116)
+
+**Merged pull requests:**
+
+- ⚡ perf\\(table\\): prefetch the lazy content chunk when the module loads [\\#764](https://github.com/konstructio/konstruct-ui/pull/764) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.115](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.115) (2026-10-13)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.114...0.1.2-alpha.115)
