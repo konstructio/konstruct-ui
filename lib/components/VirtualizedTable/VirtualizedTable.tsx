@@ -16,33 +16,14 @@ import {
   sendResetFiltersEvent,
   sendToggleRowEvent,
 } from './events';
-
-type ContentModule =
-  typeof import('./components/VirtualizedTableContent/VirtualizedTableContent');
-
-let contentRequest: Promise<ContentModule> | undefined;
-
-const loadContent = (): Promise<ContentModule> => {
-  if (!contentRequest) {
-    contentRequest =
-      import('./components/VirtualizedTableContent/VirtualizedTableContent').catch(
-        (error: unknown) => {
-          contentRequest = undefined;
-
-          throw error;
-        },
-      );
-  }
-
-  return contentRequest;
-};
+import { loadVirtualizedTableContent } from './utils';
 
 if (isClient) {
-  loadContent().catch(() => undefined);
+  loadVirtualizedTableContent().catch(() => undefined);
 }
 
 const VirtualizedTableContent = lazy(() =>
-  loadContent().then((module) => ({
+  loadVirtualizedTableContent().then((module) => ({
     default: module.VirtualizedTableContent,
   })),
 ) as unknown as <TData extends RowData>(props: Props<TData>) => JSX.Element;
