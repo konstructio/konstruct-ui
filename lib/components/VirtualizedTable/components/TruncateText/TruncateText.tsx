@@ -1,16 +1,22 @@
-import debounce from 'lodash/debounce';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import { CopyButton } from '@/components/CopyButton/CopyButton';
 import { Tooltip } from '@/components/Tooltip/Tooltip';
 import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
 
+import { RowData } from '../../VirtualizedTable.types';
+
 import { Props } from './TruncateText.types';
 
-export const TruncateText = <TData,>({
+export const TruncateText = <TData extends RowData = RowData>({
   getValue,
   value,
   textClassName,
+  variant,
+  component = 'p',
+  copyable = false,
+  copyButtonProps,
   side = 'bottom',
   sideOffset,
   bgClassName,
@@ -18,51 +24,45 @@ export const TruncateText = <TData,>({
   className,
   delayDuration = 0,
 }: Props<TData>) => {
-  const textRef = useRef<
-    HTMLParagraphElement & HTMLHeadingElement & HTMLLabelElement
-  >(null);
+  const [element, setElement] = useState<HTMLElement | null>(null);
   const [isTruncated, setIsTruncated] = useState(false);
-  const text = value ?? getValue<string>().toLocaleLowerCase();
-
-  const handleResize = useCallback(() => {
-    const component = textRef.current;
-
-    if (component) {
-      setIsTruncated(component.scrollWidth > component.clientWidth);
-    }
-  }, []);
+  const text = value ?? getValue?.<string>().toLocaleLowerCase() ?? '';
 
   useEffect(() => {
-    const controller = new AbortController();
-    const debouncedResize = debounce(handleResize, 300);
+    if (!element) {
+      return;
+    }
 
-    window.addEventListener('resize', debouncedResize, {
-      signal: controller.signal,
-    });
+    const measure = () => {
+      setIsTruncated(element.scrollWidth > element.clientWidth);
+    };
+
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(element);
 
     return () => {
-      controller.abort();
-      debouncedResize.cancel();
+      observer.disconnect();
     };
-  }, [handleResize]);
+  }, [element, text]);
 
-  useEffect(() => {
-    handleResize();
-  }, [handleResize]);
+  const content = (
+    <Typography
+      ref={setElement}
+      variant={variant}
+      component={component}
+      className={cn(
+        'w-full truncate',
+        isTruncated && 'cursor-pointer',
+        textClassName,
+      )}
+    >
+      {text}
+    </Typography>
+  );
 
-  if (!isTruncated) {
-    return (
-      <Typography
-        ref={textRef}
-        component="p"
-        className={cn('w-full truncate', textClassName)}
-      >
-        {text}
-      </Typography>
-    );
-  }
-
-  return (
+  const truncatedContent = isTruncated ? (
     <Tooltip
       content={text}
       side={side}
@@ -72,13 +72,20 @@ export const TruncateText = <TData,>({
       className={className}
       delayDuration={delayDuration}
     >
-      <Typography
-        ref={textRef}
-        component="p"
-        className={cn('w-full truncate cursor-pointer', textClassName)}
-      >
-        {text}
-      </Typography>
+      {content}
     </Tooltip>
+  ) : (
+    content
+  );
+
+  if (!copyable) {
+    return truncatedContent;
+  }
+
+  return (
+    <div className="flex min-w-0 items-center gap-2">
+      <span className="min-w-0 flex-1">{truncatedContent}</span>
+      <CopyButton text={text} label={text} {...copyButtonProps} />
+    </div>
   );
 };
