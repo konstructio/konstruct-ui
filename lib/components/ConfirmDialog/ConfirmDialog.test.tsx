@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
@@ -155,5 +155,15 @@ describe('ConfirmDialog', () => {
     const results = await axe(screen.getByRole('dialog'));
 
     expect(results).toHaveNoViolations();
+  });
+
+  it('should leave the confirmation input unfocused when autoFocus is false', async () => {
+    setup({ confirmationText: 'prod-cluster', autoFocus: false });
+
+    await waitFor(() => {
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    expect(screen.getByRole('textbox')).not.toHaveFocus();
   });
 });

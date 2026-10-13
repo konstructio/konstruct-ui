@@ -5,6 +5,8 @@ import { Theme } from '@/domain/theme';
 import { Props as ButtonProps } from '../Button/Button.types';
 
 export type Props = {
+  /** Move focus to the first focusable element when the dialog opens. Defaults to true */
+  autoFocus?: boolean;
   /** Label of the cancel button */
   cancelLabel?: ReactNode;
   /** Extra content rendered below the description, e.g. an Alert */
