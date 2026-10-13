@@ -1,5 +1,34 @@
 # Changelog
 
+## [0.1.2-alpha.113](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.113) (2026-10-13)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.112...0.1.2-alpha.113)
+
+**Merged pull requests:**
+
+- ⬆️ chore\(deps\): update dependencies [\#760](https://github.com/konstructio/konstruct-ui/pull/760) ([futjesus](https://github.com/futjesus))
+- ⚡️ perf: declare motion as a peer dependency and shrink the Spinner SVG [\#759](https://github.com/konstructio/konstruct-ui/pull/759) ([futjesus](https://github.com/futjesus))
+- ⚡ perf: lazy-load heavy leaves so the root barrel stays small [\#742](https://github.com/konstructio/konstruct-ui/pull/742) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add OtpInput and PasswordRules components [\#734](https://github.com/konstructio/konstruct-ui/pull/734) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add Avatar and AvatarGroup components [\#733](https://github.com/konstructio/konstruct-ui/pull/733) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add TagsInput component [\#732](https://github.com/konstructio/konstruct-ui/pull/732) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add BadgeGroup component [\#731](https://github.com/konstructio/konstruct-ui/pull/731) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add Collapse component [\#730](https://github.com/konstructio/konstruct-ui/pull/730) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add Skeleton component [\#729](https://github.com/konstructio/konstruct-ui/pull/729) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add ConfirmDialog and accessible names for Modal [\#728](https://github.com/konstructio/konstruct-ui/pull/728) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add CheckboxCard component [\#727](https://github.com/konstructio/konstruct-ui/pull/727) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add maxVisibleItems to Breadcrumb [\#726](https://github.com/konstructio/konstruct-ui/pull/726) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add onModeChange, badge and onIntent to Sidebar [\#725](https://github.com/konstructio/konstruct-ui/pull/725) ([futjesus](https://github.com/futjesus))
+- ✨ feat: close small API gaps in DropdownButton, Switch, Alert, Stepper and Button [\#724](https://github.com/konstructio/konstruct-ui/pull/724) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add tag, content and hideIndicator to RadioCard [\#723](https://github.com/konstructio/konstruct-ui/pull/723) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add error, helperText and disabled to MultiSelectDropdown [\#722](https://github.com/konstructio/konstruct-ui/pull/722) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add step, unit, error, helperText and labelAction to Counter [\#721](https://github.com/konstructio/konstruct-ui/pull/721) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add declarative items to Tabs and derive the active trigger state [\#720](https://github.com/konstructio/konstruct-ui/pull/720) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add disabled and asOverlay modes to Tooltip [\#719](https://github.com/konstructio/konstruct-ui/pull/719) ([futjesus](https://github.com/futjesus))
+- ✨ feat: make TruncateText usable outside table cells and copyable [\#717](https://github.com/konstructio/konstruct-ui/pull/717) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add EmptyState, EmptyResults and ErrorState to VirtualizedTable [\#716](https://github.com/konstructio/konstruct-ui/pull/716) ([futjesus](https://github.com/futjesus))
+- ✨ feat: add disabled actions and openOnHover to VirtualizedTable.Actions [\#715](https://github.com/konstructio/konstruct-ui/pull/715) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.112](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.112) (2026-10-05)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.111...0.1.2-alpha.112)
