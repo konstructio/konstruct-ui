@@ -1,8 +1,13 @@
 import { CellContext } from '@tanstack/react-table';
+import { Props as CopyButtonProps } from '../../../CopyButton/CopyButton.types';
 import { Props as TooltipProps } from '../../../Tooltip/Tooltip.types';
+import { Props as TypographyProps } from '../../../Typography/Typography.types';
 import { RowData } from '../../VirtualizedTable.types';
-export type Props<TData extends RowData> = CellContext<TData, string> & Partial<Omit<TooltipProps, 'content' | 'children' | 'textClassName'>> & {
-    value?: string;
-    /** Additional className for the text element */
+export type Props<TData extends RowData = RowData> = Partial<CellContext<TData, string>> & Partial<Omit<TooltipProps, 'content' | 'children' | 'textClassName'>> & {
+    component?: TypographyProps['component'];
+    copyable?: boolean;
+    copyButtonProps?: Partial<Omit<CopyButtonProps, 'text'>>;
     textClassName?: string;
+    value?: string;
+    variant?: TypographyProps['variant'];
 };

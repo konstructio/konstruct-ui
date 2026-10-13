@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-C0FnF6B9.js";import{n as t,t as n}from"./dist-BQzpIf2-.js";var r;function i(){return(i=e((()=>{t(),r=n(`w-fit py-4 px-6`)})))()}export{i as n,r as t};

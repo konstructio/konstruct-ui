@@ -4,6 +4,7 @@ import { RowData } from '../VirtualizedTable.types';
 export type ContextType<TData extends RowData = RowData> = {
     sortedData: ColumnSort[];
     table: Table<TData>;
+    tableId: string;
     pageSize: number;
     tableFetching?: boolean;
     tableLoading?: boolean;

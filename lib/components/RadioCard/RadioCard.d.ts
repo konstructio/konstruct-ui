@@ -14,6 +14,17 @@ import { Props } from './RadioCard.types';
  *   checked={tier === 'enterprise'}
  *   onChange={(value) => setTier(value)}
  * />
+ *
+ * <RadioCard
+ *   name="network"
+ *   value="existing"
+ *   label="Existing network"
+ *   tag="Recommended"
+ *   hideIndicator
+ *   checked={network === 'existing'}
+ *   content={(checked) => checked && <Select options={networks} />}
+ *   onChange={setNetwork}
+ * />
  * ```
  *
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-radiocard--docs Storybook}

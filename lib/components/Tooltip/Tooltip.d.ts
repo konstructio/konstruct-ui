@@ -17,6 +17,10 @@ import { Props } from './Tooltip.types';
  * <Tooltip content="Danger!" bgClassName="bg-red-500">
  *   <Button variant="danger">Delete</Button>
  * </Tooltip>
+ *
+ * <Tooltip content="This name is taken" asOverlay overlayClassName="right-0 top-7 h-10 w-8">
+ *   <Input label="Name" />
+ * </Tooltip>
  * ```
  */
 export declare const Tooltip: FC<Props>;

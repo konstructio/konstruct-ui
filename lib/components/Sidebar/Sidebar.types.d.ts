@@ -2,6 +2,7 @@ import { VariantProps } from 'class-variance-authority';
 import { CSSProperties, FC, PropsWithChildren } from '../../../node_modules/react';
 import { ClassNames as DrawerClassNames } from '../Drawer/Drawer.types';
 import { Theme } from '../../domain/theme';
+import { SidebarMode } from './contexts';
 import { SidebarModeProp } from './hooks/useSidebarMode';
 import { wrapperSiderbarVariants } from './Sidebar.variants';
 import { CollapseTriggerProps, FooterProps, LabelProps, LogoProps, NavigationGroupProps, NavigationOptionProps, NavigationProps, NavigationSeparatorProps } from './components';
@@ -114,7 +115,10 @@ export interface Props extends Omit<VariantProps<typeof wrapperSiderbarVariants>
      * micro-frontends.
      */
     style?: CSSProperties;
+    /** Fired when the effective mode changes, because the user toggled it or the viewport crossed a breakpoint */
+    onModeChange?: (mode: SidebarMode, source: SidebarModeChangeSource) => void;
 }
+export type SidebarModeChangeSource = 'user' | 'viewport';
 /** @deprecated Use Props instead */
 export type SidebarProps = Props;
 /**

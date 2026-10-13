@@ -1,6 +1,6 @@
 export declare const buttonVariants: (props?: ({
     variant?: "link" | "danger" | "primary" | "secondary" | "tertiary" | null | undefined;
-    shape?: "circle" | null | undefined;
+    shape?: "circle" | "pill" | null | undefined;
     version?: "default" | "alternate" | null | undefined;
     disabled?: boolean | null | undefined;
     size?: "medium" | "large" | null | undefined;

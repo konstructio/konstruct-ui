@@ -2,6 +2,7 @@ import { Dispatch, RefObject, SetStateAction } from '../../../../../../../../../
 export type Params = {
     isOpen: boolean;
     menuRef: RefObject<HTMLDivElement | null>;
+    openOnHover: boolean;
     triggerRef: RefObject<HTMLDivElement | null>;
     setIsOpen: Dispatch<SetStateAction<boolean>>;
 };

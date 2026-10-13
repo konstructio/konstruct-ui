@@ -1,0 +1,26 @@
+import{n as e}from"./rolldown-runtime-C0FnF6B9.js";import{t}from"./jsx-runtime-BdxMnOeJ.js";import{n,t as r}from"./Billing-Cvgv0Q7v.js";import{n as i,t as a}from"./Button-DqiKM02x.js";import{n as o,t as s}from"./Alert-vf6U5vPC.js";var c,l,u,d,f;function p(){return(p=e((()=>{n(),i(),o(),c=t(),l={title:`In Review/Alert/Light`,component:s},u={render:()=>(0,c.jsxs)(`div`,{className:`flex flex-col gap-3 w-150`,children:[(0,c.jsx)(s,{type:`danger`,title:`You do not have permission to log in`,description:`Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid pariatur, ipsum similique veniam quo totam eius aperiam dolorum.`}),(0,c.jsx)(s,{type:`danger`,title:`You do not have permission to log in`,description:`Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid pariatur, ipsum similique veniam quo totam eius aperiam dolorum.`,showCloseButton:!0}),(0,c.jsx)(s,{type:`warning`,title:`Attention needed`,description:`If you think this is incorrect, please contact your Konstruct administrators.`}),(0,c.jsx)(s,{type:`warning`,title:`Attention needed`,description:`If you think this is incorrect, please contact your Konstruct administrators.`,showCloseButton:!0}),(0,c.jsx)(s,{type:`success`,title:`Success message`,description:`If you think this is incorrect, please contact your Konstruct administrators.`}),(0,c.jsx)(s,{type:`success`,title:`Success message`,description:`If you think this is incorrect, please contact your Konstruct administrators.`,showCloseButton:!0}),(0,c.jsx)(s,{type:`info`,title:`Information`,description:`If you think this is incorrect, please contact your Konstruct administrators.`}),(0,c.jsx)(s,{type:`info`,title:`Information`,description:`If you think this is incorrect, please contact your Konstruct administrators.`,showCloseButton:!0})]})},d={parameters:{docs:{description:{story:"`action` renders a call to action at the right end of the alert and `icon` replaces the icon derived from `type`. Billing built an AlertBanner from scratch to get this layout."}}},render:()=>(0,c.jsxs)(`div`,{className:`flex flex-col gap-3 w-150`,children:[(0,c.jsx)(s,{type:`warning`,title:`Add a payment method`,description:`Your trial ends in 3 days. Add a card to keep your resources running.`,action:(0,c.jsx)(a,{variant:`tertiary`,appearance:`compact`,children:`Add card`})}),(0,c.jsx)(s,{type:`info`,title:`Billing address updated`,icon:(0,c.jsx)(r,{className:`size-6 text-blue-800 dark:text-blue-300`}),showCloseButton:!0})]})},f=[`Light`,`WithAction`],u.parameters={...u.parameters,docs:{...u.parameters?.docs,source:{originalSource:`{
+  render: () => <div className="flex flex-col gap-3 w-150">
+      <AlertComponent type="danger" title="You do not have permission to log in" description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid pariatur, ipsum similique veniam quo totam eius aperiam dolorum." />
+      <AlertComponent type="danger" title="You do not have permission to log in" description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid pariatur, ipsum similique veniam quo totam eius aperiam dolorum." showCloseButton />
+      <AlertComponent type="warning" title="Attention needed" description="If you think this is incorrect, please contact your Konstruct administrators." />
+      <AlertComponent type="warning" title="Attention needed" description="If you think this is incorrect, please contact your Konstruct administrators." showCloseButton />
+      <AlertComponent type="success" title="Success message" description="If you think this is incorrect, please contact your Konstruct administrators." />
+      <AlertComponent type="success" title="Success message" description="If you think this is incorrect, please contact your Konstruct administrators." showCloseButton />
+      <AlertComponent type="info" title="Information" description="If you think this is incorrect, please contact your Konstruct administrators." />
+      <AlertComponent type="info" title="Information" description="If you think this is incorrect, please contact your Konstruct administrators." showCloseButton />
+    </div>
+}`,...u.parameters?.docs?.source}}},d.parameters={...d.parameters,docs:{...d.parameters?.docs,source:{originalSource:`{
+  parameters: {
+    docs: {
+      description: {
+        story: '\`action\` renders a call to action at the right end of the alert and \`icon\` replaces the icon derived from \`type\`. Billing built an AlertBanner from scratch to get this layout.'
+      }
+    }
+  },
+  render: () => <div className="flex flex-col gap-3 w-150">
+      <AlertComponent type="warning" title="Add a payment method" description="Your trial ends in 3 days. Add a card to keep your resources running." action={<Button variant="tertiary" appearance="compact">
+            Add card
+          </Button>} />
+      <AlertComponent type="info" title="Billing address updated" icon={<BillingIcon className="size-6 text-blue-800 dark:text-blue-300" />} showCloseButton />
+    </div>
+}`,...d.parameters?.docs?.source}}}})))()}p();export{u as Light,d as WithAction,f as __namedExportsOrder,l as default};

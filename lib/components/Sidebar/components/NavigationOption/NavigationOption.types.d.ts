@@ -2,9 +2,15 @@ import { VariantProps } from 'class-variance-authority';
 import { ReactNode } from '../../../../../node_modules/react';
 import { navigationOptionVariants } from './NavigationOption.variants';
 type NavigationOption = VariantProps<typeof navigationOptionVariants> & {
+    /** Content rendered at the end of the option in expanded mode, e.g. a Badge */
+    badge?: ReactNode;
     className?: string;
+    /** Delay in ms before `onIntent` fires on hover. Defaults to 80 */
+    intentDelay?: number;
     isVisible?: boolean;
     isActive?: boolean;
+    /** Fired when the user shows intent to navigate: hover (debounced), focus, pointer down or touch start. Useful for prefetching */
+    onIntent?: () => void;
     /**
      * Whether clicking this option should close the drawer when the Sidebar
      * is in `drawer` mode. Defaults to `true`. Has no effect in `expanded` or

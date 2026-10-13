@@ -1,4 +1,5 @@
-export declare const useActionsMenu: () => {
+import { Params } from './use-actions-menu.types';
+export declare const useActionsMenu: ({ openOnHover }: Params) => {
     buttonRef: import('../../../../../../../../../node_modules/react').RefObject<HTMLButtonElement | null>;
     hasOpened: boolean;
     isOpen: boolean;
@@ -12,4 +13,6 @@ export declare const useActionsMenu: () => {
     handleTriggerClick: () => void;
     handleTriggerKeyDown: (event: import('../../../../../../../../../node_modules/react').KeyboardEvent<HTMLDivElement>) => void;
     handleTriggerPointerDown: (event: import('../../../../../../../../../node_modules/react').PointerEvent<HTMLElement>) => void;
+    handleButtonPointerLeave: () => void;
+    selectAndClose: () => void;
 };

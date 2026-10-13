@@ -22,11 +22,14 @@ import { Props } from './Counter.types';
  *   onChange={({ target }) => setNodes(target.value)}
  * />
  *
- * // Disabled increment/decrement
+ * // Stepping by 500 GB with a unit, price and helper text
  * <Counter
- *   value={5}
- *   canIncrement={value < max}
- *   canDecrement={value > min}
+ *   label="Size"
+ *   value={size}
+ *   step={500}
+ *   unit="GB"
+ *   labelAction={<span>$12.00/mo</span>}
+ *   helperText="Increments of 500 GB"
  *   onChange={handleChange}
  * />
  * ```
