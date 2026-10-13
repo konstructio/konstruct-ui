@@ -98,4 +98,14 @@ describe('Radio', () => {
       }),
     );
   });
+
+  it('should be reachable with the keyboard', async () => {
+    const { user } = setup({ label: 'Keyboard option' });
+
+    await user.tab();
+
+    expect(
+      screen.getByRole('radio', { name: 'Keyboard option' }),
+    ).toHaveFocus();
+  });
 });
