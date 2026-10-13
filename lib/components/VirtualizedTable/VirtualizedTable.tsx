@@ -6,6 +6,9 @@ import { Props, RowData } from './VirtualizedTable.types';
 import {
   Actions,
   Body,
+  EmptyResults,
+  EmptyState,
+  ErrorState,
   Filter,
   Header,
   Pagination,
@@ -205,6 +208,9 @@ type VirtualizedTableCompound = (<TData extends RowData>(
   props: Props<TData>,
 ) => JSX.Element) & {
   TruncateText: typeof TruncateText;
+  EmptyState: typeof EmptyState;
+  EmptyResults: typeof EmptyResults;
+  ErrorState: typeof ErrorState;
   Actions: <TData extends RowData>(
     props: ActionProps<TData>,
   ) => JSX.Element | null;
@@ -223,6 +229,9 @@ const VirtualizedTable = VirtualizedTableInner as VirtualizedTableCompound;
 VirtualizedTable.displayName = 'KonstructVirtualizedTable';
 
 VirtualizedTable.TruncateText = TruncateText;
+VirtualizedTable.EmptyState = EmptyState;
+VirtualizedTable.EmptyResults = EmptyResults;
+VirtualizedTable.ErrorState = ErrorState;
 VirtualizedTable.Actions = Actions;
 VirtualizedTable.Events = {
   sendExpandRowEvent,
@@ -232,4 +241,4 @@ VirtualizedTable.Events = {
   sendRefreshEvent,
 };
 
-export { TruncateText, VirtualizedTable };
+export { EmptyResults, EmptyState, ErrorState, TruncateText, VirtualizedTable };
