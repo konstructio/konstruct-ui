@@ -1,5 +1,13 @@
 import{n as e}from"./rolldown-runtime-C0FnF6B9.js";import{a as t,o as n,s as r}from"./blocks-CSHu6RUM.js";import{t as i}from"./jsx-runtime-BdxMnOeJ.js";import{i as a,r as o}from"./react-BOKIvUzN.js";var s;function c(){return(c=e((()=>{s=`# Changelog
 
+## [0.1.2-alpha.117](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.117) (2026-10-13)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.116...0.1.2-alpha.117)
+
+**Merged pull requests:**
+
+- ✨ feat\\(modal\\): add autoFocus to Modal and ConfirmDialog [\\#765](https://github.com/konstructio/konstruct-ui/pull/765) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.116](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.116) (2026-10-13)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.115...0.1.2-alpha.116)

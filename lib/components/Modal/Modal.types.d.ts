@@ -21,6 +21,8 @@ export type Props = PropsWithChildren & VariantProps<typeof modalVariants> & {
     /** CSS classes for the close button */
     ariaLabel?: string;
     ariaLabelledBy?: string;
+    /** Move focus to the first focusable element when the modal opens. Defaults to true */
+    autoFocus?: boolean;
     buttonCloseClassName?: string;
     /** Additional CSS classes for the modal */
     className?: string;
