@@ -86,6 +86,7 @@ export default defineConfig({
         'react/jsx-runtime',
         'react-dom',
         '@tanstack/react-query',
+        /^motion(\/|$)/,
       ],
       treeshake: {
         moduleSideEffects: false,
