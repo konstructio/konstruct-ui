@@ -38,6 +38,9 @@ export const radioVariants = cva(
     'w-4',
     'peer-checked:before:h-[70%]',
     'peer-checked:before:w-[70%]',
+    'peer-focus-visible:outline-2',
+    'peer-focus-visible:outline-offset-2',
+    'peer-focus-visible:outline-aurora-500',
   ],
   {
     variants: {

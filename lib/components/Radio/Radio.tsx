@@ -70,7 +70,7 @@ const Radio: FC<Props> = forwardRef<HTMLInputElement, Props>(
           value={value}
           checked={checked}
           defaultChecked={defaultChecked}
-          className="hidden peer"
+          className="sr-only peer"
           onChange={() => onChange?.(value)}
           onClick={onClick}
           disabled={disabled}
