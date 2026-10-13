@@ -4,6 +4,7 @@ export * from './Autocomplete/Autocomplete';
 export * from './Avatar/Avatar';
 export * from './AvatarGroup/AvatarGroup';
 export * from './Badge/Badge';
+export * from './BadgeGroup/BadgeGroup';
 export * from './Breadcrumb/Breadcrumb';
 export * from './Button/Button';
 export * from './ButtonGroup/ButtonGroup';
