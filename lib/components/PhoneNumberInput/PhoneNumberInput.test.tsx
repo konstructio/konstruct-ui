@@ -5,16 +5,22 @@ import { axe } from 'jest-axe';
 import { PhoneNumberInput } from './PhoneNumberInput';
 import { Props } from './PhoneNumberInput.types';
 
+beforeAll(async () => {
+  await import('./components/PhoneNumberInputContent');
+});
+
 describe('PhoneNumberInput', () => {
   const defaultProps = {
     label: 'Phone Number',
     name: 'phone',
   } satisfies Props;
 
-  const setup = (props?: Partial<Props>) => {
+  const setup = async (props?: Partial<Props>) => {
     const { container: component } = render(
       <PhoneNumberInput {...defaultProps} {...props} />,
     );
+
+    await screen.findByRole('textbox', { name: 'Phone Number' });
 
     const user = userEvent.setup();
     const getInput = () =>
@@ -49,8 +55,8 @@ describe('PhoneNumberInput', () => {
     vi.restoreAllMocks();
   });
 
-  it('should render the label and the default country prefix', () => {
-    const { getInput } = setup();
+  it('should render the label and the default country prefix', async () => {
+    const { getInput } = await setup();
 
     expect(screen.getByText('Phone Number')).toBeInTheDocument();
     expect(getInput()).toHaveValue('+1 ');
@@ -58,7 +64,7 @@ describe('PhoneNumberInput', () => {
 
   it('should update the prefix when a different country is selected', async () => {
     const { user, getInput, getTrigger, getSearchInput, querySearchInput } =
-      setup();
+      await setup();
 
     await user.click(getTrigger());
     await user.type(getSearchInput(), 'andorra');
@@ -73,43 +79,44 @@ describe('PhoneNumberInput', () => {
 
   it('should call onChange when typing a phone number', async () => {
     const onChange = vi.fn();
-    const { user, getInput } = setup({ onChange });
+    const { user, getInput } = await setup({ onChange });
 
     await user.type(getInput(), '2025550123');
 
     expect(onChange).toHaveBeenCalled();
   });
 
-  it('should expose the required state without polluting the accessible name', () => {
-    setup({ isRequired: true });
+  it('should expose the required state without polluting the accessible name', async () => {
+    const { getInput } = await setup({ isRequired: true });
 
-    const input = screen.getByRole('textbox', { name: 'Phone Number' });
+    const input = getInput();
 
     expect(input).toHaveAttribute('aria-required', 'true');
   });
 
-  it('should describe the input with its error message', () => {
-    const { getInput } = setup({ error: 'Invalid number' });
+  it('should describe the input with its error message', async () => {
+    const { getInput } = await setup({ error: 'Invalid number' });
 
     expect(getInput()).toHaveAttribute('aria-invalid', 'true');
     expect(getInput()).toHaveAccessibleDescription('Invalid number');
   });
 
-  it('should describe the input with its helper text', () => {
-    const { getInput } = setup({ helperText: 'Include the area code' });
+  it('should describe the input with its helper text', async () => {
+    const { getInput } = await setup({ helperText: 'Include the area code' });
 
     expect(getInput()).not.toHaveAttribute('aria-invalid');
     expect(getInput()).toHaveAccessibleDescription('Include the area code');
   });
 
-  it('should not treat an empty error string as an error', () => {
-    const { getInput } = setup({ error: '' });
+  it('should not treat an empty error string as an error', async () => {
+    const { getInput } = await setup({ error: '' });
 
     expect(getInput()).not.toHaveAttribute('aria-invalid');
   });
 
   it('should close the country selector when pressing Escape', async () => {
-    const { user, getTrigger, getSearchInput, querySearchInput } = setup();
+    const { user, getTrigger, getSearchInput, querySearchInput } =
+      await setup();
 
     await user.click(getTrigger());
 
@@ -121,7 +128,8 @@ describe('PhoneNumberInput', () => {
   });
 
   it('should close the country selector when clicking outside', async () => {
-    const { user, getTrigger, getSearchInput, querySearchInput } = setup();
+    const { user, getTrigger, getSearchInput, querySearchInput } =
+      await setup();
 
     await user.click(getTrigger());
 
@@ -132,13 +140,14 @@ describe('PhoneNumberInput', () => {
     expect(querySearchInput()).not.toBeInTheDocument();
   });
 
-  it('should not leave timers running when unmounted while focused', () => {
+  it('should not leave timers running when unmounted while focused', async () => {
+    const { unmount } = render(<PhoneNumberInput {...defaultProps} />);
+    const input = await screen.findByRole('textbox', { name: 'Phone Number' });
+
     vi.useFakeTimers();
 
     try {
-      const { unmount } = render(<PhoneNumberInput {...defaultProps} />);
-
-      screen.getByRole('textbox', { name: 'Phone Number' }).focus();
+      input.focus();
       vi.advanceTimersByTime(50);
 
       expect(vi.getTimerCount()).toBeGreaterThan(0);
@@ -153,7 +162,7 @@ describe('PhoneNumberInput', () => {
   });
 
   it("should doesn't have violations", async () => {
-    const { component } = setup();
+    const { component } = await setup();
 
     const results = await axe(component);
 

@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { Button } from '@/components/Button/Button';
 
-import { useTableContext } from '../../contexts';
+import { useTableContext } from '../../contexts/table.hook';
 import { sendResetFiltersEvent } from '../../events';
 import { EmptyState } from '../EmptyState/EmptyState';
 

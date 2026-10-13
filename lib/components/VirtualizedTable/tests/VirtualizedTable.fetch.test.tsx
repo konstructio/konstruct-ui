@@ -51,7 +51,11 @@ const isSkeletonVisible = () => {
   return !!document.querySelector('tbody .animate-pulse');
 };
 
-const setup = (
+beforeAll(async () => {
+  await import('../components/VirtualizedTableContent/VirtualizedTableContent');
+});
+
+const setup = async (
   props?: Partial<Props<Item>> & Record<string, unknown>,
   fetchDataOverride?: Props<Item>['fetchData'],
 ) => {
@@ -74,6 +78,8 @@ const setup = (
     <VirtualizedTable<Item> {...defaultProps} {...(props as object)} />,
   );
 
+  await screen.findByRole('table', { name: /fetch table/i });
+
   const user = userEvent.setup();
   const getSearchInput = () => {
     return screen.getByRole('textbox');
@@ -91,7 +97,7 @@ const setup = (
 
 describe('VirtualizedTable / fetchData integration', () => {
   it('shows the skeleton during the initial load and the rows once it resolves', async () => {
-    const { fetchData, resolveFetch } = setup();
+    const { fetchData, resolveFetch } = await setup();
 
     await waitFor(() => {
       expect(fetchData).toHaveBeenCalledTimes(1);
@@ -107,7 +113,7 @@ describe('VirtualizedTable / fetchData integration', () => {
   });
 
   it('shows the skeleton again when the search term changes and renders the new rows', async () => {
-    const { user, fetchData, resolveFetch, getSearchInput } = setup();
+    const { user, fetchData, resolveFetch, getSearchInput } = await setup();
 
     await waitFor(() => {
       expect(fetchData).toHaveBeenCalledTimes(1);
@@ -129,7 +135,7 @@ describe('VirtualizedTable / fetchData integration', () => {
   });
 
   it('keeps the rows visible during a background refetch instead of flashing the skeleton', async () => {
-    const { fetchData, resolveFetch, queryClient } = setup();
+    const { fetchData, resolveFetch, queryClient } = await setup();
 
     await waitFor(() => {
       expect(fetchData).toHaveBeenCalledTimes(1);
@@ -153,7 +159,7 @@ describe('VirtualizedTable / fetchData integration', () => {
   });
 
   it('never strands the table when the consumer suppresses notifications with notifyOnChangeProps', async () => {
-    const { fetchData, resolveFetch, queryClient } = setup({
+    const { fetchData, resolveFetch, queryClient } = await setup({
       queryOptions: { notifyOnChangeProps: ['data', 'error'] },
     });
 
@@ -178,7 +184,7 @@ describe('VirtualizedTable / fetchData integration', () => {
   });
 
   it('clears the skeleton after a search that resolves to structurally-equal data', async () => {
-    const { user, fetchData, resolveFetch, getSearchInput } = setup({
+    const { user, fetchData, resolveFetch, getSearchInput } = await setup({
       queryOptions: { notifyOnChangeProps: ['data', 'error'] },
     });
 
@@ -204,7 +210,7 @@ describe('VirtualizedTable / fetchData integration', () => {
   });
 
   it('keeps the previous rows during a search when the consumer opts into keepPreviousData', async () => {
-    const { user, fetchData, resolveFetch, getSearchInput } = setup({
+    const { user, fetchData, resolveFetch, getSearchInput } = await setup({
       queryOptions: { placeholderData: keepPreviousData },
     });
 
@@ -230,7 +236,9 @@ describe('VirtualizedTable / fetchData integration', () => {
 
   it('does not mutate the consumer id array while building the query key', async () => {
     const id = ['fetch-table', 'scoped'];
-    const { user, fetchData, resolveFetch, getSearchInput } = setup({ id });
+    const { user, fetchData, resolveFetch, getSearchInput } = await setup({
+      id,
+    });
 
     await waitFor(() => {
       expect(fetchData).toHaveBeenCalledTimes(1);
@@ -247,8 +255,8 @@ describe('VirtualizedTable / fetchData integration', () => {
     expect(id).toEqual(['fetch-table', 'scoped']);
   });
 
-  it('renders preloaded rows immediately without fetching on mount', () => {
-    const { fetchData } = setup({ data: [alpha] });
+  it('renders preloaded rows immediately without fetching on mount', async () => {
+    const { fetchData } = await setup({ data: [alpha] });
 
     expect(screen.getByText('Alpha')).toBeInTheDocument();
     expect(isSkeletonVisible()).toBe(false);
@@ -256,7 +264,7 @@ describe('VirtualizedTable / fetchData integration', () => {
   });
 
   it('shows the errorState when the initial fetch fails with no rows', async () => {
-    const { fetchData, rejectFetch } = setup({
+    const { fetchData, rejectFetch } = await setup({
       errorState: <span>Something went wrong</span>,
     });
 
@@ -270,7 +278,7 @@ describe('VirtualizedTable / fetchData integration', () => {
   });
 
   it('passes the error to the errorState render function', async () => {
-    const { fetchData, rejectFetch } = setup({
+    const { fetchData, rejectFetch } = await setup({
       errorState: (error: Error) => {
         return <span>{error.message}</span>;
       },
@@ -285,7 +293,7 @@ describe('VirtualizedTable / fetchData integration', () => {
   });
 
   it('keeps the rows visible when a background refetch fails', async () => {
-    const { fetchData, resolveFetch, rejectFetch, queryClient } = setup({
+    const { fetchData, resolveFetch, rejectFetch, queryClient } = await setup({
       errorState: <span>Something went wrong</span>,
     });
 
@@ -309,7 +317,7 @@ describe('VirtualizedTable / fetchData integration', () => {
   });
 
   it('prefers the errorState over the emptyState on error', async () => {
-    const { fetchData, rejectFetch } = setup({
+    const { fetchData, rejectFetch } = await setup({
       emptyState: <span>No results</span>,
       errorState: <span>Something went wrong</span>,
     });
@@ -324,7 +332,7 @@ describe('VirtualizedTable / fetchData integration', () => {
   });
 
   it('shows the emptyState when the fetch resolves empty and both props are set', async () => {
-    const { fetchData, resolveFetch } = setup({
+    const { fetchData, resolveFetch } = await setup({
       emptyState: <span>No results</span>,
       errorState: <span>Something went wrong</span>,
     });
@@ -339,7 +347,7 @@ describe('VirtualizedTable / fetchData integration', () => {
   });
 
   it('shows the skeleton during a manual refresh and restores the rows when it resolves', async () => {
-    const { fetchData, resolveFetch } = setup();
+    const { fetchData, resolveFetch } = await setup();
 
     await waitFor(() => {
       expect(fetchData).toHaveBeenCalledTimes(1);
@@ -365,7 +373,7 @@ describe('VirtualizedTable / fetchData integration', () => {
   });
 
   it('refreshes when the refresh event is sent without a tableId', async () => {
-    const { fetchData, resolveFetch } = setup();
+    const { fetchData, resolveFetch } = await setup();
 
     await waitFor(() => {
       expect(fetchData).toHaveBeenCalledTimes(1);
@@ -391,7 +399,7 @@ describe('VirtualizedTable / fetchData integration', () => {
   });
 
   it('ignores refresh events targeting another table', async () => {
-    const { fetchData, resolveFetch } = setup();
+    const { fetchData, resolveFetch } = await setup();
 
     await waitFor(() => {
       expect(fetchData).toHaveBeenCalledTimes(1);
@@ -409,7 +417,7 @@ describe('VirtualizedTable / fetchData integration', () => {
   });
 
   it('does nothing on refresh events when only the data prop is provided', async () => {
-    const { fetchData } = setup({ data: [alpha], fetchData: undefined });
+    const { fetchData } = await setup({ data: [alpha], fetchData: undefined });
 
     expect(screen.getByText('Alpha')).toBeInTheDocument();
 
@@ -423,7 +431,7 @@ describe('VirtualizedTable / fetchData integration', () => {
   });
 
   it('clears the skeleton when the manual refresh fails and keeps the previous rows', async () => {
-    const { fetchData, resolveFetch, rejectFetch } = setup();
+    const { fetchData, resolveFetch, rejectFetch } = await setup();
 
     await waitFor(() => {
       expect(fetchData).toHaveBeenCalledTimes(1);
