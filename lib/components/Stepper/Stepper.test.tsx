@@ -538,4 +538,26 @@ describe('Stepper', () => {
       expect(getStepText('Select platform')).toHaveClass('custom-label-style');
     });
   });
+  describe('fullWidth', () => {
+    it('should stretch the stepper and distribute horizontal steps evenly', () => {
+      const { getNavigation, getList, getListItems } = setup({
+        fullWidth: true,
+        variant: 'horizontal',
+      });
+
+      const items = getListItems();
+
+      expect(getNavigation()).toHaveClass('w-full');
+      expect(getList()).toHaveClass('w-full');
+      expect(items[0]).toHaveClass('flex-1', 'last:flex-none');
+      expect(items[items.length - 1]).toHaveClass('flex-1', 'last:flex-none');
+    });
+
+    it('should not distribute vertical steps', () => {
+      const { getNavigation, getListItems } = setup({ fullWidth: true });
+
+      expect(getNavigation()).toHaveClass('w-full');
+      expect(getListItems()[0]).not.toHaveClass('flex-1');
+    });
+  });
 });

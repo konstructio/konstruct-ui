@@ -6,9 +6,14 @@ export const stepperVariants = cva(['flex'], {
       vertical: ['flex-col'],
       horizontal: ['flex-row', 'items-start'],
     },
+    fullWidth: {
+      true: ['w-full'],
+      false: [],
+    },
   },
   defaultVariants: {
     orientation: 'vertical',
+    fullWidth: false,
   },
 });
 
@@ -18,9 +23,14 @@ export const stepListVariants = cva(['flex', 'list-none', 'p-0', 'm-0'], {
       vertical: ['flex-col'],
       horizontal: ['flex-row'],
     },
+    fullWidth: {
+      true: ['w-full'],
+      false: [],
+    },
   },
   defaultVariants: {
     orientation: 'vertical',
+    fullWidth: false,
   },
 });
 
@@ -30,9 +40,21 @@ export const stepItemVariants = cva(['list-none'], {
       vertical: [],
       horizontal: [],
     },
+    fullWidth: {
+      true: [],
+      false: [],
+    },
   },
+  compoundVariants: [
+    {
+      orientation: 'horizontal',
+      fullWidth: true,
+      class: ['flex-1', 'min-w-0', 'last:flex-none'],
+    },
+  ],
   defaultVariants: {
     orientation: 'vertical',
+    fullWidth: false,
   },
 });
 

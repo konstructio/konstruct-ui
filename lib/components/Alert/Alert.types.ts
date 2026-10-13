@@ -16,6 +16,10 @@ import { alertVariants } from './Alert.variants';
  * ```
  */
 type AlertBaseProps = VariantProps<typeof alertVariants> & {
+  /** Call to action rendered at the right end of the alert */
+  action?: ReactNode;
+  /** Custom icon replacing the one derived from `type` */
+  icon?: ReactNode;
   /** Whether the alert is visible */
   isVisible?: boolean;
   /** Show close button to dismiss alert */

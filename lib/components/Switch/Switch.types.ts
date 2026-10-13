@@ -27,8 +27,12 @@ export interface Props extends VariantProps<typeof switchVariants> {
   helperText?: string;
   /** CSS classes for helper text */
   helperTextClassName?: string;
+  /** Disable the switch and show a spinner while a change is pending */
+  isLoading?: boolean;
   /** Label text displayed next to switch */
   label?: string;
+  /** Label text for each state; overrides `label` visually and for assistive technology */
+  labels?: { off: string; on: string };
   /** CSS classes for the label */
   labelClassName?: string;
   /** Additional CSS classes for the label wrapper */

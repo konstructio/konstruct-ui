@@ -46,6 +46,8 @@ const ICON_MAP = {
  * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/components-alert--docs Storybook}
  */
 export const Alert: FC<Props> = ({
+  action,
+  icon,
   theme,
   type,
   title,
@@ -94,7 +96,7 @@ export const Alert: FC<Props> = ({
       role="alert"
       aria-live="polite"
     >
-      {Icon && <Icon className={cn(iconVariants({ type }))} />}
+      {icon ?? (Icon && <Icon className={cn(iconVariants({ type }))} />)}
 
       <div className="flex flex-col gap-1 flex-1">
         {title && <p className={cn(titleVariants({ type }))}>{title}</p>}
@@ -102,6 +104,8 @@ export const Alert: FC<Props> = ({
           <div className={cn(descriptionVariants({ type }))}>{description}</div>
         )}
       </div>
+
+      {action ? <div className="shrink-0 self-center">{action}</div> : null}
 
       {showCloseButton && (
         <button type="button" onClick={handleCloseClick}>

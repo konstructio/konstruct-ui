@@ -63,6 +63,7 @@ export const Stepper: FC<Props> = ({
   classNames,
   clickable = false,
   currentStep,
+  fullWidth = false,
   icons,
   orientation = 'vertical',
   showConnector = true,
@@ -105,7 +106,7 @@ export const Stepper: FC<Props> = ({
   return (
     <nav
       className={cn(
-        stepperVariants({ orientation: resolvedOrientation }),
+        stepperVariants({ orientation: resolvedOrientation, fullWidth }),
         className,
         classNames?.root,
       )}
@@ -114,7 +115,7 @@ export const Stepper: FC<Props> = ({
     >
       <ol
         className={cn(
-          stepListVariants({ orientation: resolvedOrientation }),
+          stepListVariants({ orientation: resolvedOrientation, fullWidth }),
           classNames?.list,
         )}
       >
@@ -122,7 +123,7 @@ export const Stepper: FC<Props> = ({
           <li
             key={step.id}
             className={cn(
-              stepItemVariants({ orientation: resolvedOrientation }),
+              stepItemVariants({ orientation: resolvedOrientation, fullWidth }),
               classNames?.item,
             )}
           >
