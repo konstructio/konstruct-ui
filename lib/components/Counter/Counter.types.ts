@@ -1,4 +1,5 @@
 import { VariantProps } from 'class-variance-authority';
+import { ReactNode } from 'react';
 
 import { Theme } from '@/domain/theme';
 
@@ -27,16 +28,34 @@ export interface Props extends VariantProps<typeof counterVariants> {
   className?: string;
   /** CSS classes for decrement button */
   decrementButtonClassName?: string;
+  /** Accessible label of the decrement button */
+  decrementLabel?: string;
+  /** Disable the whole control */
+  disabled?: boolean;
   /** Allow typing values directly into the input. Defaults to false (read-only) */
   editable?: boolean;
+  /** Error message displayed below the control */
+  error?: string;
+  /** Additional CSS classes for the error message */
+  errorClassName?: string;
+  /** Stretch the control to the width of its container */
+  fullWidth?: boolean;
+  /** Helper text displayed below the control when there is no error */
+  helperText?: string;
+  /** Additional CSS classes for the helper text */
+  helperTextClassName?: string;
   /** CSS classes for increment button */
   incrementButtonClassName?: string;
+  /** Accessible label of the increment button */
+  incrementLabel?: string;
   /** Initial value (deprecated, use value) */
   init?: number;
   /** Show required indicator */
   isRequired?: boolean;
   /** Label displayed above the counter */
   label?: string;
+  /** Content displayed at the right end of the label row */
+  labelAction?: ReactNode;
   /** Additional CSS classes for the label wrapper */
   labelWrapperClassName?: string;
   /** Maximum allowed value */
@@ -45,8 +64,12 @@ export interface Props extends VariantProps<typeof counterVariants> {
   min?: number;
   /** Form field name */
   name?: string;
+  /** Amount added or subtracted by the buttons. Defaults to 1 */
+  step?: number;
   /** Theme override for this component */
   theme?: Theme;
+  /** Unit displayed inside the field, after the value */
+  unit?: ReactNode;
   /** Current numeric value */
   value?: number;
   /** Callback when value changes */

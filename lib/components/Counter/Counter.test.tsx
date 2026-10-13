@@ -271,4 +271,100 @@ describe('Counter', () => {
     await user.click(getDecrementButton());
     expect(input).toHaveValue(7);
   });
+  describe('step, unit and messages', () => {
+    it('should add and subtract the step and clamp to the limits', async () => {
+      const { user, getInput, getIncrementButton, getDecrementButton } = setup({
+        step: 500,
+        min: 0,
+        max: 1200,
+      });
+
+      await user.click(getIncrementButton());
+      await user.click(getIncrementButton());
+
+      expect(await getInput()).toHaveValue(1000);
+
+      await user.click(getIncrementButton());
+
+      expect(await getInput()).toHaveValue(1200);
+
+      await user.click(getDecrementButton());
+      await user.click(getDecrementButton());
+      await user.click(getDecrementButton());
+
+      expect(await getInput()).toHaveValue(0);
+    });
+
+    it('should render the unit next to the value', async () => {
+      setup({ unit: 'GB' });
+
+      expect(screen.getByText('GB')).toBeInTheDocument();
+    });
+
+    it('should associate the label with the input and render the label action', async () => {
+      setup({ label: 'Size', labelAction: <span>$12.00/mo</span> });
+
+      expect(screen.getByLabelText('Size')).toBe(
+        await screen.findByRole('spinbutton'),
+      );
+      expect(screen.getByText('$12.00/mo')).toBeInTheDocument();
+    });
+
+    it('should describe the input with the error and hide the helper text', async () => {
+      setup({ error: 'Quota exceeded', helperText: 'Increments of 500 GB' });
+
+      const input = await screen.findByRole('spinbutton');
+      const error = screen.getByText('Quota exceeded');
+
+      expect(input).toHaveAttribute('aria-invalid', 'true');
+      expect(input).toHaveAttribute('aria-describedby', error.id);
+      expect(
+        screen.queryByText('Increments of 500 GB'),
+      ).not.toBeInTheDocument();
+    });
+
+    it('should describe the input with the helper text', async () => {
+      setup({ helperText: 'Increments of 500 GB' });
+
+      const input = await screen.findByRole('spinbutton');
+      const helper = screen.getByText('Increments of 500 GB');
+
+      expect(input).toHaveAttribute('aria-describedby', helper.id);
+      expect(input).not.toHaveAttribute('aria-invalid');
+    });
+
+    it('should disable the buttons and the input when disabled', async () => {
+      const { getInput, getIncrementButton, getDecrementButton } = setup({
+        disabled: true,
+        editable: true,
+      });
+
+      expect(await getInput()).toBeDisabled();
+      expect(getIncrementButton()).toBeDisabled();
+      expect(getDecrementButton()).toBeDisabled();
+    });
+
+    it('should use the custom button labels', () => {
+      setup({ decrementLabel: 'Remove 500 GB', incrementLabel: 'Add 500 GB' });
+
+      expect(
+        screen.getByRole('button', { name: 'Remove 500 GB' }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole('button', { name: 'Add 500 GB' }),
+      ).toBeInTheDocument();
+    });
+
+    it("shouldn't have accessibility violations with unit, error and label action", async () => {
+      const { component } = setup({
+        unit: 'GB',
+        error: 'Quota exceeded',
+        labelAction: <span>$12.00/mo</span>,
+      });
+
+      const results = await axe(component);
+
+      expect(results).toHaveNoViolations();
+    });
+  });
 });
