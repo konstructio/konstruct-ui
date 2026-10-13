@@ -23,6 +23,8 @@ import { modalVariants } from './components/Wrapper/Wrapper.variants';
 export type Props = PropsWithChildren &
   VariantProps<typeof modalVariants> & {
     /** CSS classes for the close button */
+    ariaLabel?: string;
+    ariaLabelledBy?: string;
     buttonCloseClassName?: string;
     /** Additional CSS classes for the modal */
     className?: string;
