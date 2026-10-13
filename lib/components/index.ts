@@ -10,6 +10,7 @@ export * from './Button/Button';
 export * from './ButtonGroup/ButtonGroup';
 export * from './Card/Card';
 export * from './Checkbox/Checkbox';
+export * from './Collapse/Collapse';
 export * from './CopyButton/CopyButton';
 export * from './ConfirmDialog/ConfirmDialog';
 export type { Props as CopyButtonProps } from './CopyButton/CopyButton.types';
