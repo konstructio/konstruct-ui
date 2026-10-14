@@ -23,6 +23,8 @@ import { modalVariants } from './components/Wrapper/Wrapper.variants';
 export type Props = PropsWithChildren &
   VariantProps<typeof modalVariants> & {
     /** CSS classes for the close button */
+    /** Animate height changes of the content, e.g. when a step is swapped. Defaults to false */
+    animateResize?: boolean;
     ariaLabel?: string;
     ariaLabelledBy?: string;
     /** Move focus to the first focusable element when the modal opens. Defaults to true */
@@ -40,7 +42,7 @@ export type Props = PropsWithChildren &
     showCloseButton?: boolean;
     /** Theme override for this component */
     theme?: Theme;
-    /** Motion transition config for the modal animation */
+    /** Motion transition used when `animateResize` is enabled */
     transition?: Transition;
     /** Callback when modal is closed (Escape key or close button) */
     onClose?: () => void;

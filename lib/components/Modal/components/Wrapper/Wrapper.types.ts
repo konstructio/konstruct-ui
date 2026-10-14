@@ -8,6 +8,7 @@ import { modalVariants } from './Wrapper.variants';
 
 export type Props = PropsWithChildren &
   VariantProps<typeof modalVariants> & {
+    animateResize?: boolean;
     ariaLabel?: string;
     ariaLabelledBy?: string;
     autoFocus?: boolean;
