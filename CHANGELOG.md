@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2-alpha.118](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.118) (2026-10-14)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.117...0.1.2-alpha.118)
+
+**Merged pull requests:**
+
+- 🐛 fix\(modal\): stop animating content height changes by default [\#766](https://github.com/konstructio/konstruct-ui/pull/766) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.117](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.117) (2026-10-13)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.116...0.1.2-alpha.117)
