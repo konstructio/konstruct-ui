@@ -13,6 +13,7 @@ import { Props } from './Wrapper.types';
 import { buttonCloseVariants, modalVariants } from './Wrapper.variants';
 
 export const Wrapper: FC<Props> = ({
+  animateResize = false,
   ariaLabel,
   ariaLabelledBy,
   autoFocus = true,
@@ -71,7 +72,7 @@ export const Wrapper: FC<Props> = ({
             aria-modal="true"
             aria-label={ariaLabel}
             aria-labelledby={ariaLabelledBy}
-            layout="size"
+            layout={animateResize ? 'size' : undefined}
             transition={transition ?? { duration: 0.25, ease: 'easeInOut' }}
           >
             {header}
