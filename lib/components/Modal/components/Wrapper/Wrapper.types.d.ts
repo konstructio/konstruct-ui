@@ -4,6 +4,7 @@ import { PropsWithChildren } from '../../../../../node_modules/react';
 import { Theme } from '../../../../domain/theme';
 import { modalVariants } from './Wrapper.variants';
 export type Props = PropsWithChildren & VariantProps<typeof modalVariants> & {
+    animateResize?: boolean;
     ariaLabel?: string;
     ariaLabelledBy?: string;
     autoFocus?: boolean;
