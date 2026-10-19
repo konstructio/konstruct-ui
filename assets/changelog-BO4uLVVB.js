@@ -1,5 +1,14 @@
 import{n as e}from"./rolldown-runtime-C0FnF6B9.js";import{a as t,o as n,s as r}from"./blocks-CSHu6RUM.js";import{t as i}from"./jsx-runtime-BdxMnOeJ.js";import{i as a,r as o}from"./react-BOKIvUzN.js";var s;function c(){return(c=e((()=>{s=`# Changelog
 
+## [0.1.2-alpha.119](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.119) (2026-10-19)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.118...0.1.2-alpha.119)
+
+**Merged pull requests:**
+
+- ⬆️ chore\\(deps\\): update dependencies [\\#773](https://github.com/konstructio/konstruct-ui/pull/773) ([futjesus](https://github.com/futjesus))
+- 🐛 fix\\(virtualized-table\\): render preloaded content without suspending [\\#772](https://github.com/konstructio/konstruct-ui/pull/772) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.118](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.118) (2026-10-14)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.117...0.1.2-alpha.118)
