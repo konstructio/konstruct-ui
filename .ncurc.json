@@ -2,6 +2,7 @@
 	"reject": [
 		"eslint",
 		"typescript",
-		"@tanstack/react-table"
+		"@tanstack/react-table",
+		"@tanstack/react-virtual"
 	]
 }
