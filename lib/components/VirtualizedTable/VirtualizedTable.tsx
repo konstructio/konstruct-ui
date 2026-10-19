@@ -16,7 +16,10 @@ import {
   sendResetFiltersEvent,
   sendToggleRowEvent,
 } from './events';
-import { loadVirtualizedTableContent } from './utils';
+import {
+  getLoadedVirtualizedTableContent,
+  loadVirtualizedTableContent,
+} from './utils';
 
 if (isClient) {
   loadVirtualizedTableContent().catch(() => undefined);
@@ -55,18 +58,24 @@ const VirtualizedTableContent = lazy(() =>
  */
 const VirtualizedTableInner = <TData extends RowData>(
   props: Props<TData>,
-): JSX.Element => (
-  <Suspense
-    fallback={
-      <section
-        className={cn('kvt', 'w-full min-w-fit', props.className)}
-        aria-busy="true"
-      />
-    }
-  >
-    <VirtualizedTableContent<TData> {...props} />
-  </Suspense>
-);
+): JSX.Element => {
+  const Content = (getLoadedVirtualizedTableContent()
+    ?.VirtualizedTableContent ??
+    VirtualizedTableContent) as typeof VirtualizedTableContent;
+
+  return (
+    <Suspense
+      fallback={
+        <section
+          className={cn('kvt', 'w-full min-w-fit', props.className)}
+          aria-busy="true"
+        />
+      }
+    >
+      <Content<TData> {...props} />
+    </Suspense>
+  );
+};
 
 type VirtualizedTableCompound = (<TData extends RowData>(
   props: Props<TData>,
