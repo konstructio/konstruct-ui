@@ -4,7 +4,7 @@ type ContentModule =
 type Listener = () => void;
 
 let contentRequest: Promise<ContentModule> | undefined;
-let isContentLoaded = false;
+let loadedModule: ContentModule | undefined;
 const listeners = new Set<Listener>();
 
 export const loadVirtualizedTableContent = (): Promise<ContentModule> => {
@@ -12,7 +12,7 @@ export const loadVirtualizedTableContent = (): Promise<ContentModule> => {
     contentRequest =
       import('../../components/VirtualizedTableContent/VirtualizedTableContent')
         .then((module) => {
-          isContentLoaded = true;
+          loadedModule = module;
           listeners.forEach((listener) => {
             listener();
           });
@@ -30,7 +30,12 @@ export const loadVirtualizedTableContent = (): Promise<ContentModule> => {
 };
 
 export const isVirtualizedTableContentLoaded = (): boolean => {
-  return isContentLoaded;
+  return loadedModule !== undefined;
+};
+
+export const getLoadedVirtualizedTableContent = ():
+  ContentModule | undefined => {
+  return loadedModule;
 };
 
 export const subscribeToVirtualizedTableContent = (
