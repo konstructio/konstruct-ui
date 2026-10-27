@@ -3,6 +3,7 @@ import { createContext, Dispatch, ReactNode, SetStateAction } from 'react';
 
 import { RowData } from '../VirtualizedTable.types';
 import { DEFAULT_PAGE_SIZE } from '../constants';
+import { PinnedWidths } from '../utils';
 
 export type ContextType<TData extends RowData = RowData> = {
   sortedData: ColumnSort[];
@@ -32,6 +33,11 @@ export type ContextType<TData extends RowData = RowData> = {
   isBorderOnAdjacentCell?: boolean;
   isExpandColumnVisible?: boolean;
   renderExpandedRow?: (data: RowData) => ReactNode;
+  /** Measured header widths of the pinned columns, keyed by column id. */
+  pinnedWidths: PinnedWidths;
+  getPinnedHeaderRef: (
+    columnId: string,
+  ) => (element: HTMLElement | null) => void;
   handlePage: (newPage: number) => void;
   onPageSize: (newPageSize: number) => void;
   onSorting: Dispatch<SetStateAction<SortingState>>;
@@ -58,6 +64,10 @@ export const TableContext = createContext<ContextType<RowData>>({
   pageSize: DEFAULT_PAGE_SIZE,
   totalPages: Infinity,
   isFirstLoad: true,
+  pinnedWidths: {},
+  getPinnedHeaderRef() {
+    throw new Error('getPinnedHeaderRef function is not implemented');
+  },
   onSorting() {
     throw new Error('onSorting function is not implemented');
   },

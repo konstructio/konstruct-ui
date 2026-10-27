@@ -4,8 +4,9 @@ import { Fragment } from 'react';
 import { Skeleton } from '@/components/VirtualizedTable/components/Skeleton/Skeleton';
 import { cn } from '@/utils';
 
+import { HIDE_BELOW_CLASS } from '../../constants';
 import { useTableContext } from '../../contexts';
-import { isPaginationBarVisible } from '../../utils';
+import { getPinnedCellProps, isPaginationBarVisible } from '../../utils';
 import { RowData, RowDataWithMeta } from '../../VirtualizedTable.types';
 import { ExpandableRow } from '../ExpandableRow/ExpandableRow';
 
@@ -33,6 +34,7 @@ export const Body = <TData extends RowData = RowData>({
     renderExpandedRow,
     isBorderOnAdjacentCell,
     isExpandColumnVisible,
+    pinnedWidths,
   } = useTableContext<TData>();
 
   if (isLoading || tableLoading) {
@@ -154,10 +156,13 @@ export const Body = <TData extends RowData = RowData>({
                   typeof column.columnDef.meta?.className === 'function'
                     ? column.columnDef.meta?.className(original)
                     : column.columnDef.meta?.className;
+                const { hideBelow } = column.columnDef.meta ?? {};
+                const pinned = getPinnedCellProps(table, column, pinnedWidths);
 
                 return (
                   <td
                     key={id}
+                    style={pinned.style}
                     className={cn(
                       'kvt-cell',
                       'px-4',
@@ -180,6 +185,8 @@ export const Body = <TData extends RowData = RowData>({
                         )]: !!isExpanded,
                       },
                       classNameHoverRow,
+                      pinned.className,
+                      hideBelow && HIDE_BELOW_CLASS[hideBelow],
                       classNameFromMeta,
                       {
                         'rounded-bl-lg':

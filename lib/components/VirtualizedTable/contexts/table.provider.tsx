@@ -15,6 +15,7 @@ import {
   ReactNode,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -24,7 +25,7 @@ import { cn } from '@/utils';
 
 import { RowData, RowDataWithMeta } from '../VirtualizedTable.types';
 import { DEFAULT_PAGE_SIZE } from '../constants';
-import { getTableId } from '../utils';
+import { getTableId, PinnedWidths } from '../utils';
 
 import {
   VirtualizedTableEvent,
@@ -95,6 +96,7 @@ export const TableProvider = <TData extends RowData = RowData>({
   onExpandedChange,
   renderExpandedRow,
   keepExpandColumnVisible,
+  columnPinning,
 }: Props<TData>) => {
   const [sortedData, setSortedData] = useState<SortingState>([]);
   const [isFirstLoad, setIsFirstLoad] = useState<boolean>(!!fetchData);
@@ -573,6 +575,97 @@ export const TableProvider = <TData extends RowData = RowData>({
     return [expandColumn, ...columns];
   }, [columns, expandColumn]);
 
+  const columnPinningState = useMemo(() => {
+    if (!columnPinning) return undefined;
+
+    const left = columnPinning.left ?? [];
+    const pinExpand =
+      !!expandColumn && left.length > 0 && !left.includes('__expand');
+
+    return {
+      left: pinExpand ? ['__expand', ...left] : left,
+      right: columnPinning.right ?? [],
+    };
+  }, [columnPinning, expandColumn]);
+
+  const [pinnedWidths, setPinnedWidths] = useState<PinnedWidths>({});
+  const pinnedObserverRef = useRef<ResizeObserver | null>(null);
+  const pinnedElementsRef = useRef(new Map<string, HTMLElement>());
+  const pinnedRefsRef = useRef(
+    new Map<string, (element: HTMLElement | null) => void>(),
+  );
+
+  const measurePinnedHeaders = useCallback((targets: Element[]) => {
+    setPinnedWidths((prev) => {
+      let next = prev;
+
+      for (const target of targets) {
+        const entry = [...pinnedElementsRef.current].find(
+          ([, observed]) => observed === target,
+        );
+
+        if (!entry) continue;
+
+        const [id] = entry;
+        const width = target.getBoundingClientRect().width;
+
+        if (next[id] !== width) {
+          next = { ...next, [id]: width };
+        }
+      }
+
+      return next;
+    });
+  }, []);
+
+  const observePinnedHeader = useCallback(
+    (columnId: string, element: HTMLElement | null) => {
+      const previous = pinnedElementsRef.current.get(columnId);
+
+      if (previous === element) return;
+
+      if (previous) {
+        pinnedObserverRef.current?.unobserve(previous);
+        pinnedElementsRef.current.delete(columnId);
+      }
+
+      if (!element) return;
+
+      pinnedElementsRef.current.set(columnId, element);
+
+      if (typeof ResizeObserver === 'undefined') return;
+
+      pinnedObserverRef.current ??= new ResizeObserver((entries) => {
+        measurePinnedHeaders(entries.map(({ target }) => target));
+      });
+
+      pinnedObserverRef.current.observe(element);
+    },
+    [measurePinnedHeaders],
+  );
+
+  useLayoutEffect(() => {
+    measurePinnedHeaders([...pinnedElementsRef.current.values()]);
+  }, [columnPinningState, measurePinnedHeaders]);
+
+  const getPinnedHeaderRef = useCallback(
+    (columnId: string) => {
+      let ref = pinnedRefsRef.current.get(columnId);
+
+      if (!ref) {
+        ref = (element) => observePinnedHeader(columnId, element);
+        pinnedRefsRef.current.set(columnId, ref);
+      }
+
+      return ref;
+    },
+    [observePinnedHeader],
+  );
+
+  useEffect(() => {
+    return () => pinnedObserverRef.current?.disconnect();
+  }, []);
+
   const table = useReactTable<TData>({
     data,
     columns: mergedColumns,
@@ -580,6 +673,7 @@ export const TableProvider = <TData extends RowData = RowData>({
     state: {
       sorting: sortedData,
       ...(enableExpandedRow ? { expanded: currentExpanded } : {}),
+      ...(columnPinningState ? { columnPinning: columnPinningState } : {}),
     },
     onSortingChange: setSortedData,
     ...(enableExpandedRow
@@ -611,6 +705,8 @@ export const TableProvider = <TData extends RowData = RowData>({
         timeFilters,
         page,
         pageSize,
+        pinnedWidths,
+        getPinnedHeaderRef,
         sortedData,
         table: table as unknown as Table<RowData>,
         tableId: getTableId(id),

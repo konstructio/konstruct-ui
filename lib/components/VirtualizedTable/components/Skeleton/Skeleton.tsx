@@ -2,19 +2,21 @@ import { EllipsisVertical } from 'lucide-react';
 
 import { Button } from '@/components/Button/Button';
 
+import { HIDE_BELOW_CLASS } from '../../constants';
 import { useTableContext } from '../../contexts';
+import { getPinnedCellProps } from '../../utils';
 
 import { SkeletonProps } from './Skeleton.types';
 import { cn } from '@/utils';
 
 export const Skeleton = <T,>({ numberOfRows, table }: SkeletonProps<T>) => {
-  const { tableLoading } = useTableContext();
+  const { tableLoading, pinnedWidths } = useTableContext();
   const rows = Array.from({ length: numberOfRows });
 
   return (
     <tbody className="kvt-skeleton text-slate-800 text-sm font-normal relative">
       {rows.map((_, rowIndex) => {
-        const columns = table.getAllColumns();
+        const columns = table.getVisibleLeafColumns();
 
         return (
           <tr
@@ -27,10 +29,14 @@ export const Skeleton = <T,>({ numberOfRows, table }: SkeletonProps<T>) => {
             )}
           >
             {columns.map((column, columnIndex) => {
+              const { hideBelow } = column.columnDef.meta ?? {};
+              const pinned = getPinnedCellProps(table, column, pinnedWidths);
+
               if (column.id !== 'actions') {
                 return (
                   <td
                     key={`skeleton-${column.id}`}
+                    style={pinned.style}
                     className={cn(
                       'px-4',
                       'py-1',
@@ -41,6 +47,8 @@ export const Skeleton = <T,>({ numberOfRows, table }: SkeletonProps<T>) => {
                       'dark:first:border-l',
                       'dark:last:border-r',
                       'dark:[tr:last-child_&]:border-b',
+                      pinned.className,
+                      hideBelow && HIDE_BELOW_CLASS[hideBelow],
                       column.columnDef.meta?.className,
                       {
                         '[tr:last-child_&:first-of-type]:rounded-bl-lg':
@@ -70,6 +78,7 @@ export const Skeleton = <T,>({ numberOfRows, table }: SkeletonProps<T>) => {
               return (
                 <td
                   key={`skeleton-${column.id}`}
+                  style={pinned.style}
                   className={cn(
                     'px-4',
                     'py-1',
@@ -80,6 +89,8 @@ export const Skeleton = <T,>({ numberOfRows, table }: SkeletonProps<T>) => {
                     'dark:first:border-l',
                     'dark:last:border-r',
                     'dark:[tr:last-child_&]:border-b',
+                    pinned.className,
+                    hideBelow && HIDE_BELOW_CLASS[hideBelow],
                     column.columnDef.meta?.className,
                     {
                       '[tr:last-child_&:first-of-type]:rounded-bl-lg':

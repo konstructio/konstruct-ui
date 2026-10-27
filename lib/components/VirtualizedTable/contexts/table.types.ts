@@ -1,4 +1,9 @@
-import { ColumnDef, ExpandedState, OnChangeFn } from '@tanstack/react-table';
+import {
+  ColumnDef,
+  ColumnPinningState,
+  ExpandedState,
+  OnChangeFn,
+} from '@tanstack/react-table';
 import { PropsWithChildren, ReactNode } from 'react';
 
 import { RowData, Props as TableProps } from '../VirtualizedTable.types';
@@ -24,6 +29,7 @@ export type Props<TData extends RowData = RowData> = PropsWithChildren & {
   onExpandedChange?: OnChangeFn<ExpandedState>;
   renderExpandedRow?: (data: TData) => ReactNode;
   keepExpandColumnVisible?: boolean | Record<string, boolean>;
+  columnPinning?: ColumnPinningState;
   getRowId?: (originalRow: TData, index: number) => string;
   fetchData?: (
     params: Record<string, string | number | string[] | number[] | undefined>,

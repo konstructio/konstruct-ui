@@ -854,6 +854,87 @@ export const HorizontalScrollWithFilters: Story = {
   },
 };
 
+/**
+ * `columnPinning` keeps the named columns in view while the rest scroll
+ * sideways: left-pinned columns render first and right-pinned ones last. A
+ * column with `meta.hideBelow` disappears, header and cells, on viewports
+ * narrower than that Tailwind breakpoint.
+ */
+export const PinnedAndResponsiveColumns: Story = {
+  render: () => {
+    const id = useId();
+    const [{ data, totalItemsCount }, setData] = useState<{
+      data: Pokemon[];
+      totalItemsCount: number;
+    }>({ data: [], totalItemsCount: 0 });
+
+    useDarkTheme();
+
+    useEffect(() => {
+      const init = async () => {
+        const result = await getPokemons({
+          page: 1,
+          pageSize: DEFAULT_PAGE_SIZE,
+        });
+
+        setData({
+          data: result.results,
+          totalItemsCount: result.totalItemsCount,
+        });
+      };
+
+      init();
+    }, []);
+
+    const getNewData = useCallback(
+      async ({ page = 1, pageSize = DEFAULT_PAGE_SIZE }: PokemonResponse) => {
+        const result = await getPokemons({ page, pageSize });
+
+        return {
+          data: result.results,
+          totalItemsCount: result.totalItemsCount,
+        };
+      },
+      [],
+    );
+
+    const responsiveColumns = useMemo<ColumnDef<Pokemon>[]>(
+      () =>
+        columns.map((column) =>
+          'accessorKey' in column &&
+          (column.accessorKey === 'height' || column.accessorKey === 'weight')
+            ? { ...column, meta: { ...column.meta, hideBelow: 'md' } }
+            : column,
+        ),
+      [],
+    );
+
+    if (data.length === 0) {
+      return <div>Loading...</div>;
+    }
+
+    return (
+      <QueryClientProvider client={queryClient}>
+        <div className="max-w-3xl">
+          <VirtualizedTableComponent<Pokemon>
+            id={id}
+            ariaLabel="List of pokemons"
+            data={data}
+            columns={responsiveColumns}
+            classNameTable="min-w-300"
+            classNameScrollContainer="overflow-x-auto contain-inline-size"
+            columnPinning={{ left: ['name'], right: ['actions'] }}
+            showPagination={true}
+            pageSizes={[5, 10, 20, 30, 50]}
+            fetchData={getNewData}
+            totalItems={totalItemsCount}
+          />
+        </div>
+      </QueryClientProvider>
+    );
+  },
+};
+
 export default meta;
 
 /**

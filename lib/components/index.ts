@@ -102,6 +102,8 @@ export type {
 } from './VirtualizedTable/events';
 export type {
   ColumnDef,
+  ColumnPinningState,
+  HideBelowBreakpoint,
   RowData,
   FilterConfig,
   ActionFilterConfig,

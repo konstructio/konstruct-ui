@@ -250,7 +250,7 @@ describe('VirtualizedTable', () => {
     );
 
     const scrollDiv = document.querySelector(
-      'section > div.overflow-x-auto',
+      'section .kvt-scroll.overflow-x-auto',
     ) as HTMLElement;
 
     expect(scrollDiv).not.toBeNull();
