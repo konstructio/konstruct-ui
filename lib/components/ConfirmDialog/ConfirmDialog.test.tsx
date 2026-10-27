@@ -157,6 +157,26 @@ describe('ConfirmDialog', () => {
     expect(results).toHaveNoViolations();
   });
 
+  it('should not close when the overlay behind it is clicked', async () => {
+    const user = userEvent.setup();
+    const { onClose } = setup({ confirmationText: 'prod-cluster' });
+
+    await user.click(await screen.findByRole('presentation'));
+
+    expect(onClose).not.toHaveBeenCalled();
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+
+  it('should open with the focus on Cancel rather than on the confirmation input', async () => {
+    setup({ confirmationText: 'prod-cluster' });
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: 'Cancel' })).toHaveFocus();
+    });
+
+    expect(screen.getByRole('textbox')).not.toHaveFocus();
+  });
+
   it('should leave the confirmation input unfocused when autoFocus is false', async () => {
     setup({ confirmationText: 'prod-cluster', autoFocus: false });
 

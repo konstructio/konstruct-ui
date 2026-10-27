@@ -79,7 +79,13 @@ export const Breadcrumb: FC<Props> = ({
     >
       {backButton && <BackButton {...backButton} theme={theme} />}
 
-      <ol className={cn(breadcrumbVariants({ className }))} {...delegated}>
+      <ol
+        className={cn(
+          breadcrumbVariants({ className }),
+          backButton && 'max-md:hidden',
+        )}
+        {...delegated}
+      >
         {visibleSteps.map(({ label, ...delegated }, index) => (
           <Fragment key={`${id}-${label}`}>
             <Item

@@ -231,21 +231,21 @@ export const Filter: FC<Props> = ({
   };
 
   return (
-    <div className="kvt-filter w-full flex items-center justify-end pb-6">
+    <div className="kvt-filter w-full flex items-center justify-end gap-y-4 pb-6 max-md:flex-wrap">
       {showFilterInput && (
         <Input
           ref={inputRef}
           placeholder={placeholder}
           isSearch
           autoComplete="false"
-          className="kvt-search w-72"
+          className="kvt-search w-72 max-md:w-full"
           inputMode="search"
           onChange={handleChangeTermOfSearch}
         />
       )}
 
       <FilterPrimitive
-        className="kvt-filter-actions"
+        className="kvt-filter-actions max-md:w-full max-md:flex-wrap"
         closeOnApply={closeOnApply}
         resetScope={tableId}
       >
@@ -253,7 +253,7 @@ export const Filter: FC<Props> = ({
 
         {showResetButton && (
           <FilterPrimitive.ResetButton
-            className={cn('select-none', resetButtonClassName)}
+            className={cn('select-none max-md:ml-auto', resetButtonClassName)}
             disabled={!hasData}
             onClick={handleResetFilters}
           />

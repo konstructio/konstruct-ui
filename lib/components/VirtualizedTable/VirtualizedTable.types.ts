@@ -1,5 +1,6 @@
 import type {
   ColumnDef as ColumnDefPrimitive,
+  ColumnPinningState,
   ExpandedState,
   OnChangeFn,
   RowData as RowDataPrimitive,
@@ -17,7 +18,10 @@ import { TimePreset } from '@/components/Filter/components/TimeFilterDropdown/Ti
 
 import { virtualizeTableVariants } from './VirtualizedTable.variants';
 import { Option } from './components/Filter/Filter.types';
+import { HideBelowBreakpoint } from './constants';
 import { UseQueryOptions } from '@tanstack/react-query';
+
+export type { ColumnPinningState, HideBelowBreakpoint };
 
 /** Base row data type from TanStack Table */
 export type RowData = RowDataPrimitive;
@@ -33,6 +37,8 @@ declare module '@tanstack/react-table' {
     className?: string | ((row: TData) => string);
     attributes?: Record<string, string | number | boolean>;
     headerClassName?: string;
+    /** Hides the column, header and cells, on viewports below this Tailwind breakpoint. */
+    hideBelow?: HideBelowBreakpoint;
   }
 }
 
@@ -225,6 +231,12 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
    * container whose pagination bar tracks the table width.
    */
   classNameScrollContainer?: string;
+  /**
+   * Columns, by id, that stay put while the table scrolls sideways. Left-pinned
+   * columns render first and right-pinned ones last, whatever their position in
+   * `columns`. Needs a scroll container (`classNameScrollContainer`) to stick to.
+   */
+  columnPinning?: ColumnPinningState;
   getRowId?: (originalRow: TData, index: number) => string;
   fetchData?: (
     params: Record<string, string | number | string[] | number[] | undefined>,

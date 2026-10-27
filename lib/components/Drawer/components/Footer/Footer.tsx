@@ -17,6 +17,7 @@ export const Footer: FC<Props> = memo(({ children, className }) => {
         'border-slate-200',
         'dark:border-metal-700',
         'p-4',
+        'max-md:pb-[calc(1rem+env(safe-area-inset-bottom))]',
         classNames?.footer,
         className,
       )}

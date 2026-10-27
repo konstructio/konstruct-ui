@@ -16,7 +16,11 @@ export const ActionsTrigger = forwardRef<HTMLButtonElement, Props>(
       variant="link"
       shape="circle"
       size="large"
-      className={cn(actionsTriggerVariants({ isOpen }), className)}
+      className={cn(
+        actionsTriggerVariants({ isOpen }),
+        'pointer-coarse:min-h-11 pointer-coarse:min-w-11',
+        className,
+      )}
       {...delegated}
     >
       <EllipsisVertical

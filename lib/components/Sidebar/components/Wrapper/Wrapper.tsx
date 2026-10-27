@@ -28,6 +28,7 @@ const Wrapper: FC<Props> = ({
   drawerMaxWidth = DRAWER_DEFAULT_MAX_WIDTH,
   expandedBreakpoint,
   expandOnHover = true,
+  expandAsOverlay = false,
   initialMode,
   initialWidth = 256,
   maxWith = 300,
@@ -38,6 +39,7 @@ const Wrapper: FC<Props> = ({
   theme,
   triggerClassName,
   openNavigationLabel,
+  overlayClassName,
   wrapperClassName,
   onModeChange,
 }) => {
@@ -203,6 +205,34 @@ const Wrapper: FC<Props> = ({
     onModeChangeRef.current?.(next, 'user');
   }, [modeOverride, resolvedMode]);
 
+  const isOverlay =
+    expandAsOverlay &&
+    resolvedMode === 'collapsed' &&
+    modeOverride === 'expanded';
+
+  const handleCloseOverlay = useCallback(() => {
+    setModeOverride(null);
+    onModeChangeRef.current?.('collapsed', 'user');
+  }, []);
+
+  useEffect(() => {
+    if (!isOverlay) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        handleCloseOverlay();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOverlay, handleCloseOverlay]);
+
   if (resolvedMode === 'drawer') {
     const drawerWidth =
       viewportWidth !== null
@@ -222,6 +252,8 @@ const Wrapper: FC<Props> = ({
           onClose={handleCloseDrawer}
           position="left"
           defaultWidth={drawerWidth}
+          fullScreenOnMobile={false}
+          initialFocus="panel"
           theme={theme}
           classNames={{
             ...drawerClassNames,
@@ -269,13 +301,23 @@ const Wrapper: FC<Props> = ({
     expandOnHover,
     animateOnHover,
     separatorClassName,
-    closeDrawer: handleCloseDrawer,
+    closeDrawer: isOverlay ? handleCloseOverlay : handleCloseDrawer,
     canToggle: true,
     toggleMode: handleToggleMode,
   };
 
   return (
     <SidebarContext.Provider value={contextValue}>
+      {isOverlay && (
+        <div
+          className={cn(
+            'konstruct-sidebar-overlay fixed inset-0 z-50 bg-black/55',
+            overlayClassName,
+          )}
+          role="presentation"
+          onClick={handleCloseOverlay}
+        />
+      )}
       <aside
         ref={asideRef}
         className={cn(
@@ -287,6 +329,7 @@ const Wrapper: FC<Props> = ({
         )}
         data-theme={theme}
         data-mode={asideMode}
+        data-overlay={isOverlay ? '' : undefined}
         style={style}
       >
         {children}

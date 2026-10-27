@@ -17,7 +17,7 @@ const HamburgerTrigger: FC<Props> = ({
     type="button"
     aria-label={openNavigationLabel}
     aria-expanded={isOpen}
-    aria-haspopup="menu"
+    aria-haspopup="dialog"
     className={cn(hamburgerTriggerVariants({ className }))}
     onClick={onClick}
   >

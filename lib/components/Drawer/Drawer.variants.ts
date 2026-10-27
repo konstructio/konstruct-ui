@@ -18,6 +18,10 @@ export const drawerVariants = cva(
   ],
   {
     variants: {
+      fullScreenOnMobile: {
+        true: ['max-md:w-full!', 'max-md:border-0'],
+        false: '',
+      },
       position: {
         left: [
           'left-0',
@@ -35,6 +39,7 @@ export const drawerVariants = cva(
     },
     defaultVariants: {
       position: 'right',
+      fullScreenOnMobile: true,
     },
   },
 );
@@ -50,6 +55,15 @@ export const overlayVariants = cva([
 
 export const buttonCloseVariants = cva([
   'absolute',
+  'rounded',
+  'outline-none',
+  'focus-visible:ring-1',
+  'focus-visible:ring-aurora-500',
+  'flex',
+  'items-center',
+  'justify-center',
+  'pointer-coarse:min-h-11',
+  'pointer-coarse:min-w-11',
   'right-3',
   'top-3',
   'cursor-pointer',

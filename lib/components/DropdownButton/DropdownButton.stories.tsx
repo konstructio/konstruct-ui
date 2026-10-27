@@ -56,4 +56,30 @@ export const States: Story = {
   ),
 };
 
+/**
+ * Options can stay listed while unavailable (`disabledReason` prints why beside
+ * the label), open a new group (`separator`) or read as destructive. With
+ * `sheetTitle` the same options become an action sheet docked to the bottom of
+ * the screen on touch devices and viewports under 768px; resize the preview
+ * to see it.
+ */
+export const ActionsMenu: Story = {
+  args: {
+    label: 'Actions',
+    variant: 'secondary',
+    sheetTitle: 'web-server-prod',
+    options: [
+      { label: 'Shutdown' },
+      { label: 'Reboot' },
+      { label: 'Start', disabledReason: 'Already running' },
+      { label: 'Delete instance', destructive: true, separator: true },
+    ],
+  },
+  render: (args) => (
+    <div className="max-w-40" data-theme="civo">
+      <DropdownButtonComponent {...args} />
+    </div>
+  ),
+};
+
 export default meta;

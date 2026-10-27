@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { useState } from 'react';
@@ -218,6 +218,21 @@ describe('Drawer', () => {
     });
   });
 
+  it('should focus the panel itself when initialFocus is panel', async () => {
+    const { user, findButton, findCloseButton } = setup({
+      initialFocus: 'panel',
+    });
+
+    await user.click(await findButton());
+
+    const dialog = await screen.findByRole('dialog');
+
+    await waitFor(() => {
+      expect(dialog).toHaveFocus();
+    });
+    expect(await findCloseButton()).not.toHaveFocus();
+  });
+
   it('should keep focus inside the drawer when tabbing', async () => {
     const { user, findButton, findCloseButton } = setup();
 
@@ -244,6 +259,90 @@ describe('Drawer', () => {
 
     await waitFor(() => {
       expect(trigger).toHaveFocus();
+    });
+  });
+  describe('mobile layout', () => {
+    it('should take the whole screen below md by default', async () => {
+      const { user, findButton } = setup();
+
+      await user.click(await findButton());
+
+      expect(await screen.findByRole('dialog')).toHaveClass('max-md:w-full!');
+    });
+
+    it('should keep its own width when fullScreenOnMobile is false', async () => {
+      const { user, findButton } = setup({ fullScreenOnMobile: false });
+
+      await user.click(await findButton());
+
+      expect(await screen.findByRole('dialog')).not.toHaveClass(
+        'max-md:w-full!',
+      );
+    });
+  });
+
+  describe('swipe to close', () => {
+    const touchEvent = (
+      type: 'touchstart' | 'touchend',
+      key: 'touches' | 'changedTouches',
+      point: [number, number],
+    ) => {
+      const event = new Event(type, { bubbles: true, cancelable: true });
+
+      Object.defineProperty(event, key, {
+        value: [{ clientX: point[0], clientY: point[1] }],
+      });
+
+      return event;
+    };
+
+    const swipe = (
+      element: HTMLElement,
+      from: [number, number],
+      to: [number, number],
+    ) => {
+      fireEvent(element, touchEvent('touchstart', 'touches', from));
+      fireEvent(element, touchEvent('touchend', 'changedTouches', to));
+    };
+
+    it('should close a left drawer on a swipe towards the left edge', async () => {
+      const { user, findButton } = setup({ position: 'left' });
+
+      await user.click(await findButton());
+      const dialog = await screen.findByRole('dialog');
+
+      swipe(dialog, [200, 100], [100, 110]);
+
+      await waitFor(() => {
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+      });
+    });
+
+    it('should ignore vertical moves, short swipes and swipes away from the edge', async () => {
+      const { user, findButton } = setup({ position: 'left' });
+
+      await user.click(await findButton());
+      const dialog = await screen.findByRole('dialog');
+
+      swipe(dialog, [200, 100], [180, 300]);
+      swipe(dialog, [200, 100], [160, 100]);
+      swipe(dialog, [100, 100], [260, 100]);
+
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    it('should not close on swipe when closeOnSwipe is false', async () => {
+      const { user, findButton } = setup({
+        position: 'left',
+        closeOnSwipe: false,
+      });
+
+      await user.click(await findButton());
+      const dialog = await screen.findByRole('dialog');
+
+      swipe(dialog, [200, 100], [60, 100]);
+
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
     });
   });
 });

@@ -10,7 +10,8 @@ export const modalVariants = cva([
   'flex-col',
   'justify-between',
   'min-h-112.5',
-  'min-w-125',
+  'min-w-[min(31.25rem,100%)]',
+  'max-w-full',
   'relative',
   'rounded-md',
   'shadow-xs',
@@ -22,6 +23,11 @@ export const modalVariants = cva([
 
 export const buttonCloseVariants = cva([
   'absolute',
+  'flex',
+  'items-center',
+  'justify-center',
+  'pointer-coarse:min-h-11',
+  'pointer-coarse:min-w-11',
   'right-1.5',
   'top-1.5',
   'cursor-pointer',

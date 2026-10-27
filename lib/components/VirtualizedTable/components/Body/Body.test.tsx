@@ -26,9 +26,11 @@ const buildContext = ({
 }: ContextOverrides) => ({
   table: {
     getRowModel: () => ({ rows }),
-    getVisibleLeafColumns: () => [{ id: 'name' }],
-    getAllColumns: () => [{ id: 'name', columnDef: {} }],
+    getVisibleLeafColumns: () => [
+      { id: 'name', columnDef: {}, getIsPinned: () => false },
+    ],
   },
+  pinnedWidths: {},
   pageSize: 3,
   tableLoading,
   tableFetching,

@@ -8,6 +8,7 @@ import { Body } from '../Body/Body';
 import { Filter } from '../Filter/Filter';
 import { Header } from '../Header/Header';
 import { Pagination } from '../Pagination/Pagination';
+import { ScrollContainer } from '../ScrollContainer/ScrollContainer';
 import { WrapperBody } from '../WrapperBody/WrapperBody';
 
 export const VirtualizedTableContent = <TData extends RowData>({
@@ -28,6 +29,7 @@ export const VirtualizedTableContent = <TData extends RowData>({
   headerContent,
   classNameHeaderContent,
   classNameScrollContainer,
+  columnPinning,
   getRowId,
   fetchData,
   queryOptions,
@@ -94,6 +96,7 @@ export const VirtualizedTableContent = <TData extends RowData>({
       classNameHoverRow={classNameHoverRow}
       renderExpandedRow={renderExpandedRow}
       keepExpandColumnVisible={keepExpandColumnVisible}
+      columnPinning={columnPinning}
     >
       <section className={cn('kvt', 'w-full min-w-fit', className)}>
         {showFilter && (
@@ -110,51 +113,54 @@ export const VirtualizedTableContent = <TData extends RowData>({
           />
         )}
 
-        <div className={cn('kvt-scroll', 'w-full', classNameScrollContainer)}>
-          <div className="kvt-scroll-content w-full min-w-fit">
-            <WrapperBody
-              showPagination={showPagination}
-              classNameWrapperTable={classNameWrapperTable}
-              isLoading={isLoading}
+        <ScrollContainer
+          className={classNameScrollContainer}
+          hasPinnedColumns={
+            !!columnPinning?.left?.length || !!columnPinning?.right?.length
+          }
+        >
+          <WrapperBody
+            showPagination={showPagination}
+            classNameWrapperTable={classNameWrapperTable}
+            isLoading={isLoading}
+          >
+            <table
+              className={cn(
+                'kvt-table',
+                'w-full border-collapse table-auto',
+                'dark:border-separate dark:border-spacing-0',
+                classNameTable,
+              )}
+              aria-label={ariaLabel}
             >
-              <table
-                className={cn(
-                  'kvt-table',
-                  'w-full border-collapse table-auto',
-                  'dark:border-separate dark:border-spacing-0',
-                  classNameTable,
-                )}
-                aria-label={ariaLabel}
-              >
-                <Header
-                  className={classNameHeaderTable}
-                  classNameArrows={classNameHeaderArrows}
-                  classNameActiveArrows={classNameHeaderActiveArrows}
-                  classNameHeaderContent={classNameHeaderContent}
-                />
-                <Body
-                  isLoading={isLoading}
-                  showPagination={showPagination}
-                  emptyState={emptyState}
-                  errorState={errorState}
-                />
-              </table>
-            </WrapperBody>
-
-            {showPagination && (
-              <Pagination
-                showTotalItems={showTotalItems}
-                showDropdownPagination={showDropdownPagination}
-                showDotPagination={showDotPagination}
-                showFormPagination={showFormPagination}
-                pageSizes={pageSizes}
-                isLoading={isLoading}
-                isListPortal={!!classNameScrollContainer}
-                dropdownPaginationDirection={dropdownPaginationDirection}
+              <Header
+                className={classNameHeaderTable}
+                classNameArrows={classNameHeaderArrows}
+                classNameActiveArrows={classNameHeaderActiveArrows}
+                classNameHeaderContent={classNameHeaderContent}
               />
-            )}
-          </div>
-        </div>
+              <Body
+                isLoading={isLoading}
+                showPagination={showPagination}
+                emptyState={emptyState}
+                errorState={errorState}
+              />
+            </table>
+          </WrapperBody>
+
+          {showPagination && (
+            <Pagination
+              showTotalItems={showTotalItems}
+              showDropdownPagination={showDropdownPagination}
+              showDotPagination={showDotPagination}
+              showFormPagination={showFormPagination}
+              pageSizes={pageSizes}
+              isLoading={isLoading}
+              isListPortal={!!classNameScrollContainer}
+              dropdownPaginationDirection={dropdownPaginationDirection}
+            />
+          )}
+        </ScrollContainer>
       </section>
     </TableProvider>
   );
