@@ -60,6 +60,16 @@ export type Props = PropsWithChildren & VariantProps<typeof drawerVariants> & {
     position?: 'left' | 'right';
     /** Show the X close button in the corner */
     showCloseButton?: boolean;
+    /** Close on a horizontal swipe towards the edge the panel came from (default: true) */
+    closeOnSwipe?: boolean;
+    /** Take the whole screen below 768px, whatever `defaultWidth` says (default: true) */
+    fullScreenOnMobile?: boolean;
+    /**
+     * Where focus lands on open: the first focusable element (default) or the
+     * panel itself, for drawers opened by a tap that should not start with a
+     * focus ring on their first control.
+     */
+    initialFocus?: 'first' | 'panel';
     /** Theme override for this component */
     theme?: Theme;
     /** Callback when drawer is closed (Escape key, overlay click, or close button) */

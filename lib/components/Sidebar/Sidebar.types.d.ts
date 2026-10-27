@@ -73,6 +73,15 @@ export interface Props extends Omit<VariantProps<typeof wrapperSiderbarVariants>
     /** Accessible label for the mobile navigation trigger */
     openNavigationLabel?: string;
     /**
+     * In `collapsed` mode, expanding through the CollapseTrigger floats the
+     * expanded sidebar over the page behind a scrim instead of pushing the
+     * content. Tapping the scrim, pressing Escape or choosing a destination
+     * collapses it again. The `<aside>` carries `data-overlay` while floating.
+     */
+    expandAsOverlay?: boolean;
+    /** Additional CSS classes for the scrim rendered behind the floating sidebar */
+    overlayClassName?: string;
+    /**
      * Per-slot class overrides for the underlying `Drawer` rendered in
      * `drawer` mode. Mirrors `Drawer`'s `classNames` shape: `root`, `overlay`,
      * `panel`, `closeButton`, `content`, `header`, `body`, `footer`,

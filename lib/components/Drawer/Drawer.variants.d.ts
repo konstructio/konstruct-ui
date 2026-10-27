@@ -1,4 +1,5 @@
 export declare const drawerVariants: (props?: ({
+    fullScreenOnMobile?: boolean | null | undefined;
     position?: "left" | "right" | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
 export declare const overlayVariants: (props?: import('class-variance-authority/types').ClassProp | undefined) => string;

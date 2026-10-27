@@ -34,6 +34,8 @@ export type Props = PropsWithChildren & VariantProps<typeof modalVariants> & {
     container?: Element | DocumentFragment;
     /** Whether the modal is open */
     isOpen?: boolean;
+    /** Close when the overlay behind the modal is clicked. Defaults to true */
+    closeOnOverlayClick?: boolean;
     /** Show the X close button in the corner */
     showCloseButton?: boolean;
     /** Theme override for this component */

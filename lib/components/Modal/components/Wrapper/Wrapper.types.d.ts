@@ -10,6 +10,7 @@ export type Props = PropsWithChildren & VariantProps<typeof modalVariants> & {
     autoFocus?: boolean;
     buttonCloseClassName?: string;
     className?: string;
+    closeOnOverlayClick?: boolean;
     containerClassName?: string;
     showCloseButton?: boolean;
     theme?: Theme;

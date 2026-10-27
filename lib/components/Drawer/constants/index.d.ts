@@ -4,3 +4,4 @@ export declare const DEFAULT_MAX_WIDTH = 800;
 export declare const ANIMATION_DELAY_MS = 10;
 export declare const ANIMATION_DURATION_MS = 300;
 export declare const KEYBOARD_RESIZE_STEP = 20;
+export declare const SWIPE_THRESHOLD = 60;

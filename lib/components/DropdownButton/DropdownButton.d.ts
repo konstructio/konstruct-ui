@@ -3,7 +3,8 @@ import { Props } from './DropdownButton.types';
 /**
  * A button with an attached dropdown menu for selecting actions.
  * Built on Radix DropdownMenu: closes on outside click or Escape, and
- * supports full keyboard navigation.
+ * supports full keyboard navigation. With `sheetTitle` the menu becomes an
+ * action sheet docked to the bottom of the screen on touch devices.
  *
  * @example
  * ```tsx

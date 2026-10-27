@@ -28,6 +28,8 @@ export * from './Input/Input';
 export * from './LineChart/LineChart';
 export * from './Loading/Loading';
 export * from './Modal/Modal';
+export * from './Sheet/Sheet';
+export type { Props as SheetProps, SheetPosition } from './Sheet/Sheet.types';
 export * from './OtpInput/OtpInput';
 export * from './PasswordRules/PasswordRules';
 export * from './MultiSelectDropdown/MultiSelectDropdown';
@@ -69,7 +71,7 @@ export * from './VirtualizedTable/hooks';
 export { preloadVirtualizedTable } from './VirtualizedTable/utils/load-content';
 export { sendExpandRowEvent, sendCollapseRowEvent, sendToggleRowEvent, sendResetFiltersEvent, sendRefreshEvent, VirtualizedTableEvent, } from './VirtualizedTable/events';
 export type { VirtualizedTableEventDetail, VirtualizedTableRefreshEventDetail, } from './VirtualizedTable/events';
-export type { ColumnDef, RowData, FilterConfig, ActionFilterConfig, BadgeMultiSelectFilterConfig, TextMultiSelectFilterConfig, DateFilterConfig, DateRangeFilterConfig, CustomDateRangeFilterConfig, TimeFilterConfig, } from './VirtualizedTable/VirtualizedTable.types';
+export type { ColumnDef, ColumnPinningState, HideBelowBreakpoint, RowData, FilterConfig, ActionFilterConfig, BadgeMultiSelectFilterConfig, TextMultiSelectFilterConfig, DateFilterConfig, DateRangeFilterConfig, CustomDateRangeFilterConfig, TimeFilterConfig, } from './VirtualizedTable/VirtualizedTable.types';
 export type { Step, StepperClassNames, StepperIcons, StepperProps, StepSize, StepStatus, StepVariant, } from './Stepper/Stepper.types';
 export { horizontalConnectorWrapperVariants, stepConnectorVariants, stepContentVariants, stepDescriptionVariants, stepIndicatorVariants, stepItemVariants, stepLabelVariants, stepListVariants, stepperVariants, stepVariants, } from './Stepper/Stepper.variants';
 /** @deprecated Use Counter instead */

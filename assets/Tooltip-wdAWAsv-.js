@@ -1,0 +1,21 @@
+import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{t}from"./react-BlIEEezU.js";import{t as n}from"./jsx-runtime-BB9-612F.js";import{i as r,t as i}from"./utils-DWfjJEhS.js";import{a,i as o,n as s,o as c,r as l,s as u,t as d}from"./dist-BnUlyJqr.js";var f,p,m;function h(){return(h=e((()=>{u(),f=t(),r(),p=n(),m=({content:e,children:t,asOverlay:n=!1,disabled:r=!1,overlayClassName:u,overlayLabel:m,wrapperClassName:h,side:g=`top`,sideOffset:_=4,bgClassName:v=`bg-slate-700`,arrowClassName:y=`fill-slate-700`,textClassName:b=`text-white`,className:x,delayDuration:S=0})=>{let[C,w]=(0,f.useState)(!1),T=n?(0,p.jsx)(`span`,{role:`img`,"aria-label":m??(typeof e==`string`?e:void 0),hidden:r,className:i(`absolute cursor-help`,u??`inset-0`)}):(0,p.jsx)(`span`,{children:t}),E=(0,p.jsx)(a,{delayDuration:S,children:(0,p.jsxs)(d,{open:!r&&C,onOpenChange:w,children:[(0,p.jsx)(c,{asChild:!0,children:T}),(0,p.jsx)(o,{children:(0,p.jsxs)(l,{side:g,sideOffset:_,className:i(`rounded px-2 py-1 text-xs shadow-md`,`animate-in fade-in-0`,v,b,x),children:[e,(0,p.jsx)(s,{className:y})]})})]})});return n?(0,p.jsxs)(`div`,{className:i(`relative`,h),children:[t,E]}):E},m.__docgenInfo={description:`A tooltip component that shows on hover.
+Built on Radix UI for accessible, well-positioned tooltips.
+
+@example
+\`\`\`tsx
+<Tooltip content="Click to save">
+  <Button>Save</Button>
+</Tooltip>
+
+<Tooltip content="More information" side="bottom">
+  <InfoIcon />
+</Tooltip>
+
+<Tooltip content="Danger!" bgClassName="bg-red-500">
+  <Button variant="danger">Delete</Button>
+</Tooltip>
+
+<Tooltip content="This name is taken" asOverlay overlayClassName="right-0 top-7 h-10 w-8">
+  <Input label="Name" />
+</Tooltip>
+\`\`\``,methods:[],displayName:`Tooltip`,props:{content:{required:!0,tsType:{name:`union`,raw:`ReactNode | string`,elements:[{name:`ReactNode`},{name:`string`}]},description:`Tooltip text or content`},children:{required:!0,tsType:{name:`ReactNode`},description:`The trigger element`},asOverlay:{required:!1,tsType:{name:`boolean`},description:`Render an invisible trigger over the children instead of wrapping them, for fields that cannot be wrapped or are disabled`,defaultValue:{value:`false`,computed:!1}},disabled:{required:!1,tsType:{name:`boolean`},description:`Keep the children as they are and never open the tooltip`,defaultValue:{value:`false`,computed:!1}},overlayClassName:{required:!1,tsType:{name:`string`},description:"Position and size of the overlay trigger (defaults to `inset-0`)"},overlayLabel:{required:!1,tsType:{name:`string`},description:"Accessible name of the overlay trigger; defaults to `content` when it is a string"},wrapperClassName:{required:!1,tsType:{name:`string`},description:`Additional className for the relative wrapper used in overlay mode`},side:{required:!1,tsType:{name:`union`,raw:`'top' | 'bottom' | 'left' | 'right'`,elements:[{name:`literal`,value:`'top'`},{name:`literal`,value:`'bottom'`},{name:`literal`,value:`'left'`},{name:`literal`,value:`'right'`}]},description:`Tooltip position relative to trigger`,defaultValue:{value:`'top'`,computed:!1}},sideOffset:{required:!1,tsType:{name:`number`},description:`Distance from trigger in px`,defaultValue:{value:`4`,computed:!1}},bgClassName:{required:!1,tsType:{name:`string`},description:`Background color class for tooltip (e.g. 'bg-slate-700', 'bg-red-500')`,defaultValue:{value:`'bg-slate-700'`,computed:!1}},arrowClassName:{required:!1,tsType:{name:`string`},description:`Arrow fill color class (e.g. 'fill-slate-700', 'fill-red-500'). Should match bgClassName`,defaultValue:{value:`'fill-slate-700'`,computed:!1}},textClassName:{required:!1,tsType:{name:`string`},description:`Text color class (e.g. 'text-white')`,defaultValue:{value:`'text-white'`,computed:!1}},className:{required:!1,tsType:{name:`string`},description:`Additional className for tooltip content`},delayDuration:{required:!1,tsType:{name:`number`},description:`Delay before showing tooltip in ms`,defaultValue:{value:`0`,computed:!1}}}}})))()}export{h as n,m as t};

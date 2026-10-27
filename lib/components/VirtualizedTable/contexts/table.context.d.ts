@@ -1,6 +1,7 @@
 import { ColumnSort, SortingState, Table } from '@tanstack/react-table';
 import { Dispatch, ReactNode, SetStateAction } from '../../../../node_modules/react';
 import { RowData } from '../VirtualizedTable.types';
+import { PinnedWidths } from '../utils';
 export type ContextType<TData extends RowData = RowData> = {
     sortedData: ColumnSort[];
     table: Table<TData>;
@@ -32,6 +33,9 @@ export type ContextType<TData extends RowData = RowData> = {
     isBorderOnAdjacentCell?: boolean;
     isExpandColumnVisible?: boolean;
     renderExpandedRow?: (data: RowData) => ReactNode;
+    /** Measured header widths of the pinned columns, keyed by column id. */
+    pinnedWidths: PinnedWidths;
+    getPinnedHeaderRef: (columnId: string) => (element: HTMLElement | null) => void;
     handlePage: (newPage: number) => void;
     onPageSize: (newPageSize: number) => void;
     onSorting: Dispatch<SetStateAction<SortingState>>;

@@ -6,5 +6,6 @@ export * from './ErrorState/ErrorState';
 export * from './Filter/Filter';
 export * from './Header/Header';
 export * from './Pagination/Pagination';
+export * from './ScrollContainer/ScrollContainer';
 export * from './TruncateText/TruncateText';
 export * from './WrapperBody/WrapperBody';
