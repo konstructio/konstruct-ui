@@ -35,6 +35,8 @@ export * from './Input/Input';
 export * from './LineChart/LineChart';
 export * from './Loading/Loading';
 export * from './Modal/Modal';
+export * from './Sheet/Sheet';
+export type { Props as SheetProps, SheetPosition } from './Sheet/Sheet.types';
 export * from './OtpInput/OtpInput';
 export * from './PasswordRules/PasswordRules';
 export * from './MultiSelectDropdown/MultiSelectDropdown';
