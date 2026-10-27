@@ -19,6 +19,7 @@ export const buttonVariants = cva(
     'transition-colors',
     'whitespace-nowrap',
     'h-10',
+    'pointer-coarse:min-h-11',
     'px-4',
     'py-2',
     'text-sm',

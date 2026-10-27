@@ -17,6 +17,7 @@ export const textAreaVariants = cva(
     'rounded',
     'text-slate-800',
     'text-sm',
+    'max-md:text-base',
     'transition-all',
     'w-full',
     'disabled:bg-gray-50',

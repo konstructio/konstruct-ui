@@ -58,6 +58,7 @@ export const inputVariants = cva([
   'outline-none',
   'text-metal-700',
   'text-sm',
+  'max-md:text-base',
   'capitalize',
   'placeholder:text-sm',
   'placeholder:normal-case',
@@ -69,6 +70,7 @@ export const inputVariants = cva([
 export const labelVariants = cva([
   'cursor-pointer',
   'text-sm',
+  'max-md:text-base',
   'leading-5',
   'tracking-[0.1px]',
   'dark:text-metal-50',

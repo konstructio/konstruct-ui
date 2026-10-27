@@ -14,6 +14,8 @@ export const copyButtonVariants = cva(
     'focus-visible:ring-ring',
     'disabled:pointer-events-none',
     'disabled:opacity-45',
+    'pointer-coarse:min-h-11',
+    'pointer-coarse:min-w-11',
   ],
   {
     variants: {
