@@ -16,7 +16,10 @@ const getVariant = (isActive?: boolean) => {
 };
 
 const Trigger: FC<TriggerProps> = ({ tab, label, isActive, className }) => (
-  <Tabs.Trigger value={tab} className="group/tab">
+  <Tabs.Trigger
+    value={tab}
+    className="group/tab rounded-xs outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aurora-500 kubefirst:focus-visible:outline-kubefirst-primary"
+  >
     <Typography
       variant="body2"
       component="span"
