@@ -1,6 +1,6 @@
 'use client';
 import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import { FC, useId, useMemo } from 'react';
+import { FC, TouchEvent, useId, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { X as Close } from 'react-feather';
 import FocusLock from 'react-focus-lock';
@@ -24,7 +24,7 @@ import {
   overlayVariants,
   resizeHandleVariants,
 } from './Drawer.variants';
-import { DEFAULT_WIDTH } from './constants';
+import { DEFAULT_WIDTH, SWIPE_THRESHOLD } from './constants';
 import { useDrawer } from './hooks';
 
 /**
@@ -70,10 +70,42 @@ const Drawer: FC<Props> & {
   minWidth,
   position = 'right',
   showCloseButton = true,
+  closeOnSwipe = true,
+  fullScreenOnMobile = true,
+  initialFocus = 'first',
   theme,
   onClose,
 }) => {
   const headerId = useId();
+  const swipeStartRef = useRef<{ x: number; y: number } | null>(null);
+
+  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches?.[0];
+
+    swipeStartRef.current = touch
+      ? { x: touch.clientX, y: touch.clientY }
+      : null;
+  };
+
+  const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
+    const start = swipeStartRef.current;
+    const touch = event.changedTouches?.[0];
+
+    swipeStartRef.current = null;
+
+    if (!closeOnSwipe || !start || !touch) return;
+
+    const deltaX = touch.clientX - start.x;
+    const deltaY = touch.clientY - start.y;
+    const towardsEdge =
+      position === 'left'
+        ? deltaX <= -SWIPE_THRESHOLD
+        : deltaX >= SWIPE_THRESHOLD;
+
+    if (towardsEdge && Math.abs(deltaX) > Math.abs(deltaY)) {
+      onClose?.();
+    }
+  };
 
   const {
     handleKeyDown,
@@ -113,7 +145,7 @@ const Drawer: FC<Props> & {
             className={cn(
               overlayVariants(),
               {
-                'opacity-50': isAnimating,
+                'opacity-55': isAnimating,
                 'opacity-0': !isAnimating,
               },
               classNames?.overlay,
@@ -127,15 +159,20 @@ const Drawer: FC<Props> & {
           <FocusLock returnFocus className="contents">
             <div
               className={cn(
-                drawerVariants({ position }),
+                drawerVariants({ position, fullScreenOnMobile }),
                 translateClass,
                 classNames?.panel,
                 className,
               )}
               style={{ width: canResize ? width : defaultWidth }}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
               role="dialog"
               aria-modal="true"
               aria-labelledby={headerId}
+              {...(initialFocus === 'panel'
+                ? { tabIndex: -1, 'data-autofocus': true }
+                : {})}
             >
               {/* Resize handle */}
               {canResize && (
