@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.2-alpha.120](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.120) (2026-10-27)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.119...0.1.2-alpha.120)
+
+**Merged pull requests:**
+
+- ⬆️ chore\(deps\): update dependencies [\#781](https://github.com/konstructio/konstruct-ui/pull/781) ([futjesus](https://github.com/futjesus))
+- ✨ feat: responsive tables, sheets, drawers, sidebar and dialogs [\#780](https://github.com/konstructio/konstruct-ui/pull/780) ([futjesus](https://github.com/futjesus))
+- ⬆️ chore\(deps\): update dependencies [\#779](https://github.com/konstructio/konstruct-ui/pull/779) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.119](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.119) (2026-10-19)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.118...0.1.2-alpha.119)
