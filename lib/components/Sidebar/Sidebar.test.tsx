@@ -560,4 +560,61 @@ describe('Sidebar', () => {
       expect(onIntent).toHaveBeenCalledTimes(2);
     });
   });
+  describe('overlay expand', () => {
+    const setupOverlay = () => {
+      const user = userEvent.setup();
+
+      render(
+        <Sidebar mode="collapsed" expandAsOverlay minWith={100} maxWith={400}>
+          <Logo>
+            Header
+            <CollapseTrigger />
+          </Logo>
+          <Navigation>
+            <NavigationGroup>
+              <NavigationOption>Home</NavigationOption>
+            </NavigationGroup>
+          </Navigation>
+        </Sidebar>,
+      );
+
+      const aside = () => document.querySelector('aside') as HTMLElement;
+      const trigger = () =>
+        screen.getByRole('button', { name: /expand navigation/i });
+      const scrim = () => document.querySelector('.konstruct-sidebar-overlay');
+
+      return { user, aside, trigger, scrim };
+    };
+
+    it('should float the expanded sidebar over a scrim instead of pushing the page', async () => {
+      const { user, aside, trigger, scrim } = setupOverlay();
+
+      expect(aside()).toHaveAttribute('data-mode', 'collapsed');
+      expect(scrim()).toBeNull();
+
+      await user.click(trigger());
+
+      expect(aside()).toHaveAttribute('data-mode', 'expanded');
+      expect(aside()).toHaveAttribute('data-overlay');
+      expect(scrim()).toHaveAttribute('role', 'presentation');
+    });
+
+    it('should collapse again on scrim click, Escape or choosing a destination', async () => {
+      const { user, aside, trigger, scrim } = setupOverlay();
+
+      await user.click(trigger());
+      await user.click(scrim() as HTMLElement);
+      expect(aside()).toHaveAttribute('data-mode', 'collapsed');
+      expect(aside()).not.toHaveAttribute('data-overlay');
+
+      await user.click(trigger());
+      await user.keyboard('{Escape}');
+      expect(aside()).toHaveAttribute('data-mode', 'collapsed');
+
+      await user.click(trigger());
+      await user.click(screen.getByText('Home'));
+      expect(aside()).toHaveAttribute('data-mode', 'collapsed');
+      expect(scrim()).toBeNull();
+    });
+  });
 });
