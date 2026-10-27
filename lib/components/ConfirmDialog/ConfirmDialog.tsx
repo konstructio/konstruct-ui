@@ -106,6 +106,7 @@ const ConfirmDialog: FC<Props> = ({
       theme={theme}
       autoFocus={autoFocus}
       showCloseButton={false}
+      closeOnOverlayClick={false}
       ariaLabelledBy={titleId}
       containerClassName={containerClassName}
       className={cn('max-w-125 min-h-0 min-w-0 gap-0 p-6', className)}
@@ -186,6 +187,7 @@ const ConfirmDialog: FC<Props> = ({
             type="button"
             variant="secondary"
             disabled={isPending}
+            data-autofocus
             onClick={handleClose}
           >
             {cancelLabel}

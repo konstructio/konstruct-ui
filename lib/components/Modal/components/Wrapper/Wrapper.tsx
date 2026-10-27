@@ -17,6 +17,7 @@ export const Wrapper: FC<Props> = ({
   ariaLabel,
   ariaLabelledBy,
   autoFocus = true,
+  closeOnOverlayClick = true,
   buttonCloseClassName,
   children,
   className,
@@ -50,14 +51,14 @@ export const Wrapper: FC<Props> = ({
     <RemoveScroll>
       <div
         className={cn(
-          'fixed inset-0 grid place-content-center',
+          'fixed inset-0 grid grid-cols-[minmax(0,calc(100%-2rem))] place-content-center justify-items-center',
           containerClassName,
         )}
         data-theme={theme}
       >
         <div
           className="absolute inset-0 bg-black opacity-70 dark:opacity-85 animate-in fade-in-0"
-          onClick={onClose}
+          onClick={closeOnOverlayClick ? onClose : undefined}
           role="presentation"
         />
 

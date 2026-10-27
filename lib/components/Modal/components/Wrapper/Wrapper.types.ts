@@ -14,6 +14,7 @@ export type Props = PropsWithChildren &
     autoFocus?: boolean;
     buttonCloseClassName?: string;
     className?: string;
+    closeOnOverlayClick?: boolean;
     containerClassName?: string;
     showCloseButton?: boolean;
     theme?: Theme;
