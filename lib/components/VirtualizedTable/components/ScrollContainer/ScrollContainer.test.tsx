@@ -104,6 +104,14 @@ describe('ScrollContainer', () => {
     expect(getProxy()).toBeNull();
   });
 
+  it('should round the container only with pinned columns', () => {
+    const { container } = setup();
+    const { container: unpinned } = setup({ hasPinnedColumns: false });
+
+    expect(container).toHaveClass('rounded-lg');
+    expect(unpinned).not.toHaveClass('rounded-lg');
+  });
+
   it('should draw the proxy scrollbar between the pinned columns when overflowing', () => {
     const { container, getProxy } = setup({
       scrollWidth: 1338,

@@ -98,7 +98,7 @@ export const ScrollContainer: FC<Props> = ({
         className={cn(
           'kvt-scroll',
           'w-full',
-          hasPinnedColumns && '[&::-webkit-scrollbar]:hidden',
+          hasPinnedColumns && '[&::-webkit-scrollbar]:hidden rounded-lg',
           className,
         )}
         style={hasPinnedColumns ? { scrollbarWidth: 'none' } : undefined}
