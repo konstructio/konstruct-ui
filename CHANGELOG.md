@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.2-alpha.121](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.121) (2026-10-29)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.120...0.1.2-alpha.121)
+
+**Merged pull requests:**
+
+- 🐛 fix\(dropdown-button\): line the action sheet title up with its options [\#783](https://github.com/konstructio/konstruct-ui/pull/783) ([futjesus](https://github.com/futjesus))
+- 🐛 fix\(virtualized-table\): keep the corners rounded under pinned columns [\#782](https://github.com/konstructio/konstruct-ui/pull/782) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.120](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.120) (2026-10-27)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.119...0.1.2-alpha.120)
