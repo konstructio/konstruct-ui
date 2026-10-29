@@ -15,6 +15,9 @@ export const ActionSheet: FC<Props> = ({
   title,
   options,
   itemClassName,
+  className,
+  headerClassName,
+  titleClassName,
   position = 'bottom',
   theme,
 }) => (
@@ -24,7 +27,9 @@ export const ActionSheet: FC<Props> = ({
     title={title}
     position={position}
     theme={theme}
-    className="px-4"
+    className={cn('px-4', className)}
+    headerClassName={cn('px-2', headerClassName)}
+    titleClassName={titleClassName}
     bodyClassName="overflow-visible"
   >
     <div className="flex flex-col">

@@ -235,6 +235,54 @@ describe('DropdownButton', () => {
       expect(sheet).not.toHaveClass('bottom-0');
     });
 
+    it('should line the title up with the options', async () => {
+      const { user, trigger } = setupSheet();
+
+      await user.click(trigger);
+
+      const sheet = await screen.findByRole('dialog', {
+        name: 'web-server-prod',
+      });
+      const header = within(sheet).getByRole('heading', {
+        name: 'web-server-prod',
+      }).parentElement;
+
+      expect(header).toHaveClass('px-2');
+      expect(header).not.toHaveClass('px-6');
+      expect(
+        within(sheet).getByRole('button', { name: 'Shutdown' }),
+      ).toHaveClass('px-2');
+    });
+
+    it('should forward the sheet classes', async () => {
+      const user = userEvent.setup();
+
+      render(
+        <DropdownButton
+          label="Actions"
+          sheetTitle="web-server-prod"
+          sheetClassName="px-6"
+          sheetHeaderClassName="px-0"
+          sheetTitleClassName="normal-case"
+          options={[{ label: 'Shutdown', onClick: vi.fn() }]}
+        />,
+      );
+
+      await user.click(screen.getByRole('button', { name: /actions/i }));
+
+      const sheet = await screen.findByRole('dialog', {
+        name: 'web-server-prod',
+      });
+      const title = within(sheet).getByRole('heading', {
+        name: 'web-server-prod',
+      });
+
+      expect(sheet).toHaveClass('px-6');
+      expect(sheet).not.toHaveClass('px-4');
+      expect(title).toHaveClass('normal-case');
+      expect(title.parentElement).toHaveClass('px-0');
+    });
+
     it('should fire the option and close the sheet', async () => {
       const { user, trigger, onShutdown } = setupSheet();
 

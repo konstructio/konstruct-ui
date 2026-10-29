@@ -51,6 +51,8 @@ export const Sheet: FC<Props> = ({
   step = 0,
   className,
   bodyClassName,
+  headerClassName,
+  titleClassName,
   theme,
   children,
 }) => {
@@ -149,11 +151,17 @@ export const Sheet: FC<Props> = ({
                   <div
                     className={cn(
                       'flex min-h-9 shrink-0 items-center gap-2 px-6 pb-2',
+                      headerClassName,
                       hideTitle && 'sr-only',
                     )}
                   >
                     {leading}
-                    <Dialog.Title className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-metal-400">
+                    <Dialog.Title
+                      className={cn(
+                        'text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-metal-400',
+                        titleClassName,
+                      )}
+                    >
                       {title}
                     </Dialog.Title>
                   </div>
