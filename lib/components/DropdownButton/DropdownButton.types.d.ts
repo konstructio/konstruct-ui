@@ -65,6 +65,12 @@ export type Props = {
     sheetQuery?: string;
     /** Screen edge the action sheet docks to (default: 'bottom') */
     sheetPosition?: 'bottom' | 'top';
+    /** Additional CSS classes for the action sheet panel */
+    sheetClassName?: string;
+    /** Additional CSS classes for the action sheet header row */
+    sheetHeaderClassName?: string;
+    /** Additional CSS classes for the action sheet title */
+    sheetTitleClassName?: string;
     /** Theme override for the dropdown and the sheet */
     theme?: Theme;
     /** Variant of the trigger button */

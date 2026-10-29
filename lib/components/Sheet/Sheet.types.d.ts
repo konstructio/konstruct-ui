@@ -34,6 +34,10 @@ export type Props = PropsWithChildren<{
     className?: string;
     /** Additional CSS classes for the scrolling body */
     bodyClassName?: string;
+    /** Additional CSS classes for the header row (leading slot and title) */
+    headerClassName?: string;
+    /** Additional CSS classes for the title */
+    titleClassName?: string;
     /** Theme override for the sheet */
     theme?: Theme;
 }>;

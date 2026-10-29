@@ -7,6 +7,9 @@ export type Props = {
     title: ReactNode;
     options: Option[];
     itemClassName?: string;
+    className?: string;
+    headerClassName?: string;
+    titleClassName?: string;
     position?: 'bottom' | 'top';
     theme?: Theme;
 };
