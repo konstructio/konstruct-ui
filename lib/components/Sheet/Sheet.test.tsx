@@ -56,6 +56,18 @@ describe('Sheet', () => {
     expect(back.nextElementSibling).toHaveTextContent('Region');
   });
 
+  it('should merge the header and title classes', async () => {
+    setup({ headerClassName: 'px-2', titleClassName: 'normal-case' });
+
+    await screen.findByRole('dialog', { name: 'Region' });
+
+    const title = screen.getByRole('heading', { name: 'Region' });
+
+    expect(title).toHaveClass('normal-case');
+    expect(title.parentElement).toHaveClass('px-2');
+    expect(title.parentElement).not.toHaveClass('px-6');
+  });
+
   it('should focus the panel on open rather than its first option', async () => {
     setup();
 

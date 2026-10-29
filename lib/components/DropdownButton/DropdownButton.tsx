@@ -44,6 +44,9 @@ export const DropdownButton: FC<Props> = ({
   sheetTitle,
   sheetQuery = DEFAULT_SHEET_QUERY,
   sheetPosition = 'bottom',
+  sheetClassName,
+  sheetHeaderClassName,
+  sheetTitleClassName,
   theme,
   variant,
   version,
@@ -97,6 +100,9 @@ export const DropdownButton: FC<Props> = ({
           options={options}
           itemClassName={itemClassName}
           position={sheetPosition}
+          className={sheetClassName}
+          headerClassName={sheetHeaderClassName}
+          titleClassName={sheetTitleClassName}
           theme={theme}
         />
       </div>
