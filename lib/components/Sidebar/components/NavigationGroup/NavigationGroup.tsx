@@ -1,5 +1,6 @@
-import { FC } from 'react';
+import { FC, useId, useState } from 'react';
 
+import { Collapse } from '@/components/Collapse/Collapse';
 import { cn } from '@/utils';
 
 import { useSidebarContext } from '../../contexts';
@@ -14,15 +15,35 @@ const NavigationGroup: FC<Props> = ({
   className,
   titleClassName,
   isVisible = true,
+  isCollapsible = false,
+  isOpen: controlledIsOpen,
+  defaultOpen = true,
+  onOpenChange,
   ...delegated
 }) => {
+  const [uncontrolledIsOpen, setUncontrolledIsOpen] = useState(defaultOpen);
   const { isCollapsed } = useSidebarContext();
+  const listId = useId();
 
   if (!isVisible) {
     return null;
   }
 
   const showTitle = !!title && !isCollapsed;
+  const canToggle = showTitle && isCollapsible;
+  const isOpen = controlledIsOpen ?? uncontrolledIsOpen;
+
+  const handleToggle = () => {
+    if (controlledIsOpen === undefined) {
+      setUncontrolledIsOpen(!isOpen);
+    }
+
+    onOpenChange?.(!isOpen);
+  };
+
+  const list = (
+    <ul className={cn(navigationGroupsVariants({ className }))}>{children}</ul>
+  );
 
   return (
     <>
@@ -30,13 +51,19 @@ const NavigationGroup: FC<Props> = ({
         <NavigationTitle
           title={title}
           className={titleClassName}
+          {...(canToggle
+            ? { isOpen, controlsId: listId, onToggle: handleToggle }
+            : {})}
           {...delegated}
         />
       ) : null}
-
-      <ul className={cn(navigationGroupsVariants({ className }))}>
-        {children}
-      </ul>
+      {isCollapsible ? (
+        <Collapse id={listId} isOpen={!canToggle || isOpen} keepMounted>
+          {list}
+        </Collapse>
+      ) : (
+        list
+      )}
     </>
   );
 };

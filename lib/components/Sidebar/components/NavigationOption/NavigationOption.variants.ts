@@ -13,7 +13,7 @@ export const navigationOptionVariants = cva(
     // around the icon/label still triggers navigation.
     '[&>a]:p-2.5',
     'group-data-[mode=expanded]/sidebar:[&>a]:px-4',
-    'group-data-[mode=expanded]/sidebar:[&>a]:py-2.5',
+    'group-data-[mode=expanded]/sidebar:[&>a]:py-1.5',
     'cursor-pointer',
     'flex',
     'font-normal',
