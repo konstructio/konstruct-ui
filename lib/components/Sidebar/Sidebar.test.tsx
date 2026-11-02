@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
+import { MotionGlobalConfig } from 'motion/react';
 import { ReactNode } from 'react';
 
 import {
@@ -13,6 +14,7 @@ import {
   NavigationOption,
   Sidebar,
 } from './Sidebar';
+import { Props as NavigationGroupProps } from './components/NavigationGroup/NavigationGroup.types';
 import { Props } from './Sidebar.types';
 
 type SidebarProps = Props & { options?: ReactNode };
@@ -440,6 +442,111 @@ describe('Sidebar', () => {
       expect(screen.getByRole('dialog')).toBeInTheDocument();
     });
   });
+  describe('collapsible groups', () => {
+    beforeAll(() => {
+      MotionGlobalConfig.skipAnimations = true;
+    });
+
+    afterAll(() => {
+      MotionGlobalConfig.skipAnimations = false;
+    });
+
+    const renderCollapsible = (
+      mode: 'expanded' | 'collapsed' = 'expanded',
+      groupProps: Partial<NavigationGroupProps> = {},
+    ) =>
+      render(
+        <Sidebar mode={mode}>
+          <Logo>Logo</Logo>
+          <Navigation>
+            <NavigationGroup title="Compute" isCollapsible {...groupProps}>
+              <NavigationOption role="button" onClick={() => {}}>
+                <Label>Instances</Label>
+              </NavigationOption>
+            </NavigationGroup>
+          </Navigation>
+        </Sidebar>,
+      );
+
+    it('should toggle the options from the group title', async () => {
+      const user = userEvent.setup();
+      renderCollapsible();
+
+      const toggle = screen.getByRole('button', { name: 'Compute' });
+
+      expect(toggle).toHaveAttribute('aria-expanded', 'true');
+      expect(screen.getByText('Instances')).toBeVisible();
+
+      await user.click(toggle);
+
+      expect(toggle).toHaveAttribute('aria-expanded', 'false');
+      await waitFor(() => {
+        expect(screen.getByText('Instances')).not.toBeVisible();
+      });
+
+      await user.click(toggle);
+
+      expect(toggle).toHaveAttribute('aria-expanded', 'true');
+      await waitFor(() => {
+        expect(screen.getByText('Instances')).toBeVisible();
+      });
+    });
+
+    it('should point the title at the list it controls', () => {
+      renderCollapsible();
+
+      const toggle = screen.getByRole('button', { name: 'Compute' });
+      const controls = toggle.getAttribute('aria-controls');
+
+      expect(controls).toBeTruthy();
+      expect(document.getElementById(controls as string)).toContainElement(
+        screen.getByText('Instances'),
+      );
+    });
+
+    it('should report the next state and follow the controlled value', async () => {
+      const onOpenChange = vitest.fn();
+      const user = userEvent.setup();
+      renderCollapsible('expanded', { isOpen: false, onOpenChange });
+
+      const toggle = screen.getByRole('button', { name: 'Compute' });
+
+      expect(toggle).toHaveAttribute('aria-expanded', 'false');
+      expect(screen.getByText('Instances')).not.toBeVisible();
+
+      await user.click(toggle);
+
+      expect(onOpenChange).toHaveBeenCalledWith(true);
+      expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    it('should start closed with defaultOpen false', () => {
+      renderCollapsible('expanded', { defaultOpen: false });
+
+      expect(screen.getByRole('button', { name: 'Compute' })).toHaveAttribute(
+        'aria-expanded',
+        'false',
+      );
+      expect(screen.getByText('Instances')).not.toBeVisible();
+    });
+
+    it('should keep every option reachable in the collapsed rail', () => {
+      renderCollapsible('collapsed', { isOpen: false });
+
+      expect(
+        screen.queryByRole('button', { name: 'Compute' }),
+      ).not.toBeInTheDocument();
+      expect(screen.getByText('Instances')).toBeInTheDocument();
+      expect(screen.getByText('Instances').closest('[hidden]')).toBeNull();
+    });
+
+    it('should have no accessibility violations', async () => {
+      const { container } = renderCollapsible();
+
+      expect(await axe(container)).toHaveNoViolations();
+    });
+  });
+
   describe('mode change callbacks', () => {
     it('should report user toggles through onModeChange and CollapseTrigger onToggle', async () => {
       const onModeChange = vitest.fn();

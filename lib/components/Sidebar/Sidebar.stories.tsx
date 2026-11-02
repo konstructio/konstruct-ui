@@ -136,7 +136,11 @@ const renderSidebarContent = (
         </NavigationOption>
       </NavigationGroup>
 
-      <NavigationGroup title="Admin settings" titleClassName="uppercase">
+      <NavigationGroup
+        title="Admin settings"
+        titleClassName="uppercase"
+        isCollapsible
+      >
         <NavigationOption
           role="button"
           onClick={() => onThemeChange('light')}
