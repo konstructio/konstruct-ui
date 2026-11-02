@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.3](https://github.com/konstructio/konstruct-ui/tree/0.1.3) (2026-11-02)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.121...0.1.3)
+
+**Merged pull requests:**
+
+- ⬆️ chore\(deps\): update dependencies [\#791](https://github.com/konstructio/konstruct-ui/pull/791) ([futjesus](https://github.com/futjesus))
+- 📱 feat: touch gestures and pointer events for sheets, drawers, toasts and table actions [\#790](https://github.com/konstructio/konstruct-ui/pull/790) ([futjesus](https://github.com/futjesus))
+- 📱 feat: touch base layer for interactive controls [\#789](https://github.com/konstructio/konstruct-ui/pull/789) ([futjesus](https://github.com/futjesus))
+- ✨ feat\(sidebar\): collapsible navigation groups and 36px options [\#788](https://github.com/konstructio/konstruct-ui/pull/788) ([futjesus](https://github.com/futjesus))
+- 🐛 fix\(collapse\): keep keepMounted content unhidden while it animates closed [\#787](https://github.com/konstructio/konstruct-ui/pull/787) ([futjesus](https://github.com/futjesus))
+- ⬆️ chore\(deps\): update dependencies [\#784](https://github.com/konstructio/konstruct-ui/pull/784) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.2-alpha.121](https://github.com/konstructio/konstruct-ui/tree/0.1.2-alpha.121) (2026-10-29)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.120...0.1.2-alpha.121)
