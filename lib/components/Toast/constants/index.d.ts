@@ -23,3 +23,9 @@ export declare const TOAST_EXIT_TRANSITION: {
     readonly ease: "easeOut";
 };
 export declare const TOAST_ICONS: Record<ToastType, typeof ErrorIcon>;
+export declare const SWIPE_DISMISS_DISTANCE_RATIO = 0.4;
+export declare const SWIPE_DISMISS_VELOCITY = 500;
+export declare const REDUCED_MOTION_DRAG_TRANSITION: {
+    readonly bounceStiffness: 1000000;
+    readonly bounceDamping: 10000000;
+};

@@ -60,7 +60,11 @@ export type Props = PropsWithChildren & VariantProps<typeof drawerVariants> & {
     position?: 'left' | 'right';
     /** Show the X close button in the corner */
     showCloseButton?: boolean;
-    /** Close on a horizontal swipe towards the edge the panel came from (default: true) */
+    /**
+     * Close on a horizontal swipe towards the edge the panel came from: the
+     * panel follows the finger and closes past a quarter of its width (60px at
+     * least) or on a quick flick, springing back otherwise (default: true)
+     */
     closeOnSwipe?: boolean;
     /** Take the whole screen below 768px, whatever `defaultWidth` says (default: true) */
     fullScreenOnMobile?: boolean;

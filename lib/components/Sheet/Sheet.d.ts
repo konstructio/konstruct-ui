@@ -11,6 +11,10 @@ import { Props } from './Sheet.types';
  * (forward for a higher step, back for a lower one) and the panel height
  * animates to the new content.
  *
+ * On touch screens the panel can be dragged by its grab handle or header
+ * towards the edge it docks to: it closes past a quarter of its height or on a
+ * quick flick, and springs back otherwise.
+ *
  * @example
  * ```tsx
  * <Sheet isOpen={isOpen} onClose={() => setIsOpen(false)} title="Region">

@@ -5,3 +5,7 @@ export declare const ANIMATION_DELAY_MS = 10;
 export declare const ANIMATION_DURATION_MS = 300;
 export declare const KEYBOARD_RESIZE_STEP = 20;
 export declare const SWIPE_THRESHOLD = 60;
+export declare const SWIPE_DISTANCE_RATIO = 0.25;
+export declare const SWIPE_VELOCITY = 0.5;
+export declare const SWIPE_AXIS_LOCK_DISTANCE = 8;
+export declare const SWIPE_VELOCITY_STALE_MS = 100;

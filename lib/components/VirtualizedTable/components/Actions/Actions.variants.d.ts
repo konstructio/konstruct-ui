@@ -5,3 +5,4 @@ export declare const actionsPanelVariants: (props?: import('class-variance-autho
 export declare const actionsItemVariants: (props?: ({
     isDisabled?: boolean | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
+export declare const actionsDisabledReasonVariants: (props?: import('class-variance-authority/types').ClassProp | undefined) => string;
