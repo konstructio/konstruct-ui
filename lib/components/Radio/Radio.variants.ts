@@ -1,7 +1,14 @@
 import { cva } from 'class-variance-authority';
 
 export const wrapperRadioVariants = cva(
-  ['inline-flex', 'items-center', 'cursor-pointer', 'gap-2', 'w-max'],
+  [
+    'inline-flex',
+    'items-center',
+    'cursor-pointer',
+    'gap-2',
+    'w-max',
+    'tap-target',
+  ],
   {
     variants: {
       disabled: {
@@ -17,6 +24,9 @@ export const wrapperRadioVariants = cva(
 
 export const radioVariants = cva(
   [
+    'relative',
+    'shrink-0',
+    'touch-hit-area',
     'border',
     'border-zinc-400',
     'dark:border-metal-600',

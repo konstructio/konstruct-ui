@@ -7,6 +7,7 @@ export const copyButtonVariants = cva(
     'items-center',
     'justify-center',
     'cursor-pointer',
+    'tap-target',
     'rounded-xs',
     'transition-colors',
     'focus-visible:outline-none',
@@ -23,8 +24,10 @@ export const copyButtonVariants = cva(
         true: [
           'text-slate-500',
           'hover:text-slate-800',
+          'active:text-slate-800',
           'dark:text-metal-400',
           'dark:hover:text-metal-100',
+          'dark:active:text-metal-100',
         ],
         false: '',
       },

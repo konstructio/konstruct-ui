@@ -3,6 +3,9 @@ import { cva } from 'class-variance-authority';
 export const buttonVariants = cva(
   [
     'select-none',
+    'tap-target',
+    'touch-hit-area',
+    'relative',
     'border',
     'cursor-pointer',
     'disabled:pointer-events-none',
@@ -16,7 +19,10 @@ export const buttonVariants = cva(
     'items-center',
     'justify-center',
     'rounded',
-    'transition-colors',
+    'transition-[color,background-color,border-color,transform]',
+    'duration-150',
+    'active:scale-[0.97]',
+    'motion-reduce:active:scale-100',
     'whitespace-nowrap',
     'h-10',
     'pointer-coarse:min-h-11',

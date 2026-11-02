@@ -57,8 +57,13 @@ export const DatePickerContent: FC<Props> = ({
           'font-semibold',
           'hover:rounded-full',
           'cursor-pointer',
+          'tap-target',
           'rounded-full',
           'w-7.5',
+          'pointer-coarse:size-10',
+          'active:scale-90',
+          'motion-reduce:active:scale-100',
+          'transition-transform',
         ),
         day: 'text-center text-sm leading-5',
         month_caption: cn(
