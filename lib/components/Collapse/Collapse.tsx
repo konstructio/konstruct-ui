@@ -33,6 +33,16 @@ const Collapse: FC<Props> = ({
 }) => {
   const prefersReducedMotion = useReducedMotion();
   const [isAnimating, setIsAnimating] = useState(false);
+  const [previousIsOpen, setPreviousIsOpen] = useState(isOpen);
+
+  if (previousIsOpen !== isOpen) {
+    setPreviousIsOpen(isOpen);
+
+    if (!isOpen) {
+      setIsAnimating(true);
+    }
+  }
+
   const transition = prefersReducedMotion
     ? { duration: 0 }
     : {
