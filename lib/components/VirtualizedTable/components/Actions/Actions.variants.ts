@@ -2,12 +2,17 @@ import { cva } from 'class-variance-authority';
 
 export const actionsTriggerVariants = cva(
   [
+    'tap-target',
     'text-slate-400',
     'group-hover:text-slate-800',
     'group-hover:bg-aurora-50',
+    'active:text-slate-800',
+    'active:bg-aurora-50',
     'dark:text-metal-400',
     'dark:group-hover:text-aurora-500',
     'dark:group-hover:bg-aurora-900',
+    'dark:active:text-aurora-500',
+    'dark:active:bg-aurora-900',
   ],
   {
     variants: {
@@ -52,11 +57,14 @@ export const actionsItemVariants = cva(
     'justify-start',
     'rounded-none',
     'px-6',
+    'tap-target',
     'hover:bg-gray-50',
+    'active:bg-gray-50',
     'hover:text-slate-800',
     'hover:no-underline',
     'focus:no-underline',
     'dark:hover:bg-metal-700',
+    'dark:active:bg-metal-700',
     'dark:focus:bg-metal-700',
   ],
   {
@@ -67,8 +75,10 @@ export const actionsItemVariants = cva(
           'text-slate-400',
           'hover:bg-transparent',
           'hover:text-slate-400',
+          'active:bg-transparent',
           'dark:text-metal-500',
           'dark:hover:bg-transparent',
+          'dark:active:bg-transparent',
         ],
         false: [],
       },
@@ -78,3 +88,11 @@ export const actionsItemVariants = cva(
     },
   },
 );
+
+export const actionsDisabledReasonVariants = cva([
+  'px-6',
+  'pb-2',
+  'text-xs',
+  'text-slate-500',
+  'dark:text-metal-400',
+]);

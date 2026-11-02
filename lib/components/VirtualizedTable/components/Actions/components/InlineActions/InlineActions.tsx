@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { PointerEvent, useEffect, useRef, useState } from 'react';
 
 import { cn } from '@/utils';
 
@@ -21,6 +21,7 @@ export const InlineActions = <TData extends RowData>({
   ...delegated
 }: Omit<Props<TData>, 'isPortal'>) => {
   const rootRef = useRef<HTMLDivElement>(null);
+  const pointerTypeRef = useRef<string | null>(null);
   const [openUp, setOpenUp] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isHoverSuppressed, setIsHoverSuppressed] = useState(false);
@@ -61,15 +62,20 @@ export const InlineActions = <TData extends RowData>({
   const handleSelect = () => {
     if (openOnHover) {
       setIsHoverSuppressed(true);
-
-      return;
     }
 
     setIsOpen(false);
   };
 
+  const handleTriggerPointerDown = (event: PointerEvent<HTMLElement>) => {
+    pointerTypeRef.current = event.pointerType;
+  };
+
   const handleTriggerClick = () => {
-    if (openOnHover) {
+    const pointerType = pointerTypeRef.current;
+    pointerTypeRef.current = null;
+
+    if (openOnHover && (!pointerType || pointerType === 'mouse')) {
       return;
     }
 
@@ -87,7 +93,7 @@ export const InlineActions = <TData extends RowData>({
     const controller = new AbortController();
 
     document.addEventListener(
-      'mousedown',
+      'pointerdown',
       (event) => {
         if (!rootRef.current?.contains(event.target as Node)) {
           setIsOpen(false);
@@ -126,6 +132,7 @@ export const InlineActions = <TData extends RowData>({
         iconClassName={iconTriggerButtonClassName}
         isOpen={isOpen}
         onClick={handleTriggerClick}
+        onPointerDown={handleTriggerPointerDown}
         {...(openOnHover ? {} : { 'aria-expanded': isOpen })}
       />
 

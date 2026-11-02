@@ -1,15 +1,31 @@
 'use client';
 import * as Dialog from '@radix-ui/react-dialog';
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
-import { FC, useCallback, useRef, useState } from 'react';
+import {
+  AnimatePresence,
+  motion,
+  PanInfo,
+  useDragControls,
+  useReducedMotion,
+} from 'motion/react';
+import {
+  FC,
+  PointerEvent as ReactPointerEvent,
+  useCallback,
+  useRef,
+  useState,
+} from 'react';
 
 import { cn } from '@/utils';
 
 import { Props } from './Sheet.types';
+import { shouldDismissSheet } from './utils';
 
 const SLIDE_TRANSITION = { duration: 0.2, ease: 'easeOut' } as const;
 const STEP_TRANSITION = { duration: 0.6, ease: [0.4, 0, 0.2, 1] } as const;
 const STEP_OFFSET = '100%';
+const DRAG_RESISTANCE = 0.05;
+const DRAG_SPRING = { bounceStiffness: 500, bounceDamping: 40 } as const;
+const DRAG_SNAP = { bounceStiffness: 10000, bounceDamping: 1000 } as const;
 
 const STEP_VARIANTS = {
   enter: (direction: number) => ({
@@ -34,6 +50,10 @@ const STEP_VARIANTS = {
  * (forward for a higher step, back for a lower one) and the panel height
  * animates to the new content.
  *
+ * On touch screens the panel can be dragged by its grab handle or header
+ * towards the edge it docks to: it closes past a quarter of its height or on a
+ * quick flick, and springs back otherwise.
+ *
  * @example
  * ```tsx
  * <Sheet isOpen={isOpen} onClose={() => setIsOpen(false)} title="Region">
@@ -57,6 +77,7 @@ export const Sheet: FC<Props> = ({
   children,
 }) => {
   const reduceMotion = useReducedMotion();
+  const dragControls = useDragControls();
   const panelRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<ResizeObserver | null>(null);
   const readyFrameRef = useRef<number | null>(null);
@@ -73,8 +94,47 @@ export const Sheet: FC<Props> = ({
 
   const offscreen = position === 'bottom' ? '100%' : '-100%';
   const slide = reduceMotion
-    ? { initial: false as const, animate: { y: 0 }, exit: { y: 0 } }
+    ? { initial: false as const, animate: { y: 0 } }
     : { initial: { y: offscreen }, animate: { y: 0 }, exit: { y: offscreen } };
+  const dragElastic =
+    position === 'bottom'
+      ? { top: DRAG_RESISTANCE, bottom: 1 }
+      : { top: 1, bottom: DRAG_RESISTANCE };
+
+  const startDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === 'mouse' && event.button !== 0) {
+      return;
+    }
+
+    dragControls.start(event);
+  };
+
+  const handleDragEnd = (_event: unknown, info: PanInfo) => {
+    const dismiss = shouldDismissSheet({
+      offset: info.offset.y,
+      velocity: info.velocity.y,
+      panelHeight: panelRef.current?.offsetHeight ?? 0,
+      position,
+    });
+
+    if (dismiss) {
+      onClose();
+    }
+  };
+
+  const grabHandle = (
+    <div
+      aria-hidden="true"
+      data-sheet-handle=""
+      className={cn(
+        'flex shrink-0 cursor-grab touch-none justify-center active:cursor-grabbing',
+        position === 'bottom' ? 'pb-2' : 'pt-2',
+      )}
+      onPointerDown={startDrag}
+    >
+      <div className="h-1 w-10 rounded-full bg-slate-300 dark:bg-metal-600" />
+    </div>
+  );
 
   const contentRef = useCallback((node: HTMLDivElement | null) => {
     observerRef.current?.disconnect();
@@ -139,21 +199,31 @@ export const Sheet: FC<Props> = ({
                     'bg-white text-slate-800 shadow-xl outline-none',
                     'dark:bg-metal-800 dark:text-metal-50',
                     position === 'bottom'
-                      ? 'bottom-0 rounded-t-lg pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))]'
-                      : 'top-0 rounded-b-lg pb-4 pt-[calc(1rem+env(safe-area-inset-top))]',
+                      ? 'bottom-0 rounded-t-lg pt-2 pb-[calc(1rem+env(safe-area-inset-bottom))]'
+                      : 'top-0 rounded-b-lg pb-2 pt-[calc(1rem+env(safe-area-inset-top))]',
                     className,
                   )}
                   data-position={position}
                   data-step={step}
                   transition={SLIDE_TRANSITION}
+                  drag="y"
+                  dragListener={false}
+                  dragControls={dragControls}
+                  dragConstraints={{ top: 0, bottom: 0 }}
+                  dragElastic={dragElastic}
+                  dragMomentum={false}
+                  dragTransition={reduceMotion ? DRAG_SNAP : DRAG_SPRING}
+                  onDragEnd={handleDragEnd}
                   {...slide}
                 >
+                  {position === 'bottom' && grabHandle}
                   <div
                     className={cn(
-                      'flex min-h-9 shrink-0 items-center gap-2 px-6 pb-2',
+                      'flex min-h-9 shrink-0 touch-none items-center gap-2 px-6 pb-2',
                       headerClassName,
                       hideTitle && 'sr-only',
                     )}
+                    onPointerDown={startDrag}
                   >
                     {leading}
                     <Dialog.Title
@@ -199,6 +269,7 @@ export const Sheet: FC<Props> = ({
                       </AnimatePresence>
                     </div>
                   </motion.div>
+                  {position === 'top' && grabHandle}
                 </motion.div>
               </Dialog.Content>
             </div>

@@ -1,11 +1,12 @@
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, RefObject } from 'react';
 
 export type StackRegionHandlers = Pick<
   HTMLAttributes<HTMLElement>,
-  'onMouseEnter' | 'onMouseLeave' | 'onFocus' | 'onBlur'
+  'onPointerEnter' | 'onPointerLeave' | 'onPointerDown' | 'onFocus' | 'onBlur'
 >;
 
 export type UseStackExpansionResult = {
   expanded: boolean;
+  regionRef: RefObject<HTMLElement | null>;
   regionHandlers: StackRegionHandlers;
 };

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { PointerEvent, useCallback, useEffect, useRef, useState } from 'react';
 
 import {
   ANIMATION_DELAY_MS,
@@ -24,11 +24,7 @@ export const useDrawer = ({
   const [isAnimating, setIsAnimating] = useState(false);
   const [width, setWidth] = useState(defaultWidth);
 
-  const isDraggingRef = useRef(false);
-
-  // Store handlers in refs to avoid event listener recreation
-  const handleMouseMoveRef = useRef<(e: MouseEvent) => void>(() => {});
-  const handleMouseUpRef = useRef<() => void>(() => {});
+  const resizePointerRef = useRef<number | null>(null);
 
   // Handle open/close animation
   useEffect(() => {
@@ -68,43 +64,46 @@ export const useDrawer = ({
     };
   }, [isOpen, onClose]);
 
-  // Cleanup function for resize listeners
-  const cleanupResizeListeners = useCallback(() => {
-    document.removeEventListener('mousemove', handleMouseMoveRef.current);
-    document.removeEventListener('mouseup', handleMouseUpRef.current);
+  const resetBodyStyles = useCallback(() => {
     document.body.style.cursor = '';
     document.body.style.userSelect = '';
   }, []);
 
-  // Update handler refs when dependencies change
-  useEffect(() => {
-    handleMouseMoveRef.current = (e: MouseEvent) => {
-      if (!isDraggingRef.current || !canResize) return;
+  const handleResizePointerDown = (event: PointerEvent<HTMLElement>) => {
+    if (!canResize || (event.pointerType === 'mouse' && event.button !== 0)) {
+      return;
+    }
 
-      let newWidth: number;
-      if (position === 'right') {
-        newWidth = window.innerWidth - e.clientX;
-      } else {
-        newWidth = e.clientX;
-      }
-
-      newWidth = Math.max(minWidth, Math.min(maxWidth, newWidth));
-      setWidth(newWidth);
-    };
-
-    handleMouseUpRef.current = () => {
-      isDraggingRef.current = false;
-      cleanupResizeListeners();
-    };
-  }, [position, minWidth, maxWidth, canResize, cleanupResizeListeners]);
-
-  // Handle resize mouse down
-  const handleMouseDown = () => {
-    isDraggingRef.current = true;
-    document.addEventListener('mousemove', handleMouseMoveRef.current);
-    document.addEventListener('mouseup', handleMouseUpRef.current);
+    event.preventDefault();
+    resizePointerRef.current = event.pointerId;
+    event.currentTarget.setPointerCapture?.(event.pointerId);
     document.body.style.cursor = 'col-resize';
     document.body.style.userSelect = 'none';
+  };
+
+  const handleResizePointerMove = (event: PointerEvent<HTMLElement>) => {
+    if (!canResize || resizePointerRef.current !== event.pointerId) {
+      return;
+    }
+
+    const nextWidth =
+      position === 'right' ? window.innerWidth - event.clientX : event.clientX;
+
+    setWidth(Math.max(minWidth, Math.min(maxWidth, nextWidth)));
+  };
+
+  const handleResizePointerEnd = (event: PointerEvent<HTMLElement>) => {
+    if (resizePointerRef.current !== event.pointerId) {
+      return;
+    }
+
+    resizePointerRef.current = null;
+
+    if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+
+    resetBodyStyles();
   };
 
   // Handle keyboard resize for accessibility
@@ -127,10 +126,9 @@ export const useDrawer = ({
     }
   };
 
-  // Cleanup resize listeners on unmount
   useEffect(() => {
-    return cleanupResizeListeners;
-  }, [cleanupResizeListeners]);
+    return resetBodyStyles;
+  }, [resetBodyStyles]);
 
   const translateClass = isAnimating
     ? 'translate-x-0'
@@ -143,7 +141,9 @@ export const useDrawer = ({
     isVisible,
     width,
     translateClass,
-    handleMouseDown,
     handleKeyDown,
+    handleResizePointerDown,
+    handleResizePointerMove,
+    handleResizePointerEnd,
   };
 };

@@ -284,6 +284,106 @@ describe('Actions', () => {
     });
   });
 
+  describe('on touch', () => {
+    const setupInline = (actions: Action<Row>[]) => {
+      const user = userEvent.setup();
+      const { container } = render(
+        <div>
+          <span>outside</span>
+          <Actions {...buildProps(actions)} />
+        </div>,
+      );
+      const trigger = screen.getByRole('button', { name: /show actions/i });
+      const panel = container.querySelector('.absolute') as HTMLElement;
+
+      return { user, trigger, panel };
+    };
+
+    it('should open the hover panel on a tap and close it on a tap outside', async () => {
+      const { user, trigger, panel } = setupInline([
+        { label: 'Edit', onClick: vi.fn() },
+      ]);
+
+      expect(panel.className).toContain('invisible');
+
+      await user.pointer({ keys: '[TouchA]', target: trigger });
+
+      expect(panel.className).not.toContain('invisible');
+
+      await user.pointer({
+        keys: '[TouchA]',
+        target: screen.getByText('outside'),
+      });
+
+      expect(panel.className).toContain('invisible');
+    });
+
+    it('should close the panel after a tapped action runs', async () => {
+      const onEdit = vi.fn();
+      const { user, trigger, panel } = setupInline([
+        { label: 'Edit', onClick: onEdit },
+      ]);
+
+      await user.pointer({ keys: '[TouchA]', target: trigger });
+      await user.pointer({
+        keys: '[TouchA]',
+        target: screen.getByRole('button', { name: 'Edit' }),
+      });
+
+      expect(onEdit).toHaveBeenCalledWith(row);
+      expect(panel.className).toContain('invisible');
+    });
+
+    it('should keep the trigger large enough and free of tap delay', () => {
+      const { trigger } = setupInline([{ label: 'Edit', onClick: vi.fn() }]);
+
+      expect(trigger).toHaveClass(
+        'tap-target',
+        'pointer-coarse:min-h-11',
+        'pointer-coarse:min-w-11',
+      );
+    });
+
+    it('should give the action items a pressed state', () => {
+      setupInline([{ label: 'Edit', onClick: vi.fn() }]);
+
+      expect(screen.getByRole('button', { name: 'Edit' })).toHaveClass(
+        'tap-target',
+        'active:bg-gray-50',
+        'dark:active:bg-metal-700',
+      );
+    });
+
+    it('should reveal the disabled reason on a tap and hide it on the next one', async () => {
+      const onDelete = vi.fn();
+      const { user } = setupInline([
+        { label: 'Delete', disabledReason: 'In use', onClick: onDelete },
+      ]);
+      const action = screen.getByRole('button', { name: 'Delete' });
+
+      await user.pointer({ keys: '[TouchA]', target: action });
+
+      expect(onDelete).not.toHaveBeenCalled();
+      expect(action).toHaveAccessibleDescription('In use');
+
+      await user.pointer({ keys: '[TouchA]', target: action });
+
+      expect(screen.queryByText('In use')).not.toBeInTheDocument();
+    });
+
+    it('should not reveal the disabled reason inline on a mouse click', async () => {
+      const { user } = setupInline([
+        { label: 'Delete', disabledReason: 'In use', onClick: vi.fn() },
+      ]);
+
+      await user.click(screen.getByRole('button', { name: 'Delete' }));
+
+      expect(
+        screen.getByRole('button', { name: 'Delete' }),
+      ).not.toHaveAttribute('aria-describedby');
+    });
+  });
+
   it("shouldn't have accessibility violations", async () => {
     const { container } = render(
       <Actions
@@ -665,6 +765,64 @@ describe('Actions', () => {
       await user.hover(trigger);
 
       expect(await getMenu()).toBeInTheDocument();
+    });
+
+    it('should close the menu on a tap outside it', async () => {
+      const { user, trigger, getMenu } = setup();
+
+      await user.pointer({ keys: '[TouchA]', target: trigger });
+      await getMenu();
+
+      await user.pointer({
+        keys: '[TouchA]',
+        target: screen.getByText('Pikachu'),
+      });
+
+      expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+    });
+
+    it('should not open on hover from a pen and toggle on its taps', async () => {
+      const { trigger, getMenu } = setup();
+
+      fireEvent.pointerEnter(trigger, { pointerType: 'pen' });
+
+      expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+
+      fireEvent.pointerDown(trigger, { pointerType: 'pen' });
+      fireEvent.click(trigger);
+
+      expect(await getMenu()).toBeInTheDocument();
+
+      fireEvent.pointerLeave(trigger, { pointerType: 'pen' });
+      await new Promise((resolve) => {
+        setTimeout(resolve, CLOSE_DELAY_MS * 2);
+      });
+
+      expect(screen.getByRole('menu')).toBeInTheDocument();
+    });
+
+    it('should reveal the disabled reason inside the menu on a tap', async () => {
+      const { user, trigger, getMenu } = setup({}, (onEdit, onDelete) => {
+        return [
+          { label: 'Edit', onClick: onEdit },
+          { label: 'Delete', disabledReason: 'In use', onClick: onDelete },
+        ];
+      });
+
+      await user.pointer({ keys: '[TouchA]', target: trigger });
+      const menu = await getMenu();
+      const remove = within(menu).getByRole('menuitem', { name: 'Delete' });
+
+      await user.pointer({ keys: '[TouchA]', target: remove });
+
+      expect(remove).toHaveAccessibleDescription('In use');
+      expect(screen.getByRole('menu')).toBeInTheDocument();
+
+      const results = await axe(document.body, {
+        rules: { region: { enabled: false } },
+      });
+
+      expect(results).toHaveNoViolations();
     });
 
     describe('with openOnHover disabled', () => {

@@ -1,9 +1,10 @@
-import { FocusEvent, useEffect, useState } from 'react';
+import { FocusEvent, PointerEvent, useEffect, useRef, useState } from 'react';
 
 import { UseStackExpansionResult } from './useStackExpansion.types';
 
 export const useStackExpansion = (): UseStackExpansionResult => {
   const [expanded, setExpanded] = useState(false);
+  const regionRef = useRef<HTMLElement>(null);
 
   const expand = () => {
     setExpanded(true);
@@ -11,6 +12,24 @@ export const useStackExpansion = (): UseStackExpansionResult => {
 
   const collapse = () => {
     setExpanded(false);
+  };
+
+  const handlePointerEnter = (event: PointerEvent<HTMLElement>) => {
+    if (event.pointerType === 'mouse') {
+      expand();
+    }
+  };
+
+  const handlePointerLeave = (event: PointerEvent<HTMLElement>) => {
+    if (event.pointerType === 'mouse') {
+      collapse();
+    }
+  };
+
+  const handlePointerDown = (event: PointerEvent<HTMLElement>) => {
+    if (event.pointerType !== 'mouse') {
+      expand();
+    }
   };
 
   const handleBlur = (event: FocusEvent<HTMLElement>) => {
@@ -35,11 +54,31 @@ export const useStackExpansion = (): UseStackExpansionResult => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!expanded) {
+      return;
+    }
+
+    const handleOutsidePointerDown = (event: globalThis.PointerEvent) => {
+      if (!regionRef.current?.contains(event.target as Node)) {
+        collapse();
+      }
+    };
+
+    document.addEventListener('pointerdown', handleOutsidePointerDown);
+
+    return () => {
+      document.removeEventListener('pointerdown', handleOutsidePointerDown);
+    };
+  }, [expanded]);
+
   return {
     expanded,
+    regionRef,
     regionHandlers: {
-      onMouseEnter: expand,
-      onMouseLeave: collapse,
+      onPointerEnter: handlePointerEnter,
+      onPointerLeave: handlePointerLeave,
+      onPointerDown: handlePointerDown,
       onFocus: expand,
       onBlur: handleBlur,
     },

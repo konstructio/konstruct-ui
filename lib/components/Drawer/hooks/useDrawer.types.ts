@@ -24,8 +24,12 @@ export type UseDrawerReturn = {
   width: number;
   /** The translate class based on animation state */
   translateClass: string;
-  /** Handler for resize mouse down event */
-  handleMouseDown: () => void;
   /** Handler for resize keyboard events */
   handleKeyDown: (event: React.KeyboardEvent) => void;
+  /** Starts a resize from the handle and captures the pointer */
+  handleResizePointerDown: (event: React.PointerEvent<HTMLElement>) => void;
+  /** Resizes the panel while the captured pointer moves */
+  handleResizePointerMove: (event: React.PointerEvent<HTMLElement>) => void;
+  /** Ends the resize on pointer up or cancel */
+  handleResizePointerEnd: (event: React.PointerEvent<HTMLElement>) => void;
 };

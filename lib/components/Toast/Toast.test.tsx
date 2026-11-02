@@ -1,7 +1,13 @@
-import { act, render, screen, within } from '@testing-library/react';
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
-import { ComponentProps, createElement, forwardRef, ReactNode } from 'react';
+import {
+  ComponentProps,
+  createElement,
+  forwardRef,
+  ReactNode,
+  useRef,
+} from 'react';
 
 import { TOAST_DISMISS_STAGGER_MS } from './constants';
 import { Toast } from './Toast';
@@ -15,19 +21,57 @@ vi.mock('motion/react', () => {
     'transition',
     'onAnimationComplete',
     'style',
+    'drag',
+    'dragSnapToOrigin',
+    'dragTransition',
+    'onDragStart',
+    'onDragEnd',
   ];
+
+  type DragProps = {
+    drag?: string | false;
+    onDragStart?: () => void;
+    onDragEnd?: (
+      event: unknown,
+      info: { offset: { x: number }; velocity: { x: number } },
+    ) => void;
+  };
 
   const plain = <T extends 'ol' | 'li' | 'div'>(tag: T) => {
     const Component = forwardRef<
       HTMLElement,
       ComponentProps<T> & Record<string, unknown>
     >((props, ref) => {
+      const { drag, onDragStart, onDragEnd } = props as DragProps;
+      const startXRef = useRef<number | null>(null);
+
+      const dragHandlers = drag
+        ? {
+            onPointerDown: (event: PointerEvent) => {
+              startXRef.current = event.clientX;
+              onDragStart?.();
+            },
+            onPointerUp: (event: PointerEvent) => {
+              if (startXRef.current === null) {
+                return;
+              }
+
+              onDragEnd?.(event, {
+                offset: { x: event.clientX - startXRef.current },
+                velocity: { x: 0 },
+              });
+              startXRef.current = null;
+            },
+          }
+        : {};
+
       return createElement(tag, {
         ...Object.fromEntries(
           Object.entries(props).filter(([key]) => {
             return !MOTION_PROPS.includes(key);
           }),
         ),
+        ...dragHandlers,
         ref,
       });
     });
@@ -268,6 +312,125 @@ describe('Toast', () => {
 
     tick(TOAST_DISMISS_STAGGER_MS);
     expect(onDismiss.mock.calls).toEqual([['first'], ['second'], ['third']]);
+  });
+
+  it('should pause the countdown when a mouse enters the stack', () => {
+    const { onDismiss, getRegion, tick } = setupWithClock({
+      toasts: [item('a', { duration: 1000 })],
+    });
+
+    fireEvent.pointerEnter(getRegion(), { pointerType: 'mouse' });
+    tick(5000);
+
+    expect(onDismiss).not.toHaveBeenCalled();
+  });
+
+  it('should not expand the stack when a touch pointer enters it', () => {
+    const { onDismiss, getRegion, tick } = setupWithClock({
+      toasts: [item('a', { duration: 1000 })],
+    });
+
+    fireEvent.pointerEnter(getRegion(), { pointerType: 'touch' });
+    tick(1000);
+
+    expect(onDismiss).toHaveBeenCalledWith('a');
+  });
+
+  it('should expand the stack on a tap and keep it expanded on further taps', () => {
+    const { onDismiss, getRegion, tick } = setupWithClock({
+      toasts: [item('a', { duration: 1000 })],
+    });
+
+    fireEvent.pointerDown(getRegion(), { pointerType: 'touch' });
+    fireEvent.pointerLeave(getRegion(), { pointerType: 'touch' });
+    tick(2000);
+    fireEvent.pointerDown(screen.getByRole('status'), { pointerType: 'touch' });
+    tick(2000);
+
+    expect(onDismiss).not.toHaveBeenCalled();
+  });
+
+  it('should collapse the stack on a tap outside it', () => {
+    const { onDismiss, getRegion, tick } = setupWithClock({
+      toasts: [item('a', { duration: 1000 })],
+    });
+
+    fireEvent.pointerDown(getRegion(), { pointerType: 'touch' });
+    tick(2000);
+    fireEvent.pointerDown(document.body, { pointerType: 'touch' });
+    tick(1000);
+
+    expect(onDismiss).toHaveBeenCalledWith('a');
+  });
+
+  describe('swipe to dismiss', () => {
+    const WIDTH = 400;
+
+    beforeEach(() => {
+      vi.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(
+        WIDTH,
+      );
+    });
+
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+
+    const swipe = (distance: number) => {
+      const card = screen.getByRole('listitem');
+
+      fireEvent.pointerDown(card, { pointerType: 'touch', clientX: 0 });
+      fireEvent.pointerUp(card, { pointerType: 'touch', clientX: distance });
+    };
+
+    it('should dismiss a toast swiped past 40% of its width', () => {
+      const { onDismiss } = setup({ toasts: [item('a')] });
+
+      swipe(WIDTH * 0.4 + 1);
+
+      expect(onDismiss).toHaveBeenCalledWith('a');
+    });
+
+    it('should keep a toast swiped less than 40% of its width', () => {
+      const { onDismiss } = setup({ toasts: [item('a')] });
+
+      swipe(-(WIDTH * 0.4 - 1));
+
+      expect(onDismiss).not.toHaveBeenCalled();
+    });
+
+    it('should hold the countdown while the toast is being dragged', () => {
+      const { onDismiss, tick } = setupWithClock({
+        toasts: [item('a', { duration: 1000 })],
+      });
+      const card = screen.getByRole('listitem');
+
+      fireEvent.pointerDown(card, { pointerType: 'mouse', clientX: 0 });
+      tick(5000);
+
+      expect(onDismiss).not.toHaveBeenCalled();
+
+      fireEvent.pointerUp(card, { pointerType: 'mouse', clientX: 10 });
+      tick(1000);
+
+      expect(onDismiss).toHaveBeenCalledWith('a');
+    });
+
+    it('should let the page scroll vertically over a toast', () => {
+      setup({ toasts: [item('a')] });
+
+      expect(screen.getByRole('listitem')).toHaveClass('touch-pan-y');
+    });
+  });
+
+  it('should grow the close button hit area on touch', () => {
+    setup({ toasts: [item('a')] });
+
+    expect(screen.getByRole('button', { name: 'Close toast' })).toHaveClass(
+      'relative',
+      'tap-target',
+      'touch-hit-area',
+    );
   });
 
   it('should dismiss a toast from its close button', async () => {
