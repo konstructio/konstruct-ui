@@ -20,8 +20,9 @@ import { computeStackLayout } from './utils';
  * A stack of toast notifications anchored to the bottom-right corner.
  *
  * The newest toast sits in front; older ones peek out behind it and the whole
- * stack expands on hover or focus, holding every auto-dismiss countdown until
- * the pointer leaves, focus moves out or the window loses focus. By default
+ * stack expands on hover, focus or a tap, holding every auto-dismiss countdown
+ * until the pointer leaves, focus moves out, a tap lands outside or the window
+ * loses focus. Each toast can also be swiped sideways to dismiss it. By default
  * each toast then resumes with the time it had left; `hoverBehavior="restart"`
  * gives them their full duration again and dismisses them one by one.
  * Rendered through a portal on `document.body` so no ancestor can clip or
@@ -61,7 +62,7 @@ export const Toast: FC<Props> = ({
   const prefersReducedMotion = useReducedMotion();
   const isHydrated = useIsHydrated();
   const { heights, setHeight, removeHeight } = useToastHeights();
-  const { expanded, regionHandlers } = useStackExpansion();
+  const { expanded, regionRef, regionHandlers } = useStackExpansion();
   const source = useToastSource({ toasts, onDismiss });
 
   useEffect(() => {
@@ -81,6 +82,7 @@ export const Toast: FC<Props> = ({
 
   const region = (
     <section
+      ref={regionRef}
       aria-label={label}
       data-theme={theme}
       className={cn(

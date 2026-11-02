@@ -1,6 +1,6 @@
 'use client';
 import { Root as VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import { FC, TouchEvent, useId, useMemo, useRef } from 'react';
+import { FC, useId, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { X as Close } from 'react-feather';
 import FocusLock from 'react-focus-lock';
@@ -24,8 +24,8 @@ import {
   overlayVariants,
   resizeHandleVariants,
 } from './Drawer.variants';
-import { DEFAULT_WIDTH, SWIPE_THRESHOLD } from './constants';
-import { useDrawer } from './hooks';
+import { DEFAULT_WIDTH } from './constants';
+import { useDrawer, useSwipeToClose } from './hooks';
 
 /**
  * A drawer/panel component that slides in from the side of the screen.
@@ -77,39 +77,11 @@ const Drawer: FC<Props> & {
   onClose,
 }) => {
   const headerId = useId();
-  const swipeStartRef = useRef<{ x: number; y: number } | null>(null);
-
-  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
-    const touch = event.touches?.[0];
-
-    swipeStartRef.current = touch
-      ? { x: touch.clientX, y: touch.clientY }
-      : null;
-  };
-
-  const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
-    const start = swipeStartRef.current;
-    const touch = event.changedTouches?.[0];
-
-    swipeStartRef.current = null;
-
-    if (!closeOnSwipe || !start || !touch) return;
-
-    const deltaX = touch.clientX - start.x;
-    const deltaY = touch.clientY - start.y;
-    const towardsEdge =
-      position === 'left'
-        ? deltaX <= -SWIPE_THRESHOLD
-        : deltaX >= SWIPE_THRESHOLD;
-
-    if (towardsEdge && Math.abs(deltaX) > Math.abs(deltaY)) {
-      onClose?.();
-    }
-  };
-
   const {
     handleKeyDown,
-    handleMouseDown,
+    handleResizePointerDown,
+    handleResizePointerEnd,
+    handleResizePointerMove,
     isAnimating,
     isVisible,
     translateClass,
@@ -123,6 +95,14 @@ const Drawer: FC<Props> & {
     position,
     onClose,
   });
+
+  const {
+    swipeOffset,
+    handleTouchCancel,
+    handleTouchEnd,
+    handleTouchMove,
+    handleTouchStart,
+  } = useSwipeToClose({ enabled: closeOnSwipe, position, onClose });
 
   const contextValue = useMemo(
     () => ({ classNames, headerId }),
@@ -161,12 +141,20 @@ const Drawer: FC<Props> & {
               className={cn(
                 drawerVariants({ position, fullScreenOnMobile }),
                 translateClass,
+                swipeOffset !== null && 'transition-none',
                 classNames?.panel,
                 className,
               )}
-              style={{ width: canResize ? width : defaultWidth }}
+              style={{
+                width: canResize ? width : defaultWidth,
+                ...(swipeOffset !== null && {
+                  translate: `${swipeOffset}px 0`,
+                }),
+              }}
               onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
+              onTouchCancel={handleTouchCancel}
               role="dialog"
               aria-modal="true"
               aria-labelledby={headerId}
@@ -179,11 +167,15 @@ const Drawer: FC<Props> & {
                 <button
                   type="button"
                   aria-label="Resize drawer"
+                  data-drawer-resize-handle=""
                   className={cn(
                     resizeHandleVariants({ position }),
                     classNames?.resizeHandle,
                   )}
-                  onMouseDown={handleMouseDown}
+                  onPointerDown={handleResizePointerDown}
+                  onPointerMove={handleResizePointerMove}
+                  onPointerUp={handleResizePointerEnd}
+                  onPointerCancel={handleResizePointerEnd}
                   onKeyDown={handleKeyDown}
                 />
               )}

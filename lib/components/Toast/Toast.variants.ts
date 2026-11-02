@@ -101,7 +101,14 @@ export const toastIconVariants = cva(['shrink-0', 'text-white'], {
 });
 
 export const toastCloseButtonVariants = cva(
-  ['shrink-0', 'cursor-pointer', 'text-white'],
+  [
+    'relative',
+    'shrink-0',
+    'cursor-pointer',
+    'text-white',
+    'tap-target',
+    'touch-hit-area',
+  ],
   {
     variants: {
       type: {

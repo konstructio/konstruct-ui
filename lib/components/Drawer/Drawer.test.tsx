@@ -261,6 +261,69 @@ describe('Drawer', () => {
       expect(trigger).toHaveFocus();
     });
   });
+  describe('resize', () => {
+    const pointer = { pointerId: 1, pointerType: 'touch', isPrimary: true };
+
+    it('should resize the panel while a pointer drags the handle', async () => {
+      const { user, findButton, findResizeHandle } = setup({
+        canResize: true,
+        position: 'left',
+      });
+
+      await user.click(await findButton());
+
+      const handle = await findResizeHandle();
+      const dialog = screen.getByRole('dialog');
+
+      fireEvent.pointerDown(handle, { ...pointer, clientX: 500 });
+      fireEvent.pointerMove(handle, { ...pointer, clientX: 620 });
+
+      expect(dialog).toHaveStyle({ width: '620px' });
+
+      fireEvent.pointerMove(handle, { ...pointer, clientX: 2000 });
+
+      expect(dialog).toHaveStyle({ width: '800px' });
+
+      fireEvent.pointerUp(handle, pointer);
+      fireEvent.pointerMove(handle, { ...pointer, clientX: 450 });
+
+      expect(dialog).toHaveStyle({ width: '800px' });
+      expect(document.body.style.cursor).toBe('');
+    });
+
+    it('should stop resizing when the pointer is cancelled', async () => {
+      const { user, findButton, findResizeHandle } = setup({
+        canResize: true,
+        position: 'left',
+      });
+
+      await user.click(await findButton());
+
+      const handle = await findResizeHandle();
+      const dialog = screen.getByRole('dialog');
+
+      fireEvent.pointerDown(handle, { ...pointer, clientX: 500 });
+      fireEvent.pointerCancel(handle, pointer);
+      fireEvent.pointerMove(handle, { ...pointer, clientX: 700 });
+
+      expect(dialog).toHaveStyle({ width: '500px' });
+    });
+
+    it('should keep the handle from scrolling the page on touch', async () => {
+      const { user, findButton, findResizeHandle } = setup({
+        canResize: true,
+      });
+
+      await user.click(await findButton());
+
+      expect(await findResizeHandle()).toHaveClass(
+        'touch-none',
+        'tap-target',
+        'touch-hit-area',
+      );
+    });
+  });
+
   describe('mobile layout', () => {
     it('should take the whole screen below md by default', async () => {
       const { user, findButton } = setup();
@@ -283,15 +346,22 @@ describe('Drawer', () => {
 
   describe('swipe to close', () => {
     const touchEvent = (
-      type: 'touchstart' | 'touchend',
-      key: 'touches' | 'changedTouches',
+      type: 'touchstart' | 'touchmove' | 'touchend',
       point: [number, number],
+      timeStamp?: number,
     ) => {
       const event = new Event(type, { bubbles: true, cancelable: true });
+      const touch = { clientX: point[0], clientY: point[1] };
 
-      Object.defineProperty(event, key, {
-        value: [{ clientX: point[0], clientY: point[1] }],
+      Object.defineProperties(event, {
+        touches: { value: type === 'touchend' ? [] : [touch] },
+        targetTouches: { value: type === 'touchend' ? [] : [touch] },
+        changedTouches: { value: [touch] },
       });
+
+      if (timeStamp !== undefined) {
+        Object.defineProperty(event, 'timeStamp', { value: timeStamp });
+      }
 
       return event;
     };
@@ -301,8 +371,8 @@ describe('Drawer', () => {
       from: [number, number],
       to: [number, number],
     ) => {
-      fireEvent(element, touchEvent('touchstart', 'touches', from));
-      fireEvent(element, touchEvent('touchend', 'changedTouches', to));
+      fireEvent(element, touchEvent('touchstart', from));
+      fireEvent(element, touchEvent('touchend', to));
     };
 
     it('should close a left drawer on a swipe towards the left edge', async () => {
@@ -327,6 +397,90 @@ describe('Drawer', () => {
       swipe(dialog, [200, 100], [180, 300]);
       swipe(dialog, [200, 100], [160, 100]);
       swipe(dialog, [100, 100], [260, 100]);
+
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    it('should follow the finger towards the edge only', async () => {
+      const { user, findButton } = setup({ position: 'right' });
+
+      await user.click(await findButton());
+      const dialog = await screen.findByRole('dialog');
+
+      fireEvent(dialog, touchEvent('touchstart', [100, 100], 0));
+      fireEvent(dialog, touchEvent('touchmove', [140, 102], 50));
+
+      expect(dialog.style.translate).toBe('40px 0');
+      expect(dialog).toHaveClass('transition-none');
+
+      fireEvent(dialog, touchEvent('touchmove', [60, 102], 100));
+
+      expect(dialog.style.translate).toBe('0px 0');
+
+      fireEvent(dialog, touchEvent('touchend', [60, 102], 400));
+
+      expect(dialog.style.translate).toBe('');
+      expect(dialog).not.toHaveClass('transition-none');
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    it('should spring back after a slow, short drag', async () => {
+      const { user, findButton } = setup({ position: 'right' });
+
+      await user.click(await findButton());
+      const dialog = await screen.findByRole('dialog');
+
+      fireEvent(dialog, touchEvent('touchstart', [100, 100], 0));
+      fireEvent(dialog, touchEvent('touchmove', [130, 100], 300));
+      fireEvent(dialog, touchEvent('touchend', [130, 100], 320));
+
+      expect(dialog.style.translate).toBe('');
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    it('should close on a quick flick shorter than the distance threshold', async () => {
+      const { user, findButton } = setup({ position: 'right' });
+
+      await user.click(await findButton());
+      const dialog = await screen.findByRole('dialog');
+
+      fireEvent(dialog, touchEvent('touchstart', [100, 100], 0));
+      fireEvent(dialog, touchEvent('touchmove', [110, 100], 10));
+      fireEvent(dialog, touchEvent('touchmove', [140, 100], 30));
+      fireEvent(dialog, touchEvent('touchend', [140, 100], 40));
+
+      await waitFor(() => {
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+      });
+    });
+
+    it('should not track vertical drags', async () => {
+      const { user, findButton } = setup({ position: 'right' });
+
+      await user.click(await findButton());
+      const dialog = await screen.findByRole('dialog');
+
+      fireEvent(dialog, touchEvent('touchstart', [100, 100], 0));
+      fireEvent(dialog, touchEvent('touchmove', [110, 160], 30));
+      fireEvent(dialog, touchEvent('touchmove', [200, 170], 60));
+
+      expect(dialog.style.translate).toBe('');
+
+      fireEvent(dialog, touchEvent('touchend', [200, 170], 70));
+
+      expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    it('should not swipe when the touch starts on the resize handle', async () => {
+      const { user, findButton, findResizeHandle } = setup({
+        position: 'right',
+        canResize: true,
+      });
+
+      await user.click(await findButton());
+      const handle = await findResizeHandle();
+
+      swipe(handle, [100, 100], [300, 100]);
 
       expect(screen.getByRole('dialog')).toBeInTheDocument();
     });

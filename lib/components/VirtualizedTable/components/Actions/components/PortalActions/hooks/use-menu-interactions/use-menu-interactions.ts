@@ -1,5 +1,5 @@
 import {
-  PointerEvent,
+  PointerEvent as ReactPointerEvent,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -46,11 +46,11 @@ export const useMenuInteractions = ({
   }, [setIsOpen]);
 
   const handlePointerEnter = useCallback(
-    (event: PointerEvent<HTMLElement>) => {
+    (event: ReactPointerEvent<HTMLElement>) => {
       if (
         !openOnHover ||
         isHoverSuppressedRef.current ||
-        event.pointerType === 'touch'
+        event.pointerType !== 'mouse'
       ) {
         return;
       }
@@ -61,8 +61,8 @@ export const useMenuInteractions = ({
   );
 
   const handlePointerLeave = useCallback(
-    (event: PointerEvent<HTMLElement>) => {
-      if (!openOnHover || event.pointerType === 'touch') {
+    (event: ReactPointerEvent<HTMLElement>) => {
+      if (!openOnHover || event.pointerType !== 'mouse') {
         return;
       }
 
@@ -76,7 +76,7 @@ export const useMenuInteractions = ({
   }, []);
 
   const handleTriggerPointerDown = useCallback(
-    (event: PointerEvent<HTMLElement>) => {
+    (event: ReactPointerEvent<HTMLElement>) => {
       pointerTypeRef.current = event.pointerType;
     },
     [],
@@ -88,7 +88,7 @@ export const useMenuInteractions = ({
     isHoverSuppressedRef.current = false;
     clearTimeout(closeTimeoutRef.current);
 
-    if (openOnHover && pointerType && pointerType !== 'touch') {
+    if (openOnHover && pointerType === 'mouse') {
       setIsOpen(true);
 
       return;
@@ -142,7 +142,7 @@ export const useMenuInteractions = ({
 
     const controller = new AbortController();
 
-    const handleMouseDown = (event: MouseEvent) => {
+    const handlePointerDown = (event: PointerEvent) => {
       const target = event.target as Node;
       const isInside =
         triggerRef.current?.contains(target) ||
@@ -159,7 +159,7 @@ export const useMenuInteractions = ({
       }
     };
 
-    document.addEventListener('mousedown', handleMouseDown, {
+    document.addEventListener('pointerdown', handlePointerDown, {
       signal: controller.signal,
     });
     document.addEventListener('keydown', handleKeyDown, {

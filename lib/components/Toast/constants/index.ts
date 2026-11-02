@@ -45,3 +45,12 @@ export const TOAST_ICONS: Record<ToastType, typeof ErrorIcon> = {
   warning: WarningTriangleIcon,
   info: InformationFilledIcon,
 };
+
+export const SWIPE_DISMISS_DISTANCE_RATIO = 0.4;
+
+export const SWIPE_DISMISS_VELOCITY = 500;
+
+export const REDUCED_MOTION_DRAG_TRANSITION = {
+  bounceStiffness: 1_000_000,
+  bounceDamping: 10_000_000,
+} as const;

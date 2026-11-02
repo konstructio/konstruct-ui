@@ -1,6 +1,6 @@
 import { X } from 'lucide-react';
-import { motion, usePresence } from 'motion/react';
-import { FC, useEffect, useRef } from 'react';
+import { motion, PanInfo, usePresence } from 'motion/react';
+import { FC, useEffect, useRef, useState } from 'react';
 
 import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
@@ -8,6 +8,7 @@ import { cn } from '@/utils';
 import {
   COLLAPSED_SCALE_STEP,
   DEFAULT_TOAST_DURATION,
+  REDUCED_MOTION_DRAG_TRANSITION,
   TOAST_ENTER_TRANSITION,
   TOAST_EXIT_TRANSITION,
   TOAST_ICONS,
@@ -22,6 +23,7 @@ import {
   toastTitleVariants,
   toastVariants,
 } from '../../Toast.variants';
+import { shouldDismissSwipe } from '../../utils';
 
 import { Props } from './ToastCard.types';
 
@@ -42,6 +44,9 @@ export const ToastCard: FC<Props> = ({
   onExited,
   onHeightChange,
 }) => {
+  const [isDragging, setIsDragging] = useState(false);
+  const [swipeDirection, setSwipeDirection] = useState(0);
+  const frameRef = useRef<HTMLLIElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const [isPresent] = usePresence();
   const {
@@ -55,7 +60,7 @@ export const ToastCard: FC<Props> = ({
 
   useToastTimer({
     duration,
-    paused: expanded,
+    paused: expanded || isDragging,
     restart: restartOnLeave,
     resumeDelay,
     onExpire: onDismiss,
@@ -82,6 +87,21 @@ export const ToastCard: FC<Props> = ({
     };
   }, [id, onHeightChange]);
 
+  const handleDragEnd = (_event: unknown, { offset, velocity }: PanInfo) => {
+    setIsDragging(false);
+
+    if (
+      shouldDismissSwipe({
+        offset: offset.x,
+        velocity: velocity.x,
+        width: frameRef.current?.offsetWidth ?? 0,
+      })
+    ) {
+      setSwipeDirection(Math.sign(offset.x || velocity.x));
+      onDismiss();
+    }
+  };
+
   const Icon = TOAST_ICONS[type];
   const isFront = index === 0;
   const clamped = !expanded && !isFront && frontHeight !== 0;
@@ -95,8 +115,9 @@ export const ToastCard: FC<Props> = ({
 
   return (
     <motion.li
+      ref={frameRef}
       className={cn(
-        'absolute right-0 bottom-0 origin-bottom will-change-transform',
+        'absolute right-0 bottom-0 origin-bottom touch-pan-y will-change-transform',
         autoWidth ? 'w-max max-w-[calc(100vw-3rem)]' : 'max-w-full',
         toastFrameVariants({ type }),
       )}
@@ -109,8 +130,21 @@ export const ToastCard: FC<Props> = ({
         scale: expanded ? 1 : 1 - index * COLLAPSED_SCALE_STEP,
         height: clamped ? frontHeight : 'auto',
       }}
-      exit={{ opacity: 0 }}
+      exit={
+        swipeDirection
+          ? { opacity: 0, x: `${swipeDirection * 110}%` }
+          : { opacity: 0 }
+      }
       transition={transition}
+      drag={visible ? 'x' : false}
+      dragSnapToOrigin
+      dragTransition={
+        reducedMotion ? REDUCED_MOTION_DRAG_TRANSITION : undefined
+      }
+      onDragStart={() => {
+        setIsDragging(true);
+      }}
+      onDragEnd={handleDragEnd}
       onAnimationComplete={(definition) => {
         if (definition === 'exit') {
           onExited(id);
