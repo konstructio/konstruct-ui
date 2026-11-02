@@ -53,6 +53,20 @@ describe('Button', () => {
     expect(button).toHaveClass('rounded-full');
   });
 
+  it('should be ready for touch: no double-tap delay, 44px hit area and a pressed state', () => {
+    const { button } = setup({ shape: 'circle' });
+
+    expect(button).toHaveClass('tap-target', 'touch-hit-area', 'relative');
+    expect(button.className).toContain('active:scale-[0.97]');
+  });
+
+  it('should keep a consumer positioning over the hit area context', () => {
+    const { button } = setup({ className: 'absolute' });
+
+    expect(button).toHaveClass('absolute');
+    expect(button).not.toHaveClass('relative');
+  });
+
   it('should click the button', async () => {
     const mockOnClick = vitest.fn();
 

@@ -13,6 +13,7 @@ export const timePickerVariants = cva([
   'dark:border-metal-700',
   'dark:bg-metal-800',
   'cursor-pointer',
+  'tap-target',
   'transition-all',
   'transition-duration-100',
   'data-[open=true]:border-aurora-500',
@@ -42,6 +43,7 @@ export const liVariants = cva([
   'border-2',
   'border-transparent',
   'hover:bg-gray-100',
+  'active:bg-gray-100',
   'focus-within:bg-gray-100',
   'data-[active=true]:bg-blue-600',
   'data-[active=true]:text-white',
@@ -55,6 +57,7 @@ export const liVariants = cva([
   'dark:data-[active=true]:focus-within:bg-aurora-500',
   'dark:data-[active=true]:focus-within:border-aurora-50',
   'dark:hover:bg-metal-700',
+  'dark:active:bg-metal-700',
   'dark:focus-within:bg-metal-700',
 ]);
 

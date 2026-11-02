@@ -2,6 +2,10 @@ import { cva } from 'class-variance-authority';
 
 export const switchVariants = cva(
   [
+    'relative',
+    'shrink-0',
+    'tap-target',
+    'touch-hit-area',
     'w-10',
     'h-5',
     'flex',

@@ -195,7 +195,7 @@ const OtpInput: FC<Props> = ({
             aria-label={digitLabel(index + 1)}
             aria-invalid={hasError || undefined}
             className={cn(
-              'size-10 rounded border bg-white text-center text-base text-slate-800 transition-all',
+              'tap-target size-10 rounded border bg-white text-center text-base text-slate-800 transition-all',
               'focus-visible:border-transparent focus-visible:outline-none focus-visible:ring-1',
               'disabled:cursor-not-allowed disabled:bg-gray-100',
               'dark:bg-metal-800 dark:text-metal-50 dark:disabled:bg-metal-900',

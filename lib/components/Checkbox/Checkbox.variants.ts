@@ -3,6 +3,12 @@ import { cva } from 'class-variance-authority';
 export const checkboxVariants = cva(
   [
     'cursor-pointer',
+    'tap-target',
+    'touch-hit-area',
+    'relative',
+    'shrink-0',
+    'active:scale-90',
+    'motion-reduce:active:scale-100',
     'border',
     'rounded',
     'w-5',

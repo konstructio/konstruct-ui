@@ -11,10 +11,13 @@ export const emptyListVariants = cva([
 ]);
 
 export const listItemVariants = cva([
+  'tap-target',
   'focus-visible:outline-none',
   'kubefirst:focus:bg-purple-100',
   'kubefirst:hover:bg-purple-100',
+  'kubefirst:active:bg-purple-100',
   'border-transparent',
   'focus:bg-aurora-50',
   'hover:bg-aurora-50',
+  'active:bg-aurora-50',
 ]);

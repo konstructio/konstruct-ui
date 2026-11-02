@@ -27,10 +27,13 @@ export const calendarNavButtonVariants = cva([
   'p-2',
   'rounded-full',
   'cursor-pointer',
+  'tap-target',
   'text-slate-500',
   'dark:text-metal-300',
   'hover:bg-slate-100',
+  'active:bg-slate-100',
   'dark:hover:bg-metal-700',
+  'dark:active:bg-metal-700',
   'transition-colors',
 ]);
 
@@ -38,6 +41,7 @@ export const calendarNavButtonDisabledVariants = cva([
   'opacity-45',
   'cursor-not-allowed',
   'hover:bg-transparent',
+  'active:bg-transparent',
 ]);
 
 export const calendarMonthTitleVariants = cva([

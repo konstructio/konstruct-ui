@@ -39,6 +39,9 @@ export const listVariants = cva(['flex'], {
 export const triggerVariants = cva(
   [
     'cursor-pointer',
+    'relative',
+    'tap-target',
+    'touch-hit-area',
     'h-[27px]',
     'w-fit',
     'block',

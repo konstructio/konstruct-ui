@@ -3,12 +3,14 @@ import { cva } from 'class-variance-authority';
 export const wrapperVariants = cva(
   [
     'cursor-pointer',
+    'tap-target',
     'py-1.5',
     'px-2',
     'last:pb-2',
     'first:pt-2',
     'h-full',
     'hover:bg-purple-100',
+    'active:bg-purple-100',
   ],
   {
     variants: {

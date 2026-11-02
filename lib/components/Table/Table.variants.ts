@@ -16,6 +16,7 @@ export const rowVariants = cva(
     '[&>td]:px-4',
     'text-slate-700',
     'hover:bg-zinc-100',
+    'active:bg-zinc-100',
     'hover:cursor-pointer',
   ],
   {
