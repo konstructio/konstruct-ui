@@ -263,6 +263,58 @@ describe('VirtualizedTable', () => {
     expect(scrollDiv.contains(screen.getByRole('textbox'))).toBe(false);
   });
 
+  it('should keep the outer borders on the visible columns when the edge columns hide below a breakpoint', async () => {
+    const responsiveColumns = columns.map((column, index) =>
+      index === 0 ? { ...column, meta: { hideBelow: 'sm' as const } } : column,
+    );
+
+    await setup(undefined, { columns: responsiveColumns });
+
+    const [hiddenHeader, firstVisibleHeader] = screen.getAllByRole(
+      'columnheader',
+      { hidden: true },
+    );
+
+    expect(hiddenHeader).not.toHaveClass('dark:first:border-l');
+    expect(hiddenHeader).toHaveClass('sm:max-md:dark:border-l');
+    expect(firstVisibleHeader).toHaveClass('max-sm:dark:border-l');
+  });
+
+  it('should render an icon-only copy of an action beside the search below its breakpoint', async () => {
+    await setup(undefined, {
+      showFilter: true,
+      showFilterInput: true,
+      filters: [
+        {
+          type: 'action',
+          label: 'Refresh',
+          leftIcon: <svg />,
+          iconOnlyBelow: 'sm',
+          onClick: vi.fn(),
+        },
+      ],
+    });
+
+    const [iconOnly, labelled] = screen.getAllByRole('button', {
+      name: 'Refresh',
+    });
+
+    expect(iconOnly).toHaveClass('sm:hidden', 'size-10');
+    expect(iconOnly).not.toHaveTextContent('Refresh');
+    expect(labelled).toHaveClass('max-sm:hidden');
+    expect(labelled).toHaveTextContent('Refresh');
+  });
+
+  it('should render a single labelled action when iconOnlyBelow is not set', async () => {
+    await setup(undefined, {
+      showFilter: true,
+      showFilterInput: true,
+      filters: [{ type: 'action', label: 'Refresh', onClick: vi.fn() }],
+    });
+
+    expect(screen.getAllByRole('button', { name: 'Refresh' })).toHaveLength(1);
+  });
+
   it('should reset only the targeted table filters when the reset event is scoped', async () => {
     const user = userEvent.setup();
     const filterOptions = [

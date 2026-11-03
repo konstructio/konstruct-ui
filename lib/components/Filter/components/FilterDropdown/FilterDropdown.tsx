@@ -25,6 +25,7 @@ export const FilterDropdown: FC<Props> = ({
           data-theme={theme}
           side="bottom"
           sideOffset={4}
+          collisionPadding={16}
           align={position === 'right' ? 'end' : 'start'}
           onOpenAutoFocus={(event) => {
             event.preventDefault();

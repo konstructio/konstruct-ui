@@ -4,9 +4,18 @@ import { Fragment } from 'react';
 import { Skeleton } from '@/components/VirtualizedTable/components/Skeleton/Skeleton';
 import { cn } from '@/utils';
 
-import { HIDE_BELOW_CLASS } from '../../constants';
+import {
+  BORDER_EDGE_CLASSES,
+  HIDE_BELOW_CLASS,
+  ROUNDED_BOTTOM_EDGE_CLASSES,
+} from '../../constants';
 import { useTableContext } from '../../contexts';
-import { getPinnedCellProps, isPaginationBarVisible } from '../../utils';
+import { useDisplayedColumnCount } from '../../hooks';
+import {
+  getPinnedCellProps,
+  getResponsiveEdgeClasses,
+  isPaginationBarVisible,
+} from '../../utils';
 import { RowData, RowDataWithMeta } from '../../VirtualizedTable.types';
 import { ExpandableRow } from '../ExpandableRow/ExpandableRow';
 
@@ -36,6 +45,7 @@ export const Body = <TData extends RowData = RowData>({
     isExpandColumnVisible,
     pinnedWidths,
   } = useTableContext<TData>();
+  const [stateBodyRef, displayedColumnCount] = useDisplayedColumnCount();
 
   if (isLoading || tableLoading) {
     return <Skeleton numberOfRows={pageSize} table={table} />;
@@ -60,10 +70,12 @@ export const Body = <TData extends RowData = RowData>({
   })();
 
   if (stateContent) {
-    const colSpan = table.getVisibleLeafColumns().length;
+    const colSpan =
+      displayedColumnCount ?? table.getVisibleLeafColumns().length;
 
     return (
       <tbody
+        ref={stateBodyRef}
         className={cn(
           'kvt-body',
           'text-slate-800',
@@ -122,6 +134,13 @@ export const Body = <TData extends RowData = RowData>({
         const columns = getVisibleCells();
         const isExpanded = enableExpandedRow && row.getIsExpanded();
         const hasExpandedContent = !!meta.expandedRow || !!renderExpandedRow;
+        const hideBelows = columns.map(
+          ({ column }) => column.columnDef.meta?.hideBelow,
+        );
+        const isResponsive =
+          hideBelows.some(Boolean) && columns[0]?.column.id !== '__expand';
+        const hasRoundedBottom =
+          rowIndex === rows.length - 1 && !hasPaginationBar && !isExpanded;
         // null means the expand column is mid-animation: don't apply rounded-bl-lg
         const firstDataColumnIndex: number | null = (() => {
           if (columns[0]?.column.id !== '__expand' || isExpandColumnVisible) {
@@ -172,8 +191,21 @@ export const Body = <TData extends RowData = RowData>({
                       'dark:bg-metal-900',
                       'dark:border-t',
                       'dark:border-metal-700',
-                      'dark:first:border-l',
-                      'dark:last:border-r',
+                      !isResponsive && 'dark:first:border-l',
+                      !isResponsive && 'dark:last:border-r',
+                      isResponsive &&
+                        getResponsiveEdgeClasses(
+                          hideBelows,
+                          columnIndex,
+                          BORDER_EDGE_CLASSES,
+                        ),
+                      isResponsive &&
+                        hasRoundedBottom &&
+                        getResponsiveEdgeClasses(
+                          hideBelows,
+                          columnIndex,
+                          ROUNDED_BOTTOM_EDGE_CLASSES,
+                        ),
                       '[tr[data-actions-open]_&]:bg-zinc-100',
                       'dark:[tr[data-actions-open]_&]:bg-metal-800',
                       {
@@ -190,12 +222,14 @@ export const Body = <TData extends RowData = RowData>({
                       classNameFromMeta,
                       {
                         'rounded-bl-lg':
+                          !isResponsive &&
                           rowIndex === rows.length - 1 &&
                           firstDataColumnIndex !== null &&
                           columnIndex === firstDataColumnIndex &&
                           !hasPaginationBar &&
                           !isExpanded,
                         'rounded-br-lg':
+                          !isResponsive &&
                           rowIndex === rows.length - 1 &&
                           columnIndex === columns.length - 1 &&
                           !hasPaginationBar &&

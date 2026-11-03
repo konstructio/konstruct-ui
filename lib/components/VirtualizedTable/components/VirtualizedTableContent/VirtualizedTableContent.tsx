@@ -130,6 +130,7 @@ export const VirtualizedTableContent = <TData extends RowData>({
                 'w-full border-collapse table-auto',
                 'dark:border-separate dark:border-spacing-0',
                 classNameTable,
+                'has-[[data-empty-row]]:min-w-0!',
               )}
               aria-label={ariaLabel}
             >

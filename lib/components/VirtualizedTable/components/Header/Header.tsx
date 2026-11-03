@@ -3,9 +3,13 @@ import { Column, flexRender } from '@tanstack/react-table';
 import { cn } from '@/utils';
 
 import { ChevronDown, ChevronUp } from '../../assets';
-import { HIDE_BELOW_CLASS } from '../../constants';
+import {
+  BORDER_EDGE_CLASSES,
+  HIDE_BELOW_CLASS,
+  ROUNDED_TOP_EDGE_CLASSES,
+} from '../../constants';
 import { useTableContext } from '../../contexts';
-import { getPinnedCellProps } from '../../utils';
+import { getPinnedCellProps, getResponsiveEdgeClasses } from '../../utils';
 import { RowData } from '../../VirtualizedTable.types';
 
 import { Props } from './Header.types';
@@ -75,79 +79,100 @@ export const Header = <TData extends RowData>({
         </tr>
       )}
 
-      {table.getHeaderGroups().map(({ id, headers }) => (
-        <tr key={id} className="kvt-header-row">
-          {headers.map(({ id, column, getContext }) => {
-            const { hideBelow, headerClassName } = column.columnDef.meta ?? {};
-            const isPinned = !!column.getIsPinned();
-            const pinned = getPinnedCellProps(table, column, pinnedWidths);
+      {table.getHeaderGroups().map(({ id, headers }) => {
+        const hideBelows = headers.map(
+          ({ column }) => column.columnDef.meta?.hideBelow,
+        );
+        const isResponsive = hideBelows.some(Boolean);
 
-            return (
-              <th
-                scope="col"
-                key={id}
-                ref={isPinned ? getPinnedHeaderRef(column.id) : undefined}
-                className={cn(
-                  'kvt-header-cell',
-                  'px-4',
-                  'py-3',
-                  'text-left',
-                  'text-xs',
-                  !headerContent && 'first:rounded-tl-lg',
-                  !headerContent && 'last:rounded-tr-lg',
-                  'border-transparent',
-                  'dark:border-t',
-                  'dark:border-metal-700',
-                  'dark:first:border-l',
-                  'dark:last:border-r',
-                  isPinned && 'bg-slate-100 dark:bg-metal-800',
-                  pinned.className,
-                  hideBelow && HIDE_BELOW_CLASS[hideBelow],
-                  headerClassName,
-                )}
-                style={pinned.style}
-              >
-                <span className="flex items-center gap-2 w-full">
-                  {flexRender(column.columnDef.header, getContext())}
-                  {column.getCanSort() && (
-                    <div
-                      className={cn(
-                        'flex flex-col text-slate-400 justify-center items-center gap-1',
-                        classNameArrows,
-                      )}
-                      role="presentation"
-                    >
-                      <ChevronUp
-                        className={cn(
-                          'w-2 h-2 cursor-pointer',
-                          {
-                            'text-blue-600 dark:text-aurora-500':
-                              column.getIsSorted() === 'asc',
-                          },
-                          classNameActiveArrows,
-                        )}
-                        onClick={() => handleAscSort(column)}
-                      />
+        return (
+          <tr key={id} className="kvt-header-row">
+            {headers.map(({ id, column, getContext }, columnIndex) => {
+              const { hideBelow, headerClassName } =
+                column.columnDef.meta ?? {};
+              const isPinned = !!column.getIsPinned();
+              const pinned = getPinnedCellProps(table, column, pinnedWidths);
 
-                      <ChevronDown
-                        className={cn(
-                          'w-2 h-2 cursor-pointer',
-                          {
-                            'text-blue-600 dark:text-aurora-500':
-                              column.getIsSorted() === 'desc',
-                          },
-                          classNameActiveArrows,
-                        )}
-                        onClick={() => handleDescSort(column)}
-                      />
-                    </div>
+              return (
+                <th
+                  scope="col"
+                  key={id}
+                  ref={isPinned ? getPinnedHeaderRef(column.id) : undefined}
+                  className={cn(
+                    'kvt-header-cell',
+                    'px-4',
+                    'py-3',
+                    'text-left',
+                    'text-xs',
+                    !headerContent && !isResponsive && 'first:rounded-tl-lg',
+                    !headerContent && !isResponsive && 'last:rounded-tr-lg',
+                    !headerContent &&
+                      isResponsive &&
+                      getResponsiveEdgeClasses(
+                        hideBelows,
+                        columnIndex,
+                        ROUNDED_TOP_EDGE_CLASSES,
+                      ),
+                    'border-transparent',
+                    'dark:border-t',
+                    'dark:border-metal-700',
+                    !isResponsive && 'dark:first:border-l',
+                    !isResponsive && 'dark:last:border-r',
+                    isResponsive &&
+                      getResponsiveEdgeClasses(
+                        hideBelows,
+                        columnIndex,
+                        BORDER_EDGE_CLASSES,
+                      ),
+                    isPinned && 'bg-slate-100 dark:bg-metal-800',
+                    pinned.className,
+                    hideBelow && HIDE_BELOW_CLASS[hideBelow],
+                    headerClassName,
                   )}
-                </span>
-              </th>
-            );
-          })}
-        </tr>
-      ))}
+                  style={pinned.style}
+                >
+                  <span className="flex items-center gap-2 w-full">
+                    {flexRender(column.columnDef.header, getContext())}
+                    {column.getCanSort() && (
+                      <div
+                        className={cn(
+                          'flex flex-col text-slate-400 justify-center items-center gap-1',
+                          classNameArrows,
+                        )}
+                        role="presentation"
+                      >
+                        <ChevronUp
+                          className={cn(
+                            'w-2 h-2 cursor-pointer',
+                            {
+                              'text-blue-600 dark:text-aurora-500':
+                                column.getIsSorted() === 'asc',
+                            },
+                            classNameActiveArrows,
+                          )}
+                          onClick={() => handleAscSort(column)}
+                        />
+
+                        <ChevronDown
+                          className={cn(
+                            'w-2 h-2 cursor-pointer',
+                            {
+                              'text-blue-600 dark:text-aurora-500':
+                                column.getIsSorted() === 'desc',
+                            },
+                            classNameActiveArrows,
+                          )}
+                          onClick={() => handleDescSort(column)}
+                        />
+                      </div>
+                    )}
+                  </span>
+                </th>
+              );
+            })}
+          </tr>
+        );
+      })}
     </thead>
   );
 };
