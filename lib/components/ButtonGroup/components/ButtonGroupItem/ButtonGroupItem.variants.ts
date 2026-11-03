@@ -45,6 +45,61 @@ export const buttonGroupItemVariants = cva(
 );
 
 /**
+ * Outline item variants - bordered segment, selected one outlined in aurora
+ */
+export const buttonGroupOutlineItemVariants = cva(
+  [
+    'flex',
+    'items-center',
+    'h-9',
+    'px-4',
+    'py-2',
+    '-ml-px',
+    'first:ml-0',
+    'border',
+    'bg-metal-800',
+    'text-sm',
+    'font-medium',
+    'leading-5',
+    'tracking-[0.1px]',
+    'whitespace-nowrap',
+    'cursor-pointer',
+    'select-none',
+    'transition-colors',
+    'focus:outline-none',
+    'focus-visible:ring-2',
+    'focus-visible:ring-aurora-500',
+    'focus-visible:ring-inset',
+  ],
+  {
+    variants: {
+      selected: {
+        true: 'relative z-10 border-aurora-500 text-aurora-500',
+        false: 'border-metal-700 text-metal-300 hover:text-metal-50',
+      },
+      disabled: {
+        true: 'pointer-events-none opacity-50',
+        false: '',
+      },
+      isFirst: {
+        true: 'rounded-l',
+        false: '',
+      },
+      isLast: {
+        true: 'rounded-r',
+        false: '',
+      },
+    },
+    defaultVariants: {
+      selected: false,
+      disabled: false,
+      isFirst: false,
+      isLast: false,
+    },
+  },
+);
+
+/**
  * Inner content container (the content layer above the pill)
  */
 export const buttonGroupItemContentVariants = cva(

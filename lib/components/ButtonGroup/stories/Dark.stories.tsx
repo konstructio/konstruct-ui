@@ -32,6 +32,21 @@ export const Default: Story = {
       </section>
 
       <section className="flex flex-col gap-3">
+        <Typography component="h6">Outline</Typography>
+        <ButtonGroupComponent
+          name="resource-type"
+          variant="outline"
+          options={[
+            { value: 'pods', label: 'Pods' },
+            { value: 'deployments', label: 'Deployments' },
+            { value: 'services', label: 'Services' },
+            { value: 'ingresses', label: 'Ingresses' },
+          ]}
+          defaultValue="pods"
+        />
+      </section>
+
+      <section className="flex flex-col gap-3">
         <Typography component="h6">With Icons</Typography>
         <ButtonGroupComponent
           name="processor-icons"

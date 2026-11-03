@@ -9,6 +9,7 @@ import {
   buttonGroupItemContentVariants,
   buttonGroupItemVariants,
   buttonGroupLabelVariants,
+  buttonGroupOutlineItemVariants,
 } from './ButtonGroupItem.variants';
 
 const getClipPath = (
@@ -46,84 +47,116 @@ export const ButtonGroupItem: FC<Props> = memo(
     labelClassName,
     option,
     value,
+    variant,
     onKeyDown,
     onSelect,
-  }) => (
-    <button
-      key={option.value}
-      type="button"
-      role="radio"
-      aria-checked={isSelected}
-      data-value={option.value}
-      disabled={isDisabled}
-      tabIndex={isSelected || index === 0 ? 0 : -1}
-      onClick={() => !isDisabled && onSelect(value)}
-      onKeyDown={(e) => onKeyDown(e, index)}
-      className={cn(
-        buttonGroupItemVariants({ disabled: isDisabled, isFirst, isLast }),
-        'relative',
-        className,
-      )}
-    >
-      <div
+  }) => {
+    if (variant === 'outline') {
+      return (
+        <button
+          type="button"
+          role="radio"
+          aria-checked={isSelected}
+          data-value={option.value}
+          disabled={isDisabled}
+          tabIndex={isSelected || index === 0 ? 0 : -1}
+          onClick={() => !isDisabled && onSelect(value)}
+          onKeyDown={(e) => onKeyDown(e, index)}
+          className={cn(
+            buttonGroupOutlineItemVariants({
+              selected: isSelected,
+              disabled: isDisabled,
+              isFirst,
+              isLast,
+            }),
+            className,
+          )}
+        >
+          <span className={cn('flex items-center gap-2', labelClassName)}>
+            {option.icon}
+            {option.label}
+          </span>
+        </button>
+      );
+    }
+
+    return (
+      <button
+        key={option.value}
+        type="button"
+        role="radio"
+        aria-checked={isSelected}
+        data-value={option.value}
+        disabled={isDisabled}
+        tabIndex={isSelected || index === 0 ? 0 : -1}
+        onClick={() => !isDisabled && onSelect(value)}
+        onKeyDown={(e) => onKeyDown(e, index)}
         className={cn(
-          buttonGroupItemContentVariants({ hasDescription }),
+          buttonGroupItemVariants({ disabled: isDisabled, isFirst, isLast }),
           'relative',
-          contentClassName,
+          className,
         )}
       >
-        <span className="relative w-full">
-          <span
-            className={cn(
-              buttonGroupLabelVariants({ selected: false, labelAlign }),
-              labelClassName,
-            )}
-          >
-            <span className="flex items-center gap-2">
-              {option.icon}
-              {option.label}
+        <div
+          className={cn(
+            buttonGroupItemContentVariants({ hasDescription }),
+            'relative',
+            contentClassName,
+          )}
+        >
+          <span className="relative w-full">
+            <span
+              className={cn(
+                buttonGroupLabelVariants({ selected: false, labelAlign }),
+                labelClassName,
+              )}
+            >
+              <span className="flex items-center gap-2">
+                {option.icon}
+                {option.label}
+              </span>
+              {option.secondaryLabel && <span>{option.secondaryLabel}</span>}
             </span>
-            {option.secondaryLabel && <span>{option.secondaryLabel}</span>}
+
+            <motion.span
+              className={cn(
+                buttonGroupLabelVariants({ selected: true, labelAlign }),
+                'absolute inset-0',
+                labelClassName,
+              )}
+              aria-hidden="true"
+              initial={false}
+              animate={{
+                clipPath: getClipPath(isSelected, animationDirection),
+              }}
+              transition={{
+                type: 'tween',
+                ease: 'linear',
+                duration,
+              }}
+            >
+              <span className="flex items-center gap-2">
+                {option.icon}
+                {option.label}
+              </span>
+              {option.secondaryLabel && <span>{option.secondaryLabel}</span>}
+            </motion.span>
           </span>
 
-          <motion.span
-            className={cn(
-              buttonGroupLabelVariants({ selected: true, labelAlign }),
-              'absolute inset-0',
-              labelClassName,
-            )}
-            aria-hidden="true"
-            initial={false}
-            animate={{
-              clipPath: getClipPath(isSelected, animationDirection),
-            }}
-            transition={{
-              type: 'tween',
-              ease: 'linear',
-              duration,
-            }}
-          >
-            <span className="flex items-center gap-2">
-              {option.icon}
-              {option.label}
+          {option.description && (
+            <span
+              className={cn(
+                buttonGroupDescriptionVariants({ descriptionAlign }),
+                descriptionClassName,
+              )}
+            >
+              {option.description}
             </span>
-            {option.secondaryLabel && <span>{option.secondaryLabel}</span>}
-          </motion.span>
-        </span>
-
-        {option.description && (
-          <span
-            className={cn(
-              buttonGroupDescriptionVariants({ descriptionAlign }),
-              descriptionClassName,
-            )}
-          >
-            {option.description}
-          </span>
-        )}
-      </div>
-    </button>
-  ),
+          )}
+        </div>
+      </button>
+    );
+  },
 );
 
 ButtonGroupItem.displayName = 'KonstructButtonGroupItem';

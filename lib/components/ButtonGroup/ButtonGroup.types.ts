@@ -5,6 +5,11 @@ import { Theme } from '@/domain/theme';
 
 import { buttonGroupVariants } from './ButtonGroup.variants';
 
+/** Visual style: animated filled pill, or bordered segments with the selected one outlined */
+export type ButtonGroupVariant = NonNullable<
+  VariantProps<typeof buttonGroupVariants>['variant']
+>;
+
 /** Horizontal text alignment for label and description */
 export type TextAlign = 'left' | 'center' | 'right';
 
