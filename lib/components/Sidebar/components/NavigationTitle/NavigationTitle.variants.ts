@@ -15,6 +15,8 @@ export const navigationTitleButtonVariants = cva([
   'flex',
   'w-full',
   'cursor-pointer',
+  'tap-target',
+  'active:bg-kubefirst-dark-blue-800',
   'items-center',
   'justify-between',
   'gap-2',
