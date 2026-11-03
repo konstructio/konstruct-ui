@@ -71,6 +71,7 @@ export const ButtonGroup: FC<Props> = ({
   requiredClassName,
   theme,
   value,
+  variant,
   wrapperClassName,
   onValueChange,
 }) => {
@@ -127,9 +128,9 @@ export const ButtonGroup: FC<Props> = ({
         aria-invalid={hasError || undefined}
         aria-describedby={describedBy}
         aria-required={isRequired || undefined}
-        className={cn(buttonGroupVariants({ disabled }), className)}
+        className={cn(buttonGroupVariants({ disabled, variant }), className)}
       >
-        {selectedIndex >= 0 && (
+        {variant !== 'outline' && selectedIndex >= 0 && (
           <motion.div
             aria-hidden="true"
             className={cn(buttonGroupPillVariants(), pillClassName)}
@@ -170,6 +171,7 @@ export const ButtonGroup: FC<Props> = ({
               labelClassName={itemLabelClassName}
               option={option}
               value={option.value}
+              variant={variant ?? undefined}
               onKeyDown={handleKeyDown}
               onSelect={handleSelect}
             />

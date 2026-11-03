@@ -485,4 +485,40 @@ describe('ButtonGroup', () => {
       expect(icons.length).toBeGreaterThanOrEqual(1);
     });
   });
+  describe('outline variant', () => {
+    it('should outline the selected segment without the animated pill', async () => {
+      const { component, findRadio } = setup({
+        variant: 'outline',
+        defaultValue: 'option2',
+      });
+
+      expect(await findRadio('Option 2')).toHaveClass('border-aurora-500');
+      expect(await findRadio('Option 1')).toHaveClass('border-metal-700');
+      expect(
+        component.querySelector('[role="radiogroup"] > [aria-hidden="true"]'),
+      ).toBeNull();
+    });
+
+    it('should select a segment on click', async () => {
+      const onValueChange = vi.fn();
+      const { findRadio, user } = setup({ variant: 'outline', onValueChange });
+
+      await user.click(await findRadio('Option 3'));
+
+      expect(onValueChange).toHaveBeenCalledWith('option3');
+      expect(await findRadio('Option 3')).toHaveAttribute(
+        'aria-checked',
+        'true',
+      );
+    });
+
+    it('should not have accessibility violations', async () => {
+      const { component } = setup({
+        variant: 'outline',
+        defaultValue: 'option1',
+      });
+
+      expect(await axe(component)).toHaveNoViolations();
+    });
+  });
 });

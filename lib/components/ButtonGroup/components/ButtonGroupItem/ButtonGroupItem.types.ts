@@ -1,6 +1,10 @@
 import { KeyboardEvent } from 'react';
 
-import { ButtonGroupOption, TextAlign } from '../../ButtonGroup.types';
+import {
+  ButtonGroupOption,
+  ButtonGroupVariant,
+  TextAlign,
+} from '../../ButtonGroup.types';
 import { AnimationDirection } from '../../hooks';
 
 export type Props = {
@@ -20,6 +24,7 @@ export type Props = {
   labelClassName?: string;
   option: ButtonGroupOption;
   value: string;
+  variant?: ButtonGroupVariant;
   onKeyDown: (event: KeyboardEvent<HTMLButtonElement>, index: number) => void;
   onSelect: (value: string) => void;
 };

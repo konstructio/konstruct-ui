@@ -36,12 +36,17 @@ export const buttonGroupVariants = cva(
   ],
   {
     variants: {
+      variant: {
+        pill: '',
+        outline: ['w-fit', 'bg-transparent', 'rounded'],
+      },
       disabled: {
         true: 'opacity-50 cursor-not-allowed',
         false: '',
       },
     },
     defaultVariants: {
+      variant: 'pill',
       disabled: false,
     },
   },
