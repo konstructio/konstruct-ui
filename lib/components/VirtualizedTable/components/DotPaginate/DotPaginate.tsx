@@ -20,7 +20,8 @@ const PageButton = memo(
         type="button"
         onClick={() => handlePage(index)}
         className={cn(
-          'px-2.5 py-1 rounded-lg text-blue-600 cursor-pointer dark:text-aurora-500 outline-none focus-visible:ring-1 focus-visible:ring-aurora-500',
+          'inline-flex items-center justify-center px-2.5 py-1 rounded-lg text-blue-600 cursor-pointer dark:text-aurora-500 outline-none focus-visible:ring-1 focus-visible:ring-aurora-500',
+          'tap-target pointer-coarse:min-h-11 pointer-coarse:min-w-11 active:bg-blue-50 dark:active:bg-metal-700',
           {
             'bg-blue-600 text-white font-semibold dark:bg-aurora-500 dark:text-metal-800':
               index === currentPage,
@@ -59,7 +60,7 @@ const NavigationButton = memo(
       <li className="flex items-center justify-center">
         <button
           type="button"
-          className="rounded outline-none focus-visible:ring-1 focus-visible:ring-aurora-500"
+          className="flex items-center justify-center rounded outline-none focus-visible:ring-1 focus-visible:ring-aurora-500 tap-target pointer-coarse:min-h-11 pointer-coarse:min-w-11"
           onClick={onClick}
           disabled={disabled}
         >

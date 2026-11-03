@@ -263,6 +263,46 @@ describe('VirtualizedTable', () => {
     expect(scrollDiv.contains(screen.getByRole('textbox'))).toBe(false);
   });
 
+  it('should sort from the header button and expose the direction with aria-sort', async () => {
+    const user = userEvent.setup();
+
+    await setup();
+
+    const nameHeader = screen.getByRole('columnheader', { name: 'Name' });
+    const sortButton = within(nameHeader).getByRole('button', { name: 'Name' });
+    const getFirstName = () => screen.getAllByRole('row')[1];
+
+    expect(nameHeader).toHaveAttribute('aria-sort', 'none');
+    expect(sortButton).toHaveClass('tap-target', 'touch-hit-area');
+
+    await user.click(sortButton);
+
+    expect(nameHeader).toHaveAttribute('aria-sort', 'ascending');
+    expect(getFirstName()).toHaveTextContent('Alpha');
+
+    await user.click(sortButton);
+
+    expect(nameHeader).toHaveAttribute('aria-sort', 'descending');
+    expect(getFirstName()).toHaveTextContent('Gamma');
+  });
+
+  it('should keep the header as plain text when the column cannot be sorted', async () => {
+    await setup(undefined, {
+      columns: columns.map((column) => ({ ...column, enableSorting: false })),
+    });
+
+    const nameHeader = screen.getByRole('columnheader', { name: 'Name' });
+
+    expect(nameHeader).not.toHaveAttribute('aria-sort');
+    expect(within(nameHeader).queryByRole('button')).toBeNull();
+  });
+
+  it('should not have accessibility violations with sortable headers', async () => {
+    const { component } = await setup();
+
+    expect(await axe(component)).toHaveNoViolations();
+  });
+
   it('should keep the outer borders on the visible columns when the edge columns hide below a breakpoint', async () => {
     const responsiveColumns = columns.map((column, index) =>
       index === 0 ? { ...column, meta: { hideBelow: 'sm' as const } } : column,

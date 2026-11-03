@@ -59,6 +59,16 @@ describe('Badge', () => {
     expect(badge).toHaveAttribute('data-state', 'hidden');
   });
 
+  it('should give the dismiss button a 44px touch target', async () => {
+    const { getButtonDismiss } = setup({ dismissible: true });
+
+    expect(await getButtonDismiss()).toHaveClass(
+      'relative',
+      'tap-target',
+      'touch-hit-area',
+    );
+  });
+
   it('should show the loading icon when the loading prop is true', async () => {
     const { getBadge } = setup({ loading: true });
 

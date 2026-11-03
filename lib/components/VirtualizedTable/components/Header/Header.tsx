@@ -14,6 +14,12 @@ import { RowData } from '../../VirtualizedTable.types';
 
 import { Props } from './Header.types';
 
+const ARIA_SORT = {
+  asc: 'ascending',
+  desc: 'descending',
+  none: 'none',
+} as const;
+
 export const Header = <TData extends RowData>({
   className,
   classNameArrows,
@@ -23,12 +29,8 @@ export const Header = <TData extends RowData>({
   const { table, headerContent, onSorting, pinnedWidths, getPinnedHeaderRef } =
     useTableContext<TData>();
 
-  const handleAscSort = (column: Column<TData, unknown>) => {
-    onSorting([{ id: column.id, desc: false }]);
-  };
-
-  const handleDescSort = (column: Column<TData, unknown>) => {
-    onSorting([{ id: column.id, desc: true }]);
+  const handleToggleSort = (column: Column<TData, unknown>) => {
+    onSorting([{ id: column.id, desc: column.getIsSorted() === 'asc' }]);
   };
 
   return (
@@ -92,6 +94,9 @@ export const Header = <TData extends RowData>({
                 column.columnDef.meta ?? {};
               const isPinned = !!column.getIsPinned();
               const pinned = getPinnedCellProps(table, column, pinnedWidths);
+              const canSort = column.getCanSort();
+              const sortDirection = column.getIsSorted();
+              const label = flexRender(column.columnDef.header, getContext());
 
               return (
                 <th
@@ -130,43 +135,56 @@ export const Header = <TData extends RowData>({
                     headerClassName,
                   )}
                   style={pinned.style}
+                  aria-sort={
+                    canSort ? ARIA_SORT[sortDirection || 'none'] : undefined
+                  }
                 >
-                  <span className="flex items-center gap-2 w-full">
-                    {flexRender(column.columnDef.header, getContext())}
-                    {column.getCanSort() && (
-                      <div
+                  {canSort ? (
+                    <button
+                      type="button"
+                      className={cn(
+                        'relative flex w-full items-center gap-2 text-left',
+                        'cursor-pointer rounded-xs outline-none [text-transform:inherit]',
+                        'tap-target touch-hit-area',
+                        'focus-visible:ring-1 focus-visible:ring-aurora-500',
+                      )}
+                      onClick={() => handleToggleSort(column)}
+                    >
+                      {label}
+                      <span
                         className={cn(
                           'flex flex-col text-slate-400 justify-center items-center gap-1',
                           classNameArrows,
                         )}
-                        role="presentation"
                       >
                         <ChevronUp
                           className={cn(
-                            'w-2 h-2 cursor-pointer',
+                            'w-2 h-2',
                             {
                               'text-blue-600 dark:text-aurora-500':
-                                column.getIsSorted() === 'asc',
+                                sortDirection === 'asc',
                             },
                             classNameActiveArrows,
                           )}
-                          onClick={() => handleAscSort(column)}
                         />
 
                         <ChevronDown
                           className={cn(
-                            'w-2 h-2 cursor-pointer',
+                            'w-2 h-2',
                             {
                               'text-blue-600 dark:text-aurora-500':
-                                column.getIsSorted() === 'desc',
+                                sortDirection === 'desc',
                             },
                             classNameActiveArrows,
                           )}
-                          onClick={() => handleDescSort(column)}
                         />
-                      </div>
-                    )}
-                  </span>
+                      </span>
+                    </button>
+                  ) : (
+                    <span className="flex items-center gap-2 w-full">
+                      {label}
+                    </span>
+                  )}
                 </th>
               );
             })}

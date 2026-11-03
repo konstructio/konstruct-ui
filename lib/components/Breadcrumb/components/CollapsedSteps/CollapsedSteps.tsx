@@ -27,6 +27,7 @@ export const CollapsedSteps: FC<Props> = ({ label, steps }) => {
             'flex items-center rounded-xs text-gray-400 hover:text-gray-500',
             'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aurora-500',
             'dark:hover:text-gray-300 cursor-pointer',
+            'relative tap-target touch-hit-area',
           )}
         >
           <MoreHorizontal className="w-5 h-5" aria-hidden="true" />
