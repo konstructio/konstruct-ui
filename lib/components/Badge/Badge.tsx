@@ -91,7 +91,7 @@ export const Badge: FC<Props> = ({
       ref={badgeRef}
       className={cn(badgeVariants({ variant, size, className }), {
         'select-none': !isSelectable,
-        'cursor-pointer tap-target outline-none focus-visible:ring-1 focus-visible:ring-aurora-500 active:scale-95 motion-reduce:active:scale-100':
+        'cursor-pointer tap-target outline-none focus-visible:ring-1 focus-visible:ring-aurora-500 pointer-coarse:motion-safe:active:scale-95':
           onClick,
       })}
       role={onClick ? 'button' : undefined}
