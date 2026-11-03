@@ -57,7 +57,9 @@ describe('Button', () => {
     const { button } = setup({ shape: 'circle' });
 
     expect(button).toHaveClass('tap-target', 'touch-hit-area', 'relative');
-    expect(button.className).toContain('active:scale-[0.97]');
+    expect(button.className).toContain(
+      'pointer-coarse:motion-safe:active:scale-[0.97]',
+    );
   });
 
   it('should keep a consumer positioning over the hit area context', () => {
