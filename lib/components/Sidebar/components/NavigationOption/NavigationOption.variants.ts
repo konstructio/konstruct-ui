@@ -16,6 +16,7 @@ export const navigationOptionVariants = cva(
     'group-data-[mode=expanded]/sidebar:[&>a]:py-1.5',
     'cursor-pointer',
     'tap-target',
+    'pointer-coarse:min-h-11',
     'flex',
     'font-normal',
     'gap-4',

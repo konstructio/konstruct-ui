@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import { MotionGlobalConfig } from 'motion/react';
@@ -359,6 +359,24 @@ describe('Sidebar', () => {
       ).not.toBeInTheDocument();
     });
 
+    it('gives the hamburger, collapse trigger and options touch targets', () => {
+      renderWithGroups('drawer');
+
+      expect(
+        screen.getByRole('button', { name: /open navigation/i }),
+      ).toHaveClass('tap-target', 'touch-hit-area');
+
+      cleanup();
+      renderWithGroups('expanded');
+
+      expect(
+        screen.getByRole('button', { name: /collapse navigation/i }),
+      ).toHaveClass('relative', 'tap-target', 'touch-hit-area');
+      expect(
+        screen.getByRole('button', { name: 'Clusters' }).closest('li'),
+      ).toHaveClass('pointer-coarse:min-h-11');
+    });
+
     it('renders a hamburger trigger and hides the aside in drawer mode', async () => {
       renderWithGroups('drawer');
 
@@ -490,6 +508,15 @@ describe('Sidebar', () => {
       await waitFor(() => {
         expect(screen.getByText('Instances')).toBeVisible();
       });
+    });
+
+    it('should give the title a pressed state without double-tap zoom', () => {
+      renderCollapsible();
+
+      expect(screen.getByRole('button', { name: 'Compute' })).toHaveClass(
+        'tap-target',
+        'active:bg-kubefirst-dark-blue-800',
+      );
     });
 
     it('should point the title at the list it controls', () => {
