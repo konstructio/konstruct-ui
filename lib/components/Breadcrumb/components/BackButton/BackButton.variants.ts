@@ -13,5 +13,5 @@ export const backButtonVariants = cva([
   'dark:hover:text-gray-300',
   'focus-visible:outline-2',
   'focus-visible:outline-offset-2',
-  'focus-visible:outline-gray-500',
+  'focus-visible:outline-aurora-500',
 ]);

@@ -200,6 +200,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
                 'absolute',
                 'cursor-pointer',
                 'right-3',
+                'rounded outline-none focus-visible:ring-1 focus-visible:ring-aurora-500',
                 'text-slate-400',
                 'top-1/2',
               )}

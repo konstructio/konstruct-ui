@@ -108,6 +108,10 @@ export const toastCloseButtonVariants = cva(
     'text-white',
     'tap-target',
     'touch-hit-area',
+    'rounded',
+    'outline-none',
+    'focus-visible:ring-1',
+    'focus-visible:ring-aurora-500',
   ],
   {
     variants: {

@@ -25,6 +25,8 @@ export const createDayPickerClassNames = (custom?: DayPickerClassNames) => ({
     'dark:text-white',
     'focus:outline-none',
     'focus-visible:outline-none',
+    'focus-visible:ring-1',
+    'focus-visible:ring-aurora-500',
     custom?.dayButton,
   ),
   day: cn(

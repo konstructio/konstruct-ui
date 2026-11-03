@@ -79,6 +79,8 @@ export const buttonDismissVariants = cva(
     'items-center',
     'justify-center',
     'focus:outline-none',
+    'focus-visible:ring-1',
+    'focus-visible:ring-aurora-500',
     'text-inherit',
     'cursor-pointer',
     'text-gray-700',

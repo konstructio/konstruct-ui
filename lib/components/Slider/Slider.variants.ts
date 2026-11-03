@@ -31,6 +31,8 @@ export const thumbVariants = cva(
     'rounded-full',
     'cursor-pointer',
     'focus-visible:outline-none',
+    'focus-visible:ring-2',
+    'focus-visible:ring-aurora-500',
     'shadow-md',
     'bg-white',
     'border',
