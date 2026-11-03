@@ -38,6 +38,7 @@ export const Light = {
     required: false,
     labelClassName: '',
     isLoading: false,
+    showSelectedCheck: false,
     name: 'select',
   },
   render: function SelectStory(args) {

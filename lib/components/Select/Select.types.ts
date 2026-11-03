@@ -132,6 +132,8 @@ export type Props = VariantProps<typeof selectVariants> &
     portalClassName?: string;
     searchable?: boolean;
     showSearchIcon?: boolean;
+    /** Ticks the option matching the controlled `value` in the list */
+    showSelectedCheck?: boolean;
     theme?: Theme;
     value?: string;
     wrapperClassName?: string;

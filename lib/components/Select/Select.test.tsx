@@ -406,6 +406,50 @@ describe('Select', () => {
     });
   });
 
+  describe('selected option', () => {
+    it('should mark the controlled value as the selected option', async () => {
+      const { findComboBox, user } = setup({ value: 'option-2' });
+
+      await user.click(await findComboBox());
+
+      expect(
+        await screen.findByRole('option', { name: 'Option 2' }),
+      ).toHaveAttribute('aria-selected', 'true');
+      expect(screen.getByRole('option', { name: 'Option 1' })).toHaveAttribute(
+        'aria-selected',
+        'false',
+      );
+    });
+
+    it('should tick the selected option only when showSelectedCheck is set', async () => {
+      const { findComboBox, user } = setup({
+        value: 'option-2',
+        showSelectedCheck: true,
+      });
+
+      await user.click(await findComboBox());
+
+      const selected = await screen.findByRole('option', { name: 'Option 2' });
+
+      expect(selected.querySelector('svg')).not.toBeNull();
+      expect(
+        screen.getByRole('option', { name: 'Option 1' }).querySelector('svg'),
+      ).toBeNull();
+    });
+
+    it('should not tick the selected option by default', async () => {
+      const { findComboBox, user } = setup({ value: 'option-2' });
+
+      await user.click(await findComboBox());
+
+      expect(
+        (await screen.findByRole('option', { name: 'Option 2' })).querySelector(
+          'svg',
+        ),
+      ).toBeNull();
+    });
+  });
+
   describe('select inside a form', () => {
     const mockSubmit = vi.fn();
     const mockOnSubmit = (e: FormEvent<HTMLFormElement>) => {

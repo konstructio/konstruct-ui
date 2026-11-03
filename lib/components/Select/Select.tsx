@@ -49,6 +49,7 @@ export const Select: FC<Props> = forwardRef<ComponentRef<'input'>, Props>(
       helperText,
       helperTextClassName,
       highlightSearch,
+      showSelectedCheck,
       id,
       mainWrapperClassName,
       name,
@@ -86,6 +87,7 @@ export const Select: FC<Props> = forwardRef<ComponentRef<'input'>, Props>(
       <SelectProvider
         highlightSearch={highlightSearch}
         name={name}
+        showSelectedCheck={showSelectedCheck}
         value={value}
         options={flatOptions}
         onBlur={onBlur}

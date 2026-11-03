@@ -22,6 +22,7 @@ export const SelectProvider: FC<
   PropsWithChildren & {
     highlightSearch?: boolean;
     name?: string;
+    showSelectedCheck?: boolean;
     value?: string;
     options: Option[];
     onChange?: SelectProps['onChange'];
@@ -33,6 +34,7 @@ export const SelectProvider: FC<
   value,
   name,
   highlightSearch = false,
+  showSelectedCheck = false,
   options: defaultOptions,
   onChange,
   onBlur,
@@ -105,6 +107,7 @@ export const SelectProvider: FC<
         page,
         options,
         isTyping,
+        showSelectedCheck,
         setOptions,
         setPage,
         setCanContinueFetching,
