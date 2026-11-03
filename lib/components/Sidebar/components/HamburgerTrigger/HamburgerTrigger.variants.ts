@@ -16,5 +16,5 @@ export const hamburgerTriggerVariants = cva([
   'cursor-pointer',
   'focus:outline-none',
   'focus-visible:ring-2',
-  'focus-visible:ring-white/40',
+  'focus-visible:ring-aurora-500',
 ]);

@@ -16,5 +16,5 @@ export const collapseTriggerVariants = cva([
   'active:bg-metal-800',
   'focus:outline-none',
   'focus-visible:ring-2',
-  'focus-visible:ring-white/40',
+  'focus-visible:ring-aurora-500',
 ]);

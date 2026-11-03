@@ -108,8 +108,12 @@ export const Alert: FC<Props> = ({
       {action ? <div className="shrink-0 self-center">{action}</div> : null}
 
       {showCloseButton && (
-        <button type="button" onClick={handleCloseClick}>
-          <X className={cn(closeButtonVariants({ type }))} />
+        <button
+          type="button"
+          className={cn(closeButtonVariants({ type }))}
+          onClick={handleCloseClick}
+        >
+          <X className="size-4" />
           <VisuallyHidden>Dismiss alert</VisuallyHidden>
         </button>
       )}
