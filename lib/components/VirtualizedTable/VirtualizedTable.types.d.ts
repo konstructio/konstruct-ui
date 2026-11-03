@@ -108,6 +108,11 @@ export type ActionFilterConfig = {
     leftIcon?: ReactNode;
     /** Icon rendered after the label */
     rightIcon?: ReactNode;
+    /**
+     * Below this Tailwind breakpoint the action renders as an icon-only
+     * button as tall as the search input, beside it, labelled by `label`.
+     */
+    iconOnlyBelow?: HideBelowBreakpoint;
 } & Omit<ButtonProps, 'children' | 'type'>;
 /**
  * Configuration for a time filter with optional presets and a TimePicker.

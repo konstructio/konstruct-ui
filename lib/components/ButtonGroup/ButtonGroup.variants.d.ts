@@ -10,5 +10,6 @@ export declare const buttonGroupWrapperVariants: (props?: import('class-variance
  * Group container variants - no outer border, just flex container
  */
 export declare const buttonGroupVariants: (props?: ({
+    variant?: "pill" | "outline" | null | undefined;
     disabled?: boolean | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;

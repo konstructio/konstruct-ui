@@ -10,6 +10,7 @@ export type SelectContextType = {
     page: number;
     options: Option[];
     isTyping?: boolean;
+    showSelectedCheck: boolean;
     setOptions: Dispatch<SetStateAction<Option[]>>;
     setPage: Dispatch<SetStateAction<number>>;
     setCanContinueFetching: Dispatch<SetStateAction<boolean>>;

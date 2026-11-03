@@ -7,6 +7,15 @@ export declare const buttonGroupItemVariants: (props?: ({
     isLast?: boolean | null | undefined;
 } & import('class-variance-authority/types').ClassProp) | undefined) => string;
 /**
+ * Outline item variants - bordered segment, selected one outlined in aurora
+ */
+export declare const buttonGroupOutlineItemVariants: (props?: ({
+    selected?: boolean | null | undefined;
+    disabled?: boolean | null | undefined;
+    isFirst?: boolean | null | undefined;
+    isLast?: boolean | null | undefined;
+} & import('class-variance-authority/types').ClassProp) | undefined) => string;
+/**
  * Inner content container (the content layer above the pill)
  */
 export declare const buttonGroupItemContentVariants: (props?: ({
