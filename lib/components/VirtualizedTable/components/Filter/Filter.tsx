@@ -7,12 +7,14 @@ import { resetEvent } from '@/components/Filter/events';
 import { Input } from '@/components/Input/Input';
 import { cn } from '@/utils';
 
+import { HIDE_BELOW_CLASS, SHOW_BELOW_CLASS } from '../../constants';
 import { useTableContext } from '../../contexts';
+import { useIsFlexWrapped } from '../../hooks';
 import {
   VirtualizedTableEvent,
   VirtualizedTableEventDetail,
 } from '../../events';
-import { FilterConfig } from '../../VirtualizedTable.types';
+import { ActionFilterConfig, FilterConfig } from '../../VirtualizedTable.types';
 import { getTableId } from '../../utils';
 
 import { Option, Props } from './Filter.types';
@@ -29,6 +31,8 @@ export const Filter: FC<Props> = ({
   closeOnApply = true,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isWrapped = useIsFlexWrapped(containerRef);
   const tableId = getTableId(id);
   const {
     termOfSearch,
@@ -51,6 +55,10 @@ export const Filter: FC<Props> = ({
     })) ??
     [];
   const resolvedFilters: FilterConfig[] = [...baseFilters, ...(actions ?? [])];
+  const iconOnlyActions = resolvedFilters.filter(
+    (filterConfig): filterConfig is ActionFilterConfig =>
+      filterConfig.type === 'action' && !!filterConfig.iconOnlyBelow,
+  );
 
   const handleChangeMultiselectFilter = (key: string, selected: Option[]) => {
     onSelectMultiselect(
@@ -116,6 +124,8 @@ export const Filter: FC<Props> = ({
         variant = 'secondary',
         leftIcon,
         rightIcon,
+        iconOnlyBelow,
+        className,
         type: _,
         ...buttonProps
       } = filterConfig;
@@ -125,6 +135,10 @@ export const Filter: FC<Props> = ({
           key={label}
           appearance={appearance}
           variant={variant}
+          className={cn(
+            iconOnlyBelow && HIDE_BELOW_CLASS[iconOnlyBelow],
+            className,
+          )}
           {...buttonProps}
         >
           {leftIcon}
@@ -134,7 +148,11 @@ export const Filter: FC<Props> = ({
       );
     }
 
-    const { key, label, position = 'right' } = filterConfig;
+    const {
+      key,
+      label,
+      position = isWrapped ? 'left' : 'right',
+    } = filterConfig;
 
     if (filterConfig.type === 'textMultiSelect') {
       return (
@@ -230,22 +248,58 @@ export const Filter: FC<Props> = ({
     );
   };
 
+  const renderIconOnlyAction = ({
+    label,
+    variant = 'secondary',
+    leftIcon,
+    rightIcon,
+    iconOnlyBelow,
+    className,
+    appearance: _appearance,
+    type: _type,
+    ...buttonProps
+  }: ActionFilterConfig) => (
+    <Button
+      key={label}
+      variant={variant}
+      aria-label={label}
+      className={cn(
+        'relative size-10 shrink-0 p-0 pointer-coarse:min-h-10 touch-hit-area [&>svg]:size-5',
+        iconOnlyBelow && SHOW_BELOW_CLASS[iconOnlyBelow],
+        className,
+      )}
+      {...buttonProps}
+    >
+      {leftIcon ?? rightIcon}
+    </Button>
+  );
+
   return (
-    <div className="kvt-filter w-full flex items-center justify-end gap-y-4 pb-6 max-md:flex-wrap">
+    <div
+      ref={containerRef}
+      className={cn(
+        'kvt-filter w-full flex flex-wrap items-center gap-4 pb-6',
+        showFilterInput ? 'justify-between' : 'justify-end',
+      )}
+    >
       {showFilterInput && (
-        <Input
-          ref={inputRef}
-          placeholder={placeholder}
-          isSearch
-          autoComplete="false"
-          className="kvt-search w-72 max-md:w-full"
-          inputMode="search"
-          onChange={handleChangeTermOfSearch}
-        />
+        <div className="kvt-search-wrapper w-60 min-w-0 max-sm:grow max-sm:basis-0">
+          <Input
+            ref={inputRef}
+            placeholder={placeholder}
+            isSearch
+            autoComplete="false"
+            className="kvt-search w-full"
+            inputMode="search"
+            onChange={handleChangeTermOfSearch}
+          />
+        </div>
       )}
 
+      {iconOnlyActions.map(renderIconOnlyAction)}
+
       <FilterPrimitive
-        className="kvt-filter-actions max-md:w-full max-md:flex-wrap"
+        className="kvt-filter-actions flex-wrap gap-4 max-sm:basis-full"
         closeOnApply={closeOnApply}
         resetScope={tableId}
       >

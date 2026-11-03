@@ -2,9 +2,13 @@ import { EllipsisVertical } from 'lucide-react';
 
 import { Button } from '@/components/Button/Button';
 
-import { HIDE_BELOW_CLASS } from '../../constants';
+import {
+  BORDER_EDGE_CLASSES,
+  HIDE_BELOW_CLASS,
+  ROUNDED_BOTTOM_EDGE_CLASSES,
+} from '../../constants';
 import { useTableContext } from '../../contexts';
-import { getPinnedCellProps } from '../../utils';
+import { getPinnedCellProps, getResponsiveEdgeClasses } from '../../utils';
 
 import { SkeletonProps } from './Skeleton.types';
 import { cn } from '@/utils';
@@ -17,6 +21,23 @@ export const Skeleton = <T,>({ numberOfRows, table }: SkeletonProps<T>) => {
     <tbody className="kvt-skeleton text-slate-800 text-sm font-normal relative">
       {rows.map((_, rowIndex) => {
         const columns = table.getVisibleLeafColumns();
+        const hideBelows = columns.map(
+          (column) => column.columnDef.meta?.hideBelow,
+        );
+        const isResponsive = hideBelows.some(Boolean);
+        const edgeClasses = (columnIndex: number) => [
+          getResponsiveEdgeClasses(
+            hideBelows,
+            columnIndex,
+            BORDER_EDGE_CLASSES,
+          ),
+          rowIndex === rows.length - 1 &&
+            getResponsiveEdgeClasses(
+              hideBelows,
+              columnIndex,
+              ROUNDED_BOTTOM_EDGE_CLASSES,
+            ),
+        ];
 
         return (
           <tr
@@ -44,16 +65,20 @@ export const Skeleton = <T,>({ numberOfRows, table }: SkeletonProps<T>) => {
                       'dark:bg-metal-900',
                       'dark:border-t',
                       'dark:border-metal-700',
-                      'dark:first:border-l',
-                      'dark:last:border-r',
+                      !isResponsive && 'dark:first:border-l',
+                      !isResponsive && 'dark:last:border-r',
+                      isResponsive && edgeClasses(columnIndex),
                       'dark:[tr:last-child_&]:border-b',
                       pinned.className,
                       hideBelow && HIDE_BELOW_CLASS[hideBelow],
                       column.columnDef.meta?.className,
                       {
                         '[tr:last-child_&:first-of-type]:rounded-bl-lg':
-                          rowIndex === rows.length - 1 && columnIndex === 0,
+                          !isResponsive &&
+                          rowIndex === rows.length - 1 &&
+                          columnIndex === 0,
                         '[tr:last-child_&:last-of-type]:rounded-br-lg':
+                          !isResponsive &&
                           rowIndex === rows.length - 1 &&
                           columnIndex === columns.length - 1,
                       },
@@ -86,16 +111,20 @@ export const Skeleton = <T,>({ numberOfRows, table }: SkeletonProps<T>) => {
                     'dark:bg-metal-900',
                     'dark:border-t',
                     'dark:border-metal-700',
-                    'dark:first:border-l',
-                    'dark:last:border-r',
+                    !isResponsive && 'dark:first:border-l',
+                    !isResponsive && 'dark:last:border-r',
+                    isResponsive && edgeClasses(columnIndex),
                     'dark:[tr:last-child_&]:border-b',
                     pinned.className,
                     hideBelow && HIDE_BELOW_CLASS[hideBelow],
                     column.columnDef.meta?.className,
                     {
                       '[tr:last-child_&:first-of-type]:rounded-bl-lg':
-                        rowIndex === rows.length - 1 && columnIndex === 0,
+                        !isResponsive &&
+                        rowIndex === rows.length - 1 &&
+                        columnIndex === 0,
                       '[tr:last-child_&:last-of-type]:rounded-br-lg':
+                        !isResponsive &&
                         rowIndex === rows.length - 1 &&
                         columnIndex === columns.length - 1,
                     },
