@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.5](https://github.com/konstructio/konstruct-ui/tree/0.1.5) (2026-11-03)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.4...0.1.5)
+
+**Merged pull requests:**
+
+- 🐛 fix: keep the pressed scale to touch pointers [\#799](https://github.com/konstructio/konstruct-ui/pull/799) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.4](https://github.com/konstructio/konstruct-ui/tree/0.1.4) (2026-11-03)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.3...0.1.4)
