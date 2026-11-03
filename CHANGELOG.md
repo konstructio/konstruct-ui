@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.4](https://github.com/konstructio/konstruct-ui/tree/0.1.4) (2026-11-03)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.3...0.1.4)
+
+**Merged pull requests:**
+
+- 📱 feat\(sidebar\): touch targets for the hamburger, collapse trigger, section titles and options [\#798](https://github.com/konstructio/konstruct-ui/pull/798) ([futjesus](https://github.com/futjesus))
+- 📱 feat: 44px touch targets for sort headers, badge dismiss, thumbs and small icon buttons [\#797](https://github.com/konstructio/konstruct-ui/pull/797) ([futjesus](https://github.com/futjesus))
+- 💄 style: aurora-500 focus rings across the DS [\#796](https://github.com/konstructio/konstruct-ui/pull/796) ([futjesus](https://github.com/futjesus))
+- ⬆️ chore\(deps\): update dependencies [\#795](https://github.com/konstructio/konstruct-ui/pull/795) ([futjesus](https://github.com/futjesus))
+- 📱 feat\(virtualized-table\): responsive filters, edges and empty state [\#794](https://github.com/konstructio/konstruct-ui/pull/794) ([futjesus](https://github.com/futjesus))
+- ✨ feat\(select\): opt-in check icon on the selected option [\#793](https://github.com/konstructio/konstruct-ui/pull/793) ([futjesus](https://github.com/futjesus))
+- ✨ feat\(button-group\): outline variant with a bordered selected item [\#792](https://github.com/konstructio/konstruct-ui/pull/792) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.3](https://github.com/konstructio/konstruct-ui/tree/0.1.3) (2026-11-02)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.2-alpha.121...0.1.3)
