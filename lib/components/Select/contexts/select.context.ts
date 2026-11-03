@@ -18,6 +18,7 @@ export type SelectContextType = {
   page: number;
   options: Option[];
   isTyping?: boolean;
+  showSelectedCheck: boolean;
   setOptions: Dispatch<SetStateAction<Option[]>>;
   setPage: Dispatch<SetStateAction<number>>;
   setCanContinueFetching: Dispatch<SetStateAction<boolean>>;
@@ -40,6 +41,7 @@ export const SelectContext = createContext<SelectContextType>({
   page: 1,
   options: [],
   isTyping: false,
+  showSelectedCheck: false,
   setOptions() {
     throw new Error('setOptions function must be overridden');
   },

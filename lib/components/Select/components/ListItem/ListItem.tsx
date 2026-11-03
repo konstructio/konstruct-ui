@@ -1,5 +1,6 @@
 import { ComponentRef, FC, KeyboardEvent, useRef } from 'react';
 
+import { CheckIcon } from '@/assets/icons/components/Check';
 import { cn } from '@/utils';
 
 import { Typography } from '../../../Typography/Typography';
@@ -37,9 +38,16 @@ export const ListItem: FC<ListItemProps> = ({
   listItemSecondRowClassName,
   ...option
 }) => {
-  const { searchTerm, highlightSearchEnabled, setValue, toggleOpen } =
-    useSelectContext();
+  const {
+    searchTerm,
+    highlightSearchEnabled,
+    showSelectedCheck,
+    value,
+    setValue,
+    toggleOpen,
+  } = useSelectContext();
   const liRef = useRef<ComponentRef<'li'>>(null);
+  const isSelected = !isEmpty && value !== undefined && value === option.value;
 
   const handleClick = (option: Option) => {
     setValue(option.value, inputRef);
@@ -115,6 +123,7 @@ export const ListItem: FC<ListItemProps> = ({
     <li
       ref={liRef}
       role="option"
+      aria-selected={isSelected}
       data-action="false"
       className={cn(listItemVariants({ className }))}
       tabIndex={0}
@@ -142,6 +151,14 @@ export const ListItem: FC<ListItemProps> = ({
       ) : null}
 
       {getLabelValue(option)}
+
+      {showSelectedCheck && isSelected ? (
+        <CheckIcon
+          size={16}
+          aria-hidden="true"
+          className="ml-auto shrink-0 text-aurora-500"
+        />
+      ) : null}
     </li>
   );
 };
