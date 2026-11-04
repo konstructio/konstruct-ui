@@ -1,6 +1,9 @@
 import { FC, useState, useCallback } from 'react';
 
-import { CheckCircleOutlineIcon, CopyIcon } from '../../../../lib/assets/icons/components';
+import {
+  CheckCircleOutlineIcon,
+  CopyIcon,
+} from '../../../../lib/assets/icons/components';
 import { cn } from '../../../../lib/utils';
 
 import type { Props } from './IconCard.types';
