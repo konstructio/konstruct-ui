@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.6](https://github.com/konstructio/konstruct-ui/tree/0.1.6) (2026-11-04)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.5...0.1.6)
+
+**Merged pull requests:**
+
+- ✅ test: give async queries room for the lazy table chunk on CI [\#804](https://github.com/konstructio/konstruct-ui/pull/804) ([futjesus](https://github.com/futjesus))
+- ⬆️ chore\(deps\): update dependencies [\#803](https://github.com/konstructio/konstruct-ui/pull/803) ([futjesus](https://github.com/futjesus))
+- 🐛 fix\(avatar\): keep a resolved Gravatar across remounts [\#802](https://github.com/konstructio/konstruct-ui/pull/802) ([futjesus](https://github.com/futjesus))
+- ✨ feat\(button\): opt out of the touch press scale with pressEffect [\#801](https://github.com/konstructio/konstruct-ui/pull/801) ([futjesus](https://github.com/futjesus))
+- 📱 feat\(sheet\): iOS-style expand, back gesture and step transitions [\#800](https://github.com/konstructio/konstruct-ui/pull/800) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.5](https://github.com/konstructio/konstruct-ui/tree/0.1.5) (2026-11-03)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.4...0.1.5)
