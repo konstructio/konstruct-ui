@@ -22,7 +22,6 @@ export const buttonVariants = cva(
     'rounded',
     'transition-[color,background-color,border-color,transform]',
     'duration-150',
-    'pointer-coarse:motion-safe:active:scale-[0.97]',
     'whitespace-nowrap',
     'h-10',
     'pointer-coarse:min-h-11',
@@ -43,6 +42,10 @@ export const buttonVariants = cva(
   ],
   {
     variants: {
+      pressEffect: {
+        true: 'pointer-coarse:motion-safe:active:scale-[0.97]',
+        false: '',
+      },
       variant: {
         primary: '',
         secondary: ['bg-white'],
@@ -296,6 +299,7 @@ export const buttonVariants = cva(
       },
     ],
     defaultVariants: {
+      pressEffect: true,
       variant: 'primary',
       version: 'default',
       disabled: false,
