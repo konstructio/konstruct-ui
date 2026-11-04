@@ -62,6 +62,12 @@ describe('Button', () => {
     );
   });
 
+  it('should drop the pressed scale when the press effect is turned off', () => {
+    const { button } = setup({ pressEffect: false });
+
+    expect(button.className).not.toContain('active:scale-[0.97]');
+  });
+
   it('should keep a consumer positioning over the hit area context', () => {
     const { button } = setup({ className: 'absolute' });
 
