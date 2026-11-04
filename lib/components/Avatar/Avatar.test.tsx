@@ -67,6 +67,33 @@ describe('Avatar', () => {
     vi.unstubAllGlobals();
   });
 
+  it('should show a resolved Gravatar straight away when remounted', async () => {
+    const digest = vi.fn(async () => new Uint8Array([2, 3, 4]).buffer);
+    vi.stubGlobal('crypto', { subtle: { digest } });
+
+    const { unmount } = render(
+      <Avatar alt="Grace Hopper" email="grace@example.com" fallback="GH" />,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByRole('img').querySelector('img')).not.toBeNull();
+    });
+    unmount();
+
+    render(
+      <Avatar alt="Grace Hopper" email="grace@example.com" fallback="GH" />,
+    );
+
+    expect(screen.getByRole('img').querySelector('img')).toHaveAttribute(
+      'src',
+      'https://gravatar.com/avatar/020304?d=404&s=80',
+    );
+    expect(screen.queryByText('GH')).not.toBeInTheDocument();
+    expect(digest).toHaveBeenCalledTimes(1);
+
+    vi.unstubAllGlobals();
+  });
+
   it("shouldn't have accessibility violations", async () => {
     const { container } = render(
       <div>
