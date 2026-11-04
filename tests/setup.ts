@@ -1,8 +1,14 @@
+import { configure } from '@testing-library/react';
 import { toHaveNoViolations } from 'jest-axe';
 import { vi, vitest } from 'vitest';
 import '@testing-library/jest-dom/vitest';
 
 expect.extend(toHaveNoViolations);
+
+// CI runs the suite with v8 coverage on a shared runner, where the lazily
+// imported VirtualizedTable content regularly takes longer than Testing
+// Library's 1 s default for `findBy*` / `waitFor`.
+configure({ asyncUtilTimeout: 5_000 });
 
 // Mock the ResizeObserver
 class ResizeObserverMock {
