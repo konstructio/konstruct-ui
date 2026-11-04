@@ -33,6 +33,17 @@ describe('Tabs', () => {
     expect(screen.getByText('Content 1')).toBeInTheDocument();
   });
 
+  it('puts the touch target on the tab button, leaving the label pseudo to the indicator', () => {
+    render(<Tabs {...defaultProps} />);
+
+    const tab = screen.getByRole('tab', { name: 'Tab 1' });
+    const label = screen.getByText('Tab 1');
+
+    expect(tab).toHaveClass('relative', 'tap-target', 'touch-hit-area');
+    expect(label).not.toHaveClass('touch-hit-area');
+    expect(label).toHaveClass('relative', 'after:absolute', 'after:bottom-0');
+  });
+
   it('applies the correct theme class', () => {
     const { container } = render(
       <Tabs {...defaultProps} theme="kubefirst-dark" />,

@@ -18,7 +18,9 @@ const getVariant = (isActive?: boolean) => {
 const Trigger: FC<TriggerProps> = ({ tab, label, isActive, className }) => (
   <Tabs.Trigger
     value={tab}
-    className="group/tab rounded-xs outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aurora-500 kubefirst:focus-visible:outline-kubefirst-primary"
+    // The 44px touch target lives on the button: the label's ::after is the
+    // active-tab indicator, and touch-hit-area would take over that pseudo.
+    className="group/tab relative tap-target touch-hit-area rounded-xs outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aurora-500 kubefirst:focus-visible:outline-kubefirst-primary"
   >
     <Typography
       variant="body2"
