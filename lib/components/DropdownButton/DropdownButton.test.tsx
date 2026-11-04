@@ -273,14 +273,16 @@ describe('DropdownButton', () => {
       const sheet = await screen.findByRole('dialog', {
         name: 'web-server-prod',
       });
-      const title = within(sheet).getByRole('heading', {
-        name: 'web-server-prod',
-      });
+      const header = sheet.querySelector(
+        '[data-sheet-grip]:not([data-sheet-handle])',
+      ) as HTMLElement;
 
       expect(sheet).toHaveClass('px-6');
       expect(sheet).not.toHaveClass('px-4');
-      expect(title).toHaveClass('normal-case');
-      expect(title.parentElement).toHaveClass('px-0');
+      expect(
+        within(header).getByText('web-server-prod', { selector: 'span' }),
+      ).toHaveClass('normal-case');
+      expect(header).toHaveClass('px-0');
     });
 
     it('should fire the option and close the sheet', async () => {

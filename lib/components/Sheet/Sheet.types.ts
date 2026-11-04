@@ -19,6 +19,12 @@ export type Props = PropsWithChildren<{
   isOpen: boolean;
   /** Called when the sheet asks to close: scrim tap, Escape, or `closeOnSelect` */
   onClose: () => void;
+  /**
+   * Goes back one step. On a step above the first the header (chevron and
+   * title) becomes the back control in place of `leading`, and swiping the
+   * content towards the right goes back too.
+   */
+  onBack?: () => void;
   /** Heading of the sheet; also its accessible name */
   title: ReactNode;
   /** Keep the title for assistive technology only */
@@ -27,6 +33,12 @@ export type Props = PropsWithChildren<{
   leading?: ReactNode;
   /** Screen edge the sheet docks to (default: 'bottom') */
   position?: SheetPosition;
+  /**
+   * Let a swipe away from the docked edge grow the panel to the full viewport.
+   * A swipe back towards the edge restores its natural height first and only
+   * a further swipe closes it.
+   */
+  expandable?: boolean;
   /**
    * Index of the step the content shows. Changing it slides the content across
    * (forward for a higher index, back for a lower one) and animates the panel
