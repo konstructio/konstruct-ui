@@ -1,4 +1,5 @@
 export declare const buttonVariants: (props?: ({
+    pressEffect?: boolean | null | undefined;
     variant?: "link" | "danger" | "primary" | "secondary" | "tertiary" | null | undefined;
     shape?: "circle" | "pill" | null | undefined;
     version?: "default" | "alternate" | null | undefined;

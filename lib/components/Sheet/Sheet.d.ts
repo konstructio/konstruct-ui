@@ -9,11 +9,17 @@ import { Props } from './Sheet.types';
  *
  * Multi-step sheets pass a `step`: when it changes the content slides across
  * (forward for a higher step, back for a lower one) and the panel height
- * animates to the new content.
+ * animates to the new content. With `onBack`, swiping the content towards the
+ * right on a later step goes back the way the iOS back gesture does: the
+ * previous step follows the finger in from the left while the panel grows or
+ * shrinks to its height, and the swipe commits or springs back on release.
  *
- * On touch screens the panel can be dragged by its grab handle or header
- * towards the edge it docks to: it closes past a quarter of its height or on a
- * quick flick, and springs back otherwise.
+ * On touch screens the panel follows a finger on its grab handle or header.
+ * Towards the edge it docks to it closes past a quarter of its height or on a
+ * quick flick, and springs back otherwise. An `expandable` sheet grows with
+ * the finger when pulled away from that edge and, once released, springs the
+ * rest of the way to the full viewport (or back to its natural height); from
+ * there a pull towards the edge shrinks it again, and a long one closes it.
  *
  * @example
  * ```tsx

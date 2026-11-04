@@ -19,6 +19,8 @@ export interface Props extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'di
     asChild?: boolean;
     /** Whether the button is disabled */
     disabled?: boolean;
+    /** Sink the button while pressed on touch screens (default: true) */
+    pressEffect?: boolean;
     /** Theme override for this component */
     theme?: Theme;
 }
