@@ -129,7 +129,7 @@ export const Header = <TData extends RowData>({
                         columnIndex,
                         BORDER_EDGE_CLASSES,
                       ),
-                    isPinned && 'bg-slate-100 dark:bg-metal-800',
+                    isPinned && 'z-1 bg-slate-100 dark:bg-metal-800',
                     pinned.className,
                     hideBelow && HIDE_BELOW_CLASS[hideBelow],
                     headerClassName,

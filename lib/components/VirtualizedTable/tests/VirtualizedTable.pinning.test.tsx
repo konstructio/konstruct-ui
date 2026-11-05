@@ -86,6 +86,18 @@ describe('VirtualizedTable column pinning', () => {
     expect(cells[3]).toHaveClass('sticky', 'kvt-pinned-right');
   });
 
+  it('should paint the pinned headers above the scrolling ones, whose sort buttons are positioned', async () => {
+    const { headers, cells } = await setup();
+    const [name, region, actions, status] = headers;
+
+    expect(name).toHaveClass('z-1');
+    expect(actions).toHaveClass('z-1');
+    expect(status).toHaveClass('z-1');
+    expect(region).not.toHaveClass('z-1');
+
+    expect(cells[0]).not.toHaveClass('z-1');
+  });
+
   it('should draw the divider only on the pinned columns next to the scrolling ones, while overflowing', async () => {
     const { headers, cells } = await setup();
     const [name, , actions, status] = headers;
