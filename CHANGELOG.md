@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.7](https://github.com/konstructio/konstruct-ui/tree/0.1.7) (2026-11-05)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.6...0.1.7)
+
+**Merged pull requests:**
+
+- 🐛 fix\(table\): paint pinned headers above the scrolling ones [\#806](https://github.com/konstructio/konstruct-ui/pull/806) ([futjesus](https://github.com/futjesus))
+- 🐛 fix\(tabs\): keep the active-tab indicator on touch screens [\#805](https://github.com/konstructio/konstruct-ui/pull/805) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.6](https://github.com/konstructio/konstruct-ui/tree/0.1.6) (2026-11-04)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.5...0.1.6)
