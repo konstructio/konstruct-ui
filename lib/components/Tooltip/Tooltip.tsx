@@ -76,7 +76,7 @@ export const Tooltip: FC<Props> = ({
             sideOffset={sideOffset}
             className={cn(
               'rounded px-2 py-1 text-xs shadow-md',
-              'animate-in fade-in-0',
+              'animate-tooltip-pop origin-(--radix-tooltip-content-transform-origin) motion-reduce:animate-none',
               bgClassName,
               textClassName,
               className,

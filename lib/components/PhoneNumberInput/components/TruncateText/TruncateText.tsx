@@ -55,7 +55,7 @@ export const TruncateText: FC<Props> = ({ text, prefix }) => {
         <Content
           side="top"
           align="center"
-          className="animate-in fade-in-0 relative mb-1.5 overflow-visible bg-kubefirst-dark-blue-900 text-white px-3 py-2 rounded-lg shadow-sm after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:translate-y-full after:border-l-8 after:border-l-transparent after:border-r-8 after:border-r-transparent after:border-t-8 after:border-kubefirst-dark-blue-900 z-999"
+          className="animate-tooltip-pop origin-(--radix-tooltip-content-transform-origin) motion-reduce:animate-none relative mb-1.5 overflow-visible bg-kubefirst-dark-blue-900 text-white px-3 py-2 rounded-lg shadow-sm after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:translate-y-full after:border-l-8 after:border-l-transparent after:border-r-8 after:border-r-transparent after:border-t-8 after:border-kubefirst-dark-blue-900 z-999"
         >
           {text} {prefix}
         </Content>
