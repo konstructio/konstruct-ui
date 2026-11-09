@@ -475,4 +475,65 @@ describe('VirtualizedTable / fetchData integration', () => {
       expect.anything(),
     );
   });
+
+  describe('defaultTermOfSearch', () => {
+    it('fetches with the seeded term on mount and shows it in the search box', async () => {
+      const { fetchData, resolveFetch, getSearchInput } = await setup({
+        defaultTermOfSearch: 'beta',
+      });
+
+      await waitFor(() => {
+        expect(fetchData).toHaveBeenCalledTimes(1);
+      });
+      expect(fetchData).toHaveBeenLastCalledWith(
+        expect.objectContaining({ termOfSearch: 'beta' }),
+        expect.anything(),
+      );
+      expect(getSearchInput()).toHaveValue('beta');
+
+      resolveFetch(0, { data: [beta], totalItemsCount: 1 });
+
+      expect(await screen.findByText('Beta')).toBeInTheDocument();
+      expect(screen.queryByText('Alpha')).not.toBeInTheDocument();
+    });
+
+    it('lets the user clear the seeded term and refetches without it', async () => {
+      const { user, fetchData, resolveFetch, getSearchInput } = await setup({
+        defaultTermOfSearch: 'beta',
+      });
+
+      await waitFor(() => {
+        expect(fetchData).toHaveBeenCalledTimes(1);
+      });
+      resolveFetch(0, { data: [beta], totalItemsCount: 1 });
+      await screen.findByText('Beta');
+
+      await user.clear(getSearchInput());
+
+      await waitFor(() => {
+        expect(fetchData).toHaveBeenCalledTimes(2);
+      });
+      expect(fetchData).toHaveBeenLastCalledWith(
+        expect.objectContaining({ termOfSearch: '' }),
+        expect.anything(),
+      );
+
+      resolveFetch(1, { data: [alpha, beta], totalItemsCount: 2 });
+
+      expect(await screen.findByText('Alpha')).toBeInTheDocument();
+    });
+
+    it('starts empty when no term is seeded', async () => {
+      const { fetchData, getSearchInput } = await setup();
+
+      await waitFor(() => {
+        expect(fetchData).toHaveBeenCalledTimes(1);
+      });
+      expect(fetchData).toHaveBeenLastCalledWith(
+        expect.objectContaining({ termOfSearch: undefined }),
+        expect.anything(),
+      );
+      expect(getSearchInput()).toHaveValue('');
+    });
+  });
 });

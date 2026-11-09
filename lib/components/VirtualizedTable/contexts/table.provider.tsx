@@ -83,6 +83,7 @@ export const TableProvider = <TData extends RowData = RowData>({
   columns = [],
   data: defaultData = [],
   defaultExpanded,
+  defaultTermOfSearch,
   enableExpandedRow,
   enableHoverRow,
   expandedState,
@@ -101,7 +102,9 @@ export const TableProvider = <TData extends RowData = RowData>({
   const [sortedData, setSortedData] = useState<SortingState>([]);
   const [isFirstLoad, setIsFirstLoad] = useState<boolean>(!!fetchData);
   const [page, setPage] = useState(0);
-  const [termOfSearch, setTermOfSearch] = useState<string>();
+  const [termOfSearch, setTermOfSearch] = useState<string | undefined>(
+    defaultTermOfSearch,
+  );
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [internalTotalItemsCount, setInternalTotalItemsCount] =
     useState(totalItems);
