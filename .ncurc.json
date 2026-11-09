@@ -3,6 +3,7 @@
 		"eslint",
 		"typescript",
 		"@tanstack/react-table",
-		"@tanstack/react-virtual"
+		"@tanstack/react-virtual",
+		"@vitejs/plugin-react"
 	]
 }
