@@ -410,12 +410,12 @@ describe('Drawer', () => {
       fireEvent(dialog, touchEvent('touchstart', [100, 100], 0));
       fireEvent(dialog, touchEvent('touchmove', [140, 102], 50));
 
-      expect(dialog.style.translate).toBe('40px 0');
+      expect(['40px', '40px 0']).toContain(dialog.style.translate);
       expect(dialog).toHaveClass('transition-none');
 
       fireEvent(dialog, touchEvent('touchmove', [60, 102], 100));
 
-      expect(dialog.style.translate).toBe('0px 0');
+      expect(['0px', '0px 0']).toContain(dialog.style.translate);
 
       fireEvent(dialog, touchEvent('touchend', [60, 102], 400));
 
