@@ -4,6 +4,7 @@
   --animate-hide: hide;
   --animate-slide-in: slideIn;
   --animate-swipe-out: swipeOut;
+  --animate-tooltip-pop: tooltipPop;
   --animate-duration-time: 1s;
 
   @keyframes hide {
@@ -30,6 +31,21 @@
     }
     to {
       transform: translateX(calc(100% + var(--viewport-padding)));
+    }
+  }
+
+  @keyframes tooltipPop {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(0.99);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
     }
   }
 
@@ -156,6 +172,13 @@
 @utility animate-swipe-out {
   animation-name: var(--animate-swipe-out);
   animation-duration: 0.15s;
+}
+
+@utility animate-tooltip-pop {
+  animation-name: var(--animate-tooltip-pop);
+  animation-duration: 100ms;
+  animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  animation-fill-mode: both;
 }
 
 @utility animate-hide {

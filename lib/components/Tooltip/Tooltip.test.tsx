@@ -56,6 +56,21 @@ describe('Tooltip', () => {
     expect(tooltip).toHaveTextContent('Sample tooltip content');
   });
 
+  it('should pop the content in from the trigger side', async () => {
+    const { user, getTooltipBodyText } = setup();
+
+    await user.hover(await getTooltipBodyText());
+
+    const content = (await screen.findByRole('tooltip')).closest('[data-side]');
+
+    expect(content).toHaveClass(
+      'animate-tooltip-pop',
+      'origin-(--radix-tooltip-content-transform-origin)',
+      'motion-reduce:animate-none',
+    );
+    expect(content).not.toHaveClass('animate-in');
+  });
+
   describe('disabled', () => {
     it('should keep the children but never open', async () => {
       const { user, getTooltipBodyText } = setup({ disabled: true });

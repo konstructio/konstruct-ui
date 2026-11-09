@@ -90,7 +90,7 @@ const CopyButton: FC<Props> = ({
             sideOffset={4}
             className={cn(
               'z-70 rounded bg-slate-700 px-2 py-1 text-xs text-white shadow-md',
-              'animate-in fade-in-0',
+              'animate-tooltip-pop origin-(--radix-tooltip-content-transform-origin) motion-reduce:animate-none',
               tooltipClassName,
             )}
           >
