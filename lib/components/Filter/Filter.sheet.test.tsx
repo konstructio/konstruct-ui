@@ -194,4 +194,113 @@ describe('Filter on phones', () => {
 
     expect(await axe(container.ownerDocument.body)).toHaveNoViolations();
   });
+
+  describe('badge multi-select', () => {
+    const setupBadges = () => {
+      const onApply = vi.fn();
+      const user = userEvent.setup();
+      const { container } = render(
+        <Filter>
+          <Filter.BadgeMultiSelect
+            label="Status"
+            options={[
+              { id: 'running', label: 'Running', variant: 'success' },
+              { id: 'stopped', label: 'Stopped', variant: 'warning' },
+            ]}
+            onApply={onApply}
+          />
+        </Filter>,
+      );
+
+      return { container, onApply, user };
+    };
+
+    it('should open as a sheet named after the filter', async () => {
+      const { user } = setupBadges();
+
+      await user.click(screen.getByRole('button', { name: /status/i }));
+
+      const statusSheet = await screen.findByRole('dialog', { name: 'Status' });
+
+      expect(
+        within(statusSheet).getByRole('checkbox', { name: 'Running' }),
+      ).toBeInTheDocument();
+    });
+
+    it('should select an option by tapping its badge', async () => {
+      const { onApply, user } = setupBadges();
+
+      await user.click(screen.getByRole('button', { name: /status/i }));
+
+      const statusSheet = await screen.findByRole('dialog', { name: 'Status' });
+
+      await user.click(within(statusSheet).getByText('Running'));
+      await user.click(
+        within(statusSheet).getByRole('button', { name: /apply/i }),
+      );
+
+      expect(onApply).toHaveBeenCalledWith([
+        expect.objectContaining({ id: 'running' }),
+      ]);
+    });
+
+    it("shouldn't have accessibility violations", async () => {
+      const { container, user } = setupBadges();
+
+      await user.click(screen.getByRole('button', { name: /status/i }));
+      await screen.findByRole('dialog', { name: 'Status' });
+
+      expect(await axe(container.ownerDocument.body)).toHaveNoViolations();
+    });
+  });
+
+  describe('time filter', () => {
+    const lastHour = new Date(2026, 10, 10, 9, 0);
+
+    const setupTime = () => {
+      const onApply = vi.fn();
+      const user = userEvent.setup();
+      const { container } = render(
+        <Filter>
+          <Filter.TimeFilterDropdown
+            label="Time"
+            showTimePicker={false}
+            presets={[{ label: 'Last 1 hour', value: lastHour }]}
+            onApply={onApply}
+          />
+        </Filter>,
+      );
+
+      const open = async () => {
+        await user.click(screen.getByRole('button', { name: /time/i }));
+
+        return screen.findByRole('dialog', { name: 'Time' });
+      };
+
+      return { container, onApply, open, user };
+    };
+
+    it('should apply a preset from the sheet', async () => {
+      const { onApply, open, user } = setupTime();
+
+      const timeSheet = await open();
+
+      await user.click(
+        within(timeSheet).getByRole('button', { name: 'Last 1 hour' }),
+      );
+      await user.click(
+        within(timeSheet).getByRole('button', { name: /apply/i }),
+      );
+
+      expect(onApply).toHaveBeenCalledWith(lastHour);
+    });
+
+    it("shouldn't have accessibility violations", async () => {
+      const { container, open } = setupTime();
+
+      await open();
+
+      expect(await axe(container.ownerDocument.body)).toHaveNoViolations();
+    });
+  });
 });
