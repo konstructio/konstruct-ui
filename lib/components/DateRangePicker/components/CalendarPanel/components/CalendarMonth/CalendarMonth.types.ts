@@ -4,6 +4,8 @@ import { DayPickerClassNames } from '../../CalendarPanel.types';
 
 export type Props = {
   month: Date;
+  /** Width in pixels; a fluid calendar passes the one it measured */
+  monthWidth?: number;
   range: { from?: Date; to?: Date };
   onRangeSelect: (range: DateRange | undefined) => void;
   disabled?: boolean;

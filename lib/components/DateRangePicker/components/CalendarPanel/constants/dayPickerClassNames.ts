@@ -3,10 +3,17 @@ import { cn } from '@/utils';
 import { DayPickerClassNames } from '../CalendarPanel.types';
 import { SINGLE_MONTH_WIDTH } from './index';
 
-export const createDayPickerClassNames = (custom?: DayPickerClassNames) => ({
-  root: cn('w-fit', custom?.root),
+export const createDayPickerClassNames = (
+  custom?: DayPickerClassNames,
+  fluid = false,
+) => ({
+  root: cn(fluid ? 'w-full' : 'w-fit', custom?.root),
   months: cn('flex', custom?.months),
-  month: cn(`flex flex-col w-[${SINGLE_MONTH_WIDTH}px]`, custom?.month),
+  month: cn(
+    'flex flex-col',
+    fluid ? 'w-full' : `w-[${SINGLE_MONTH_WIDTH}px]`,
+    custom?.month,
+  ),
   month_caption: 'hidden',
   nav: 'hidden',
   day_button: cn(
@@ -32,7 +39,7 @@ export const createDayPickerClassNames = (custom?: DayPickerClassNames) => ({
   ),
   day: cn(
     'p-0',
-    'w-[37px]',
+    !fluid && 'w-[37px]',
     'h-9.5',
     'text-center',
     'align-middle',
@@ -123,7 +130,7 @@ export const createDayPickerClassNames = (custom?: DayPickerClassNames) => ({
     'text-slate-500',
     'dark:text-metal-400',
     'pb-4',
-    'w-[37px]',
+    !fluid && 'w-[37px]',
     custom?.weekday,
   ),
   today: cn(

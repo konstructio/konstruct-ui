@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { FC } from 'react';
+import { FC, useLayoutEffect, useRef, useState } from 'react';
 import { DateRange as DayPickerDateRange } from 'react-day-picker';
 
 import { cn } from '@/utils';
@@ -8,6 +8,7 @@ import {
   calendarPanelVariants,
   calendarGridContainerVariants,
 } from '../../CalendarPanel.variants';
+import { SINGLE_MONTH_WIDTH } from '../../constants';
 import { useTogetherCarousel } from '../../hooks';
 import { CalendarDivider } from '../CalendarDivider/CalendarDivider';
 import { CalendarMonth } from '../CalendarMonth/CalendarMonth';
@@ -18,6 +19,7 @@ import { Props } from './TogetherModeCalendar.types';
 export const TogetherModeCalendar: FC<Props> = ({
   className,
   calendarWidth = 550,
+  fluid = false,
   ariaLabelCalendar = 'Date range picker calendar',
   ariaLabelPrevMonth = 'Previous month',
   ariaLabelNextMonth = 'Next month',
@@ -32,6 +34,36 @@ export const TogetherModeCalendar: FC<Props> = ({
   canNavigateNext,
   carouselProps,
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [measuredWidth, setMeasuredWidth] = useState<number | null>(null);
+
+  useLayoutEffect(() => {
+    const node = containerRef.current;
+
+    if (!fluid || !node) {
+      setMeasuredWidth(null);
+
+      return;
+    }
+
+    const measure = () => setMeasuredWidth(node.clientWidth);
+
+    measure();
+
+    if (typeof ResizeObserver === 'undefined') {
+      return;
+    }
+
+    const observer = new ResizeObserver(measure);
+
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, [fluid]);
+
+  const monthWidth =
+    fluid && measuredWidth ? measuredWidth : SINGLE_MONTH_WIDTH;
+
   const {
     carouselRef,
     isAnimating,
@@ -43,7 +75,7 @@ export const TogetherModeCalendar: FC<Props> = ({
     handlePrevMonth,
     handleNextMonth,
     getTransform,
-  } = useTogetherCarousel(carouselProps);
+  } = useTogetherCarousel({ ...carouselProps, monthWidth });
 
   const handleRangeSelect = (selectedRange: DayPickerDateRange | undefined) => {
     if (selectedRange) {
@@ -57,12 +89,14 @@ export const TogetherModeCalendar: FC<Props> = ({
   return (
     <div className={cn(calendarPanelVariants({ className }), classNames?.root)}>
       <div
+        ref={containerRef}
         className={cn(
           calendarGridContainerVariants(),
           'overflow-hidden relative justify-start!',
+          fluid && 'w-full',
           classNames?.gridContainer,
         )}
-        style={{ width: calendarWidth }}
+        style={{ width: fluid ? undefined : calendarWidth }}
       >
         {/* Navigation Arrows */}
         <NavigationButton
@@ -119,6 +153,7 @@ export const TogetherModeCalendar: FC<Props> = ({
             <CalendarMonth
               key={`${month.getFullYear()}-${month.getMonth()}-${index}`}
               month={month}
+              monthWidth={monthWidth}
               range={range}
               onRangeSelect={handleRangeSelect}
               disabled={disabled}

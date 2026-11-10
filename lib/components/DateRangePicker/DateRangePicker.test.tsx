@@ -645,6 +645,65 @@ describe('DateRangePicker', () => {
     });
   });
 
+  describe('fluid', () => {
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+
+    it('should stretch the picker to its container', async () => {
+      const { getDateRangePicker } = setup({ numberOfMonths: 1, fluid: true });
+
+      expect(await getDateRangePicker()).toHaveClass('w-full', 'max-w-none');
+    });
+
+    it('should size to its content otherwise', async () => {
+      const { getDateRangePicker } = setup({ numberOfMonths: 1 });
+
+      expect(await getDateRangePicker()).toHaveClass('max-w-fit');
+      expect(await getDateRangePicker()).not.toHaveClass('w-full');
+    });
+
+    it('should give a single month the width it measures', async () => {
+      vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(
+        340,
+      );
+
+      const { getCalendar } = setup({ numberOfMonths: 1, fluid: true });
+
+      const calendar = await getCalendar();
+      const [month] = Array.from(calendar.children) as HTMLElement[];
+
+      await waitFor(() => {
+        expect(month.style.width).toBe('340px');
+      });
+    });
+
+    it('should keep the fixed month width when two months share the row', async () => {
+      vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(
+        340,
+      );
+
+      const { getCalendar } = setup({
+        numberOfMonths: 2,
+        navigationMode: 'together',
+        fluid: true,
+      });
+
+      const calendar = await getCalendar();
+      const [month] = Array.from(calendar.children) as HTMLElement[];
+
+      expect(month.style.width).toBe('259px');
+    });
+  });
+
+  describe('Stacked layout', () => {
+    it('should stack the presets above the calendar below lg', async () => {
+      const { getDateRangePicker } = setup();
+
+      expect(await getDateRangePicker()).toHaveClass('max-lg:flex-col');
+    });
+  });
+
   describe('Day alignment', () => {
     it('should centre each day button in its column, under its weekday', async () => {
       const { getCalendar } = setup({ numberOfMonths: 1 });

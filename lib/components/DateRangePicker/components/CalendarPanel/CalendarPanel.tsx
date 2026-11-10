@@ -33,6 +33,7 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
     canRightNavigatePrev,
     disabled,
     displayedMonths,
+    fluid,
     hideDisabledNavigation,
     maxDate,
     minDate,
@@ -104,6 +105,7 @@ export const CalendarPanel: FC<CalendarPanelProps> = ({
     <TogetherModeCalendar
       className={className}
       calendarWidth={isSingleMonth ? SINGLE_MONTH_WIDTH : calendarWidth}
+      fluid={fluid && isSingleMonth}
       ariaLabelCalendar={ariaLabelCalendar}
       ariaLabelPrevMonth={ariaLabelPrevMonth}
       ariaLabelNextMonth={ariaLabelNextMonth}

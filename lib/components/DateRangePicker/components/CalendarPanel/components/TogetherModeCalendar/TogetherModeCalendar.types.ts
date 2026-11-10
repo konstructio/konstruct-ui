@@ -6,6 +6,8 @@ import { UseTogetherCarouselProps } from '../../hooks';
 export type Props = {
   className?: string;
   calendarWidth?: number;
+  /** The month spans the container's width instead of its fixed one */
+  fluid?: boolean;
   ariaLabelCalendar?: string;
   ariaLabelPrevMonth?: string;
   ariaLabelNextMonth?: string;

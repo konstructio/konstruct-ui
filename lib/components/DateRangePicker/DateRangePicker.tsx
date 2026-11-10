@@ -65,6 +65,7 @@ const DateRangePicker: FC<Props> = ({
   showOutsideDays,
   navigationMode = 'independent',
   numberOfMonths = 2,
+  fluid = false,
   dateDisplayFormat = 'long',
   // CalendarPanel props
   ariaLabelCalendar,
@@ -117,6 +118,7 @@ const DateRangePicker: FC<Props> = ({
     showOutsideDays={showOutsideDays}
     navigationMode={navigationMode}
     numberOfMonths={numberOfMonths}
+    fluid={fluid}
     dateDisplayFormat={dateDisplayFormat}
     revealCalendarOnCustom={revealCalendarOnCustom}
     onRangeChange={onRangeChange}
@@ -158,6 +160,7 @@ const DateRangePicker: FC<Props> = ({
       <div
         className={cn(
           dateRangePickerVariants({ className }),
+          fluid && 'w-full max-w-none',
           classNames?.container,
         )}
         role="group"
