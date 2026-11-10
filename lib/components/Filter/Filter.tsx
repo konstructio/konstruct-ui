@@ -42,10 +42,14 @@ const Filter: FilterComponentProps = ({
   children,
   closeOnApply = true,
   resetScope,
+  mobileSheet,
+  sheetDraggable,
 }) => (
   <FilterProvider
     closeOnApply={closeOnApply}
     resetScope={resetScope}
+    mobileSheet={mobileSheet}
+    sheetDraggable={sheetDraggable}
     theme={theme}
   >
     <div className={cn(filterVariants({ className }))} data-theme={theme}>

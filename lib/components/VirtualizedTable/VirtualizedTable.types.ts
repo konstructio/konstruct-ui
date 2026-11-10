@@ -286,6 +286,10 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         showResetButton?: boolean;
         resetButtonClassName?: string;
         closeOnApply?: boolean;
+        /** Open the filters as bottom sheets on phones; false keeps the desktop popovers (default: true) */
+        filterMobileSheet?: boolean;
+        /** Let a finger drag the phone filter sheets closed (default: true) */
+        filterSheetDraggable?: boolean;
       }
     | {
         filterSearchPlaceholder?: never;
@@ -299,6 +303,8 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         showResetButton?: never;
         resetButtonClassName?: never;
         closeOnApply?: never;
+        filterMobileSheet?: never;
+        filterSheetDraggable?: never;
       }
   ) &
   (

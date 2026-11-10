@@ -19,6 +19,7 @@ export const ActionSheet: FC<Props> = ({
   headerClassName,
   titleClassName,
   position = 'bottom',
+  draggable = true,
   theme,
 }) => (
   <Sheet
@@ -26,6 +27,7 @@ export const ActionSheet: FC<Props> = ({
     onClose={onClose}
     title={title}
     position={position}
+    draggable={draggable}
     theme={theme}
     className={cn('px-4', className)}
     headerClassName={cn('px-2', headerClassName)}
@@ -51,6 +53,7 @@ export const ActionSheet: FC<Props> = ({
                 option.destructive && 'text-red-600 dark:text-red-400',
                 isDisabled && 'text-slate-400 dark:text-metal-400',
                 itemClassName,
+                option.className,
               )}
               onClick={() => {
                 option.onClick?.();

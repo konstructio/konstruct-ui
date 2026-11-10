@@ -124,6 +124,7 @@ export const Sheet: FC<Props> = ({
   leading,
   position = 'bottom',
   expandable = false,
+  draggable = true,
   step = 0,
   softReveal = false,
   previousContent,
@@ -281,7 +282,7 @@ export const Sheet: FC<Props> = ({
     const primary = event.pointerType !== 'mouse' || event.button === 0;
     const grip = isGrip(event.target);
 
-    gripArmedRef.current = primary && (grip || bodyIsGrip);
+    gripArmedRef.current = draggable && primary && (grip || bodyIsGrip);
     backArmedRef.current = primary && !grip;
     axisRef.current = null;
   };
@@ -662,7 +663,7 @@ export const Sheet: FC<Props> = ({
                   onPanEnd={handlePanEnd}
                   {...slide}
                 >
-                  {position === 'bottom' && grabHandle}
+                  {draggable && position === 'bottom' && grabHandle}
                   <div
                     className={cn(
                       'flex min-h-9 shrink-0 touch-none items-center gap-2 px-6 pb-2',
@@ -819,7 +820,7 @@ export const Sheet: FC<Props> = ({
                       </AnimatePresence>
                     </div>
                   </motion.div>
-                  {position === 'top' && grabHandle}
+                  {draggable && position === 'top' && grabHandle}
                 </motion.div>
               </Dialog.Content>
             </div>

@@ -195,6 +195,49 @@ describe('Filter on phones', () => {
     expect(await axe(container.ownerDocument.body)).toHaveNoViolations();
   });
 
+  it('should drop the grab handle when the filter sheets are not draggable', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <Filter sheetDraggable={false}>
+        <Filter.TextMultiSelect
+          label="Region"
+          options={[{ id: 'lon1', label: 'London' }]}
+          onApply={vi.fn()}
+        />
+      </Filter>,
+    );
+
+    await user.click(screen.getByRole('button', { name: /region/i }));
+
+    const sheet = await screen.findByRole('dialog', { name: 'Region' });
+
+    expect(sheet.querySelector('[data-sheet-handle]')).not.toBeInTheDocument();
+  });
+
+  it('should keep the desktop popover on a phone when mobileSheet is off', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <Filter mobileSheet={false}>
+        <Filter.TextMultiSelect
+          label="Region"
+          options={[{ id: 'lon1', label: 'London' }]}
+          onApply={vi.fn()}
+        />
+      </Filter>,
+    );
+
+    await user.click(screen.getByRole('button', { name: /region/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText('London')).toBeInTheDocument();
+    });
+    expect(
+      screen.queryByRole('dialog', { name: 'Region' }),
+    ).not.toBeInTheDocument();
+  });
+
   describe('badge multi-select', () => {
     const setupBadges = () => {
       const onApply = vi.fn();

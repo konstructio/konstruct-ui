@@ -145,6 +145,7 @@ export const DropdownButton: FC<Props> = ({
                     'dark:data-[disabled]:text-metal-400',
                     option.destructive && 'text-red-600 dark:text-red-400',
                     itemClassName,
+                    option.className,
                   )}
                   onSelect={() => {
                     option.onClick?.();
