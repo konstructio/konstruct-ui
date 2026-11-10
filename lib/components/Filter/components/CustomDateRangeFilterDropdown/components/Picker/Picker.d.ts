@@ -1,2 +1,3 @@
 import { FC } from '../../../../../../../node_modules/react';
-export declare const Picker: FC;
+import { Props } from './Picker.types';
+export declare const Picker: FC<Props>;

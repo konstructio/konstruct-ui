@@ -10,3 +10,4 @@ export type ResponsiveEdgeClasses = {
 export declare const BORDER_EDGE_CLASSES: ResponsiveEdgeClasses;
 export declare const ROUNDED_TOP_EDGE_CLASSES: ResponsiveEdgeClasses;
 export declare const ROUNDED_BOTTOM_EDGE_CLASSES: ResponsiveEdgeClasses;
+export declare const MOBILE_FILTER_QUERY = "(max-width: 767.98px)";

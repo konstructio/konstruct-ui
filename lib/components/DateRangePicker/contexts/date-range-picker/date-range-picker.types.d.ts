@@ -15,6 +15,7 @@ export type Props = PropsWithChildren<{
     name?: string;
     navigationMode?: 'together' | 'independent';
     numberOfMonths?: 1 | 2;
+    fluid?: boolean;
     presets?: DateRangePresetOption[];
     revealCalendarOnCustom?: boolean;
     showOutsideDays?: boolean;

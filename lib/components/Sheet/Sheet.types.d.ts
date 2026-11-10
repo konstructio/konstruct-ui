@@ -42,6 +42,18 @@ export type Props = PropsWithChildren<{
      * height to the new content.
      */
     step?: number;
+    /**
+     * Fade the bottom edge while the panel grows to a taller step, so the
+     * incoming rows come in behind a soft edge instead of being cut by it
+     * (default: false, the edge cuts).
+     */
+    softReveal?: boolean;
+    /**
+     * What the previous step shows right now. The back gesture and control
+     * preview that step with its last render; pass this when its content can
+     * change while a later step is open.
+     */
+    previousContent?: ReactNode;
     /** Additional CSS classes for the panel */
     className?: string;
     /** Additional CSS classes for the scrolling body */

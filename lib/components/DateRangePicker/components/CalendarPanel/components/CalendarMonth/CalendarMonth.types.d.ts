@@ -2,6 +2,8 @@ import { DateRange, Matcher } from 'react-day-picker';
 import { DayPickerClassNames } from '../../CalendarPanel.types';
 export type Props = {
     month: Date;
+    /** Width in pixels; a fluid calendar passes the one it measured */
+    monthWidth?: number;
     range: {
         from?: Date;
         to?: Date;

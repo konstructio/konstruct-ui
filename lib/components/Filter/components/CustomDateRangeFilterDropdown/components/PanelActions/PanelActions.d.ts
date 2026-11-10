@@ -1,2 +1,3 @@
 import { FC } from '../../../../../../../node_modules/react';
-export declare const PanelActions: FC;
+import { Props } from './PanelActions.types';
+export declare const PanelActions: FC<Props>;

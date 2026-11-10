@@ -1,5 +1,5 @@
 import { DayPickerClassNames } from '../CalendarPanel.types';
-export declare const createDayPickerClassNames: (custom?: DayPickerClassNames) => {
+export declare const createDayPickerClassNames: (custom?: DayPickerClassNames, fluid?: boolean) => {
     root: string;
     months: string;
     month: string;
