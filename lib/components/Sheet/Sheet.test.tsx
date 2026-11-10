@@ -182,8 +182,14 @@ describe('Sheet', () => {
   });
 
   describe('reveal', () => {
-    const renderStep = (step: number, rows: number) => (
-      <Sheet isOpen title="Account" step={step} onClose={vi.fn()}>
+    const renderStep = (step: number, rows: number, softReveal = true) => (
+      <Sheet
+        isOpen
+        title="Account"
+        step={step}
+        softReveal={softReveal}
+        onClose={vi.fn()}
+      >
         {Array.from({ length: rows }, (_, index) => (
           <button key={index} type="button">
             Row {step}-{index}
@@ -229,6 +235,18 @@ describe('Sheet', () => {
       await waitFor(() => {
         expect(body().className).toContain('mask-image');
       });
+      spy.mockRestore();
+    });
+
+    it('should cut the bottom edge unless asked to soften it', async () => {
+      const spy = mockHeights();
+      const { rerender } = render(renderStep(0, 2, false));
+
+      await screen.findByRole('button', { name: 'Row 0-0' });
+      rerender(renderStep(1, 6, false));
+      await screen.findByRole('button', { name: 'Row 1-0' });
+
+      expect(body().className).not.toContain('mask-image');
       spy.mockRestore();
     });
 
@@ -615,6 +633,41 @@ describe('Sheet', () => {
         expect(onBack).toHaveBeenCalledTimes(1);
       });
       expect(onClose).not.toHaveBeenCalled();
+    });
+
+    it('should preview the previous step with the content it has now', async () => {
+      const { rerender } = render(
+        <Sheet isOpen title="Created" step={0} onClose={vi.fn()}>
+          <button type="button">Custom range</button>
+        </Sheet>,
+      );
+
+      await screen.findByRole('button', { name: 'Custom range' });
+
+      rerender(
+        <Sheet
+          isOpen
+          title="Custom range"
+          step={1}
+          previousContent={<button type="button">Clear</button>}
+          onBack={vi.fn()}
+          onClose={vi.fn()}
+        >
+          <button type="button">Apply</button>
+        </Sheet>,
+      );
+
+      const content = await screen.findByRole('button', { name: 'Apply' });
+      const sheet = screen.getByRole('dialog', { name: 'Custom range' });
+
+      Object.defineProperty(sheet, 'offsetWidth', { value: PANEL_WIDTH });
+      await swipe(content, [10, 20, 30, 40, 50, 60], 60);
+
+      await waitFor(() => {
+        expect(sheet.querySelector('[data-sheet-preview]')).toHaveTextContent(
+          'Clear',
+        );
+      });
     });
 
     it('should bring the previous step and its title in while the swipe is held', async () => {
