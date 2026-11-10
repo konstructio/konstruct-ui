@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.9](https://github.com/konstructio/konstruct-ui/tree/0.1.9) (2026-11-10)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.8...0.1.9)
+
+**Merged pull requests:**
+
+- 📱 fix\(filter\): fit the badge and time filters to the phone sheet [\#824](https://github.com/konstructio/konstruct-ui/pull/824) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.8](https://github.com/konstructio/konstruct-ui/tree/0.1.8) (2026-11-10)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.7...0.1.8)
