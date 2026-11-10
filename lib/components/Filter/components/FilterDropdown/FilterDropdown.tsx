@@ -22,7 +22,7 @@ export const FilterDropdown: FC<Props> = ({
   children,
   onOpenChange,
 }) => {
-  const { theme } = useFilterContext();
+  const { sheetDraggable, theme } = useFilterContext();
   const isSheet = useFilterSheet();
 
   if (isSheet) {
@@ -41,6 +41,7 @@ export const FilterDropdown: FC<Props> = ({
         <Sheet
           isOpen={isOpen}
           expandable
+          draggable={sheetDraggable}
           theme={theme as Theme | undefined}
           title={sheetTitle ?? trigger}
           step={sheetStep}

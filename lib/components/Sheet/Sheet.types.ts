@@ -40,6 +40,12 @@ export type Props = PropsWithChildren<{
    */
   expandable?: boolean;
   /**
+   * Let a finger on the grab handle or header drag the panel, closing it past a
+   * threshold (default: true). When false the handle is not drawn and the sheet
+   * closes only from the scrim, Escape or its own content.
+   */
+  draggable?: boolean;
+  /**
    * Index of the step the content shows. Changing it slides the content across
    * (forward for a higher index, back for a lower one) and animates the panel
    * height to the new content.

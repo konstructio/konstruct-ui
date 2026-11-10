@@ -11,6 +11,7 @@ import { axe } from 'jest-axe';
 
 import { Actions } from './Actions';
 import { Action, Props } from './Actions.types';
+import { ACTIONS_SHEET_QUERY } from './constants';
 import { CLOSE_DELAY_MS } from './components/PortalActions/constants';
 
 type Row = { id: number; name: string };
@@ -381,6 +382,191 @@ describe('Actions', () => {
       expect(
         screen.getByRole('button', { name: 'Delete' }),
       ).not.toHaveAttribute('aria-describedby');
+    });
+  });
+
+  describe('on phones', () => {
+    const originalMatchMedia = window.matchMedia;
+
+    beforeEach(() => {
+      vi.clearAllMocks();
+      Object.defineProperty(window, 'matchMedia', {
+        configurable: true,
+        writable: true,
+        value: vi.fn((query: string) => ({
+          matches: query === ACTIONS_SHEET_QUERY,
+          media: query,
+          onchange: null,
+          addListener: vi.fn(),
+          removeListener: vi.fn(),
+          addEventListener: vi.fn(),
+          removeEventListener: vi.fn(),
+          dispatchEvent: vi.fn(),
+        })),
+      });
+    });
+
+    afterEach(() => {
+      Object.defineProperty(window, 'matchMedia', {
+        configurable: true,
+        writable: true,
+        value: originalMatchMedia,
+      });
+    });
+
+    const setup = (
+      actions: Action<Row>[],
+      overrides: Partial<Props<Row>> = {},
+    ) => {
+      const user = userEvent.setup();
+      const { container } = render(
+        <Actions
+          {...buildProps(actions, {
+            isPortal: true,
+            mobileSheet: true,
+            ...overrides,
+          })}
+        />,
+      );
+
+      const open = async () => {
+        await user.click(screen.getByRole('button', { name: 'Show Actions' }));
+      };
+
+      return { container, open, user };
+    };
+
+    it('should keep the menu instead of a sheet unless mobileSheet is set', async () => {
+      const { open } = setup([{ label: 'Edit', onClick: vi.fn() }], {
+        mobileSheet: false,
+      });
+
+      await open();
+
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+      expect(screen.getByRole('menu')).toBeInTheDocument();
+    });
+
+    it('should keep the actions closed until the trigger is tapped', () => {
+      setup([{ label: 'Edit', onClick: vi.fn() }]);
+
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+      expect(
+        screen.getByRole('button', { name: 'Show Actions' }),
+      ).toHaveAttribute('aria-haspopup', 'dialog');
+    });
+
+    it('should list the actions in a sheet titled Actions by default', async () => {
+      const { open } = setup([
+        { label: 'Edit', onClick: vi.fn() },
+        { label: 'Delete', onClick: vi.fn() },
+      ]);
+
+      await open();
+
+      const sheet = await screen.findByRole('dialog', { name: 'Actions' });
+
+      expect(
+        within(sheet).getByRole('button', { name: 'Edit' }),
+      ).toBeInTheDocument();
+      expect(
+        within(sheet).getByRole('button', { name: 'Delete' }),
+      ).toBeInTheDocument();
+    });
+
+    it('should title the sheet after the row when asked to', async () => {
+      const { open } = setup([{ label: 'Edit', onClick: vi.fn() }], {
+        sheetTitle: (rowData) => rowData.name,
+      });
+
+      await open();
+
+      expect(
+        await screen.findByRole('dialog', { name: 'Pikachu' }),
+      ).toBeInTheDocument();
+    });
+
+    it('should run the action with the row data and close the sheet', async () => {
+      const onEdit = vi.fn();
+      const { open, user } = setup([{ label: 'Edit', onClick: onEdit }]);
+
+      await open();
+      await user.click(
+        within(await screen.findByRole('dialog')).getByRole('button', {
+          name: 'Edit',
+        }),
+      );
+
+      expect(onEdit).toHaveBeenCalledWith(row);
+      await waitFor(() => {
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+      });
+    });
+
+    it('should keep a disabled action inert and show why', async () => {
+      const onDelete = vi.fn();
+      const { open } = setup([
+        {
+          label: 'Delete',
+          disabledReason: 'Cannot delete while assigned',
+          onClick: onDelete,
+        },
+      ]);
+
+      await open();
+
+      const sheet = await screen.findByRole('dialog');
+
+      expect(
+        within(sheet).getByRole('button', { name: /Delete/ }),
+      ).toBeDisabled();
+      expect(
+        within(sheet).getByText('Cannot delete while assigned'),
+      ).toBeInTheDocument();
+    });
+
+    it('should set a destructive action apart below a divider', async () => {
+      const { open } = setup([
+        { label: 'Edit', onClick: vi.fn() },
+        {
+          label: 'Delete',
+          destructive: true,
+          separator: true,
+          onClick: vi.fn(),
+        },
+      ]);
+
+      await open();
+
+      const sheet = await screen.findByRole('dialog');
+
+      expect(within(sheet).getByRole('separator')).toBeInTheDocument();
+      expect(within(sheet).getByRole('button', { name: 'Delete' })).toHaveClass(
+        'text-red-600',
+      );
+    });
+
+    it('should drop the grab handle when the sheet is not draggable', async () => {
+      const { open } = setup([{ label: 'Edit', onClick: vi.fn() }], {
+        sheetDraggable: false,
+      });
+
+      await open();
+
+      const sheet = await screen.findByRole('dialog');
+
+      expect(
+        sheet.querySelector('[data-sheet-handle]'),
+      ).not.toBeInTheDocument();
+    });
+
+    it("shouldn't have accessibility violations", async () => {
+      const { container, open } = setup([{ label: 'Edit', onClick: vi.fn() }]);
+
+      await open();
+      await screen.findByRole('dialog');
+
+      expect(await axe(container.ownerDocument.body)).toHaveNoViolations();
     });
   });
 

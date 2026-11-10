@@ -14,5 +14,6 @@ export type Props = {
   headerClassName?: string;
   titleClassName?: string;
   position?: 'bottom' | 'top';
+  draggable?: boolean;
   theme?: Theme;
 };

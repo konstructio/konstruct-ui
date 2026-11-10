@@ -20,4 +20,6 @@ export type Props = {
   showResetButton?: boolean;
   resetButtonClassName?: string;
   closeOnApply?: boolean;
+  mobileSheet?: boolean;
+  sheetDraggable?: boolean;
 };

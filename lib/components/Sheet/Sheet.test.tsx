@@ -274,6 +274,14 @@ describe('Sheet', () => {
     expect(sheet.firstElementChild).toBe(handle);
   });
 
+  it('should leave out the grab handle when it cannot be dragged', async () => {
+    setup({ draggable: false });
+
+    const sheet = await screen.findByRole('dialog', { name: 'Region' });
+
+    expect(sheet.querySelector('[data-sheet-handle]')).not.toBeInTheDocument();
+  });
+
   it('should put the grab handle at the bottom of a top sheet', async () => {
     setup({ position: 'top' });
 

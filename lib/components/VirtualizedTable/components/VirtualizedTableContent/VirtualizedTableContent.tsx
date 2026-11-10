@@ -49,6 +49,8 @@ export const VirtualizedTableContent = <TData extends RowData>({
   showResetButton = true,
   resetButtonClassName,
   closeOnApply = true,
+  filterMobileSheet = true,
+  filterSheetDraggable = true,
   enableHoverRow,
   classNameHoverRow,
   enableExpandedRow,
@@ -110,6 +112,8 @@ export const VirtualizedTableContent = <TData extends RowData>({
             showResetButton={showResetButton}
             resetButtonClassName={resetButtonClassName}
             closeOnApply={closeOnApply}
+            mobileSheet={filterMobileSheet}
+            sheetDraggable={filterSheetDraggable}
           />
         )}
 

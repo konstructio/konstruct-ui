@@ -34,6 +34,8 @@ export const Filter: FC<Props> = ({
   showResetButton = true,
   resetButtonClassName,
   closeOnApply = true,
+  mobileSheet = true,
+  sheetDraggable = true,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -305,6 +307,8 @@ export const Filter: FC<Props> = ({
         className="kvt-filter-actions flex-wrap gap-4 max-sm:basis-full"
         closeOnApply={closeOnApply}
         resetScope={tableId}
+        mobileSheet={mobileSheet}
+        sheetDraggable={sheetDraggable}
       >
         {resolvedFilters.map(renderFilter)}
 
