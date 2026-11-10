@@ -8,6 +8,7 @@ import { cva } from 'class-variance-authority';
  */
 export const dateRangePickerVariants = cva([
   'flex',
+  'max-lg:flex-col',
   'rounded-xl',
   'overflow-hidden',
   'max-w-fit',

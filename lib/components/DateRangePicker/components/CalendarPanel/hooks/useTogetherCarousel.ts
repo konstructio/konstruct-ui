@@ -17,6 +17,8 @@ export type UseTogetherCarouselProps = {
   canNavigateNext: boolean;
   navigationMode: 'together' | 'independent';
   numberOfMonths?: 1 | 2;
+  /** Width of one month in pixels; a fluid calendar passes the one it measured */
+  monthWidth?: number;
   navigatePrevMonth: () => void;
   navigateNextMonth: () => void;
 };
@@ -29,6 +31,7 @@ export const useTogetherCarousel = ({
   canNavigateNext,
   navigationMode,
   numberOfMonths = 2,
+  monthWidth = SINGLE_MONTH_WIDTH,
   navigatePrevMonth,
   navigateNextMonth,
 }: UseTogetherCarouselProps) => {
@@ -43,7 +46,7 @@ export const useTogetherCarousel = ({
   const carouselRef = useRef<HTMLDivElement>(null);
   const isFirstRender = useRef(true);
 
-  const slideWidth = SINGLE_MONTH_WIDTH + GAP_WIDTH;
+  const slideWidth = monthWidth + GAP_WIDTH;
 
   // Calculate 6 months to always render (2 buffer on each side)
   const prev2Month = getPrevMonth(getPrevMonth(internalMonths[0]));
@@ -79,10 +82,10 @@ export const useTogetherCarousel = ({
   ]);
 
   // Total width for 6 months
-  const carouselTotalWidth = 6 * SINGLE_MONTH_WIDTH + 5 * GAP_WIDTH;
+  const carouselTotalWidth = 6 * monthWidth + 5 * GAP_WIDTH;
 
   // Base offset to show months at index 2 and 3
-  const baseOffset = -2 * (SINGLE_MONTH_WIDTH + GAP_WIDTH);
+  const baseOffset = -2 * slideWidth;
 
   // Sync with external displayedMonths changes
   useEffect(() => {
