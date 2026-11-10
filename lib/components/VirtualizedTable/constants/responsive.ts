@@ -88,3 +88,5 @@ export const ROUNDED_BOTTOM_EDGE_CLASSES: ResponsiveEdgeClasses = {
     '2xl': '2xl:rounded-br-lg',
   },
 };
+
+export const MOBILE_FILTER_QUERY = '(max-width: 767.98px)';

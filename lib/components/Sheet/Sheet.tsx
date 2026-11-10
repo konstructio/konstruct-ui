@@ -158,6 +158,7 @@ export const Sheet: FC<Props> = ({
   const [backPreview, setBackPreview] = useState<StepContent | null>(null);
   const [backPhase, setBackPhase] = useState<BackPhase>('idle');
   const [isRevealing, setIsRevealing] = useState(false);
+  const [isStepLeaving, setIsStepLeaving] = useState(false);
   const [commitSignal, setCommitSignal] = useState(0);
   const pendingBackRef = useRef(false);
   const previewX = useMotionValue(0);
@@ -198,6 +199,7 @@ export const Sheet: FC<Props> = ({
       animated: stepAnimated,
     });
     skipStepAnimationRef.current = false;
+    setIsStepLeaving(true);
     // The height to beat: the new step reveals behind a soft edge only when
     // it turns out taller than the one it replaces.
     revealBaseRef.current =
@@ -752,8 +754,9 @@ export const Sheet: FC<Props> = ({
                     className={cn(
                       'flex min-h-0 flex-col overflow-x-hidden',
                       // The incoming step is laid out at full height behind
-                      // the growing body; no scrollbar while that runs.
-                      backPreview || isRevealing
+                      // the growing body and the leaving one is popped out of
+                      // the flow; no scrollbar while either runs.
+                      backPreview || isRevealing || isStepLeaving
                         ? 'overflow-y-hidden'
                         : 'overflow-y-auto',
                       bodyIsGrip && 'touch-none',
@@ -787,6 +790,7 @@ export const Sheet: FC<Props> = ({
                         // out, so that step's exit is instant too. Read from
                         // the step state so it only changes with the step.
                         custom={{ direction, instant: !animated }}
+                        onExitComplete={() => setIsStepLeaving(false)}
                       >
                         <SheetStep
                           key={step}
