@@ -125,6 +125,8 @@ export const Sheet: FC<Props> = ({
   position = 'bottom',
   expandable = false,
   step = 0,
+  softReveal = false,
+  previousContent,
   className,
   bodyClassName,
   headerClassName,
@@ -203,7 +205,7 @@ export const Sheet: FC<Props> = ({
     // The height to beat: the new step reveals behind a soft edge only when
     // it turns out taller than the one it replaces.
     revealBaseRef.current =
-      stepAnimated && !reduceMotion && !isExpanded
+      softReveal && stepAnimated && !reduceMotion && !isExpanded
         ? lastContentHeightRef.current
         : null;
   }
@@ -462,7 +464,12 @@ export const Sheet: FC<Props> = ({
       contentNodeRef.current?.getBoundingClientRect().height ?? 0;
     previewHeightRef.current = 0;
     applyBackProgress(0);
-    setBackPreview(previousRef.current);
+    setBackPreview(
+      previousRef.current && {
+        ...previousRef.current,
+        children: previousContent ?? previousRef.current.children,
+      },
+    );
     setBackPhase('dragging');
   };
 
