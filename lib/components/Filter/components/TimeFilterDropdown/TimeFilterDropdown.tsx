@@ -56,17 +56,19 @@ export const TimeFilterDropdown: FC<Props> = ({
           />
         </>
       }
+      sheetTitle={label}
       onOpenChange={handleOpenChange}
     >
-      <div className="flex">
+      <div className="flex max-md:flex-col">
         {hasPresets && (
-          <div className="flex flex-col gap-1 py-4 px-4 min-w-40">
+          <div className="flex flex-col gap-1 py-4 px-4 min-w-40 max-md:gap-0 max-md:py-0">
             {presets.map((preset) => (
               <button
                 key={preset.label}
                 type="button"
                 className={cn(
                   'text-left',
+                  'max-md:flex max-md:min-h-12 max-md:items-center',
                   'px-3',
                   'py-1.5',
                   'rounded',
@@ -95,11 +97,11 @@ export const TimeFilterDropdown: FC<Props> = ({
         )}
 
         {hasPresets && showTimePicker && (
-          <div className="w-px bg-gray-200 dark:bg-metal-700" />
+          <div className="w-px bg-gray-200 dark:bg-metal-700 max-md:h-px max-md:w-full" />
         )}
 
         {showTimePicker && (
-          <div className="py-4 px-6">
+          <div className="py-4 px-6 max-md:px-4">
             <div
               className={cn({
                 'w-35.5': format === '24',
@@ -117,7 +119,7 @@ export const TimeFilterDropdown: FC<Props> = ({
         )}
       </div>
 
-      <div className="h-px bg-gray-200 dark:bg-metal-700" />
+      <div className="h-px bg-gray-200 dark:bg-metal-700 max-md:hidden" />
 
       <div
         className={cn(
@@ -127,13 +129,23 @@ export const TimeFilterDropdown: FC<Props> = ({
           'gap-4',
           'px-6',
           'py-3',
+          'max-md:gap-2 max-md:px-4 max-md:pt-4 max-md:pb-0',
         )}
       >
-        <Button variant="secondary" appearance="compact" onClick={handleReset}>
+        <Button
+          variant="secondary"
+          appearance="compact"
+          className="max-md:h-11! max-md:flex-1"
+          onClick={handleReset}
+        >
           Reset
         </Button>
 
-        <Button appearance="compact" onClick={handleApply}>
+        <Button
+          appearance="compact"
+          className="max-md:h-11! max-md:flex-1"
+          onClick={handleApply}
+        >
           Apply
         </Button>
       </div>
