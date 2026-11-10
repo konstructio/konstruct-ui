@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { renderWithProviders } from '@tests/utils/renderWithProviders';
@@ -73,7 +73,15 @@ const setup = async () => {
 
   await user.click(await screen.findByRole('button', { name: /status/i }));
 
-  return document.querySelector('[data-radix-popper-content-wrapper] > *');
+  return waitFor(() => {
+    const content = document.querySelector(
+      '[data-radix-popper-content-wrapper] > *',
+    );
+
+    expect(content).not.toBeNull();
+
+    return content;
+  });
 };
 
 describe('VirtualizedTable filter dropdown alignment', () => {
