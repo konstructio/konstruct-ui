@@ -143,7 +143,9 @@ export const Header = <TData extends RowData>({
                     <button
                       type="button"
                       className={cn(
-                        'relative flex w-full items-center gap-2 text-left',
+                        // Sized to the label and arrows, so the focus ring
+                        // hugs them; inline so it follows the cell's alignment.
+                        'relative inline-flex max-w-full items-center gap-2 text-left align-middle',
                         'cursor-pointer rounded-xs outline-none [text-transform:inherit]',
                         'tap-target touch-hit-area',
                         'focus-visible:ring-1 focus-visible:ring-aurora-500',

@@ -168,6 +168,16 @@ describe('FilterComponent', () => {
     expect(component).toBeInTheDocument();
   });
 
+  it('should ring the filter triggers in aurora on keyboard focus', async () => {
+    const { getBadgeButton } = setup();
+
+    expect(await getBadgeButton('Badge')).toHaveClass(
+      'focus-visible:outline-none',
+      'focus-visible:ring-1',
+      'focus-visible:ring-aurora-500',
+    );
+  });
+
   it("should doesn't have violations", async () => {
     const { component } = setup();
 

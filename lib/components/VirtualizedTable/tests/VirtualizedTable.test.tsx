@@ -286,6 +286,20 @@ describe('VirtualizedTable', () => {
     expect(getFirstName()).toHaveTextContent('Gamma');
   });
 
+  it('should size the sort button to its label so the focus ring hugs it', async () => {
+    await setup();
+
+    const nameHeader = screen.getByRole('columnheader', { name: 'Name' });
+    const sortButton = within(nameHeader).getByRole('button', { name: 'Name' });
+
+    expect(sortButton).toHaveClass(
+      'inline-flex',
+      'max-w-full',
+      'focus-visible:ring-aurora-500',
+    );
+    expect(sortButton).not.toHaveClass('w-full');
+  });
+
   it('should keep the header as plain text when the column cannot be sorted', async () => {
     await setup(undefined, {
       columns: columns.map((column) => ({ ...column, enableSorting: false })),
