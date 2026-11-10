@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.1.8](https://github.com/konstructio/konstruct-ui/tree/0.1.8) (2026-11-10)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.7...0.1.8)
+
+**Merged pull requests:**
+
+- ⬆️ chore\(deps\): update dependencies [\#823](https://github.com/konstructio/konstruct-ui/pull/823) ([futjesus](https://github.com/futjesus))
+- 📱 feat\(filter\): open filters as bottom sheets on phones [\#822](https://github.com/konstructio/konstruct-ui/pull/822) ([futjesus](https://github.com/futjesus))
+- 💄 style\(filter, virtualized-table\): aurora focus rings that hug the filter triggers and sort headers [\#821](https://github.com/konstructio/konstruct-ui/pull/821) ([futjesus](https://github.com/futjesus))
+- 🐛 fix\(filter\): keep the next filter open when it is opened straight from another [\#820](https://github.com/konstructio/konstruct-ui/pull/820) ([futjesus](https://github.com/futjesus))
+- ✨ feat\(date-range-picker\): fluid width for narrow containers and a stacked layout below lg [\#819](https://github.com/konstructio/konstruct-ui/pull/819) ([futjesus](https://github.com/futjesus))
+- 🐛 fix\(date-range-picker\): centre each day under its weekday [\#818](https://github.com/konstructio/konstruct-ui/pull/818) ([futjesus](https://github.com/futjesus))
+- ✨ feat\(sheet\): make the soft step reveal opt-in and let the back preview show live content [\#817](https://github.com/konstructio/konstruct-ui/pull/817) ([futjesus](https://github.com/futjesus))
+- 🐛 fix\(sheet\): take the leaving step out of the flow on every motion 14 release [\#816](https://github.com/konstructio/konstruct-ui/pull/816) ([futjesus](https://github.com/futjesus))
+- 🐛 fix\(virtualized-table\): keep filter dropdowns end-aligned from tablets up [\#815](https://github.com/konstructio/konstruct-ui/pull/815) ([futjesus](https://github.com/futjesus))
+- ⬆️ chore\(deps\): update dependencies [\#813](https://github.com/konstructio/konstruct-ui/pull/813) ([futjesus](https://github.com/futjesus))
+- ✨ feat\(tooltip\): pop tooltips in from the trigger side [\#812](https://github.com/konstructio/konstruct-ui/pull/812) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.7](https://github.com/konstructio/konstruct-ui/tree/0.1.7) (2026-11-05)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.6...0.1.7)
