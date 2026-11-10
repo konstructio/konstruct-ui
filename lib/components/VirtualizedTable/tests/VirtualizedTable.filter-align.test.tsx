@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react';
+import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { renderWithProviders } from '@tests/utils/renderWithProviders';
@@ -72,7 +72,9 @@ const setup = async () => {
   );
 
   await user.click(await screen.findByRole('button', { name: /status/i }));
+};
 
+const findPopover = () => {
   return waitFor(() => {
     const content = document.querySelector(
       '[data-radix-popper-content-wrapper] > *',
@@ -84,7 +86,7 @@ const setup = async () => {
   });
 };
 
-describe('VirtualizedTable filter dropdown alignment', () => {
+describe('VirtualizedTable filter dropdowns', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockWrappedFilterBar();
@@ -98,16 +100,23 @@ describe('VirtualizedTable filter dropdown alignment', () => {
   it('should keep the dropdown aligned to the trigger end from md up, even if the bar wraps', async () => {
     mockViewport(false);
 
-    const content = await setup();
+    await setup();
 
-    expect(content).toHaveAttribute('data-align', 'end');
+    expect(await findPopover()).toHaveAttribute('data-align', 'end');
   });
 
-  it('should align the dropdown to the trigger start on phones when the bar wraps', async () => {
+  it('should open the filter as a sheet on phones', async () => {
     mockViewport(true);
 
-    const content = await setup();
+    await setup();
 
-    expect(content).toHaveAttribute('data-align', 'start');
+    const sheet = await screen.findByRole('dialog', { name: 'Status' });
+
+    expect(
+      within(sheet).getByRole('checkbox', { name: 'Active' }),
+    ).toBeInTheDocument();
+    expect(
+      within(sheet).getByRole('button', { name: 'Apply' }),
+    ).toBeInTheDocument();
   });
 });

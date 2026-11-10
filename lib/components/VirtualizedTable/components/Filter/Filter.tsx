@@ -310,7 +310,10 @@ export const Filter: FC<Props> = ({
 
         {showResetButton && (
           <FilterPrimitive.ResetButton
-            className={cn('select-none max-md:ml-auto', resetButtonClassName)}
+            className={cn(
+              'select-none max-md:h-auto max-md:min-h-0! max-md:py-0',
+              resetButtonClassName,
+            )}
             disabled={!hasData}
             onClick={handleResetFilters}
           />
