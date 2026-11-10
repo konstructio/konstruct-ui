@@ -51,6 +51,10 @@ export type Props = VariantProps<typeof filterVariants> & PropsWithChildren & {
     closeOnApply?: boolean;
     /** Scope for reset events; dropdowns only respond to resets with the same scope. Defaults to a per-instance id. */
     resetScope?: string;
+    /** Open the filters as bottom sheets on phones; false keeps the desktop popovers. Defaults to true. */
+    mobileSheet?: boolean;
+    /** Let a finger drag the phone filter sheets closed. Defaults to true. */
+    sheetDraggable?: boolean;
 };
 /** @deprecated Use Props instead */
 export type FilterProps = Props;

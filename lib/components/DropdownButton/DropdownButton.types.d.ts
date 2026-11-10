@@ -17,6 +17,8 @@ export type Option = {
     destructive?: boolean;
     /** Draw a divider above this option */
     separator?: boolean;
+    /** Additional CSS classes for this option */
+    className?: string;
 };
 /**
  * Props for the DropdownButton component.
