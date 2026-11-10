@@ -7,7 +7,9 @@ import {
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
+import { createRef } from 'react';
 
+import { SheetStep } from './components';
 import { Sheet } from './Sheet';
 import { Props } from './Sheet.types';
 import { resolveSheetGesture, shouldDismissSheet } from './utils';
@@ -148,6 +150,35 @@ describe('Sheet', () => {
         screen.queryByRole('button', { name: 'Switch account' }),
       ).not.toBeInTheDocument();
     });
+  });
+
+  it('should hand its element to the ref AnimatePresence pops a leaving step with', () => {
+    const ref = createRef<HTMLDivElement>();
+
+    render(
+      <SheetStep
+        ref={ref}
+        step={0}
+        direction={1}
+        animated={false}
+        canSwipeBack={false}
+        isArmed={() => false}
+        onBackStart={vi.fn()}
+        onBackMove={vi.fn()}
+        onBackEnd={() => 'stay'}
+        onMount={vi.fn()}
+        commitSignal={0}
+        onBackCommit={vi.fn()}
+        onBackCancel={vi.fn()}
+      >
+        <button type="button">London</button>
+      </SheetStep>,
+    );
+
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    expect(ref.current).toContainElement(
+      screen.getByRole('button', { name: 'London' }),
+    );
   });
 
   describe('reveal', () => {
