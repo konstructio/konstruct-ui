@@ -30,6 +30,17 @@ export const FilterDropdown: FC<Props> = ({
           onOpenAutoFocus={(event) => {
             event.preventDefault();
           }}
+          // Focus only goes back to the trigger when closing lost it. Another
+          // filter opening closes this one without an outside interaction
+          // Radix knows about, and handing focus back here would read as focus
+          // outside the filter just opened and close it too.
+          onCloseAutoFocus={(event) => {
+            const focused = document.activeElement;
+
+            if (focused && focused !== document.body) {
+              event.preventDefault();
+            }
+          }}
           className={cn(
             'bg-white',
             'rounded-md',
