@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.10](https://github.com/konstructio/konstruct-ui/tree/0.1.10) (2026-11-10)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.9...0.1.10)
+
+**Merged pull requests:**
+
+- 📱 feat\(table\): opt-in phone action sheet for row actions, and mobile sheet and drag switches for filters [\#825](https://github.com/konstructio/konstruct-ui/pull/825) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.9](https://github.com/konstructio/konstruct-ui/tree/0.1.9) (2026-11-10)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.8...0.1.9)
