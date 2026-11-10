@@ -523,6 +523,26 @@ describe('VirtualizedTable / fetchData integration', () => {
       expect(await screen.findByText('Alpha')).toBeInTheDocument();
     });
 
+    it('fetches with the seeded term instead of reusing preloaded rows', async () => {
+      const { fetchData, resolveFetch } = await setup({
+        data: [alpha],
+        defaultTermOfSearch: 'beta',
+      });
+
+      await waitFor(() => {
+        expect(fetchData).toHaveBeenCalledTimes(1);
+      });
+      expect(fetchData).toHaveBeenLastCalledWith(
+        expect.objectContaining({ termOfSearch: 'beta' }),
+        expect.anything(),
+      );
+      expect(screen.queryByText('Alpha')).not.toBeInTheDocument();
+
+      resolveFetch(0, { data: [beta], totalItemsCount: 1 });
+
+      expect(await screen.findByText('Beta')).toBeInTheDocument();
+    });
+
     it('starts empty when no term is seeded', async () => {
       const { fetchData, getSearchInput } = await setup();
 

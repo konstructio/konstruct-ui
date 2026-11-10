@@ -180,8 +180,14 @@ export const TableProvider = <TData extends RowData = RowData>({
     },
     // Seed only the first cache entry: seeding every key with [] keeps the
     // query in 'success' from the start and isLoading permanently false.
+    // Preloaded rows are unfiltered, so a seeded search term must not reuse
+    // them — otherwise the term shows in the box but never reaches fetchData.
     initialData: () => {
-      if (hasCommittedRef.current || defaultData.length === 0) {
+      if (
+        hasCommittedRef.current ||
+        defaultData.length === 0 ||
+        defaultTermOfSearch
+      ) {
         return undefined;
       }
 
