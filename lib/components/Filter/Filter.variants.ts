@@ -11,6 +11,11 @@ export const filterButtonVariants = cva([
   'text-sm',
   'w-max',
   'dark:text-metal-300',
+  'rounded-sm',
+  'focus-visible:outline-none',
+  'focus-visible:ring-1',
+  'focus-visible:ring-aurora-500',
+  'kubefirst:focus-visible:ring-kubefirst-primary',
 ]);
 
 export const filterButtonIconVariants = cva([
