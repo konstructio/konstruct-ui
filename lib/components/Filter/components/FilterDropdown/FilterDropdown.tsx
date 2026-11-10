@@ -2,6 +2,9 @@ import { Content, Portal, Root, Trigger } from '@radix-ui/react-popover';
 import { FC } from 'react';
 
 import { useFilterContext } from '@/components/Filter/contexts';
+import { useFilterSheet } from '@/components/Filter/hooks';
+import { Sheet } from '@/components/Sheet/Sheet';
+import { Theme } from '@/domain/theme';
 import { cn } from '@/utils';
 
 import { Props } from './FilterDropdown.types';
@@ -12,10 +15,45 @@ export const FilterDropdown: FC<Props> = ({
   triggerClassName,
   position = 'left',
   contentClassName,
+  sheetTitle,
+  sheetStep,
+  sheetPreviousContent,
+  onSheetBack,
   children,
   onOpenChange,
 }) => {
   const { theme } = useFilterContext();
+  const isSheet = useFilterSheet();
+
+  if (isSheet) {
+    return (
+      <>
+        <button
+          type="button"
+          aria-haspopup="dialog"
+          aria-expanded={isOpen}
+          className={triggerClassName}
+          onClick={() => onOpenChange(true)}
+        >
+          {trigger}
+        </button>
+
+        <Sheet
+          isOpen={isOpen}
+          expandable
+          theme={theme as Theme | undefined}
+          title={sheetTitle ?? trigger}
+          step={sheetStep}
+          previousContent={sheetPreviousContent}
+          bodyClassName="px-0"
+          onBack={onSheetBack}
+          onClose={() => onOpenChange(false)}
+        >
+          {children}
+        </Sheet>
+      </>
+    );
+  }
 
   return (
     <Root open={isOpen} onOpenChange={onOpenChange}>

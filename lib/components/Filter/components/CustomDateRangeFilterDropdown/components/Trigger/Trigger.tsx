@@ -3,6 +3,7 @@ import { FC } from 'react';
 
 import { Badge } from '@/components/Badge/Badge';
 import { filterButtonIconVariants } from '@/components/Filter/Filter.variants';
+import { useFilterSheet } from '@/components/Filter/hooks';
 import { Typography } from '@/components/Typography/Typography';
 import { cn } from '@/utils';
 
@@ -17,9 +18,10 @@ export const Trigger: FC = () => {
     label,
     labelRangeSeparator,
   } = useCustomDateRangeFilterDropdown();
+  const isSheet = useFilterSheet();
 
   const renderApplied = () => {
-    if (appliedRangeDisplay === 'split' && appliedRangeEnds) {
+    if (appliedRangeDisplay === 'split' && appliedRangeEnds && !isSheet) {
       return (
         <>
           <Badge label={appliedRangeEnds.from} />

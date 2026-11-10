@@ -176,6 +176,17 @@ export const CustomDateRangeFilterDropdownProvider: FC<Props> = ({
     ],
   );
 
+  const handleApplyPreset = useCallback(
+    (preset: string, range: DateRange) => {
+      selectPreset(preset, true);
+      selectRange(range);
+      applyRange(range);
+      applyPreset(preset);
+      close();
+    },
+    [applyPreset, applyRange, close, selectPreset, selectRange],
+  );
+
   const handleSelectedRangeChange = useCallback(
     (range: DateRangeWithTime) => {
       const isManual = markManualSelection();
@@ -260,6 +271,7 @@ export const CustomDateRangeFilterDropdownProvider: FC<Props> = ({
         showTime,
         timeFormat,
         onApply: handleApply,
+        onApplyPreset: handleApplyPreset,
         onClear: handleClear,
         onOpenChange: handleDropdownOpenChange,
         onPresetChange: handlePresetChange,

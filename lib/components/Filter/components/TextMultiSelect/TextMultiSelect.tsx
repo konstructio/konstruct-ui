@@ -1,5 +1,5 @@
 import { ChevronDownIcon } from 'lucide-react';
-import { FC } from 'react';
+import { FC, useId } from 'react';
 
 import { Badge } from '@/components/Badge/Badge';
 import { Button } from '@/components/Button/Button';
@@ -34,6 +34,7 @@ export const TextMultiSelect: FC<Props> = ({
     handleSelectAll,
     handleSelectOption,
   } = useBadgeMultiSelect({ onApply, options });
+  const idPrefix = useId();
 
   if (options.length === 0) {
     return null;
@@ -60,38 +61,51 @@ export const TextMultiSelect: FC<Props> = ({
           />
         </>
       }
+      sheetTitle={label}
       onOpenChange={handleOpenChange}
     >
-      <div className="px-6 py-4">
-        <div className="flex flex-col gap-2">
+      <div className="px-6 py-4 max-md:px-4 max-md:py-0">
+        <div className="flex flex-col gap-2 max-md:gap-0">
           {showSelectAll && (
-            <div className="flex gap-4">
+            <div className="flex items-center gap-4 max-md:min-h-12">
               <Checkbox
+                id={`${idPrefix}-all`}
                 checked={isAllSelected}
                 aria-label={selectAllLabel}
                 onChange={(checked) => handleSelectAll(options, checked)}
               />
-              <span className="text-sm text-slate-700 dark:text-metal-200 whitespace-nowrap">
+              <label
+                htmlFor={`${idPrefix}-all`}
+                className="flex-1 cursor-pointer text-sm text-slate-700 dark:text-metal-200 whitespace-nowrap max-md:text-base"
+              >
                 {selectAllLabel}
-              </span>
+              </label>
             </div>
           )}
           {options.map((option) => {
             const isSelected = selectedOptions.some(
               (selected) => selected.id === option.id && !selected.isRemoved,
             );
+            const optionId = `${idPrefix}-${option.id}`;
 
             return (
-              <div key={option.id} className="flex gap-4">
+              <div
+                key={option.id}
+                className="flex items-center gap-4 max-md:min-h-12"
+              >
                 <Checkbox
+                  id={optionId}
                   checked={isSelected}
                   aria-label={option.label}
                   data-label={option.id}
                   onChange={(checked) => handleSelectOption(option, checked)}
                 />
-                <span className="text-sm text-slate-700 dark:text-metal-200 whitespace-nowrap">
+                <label
+                  htmlFor={optionId}
+                  className="flex-1 cursor-pointer text-sm text-slate-700 dark:text-metal-200 whitespace-nowrap max-md:text-base"
+                >
                   {option.label}
-                </span>
+                </label>
               </div>
             );
           })}
@@ -109,17 +123,23 @@ export const TextMultiSelect: FC<Props> = ({
           'border-t',
           'border-gray-200',
           'dark:border-metal-700',
+          'max-md:gap-2 max-md:border-t-0 max-md:px-4 max-md:pt-4 max-md:pb-0',
         )}
       >
         <Button
           variant="secondary"
           appearance="compact"
+          className="max-md:h-11! max-md:flex-1"
           onClick={handleResetOptions}
         >
           Reset
         </Button>
 
-        <Button appearance="compact" onClick={handleApplyOptions}>
+        <Button
+          appearance="compact"
+          className="max-md:h-11! max-md:flex-1"
+          onClick={handleApplyOptions}
+        >
           Apply
         </Button>
       </div>

@@ -49,6 +49,8 @@ export type State = Config & {
   selectedRange?: DateRange;
   showsCalendar: boolean;
   onApply: () => void;
+  /** Applies a preset's window in one go and closes, as a tap on a phone does */
+  onApplyPreset: (preset: string, range: DateRange) => void;
   onClear: () => void;
   onOpenChange: (open: boolean) => void;
   onPresetChange: (preset: string | null, range: DateRange) => void;
