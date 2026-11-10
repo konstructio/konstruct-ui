@@ -1,4 +1,4 @@
-import { screen, within } from '@testing-library/react';
+import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { renderWithProviders } from '@tests/utils/renderWithProviders';
@@ -72,8 +72,18 @@ const setup = async () => {
   );
 
   await user.click(await screen.findByRole('button', { name: /status/i }));
+};
 
-  return document.querySelector('[data-radix-popper-content-wrapper] > *');
+const findPopover = () => {
+  return waitFor(() => {
+    const content = document.querySelector(
+      '[data-radix-popper-content-wrapper] > *',
+    );
+
+    expect(content).not.toBeNull();
+
+    return content;
+  });
 };
 
 describe('VirtualizedTable filter dropdowns', () => {
@@ -90,9 +100,9 @@ describe('VirtualizedTable filter dropdowns', () => {
   it('should keep the dropdown aligned to the trigger end from md up, even if the bar wraps', async () => {
     mockViewport(false);
 
-    const content = await setup();
+    await setup();
 
-    expect(content).toHaveAttribute('data-align', 'end');
+    expect(await findPopover()).toHaveAttribute('data-align', 'end');
   });
 
   it('should open the filter as a sheet on phones', async () => {
