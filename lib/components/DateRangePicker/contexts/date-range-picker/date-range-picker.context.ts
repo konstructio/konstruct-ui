@@ -91,6 +91,8 @@ export type DateRangePickerContextValue = {
   /** Navigation mode: 'together' or 'independent' */
   navigationMode: 'together' | 'independent';
   numberOfMonths: 1 | 2;
+  /** Whether the picker stretches to its container instead of sizing to the content */
+  fluid: boolean;
   dateDisplayFormat: DateDisplayFormat;
   /** Whether the inputs and calendar only show for the manual-selection preset */
   revealCalendarOnCustom: boolean;

@@ -116,6 +116,12 @@ export type Props = VariantProps<typeof dateRangePickerVariants> & {
    */
   navigationMode?: 'independent' | 'together';
   numberOfMonths?: 1 | 2;
+  /**
+   * Stretch to the container instead of sizing to the content: the date inputs
+   * share its width and a single month spans it, for narrow layouts such as a
+   * phone sheet (default: false)
+   */
+  fluid?: boolean;
   dateDisplayFormat?: DateDisplayFormat;
   /** Aria label for the calendar container (default: 'Date range picker calendar') */
   ariaLabelCalendar?: string;

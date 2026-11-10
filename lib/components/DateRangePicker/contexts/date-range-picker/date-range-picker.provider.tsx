@@ -35,6 +35,7 @@ export const DateRangePickerProvider: FC<Props> = ({
   showOutsideDays = false,
   navigationMode = 'together',
   numberOfMonths = 2,
+  fluid = false,
   dateDisplayFormat = 'long',
   revealCalendarOnCustom = false,
   onRangeChange,
@@ -287,6 +288,7 @@ export const DateRangePickerProvider: FC<Props> = ({
         showOutsideDays,
         navigationMode,
         numberOfMonths,
+        fluid,
         dateDisplayFormat,
       }}
     >

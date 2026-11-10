@@ -18,6 +18,11 @@ export const presetPanelVariants = cva(
     // The design fixes the column at 206px rather than letting it size to its
     // longest label, so the calendar beside it does not shift between preset sets.
     'w-[206px]',
+    // Below lg the picker stacks: the column becomes a row on top of the
+    // calendar and the rule between them runs along its bottom edge.
+    'max-lg:w-full',
+    'max-lg:border-r-0',
+    'max-lg:border-b',
   ],
   {
     variants: {
@@ -85,7 +90,9 @@ export const presetChevronVariants = cva(
   {
     variants: {
       expanded: {
-        true: ['rotate-180', 'text-aurora-500'],
+        // Points where the calendar opens: beside the column, or below it
+        // once the picker stacks.
+        true: ['rotate-180', 'max-lg:rotate-90', 'text-aurora-500'],
         false: [
           'text-slate-400',
           'dark:text-metal-400',

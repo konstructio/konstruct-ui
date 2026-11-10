@@ -23,10 +23,10 @@ const getMonthLabel = (date: Date) =>
   `${getMonthName(date.getMonth())} ${date.getFullYear()}`;
 
 export const CalendarMonth: FC<Props> = (props) => {
-  const { month, classNames } = props;
+  const { month, monthWidth = SINGLE_MONTH_WIDTH, classNames } = props;
 
   return (
-    <div style={{ width: SINGLE_MONTH_WIDTH }}>
+    <div style={{ width: monthWidth }}>
       <div className="flex items-center justify-center mb-8 h-6">
         <span
           className={cn(

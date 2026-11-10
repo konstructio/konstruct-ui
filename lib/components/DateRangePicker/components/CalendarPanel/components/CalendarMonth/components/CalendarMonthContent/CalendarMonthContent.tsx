@@ -1,6 +1,7 @@
 import { FC, useMemo } from 'react';
 import { DayPicker } from 'react-day-picker';
 
+import { useDateRangePicker } from '../../../../../../contexts';
 import { createDayPickerClassNames } from '../../../../constants';
 
 import { Props } from '../../CalendarMonth.types';
@@ -14,9 +15,10 @@ export const CalendarMonthContent: FC<Props> = ({
   showOutsideDays,
   classNames,
 }) => {
+  const { fluid } = useDateRangePicker();
   const dayPickerClassNames = useMemo(
-    () => createDayPickerClassNames(classNames?.dayPicker),
-    [classNames?.dayPicker],
+    () => createDayPickerClassNames(classNames?.dayPicker, fluid),
+    [classNames?.dayPicker, fluid],
   );
 
   return (

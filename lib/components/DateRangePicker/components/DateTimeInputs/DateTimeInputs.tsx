@@ -22,7 +22,7 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({
   errorDateNotAvailable = 'Date is not available',
   classNames,
 }) => {
-  const { numberOfMonths } = useDateRangePicker();
+  const { fluid, numberOfMonths } = useDateRangePicker();
   const {
     timeFormat,
     showTime,
@@ -56,10 +56,19 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({
     return showTime ? 'stacked' : 'compact';
   };
 
+  const fieldClassNames = fluid
+    ? {
+        ...classNames,
+        group: cn('w-full', classNames?.group),
+        dateWrapper: cn('w-auto flex-1', classNames?.dateWrapper),
+      }
+    : classNames;
+
   return (
     <div
       className={cn(
         dateTimeInputsVariants({ layout: getLayout(), className }),
+        fluid && 'w-full',
         classNames?.root,
       )}
     >
@@ -79,7 +88,7 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({
         onDateFocus={handleStartDateFocus}
         onDateBlur={handleStartDateBlur}
         onTimeChange={handleStartTimeChange}
-        classNames={classNames}
+        classNames={fieldClassNames}
       />
 
       <EndInputFields
@@ -98,7 +107,7 @@ export const DateTimeInputs: FC<DateTimeInputsProps> = ({
         onDateFocus={handleEndDateFocus}
         onDateBlur={handleEndDateBlur}
         onTimeChange={handleEndTimeChange}
-        classNames={classNames}
+        classNames={fieldClassNames}
       />
 
       {name && (
