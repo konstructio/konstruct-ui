@@ -11,6 +11,7 @@ export const createDayPickerClassNames = (custom?: DayPickerClassNames) => ({
   nav: 'hidden',
   day_button: cn(
     'size-7.5',
+    'mx-auto',
     'flex',
     'items-center',
     'justify-center',
