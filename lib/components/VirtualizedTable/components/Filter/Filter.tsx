@@ -5,9 +5,14 @@ import { Button } from '@/components/Button/Button';
 import { Filter as FilterPrimitive } from '@/components/Filter/Filter';
 import { resetEvent } from '@/components/Filter/events';
 import { Input } from '@/components/Input/Input';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { cn } from '@/utils';
 
-import { HIDE_BELOW_CLASS, SHOW_BELOW_CLASS } from '../../constants';
+import {
+  HIDE_BELOW_CLASS,
+  MOBILE_FILTER_QUERY,
+  SHOW_BELOW_CLASS,
+} from '../../constants';
 import { useTableContext } from '../../contexts';
 import { useIsFlexWrapped } from '../../hooks';
 import {
@@ -33,6 +38,8 @@ export const Filter: FC<Props> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isWrapped = useIsFlexWrapped(containerRef);
+  const isMobile = useMediaQuery(MOBILE_FILTER_QUERY);
+  const defaultPosition = isMobile && isWrapped ? 'left' : 'right';
   const tableId = getTableId(id);
   const {
     termOfSearch,
@@ -148,11 +155,7 @@ export const Filter: FC<Props> = ({
       );
     }
 
-    const {
-      key,
-      label,
-      position = isWrapped ? 'left' : 'right',
-    } = filterConfig;
+    const { key, label, position = defaultPosition } = filterConfig;
 
     if (filterConfig.type === 'textMultiSelect') {
       return (

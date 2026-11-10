@@ -645,6 +645,19 @@ describe('DateRangePicker', () => {
     });
   });
 
+  describe('Day alignment', () => {
+    it('should centre each day button in its column, under its weekday', async () => {
+      const { getCalendar } = setup({ numberOfMonths: 1 });
+
+      const calendar = await getCalendar();
+      const [dayButton] = await within(calendar).findAllByRole('button', {
+        name: /\d/,
+      });
+
+      expect(dayButton).toHaveClass('mx-auto');
+    });
+  });
+
   describe('dateDisplayFormat', () => {
     const defaultRange = {
       from: new Date(2026, 8, 3),
