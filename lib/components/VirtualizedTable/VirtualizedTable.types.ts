@@ -276,6 +276,8 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
   (
     | {
         filterSearchPlaceholder?: string;
+        /** Seeds the search box on mount. Later changes are ignored — the term is the table's own state from then on. */
+        defaultTermOfSearch?: string;
         /** @deprecated Use `filters` instead */
         multiSelectFilter?: MultiSelectFilter[];
         filters?: FilterConfig[];
@@ -293,6 +295,7 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
       }
     | {
         filterSearchPlaceholder?: never;
+        defaultTermOfSearch?: never;
         /** @deprecated Use `filters` instead */
         multiSelectFilter?: never;
         filters?: never;

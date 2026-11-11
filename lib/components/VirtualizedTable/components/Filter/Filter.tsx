@@ -30,6 +30,7 @@ export const Filter: FC<Props> = ({
   filters,
   multiSelectFilter,
   placeholder,
+  defaultTermOfSearch,
   showFilterInput = true,
   showResetButton = true,
   resetButtonClassName,
@@ -291,6 +292,7 @@ export const Filter: FC<Props> = ({
         <div className="kvt-search-wrapper w-60 min-w-0 max-sm:grow max-sm:basis-0">
           <Input
             ref={inputRef}
+            defaultValue={defaultTermOfSearch}
             placeholder={placeholder}
             isSearch
             autoComplete="false"

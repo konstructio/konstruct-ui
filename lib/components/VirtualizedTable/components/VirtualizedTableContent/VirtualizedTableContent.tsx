@@ -43,6 +43,7 @@ export const VirtualizedTableContent = <TData extends RowData>({
   showFilter = false,
   showFilterInput,
   filterSearchPlaceholder = '',
+  defaultTermOfSearch,
   filters,
   multiSelectFilter,
   filterActions,
@@ -85,6 +86,7 @@ export const VirtualizedTableContent = <TData extends RowData>({
       totalItems={totalItems}
       queryOptions={queryOptions}
       isPaginationEnabled={showPagination}
+      defaultTermOfSearch={defaultTermOfSearch}
       enableExpandedRow={enableExpandedRow}
       expandedState={expandedState}
       onExpandedChange={onExpandedChange}
@@ -108,6 +110,7 @@ export const VirtualizedTableContent = <TData extends RowData>({
             filters={filters}
             multiSelectFilter={multiSelectFilter}
             placeholder={filterSearchPlaceholder}
+            defaultTermOfSearch={defaultTermOfSearch}
             showFilterInput={showFilterInput}
             showResetButton={showResetButton}
             resetButtonClassName={resetButtonClassName}

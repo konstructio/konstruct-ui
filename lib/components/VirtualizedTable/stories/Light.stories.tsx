@@ -323,6 +323,52 @@ export const Default: Story = {
   },
 };
 
+export const SeededSearchTerm: Story = {
+  args: {
+    ...args,
+    defaultTermOfSearch: 'char',
+  },
+  render: (args) => {
+    const id = useId();
+
+    const getNewData = useCallback(
+      async ({
+        page = 1,
+        pageSize = DEFAULT_PAGE_SIZE,
+        termOfSearch = undefined,
+        type = undefined,
+      }: PokemonResponse) => {
+        const result = await getPokemons({
+          page,
+          pageSize,
+          termOfSearch,
+          type,
+        });
+
+        return {
+          data: result.results,
+          totalItemsCount: result.totalItemsCount,
+        };
+      },
+      [],
+    );
+
+    return (
+      <QueryClientProvider client={queryClient}>
+        <VirtualizedTableComponent<Pokemon>
+          {...args}
+          id={id}
+          data={[]}
+          columns={columns}
+          showPagination={true}
+          fetchData={getNewData}
+          totalItems={0}
+        />
+      </QueryClientProvider>
+    );
+  },
+};
+
 export const PaginationWithFewItems: Story = {
   render: () => {
     const id = useId();
