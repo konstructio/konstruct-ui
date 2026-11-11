@@ -9,6 +9,7 @@ export type Props<TData extends RowData = RowData> = PropsWithChildren & {
     totalItems: number;
     queryOptions?: TableProps<TData>['queryOptions'];
     isPaginationEnabled?: boolean;
+    defaultTermOfSearch?: string;
     enableExpandedRow?: boolean;
     expandedState?: ExpandedState;
     defaultExpanded?: ExpandedState;

@@ -1,5 +1,13 @@
 import{n as e}from"./rolldown-runtime-BCiCTKAo.js";import{A as t,a as n,j as r,o as i,s as a}from"./blocks-c_3qdA-m.js";import{t as o}from"./jsx-runtime-BB9-612F.js";var s;function c(){return(c=e((()=>{s=`# Changelog
 
+## [0.1.11](https://github.com/konstructio/konstruct-ui/tree/0.1.11) (2026-11-11)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.10...0.1.11)
+
+**Merged pull requests:**
+
+- ✨ feat\\(table\\): seed the search box from a defaultTermOfSearch prop [\\#814](https://github.com/konstructio/konstruct-ui/pull/814) ([jairoFernandez](https://github.com/jairoFernandez))
+
 ## [0.1.10](https://github.com/konstructio/konstruct-ui/tree/0.1.10) (2026-11-10)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.9...0.1.10)

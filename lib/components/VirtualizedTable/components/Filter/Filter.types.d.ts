@@ -10,6 +10,7 @@ export type Props = {
     /** @deprecated Use `ActionFilterConfig` items in `filters` instead */
     actions?: FilterAction[];
     placeholder: string;
+    defaultTermOfSearch?: string;
     showFilterInput?: boolean;
     showResetButton?: boolean;
     resetButtonClassName?: string;
