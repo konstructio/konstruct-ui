@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.11](https://github.com/konstructio/konstruct-ui/tree/0.1.11) (2026-11-11)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.10...0.1.11)
+
+**Merged pull requests:**
+
+- ✨ feat\(table\): seed the search box from a defaultTermOfSearch prop [\#814](https://github.com/konstructio/konstruct-ui/pull/814) ([jairoFernandez](https://github.com/jairoFernandez))
+
 ## [0.1.10](https://github.com/konstructio/konstruct-ui/tree/0.1.10) (2026-11-10)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.9...0.1.10)
