@@ -6,6 +6,8 @@ export type Props = PropsWithChildren<{
   classNameExpandedRow?: string;
   colSpan: number;
   id: string;
+  isCollapsing?: boolean;
   isExpanded: boolean;
   isLastRow?: boolean;
+  onCollapseEnd?: (id: string) => void;
 }>;
