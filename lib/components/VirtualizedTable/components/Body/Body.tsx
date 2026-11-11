@@ -10,7 +10,7 @@ import {
   ROUNDED_BOTTOM_EDGE_CLASSES,
 } from '../../constants';
 import { useTableContext } from '../../contexts';
-import { useDisplayedColumnCount } from '../../hooks';
+import { useCollapsingRows, useDisplayedColumnCount } from '../../hooks';
 import {
   getPinnedCellProps,
   getResponsiveEdgeClasses,
@@ -46,12 +46,17 @@ export const Body = <TData extends RowData = RowData>({
     pinnedWidths,
   } = useTableContext<TData>();
   const [stateBodyRef, displayedColumnCount] = useDisplayedColumnCount();
+  const rows = table.getRowModel().rows ?? [];
+  const { collapsingIds, handleCollapseEnd } = useCollapsingRows(
+    enableExpandedRow
+      ? rows.filter((row) => row.getIsExpanded()).map(({ id }) => id)
+      : [],
+  );
 
   if (isLoading || tableLoading) {
     return <Skeleton numberOfRows={pageSize} table={table} />;
   }
 
-  const rows = table.getRowModel().rows ?? [];
   const hasPaginationBar = showPagination && isPaginationBarVisible(totalItems);
   const isErrorContent = rows.length === 0 && !!tableError && !!errorState;
 
@@ -133,6 +138,7 @@ export const Body = <TData extends RowData = RowData>({
 
         const columns = getVisibleCells();
         const isExpanded = enableExpandedRow && row.getIsExpanded();
+        const isCollapsing = !isExpanded && collapsingIds.has(id);
         const hasExpandedContent = !!meta.expandedRow || !!renderExpandedRow;
         const hideBelows = columns.map(
           ({ column }) => column.columnDef.meta?.hideBelow,
@@ -140,7 +146,10 @@ export const Body = <TData extends RowData = RowData>({
         const isResponsive =
           hideBelows.some(Boolean) && columns[0]?.column.id !== '__expand';
         const hasRoundedBottom =
-          rowIndex === rows.length - 1 && !hasPaginationBar && !isExpanded;
+          rowIndex === rows.length - 1 &&
+          !hasPaginationBar &&
+          !isExpanded &&
+          !isCollapsing;
         // null means the expand column is mid-animation: don't apply rounded-bl-lg
         const firstDataColumnIndex: number | null = (() => {
           if (columns[0]?.column.id !== '__expand' || isExpandColumnVisible) {
@@ -227,14 +236,16 @@ export const Body = <TData extends RowData = RowData>({
                           firstDataColumnIndex !== null &&
                           columnIndex === firstDataColumnIndex &&
                           !hasPaginationBar &&
-                          !isExpanded,
+                          !isExpanded &&
+                          !isCollapsing,
                         'rounded-br-lg':
                           !isResponsive &&
                           rowIndex === rows.length - 1 &&
                           columnIndex === columns.length - 1 &&
                           !hasPaginationBar &&
-                          !isExpanded,
-                        'dark:[tr:last-child_&]:border-b': !hasPaginationBar,
+                          !isExpanded &&
+                          !isCollapsing,
+                        'dark:border-b': hasRoundedBottom,
                       },
                     )}
                     data-expanded={isExpanded ? true : undefined}
@@ -254,6 +265,8 @@ export const Body = <TData extends RowData = RowData>({
                 colSpan={columns.length}
                 id={id}
                 isExpanded={!!isExpanded}
+                isCollapsing={isCollapsing}
+                onCollapseEnd={handleCollapseEnd}
                 isLastRow={rowIndex === rows.length - 1 && !hasPaginationBar}
               >
                 {meta.expandedRow ?? renderExpandedRow?.(original)}

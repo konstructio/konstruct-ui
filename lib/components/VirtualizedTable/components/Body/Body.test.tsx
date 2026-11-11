@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { ReactNode } from 'react';
 
@@ -16,12 +16,31 @@ vi.mock('../../contexts', async (importActual) => ({
 type ContextOverrides = {
   tableLoading?: boolean;
   tableFetching?: boolean;
+  enableExpandedRow?: boolean;
   rows?: unknown[];
 };
+
+const buildRow = (id: string, { isExpanded = false } = {}) => ({
+  id,
+  original: { name: id, meta: { expandedRow: <span>{id} details</span> } },
+  getIsExpanded: () => isExpanded,
+  getVisibleCells: () => [
+    {
+      id: `${id}_name`,
+      column: {
+        id: 'name',
+        columnDef: { cell: () => id },
+        getIsPinned: () => false,
+      },
+      getContext: () => ({}),
+    },
+  ],
+});
 
 const buildContext = ({
   tableLoading = false,
   tableFetching = false,
+  enableExpandedRow = false,
   rows = [],
 }: ContextOverrides) => ({
   table: {
@@ -34,7 +53,7 @@ const buildContext = ({
   pageSize: 3,
   tableLoading,
   tableFetching,
-  enableExpandedRow: false,
+  enableExpandedRow,
   isBorderOnAdjacentCell: false,
   isExpandColumnVisible: false,
 });
@@ -86,6 +105,69 @@ describe('VirtualizedTable / Body', () => {
     setup({ tableLoading: false, rows: [] }, { isLoading: true });
 
     expect(screen.queryByText('No results')).not.toBeInTheDocument();
+  });
+
+  it('closes the bottom edge on the last row cells when its expanded row is collapsed', () => {
+    setup({ enableExpandedRow: true, rows: [buildRow('a'), buildRow('b')] });
+
+    const lastCell = screen.getByRole('cell', { name: 'b' });
+    const lastExpandedCell = screen
+      .getByText('b details')
+      .closest('td') as HTMLElement;
+
+    expect(lastCell).toHaveClass('dark:border-b', 'rounded-bl-lg');
+    expect(lastExpandedCell).toHaveClass('border-y-0');
+    expect(lastExpandedCell).not.toHaveClass('rounded-b-lg');
+  });
+
+  it('closes the bottom edge on the expanded row when the last row is expanded', () => {
+    setup({
+      enableExpandedRow: true,
+      rows: [buildRow('a'), buildRow('b', { isExpanded: true })],
+    });
+
+    const lastCell = screen.getByRole('cell', { name: 'b' });
+    const lastExpandedCell = screen
+      .getByText('b details')
+      .closest('td') as HTMLElement;
+
+    expect(lastCell).not.toHaveClass('dark:border-b');
+    expect(lastCell).not.toHaveClass('rounded-bl-lg');
+    expect(lastExpandedCell).toHaveClass('border-b', 'rounded-b-lg');
+  });
+
+  it('keeps the bottom edge on the expanded row until its collapse transition ends', () => {
+    const { rerender } = setup({
+      enableExpandedRow: true,
+      rows: [buildRow('a'), buildRow('b', { isExpanded: true })],
+    });
+
+    useTableContextMock.mockReturnValue(
+      buildContext({
+        enableExpandedRow: true,
+        rows: [buildRow('a'), buildRow('b')],
+      }),
+    );
+    rerender(
+      <table>
+        <Body emptyState={<span>No results</span>} />
+      </table>,
+    );
+
+    const lastCell = screen.getByRole('cell', { name: 'b' });
+    const lastExpandedCell = screen
+      .getByText('b details')
+      .closest('td') as HTMLElement;
+    const transitionTarget = lastExpandedCell.firstElementChild as HTMLElement;
+
+    expect(lastCell).not.toHaveClass('rounded-bl-lg');
+    expect(lastExpandedCell).toHaveClass('border-b', 'rounded-b-lg');
+
+    fireEvent.transitionEnd(transitionTarget);
+
+    expect(lastCell).toHaveClass('dark:border-b', 'rounded-bl-lg');
+    expect(lastExpandedCell).toHaveClass('border-y-0');
+    expect(lastExpandedCell).not.toHaveClass('rounded-b-lg');
   });
 
   it('has no accessibility violations on the empty state', async () => {
