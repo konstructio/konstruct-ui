@@ -2,13 +2,13 @@ import type { Easing } from 'motion/react';
 import { ComponentPropsWithoutRef } from 'react';
 
 /**
- * Props for the AnimatedNumber component.
+ * Props for the AnimateCurrencyNumber component.
  *
  * @example
  * ```tsx
- * <AnimatedNumber value={1234.5} locale="en-US" currency="USD" />
- * <AnimatedNumber value={42} from={0} />
- * <AnimatedNumber value={3} format={(value) => `${Math.round(value)} nodes`} />
+ * <AnimateCurrencyNumber value={1234.5} locale="en-US" currency="USD" />
+ * <AnimateCurrencyNumber value={42} from={0} />
+ * <AnimateCurrencyNumber value={3} format={(value) => `${Math.round(value)} nodes`} />
  * ```
  */
 export type Props = Omit<ComponentPropsWithoutRef<'span'>, 'children'> & {
@@ -46,4 +46,4 @@ export type Props = Omit<ComponentPropsWithoutRef<'span'>, 'children'> & {
   onCountStart?: (target: number) => void;
 };
 
-export type AnimatedNumberProps = Props;
+export type AnimateCurrencyNumberProps = Props;

@@ -5,9 +5,9 @@ import { Button } from '../Button/Button';
 import { Card } from '../Card/Card';
 import { Typography } from '../Typography/Typography';
 
-import { AnimatedNumber as AnimatedNumberComponent } from './AnimatedNumber';
+import { AnimateCurrencyNumber as AnimateCurrencyNumberComponent } from './AnimateCurrencyNumber';
 
-type Story = StoryObj<typeof AnimatedNumberComponent>;
+type Story = StoryObj<typeof AnimateCurrencyNumberComponent>;
 
 const LIVE_INTERVAL_MS = 3500;
 
@@ -25,8 +25,8 @@ const randomAmount = () => {
 };
 
 const meta = {
-  title: 'In Review/AnimatedNumber',
-  component: AnimatedNumberComponent,
+  title: 'In Review/AnimateCurrencyNumber',
+  component: AnimateCurrencyNumberComponent,
   args: {
     value: 1234.5,
     locale: 'en-US',
@@ -60,9 +60,9 @@ const meta = {
     onCountStart: { action: 'countStart' },
     onCountEnd: { action: 'countEnd' },
   },
-} satisfies Meta<typeof AnimatedNumberComponent>;
+} satisfies Meta<typeof AnimateCurrencyNumberComponent>;
 
-export const AnimatedNumber: Story = {
+export const AnimateCurrencyNumber: Story = {
   parameters: {
     docs: {
       description: {
@@ -73,7 +73,7 @@ export const AnimatedNumber: Story = {
   },
   render: (args) => (
     <Typography variant="h4" component="p">
-      <AnimatedNumberComponent {...args} />
+      <AnimateCurrencyNumberComponent {...args} />
     </Typography>
   ),
 };
@@ -99,7 +99,7 @@ export const Currencies: Story = {
           >
             <Typography variant="body2">{caption}</Typography>
             <Typography variant="h6" component="span">
-              <AnimatedNumberComponent
+              <AnimateCurrencyNumberComponent
                 {...args}
                 value={amount}
                 locale={locale}
@@ -152,7 +152,7 @@ export const PlainInteger: Story = {
           −25
         </Button>
         <Typography variant="h4" component="p">
-          <AnimatedNumberComponent {...args} value={count} />
+          <AnimateCurrencyNumberComponent {...args} value={count} />
         </Typography>
         <Button
           variant="secondary"
@@ -188,7 +188,7 @@ export const CountFromZero: Story = {
     return (
       <div className="flex items-center gap-4">
         <Typography variant="h4" component="p">
-          <AnimatedNumberComponent key={mountKey} {...args} />
+          <AnimateCurrencyNumberComponent key={mountKey} {...args} />
         </Typography>
         <Button
           variant="secondary"
@@ -229,7 +229,7 @@ export const CustomFormat: Story = {
     return (
       <div className="flex items-center gap-4">
         <Typography variant="h5" component="p">
-          <AnimatedNumberComponent {...args} value={nodes} />
+          <AnimateCurrencyNumberComponent {...args} value={nodes} />
         </Typography>
         <Button
           variant="secondary"
@@ -274,11 +274,11 @@ export const Live: Story = {
       <Card className="flex flex-col gap-2 max-w-100">
         <Typography variant="labelLarge">This month</Typography>
         <Typography variant="h4" component="p">
-          <AnimatedNumberComponent {...args} value={amount} />
+          <AnimateCurrencyNumberComponent {...args} value={amount} />
         </Typography>
         <Typography variant="body2">
           Running total, inline with the text around it:{' '}
-          <AnimatedNumberComponent
+          <AnimateCurrencyNumberComponent
             {...args}
             value={amount}
             className="font-semibold"

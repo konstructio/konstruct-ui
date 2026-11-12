@@ -1,7 +1,7 @@
 export * from './Alert/Alert';
 export * from './AlertDialog/AlertDialog';
-export * from './AnimatedNumber/AnimatedNumber';
-export type { Props as AnimatedNumberProps } from './AnimatedNumber/AnimatedNumber.types';
+export * from './AnimateCurrencyNumber/AnimateCurrencyNumber';
+export type { Props as AnimateCurrencyNumberProps } from './AnimateCurrencyNumber/AnimateCurrencyNumber.types';
 export * from './Autocomplete/Autocomplete';
 export * from './Avatar/Avatar';
 export * from './AvatarGroup/AvatarGroup';

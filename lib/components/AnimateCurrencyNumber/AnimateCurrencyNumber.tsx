@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 
 import { cn } from '@/utils';
 
-import { Props } from './AnimatedNumber.types';
+import { Props } from './AnimateCurrencyNumber.types';
 import { AnimatedText } from './components';
 import {
   DEFAULT_CHARACTER_DURATION_S,
@@ -11,7 +11,7 @@ import {
   DEFAULT_DURATION_S,
   DEFAULT_EASING,
 } from './constants';
-import { useAnimatedNumber, useNumberFormatter } from './hooks';
+import { useAnimateCurrencyNumber, useNumberFormatter } from './hooks';
 
 /**
  * Counts up or down to each new `value`, formatted with `Intl.NumberFormat`
@@ -24,29 +24,29 @@ import { useAnimatedNumber, useNumberFormatter } from './hooks';
  * @example
  * ```tsx
  * // Currency, counting to every new total
- * <AnimatedNumber value={total} locale="en-US" currency="USD" />
+ * <AnimateCurrencyNumber value={total} locale="en-US" currency="USD" />
  *
  * // Symbol after the number, as the locale places it
- * <AnimatedNumber value={9.5} locale="de-DE" currency="EUR" />
+ * <AnimateCurrencyNumber value={9.5} locale="de-DE" currency="EUR" />
  *
  * // Plain integer counted from zero on mount
- * <AnimatedNumber
+ * <AnimateCurrencyNumber
  *   value={128}
  *   from={0}
  *   formatOptions={{ maximumFractionDigits: 0 }}
  * />
  *
  * // Custom format and callbacks
- * <AnimatedNumber
+ * <AnimateCurrencyNumber
  *   value={nodes}
  *   format={(value) => `${Math.round(value)} nodes`}
  *   onCountEnd={(target) => console.log('reached', target)}
  * />
  * ```
  *
- * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/in-review-animatednumber--docs Storybook}
+ * @see {@link https://konstructio.github.io/konstruct-ui/?path=/docs/in-review-animatecurrencynumber--docs Storybook}
  */
-const AnimatedNumber = forwardRef<HTMLSpanElement, Props>(
+const AnimateCurrencyNumber = forwardRef<HTMLSpanElement, Props>(
   (
     {
       animateCharacters = true,
@@ -75,7 +75,7 @@ const AnimatedNumber = forwardRef<HTMLSpanElement, Props>(
       formatOptions,
       locale,
     });
-    const displayed = useAnimatedNumber(value, {
+    const displayed = useAnimateCurrencyNumber(value, {
       delaySeconds,
       disabled,
       durationSeconds,
@@ -98,6 +98,6 @@ const AnimatedNumber = forwardRef<HTMLSpanElement, Props>(
   },
 );
 
-AnimatedNumber.displayName = 'KonstructAnimatedNumber';
+AnimateCurrencyNumber.displayName = 'KonstructAnimateCurrencyNumber';
 
-export { AnimatedNumber };
+export { AnimateCurrencyNumber };

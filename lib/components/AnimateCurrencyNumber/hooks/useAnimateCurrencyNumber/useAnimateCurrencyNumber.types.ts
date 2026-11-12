@@ -1,6 +1,6 @@
 import type { Easing } from 'motion/react';
 
-export type UseAnimatedNumberOptions = {
+export type UseAnimateCurrencyNumberOptions = {
   delaySeconds: number;
   disabled: boolean;
   durationSeconds: number;

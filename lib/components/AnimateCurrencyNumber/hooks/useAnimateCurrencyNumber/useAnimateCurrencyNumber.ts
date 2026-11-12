@@ -6,9 +6,9 @@ import {
 } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 
-import { UseAnimatedNumberOptions } from './useAnimatedNumber.types';
+import { UseAnimateCurrencyNumberOptions } from './useAnimateCurrencyNumber.types';
 
-export const useAnimatedNumber = (
+export const useAnimateCurrencyNumber = (
   target: number,
   {
     delaySeconds,
@@ -18,7 +18,7 @@ export const useAnimatedNumber = (
     from,
     onCountEnd,
     onCountStart,
-  }: UseAnimatedNumberOptions,
+  }: UseAnimateCurrencyNumberOptions,
 ): number => {
   const [displayed, setDisplayed] = useState(from ?? target);
   const motionValue = useMotionValue(from ?? target);

@@ -2,17 +2,17 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { axe } from 'jest-axe';
 import { ComponentProps, createRef } from 'react';
 
-import { AnimatedNumber } from './AnimatedNumber';
+import { AnimateCurrencyNumber } from './AnimateCurrencyNumber';
 
-type Props = ComponentProps<typeof AnimatedNumber>;
+type Props = ComponentProps<typeof AnimateCurrencyNumber>;
 
 const FAST = { durationSeconds: 0.2 };
 
 const setup = (props: Props) => {
-  const utils = render(<AnimatedNumber {...props} />);
+  const utils = render(<AnimateCurrencyNumber {...props} />);
 
   const update = (nextProps: Partial<Props>) => {
-    utils.rerender(<AnimatedNumber {...props} {...nextProps} />);
+    utils.rerender(<AnimateCurrencyNumber {...props} {...nextProps} />);
   };
 
   const visibleText = () => {
@@ -26,7 +26,7 @@ const setup = (props: Props) => {
   return { ...utils, update, visibleText };
 };
 
-describe('AnimatedNumber', () => {
+describe('AnimateCurrencyNumber', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -268,7 +268,9 @@ describe('AnimatedNumber', () => {
   it('should forward the ref and extra props to the root element', () => {
     const ref = createRef<HTMLSpanElement>();
 
-    render(<AnimatedNumber ref={ref} value={1} locale="en" title="Total" />);
+    render(
+      <AnimateCurrencyNumber ref={ref} value={1} locale="en" title="Total" />,
+    );
 
     expect(ref.current).toBe(screen.getByTitle('Total'));
     expect(ref.current?.tagName).toBe('SPAN');
