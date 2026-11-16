@@ -74,6 +74,17 @@ describe('Select', () => {
       expect(comboBox).toBeInTheDocument();
     });
 
+    it('should keep the label at the same size on phones as on desktop', async () => {
+      const { findComboBox } = setup();
+
+      await findComboBox();
+
+      const label = screen.getByText('Select', { selector: 'label' });
+
+      expect(label).toHaveClass('text-sm');
+      expect(label).not.toHaveClass('max-md:text-base');
+    });
+
     it("should doesn't have violations", async () => {
       const { component } = setup();
 
