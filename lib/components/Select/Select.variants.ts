@@ -70,7 +70,6 @@ export const inputVariants = cva([
 export const labelVariants = cva([
   'cursor-pointer',
   'text-sm',
-  'max-md:text-base',
   'leading-5',
   'tracking-[0.1px]',
   'dark:text-metal-50',
