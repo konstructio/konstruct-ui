@@ -16,7 +16,7 @@ import { Props } from '../../Sidebar.types';
 import { dragVariants, wrapperSiderbarVariants } from '../../Sidebar.variants';
 import { HamburgerTrigger } from '../HamburgerTrigger/HamburgerTrigger';
 
-const DRAWER_DEFAULT_MAX_WIDTH = 280;
+import { DRAWER_DEFAULT_MAX_WIDTH } from './constants';
 
 const Wrapper: FC<Props> = ({
   animateOnHover = true,

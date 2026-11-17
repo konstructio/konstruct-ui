@@ -5,7 +5,7 @@ import { Theme } from '@/domain/theme';
 
 import { avatarVariants } from './Avatar.variants';
 
-export interface Props extends VariantProps<typeof avatarVariants> {
+export type Props = VariantProps<typeof avatarVariants> & {
   /** Accessible name of the avatar, e.g. the person's name */
   alt: string;
   /** Additional CSS classes */
@@ -20,6 +20,6 @@ export interface Props extends VariantProps<typeof avatarVariants> {
   src?: string;
   /** Theme override for this component */
   theme?: Theme;
-}
+};
 
 export type AvatarProps = Props;

@@ -1,17 +1,12 @@
-import { FC, PropsWithChildren, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 
 import { isClient } from '../utils';
 
 import { ThemeContext, ThemeContextType } from './theme.context';
+import type { ThemeContextProps } from './theme.types';
 
-/**
- * Props for the ThemeProvider component.
- */
-export type ThemeContextProps = PropsWithChildren & {
-  /** Initial theme to use */
-  theme?: ThemeContextType['theme'];
-};
+export type { ThemeContextProps } from './theme.types';
 
 /**
  * Theme provider component that wraps your app to enable theming.

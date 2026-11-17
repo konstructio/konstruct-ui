@@ -26,6 +26,7 @@ import { useSidebarContext } from '../../contexts';
 import { NavigationOptionContext } from './NavigationOption.context';
 import { Props } from './NavigationOption.types';
 import { navigationOptionVariants } from './NavigationOption.variants';
+import { DEFAULT_INTENT_DELAY_MS } from './constants';
 
 /**
  * Radix `<Trigger asChild>` requires a single React element. If consumers
@@ -47,8 +48,6 @@ const toSingleTriggerChild = (children: ReactNode): ReactElement => {
     </span>
   );
 };
-
-const DEFAULT_INTENT_DELAY_MS = 80;
 
 const NavigationOption: FC<Props> = ({
   badge,

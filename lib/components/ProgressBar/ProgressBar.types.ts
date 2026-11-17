@@ -6,7 +6,7 @@ import { Theme } from '@/domain/theme';
 
 import { progressBarFillVariants } from './ProgressBar.variants';
 
-export interface Props extends VariantProps<typeof progressBarFillVariants> {
+export type Props = VariantProps<typeof progressBarFillVariants> & {
   /** Accessible name announced for the progress bar */
   ariaLabel?: string;
   /** Additional CSS classes for the outer wrapper */
@@ -23,7 +23,7 @@ export interface Props extends VariantProps<typeof progressBarFillVariants> {
   theme?: Theme;
   /** Custom CSS class for the track background (e.g., "bg-gray-200") */
   trackClassName?: string;
-}
+};
 
 /** @deprecated Use Props instead */
 export type ProgressBarProps = Props;

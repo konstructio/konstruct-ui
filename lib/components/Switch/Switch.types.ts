@@ -14,7 +14,7 @@ import { switchVariants } from './Switch.variants';
  * <Switch label="Feature" helperText="Enable experimental features" alignment="vertical" />
  * ```
  */
-export interface Props extends VariantProps<typeof switchVariants> {
+export type Props = VariantProps<typeof switchVariants> & {
   /** Layout direction: horizontal (default) or vertical */
   alignment?: 'horizontal' | 'vertical';
   /** Additional CSS classes */
@@ -47,7 +47,7 @@ export interface Props extends VariantProps<typeof switchVariants> {
   value?: boolean;
   /** Callback when checked state changes */
   onChange?: (e: boolean) => void;
-}
+};
 
 /** @deprecated Use Props instead */
 export type SwitchProps = Props;

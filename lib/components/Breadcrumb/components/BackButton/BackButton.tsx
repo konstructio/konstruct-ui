@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { ArrowBackIcon } from '@/assets/icons/components';
 import { cn } from '@/utils';
 
-import { useBreadcrumb } from '../../hooks/useBreadcrumb';
+import { useBreadcrumb } from '../../hooks';
 
 import { Props } from './BackButton.types';
 import { backButtonVariants } from './BackButton.variants';

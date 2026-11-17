@@ -1,11 +1,8 @@
 import { createContext } from 'react';
 
-import { Theme } from '@/domain/theme';
+import type { ThemeContextType } from './theme.types';
 
-export type ThemeContextType = {
-  theme: Theme;
-  setTheme: (theme: Theme) => void;
-};
+export type { ThemeContextType } from './theme.types';
 
 export const ThemeContext = createContext<ThemeContextType>({
   theme: undefined,

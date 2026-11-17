@@ -4,7 +4,7 @@ import { ComponentRef, ReactNode, RefObject } from 'react';
 import { Option } from '../../Autocomplete.types';
 import { autocompleteVariants } from '../../Autocomplete.variants';
 
-export interface Props extends VariantProps<typeof autocompleteVariants> {
+export type Props = VariantProps<typeof autocompleteVariants> & {
   className?: string;
   inputRef: RefObject<ComponentRef<'input'> | null>;
   wrapperRef: RefObject<ComponentRef<'div'> | null>;
@@ -12,4 +12,4 @@ export interface Props extends VariantProps<typeof autocompleteVariants> {
   placeholder: string | ReactNode;
   placeholderClassName?: string;
   onClick(value: string): void;
-}
+};

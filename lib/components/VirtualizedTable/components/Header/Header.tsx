@@ -13,12 +13,7 @@ import { getPinnedCellProps, getResponsiveEdgeClasses } from '../../utils';
 import { RowData } from '../../VirtualizedTable.types';
 
 import { Props } from './Header.types';
-
-const ARIA_SORT = {
-  asc: 'ascending',
-  desc: 'descending',
-  none: 'none',
-} as const;
+import { ARIA_SORT } from './constants';
 
 export const Header = <TData extends RowData>({
   className,

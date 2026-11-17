@@ -1,23 +1,16 @@
-import type { SheetPosition } from '../Sheet.types';
+import type {
+  BackGesture,
+  Gesture,
+  SheetGesture,
+  SheetGestureOutcome,
+} from './utils.types';
+
+export type { SheetGestureOutcome } from './utils.types';
+
+export * from './header-direction/header-direction';
 
 export const DISMISS_DISTANCE_RATIO = 0.25;
 export const DISMISS_VELOCITY = 500;
-
-type Gesture = {
-  offset: number;
-  velocity: number;
-  panelHeight: number;
-  position: SheetPosition;
-};
-
-type SheetGesture = Gesture & {
-  expandable: boolean;
-  isExpanded: boolean;
-  /** Height the panel had before it expanded; the collapse target */
-  restHeight?: number;
-};
-
-export type SheetGestureOutcome = 'dismiss' | 'expand' | 'collapse' | 'rest';
 
 function towardsEdge({ offset, velocity, position }: Gesture) {
   const sign = position === 'bottom' ? 1 : -1;
@@ -50,12 +43,6 @@ export function shouldExpandSheet(gesture: Gesture): boolean {
 
   return passesThreshold(-distance, -speed, gesture.panelHeight);
 }
-
-type BackGesture = {
-  offset: number;
-  velocity: number;
-  panelWidth: number;
-};
 
 export function shouldSwipeBack({
   offset,

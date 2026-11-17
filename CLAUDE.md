@@ -28,7 +28,7 @@ Each component follows this structure:
 ```
 ComponentName/
 ├── ComponentName.tsx           # Main component
-├── ComponentName.types.ts      # TypeScript interfaces
+├── ComponentName.types.ts      # TypeScript types
 ├── ComponentName.variants.ts   # CVA variant definitions
 ├── ComponentName.test.tsx      # Unit tests
 ├── ComponentName.stories.tsx   # Storybook stories
@@ -93,21 +93,21 @@ ComponentName/
 
 Most components accept these props:
 ```typescript
-interface CommonProps {
+type CommonProps = {
   theme?: 'kubefirst' | 'light' | 'kubefirst-dark' | 'dark';
   className?: string;        // Additional CSS classes
   disabled?: boolean;
-}
+};
 ```
 
 Form components typically include:
 ```typescript
-interface FormProps {
+type FormProps = {
   label?: string | ReactNode;
   error?: string;
   helperText?: string;
   isRequired?: boolean;
-}
+};
 ```
 
 ## Variant System (CVA)
@@ -236,7 +236,7 @@ Test files: `ComponentName.test.tsx`
 - **Imports**: organized manually — external packages first, then `@/` aliases, then relative imports, separated by blank lines
 - **File naming**: components in UpperCamelCase (e.g. `ClusterList.tsx`); services, lib, domain, constants, assets, modules, styles, and utils in kebab-case (e.g. `contact-center.ts`, `http-client.ts`, `node-pool.ts`)
 - **Component types**: define types in a separate file named `{Component}.types.ts` (e.g. `ClusterList.types.ts` alongside `ClusterList.tsx`)
-- **Component props**: type the props interface as `Props`, use `FC<Props>` (e.g. `const MyComponent: FC<Props> = ({ title }) => { ... }`)
+- **Component props**: declare the props with `type` (never `interface`) and name it `Props`, use `FC<Props>` (e.g. `const MyComponent: FC<Props> = ({ title }) => { ... }`)
 - **Props ordering**: inside a `Props` type, list data properties first in alphabetical order, then callbacks/methods (`onX`, `renderX`, any function-typed prop) at the end, also in alphabetical order
 - **Arrow functions**: always use block body with braces (e.g. `(x) => { return x + 1; }`, not `(x) => x + 1`). Exceptions: when returning an object literal, use parenthesized body (e.g. `() => ({ key: value })`, not `() => { return { key: value }; }`); and when a component has no internal logic (no hooks, variables or handlers) and only returns JSX, use parenthesized body (e.g. `const Foo: FC<Props> = (props) => (<Bar {...props} />)`). Everything else, including callbacks, event handlers, and components with any statement before the return, uses block body.
 - **Braces on every `if`**: the body of an `if`/`else` always goes in a block on its own lines, never inline on the same line, even for a single `return`, `continue` or `break` (e.g. `if (!x) { return null; }` laid out over three lines, not `if (!x) return null;`). This applies to existing code you touch as well: when you edit a file, convert any inline `if` you find in it.

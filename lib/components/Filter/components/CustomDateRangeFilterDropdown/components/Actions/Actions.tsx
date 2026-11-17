@@ -6,7 +6,7 @@ import { cn } from '@/utils';
 
 import { useCustomDateRangeFilterDropdown } from '../../contexts';
 
-const FADE_DURATION = 0.15;
+import { FADE_DURATION } from './constants';
 
 export const Actions: FC = () => {
   const {

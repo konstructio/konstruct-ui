@@ -1,7 +1,4 @@
-type ContentModule =
-  typeof import('../../components/VirtualizedTableContent/VirtualizedTableContent');
-
-type Listener = () => void;
+import type { ContentModule, Listener } from './load-content.types';
 
 let contentRequest: Promise<ContentModule> | undefined;
 let loadedModule: ContentModule | undefined;

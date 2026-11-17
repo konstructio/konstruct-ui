@@ -2,10 +2,10 @@ import { InputHTMLAttributes, ReactNode } from 'react';
 
 import { Theme } from '@/domain/theme';
 
-export interface Props extends Omit<
+export type Props = Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'value' | 'onChange'
-> {
+> & {
   /** Additional CSS classes for the field container */
   className?: string;
   /** Commit the typed text as a tag when the input loses focus. Defaults to true */
@@ -38,6 +38,6 @@ export interface Props extends Omit<
   value: string[];
   /** Called with the new tags when one is added or removed */
   onChange: (tags: string[]) => void;
-}
+};
 
 export type TagsInputProps = Props;

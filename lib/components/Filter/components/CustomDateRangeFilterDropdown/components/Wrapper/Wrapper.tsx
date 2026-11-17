@@ -13,7 +13,7 @@ import { PanelActions } from '../PanelActions/PanelActions';
 import { Picker } from '../Picker/Picker';
 import { Trigger } from '../Trigger/Trigger';
 
-const CUSTOM_RANGE_STEP = 1;
+import { CUSTOM_RANGE_STEP } from './constants';
 
 export const Wrapper: FC = () => {
   const {

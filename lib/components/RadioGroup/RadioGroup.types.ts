@@ -21,7 +21,7 @@ import { Props as RadioProps } from '../Radio/Radio.types';
  * />
  * ```
  */
-export interface Props {
+export type Props = {
   /** Merge props onto child element */
   asChild?: boolean;
   /** CSS classes for each radio option */
@@ -44,7 +44,7 @@ export interface Props {
   wrapperClassName?: string;
   /** Callback when selection changes */
   onValueChange?: (value: string) => void;
-}
+};
 
 /** @deprecated Use Props instead */
 export type RadioGroupProps = Props;

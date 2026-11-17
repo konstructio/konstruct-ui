@@ -45,54 +45,52 @@ type OnBlurFn = (event: {
  * />
  * ```
  */
-export interface Props
-  extends
-    VariantProps<typeof multiSelectDropdownVariants>,
-    Omit<
-      InputHTMLAttributes<HTMLInputElement>,
-      'value' | 'onChange' | 'onBlur'
-    > {
-  /** Disable opening the list and removing selections */
-  disabled?: boolean;
-  /** Error message displayed below the dropdown */
-  error?: string;
-  /** Additional CSS classes for the error message */
-  errorClassName?: string;
-  /** Helper text displayed below the dropdown when there is no error */
-  helperText?: string;
-  /** Additional CSS classes for the helper text */
-  helperTextClassName?: string;
-  /** Whether the dropdown is in a loading state */
-  isLoading?: boolean;
-  /** Whether the field is required */
-  isRequired?: boolean;
-  /** Label displayed above the dropdown */
-  label?: string;
-  /** Additional CSS classes for the label */
-  labelClassName?: string;
-  /** Additional CSS classes for the label wrapper */
-  labelWrapperClassName?: string;
-  /** Whether multiple options can be selected */
-  multiselect?: boolean;
-  /** Form field name */
-  name?: string;
-  /** Text shown when no options match the search */
-  noOptionsText?: string;
-  /** Text shown in the list while options are loading */
-  loadingText?: string;
-  /** Available options to select from */
-  options: MultiSelectDropdownOption[];
-  /** Placeholder text when no selection */
-  placeholder?: string;
-  /** Currently selected options */
-  value?: MultiSelectDropdownOption[];
-  /** Additional CSS classes for the wrapper */
-  wrapperClassName?: string;
-  /** Callback fired when selection changes */
-  onChange?: OnChangeFn;
-  /** Callback fired when the input loses focus */
-  onBlur?: OnBlurFn;
-}
+export type Props = VariantProps<typeof multiSelectDropdownVariants> &
+  Omit<
+    InputHTMLAttributes<HTMLInputElement>,
+    'value' | 'onChange' | 'onBlur'
+  > & {
+    /** Disable opening the list and removing selections */
+    disabled?: boolean;
+    /** Error message displayed below the dropdown */
+    error?: string;
+    /** Additional CSS classes for the error message */
+    errorClassName?: string;
+    /** Helper text displayed below the dropdown when there is no error */
+    helperText?: string;
+    /** Additional CSS classes for the helper text */
+    helperTextClassName?: string;
+    /** Whether the dropdown is in a loading state */
+    isLoading?: boolean;
+    /** Whether the field is required */
+    isRequired?: boolean;
+    /** Label displayed above the dropdown */
+    label?: string;
+    /** Additional CSS classes for the label */
+    labelClassName?: string;
+    /** Additional CSS classes for the label wrapper */
+    labelWrapperClassName?: string;
+    /** Whether multiple options can be selected */
+    multiselect?: boolean;
+    /** Form field name */
+    name?: string;
+    /** Text shown when no options match the search */
+    noOptionsText?: string;
+    /** Text shown in the list while options are loading */
+    loadingText?: string;
+    /** Available options to select from */
+    options: MultiSelectDropdownOption[];
+    /** Placeholder text when no selection */
+    placeholder?: string;
+    /** Currently selected options */
+    value?: MultiSelectDropdownOption[];
+    /** Additional CSS classes for the wrapper */
+    wrapperClassName?: string;
+    /** Callback fired when selection changes */
+    onChange?: OnChangeFn;
+    /** Callback fired when the input loses focus */
+    onBlur?: OnBlurFn;
+  };
 
 /** @deprecated Use Props instead */
 export type MultiSelectDropdownProps = Props;

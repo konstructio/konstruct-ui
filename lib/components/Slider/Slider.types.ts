@@ -21,7 +21,7 @@ import { sliderVariants } from './Slider.variants';
  * />
  * ```
  */
-export interface Props extends VariantProps<typeof sliderVariants> {
+export type Props = VariantProps<typeof sliderVariants> & {
   /** Additional CSS classes */
   className?: string;
   /** Initial value as single-element array */
@@ -42,7 +42,7 @@ export interface Props extends VariantProps<typeof sliderVariants> {
   size?: 'sm' | 'md' | 'lg';
   /** Theme override for this component */
   theme?: Theme;
-}
+};
 
 /** @deprecated Use Props instead */
 export type SliderProps = Props;

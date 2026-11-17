@@ -1,1 +1,1 @@
-export * from './useAlertDialog';
+export * from './useAlertDialog/useAlertDialog';

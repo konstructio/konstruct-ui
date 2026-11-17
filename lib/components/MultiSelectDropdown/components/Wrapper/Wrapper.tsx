@@ -8,7 +8,7 @@ import { Typography } from '@/components/Typography/Typography';
 import { cn, composeIds } from '@/utils';
 
 import { useMultiSelectDropdown as useMultiSelectDropdownContext } from '../../contexts';
-import { useMultiSelectDropdown } from '../../hooks/useMultiSelectDropdown';
+import { useMultiSelectDropdown } from '../../hooks';
 import {
   labelVariants,
   multiSelectDropdownVariants,

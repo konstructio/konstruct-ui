@@ -1,1 +1,1 @@
-export * from './useSidebarMode';
+export * from './useSidebarMode/useSidebarMode';

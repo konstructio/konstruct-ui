@@ -1,24 +1,8 @@
-import { RegionCode } from 'google-libphonenumber';
-import { createContext, FC } from 'react';
+import { createContext } from 'react';
 
-export type Country = {
-  code: RegionCode;
-  flag: FC;
-  name: string;
-  prefix: string;
-};
+import type { ContextType } from './phone-number.types';
 
-export type ContextType = {
-  countries: Country[];
-  isOpenSelector: boolean;
-  selectedCountry: Country;
-  termOfSearch: string;
-  value: string;
-  handleOpenSelector: (status?: boolean) => void;
-  handleSelectCountry: (country: Country) => void;
-  onChangeTermOfSearch: (term: string) => void;
-  onChangeValue: (value: string) => void;
-};
+export type { ContextType, Country } from './phone-number.types';
 
 export const PhoneNumberContext = createContext<ContextType>({
   countries: [],

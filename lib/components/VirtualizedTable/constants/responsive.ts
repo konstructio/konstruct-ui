@@ -1,4 +1,14 @@
-export type HideBelowBreakpoint = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+import type {
+  HideBelowBreakpoint,
+  ResponsiveEdgeClasses,
+  ResponsiveTier,
+} from './responsive.types';
+
+export type {
+  HideBelowBreakpoint,
+  ResponsiveEdgeClasses,
+  ResponsiveTier,
+} from './responsive.types';
 
 export const HIDE_BELOW_CLASS: Record<HideBelowBreakpoint, string> = {
   sm: 'max-sm:hidden',
@@ -16,8 +26,6 @@ export const SHOW_BELOW_CLASS: Record<HideBelowBreakpoint, string> = {
   '2xl': '2xl:hidden',
 };
 
-export type ResponsiveTier = 'base' | HideBelowBreakpoint;
-
 export const RESPONSIVE_TIERS: ResponsiveTier[] = [
   'base',
   'sm',
@@ -26,11 +34,6 @@ export const RESPONSIVE_TIERS: ResponsiveTier[] = [
   'xl',
   '2xl',
 ];
-
-export type ResponsiveEdgeClasses = {
-  left: Record<ResponsiveTier, string>;
-  right: Record<ResponsiveTier, string>;
-};
 
 export const BORDER_EDGE_CLASSES: ResponsiveEdgeClasses = {
   left: {

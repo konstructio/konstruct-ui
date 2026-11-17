@@ -1,6 +1,6 @@
 import { Props as TypographyProps } from '@/components/Typography/Typography.types';
 
-export interface LineChartDataset {
+export type LineChartDataset = {
   /** Dataset label (used in legend) */
   label: string;
   /** Array of numeric values */
@@ -9,7 +9,7 @@ export interface LineChartDataset {
   color?: string;
   /** Dashed line pattern (e.g. [5, 5]) */
   borderDash?: number[];
-}
+};
 
 /**
  * Props for the LineChart component.
@@ -24,7 +24,7 @@ export interface LineChartDataset {
  * />
  * ```
  */
-export interface Props {
+export type Props = {
   /** Chart title text */
   title?: string;
   /** Props passed to the Typography component used for the title */
@@ -55,7 +55,7 @@ export interface Props {
   tooltipTextColor?: string;
   /** Additional className for wrapper */
   className?: string;
-}
+};
 
 /** @deprecated Use Props instead */
 export type LineChartProps = Props;

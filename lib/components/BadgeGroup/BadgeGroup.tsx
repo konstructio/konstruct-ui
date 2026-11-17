@@ -7,10 +7,11 @@ import { Tooltip } from '../Tooltip/Tooltip';
 
 import { Props } from './BadgeGroup.types';
 import { useVisibleBadgeCount } from './hooks';
-
-const GAP_PX = 8;
-const BADGE_HORIZONTAL_PADDING_PX = 16;
-const DEFAULT_ITEMS_PER_TOOLTIP_LINE = 4;
+import {
+  BADGE_HORIZONTAL_PADDING_PX,
+  DEFAULT_ITEMS_PER_TOOLTIP_LINE,
+  GAP_PX,
+} from './constants';
 
 const chunk = <T,>(items: T[], size: number) => {
   const chunks: T[][] = [];

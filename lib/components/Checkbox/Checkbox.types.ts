@@ -14,34 +14,32 @@ import { checkboxVariants } from './Checkbox.variants';
  * <Checkbox label="Disabled option" disabled />
  * ```
  */
-export interface Props
-  extends
-    Omit<CheckboxPropsPrimitive, 'onChange' | 'checked'>,
-    Omit<VariantProps<typeof checkboxVariants>, 'checked'> {
-  /** ID of element that labels the checkbox for accessibility */
-  ariaLabelledBy?: string;
-  checked?: boolean;
-  /** Additional CSS classes */
-  className?: string;
-  /** Initial checked state */
-  defaultChecked?: boolean;
-  /** Whether the checkbox is disabled */
-  disabled?: boolean;
-  /** HTML id attribute */
-  id?: string;
-  /** Label text displayed next to checkbox */
-  label?: string;
-  /** CSS classes for the label */
-  labelClassName?: string;
-  /** Additional CSS classes for the label wrapper */
-  labelWrapperClassName?: string;
-  /** Form field name */
-  name?: string;
-  /** Theme override for this component */
-  theme?: Theme;
-  /** Callback when checked state changes */
-  onChange?: (checked: boolean) => void;
-}
+export type Props = Omit<CheckboxPropsPrimitive, 'onChange' | 'checked'> &
+  Omit<VariantProps<typeof checkboxVariants>, 'checked'> & {
+    /** ID of element that labels the checkbox for accessibility */
+    ariaLabelledBy?: string;
+    checked?: boolean;
+    /** Additional CSS classes */
+    className?: string;
+    /** Initial checked state */
+    defaultChecked?: boolean;
+    /** Whether the checkbox is disabled */
+    disabled?: boolean;
+    /** HTML id attribute */
+    id?: string;
+    /** Label text displayed next to checkbox */
+    label?: string;
+    /** CSS classes for the label */
+    labelClassName?: string;
+    /** Additional CSS classes for the label wrapper */
+    labelWrapperClassName?: string;
+    /** Form field name */
+    name?: string;
+    /** Theme override for this component */
+    theme?: Theme;
+    /** Callback when checked state changes */
+    onChange?: (checked: boolean) => void;
+  };
 
 /** @deprecated Use Props instead */
 export type CheckboxProps = Props;

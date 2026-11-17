@@ -16,9 +16,8 @@ import { cn } from '@/utils';
 
 import { DEFAULT_LIST_SIZE, ITEM_HEIGHT_PX } from '../../constants';
 import { useSelectContext } from '../../contexts';
-import { useNavigationUlList } from '../../hooks/useNavigationList';
+import { useNavigationUlList } from '../../hooks';
 import { isOptionGroup, Option, OptionGroup } from '../../Select.types';
-
 import { AdditionalOptions } from '../AdditionalOptions/AdditionalOptions';
 import { ListItem } from '../ListItem/ListItem';
 

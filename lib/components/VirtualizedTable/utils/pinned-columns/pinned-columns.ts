@@ -1,14 +1,10 @@
 import { Column, Table } from '@tanstack/react-table';
-import { CSSProperties } from 'react';
 
 import { cn } from '@/utils';
 
-export type PinnedWidths = Record<string, number>;
+import type { PinnedCellProps, PinnedWidths } from './pinned-columns.types';
 
-export type PinnedCellProps = {
-  className?: string;
-  style?: CSSProperties;
-};
+export type { PinnedCellProps, PinnedWidths } from './pinned-columns.types';
 
 const sumWidths = <TData>(
   columns: Column<TData, unknown>[],

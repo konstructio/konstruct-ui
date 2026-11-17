@@ -11,7 +11,6 @@ import {
 import {
   FC,
   PointerEvent as ReactPointerEvent,
-  ReactNode,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -24,65 +23,21 @@ import { ChevronLeft } from 'lucide-react';
 import { cn } from '@/utils';
 
 import { BackOutcome, SheetStep } from './components';
-import { Props } from './Sheet.types';
+import { BackPhase, PanelGesture, Props, StepContent } from './Sheet.types';
 import { resolveSheetGesture, shouldSwipeBack } from './utils';
-
-const SLIDE_TRANSITION = { duration: 0.2, ease: 'easeOut' } as const;
-const SPRING = { type: 'spring', stiffness: 380, damping: 38 } as const;
-const INSTANT = { duration: 0 } as const;
-const DRAG_RESISTANCE = 0.05;
-type HeaderCustom = number | { direction: number; instant: boolean };
-
-const headerDirection = (custom: HeaderCustom) =>
-  typeof custom === 'number' ? custom : custom.direction;
-
-// The header row (back control or plain title) crosses over on a step change
-// the way the content does, with a shorter travel.
-const HEADER_VARIANTS = {
-  enter: (custom: HeaderCustom) => ({
-    opacity: 0,
-    x: headerDirection(custom) > 0 ? TITLE_TRAVEL : -TITLE_TRAVEL,
-  }),
-  center: { opacity: 1, x: 0 },
-  exit: (custom: HeaderCustom) => {
-    if (typeof custom === 'object' && custom.instant) {
-      return { opacity: 0, transition: INSTANT };
-    }
-
-    return {
-      opacity: 0,
-      x: headerDirection(custom) > 0 ? -TITLE_TRAVEL : TITLE_TRAVEL,
-    };
-  },
-};
-
-const TITLE_CLASS =
-  'text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-metal-400';
-// How far behind the outgoing step the previous one waits, as a share of the
-// panel width: the parallax of the iOS back gesture.
-const BACK_PARALLAX = 0.3;
-// The title travels less than the content, like the iOS navigation bar.
-const TITLE_TRAVEL = 24;
-// Chevron slot plus gap: how far the title sits right of where a first step's
-// title stands, so a back swipe to the first step lands it in place.
-const CHEVRON_SLOT = 36;
-// Soft bottom edge while the body grows over content it has not shown yet.
-const REVEAL_FADE = '96px';
-const REVEAL_SWEEP = { duration: 0.45, ease: 'easeOut' } as const;
-
-type PanelGesture = {
-  startHeight: number;
-  restHeight: number;
-  maxHeight: number;
-};
-
-type StepContent = {
-  step: number;
-  title: ReactNode;
-  children: ReactNode;
-};
-
-type BackPhase = 'idle' | 'dragging' | 'settling';
+import {
+  BACK_PARALLAX,
+  CHEVRON_SLOT,
+  DRAG_RESISTANCE,
+  HEADER_VARIANTS,
+  INSTANT,
+  REVEAL_FADE,
+  REVEAL_SWEEP,
+  SLIDE_TRANSITION,
+  SPRING,
+  TITLE_CLASS,
+  TITLE_TRAVEL,
+} from './constants';
 
 const isGrip = (target: EventTarget | null) =>
   target instanceof Element && target.closest('[data-sheet-grip]') !== null;

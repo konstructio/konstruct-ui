@@ -1,12 +1,8 @@
 import { createContext } from 'react';
 
-export type FilterContextType = {
-  closeOnApply: boolean;
-  mobileSheet?: boolean;
-  sheetDraggable?: boolean;
-  resetScope?: string;
-  theme?: string;
-};
+import type { FilterContextType } from './filter.types';
+
+export type { FilterContextType } from './filter.types';
 
 export const FilterContext = createContext<FilterContextType>({
   closeOnApply: true,

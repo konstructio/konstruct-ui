@@ -62,23 +62,21 @@ export type BackButton = {
  * />
  * ```
  */
-export interface Props
-  extends
-    VariantProps<typeof breadcrumbVariants>,
-    HTMLAttributes<HTMLOListElement> {
-  /** Array of breadcrumb steps */
-  steps: Step[];
-  /** Optional back button rendered before the steps */
-  backButton?: BackButton;
-  /** Accessible name of the ellipsis button that reveals the collapsed steps */
-  collapsedLabel?: string;
-  /** Collapse the middle steps into an ellipsis menu when there are more steps than this; the first and the last ones stay visible */
-  maxVisibleItems?: number;
-  /** CSS classes for the nav wrapper */
-  wrapperClassName?: string;
-  /** Theme override for this component */
-  theme?: Theme;
-}
+export type Props = VariantProps<typeof breadcrumbVariants> &
+  HTMLAttributes<HTMLOListElement> & {
+    /** Array of breadcrumb steps */
+    steps: Step[];
+    /** Optional back button rendered before the steps */
+    backButton?: BackButton;
+    /** Accessible name of the ellipsis button that reveals the collapsed steps */
+    collapsedLabel?: string;
+    /** Collapse the middle steps into an ellipsis menu when there are more steps than this; the first and the last ones stay visible */
+    maxVisibleItems?: number;
+    /** CSS classes for the nav wrapper */
+    wrapperClassName?: string;
+    /** Theme override for this component */
+    theme?: Theme;
+  };
 
 /** @deprecated Use Props instead */
 export type BreadcrumbProps = Props;

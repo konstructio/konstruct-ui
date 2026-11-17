@@ -3,8 +3,7 @@ import { FC, TransitionEvent, useEffect } from 'react';
 import { cn } from '@/utils';
 
 import { Props } from './ExpandableRow.types';
-
-const COLLAPSE_FALLBACK_MS = 500;
+import { COLLAPSE_FALLBACK_MS } from './constants';
 
 export const ExpandableRow: FC<Props> = ({
   children,

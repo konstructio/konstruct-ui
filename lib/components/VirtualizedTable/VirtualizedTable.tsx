@@ -2,9 +2,12 @@ import { JSX, lazy, Suspense } from 'react';
 
 import { cn, isClient } from '@/utils';
 
-import { Props, RowData } from './VirtualizedTable.types';
+import {
+  Props,
+  RowData,
+  VirtualizedTableCompound,
+} from './VirtualizedTable.types';
 import { Actions } from './components/Actions/Actions';
-import { Props as ActionProps } from './components/Actions/Actions.types';
 import { EmptyResults } from './components/EmptyResults/EmptyResults';
 import { EmptyState } from './components/EmptyState/EmptyState';
 import { ErrorState } from './components/ErrorState/ErrorState';
@@ -75,26 +78,6 @@ const VirtualizedTableInner = <TData extends RowData>(
       <Content<TData> {...props} />
     </Suspense>
   );
-};
-
-type VirtualizedTableCompound = (<TData extends RowData>(
-  props: Props<TData>,
-) => JSX.Element) & {
-  TruncateText: typeof TruncateText;
-  EmptyState: typeof EmptyState;
-  EmptyResults: typeof EmptyResults;
-  ErrorState: typeof ErrorState;
-  Actions: <TData extends RowData>(
-    props: ActionProps<TData>,
-  ) => JSX.Element | null;
-  Events: {
-    sendExpandRowEvent: (tableId: string, rowId: string) => void;
-    sendCollapseRowEvent: (tableId: string, rowId: string) => void;
-    sendToggleRowEvent: (tableId: string, rowId: string) => void;
-    sendResetFiltersEvent: (tableId: string) => void;
-    sendRefreshEvent: (tableId?: string) => void;
-  };
-  displayName?: string;
 };
 
 const VirtualizedTable = VirtualizedTableInner as VirtualizedTableCompound;

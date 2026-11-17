@@ -3,10 +3,10 @@ import { PropsWithChildren } from 'react';
 
 import { footerVariants } from './Footer.variants';
 
-export interface Props
-  extends PropsWithChildren, VariantProps<typeof footerVariants> {
-  className?: string;
-}
+export type Props = PropsWithChildren &
+  VariantProps<typeof footerVariants> & {
+    className?: string;
+  };
 
 /** @deprecated Use Props instead */
 export type FooterProps = Props;

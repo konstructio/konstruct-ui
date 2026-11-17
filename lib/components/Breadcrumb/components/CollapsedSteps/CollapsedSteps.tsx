@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { cn } from '@/utils';
 
-import { useBreadcrumb } from '../../hooks/useBreadcrumb';
+import { useBreadcrumb } from '../../hooks';
 
 import { Props } from './CollapsedSteps.types';
 

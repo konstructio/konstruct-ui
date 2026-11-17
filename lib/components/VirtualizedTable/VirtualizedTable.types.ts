@@ -6,7 +6,7 @@ import type {
   RowData as RowDataPrimitive,
 } from '@tanstack/react-table';
 import { VariantProps } from 'class-variance-authority';
-import { ReactNode } from 'react';
+import { JSX, ReactNode } from 'react';
 
 import { Props as ButtonProps } from '@/components/Button/Button.types';
 import {
@@ -16,6 +16,11 @@ import {
 import { Props as CustomDateRangeFilterDropdownProps } from '@/components/Filter/components/CustomDateRangeFilterDropdown/CustomDateRangeFilterDropdown.types';
 import { TimePreset } from '@/components/Filter/components/TimeFilterDropdown/TimeFilterDropdown.types';
 
+import type { Props as ActionProps } from './components/Actions/Actions.types';
+import type { EmptyResults } from './components/EmptyResults/EmptyResults';
+import type { EmptyState } from './components/EmptyState/EmptyState';
+import type { ErrorState } from './components/ErrorState/ErrorState';
+import type { TruncateText } from './components/TruncateText/TruncateText';
 import { virtualizeTableVariants } from './VirtualizedTable.variants';
 import { Option } from './components/Filter/Filter.types';
 import { HideBelowBreakpoint } from './constants';
@@ -42,12 +47,12 @@ declare module '@tanstack/react-table' {
   }
 }
 
-export interface RowMetadata {
+export type RowMetadata = {
   className?: string;
   attributes?: Record<string, string | number | boolean>;
   expandedRow?: ReactNode;
   [key: string]: unknown;
-}
+};
 
 export type RowDataWithMeta = Record<string, unknown> & {
   meta?: RowMetadata;
@@ -338,3 +343,23 @@ export type Props<TData extends RowDataPrimitive> = VariantProps<
         keepExpandColumnVisible?: never;
       }
   );
+
+export type VirtualizedTableCompound = (<TData extends RowData>(
+  props: Props<TData>,
+) => JSX.Element) & {
+  TruncateText: typeof TruncateText;
+  EmptyState: typeof EmptyState;
+  EmptyResults: typeof EmptyResults;
+  ErrorState: typeof ErrorState;
+  Actions: <TData extends RowData>(
+    props: ActionProps<TData>,
+  ) => JSX.Element | null;
+  Events: {
+    sendExpandRowEvent: (tableId: string, rowId: string) => void;
+    sendCollapseRowEvent: (tableId: string, rowId: string) => void;
+    sendToggleRowEvent: (tableId: string, rowId: string) => void;
+    sendResetFiltersEvent: (tableId: string) => void;
+    sendRefreshEvent: (tableId?: string) => void;
+  };
+  displayName?: string;
+};

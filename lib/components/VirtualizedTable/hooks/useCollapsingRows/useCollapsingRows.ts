@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-const EMPTY: ReadonlySet<string> = new Set();
+import { EMPTY } from './constants';
 
 export const useCollapsingRows = (expandedRowIds: string[]) => {
   const [previousIds, setPreviousIds] = useState(expandedRowIds);

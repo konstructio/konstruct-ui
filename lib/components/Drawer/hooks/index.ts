@@ -1,7 +1,10 @@
-export { useDrawer } from './useDrawer';
-export type { UseDrawerProps, UseDrawerReturn } from './useDrawer.types';
-export { useSwipeToClose } from './useSwipeToClose';
+export { useDrawer } from './useDrawer/useDrawer';
+export type {
+  UseDrawerProps,
+  UseDrawerReturn,
+} from './useDrawer/useDrawer.types';
+export { useSwipeToClose } from './useSwipeToClose/useSwipeToClose';
 export type {
   UseSwipeToCloseProps,
   UseSwipeToCloseReturn,
-} from './useSwipeToClose.types';
+} from './useSwipeToClose/useSwipeToClose.types';
