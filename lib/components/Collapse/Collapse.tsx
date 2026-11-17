@@ -4,8 +4,11 @@ import { FC, useState } from 'react';
 import { cn } from '@/utils';
 
 import { Props } from './Collapse.types';
-
-const EASE = [0.4, 0, 0.2, 1] as const;
+import {
+  COLLAPSE_TRANSITION,
+  EXPAND_TRANSITION,
+  INSTANT_TRANSITION,
+} from './constants';
 
 /**
  * Animates its children between a collapsed and an expanded height,
@@ -43,13 +46,12 @@ const Collapse: FC<Props> = ({
     }
   }
 
-  const transition = prefersReducedMotion
-    ? { duration: 0 }
-    : {
-        height: { duration: 0.35, ease: EASE },
-        marginTop: { duration: 0.35, ease: EASE },
-        opacity: { duration: 0.25, ease: EASE },
-      };
+  const expandTransition = prefersReducedMotion
+    ? INSTANT_TRANSITION
+    : EXPAND_TRANSITION;
+  const collapseTransition = prefersReducedMotion
+    ? INSTANT_TRANSITION
+    : COLLAPSE_TRANSITION;
   const collapsed = { opacity: 0, height: 0, marginTop: collapsedMarginTop };
   const expanded = { opacity: 1, height: 'auto', marginTop: 0 };
   const overflowClassName =
@@ -61,7 +63,7 @@ const Collapse: FC<Props> = ({
         id={id}
         initial={false}
         animate={isOpen ? expanded : collapsed}
-        transition={transition}
+        transition={isOpen ? expandTransition : collapseTransition}
         hidden={!isOpen && !isAnimating}
         aria-hidden={!isOpen || undefined}
         className={cn(overflowClassName, className)}
@@ -81,8 +83,8 @@ const Collapse: FC<Props> = ({
           id={id}
           initial={collapsed}
           animate={expanded}
-          exit={collapsed}
-          transition={transition}
+          exit={{ ...collapsed, transition: collapseTransition }}
+          transition={expandTransition}
           className={cn(overflowClassName, className)}
           onAnimationStart={() => setIsAnimating(true)}
           onAnimationComplete={() => setIsAnimating(false)}
