@@ -4,20 +4,11 @@ import { FC, useState } from 'react';
 import { cn } from '@/utils';
 
 import { Props } from './Collapse.types';
-
-const EASE = [0.4, 0, 0.2, 1] as const;
-const EASE_OUT = [0, 0, 0.2, 1] as const;
-const INSTANT = { duration: 0 };
-const COLLAPSE_TRANSITION = {
-  height: { duration: 0.35, ease: EASE },
-  marginTop: { duration: 0.35, ease: EASE },
-  opacity: { duration: 0.25, ease: EASE },
-};
-const EXPAND_TRANSITION = {
-  height: { duration: 0.35, ease: EASE_OUT },
-  marginTop: { duration: 0.35, ease: EASE_OUT },
-  opacity: { duration: 0.2, ease: EASE_OUT },
-};
+import {
+  COLLAPSE_TRANSITION,
+  EXPAND_TRANSITION,
+  INSTANT_TRANSITION,
+} from './constants';
 
 /**
  * Animates its children between a collapsed and an expanded height,
@@ -55,9 +46,11 @@ const Collapse: FC<Props> = ({
     }
   }
 
-  const expandTransition = prefersReducedMotion ? INSTANT : EXPAND_TRANSITION;
+  const expandTransition = prefersReducedMotion
+    ? INSTANT_TRANSITION
+    : EXPAND_TRANSITION;
   const collapseTransition = prefersReducedMotion
-    ? INSTANT
+    ? INSTANT_TRANSITION
     : COLLAPSE_TRANSITION;
   const collapsed = { opacity: 0, height: 0, marginTop: collapsedMarginTop };
   const expanded = { opacity: 1, height: 'auto', marginTop: 0 };
