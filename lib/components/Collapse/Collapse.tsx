@@ -6,6 +6,18 @@ import { cn } from '@/utils';
 import { Props } from './Collapse.types';
 
 const EASE = [0.4, 0, 0.2, 1] as const;
+const EASE_OUT = [0, 0, 0.2, 1] as const;
+const INSTANT = { duration: 0 };
+const COLLAPSE_TRANSITION = {
+  height: { duration: 0.35, ease: EASE },
+  marginTop: { duration: 0.35, ease: EASE },
+  opacity: { duration: 0.25, ease: EASE },
+};
+const EXPAND_TRANSITION = {
+  height: { duration: 0.35, ease: EASE_OUT },
+  marginTop: { duration: 0.35, ease: EASE_OUT },
+  opacity: { duration: 0.2, ease: EASE_OUT },
+};
 
 /**
  * Animates its children between a collapsed and an expanded height,
@@ -43,13 +55,10 @@ const Collapse: FC<Props> = ({
     }
   }
 
-  const transition = prefersReducedMotion
-    ? { duration: 0 }
-    : {
-        height: { duration: 0.35, ease: EASE },
-        marginTop: { duration: 0.35, ease: EASE },
-        opacity: { duration: 0.25, ease: EASE },
-      };
+  const expandTransition = prefersReducedMotion ? INSTANT : EXPAND_TRANSITION;
+  const collapseTransition = prefersReducedMotion
+    ? INSTANT
+    : COLLAPSE_TRANSITION;
   const collapsed = { opacity: 0, height: 0, marginTop: collapsedMarginTop };
   const expanded = { opacity: 1, height: 'auto', marginTop: 0 };
   const overflowClassName =
@@ -61,7 +70,7 @@ const Collapse: FC<Props> = ({
         id={id}
         initial={false}
         animate={isOpen ? expanded : collapsed}
-        transition={transition}
+        transition={isOpen ? expandTransition : collapseTransition}
         hidden={!isOpen && !isAnimating}
         aria-hidden={!isOpen || undefined}
         className={cn(overflowClassName, className)}
@@ -81,8 +90,8 @@ const Collapse: FC<Props> = ({
           id={id}
           initial={collapsed}
           animate={expanded}
-          exit={collapsed}
-          transition={transition}
+          exit={{ ...collapsed, transition: collapseTransition }}
+          transition={expandTransition}
           className={cn(overflowClassName, className)}
           onAnimationStart={() => setIsAnimating(true)}
           onAnimationComplete={() => setIsAnimating(false)}
