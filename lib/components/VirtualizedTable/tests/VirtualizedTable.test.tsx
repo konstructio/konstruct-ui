@@ -239,7 +239,7 @@ describe('VirtualizedTable', () => {
     ).toHaveAttribute('data-side', 'top');
   });
 
-  it('should wrap the table and pagination in the scroll container, leaving the filter outside', async () => {
+  it('should wrap only the table in the scroll container, leaving the filter and the pagination outside', async () => {
     await setup(
       { totalItems: 25 },
       {
@@ -259,7 +259,7 @@ describe('VirtualizedTable', () => {
 
     expect(sizer).not.toBeNull();
     expect(sizer!.contains(screen.getByRole('table'))).toBe(true);
-    expect(sizer!.contains(screen.getByText(/results/i))).toBe(true);
+    expect(scrollDiv.contains(screen.getByText(/results/i))).toBe(false);
     expect(scrollDiv.contains(screen.getByRole('textbox'))).toBe(false);
   });
 

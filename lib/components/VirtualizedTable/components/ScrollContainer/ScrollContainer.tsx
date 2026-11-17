@@ -99,6 +99,7 @@ export const ScrollContainer: FC<Props> = ({
           'kvt-scroll',
           'w-full',
           hasPinnedColumns && '[&::-webkit-scrollbar]:hidden rounded-lg',
+          '[.kvt-scroll-area:has(+.kvt-pagination)_&]:rounded-b-none',
           className,
         )}
         style={hasPinnedColumns ? { scrollbarWidth: 'none' } : undefined}
