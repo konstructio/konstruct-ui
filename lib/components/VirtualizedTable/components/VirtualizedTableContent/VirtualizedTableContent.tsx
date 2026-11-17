@@ -155,20 +155,20 @@ export const VirtualizedTableContent = <TData extends RowData>({
               />
             </table>
           </WrapperBody>
-
-          {showPagination && (
-            <Pagination
-              showTotalItems={showTotalItems}
-              showDropdownPagination={showDropdownPagination}
-              showDotPagination={showDotPagination}
-              showFormPagination={showFormPagination}
-              pageSizes={pageSizes}
-              isLoading={isLoading}
-              isListPortal={!!classNameScrollContainer}
-              dropdownPaginationDirection={dropdownPaginationDirection}
-            />
-          )}
         </ScrollContainer>
+
+        {showPagination && (
+          <Pagination
+            showTotalItems={showTotalItems}
+            showDropdownPagination={showDropdownPagination}
+            showDotPagination={showDotPagination}
+            showFormPagination={showFormPagination}
+            pageSizes={pageSizes}
+            isLoading={isLoading}
+            isListPortal={!!classNameScrollContainer}
+            dropdownPaginationDirection={dropdownPaginationDirection}
+          />
+        )}
       </section>
     </TableProvider>
   );
