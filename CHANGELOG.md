@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.1.12](https://github.com/konstructio/konstruct-ui/tree/0.1.12) (2026-11-17)
+
+[Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.11...0.1.12)
+
+**Merged pull requests:**
+
+- ✨ feat\(table\): keep the pagination bar out of the horizontal scroll [\#834](https://github.com/konstructio/konstruct-ui/pull/834) ([futjesus](https://github.com/futjesus))
+- 🐛 fix\(select\): keep the label at 14px on phones [\#833](https://github.com/konstructio/konstruct-ui/pull/833) ([futjesus](https://github.com/futjesus))
+- ✨ feat\(animate-currency-number\): count a number up or down to each new value [\#827](https://github.com/konstructio/konstruct-ui/pull/827) ([futjesus](https://github.com/futjesus))
+- 🐛 fix\(table\): close the bottom border of the last row when rows are expandable [\#826](https://github.com/konstructio/konstruct-ui/pull/826) ([futjesus](https://github.com/futjesus))
+
 ## [0.1.11](https://github.com/konstructio/konstruct-ui/tree/0.1.11) (2026-11-11)
 
 [Full Changelog](https://github.com/konstructio/konstruct-ui/compare/0.1.10...0.1.11)
