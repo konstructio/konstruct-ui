@@ -36,7 +36,6 @@ export const Pagination: FC<Props> = ({
       <div
         className={cn(
           'kvt-pagination',
-          '@container',
           'bg-slate-50',
           'border',
           'border-y-transparent',
@@ -60,13 +59,13 @@ export const Pagination: FC<Props> = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
             {totalItems && showTotalItems ? (
-              <span className="hidden text-slate-800 @4xl:inline dark:text-metal-300">
+              <span className="text-slate-800 dark:text-metal-300">
                 {totalItems} Results
               </span>
             ) : null}
 
             {showDropdownPagination && (
-              <div className="hidden items-center gap-2 @xl:flex">
+              <div className="flex items-center gap-2">
                 <DropdownPaginate
                   pageSizes={pageSizes}
                   isListPortal={isListPortal}
@@ -78,11 +77,7 @@ export const Pagination: FC<Props> = ({
 
           <div className="flex items-center gap-8">
             {showDotPagination && <DotPaginate />}
-            {showFormPagination && (
-              <div className="hidden @3xl:block">
-                <FormPaginate />
-              </div>
-            )}
+            {showFormPagination && <FormPaginate />}
           </div>
         </div>
       </div>
