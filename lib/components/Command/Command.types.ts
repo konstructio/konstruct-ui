@@ -16,7 +16,7 @@ import { PropsWithChildren } from 'react';
  * </Command>
  * ```
  */
-export interface Props extends PropsWithChildren<DialogProps> {
+export type Props = PropsWithChildren<DialogProps> & {
   /** Text shown when no results match the search */
   emptyResults?: string;
   /** Placeholder text for the search input */
@@ -29,7 +29,7 @@ export interface Props extends PropsWithChildren<DialogProps> {
   wrapperClassName?: string;
   /** Theme override for this component */
   theme?: Theme;
-}
+};
 
 /** @deprecated Use Props instead */
 export type CommandProps = Props;

@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { Options } from './useCopyToClipboard.types';
-
-const DEFAULT_RESET_DELAY = 1500;
+import { DEFAULT_RESET_DELAY } from './constants';
 
 export const useCopyToClipboard = ({
   resetDelay = DEFAULT_RESET_DELAY,

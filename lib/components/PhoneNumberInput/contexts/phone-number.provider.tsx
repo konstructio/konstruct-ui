@@ -2,22 +2,12 @@ import { countries, hasFlag } from 'country-flag-icons';
 import { PhoneNumberUtil, RegionCode } from 'google-libphonenumber';
 import isoCountries from 'i18n-iso-countries';
 import * as flags from 'country-flag-icons/react/3x2';
-import {
-  FC,
-  PropsWithChildren,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Country, PhoneNumberContext } from './phone-number.context';
+import type { Props } from './phone-number.types';
 
 const phoneUtil = PhoneNumberUtil.getInstance();
-
-type Props = PropsWithChildren & {
-  defaultCountryCode: string;
-};
 
 export const PhoneNumberProvider: FC<Props> = ({
   defaultCountryCode,

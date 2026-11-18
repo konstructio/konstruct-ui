@@ -19,9 +19,9 @@ export const useToastHeights = (): UseToastHeightsResult => {
         return previous;
       }
 
-      const { [id]: _removed, ...rest } = previous;
+      const { [id]: _removed, ...remainingHeights } = previous;
 
-      return rest;
+      return remainingHeights;
     });
   }, []);
 

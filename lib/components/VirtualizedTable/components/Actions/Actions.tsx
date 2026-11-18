@@ -1,4 +1,4 @@
-import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useMediaQuery } from '@/hooks/useMediaQuery/useMediaQuery';
 
 import { RowData } from '../../VirtualizedTable.types';
 

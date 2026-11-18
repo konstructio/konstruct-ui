@@ -3,10 +3,10 @@ import { PropsWithChildren } from 'react';
 
 import { typographyVariants } from '@/components/Typography/Typography.variants';
 
-export interface Props extends PropsWithChildren {
+export type Props = PropsWithChildren & {
   className?: string;
   variant?: VariantProps<typeof typographyVariants>['variant'];
-}
+};
 
 /** @deprecated Use Props instead */
 export type LabelProps = Props;

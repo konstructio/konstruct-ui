@@ -5,3 +5,9 @@ export type Props = PropsWithChildren & {
   /** Hides the native scrollbar and draws one under the scrolling columns only. */
   hasPinnedColumns?: boolean;
 };
+
+export type Metrics = {
+  scrollWidth: number;
+  clientWidth: number;
+  scrollLeft: number;
+};

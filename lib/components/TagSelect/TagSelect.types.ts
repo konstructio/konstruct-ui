@@ -22,7 +22,7 @@ import { tagSelectVariants } from './TagSelect.variants';
  * />
  * ```
  */
-export interface Props extends VariantProps<typeof tagSelectVariants> {
+export type Props = VariantProps<typeof tagSelectVariants> & {
   /** Label displayed above the input */
   label?: string;
   /** Available tag options to select from */
@@ -39,7 +39,7 @@ export interface Props extends VariantProps<typeof tagSelectVariants> {
   wrapperClassName?: string;
   /** Whether multiple tags can be selected */
   multiselect?: boolean;
-}
+};
 
 /** @deprecated Use Props instead */
 export type TagSelectProps = Props;

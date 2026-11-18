@@ -48,7 +48,7 @@ const Tabs: FC<TabsProps> & {
   theme,
   value,
   onValueChange,
-  ...rest
+  ...delegated
 }) => {
   const firstValue = items?.at(0)?.value;
   const [internalValue, setInternalValue] = useState(
@@ -81,7 +81,7 @@ const Tabs: FC<TabsProps> & {
 
   return (
     <ReactTabs.Root
-      {...rest}
+      {...delegated}
       value={isManaged ? internalValue : value}
       defaultValue={isManaged ? undefined : defaultValue}
       onValueChange={handleValueChange}

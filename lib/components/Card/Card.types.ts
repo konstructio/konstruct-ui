@@ -15,21 +15,19 @@ import { cardVariants } from './Card.variants';
  * <Card isActive>Active/selected card</Card>
  * ```
  */
-export interface Props
-  extends
-    HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof cardVariants>,
-    PropsWithChildren {
-  /** Enable hover effect */
-  canHover?: boolean;
-  component?: 'div' | 'article' | 'section' | 'aside' | 'li';
-  /** Show active/selected state */
-  isActive?: boolean;
-  /** Theme override for this component */
-  theme?: Theme;
-  /** CSS classes for the outer wrapper */
-  wrapperClassName?: string;
-}
+export type Props = HTMLAttributes<HTMLDivElement> &
+  VariantProps<typeof cardVariants> &
+  PropsWithChildren & {
+    /** Enable hover effect */
+    canHover?: boolean;
+    component?: 'div' | 'article' | 'section' | 'aside' | 'li';
+    /** Show active/selected state */
+    isActive?: boolean;
+    /** Theme override for this component */
+    theme?: Theme;
+    /** CSS classes for the outer wrapper */
+    wrapperClassName?: string;
+  };
 
 /** @deprecated Use Props instead */
 export type CardProps = Props;

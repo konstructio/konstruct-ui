@@ -28,14 +28,15 @@ export type TabItem = {
   value: string;
 };
 
-export interface Props extends ReactTabs.TabsProps, PropsWithChildren {
-  /** Declarative tabs: renders the list, triggers and contents; falls back to the first item when the active one disappears */
-  items?: TabItem[];
-  /** Additional className for the generated Tabs.List when using `items` */
-  listClassName?: string;
-  /** Theme override for this component */
-  theme?: Theme;
-}
+export type Props = ReactTabs.TabsProps &
+  PropsWithChildren & {
+    /** Declarative tabs: renders the list, triggers and contents; falls back to the first item when the active one disappears */
+    items?: TabItem[];
+    /** Additional className for the generated Tabs.List when using `items` */
+    listClassName?: string;
+    /** Theme override for this component */
+    theme?: Theme;
+  };
 
 /** @deprecated Use Props instead */
 export type TabsProps = Props;
@@ -43,23 +44,21 @@ export type TabsProps = Props;
 /**
  * Props for Tabs.Trigger component.
  */
-export interface TriggerProps
-  extends
-    VariantProps<typeof triggerVariants>,
-    React.HTMLAttributes<HTMLDivElement> {
-  /** Tab value identifier */
-  tab: string;
-  /** Display label for the tab */
-  label: string;
-  /** Whether this tab is active; derived from the Tabs state when omitted */
-  isActive?: boolean;
-}
+export type TriggerProps = VariantProps<typeof triggerVariants> &
+  React.HTMLAttributes<HTMLDivElement> & {
+    /** Tab value identifier */
+    tab: string;
+    /** Display label for the tab */
+    label: string;
+    /** Whether this tab is active; derived from the Tabs state when omitted */
+    isActive?: boolean;
+  };
 
 /**
  * Props for Tabs.List component.
  */
-export interface ListProps
-  extends React.HTMLAttributes<HTMLDivElement>, PropsWithChildren {
-  /** Tab list orientation */
-  orientation: 'horizontal' | 'vertical';
-}
+export type ListProps = React.HTMLAttributes<HTMLDivElement> &
+  PropsWithChildren & {
+    /** Tab list orientation */
+    orientation: 'horizontal' | 'vertical';
+  };

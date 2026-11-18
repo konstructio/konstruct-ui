@@ -1,11 +1,8 @@
 import { createContext, useContext } from 'react';
 
-import { ClassNames } from '../Drawer.types';
+import type { ContextValue } from './Drawer.types';
 
-export type ContextValue = {
-  classNames?: ClassNames;
-  headerId?: string;
-};
+export type { ContextValue } from './Drawer.types';
 
 export const DrawerContext = createContext<ContextValue>({});
 

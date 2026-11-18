@@ -31,14 +31,12 @@ import {
  * </Table>
  * ```
  */
-export interface Props
-  extends
-    React.HTMLAttributes<HTMLTableElement>,
-    PropsWithChildren,
-    VariantProps<typeof tableVariants> {
-  /** Theme override for this component */
-  theme?: Theme;
-}
+export type Props = React.HTMLAttributes<HTMLTableElement> &
+  PropsWithChildren &
+  VariantProps<typeof tableVariants> & {
+    /** Theme override for this component */
+    theme?: Theme;
+  };
 
 /** @deprecated Use Props instead */
 export type TableProps = Props;
@@ -46,42 +44,36 @@ export type TableProps = Props;
 /**
  * Props for Table.Row component.
  */
-export interface RowProps
-  extends
-    React.HTMLAttributes<HTMLTableRowElement>,
-    PropsWithChildren,
-    VariantProps<typeof rowVariants> {
-  /** Width of the row */
-  width?: string;
-  /** Whether the row is selected */
-  isSelected?: boolean;
-  /** Callback when row is selected */
-  onSelect?: () => void;
-}
+export type RowProps = React.HTMLAttributes<HTMLTableRowElement> &
+  PropsWithChildren &
+  VariantProps<typeof rowVariants> & {
+    /** Width of the row */
+    width?: string;
+    /** Whether the row is selected */
+    isSelected?: boolean;
+    /** Callback when row is selected */
+    onSelect?: () => void;
+  };
 
 /**
  * Props for Table.Head component.
  */
-export interface HeadProps
-  extends
-    React.HTMLAttributes<HTMLTableSectionElement>,
-    PropsWithChildren,
-    VariantProps<typeof headVariants> {}
+export type HeadProps = React.HTMLAttributes<HTMLTableSectionElement> &
+  PropsWithChildren &
+  VariantProps<typeof headVariants>;
 
 /**
  * Props for Table.Body component.
  */
-export interface BodyProps
-  extends
-    React.HTMLAttributes<HTMLTableSectionElement>,
-    PropsWithChildren,
-    VariantProps<typeof bodyVariants> {}
+export type BodyProps = React.HTMLAttributes<HTMLTableSectionElement> &
+  PropsWithChildren &
+  VariantProps<typeof bodyVariants>;
 
 /**
  * Props for Table.Filter component.
  */
-export interface FilterProps
-  extends React.InputHTMLAttributes<HTMLInputElement>, PropsWithChildren {
-  /** Placeholder text for the filter input */
-  placeholder?: string;
-}
+export type FilterProps = React.InputHTMLAttributes<HTMLInputElement> &
+  PropsWithChildren & {
+    /** Placeholder text for the filter input */
+    placeholder?: string;
+  };

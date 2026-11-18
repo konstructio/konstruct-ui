@@ -6,8 +6,7 @@ import { cn } from '@/utils';
 import { Props } from './Avatar.types';
 import { avatarVariants } from './Avatar.variants';
 import { useGravatarUrl } from './hooks';
-
-const SIZE_PX = { sm: 28, md: 40, lg: 56 } as const;
+import { SIZE_PX } from './constants';
 
 /**
  * A round avatar that shows an image, falls back to a Gravatar looked up by

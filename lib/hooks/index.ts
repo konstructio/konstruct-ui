@@ -1,4 +1,4 @@
-export * from './useClickOutside';
+export * from './useClickOutside/useClickOutside';
 export * from './useIsHydrated/useIsHydrated';
-export * from './useMediaQuery';
-export * from './useToggle';
+export * from './useMediaQuery/useMediaQuery';
+export * from './useToggle/useToggle';

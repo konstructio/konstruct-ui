@@ -1,35 +1,8 @@
-import {
-  ComponentRef,
-  createContext,
-  Dispatch,
-  RefObject,
-  SetStateAction,
-} from 'react';
+import { createContext } from 'react';
 
-import { Option } from '../Select.types';
+import type { SelectContextType } from './select.types';
 
-export type SelectContextType = {
-  highlightSearchEnabled: boolean;
-  isOpen: boolean;
-  searchTerm: string;
-  value?: string;
-  canFilter: boolean;
-  canContinueFetching: boolean;
-  page: number;
-  options: Option[];
-  isTyping?: boolean;
-  showSelectedCheck: boolean;
-  setOptions: Dispatch<SetStateAction<Option[]>>;
-  setPage: Dispatch<SetStateAction<number>>;
-  setCanContinueFetching: Dispatch<SetStateAction<boolean>>;
-  setCanFilter: Dispatch<SetStateAction<boolean>>;
-  setSearchTerm: Dispatch<SetStateAction<string>>;
-  setValue: (
-    value: string,
-    inputRef?: RefObject<ComponentRef<'input'> | null>,
-  ) => void;
-  toggleOpen: (value?: boolean) => void;
-};
+export type { SelectContextType } from './select.types';
 
 export const SelectContext = createContext<SelectContextType>({
   highlightSearchEnabled: false,

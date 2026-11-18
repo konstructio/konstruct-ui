@@ -18,7 +18,7 @@ import { ReactNode } from 'react';
  * </Tooltip>
  * ```
  */
-export interface Props {
+export type Props = {
   /** Tooltip text or content */
   content: ReactNode | string;
   /** The trigger element */
@@ -47,7 +47,7 @@ export interface Props {
   className?: string;
   /** Delay before showing tooltip in ms */
   delayDuration?: number;
-}
+};
 
 /** @deprecated Use Props instead */
 export type TooltipProps = Props;

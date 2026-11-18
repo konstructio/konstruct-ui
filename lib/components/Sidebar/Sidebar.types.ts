@@ -5,7 +5,7 @@ import { ClassNames as DrawerClassNames } from '@/components/Drawer/Drawer.types
 import { Theme } from '@/domain/theme';
 
 import { SidebarMode } from './contexts';
-import { SidebarModeProp } from './hooks/useSidebarMode';
+import { SidebarModeProp } from './hooks/useSidebarMode/useSidebarMode';
 import { wrapperSiderbarVariants } from './Sidebar.variants';
 import {
   CollapseTriggerProps,
@@ -42,106 +42,104 @@ import {
  * </Sidebar>
  * ```
  */
-export interface Props
-  extends
-    Omit<VariantProps<typeof wrapperSiderbarVariants>, 'mode'>,
-    PropsWithChildren {
-  /** Whether the sidebar can be resized by dragging (only in expanded mode) */
-  canResize?: boolean;
-  /** Additional CSS classes for the divider */
-  dividerClassName?: string;
-  /**
-   * Viewport width in pixels below which the sidebar switches to `drawer` mode in `auto` mode (defaults to 640).
-   */
-  drawerBreakpoint?: number;
-  /**
-   * Maximum width in pixels for the drawer panel in `drawer` mode (defaults to 280).
-   * The drawer width is `min(viewport, drawerMaxWidth)`, so on viewports narrower than
-   * the cap it shrinks to fit instead of overflowing.
-   */
-  drawerMaxWidth?: number;
-  /**
-   * Viewport width in pixels at or above which the sidebar switches to `expanded` mode in `auto` mode (defaults to 1024).
-   */
-  expandedBreakpoint?: number;
-  /**
-   * When true, animates the hover-expand width transition with `motion`. Only takes effect
-   * together with `expandOnHover`. Defaults to `true`.
-   */
-  animateOnHover?: boolean;
-  /**
-   * When true and the sidebar is in `collapsed` mode, hovering a navigation option
-   * expands only that option (animated width) to reveal its label. The expanded
-   * option overlays content to its right and does not push siblings. Defaults to `true`.
-   */
-  expandOnHover?: boolean;
-  /** Initial width in pixels when entering expanded mode (defaults to 256, clamped to [minWith, maxWith]) */
-  initialWidth?: number;
-  /** Maximum width when resizing in pixels (defaults to 300) */
-  maxWith?: number;
-  /** Minimum width when resizing in pixels (defaults to 240) */
-  minWith?: number;
-  /** Additional CSS classes for the auto-injected separator between groups in collapsed mode */
-  separatorClassName?: string;
-  /** Additional CSS classes for the hamburger trigger button rendered in drawer mode */
-  triggerClassName?: string;
-  /** Accessible label for the mobile navigation trigger */
-  openNavigationLabel?: string;
-  /**
-   * In `collapsed` mode, expanding through the CollapseTrigger floats the
-   * expanded sidebar over the page behind a scrim instead of pushing the
-   * content. Tapping the scrim, pressing Escape or choosing a destination
-   * collapses it again. The `<aside>` carries `data-overlay` while floating.
-   */
-  expandAsOverlay?: boolean;
-  /** Additional CSS classes for the scrim rendered behind the floating sidebar */
-  overlayClassName?: string;
-  /**
-   * Per-slot class overrides for the underlying `Drawer` rendered in
-   * `drawer` mode. Mirrors `Drawer`'s `classNames` shape: `root`, `overlay`,
-   * `panel`, `closeButton`, `content`, `header`, `body`, `footer`,
-   * `resizeHandle`. Useful for tweaking the close-button position, removing
-   * the panel's horizontal padding so dividers can span edge-to-edge,
-   * raising the root `z-index` past higher-z layers, etc.
-   *
-   * The Sidebar already applies sensible defaults internally (root `z-60`,
-   * panel uses `wrapperClassName`, content `gap-0`); user-provided classes
-   * are appended via `cn`, so they win on conflicts.
-   */
-  drawerClassNames?: DrawerClassNames;
-  /**
-   * Controls the responsive mode of the sidebar.
-   * - `auto` (default): derives the mode from the viewport width
-   *   (`>=1024px` expanded, `640-1023px` collapsed, `<640px` drawer).
-   * - `expanded`, `collapsed`, `drawer`: force a specific mode
-   *   (useful for testing, stories, or manual control).
-   */
-  mode?: SidebarModeProp;
-  /**
-   * SSR / first-paint hint for `auto` mode. `useMediaQuery` cannot run on
-   * the server, so the resolved mode flickers from the desktop default to
-   * the actual viewport-derived mode after hydration. Pass the last-known
-   * mode (e.g. read from a cookie written by a prior client visit) to
-   * make the SSR markup match the actual viewport on subsequent loads.
-   * Ignored when `mode` is anything other than `auto`.
-   */
-  initialMode?: Exclude<SidebarModeProp, 'auto'>;
-  /** Theme override for this component */
-  theme?: Theme;
-  /** Additional CSS classes for the wrapper */
-  wrapperClassName?: string;
-  /**
-   * Inline styles applied to the wrapper `<aside>` (or the drawer panel in
-   * drawer mode). Useful for setting CSS custom properties that drive
-   * theming via the protection stylesheet (e.g.
-   * `--konstruct-sidebar-logo-padding-expanded`), since inline styles
-   * outrank un-layered utilities shipped by federated remote
-   * micro-frontends.
-   */
-  style?: CSSProperties;
-  /** Fired when the effective mode changes, because the user toggled it or the viewport crossed a breakpoint */
-  onModeChange?: (mode: SidebarMode, source: SidebarModeChangeSource) => void;
-}
+export type Props = Omit<VariantProps<typeof wrapperSiderbarVariants>, 'mode'> &
+  PropsWithChildren & {
+    /** Whether the sidebar can be resized by dragging (only in expanded mode) */
+    canResize?: boolean;
+    /** Additional CSS classes for the divider */
+    dividerClassName?: string;
+    /**
+     * Viewport width in pixels below which the sidebar switches to `drawer` mode in `auto` mode (defaults to 640).
+     */
+    drawerBreakpoint?: number;
+    /**
+     * Maximum width in pixels for the drawer panel in `drawer` mode (defaults to 280).
+     * The drawer width is `min(viewport, drawerMaxWidth)`, so on viewports narrower than
+     * the cap it shrinks to fit instead of overflowing.
+     */
+    drawerMaxWidth?: number;
+    /**
+     * Viewport width in pixels at or above which the sidebar switches to `expanded` mode in `auto` mode (defaults to 1024).
+     */
+    expandedBreakpoint?: number;
+    /**
+     * When true, animates the hover-expand width transition with `motion`. Only takes effect
+     * together with `expandOnHover`. Defaults to `true`.
+     */
+    animateOnHover?: boolean;
+    /**
+     * When true and the sidebar is in `collapsed` mode, hovering a navigation option
+     * expands only that option (animated width) to reveal its label. The expanded
+     * option overlays content to its right and does not push siblings. Defaults to `true`.
+     */
+    expandOnHover?: boolean;
+    /** Initial width in pixels when entering expanded mode (defaults to 256, clamped to [minWith, maxWith]) */
+    initialWidth?: number;
+    /** Maximum width when resizing in pixels (defaults to 300) */
+    maxWith?: number;
+    /** Minimum width when resizing in pixels (defaults to 240) */
+    minWith?: number;
+    /** Additional CSS classes for the auto-injected separator between groups in collapsed mode */
+    separatorClassName?: string;
+    /** Additional CSS classes for the hamburger trigger button rendered in drawer mode */
+    triggerClassName?: string;
+    /** Accessible label for the mobile navigation trigger */
+    openNavigationLabel?: string;
+    /**
+     * In `collapsed` mode, expanding through the CollapseTrigger floats the
+     * expanded sidebar over the page behind a scrim instead of pushing the
+     * content. Tapping the scrim, pressing Escape or choosing a destination
+     * collapses it again. The `<aside>` carries `data-overlay` while floating.
+     */
+    expandAsOverlay?: boolean;
+    /** Additional CSS classes for the scrim rendered behind the floating sidebar */
+    overlayClassName?: string;
+    /**
+     * Per-slot class overrides for the underlying `Drawer` rendered in
+     * `drawer` mode. Mirrors `Drawer`'s `classNames` shape: `root`, `overlay`,
+     * `panel`, `closeButton`, `content`, `header`, `body`, `footer`,
+     * `resizeHandle`. Useful for tweaking the close-button position, removing
+     * the panel's horizontal padding so dividers can span edge-to-edge,
+     * raising the root `z-index` past higher-z layers, etc.
+     *
+     * The Sidebar already applies sensible defaults internally (root `z-60`,
+     * panel uses `wrapperClassName`, content `gap-0`); user-provided classes
+     * are appended via `cn`, so they win on conflicts.
+     */
+    drawerClassNames?: DrawerClassNames;
+    /**
+     * Controls the responsive mode of the sidebar.
+     * - `auto` (default): derives the mode from the viewport width
+     *   (`>=1024px` expanded, `640-1023px` collapsed, `<640px` drawer).
+     * - `expanded`, `collapsed`, `drawer`: force a specific mode
+     *   (useful for testing, stories, or manual control).
+     */
+    mode?: SidebarModeProp;
+    /**
+     * SSR / first-paint hint for `auto` mode. `useMediaQuery` cannot run on
+     * the server, so the resolved mode flickers from the desktop default to
+     * the actual viewport-derived mode after hydration. Pass the last-known
+     * mode (e.g. read from a cookie written by a prior client visit) to
+     * make the SSR markup match the actual viewport on subsequent loads.
+     * Ignored when `mode` is anything other than `auto`.
+     */
+    initialMode?: Exclude<SidebarModeProp, 'auto'>;
+    /** Theme override for this component */
+    theme?: Theme;
+    /** Additional CSS classes for the wrapper */
+    wrapperClassName?: string;
+    /**
+     * Inline styles applied to the wrapper `<aside>` (or the drawer panel in
+     * drawer mode). Useful for setting CSS custom properties that drive
+     * theming via the protection stylesheet (e.g.
+     * `--konstruct-sidebar-logo-padding-expanded`), since inline styles
+     * outrank un-layered utilities shipped by federated remote
+     * micro-frontends.
+     */
+    style?: CSSProperties;
+    /** Fired when the effective mode changes, because the user toggled it or the viewport crossed a breakpoint */
+    onModeChange?: (mode: SidebarMode, source: SidebarModeChangeSource) => void;
+  };
 
 export type SidebarModeChangeSource = 'user' | 'viewport';
 

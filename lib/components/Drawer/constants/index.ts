@@ -11,3 +11,5 @@ export const SWIPE_DISTANCE_RATIO = 0.25;
 export const SWIPE_VELOCITY = 0.5;
 export const SWIPE_AXIS_LOCK_DISTANCE = 8;
 export const SWIPE_VELOCITY_STALE_MS = 100;
+
+export const RESIZE_HANDLE_SELECTOR = '[data-drawer-resize-handle]';

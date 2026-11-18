@@ -19,35 +19,36 @@ import { radioVariants } from './Radio.variants';
  * />
  * ```
  */
-export interface Props
-  extends
-    Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'disabled'>,
-    VariantProps<typeof radioVariants> {
-  /** Whether the radio is checked */
-  checked?: boolean;
-  /** Initial checked state (uncontrolled) */
-  defaultChecked?: boolean;
-  /** Whether the radio is disabled */
-  disabled?: boolean;
-  /** Label text or element */
-  label?: string | ReactNode;
-  /** CSS classes for the label text */
-  labelTextClassName?: string;
-  /** Form field name (groups radios together) */
-  name: string;
-  /** Description text below the label */
-  description?: string | ReactNode;
-  /** CSS classes for the description */
-  descriptionClassName?: string;
-  /** Value submitted when selected */
-  value: string;
-  /** CSS classes for the wrapper */
-  wrapperClassName?: string;
-  /** Theme override for this component */
-  theme?: Theme;
-  /** Callback when selected */
-  onChange?: (value: string) => void;
-}
+export type Props = Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  'onChange' | 'disabled'
+> &
+  VariantProps<typeof radioVariants> & {
+    /** Whether the radio is checked */
+    checked?: boolean;
+    /** Initial checked state (uncontrolled) */
+    defaultChecked?: boolean;
+    /** Whether the radio is disabled */
+    disabled?: boolean;
+    /** Label text or element */
+    label?: string | ReactNode;
+    /** CSS classes for the label text */
+    labelTextClassName?: string;
+    /** Form field name (groups radios together) */
+    name: string;
+    /** Description text below the label */
+    description?: string | ReactNode;
+    /** CSS classes for the description */
+    descriptionClassName?: string;
+    /** Value submitted when selected */
+    value: string;
+    /** CSS classes for the wrapper */
+    wrapperClassName?: string;
+    /** Theme override for this component */
+    theme?: Theme;
+    /** Callback when selected */
+    onChange?: (value: string) => void;
+  };
 
 /** @deprecated Use Props instead */
 export type RadioProps = Props;

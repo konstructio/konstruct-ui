@@ -1,0 +1,1 @@
+export const DEFAULT_INTENT_DELAY_MS = 80;

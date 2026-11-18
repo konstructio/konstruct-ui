@@ -1,0 +1,1 @@
+export const COLLAPSE_FALLBACK_MS = 500;

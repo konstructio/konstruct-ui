@@ -8,9 +8,13 @@ import { cn } from '@/utils';
 
 import { contentVariants } from '../Tabs.variants';
 
-const Content: FC<TabsContentProps> = ({ children, className, ...rest }) => (
+const Content: FC<TabsContentProps> = ({
+  children,
+  className,
+  ...delegated
+}) => (
   <ContentPrimitive
-    {...rest}
+    {...delegated}
     className={cn(contentVariants({ variant: 'default', className }))}
   >
     {children}

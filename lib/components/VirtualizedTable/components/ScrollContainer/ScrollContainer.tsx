@@ -4,9 +4,7 @@ import { cn } from '@/utils';
 
 import { useTableContext } from '../../contexts';
 
-import { Props } from './ScrollContainer.types';
-
-type Metrics = { scrollWidth: number; clientWidth: number; scrollLeft: number };
+import { Metrics, Props } from './ScrollContainer.types';
 
 const syncScroll = (
   source: HTMLElement,

@@ -1,8 +1,7 @@
-import { FC, PropsWithChildren, useId } from 'react';
+import { FC, useId } from 'react';
 
-import { FilterContext, FilterContextType } from './filter.context';
-
-type Props = PropsWithChildren<FilterContextType>;
+import { FilterContext } from './filter.context';
+import type { Props } from './filter.types';
 
 export const FilterProvider: FC<Props> = ({
   children,

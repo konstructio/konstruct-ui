@@ -15,35 +15,33 @@ import { inputVariants } from './Input.variants';
  * <Input error="Invalid email" helperText="We'll never share your email" />
  * ```
  */
-export interface Props
-  extends
-    InputHTMLAttributes<HTMLInputElement>,
-    VariantProps<typeof inputVariants> {
-  /** Error message to display below the input */
-  error?: string;
-  /** Helper text displayed below the input when no error */
-  helperText?: string;
-  /** Additional CSS classes for the helper text */
-  helperTextClassName?: string;
-  /** Accessible label for the password toggle while the password is visible */
-  hidePasswordLabel?: string;
-  /** Accessible label for the password toggle while the password is hidden */
-  showPasswordLabel?: string;
-  /** Show required indicator (*) next to label */
-  isRequired?: boolean;
-  /** Show search icon inside the input */
-  isSearch?: boolean;
-  /** Label text or element displayed above the input */
-  label?: string | ReactNode;
-  /** Custom element rendered on the right side of the label (e.g. icon, button) */
-  labelAction?: ReactNode;
-  /** Additional CSS classes for the label */
-  labelClassName?: string;
-  /** Additional CSS classes for the label wrapper container */
-  labelWrapperClassName?: string;
-  /** Theme override for this component */
-  theme?: Theme;
-}
+export type Props = InputHTMLAttributes<HTMLInputElement> &
+  VariantProps<typeof inputVariants> & {
+    /** Error message to display below the input */
+    error?: string;
+    /** Helper text displayed below the input when no error */
+    helperText?: string;
+    /** Additional CSS classes for the helper text */
+    helperTextClassName?: string;
+    /** Accessible label for the password toggle while the password is visible */
+    hidePasswordLabel?: string;
+    /** Accessible label for the password toggle while the password is hidden */
+    showPasswordLabel?: string;
+    /** Show required indicator (*) next to label */
+    isRequired?: boolean;
+    /** Show search icon inside the input */
+    isSearch?: boolean;
+    /** Label text or element displayed above the input */
+    label?: string | ReactNode;
+    /** Custom element rendered on the right side of the label (e.g. icon, button) */
+    labelAction?: ReactNode;
+    /** Additional CSS classes for the label */
+    labelClassName?: string;
+    /** Additional CSS classes for the label wrapper container */
+    labelWrapperClassName?: string;
+    /** Theme override for this component */
+    theme?: Theme;
+  };
 
 /** @deprecated Use Props instead */
 export type InputProps = Props;

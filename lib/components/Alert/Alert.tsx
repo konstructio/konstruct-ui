@@ -4,12 +4,6 @@ import { X } from 'react-feather';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
 import { cn } from '@/utils';
-import {
-  CheckCircleFilledIcon,
-  ErrorIcon,
-  InfoCircleIcon,
-  WarningTriangleIcon,
-} from '@/assets/icons/components';
 
 import { Props } from './Alert.types';
 import {
@@ -19,13 +13,7 @@ import {
   iconVariants,
   titleVariants,
 } from './Alert.variants';
-
-const ICON_MAP = {
-  success: CheckCircleFilledIcon,
-  info: InfoCircleIcon,
-  warning: WarningTriangleIcon,
-  danger: ErrorIcon,
-} as const;
+import { ICON_MAP } from './constants';
 
 /**
  * An alert component for displaying feedback messages.

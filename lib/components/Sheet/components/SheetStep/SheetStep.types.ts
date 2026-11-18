@@ -33,3 +33,5 @@ export type Props = PropsWithChildren<{
   /** The content has settled back in place after an abandoned swipe */
   onBackCancel: () => void;
 }>;
+
+export type StepCustom = number | StepExitCustom;

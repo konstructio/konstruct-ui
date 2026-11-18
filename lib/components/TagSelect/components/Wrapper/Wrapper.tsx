@@ -5,7 +5,7 @@ import { Tag } from '@/components/Tag/Tag';
 import { cn } from '@/utils';
 
 import { useTagSelect as useTagSelectContext } from '../../contexts';
-import { useTagSelect } from '../../hooks/useTagSelect';
+import { useTagSelect } from '../../hooks';
 import {
   labelVariants,
   tagSelectVariants,

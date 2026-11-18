@@ -1,20 +1,8 @@
 import { createContext } from 'react';
 
-import { TimePickerProps } from '../TimePicker.types';
+import type { TimePickerContextType } from './time-picker.types';
 
-export type TimePickerContextType = {
-  time: Date | undefined;
-  format: NonNullable<TimePickerProps['format']>;
-  formattedTime: string;
-  isAM: boolean;
-  isTyping: boolean;
-  onSelectHour: (hour: number) => void;
-  onSelectMinute: (minute: number) => void;
-  onSelectAM: () => void;
-  onSelectPM: () => void;
-  setTimeDirectly: (time: Date) => void;
-  setIsTyping: (value: boolean) => void;
-};
+export type { TimePickerContextType } from './time-picker.types';
 
 export const TimePickerContext = createContext<TimePickerContextType>({
   time: undefined,

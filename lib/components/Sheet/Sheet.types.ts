@@ -74,3 +74,19 @@ export type Props = PropsWithChildren<{
   /** Theme override for the sheet */
   theme?: Theme;
 }>;
+
+export type HeaderCustom = number | { direction: number; instant: boolean };
+
+export type PanelGesture = {
+  startHeight: number;
+  restHeight: number;
+  maxHeight: number;
+};
+
+export type StepContent = {
+  step: number;
+  title: ReactNode;
+  children: ReactNode;
+};
+
+export type BackPhase = 'idle' | 'dragging' | 'settling';

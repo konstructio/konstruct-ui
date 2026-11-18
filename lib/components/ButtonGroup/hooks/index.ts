@@ -1,6 +1,6 @@
-export { useButtonGroup } from './useButtonGroup';
+export { useButtonGroup } from './useButtonGroup/useButtonGroup';
 export type {
   AnimationDirection,
   UseButtonGroupProps,
   UseButtonGroupReturn,
-} from './useButtonGroup.types';
+} from './useButtonGroup/useButtonGroup.types';

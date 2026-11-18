@@ -25,7 +25,7 @@ import {
   inputVariants,
   labelVariants,
 } from '../Select.variants';
-import { useSelect } from '../hooks/useSelect';
+import { useSelect } from '../hooks';
 
 import { List } from './List/List';
 

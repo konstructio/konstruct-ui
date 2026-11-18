@@ -16,8 +16,7 @@ import { Badge } from '../Badge/Badge';
 import { Typography } from '../Typography/Typography';
 
 import { Props } from './TagsInput.types';
-
-const DEFAULT_DELIMITERS = ['Enter', ','];
+import { DEFAULT_DELIMITERS } from './constants';
 
 /**
  * A free-text tags field. Typing a delimiter (Enter or comma) adds a tag,

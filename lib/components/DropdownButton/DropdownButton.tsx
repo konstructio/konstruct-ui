@@ -3,15 +3,14 @@ import { FC, Fragment, useState } from 'react';
 import { ChevronDown } from 'react-feather';
 
 import { LoaderIcon } from '@/assets/icons/components';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useMediaQuery } from '@/hooks/useMediaQuery/useMediaQuery';
 import { cn } from '@/utils';
 
 import { Button } from '../Button/Button';
 
 import { Props } from './DropdownButton.types';
 import { ActionSheet } from './components/ActionSheet/ActionSheet';
-
-const DEFAULT_SHEET_QUERY = '(max-width: 767.98px), (pointer: coarse)';
+import { DEFAULT_SHEET_QUERY } from './constants';
 
 /**
  * A button with an attached dropdown menu for selecting actions.

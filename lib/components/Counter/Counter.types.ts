@@ -19,7 +19,7 @@ import { counterVariants } from './Counter.variants';
  * />
  * ```
  */
-export interface Props extends VariantProps<typeof counterVariants> {
+export type Props = VariantProps<typeof counterVariants> & {
   /** Allow decrement button to be clicked */
   canDecrement?: boolean;
   /** Allow increment button to be clicked */
@@ -74,7 +74,7 @@ export interface Props extends VariantProps<typeof counterVariants> {
   value?: number;
   /** Callback when value changes */
   onChange?: ({ target: { value } }: { target: { value: number } }) => void;
-}
+};
 
 /** @deprecated Use Props instead */
 export type CounterProps = Props;

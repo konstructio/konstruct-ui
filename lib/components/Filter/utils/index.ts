@@ -1,4 +1,4 @@
-type LocaleMap = typeof import('country-locale-map');
+import type { LocaleMap } from './utils.types';
 
 const DEFAULT_LOCALE = 'en-US';
 

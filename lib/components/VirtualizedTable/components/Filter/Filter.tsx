@@ -5,7 +5,7 @@ import { Button } from '@/components/Button/Button';
 import { Filter as FilterPrimitive } from '@/components/Filter/Filter';
 import { resetEvent } from '@/components/Filter/events';
 import { Input } from '@/components/Input/Input';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useMediaQuery } from '@/hooks/useMediaQuery/useMediaQuery';
 import { cn } from '@/utils';
 
 import {

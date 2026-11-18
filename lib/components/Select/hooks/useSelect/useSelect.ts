@@ -1,0 +1,153 @@
+import { ComponentRef, useCallback, useEffect, useMemo, useRef } from 'react';
+
+import { useClickOutside } from '@/hooks';
+
+import { useSelectContext } from '../../contexts';
+
+import type { UseSelectParams } from './useSelect.types';
+
+export const useSelect = ({
+  inputRef,
+  searchInputRef,
+  internalValue,
+  listRef,
+  onBlur,
+}: UseSelectParams) => {
+  const wrapperRef = useRef<ComponentRef<'div'>>(null);
+  const wrapperInputRef = useRef<ComponentRef<'div'>>(null);
+  const { value, setSearchTerm, setCanFilter, toggleOpen } = useSelectContext();
+
+  const outsideRefs = useMemo(() => {
+    return [wrapperRef, listRef];
+  }, [listRef]);
+
+  const isInside = useCallback(
+    (node: Node | null) => {
+      if (!node) {
+        return false;
+      }
+
+      return outsideRefs.some((ref) => {
+        return ref?.current?.contains(node);
+      });
+    },
+    [outsideRefs],
+  );
+
+  const handleClickOutside = useCallback(() => {
+    toggleOpen(false);
+  }, [toggleOpen]);
+
+  useClickOutside(outsideRefs, handleClickOutside);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const handleKeyboard = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        toggleOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyboard, {
+      signal: controller.signal,
+    });
+
+    document.addEventListener(
+      'visibilitychange',
+      () => {
+        if (document.hidden) {
+          toggleOpen(false);
+        }
+      },
+      {
+        signal: controller.signal,
+      },
+    );
+
+    return () => {
+      controller.abort();
+    };
+  }, [toggleOpen, wrapperRef]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    inputRef?.current?.addEventListener(
+      'focusin',
+      () => {
+        setSearchTerm(internalValue?.value ?? '');
+        setCanFilter(false);
+      },
+      { signal: controller.signal },
+    );
+
+    inputRef?.current?.addEventListener(
+      'focusout',
+      () => {
+        setCanFilter(true);
+      },
+      { signal: controller.signal },
+    );
+
+    wrapperInputRef.current?.addEventListener(
+      'focus',
+      () => {
+        setCanFilter(false);
+      },
+      { signal: controller.signal },
+    );
+
+    wrapperRef.current?.addEventListener(
+      'focusout',
+      (event) => {
+        if (!isInside(event.relatedTarget as Node)) {
+          toggleOpen(false);
+        }
+      },
+      { signal: controller.signal },
+    );
+
+    return () => {
+      controller.abort();
+    };
+  }, [value]);
+
+  useEffect(() => {
+    if (inputRef?.current) {
+      inputRef.current.value = value
+        ? (internalValue?.value as string) || ''
+        : '';
+    }
+  }, [internalValue, value]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    wrapperRef.current?.addEventListener('focusout', (event) => {
+      const newFocusElement = event.relatedTarget as Node;
+
+      if (!isInside(newFocusElement)) {
+        if (!inputRef?.current?.value) {
+          onBlur?.();
+        }
+      }
+    });
+
+    return () => {
+      controller.abort();
+    };
+  }, [toggleOpen, wrapperRef, setSearchTerm, onBlur, value]);
+
+  const handleOpen = () => {
+    toggleOpen(true);
+    requestAnimationFrame(() => searchInputRef?.current?.focus());
+  };
+
+  return {
+    isInside,
+    wrapperRef,
+    wrapperInputRef,
+    handleOpen,
+  };
+};

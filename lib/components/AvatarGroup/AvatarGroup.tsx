@@ -6,8 +6,7 @@ import { Avatar } from '../Avatar/Avatar';
 import { avatarVariants } from '../Avatar/Avatar.variants';
 
 import { Props } from './AvatarGroup.types';
-
-const DEFAULT_MAX = 5;
+import { DEFAULT_MAX } from './constants';
 
 /**
  * A stack of overlapping avatars that collapses the ones beyond `max` into a
